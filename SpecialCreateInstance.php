@@ -6,8 +6,10 @@ class OpenStackCreateInstance extends SpecialPage {
 	function __construct() {
 		global $wgOpenStackManagerNovaAdminKeys;
 		parent::__construct( 'OpenStackCreateInstance' );
+		wfLoadExtensionMessages('OpenStackManager');
 		$credentials = $wgOpenStackManagerNovaAdminKeys;
 		$this->adminNova = new OpenStackNovaController( $credentials );
+
 	}
  
 	function execute( $par ) {

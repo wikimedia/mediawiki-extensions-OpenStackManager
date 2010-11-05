@@ -13,6 +13,7 @@ class OpenStackNovaController {
 		global $wgOpenStackManagerNovaDisableSSL, $wgOpenStackManagerNovaPort,
 			$wgOpenStackManagerNovaServerName, $wgOpenStackManagerNovaPort,
 			$wgOpenStackManagerNovaResourcePrefix;
+		wfLoadExtensionMessages('OpenStackManager');
 		$this->novaConnection = new AmazonEC2( $credentials['accessKey'], $credentials['secretKey'] );
 		$this->novaConnection->disable_ssl($wgOpenStackManagerNovaDisableSSL);
 		$this->novaConnection->set_hostname($wgOpenStackManagerNovaServerName, $wgOpenStackManagerNovaPort);
