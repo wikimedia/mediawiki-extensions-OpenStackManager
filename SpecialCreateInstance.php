@@ -9,7 +9,6 @@ class OpenStackCreateInstance extends SpecialPage {
 		wfLoadExtensionMessages('OpenStackManager');
 		$credentials = $wgOpenStackManagerNovaAdminKeys;
 		$this->adminNova = new OpenStackNovaController( $credentials );
-
 	}
  
 	function execute( $par ) {
@@ -90,14 +89,21 @@ class OpenStackCreateInstance extends SpecialPage {
 		$instanceForm = new OpenStackCreateInstanceForm( $instanceInfo, 'openstackmanager-form' );
 		$instanceForm->setTitle( SpecialPage::getTitleFor( 'OpenStackCreateInstance' ));
 		$instanceForm->setSubmitID( 'openstackmanager-form-createinstancesubmit' );
-		$instanceForm->setSubmitCallback( array( 'OpenStackCreateInstance', 'tryCreateSubmit' ) );
+		$instanceForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
 		$instanceForm->show();
 
 	}
 
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut;
-		
+
+		$instanceId = $this->adminNova->createInstance( $formData['imageType'], $formData['keypair'],
+						  $formData['instanceType'], $formData['availabilityZone'] );
+
+		print_r($instanceID);
+
+		$wgOut->addHTML('<p>Created instance ' . $instanceId . '</p>');
+
 		return true;
 	}
 }
