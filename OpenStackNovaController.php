@@ -6,12 +6,12 @@ class OpenStackNovaController {
 	var $novaConnection;
 	var $instances, $images, $keypairs, $availabilityZones;
 
-	var $instanceTypes = Array( 't1.micro', 'm1.small', 'm1.large', 'm1.xlarge', 'm2.xlarge', 'm2.2xlarge', 'm2.4xlarge', 'c1.medium', 'c1.xlarge', 'cc1.4xlarge' );
+	var $instanceTypes = array( 't1.micro', 'm1.small', 'm1.large', 'm1.xlarge', 'm2.xlarge', 'm2.2xlarge', 'm2.4xlarge', 'c1.medium', 'c1.xlarge', 'cc1.4xlarge' );
 
 	# TODO: Make disable_ssl, hostname, and resource_prefix config options
 	function __construct( $credentials ) {
 		global $wgOpenStackManagerNovaDisableSSL, $wgOpenStackManagerNovaServerName,
-            $wgOpenStackManagerNovaPort, $wgOpenStackManagerNovaResourcePrefix;
+			$wgOpenStackManagerNovaPort, $wgOpenStackManagerNovaResourcePrefix;
 		wfLoadExtensionMessages('OpenStackManager');
 		$this->novaConnection = new AmazonEC2( $credentials['accessKey'], $credentials['secretKey'] );
 		$this->novaConnection->disable_ssl($wgOpenStackManagerNovaDisableSSL);
