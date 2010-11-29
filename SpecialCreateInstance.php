@@ -12,7 +12,7 @@ class OpenStackCreateInstance extends SpecialPage {
 	}
  
 	function execute( $par ) {
-		global $wgRequest, $wgOut, $wgTitle;
+		global $wgRequest, $wgOut;
  
 		$this->setHeaders();
 		$wgOut->setPagetitle("Create Instance");
@@ -100,7 +100,7 @@ class OpenStackCreateInstance extends SpecialPage {
 		$instanceId = $this->adminNova->createInstance( $formData['imageType'], $formData['keypair'],
 						  $formData['instanceType'], $formData['availabilityZone'] );
 
-		print_r($instanceID);
+		print_r($instanceId);
 
 		$wgOut->addHTML('<p>Created instance ' . $instanceId . '</p>');
 

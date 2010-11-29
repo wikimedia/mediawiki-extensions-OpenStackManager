@@ -10,20 +10,19 @@ class OpenStackNovaController {
 
 	# TODO: Make disable_ssl, hostname, and resource_prefix config options
 	function __construct( $credentials ) {
-		global $wgOpenStackManagerNovaDisableSSL, $wgOpenStackManagerNovaPort,
-			$wgOpenStackManagerNovaServerName, $wgOpenStackManagerNovaPort,
-			$wgOpenStackManagerNovaResourcePrefix;
+		global $wgOpenStackManagerNovaDisableSSL, $wgOpenStackManagerNovaServerName,
+            $wgOpenStackManagerNovaPort, $wgOpenStackManagerNovaResourcePrefix;
 		wfLoadExtensionMessages('OpenStackManager');
 		$this->novaConnection = new AmazonEC2( $credentials['accessKey'], $credentials['secretKey'] );
 		$this->novaConnection->disable_ssl($wgOpenStackManagerNovaDisableSSL);
 		$this->novaConnection->set_hostname($wgOpenStackManagerNovaServerName, $wgOpenStackManagerNovaPort);
 		$this->novaConnection->set_resource_prefix($wgOpenStackManagerNovaResourcePrefix);
-		$this->instances = Array();
+		$this->instances = array();
 	}
 
-	function getInstance( $instanceId, $reload=False ) {
-		if ( isset( $this->instances[$instanceID] ) && !$reload ) {
-			$instance = $this->instances[$instanceID];
+	function getInstance( $instanceId, $reload = false ) {
+		if ( isset( $this->instances[$instanceId] ) && !$reload ) {
+			$instance = $this->instances[$instanceId];
 		} else {
 			$instance = $this->novaConnection->describe_instances( $instanceId );
 			$instance = $instance->body->reservationSet->item;
@@ -32,9 +31,9 @@ class OpenStackNovaController {
 		return $instance;
 	}
 
-	function getInstances( $reload=False ) {
+	function getInstances( $reload = false ) {
 		if ( count( $this->instances ) == 0 || $reload ) {
-			$this->instances = Array();
+			$this->instances = array();
 			$instances = $this->novaConnection->describe_instances();
 			$instances = $instances->body->reservationSet->item;
 			foreach ( $instances as $instance ) {
@@ -48,9 +47,9 @@ class OpenStackNovaController {
 		return $this->instanceTypes;
 	}
 
-	function getImages( $reload=False ) {
+	function getImages( $reload = false ) {
 		if ( count( $this->images ) == 0 || $reload ) {
-			$this->images = Array();
+			$this->images = array();
 			$images = $this->novaConnection->describe_images();
 			$images = $images->body->imagesSet->item;
 			foreach ( $images as $image ) {
@@ -63,9 +62,9 @@ class OpenStackNovaController {
 	}
 
 	# TODO: make this user specific
-	function getKeypairs( $reload=False ) {
+	function getKeypairs( $reload = false ) {
 		if ( count( $this->keypairs ) == 0 || $reload ) {
-			$this->keypairs = Array();
+			$this->keypairs = array();
 			$keypairs = $this->novaConnection->describe_key_pairs();
 			$keypairs = $keypairs->body->keypairsSet->item;
 			foreach ( $keypairs as $keypair ) {
@@ -75,9 +74,9 @@ class OpenStackNovaController {
 		return $this->keypairs;
 	}
 
-	function getAvailabilityZones( $reload=False ) {
+	function getAvailabilityZones( $reload = false ) {
 		if ( count( $this->availabilityZones ) == 0 || $reload ) {
-			$this->availabilityZones = Array();
+			$this->availabilityZones = array();
 			$availabilityZones = $this->novaConnection->describe_availability_zones();
 			$availabilityZones = $availabilityZones->body->availabilityZoneInfo->item;
 			foreach ( $availabilityZones as $availabilityZone ) {
@@ -92,7 +91,7 @@ class OpenStackNovaController {
 	function createInstance( $image, $key, $instanceType, $availabilityZone ) {
 		# 1, 1 is min and max number of instances to create.
 		# We never want to make more than one at a time.
-		$instance = $this->novaConnection->run_instances($image, 1, 1, Array(
+		$instance = $this->novaConnection->run_instances($image, 1, 1, array(
 			'KeyName' => $key,
 			'InstanceType' => $instanceType,
 			'Placement.AvailabilityZone' => $availabilityZone,
