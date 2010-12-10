@@ -97,12 +97,10 @@ class OpenStackCreateInstance extends SpecialPage {
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut;
 
-		$instanceId = $this->adminNova->createInstance( $formData['imageType'], $formData['keypair'],
+		$instance = $this->adminNova->createInstance( $formData['imageType'], $formData['keypair'],
 						  $formData['instanceType'], $formData['availabilityZone'] );
 
-		print_r($instanceId);
-
-		$wgOut->addHTML('<p>Created instance ' . $instanceId . '</p>');
+		$wgOut->addHTML('<p>Created instance ' . $instance->getInstanceID() . ' with image ' . $instance->getImageId() . '</p>');
 
 		return true;
 	}

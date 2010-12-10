@@ -24,9 +24,10 @@ class OpenStackNovaController {
 		if ( isset( $this->instances[$instanceId] ) && !$reload ) {
 			$instance = $this->instances[$instanceId];
 		} else {
-			$instance = $this->novaConnection->describe_instances( $instanceId );
-			$instance = $instance->body->reservationSet->item;
-			$this->instances["$instance->instancesSet->item->instanceId"] = $instance;
+			$response = $this->novaConnection->describe_instances( $instanceId );
+			$instance = new OpenStackNovaInstance($response->body->reservationSet->item);
+			$instanceId = $instance->getInstanceId();
+			$this->instances["$instanceId"] = $instance;
 		}
 		return $instance;
 	}
@@ -34,10 +35,12 @@ class OpenStackNovaController {
 	function getInstances( $reload = false ) {
 		if ( count( $this->instances ) == 0 || $reload ) {
 			$this->instances = array();
-			$instances = $this->novaConnection->describe_instances();
+			$response = $this->novaConnection->describe_instances();
 			$instances = $instances->body->reservationSet->item;
 			foreach ( $instances as $instance ) {
-				$this->instances["$instance->instancesSet->item->instanceId"] = $instance;
+				$instance = new OpenStackNovaInstance($instance);
+				$instanceId = $instance->getInstanceId();
+				$this->instances["$instanceId"] = $instance;
 			}
 		}
 		return $this->instances;
@@ -97,11 +100,11 @@ class OpenStackNovaController {
 			'Placement.AvailabilityZone' => $availabilityZone,
 		));
 
-		$instance = $instance->body->reservationSet->item;
-		$instanceId = $instance->instancesSet->item->instanceId;
+		$instance = new OpenStackNovaInstance($response->body->reservationSet->item);
+		$instanceId = $instance->getInstanceId();
 		$this->instances["$instanceId"] = $instance;
 
-		return $instanceId;
+		return $instance;
 	}
 
 }
