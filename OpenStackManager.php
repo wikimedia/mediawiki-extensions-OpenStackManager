@@ -36,11 +36,15 @@ $dir = dirname(__FILE__) . '/';
 $wgExtensionMessagesFiles['OpenStackManager'] = $dir . 'OpenStackManager.i18n.php';
 $wgExtensionAliasesFiles['OpenStackManager'] = $dir . 'OpenStackManager.alias.php';
 $wgAutoloadClasses['OpenStackNovaInstance'] = $dir . 'OpenStackNovaInstance.php';
+$wgAutoloadClasses['OpenStackNovaKeypair'] = $dir . 'OpenStackNovaKeypair.php';
 $wgAutoloadClasses['OpenStackNovaController'] = $dir . 'OpenStackNovaController.php';
 $wgAutoloadClasses['OpenStackNovaUser'] = $dir . 'OpenStackNovaUser.php';
 $wgAutoloadClasses['SpecialNovaInstance'] = $dir . 'SpecialNovaInstance.php';
+$wgAutoloadClasses['SpecialNovaKey'] = $dir . 'SpecialNovaKey.php';
 $wgAutoloadClasses['AmazonEC2'] = $dir . 'aws-sdk/sdk.class.php';
 $wgSpecialPages['NovaInstance'] = 'SpecialNovaInstance';
 $wgSpecialPageGroups['NovaInstance'] = 'other';
+$wgSpecialPages['NovaKey'] = 'SpecialNovaKey';
+$wgSpecialPageGroups['NovaKey'] = 'other';
 
 $wgHooks['LDAPSetCreationValues'][] = 'OpenStackNovaUser::LDAPSetCreationValues';

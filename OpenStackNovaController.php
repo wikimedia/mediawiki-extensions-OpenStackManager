@@ -68,10 +68,12 @@ class OpenStackNovaController {
 	function getKeypairs( $reload = false ) {
 		if ( count( $this->keypairs ) == 0 || $reload ) {
 			$this->keypairs = array();
-			$keypairs = $this->novaConnection->describe_key_pairs();
-			$keypairs = $keypairs->body->keypairsSet->item;
+			$response = $this->novaConnection->describe_key_pairs();
+			$keypairs = $response->body->keypairsSet->item;
 			foreach ( $keypairs as $keypair ) {
-				$this->keypairs["$keypair->keyName"] = $keypair;
+				$keypair = new OpenStackNovaKeypair( $keypair );
+				$keyname = $keypair->getKeyName();
+				$this->keypairs["$keyname"] = $keypair;
 			}
 		}
 		return $this->keypairs;
@@ -94,7 +96,7 @@ class OpenStackNovaController {
 	function createInstance( $image, $key, $instanceType, $availabilityZone ) {
 		# 1, 1 is min and max number of instances to create.
 		# We never want to make more than one at a time.
-		$instance = $this->novaConnection->run_instances($image, 1, 1, array(
+		$response = $this->novaConnection->run_instances($image, 1, 1, array(
 			'KeyName' => $key,
 			'InstanceType' => $instanceType,
 			'Placement.AvailabilityZone' => $availabilityZone,
@@ -105,6 +107,16 @@ class OpenStackNovaController {
 		$this->instances["$instanceId"] = $instance;
 
 		return $instance;
+	}
+
+	function importKeyPair( $keyName, $key ) {
+		$response = $this->novaConnection->import_key_pair( $keyName, $key );
+
+		$keypair = new OpenStackNovaKeypair( $response->body );
+		$keyName = $keypair->getKeyName();
+		$this->keypairs["$keyName"] = $keypair;
+
+		return $keypair;
 	}
 
 }

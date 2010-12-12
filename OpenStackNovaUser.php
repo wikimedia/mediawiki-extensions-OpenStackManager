@@ -48,7 +48,7 @@ class OpenStackNovaUser {
 		}
 	}
 
-	function hasProjects() {
+	function getProjects() {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPProjectBaseDN;
 
@@ -60,19 +60,21 @@ class OpenStackNovaUser {
 		$filter = "(&(projectManager=*)(member=$this->userDN))";
                 $result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, $filter );
 		if ( $result ) {
-			$entries = ldap_get_entries( $wgAuth->ldapconn, $entry );
+			$entries = ldap_get_entries( $wgAuth->ldapconn, $result );
 			if ( $entries ) {
 				# First entry is always a count
 				array_shift($entries);
 				foreach ( $entries as $entry ) {
-					array_push( $projects, $entry['cn'] );
+					array_push( $projects, $entry['cn'][0] );
 				}
 			}
+		} else {
+			$wgAuth->printDebug( "No result found when searching for user's projects", NONSENSITIVE );
 		}
 		return $projects;
 	}
 
-	function hasRoles( $project='' ) {
+	function getRoles( $project='' ) {
 		# Currently unsupported
 		return array();
 	}
@@ -113,6 +115,24 @@ class OpenStackNovaUser {
 
 		$wgAuth->connect();
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
+	}
+
+	function importKeypair( $key ) {
+		global $wgAuth;
+		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
+
+		$wgAuth->connect();
+		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
+
+		$values['sshpublickey'] = $key;
+		$success = @ldap_modify( $wgAuth->ldapconn, $this->userDN, $values );
+		if ( $success ) {
+			$wgAuth->printDebug( "Successfully imported the user's sshpublickey", NONSENSITIVE );
+			return true;
+		} else {
+			$wgAuth->printDebug( "Failed to import the user's sshpublickey", NONSENSITIVE );
+			return false;
+		}
 	}
 
 	static function uuid4() {

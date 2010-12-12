@@ -13,11 +13,11 @@ class SpecialNovaInstance extends SpecialPage {
 
 		wfLoadExtensionMessages('OpenStackManager');
 		$user = new OpenStackNovaUser();
-		$project = $wgRequest->getVal('project');
 		if ( ! $user->exists() ) {
 			$this->noCredentials();
 			return true;
 		}
+		$project = $wgRequest->getVal('project');
 		$userCredentials = $user->getCredentials( $project );
 		$this->userNova = new OpenStackNovaController( $userCredentials );
 		$adminCredentials = $wgOpenStackManagerNovaAdminKeys;
@@ -64,7 +64,7 @@ class SpecialNovaInstance extends SpecialPage {
 		$this->setHeaders();
 		$wgOut->setPagetitle("Create Instance");
  
-		$instanceid = $wgRequest->getVal('instanceid');
+		$project = $wgRequest->getVal('project');
 
 		# TODO: Add project name field
 
@@ -131,11 +131,21 @@ class SpecialNovaInstance extends SpecialPage {
 			'label-message' => 'keypair',
 		);
 
+		$instanceInfo['action'] = array(
+			'type' => 'hidden',
+			'default' => 'create',
+		);
+
+		$instanceInfo['project'] = array(
+			'type' => 'hidden',
+			'default' => htmlentities( $project ),
+		);
+
 		#TODO: Add availablity zone field
 
-		$instanceForm = new OpenStackCreateInstanceForm( $instanceInfo, 'openstackmanager-form' );
-		$instanceForm->setTitle( SpecialPage::getTitleFor( 'OpenStackCreateInstance' ));
-		$instanceForm->setSubmitID( 'openstackmanager-form-createinstancesubmit' );
+		$instanceForm = new OpenStackCreateInstanceForm( $instanceInfo, 'novainstance-form' );
+		$instanceForm->setTitle( SpecialPage::getTitleFor( 'NovaInstance' ));
+		$instanceForm->setSubmitID( 'novainstance-form-createinstancesubmit' );
 		$instanceForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
 		$instanceForm->show();
 
