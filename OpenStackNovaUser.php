@@ -49,12 +49,31 @@ class OpenStackNovaUser {
 	}
 
 	function hasProjects() {
+		global $wgAuth;
+		global $wgOpenStackManagerLDAPProjectBaseDN;
+
 		$this->connect();
-		return array();
+
+		# All projects have a projectManager attribute, project
+		# roles do not
+		$projects = array();
+		$filter = "(&(projectManager=*)(member=$this->userDN))";
+                $result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, $filter );
+		if ( $result ) {
+			$entries = ldap_get_entries( $wgAuth->ldapconn, $entry );
+			if ( $entries ) {
+				# First entry is always a count
+				array_shift($entries);
+				foreach ( $entries as $entry ) {
+					array_push( $projects, $entry['cn'] );
+				}
+			}
+		}
+		return $projects;
 	}
 
-	function hasRoles() {
-		$this->connect();
+	function hasRoles( $project='' ) {
+		# Currently unsupported
 		return array();
 	}
 
@@ -65,9 +84,9 @@ class OpenStackNovaUser {
 		$this->connect();
 
 		$filter = "(&(cn=$project)(member=$this->userDN))";
-                $entry = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, $filter );
-		if ( $entry ) {
-			$entries = ldap_get_entries( $wgAuth->ldapconn, $entry );
+                $result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, $filter );
+		if ( $result ) {
+			$entries = ldap_get_entries( $wgAuth->ldapconn, $result );
 			if ( $entries ) {
 				if ( $entries['count'] == "0" ) {
 					$wgAuth->printDebug( "Couldn't find the user in project: $project", NONSENSITIVE );
@@ -83,9 +102,8 @@ class OpenStackNovaUser {
 		}
 	}
 
-	function inRole( $role, $project) {
-		$this->connect();
-
+	function inRole( $role, $project='' ) {
+		# Currently unsupported
 		return true;
 	}
 
@@ -96,4 +114,76 @@ class OpenStackNovaUser {
 		$wgAuth->connect();
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 	}
+
+	static function uuid4() {
+		uuid_create( &$uuid );
+		uuid_make( $uuid, UUID_MAKE_V4 );
+		uuid_export( $uuid, UUID_FMT_STR, &$uuidExport );
+		return trim( $uuidExport );
+	}
+
+	/**
+	 * Does not ensure uniqueness during concurrent use!
+	 * Also does not work when resource limits are set for
+	 * LDAP queries by the client or the server.
+	 *
+	 * TODO: write a better and more efficient version of this.
+	 */
+	static function getNextIdNumber( $auth, $attr ) {
+		$highest = '';
+		$filter = "(objectclass=posixaccount)";
+                $result = ldap_search( $auth->ldapconn, $auth->getBaseDN( USERDN ), $filter );
+		if ( $result ) {
+			$entries = ldap_get_entries( $auth->ldapconn, $result );
+			if ( $entries ) {
+				if ( $entries['count'] == "0" ) {
+					$highest = '500';
+				} else {
+					array_shift( $entries );
+					$uids = array();
+					foreach ( $entries as $entry ) {
+						array_push( $uids, $entry[$attr][0] );
+					}
+					sort( $uids, SORT_NUMERIC );
+					$highest = array_pop( $uids ) + 1;
+				}
+			} else {
+				$auth->printDebug( "Failed to find any entries when searching for next $attr", NONSENSITIVE );
+			}
+		} else {
+			$auth->printDebug( "Failed to get a result searching for next $attr", NONSENSITIVE );
+		}
+		$auth->printDebug( "id returned: $highest", NONSENSITIVE );
+		return $highest;
+	}
+
+	/**
+	 * Hook to add objectclasses and attributes for users being created.
+	 */
+	static function LDAPSetCreationValues( $auth, $username, &$values, &$result ) {
+		global $wgOpenStackManagerLDAPDefaultGid;
+
+		$values['objectclass'][] = 'person';
+		$values['objectclass'][] = 'novauser';
+		$values['objectclass'][] = 'ldappublickey';
+		$values['objectclass'][] = 'posixaccount';
+		$values['objectclass'][] = 'shadowaccount';
+		$values['accesskey'] = OpenStackNovaUser::uuid4();
+		$values['secretkey'] = OpenStackNovaUser::uuid4();
+		$values['isadmin'] = 'FALSE';
+		$uid = OpenStackNovaUser::getNextIdNumber( $auth, 'uidnumber' );
+		if ( ! $uid ) {
+			$result = false;
+			return false;
+		}
+		$values['uidnumber'] = $uid;
+		$values['gidnumber'] = $wgOpenStackManagerLDAPDefaultGid;
+		$values['homedirectory'] = '/home/' . $username;
+
+		$auth->printDebug( "User account's objectclasses: ", NONSENSITIVE, $values['objectclass'] );
+		$auth->printDebug( "User account's attributes: ", HIGHLYSENSITIVE, $values );
+
+		return true;
+	}
+
 }
