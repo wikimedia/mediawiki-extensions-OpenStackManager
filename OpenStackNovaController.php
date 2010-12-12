@@ -36,7 +36,7 @@ class OpenStackNovaController {
 		if ( count( $this->instances ) == 0 || $reload ) {
 			$this->instances = array();
 			$response = $this->novaConnection->describe_instances();
-			$instances = $instances->body->reservationSet->item;
+			$instances = $response->body->reservationSet->item;
 			foreach ( $instances as $instance ) {
 				$instance = new OpenStackNovaInstance($instance);
 				$instanceId = $instance->getInstanceId();

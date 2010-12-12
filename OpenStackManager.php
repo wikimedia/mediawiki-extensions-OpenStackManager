@@ -35,8 +35,10 @@ $dir = dirname(__FILE__) . '/';
 
 $wgExtensionMessagesFiles['OpenStackManager'] = $dir . 'OpenStackManager.i18n.php';
 $wgExtensionAliasesFiles['OpenStackManager'] = $dir . 'OpenStackManager.alias.php';
-$wgAutoloadClasses['OpenStackCreateInstance'] = $dir . 'SpecialCreateInstance.php';
+$wgAutoloadClasses['OpenStackNovaInstance'] = $dir . 'OpenStackNovaInstance.php';
 $wgAutoloadClasses['OpenStackNovaController'] = $dir . 'OpenStackNovaController.php';
+$wgAutoloadClasses['OpenStackNovaUser'] = $dir . 'OpenStackNovaUser.php';
+$wgAutoloadClasses['SpecialNovaInstance'] = $dir . 'SpecialNovaInstance.php';
 $wgAutoloadClasses['AmazonEC2'] = $dir . 'aws-sdk/sdk.class.php';
-$wgSpecialPages['OpenStackCreateInstance'] = 'OpenStackCreateInstance';
-$wgSpecialPageGroups['OpenStackCreateInstance'] = 'other';
+$wgSpecialPages['NovaInstance'] = 'SpecialNovaInstance';
+$wgSpecialPageGroups['NovaInstance'] = 'other';
