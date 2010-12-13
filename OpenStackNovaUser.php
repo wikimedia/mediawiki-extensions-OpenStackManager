@@ -29,9 +29,29 @@ class OpenStackNovaUser {
 		return array( 'accessKey' => $accessKey, 'secretKey' => $secretKey );
 	}
 
+	function getKeypairs() {
+		if ( isset( $this->userInfo[0]['sshpublickey'] ) ) {
+			$keys = $this->userInfo[0]['sshpublickey'];
+			$keypairs = array();
+			if ( is_array( $keys ) ) {
+				array_shift( $keys );
+				foreach ( $keys as $key ) {
+					$hash = md5( $key );
+					$keypairs["$hash"] = $key;
+				}
+			} else {
+				$hash = md5( $keys );
+				$keypairs["$hash"] = $keys;
+			}
+			return $keypairs;
+		} else {
+			return array();
+		}
+	}
+
 	function isAdmin() {
 		if ( isset( $this->userInfo[0]['isadmin'] ) ) {
-			$isAdmin = $this->userInfo[0]['isadmin'];
+			$isAdmin = $this->userInfo[0]['isadmin'][0];
 			if ( strtolower( $isAdmin ) == "true" ) {
 				return true;
 			}
@@ -119,18 +139,56 @@ class OpenStackNovaUser {
 
 	function importKeypair( $key ) {
 		global $wgAuth;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 
-		$wgAuth->connect();
-		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
+		$this->connect();
 
-		$values['sshpublickey'] = $key;
+		$keypairs = array();
+		if ( isset( $this->userInfo[0]['sshpublickey'] ) ) {
+			$keypairs = $this->userInfo[0]['sshpublickey'];
+			array_shift( $keypairs );
+		}
+		$keypairs[] = $key;
+		$values['sshpublickey'] = $keypairs;
 		$success = @ldap_modify( $wgAuth->ldapconn, $this->userDN, $values );
 		if ( $success ) {
 			$wgAuth->printDebug( "Successfully imported the user's sshpublickey", NONSENSITIVE );
 			return true;
 		} else {
 			$wgAuth->printDebug( "Failed to import the user's sshpublickey", NONSENSITIVE );
+			return false;
+		}
+	}
+
+	function deleteKeypair( $key ) {
+		global $wgAuth;
+
+		if ( isset( $this->userInfo[0]['sshpublickey'] ) ) {
+			$keypairs = $this->userInfo[0]['sshpublickey'];
+			array_shift( $keypairs );
+			$index = array_search( $key, $keypairs );
+			if ( $index === false ) {
+				$wgAuth->printDebug( "Unable to find the sshpublickey to be deleted", NONSENSITIVE );
+				return false;
+			} else {
+				unset( $keypairs[$index] );
+			}
+			if ( sizeof( $keypairs ) == 1 ) {
+				$values['sshpublickey'] = $keypairs[0];
+			} else {
+				$values['sshpublickey'] = $keypairs;
+			}
+			$success = @ldap_modify( $wgAuth->ldapconn, $this->userDN, $values );
+			if ( $success ) {
+				$wgAuth->printDebug( "Successfully deleted the user's sshpublickey", NONSENSITIVE );
+				return true;
+			} else {
+				$wgAuth->printDebug( "Failed to delete the user's sshpublickey", NONSENSITIVE );
+				$wgAuth->printDebug( "KEY: $key", NONSENSITIVE );
+				$wgAuth->printDebug( "sshpublickey: ", NONSENSITIVE, $values['sshpublickey'] );
+				return false;
+			}
+		} else {
+			$wgAuth->printDebug( "User does not have a sshpublickey attribute", NONSENSITIVE );
 			return false;
 		}
 	}
