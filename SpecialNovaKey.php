@@ -103,12 +103,24 @@ class SpecialNovaKey extends SpecialPage {
 
 		$this->setHeaders();
 		$wgOut->setPagetitle("Delete key");
+
+		$keyInfo = Array(); 
+
 		if ( $wgOpenStackManagerNovaKeypairStorage == 'nova' ) {
+			$keyname = $wgRequest->getVal('keyname');
 			$project = $wgRequest->getVal('project');
 			if ( $project && ! $this->userLDAP->inProject( $project ) ) {
 				$this->notInProject();
 				return true;
 			}
+			$keyInfo['keyname'] = array(
+				'type' => 'hidden',
+				'default' => $project,
+			);
+			$keyInfo['project'] = array(
+				'type' => 'hidden',
+				'default' => $keyname,
+			);
 		} else if ( $wgOpenStackManagerNovaKeypairStorage == 'ldap' ) {
 			$hash = $wgRequest->getVal( 'hash' );
 			$keypairs = $this->userLDAP->getKeypairs();
@@ -117,28 +129,25 @@ class SpecialNovaKey extends SpecialPage {
 				$out .= Html::element( 'p', array(), 'Are you sure you wish to delete the above key?' );
 				$wgOut->addHTML( $out );
 			}
-	
-			$keyInfo = Array(); 
-
 			$keyInfo['hash'] = array(
 				'type' => 'hidden',
 				'default' => $hash,
 			);
-			$keyInfo['key'] = array(
-				'type' => 'hidden',
-				'default' => $keypairs[$hash],
-			);
-			$keyInfo['action'] = array(
-				'type' => 'hidden',
-				'default' => 'delete',
-			);
-			$keyForm = new SpecialNovaKeyForm( $keyInfo, 'novakey-form' );
-			$keyForm->setTitle( SpecialPage::getTitleFor( 'NovaKey' ));
-			$keyForm->setSubmitID( 'novakey-form-deletekeysubmit' );
-			$keyForm->setSubmitCallback( array( $this, 'tryDeleteSubmit' ) );
-			$keyForm->setSubmitText( 'confirm' );
-			$keyForm->show();
 		}
+		$keyInfo['key'] = array(
+			'type' => 'hidden',
+			'default' => $keypairs[$hash],
+		);
+		$keyInfo['action'] = array(
+			'type' => 'hidden',
+			'default' => 'delete',
+		);
+		$keyForm = new SpecialNovaKeyForm( $keyInfo, 'novakey-form' );
+		$keyForm->setTitle( SpecialPage::getTitleFor( 'NovaKey' ));
+		$keyForm->setSubmitID( 'novakey-form-deletekeysubmit' );
+		$keyForm->setSubmitCallback( array( $this, 'tryDeleteSubmit' ) );
+		$keyForm->setSubmitText( 'confirm' );
+		$keyForm->show();
 		return true;
 	}
 
@@ -150,7 +159,9 @@ class SpecialNovaKey extends SpecialPage {
 		$wgOut->setPagetitle("Key list");
 
 		$out = '';
+		$sk = $wgUser->getSkin();
 		if ( $wgOpenStackManagerNovaKeypairStorage == 'nova' ) {
+			$out .= $sk->link( $this->getTitle(), 'Import a new key', array(), array( 'action' => 'import' ), array() );
 			$projects = $this->userLDAP->getProjects();
 			foreach( $projects as $project ) {
 				$userCredentials = $this->userLDAP->getCredentials( $project );
@@ -170,11 +181,11 @@ class SpecialNovaKey extends SpecialPage {
 				$out .= Html::rawElement( 'table', array( 'id' => 'novakeylist', 'class' => 'wikitable' ), $projectOut );
 			}
 		} else if ( $wgOpenStackManagerNovaKeypairStorage == 'ldap' ) {
+			$out .= $sk->link( $this->getTitle(), 'Import a new key', array(), array( 'action' => 'import' ), array() );
 			$keypairs = $this->userLDAP->getKeypairs();
 			$keysOut = '';
 			foreach ( $keypairs as $hash => $key ) {
 				$keyOut = Html::element( 'td', array(), $key );
-				$sk = $wgUser->getSkin();
 				$link = $sk->link( $this->getTitle(), 'delete', array(), array( 'action' => 'delete', 'hash' => $hash ), array() );
 				$keyOut .= Html::rawElement( 'td', array(), $link );
 				$keysOut .= Html::rawElement( 'tr', array(), $keyOut );
@@ -188,7 +199,7 @@ class SpecialNovaKey extends SpecialPage {
 	}
 
 	function tryImportSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut;
+		global $wgOut, $wgUser;
 		global $wgOpenStackManagerNovaKeypairStorage;
 
 		if ( $wgOpenStackManagerNovaKeypairStorage == 'ldap' ) {
@@ -208,13 +219,15 @@ class SpecialNovaKey extends SpecialPage {
 		} else {
 			$out = Html::element( 'p', array(), 'Invalid keypair location configured' );
 		}
-
+		$out .= '<br />';
+		$sk = $wgUser->getSkin();
+		$out .= $sk->link( $this->getTitle(), 'Back to key list', array(), array(), array() );
 		$wgOut->addHTML( $out );
 		return true;
 	}
 
 	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut;
+		global $wgOut, $wgUser;
 		global $wgOpenStackManagerNovaKeypairStorage;
 
 		$success = $this->userLDAP->deleteKeypair( $formData['key'] );
@@ -223,7 +236,11 @@ class SpecialNovaKey extends SpecialPage {
 		} else {
 			$out = Html::element( 'p', array(), 'Failed to delete key' );
 		}
+		$out .= '<br />';
+		$sk = $wgUser->getSkin();
+		$out .= $sk->link( $this->getTitle(), 'Back to key list', array(), array(), array() );
 		$wgOut->addHTML( $out );
+		return true;
 	}
 }
 

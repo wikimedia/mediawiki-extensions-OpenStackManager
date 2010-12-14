@@ -6,10 +6,13 @@ class OpenStackNovaUser {
 	var $userInfo;
 
 	function __construct() {
-		global $wgAuth, $wgUser;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
-
 		$this->connect();
+		$this->fetchUserInfo();
+	}
+
+	function fetchUserInfo() {
+		global $wgAuth, $wgUser;
+
 		$this->userDN = $wgAuth->getUserDN( strtolower( $wgUser->getName() ) );
 		$this->userInfo = $wgAuth->userInfo;
 	}
@@ -30,21 +33,20 @@ class OpenStackNovaUser {
 	}
 
 	function getKeypairs() {
-		if ( isset( $this->userInfo[0]['sshpublickey'] ) ) {
+		global $wgAuth;
+
+		$this->fetchUserInfo();
+		if ( $this->userInfo[0]['sshpublickey'] ) {
 			$keys = $this->userInfo[0]['sshpublickey'];
 			$keypairs = array();
-			if ( is_array( $keys ) ) {
-				array_shift( $keys );
-				foreach ( $keys as $key ) {
-					$hash = md5( $key );
-					$keypairs["$hash"] = $key;
-				}
-			} else {
-				$hash = md5( $keys );
-				$keypairs["$hash"] = $keys;
+			array_shift( $keys );
+			foreach ( $keys as $key ) {
+				$hash = md5( $key );
+				$keypairs["$hash"] = $key;
 			}
 			return $keypairs;
 		} else {
+			$wgAuth->printDebug( "No keypairs found", NONSENSITIVE );
 			return array();
 		}
 	}
@@ -140,8 +142,6 @@ class OpenStackNovaUser {
 	function importKeypair( $key ) {
 		global $wgAuth;
 
-		$this->connect();
-
 		$keypairs = array();
 		if ( isset( $this->userInfo[0]['sshpublickey'] ) ) {
 			$keypairs = $this->userInfo[0]['sshpublickey'];
@@ -172,10 +172,9 @@ class OpenStackNovaUser {
 			} else {
 				unset( $keypairs[$index] );
 			}
-			if ( sizeof( $keypairs ) == 1 ) {
-				$values['sshpublickey'] = $keypairs[0];
-			} else {
-				$values['sshpublickey'] = $keypairs;
+			$values['sshpublickey'] = array();
+			foreach ( $keypairs as $keypair ) {
+				$values['sshpublickey'][] = $keypair;
 			}
 			$success = @ldap_modify( $wgAuth->ldapconn, $this->userDN, $values );
 			if ( $success ) {
@@ -183,8 +182,6 @@ class OpenStackNovaUser {
 				return true;
 			} else {
 				$wgAuth->printDebug( "Failed to delete the user's sshpublickey", NONSENSITIVE );
-				$wgAuth->printDebug( "KEY: $key", NONSENSITIVE );
-				$wgAuth->printDebug( "sshpublickey: ", NONSENSITIVE, $values['sshpublickey'] );
 				return false;
 			}
 		} else {
