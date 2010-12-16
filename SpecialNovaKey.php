@@ -2,16 +2,24 @@
 class SpecialNovaKey extends SpecialPage {
 
 	var $userNova, $userLDAP;
-	var $keypairs;
 
 	function __construct() {
 		parent::__construct( 'NovaKey' );
 	}
- 
+
+	public function isRestricted() {
+	        return true;
+	}
+
 	function execute( $par ) {
-		global $wgRequest;
+		global $wgRequest, $wgUser;
 
 		wfLoadExtensionMessages('OpenStackManager');
+
+		if ( ! $wgUser->isLoggedIn() ) {
+			$this->notLoggedIn();
+			return true;
+		}
 		$this->userLDAP = new OpenStackNovaUser();
 		if ( ! $this->userLDAP->exists() ) {
 			$this->noCredentials();
@@ -26,6 +34,14 @@ class SpecialNovaKey extends SpecialPage {
 		} else {
 			$this->listKeys();
 		}
+	}
+
+	function notLoggedIn() {
+		global $wgOut;
+
+		$this->setHeaders();
+		$wgOut->setPagetitle("Not logged in");
+		$wgOut->addHTML('<p>You must be logged in to perform this action</p>');
 	}
 
 	function noCredentials() {

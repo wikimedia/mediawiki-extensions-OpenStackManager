@@ -2,10 +2,12 @@
 
 class OpenStackNovaUser {
 
+	var $username;
 	var $userDN;
 	var $userInfo;
 
-	function __construct() {
+	function __construct( $username='' ) {
+		$this->username = $username;
 		$this->connect();
 		$this->fetchUserInfo();
 	}
@@ -13,7 +15,11 @@ class OpenStackNovaUser {
 	function fetchUserInfo() {
 		global $wgAuth, $wgUser;
 
-		$this->userDN = $wgAuth->getUserDN( strtolower( $wgUser->getName() ) );
+		if ( $this->username ) {
+			$this->userDN = $wgAuth->getUserDN( strtolower( $this->username ) );
+		} else {
+			$this->userDN = $wgAuth->getUserDN( strtolower( $wgUser->getName() ) );
+		}
 		$this->userInfo = $wgAuth->userInfo;
 	}
 
@@ -85,7 +91,7 @@ class OpenStackNovaUser {
 			$entries = ldap_get_entries( $wgAuth->ldapconn, $result );
 			if ( $entries ) {
 				# First entry is always a count
-				array_shift($entries);
+				array_shift( $entries );
 				foreach ( $entries as $entry ) {
 					array_push( $projects, $entry['cn'][0] );
 				}
@@ -169,9 +175,8 @@ class OpenStackNovaUser {
 			if ( $index === false ) {
 				$wgAuth->printDebug( "Unable to find the sshpublickey to be deleted", NONSENSITIVE );
 				return false;
-			} else {
-				unset( $keypairs[$index] );
 			}
+			unset( $keypairs[$index] );
 			$values['sshpublickey'] = array();
 			foreach ( $keypairs as $keypair ) {
 				$values['sshpublickey'][] = $keypair;
@@ -206,8 +211,14 @@ class OpenStackNovaUser {
 	 */
 	static function getNextIdNumber( $auth, $attr ) {
 		$highest = '';
-		$filter = "(objectclass=posixaccount)";
-                $result = ldap_search( $auth->ldapconn, $auth->getBaseDN( USERDN ), $filter );
+		if ( $attr == 'gidnumber' ) {
+			$filter = "(objectclass=posixgroup)";
+			$base = GROUPDN;
+		} else {
+			$filter = "(objectclass=posixaccount)";
+			$base = USERDN;
+		}
+                $result = ldap_search( $auth->ldapconn, $auth->getBaseDN( $base ), $filter );
 		if ( $result ) {
 			$entries = ldap_get_entries( $auth->ldapconn, $result );
 			if ( $entries ) {
@@ -221,6 +232,11 @@ class OpenStackNovaUser {
 					}
 					sort( $uids, SORT_NUMERIC );
 					$highest = array_pop( $uids ) + 1;
+					if ( $attr == 'gidnumber' && $highest % 2 ) {
+						# Ensure groups are always even, since they'll
+						# be used for namespaces as well.
+						$highest = $highest + 1;
+					}
 				}
 			} else {
 				$auth->printDebug( "Failed to find any entries when searching for next $attr", NONSENSITIVE );

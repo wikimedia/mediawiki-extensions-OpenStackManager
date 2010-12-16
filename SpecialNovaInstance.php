@@ -8,10 +8,14 @@ class SpecialNovaInstance extends SpecialPage {
 	}
  
 	function execute( $par ) {
-		global $wgRequest;
+		global $wgRequest, $wgUser;
 		global $wgOpenStackManagerNovaAdminKeys;
 
 		wfLoadExtensionMessages('OpenStackManager');
+		if ( ! $wgUser->isLoggedIn() ) {
+			$this->notLoggedIn();
+			return true;
+		}
 		$user = new OpenStackNovaUser();
 		if ( ! $user->exists() ) {
 			$this->noCredentials();
@@ -40,6 +44,14 @@ class SpecialNovaInstance extends SpecialPage {
 		} else {
 			$this->listInstances();
 		}
+	}
+
+	function notLoggedIn() {
+		global $wgOut;
+
+		$this->setHeaders();
+		$wgOut->setPagetitle("Not logged in");
+		$wgOut->addHTML('<p>You must be logged in to perform this action</p>');
 	}
 
 	function noCredentials() {
