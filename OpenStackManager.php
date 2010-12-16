@@ -25,6 +25,11 @@ $wgExtensionCredits['other'][] = array(
 	'descriptionmsg' => 'openstackmanager-desc',
 );
 
+define( "NS_VM", 498 );
+define( "NS_VM_TALK", 499 );
+$wgExtraNamespaces[NS_VM] = 'VM';
+$wgExtraNamespaces[NS_VM_TALK] = 'VM_talk';
+
 $wgOpenStackManagerNovaDisableSSL = true;
 $wgOpenStackManagerNovaServerName = 'localhost';
 $wgOpenStackManagerNovaPort = 8773;

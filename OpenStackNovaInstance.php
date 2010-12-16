@@ -17,6 +17,12 @@ class OpenStackNovaInstance {
 		return $this->instance->instancesSet->item->instanceId;
 	}
 
+	function getInstanceName() {
+		# Temporarily return instance ID until a method to get
+		# the name exists.
+		return $this->instance->instancesSet->item->displayName;
+	}
+
 	function getInstanceState() {
 		return $this->instance->instancesSet->item->instanceState->name;
 	}

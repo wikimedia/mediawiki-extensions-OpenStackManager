@@ -2,6 +2,7 @@
 class SpecialNovaInstance extends SpecialPage {
 
 	var $adminNova, $userNova;
+	var $userLDAP;
 
 	function __construct() {
 		parent::__construct( 'NovaInstance' );
@@ -21,6 +22,7 @@ class SpecialNovaInstance extends SpecialPage {
 			$this->noCredentials();
 			return true;
 		}
+		$this->userLDAP = new OpenStackNovaUser();
 		$project = $wgRequest->getVal('project');
 		$userCredentials = $user->getCredentials( $project );
 		$this->userNova = new OpenStackNovaController( $userCredentials );
@@ -35,12 +37,24 @@ class SpecialNovaInstance extends SpecialPage {
 				return true;
 			}
 			$this->createInstance();
-		} else if ( $action == "modify" ) {
+		} else if ( $action == "delete" ) {
 			if ( ! $user->inProject( $project ) ) {
 				$this->notInProject();
 				return true;
 			}
-			$this->modifyInstance();
+			$this->deleteInstance();
+		} else if ( $action == "rename" ) {
+			if ( ! $user->inProject( $project ) ) {
+				$this->notInProject();
+				return true;
+			}
+			$this->renameInstance();
+		} else if ( $action == "configure" ) {
+			if ( ! $user->inProject( $project ) ) {
+				$this->notInProject();
+				return true;
+			}
+			$this->configureInstance();
 		} else {
 			$this->listInstances();
 		}
@@ -168,27 +182,51 @@ class SpecialNovaInstance extends SpecialPage {
 	}
 
 	function listInstances() {
-		global $wgOut;
+		global $wgOut, $wgUser;
 
 		$this->setHeaders();
 		$wgOut->setPagetitle("Instance list");
 
+		$userProjects = $this->userLDAP->getProjects();
+		$sk = $wgUser->getSkin();
 		$out = '';
 		$instances = $this->adminNova->getInstances();
-		$out .= Html::element( 'th', array(), 'ID' );
-		$out .= Html::element( 'th', array(), 'State' );
-		$out .= Html::element( 'th', array(), 'Type' );
-		$out .= Html::element( 'th', array(), 'Image ID' );
-		$out .= Html::element( 'th', array(), 'Project' );
+		$header = Html::element( 'th', array(), 'Instance Name' );
+		$header .= Html::element( 'th', array(), 'Instance ID' );
+		$header .= Html::element( 'th', array(), 'Instance State' );
+		$header .= Html::element( 'th', array(), 'Instance Type' );
+		$header .= Html::element( 'th', array(), 'Image ID' );
+		$header .= Html::element( 'th', array(), 'Actions' );
+		$projectArr = array();
 		foreach ( $instances as $instance ) {
-			$instanceOut = Html::element( 'td', array(), $instance->getInstanceId() );
-			$instanceOut .= Html::element( 'td', array(), $instance->getInstanceState() );
-			$instanceOut .= Html::element( 'td', array(), $instance->getInstanceType() );
-			$instanceOut .= Html::element( 'td', array(), $instance->getImageId() );
-			$instanceOut .= Html::element( 'td', array(), $instance->getOwner() );
-			$out .= Html::rawElement( 'tr', array(), $instanceOut );
+			$project = $instance->getOwner();
+			if ( ! in_array( $project, $userProjects ) ) {
+				continue;
+			}
+			$instanceName = (string)$instance->getInstanceName();
+			$title = Title::newFromText( $instanceName, NS_VM );
+			$instanceNameLink = $sk->link( $title, $instanceName, array(), array(), array() );
+			$projectArr["$project"] = Html::rawElement( 'td', array(), $instanceNameLink );
+			$projectArr["$project"] .= Html::element( 'td', array(), $instance->getInstanceId() );
+			$projectArr["$project"] .= Html::element( 'td', array(), $instance->getInstanceState() );
+			$projectArr["$project"] .= Html::element( 'td', array(), $instance->getInstanceType() );
+			$projectArr["$project"] .= Html::element( 'td', array(), $instance->getImageId() );
+			$actions = $sk->link( $this->getTitle(), 'delete', array(), array( 'action' => 'delete', 'project' => $projectname, 'instanceid' => $instance->getInstanceId() ), array() );
+			$actions .= ', ';
+			$actions .= $sk->link( $this->getTitle(), 'rename', array(), array( 'action' => 'rename', 'project' => $projectname, 'instanceid' => $instance->getInstanceId() ), array() );
+			$actions .= ', ';
+			$actions .= $sk->link( $this->getTitle(), 'configure', array(), array( 'action' => 'configure', 'project' => $projectname, 'instanceid' => $instance->getInstanceId() ), array() );
+			$projectArr["$project"] .= Html::rawElement( 'td', array(), $actions );
 		}
-		$out = Html::rawElement( 'table', array( 'id' => 'novainstancelist', 'class' => 'wikitable' ), $out );
+		foreach ( $userProjects as $projectname ) {
+			$out .= Html::element( 'h2', array(), $projectname );
+			$out .= $sk->link( $this->getTitle(), 'Create a new instance', array(), array( 'action' => 'create', 'project' => $projectname ), array() );
+			if ( isset( $projectArr["$projectname"] ) ) {
+				$projectOut = $header;
+				$projectOut .= Html::rawElement( 'tr', array(), $projectArr["$projectname"] );
+				$out .= Html::rawElement( 'table', array( 'id' => 'novainstancelist', 'class' => 'wikitable' ), $projectOut );
+			}
+		}
 
 		$wgOut->addHTML( $out );
 	}
@@ -196,10 +234,10 @@ class SpecialNovaInstance extends SpecialPage {
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut;
 
-		$instance = $this->userNova->createInstance( $formData['imageType'], $formData['keypair'],
-						  $formData['instanceType'], $formData['availabilityZone'] );
+		$instance = $this->userNova->createInstance( $formData['instanceName'], $formData['imageType'], $formData['keypair'], $formData['instanceType'], $formData['availabilityZone'] );
 
 		$out = Html::element( 'p', array(), 'Created instance ' . $instance->getInstanceID() . ' with image ' . $instance->getImageId() );
+		$out .= $sk->link( $this->getTitle(), 'Back to instance list', array(), array(), array() );
 
 		$wgOut->addHTML( $out );
 		return true;
