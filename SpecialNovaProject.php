@@ -54,19 +54,18 @@ class SpecialNovaProject extends SpecialPage {
 	}
 
 	function notLoggedIn() {
-	        global $wgOut;
-
-	        $this->setHeaders();
-	        $wgOut->setPagetitle("Not logged in");
-	        $wgOut->addHTML('<p>You must be logged in to perform this action</p>');
+		global $wgOut;
+		$this->setHeaders();
+		$wgOut->setPagetitle("Not logged in");
+		$wgOut->addHTML('<p>You must be logged in to perform this action</p>');
 	}
 
 	function noCredentials() {
-	        global $wgOut;
+		global $wgOut;
 
-	        $this->setHeaders();
-	        $wgOut->setPagetitle("No Nova credentials found for your account");
-	        $wgOut->addHTML('<p>There were no Nova credentials found for your user account. Please ask a Nova administrator to create credentials for you.</p>');
+		$this->setHeaders();
+		$wgOut->setPagetitle("No Nova credentials found for your account");
+		$wgOut->addHTML('<p>There were no Nova credentials found for your user account. Please ask a Nova administrator to create credentials for you.</p>');
 	}
 
 	function createProject() { 
@@ -203,9 +202,9 @@ class SpecialNovaProject extends SpecialPage {
 		$out = '';
 		$sk = $wgUser->getSkin();
 		$out .= $sk->link( $this->getTitle(), 'Create a new project', array(), array( 'action' => 'create' ), array() );
-                $projectsOut = Html::element( 'th', array(), 'Project name' );
-                $projectsOut .= Html::element( 'th', array(), 'Members' );
-                $projectsOut .= Html::element( 'th', array(), 'Action' );
+				$projectsOut = Html::element( 'th', array(), 'Project name' );
+				$projectsOut .= Html::element( 'th', array(), 'Members' );
+				$projectsOut .= Html::element( 'th', array(), 'Action' );
 		$projects = OpenStackNovaProject::getAllProjects();
 		foreach ( $projects as $project ) {
 			$projectName = $project->getProjectName();
