@@ -44,9 +44,12 @@ $wgAutoloadClasses['OpenStackNovaInstance'] = $dir . 'OpenStackNovaInstance.php'
 $wgAutoloadClasses['OpenStackNovaKeypair'] = $dir . 'OpenStackNovaKeypair.php';
 $wgAutoloadClasses['OpenStackNovaController'] = $dir . 'OpenStackNovaController.php';
 $wgAutoloadClasses['OpenStackNovaUser'] = $dir . 'OpenStackNovaUser.php';
+$wgAutoloadClasses['OpenStackNovaDomain'] = $dir . 'OpenStackNovaDomain.php';
+$wgAutoloadClasses['OpenStackNovaHost'] = $dir . 'OpenStackNovaHost.php';
 $wgAutoloadClasses['SpecialNovaInstance'] = $dir . 'SpecialNovaInstance.php';
 $wgAutoloadClasses['SpecialNovaKey'] = $dir . 'SpecialNovaKey.php';
 $wgAutoloadClasses['SpecialNovaProject'] = $dir . 'SpecialNovaProject.php';
+$wgAutoloadClasses['SpecialNovaDomain'] = $dir . 'SpecialNovaDomain.php';
 $wgAutoloadClasses['AmazonEC2'] = $dir . 'aws-sdk/sdk.class.php';
 $wgSpecialPages['NovaInstance'] = 'SpecialNovaInstance';
 $wgSpecialPageGroups['NovaInstance'] = 'other';
@@ -54,6 +57,8 @@ $wgSpecialPages['NovaKey'] = 'SpecialNovaKey';
 $wgSpecialPageGroups['NovaKey'] = 'other';
 $wgSpecialPages['NovaProject'] = 'SpecialNovaProject';
 $wgSpecialPageGroups['NovaProject'] = 'other';
+$wgSpecialPages['NovaDomain'] = 'SpecialNovaDomain';
+$wgSpecialPageGroups['NovaDomain'] = 'other';
 
 $wgHooks['LDAPSetCreationValues'][] = 'OpenStackNovaUser::LDAPSetCreationValues';
 

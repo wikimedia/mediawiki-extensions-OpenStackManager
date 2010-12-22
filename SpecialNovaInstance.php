@@ -95,7 +95,7 @@ class SpecialNovaInstance extends SpecialPage {
 		# TODO: Add project name field
 
 		$instanceInfo = Array(); 
-		$instanceInfo['instanceName'] = array(
+		$instanceInfo['instancename'] = array(
 			'type' => 'text',
 			'label-message' => 'instancename',
 			'default' => '',
@@ -145,17 +145,17 @@ class SpecialNovaInstance extends SpecialPage {
 		# Keypair names can't be translated. Get the keys, and make an array
 		# where the name points to itself as a value
 		# TODO: get keypairs as the user, not the admin
-		$keypairs = $this->userNova->getKeypairs();
-		$keypair_keys = Array();
-		foreach ( array_keys( $keypairs ) as $keypair_key ) {
-			$keypair_keys["$keypair_key"] = $keypair_key;
-		}
-		$instanceInfo['keypair'] = array(
-			'type' => 'select',
-			'section' => 'instance/info',
-			'options' => $keypair_keys,
-			'label-message' => 'keypair',
-		);
+		#$keypairs = $this->userNova->getKeypairs();
+		#$keypair_keys = Array();
+		#foreach ( array_keys( $keypairs ) as $keypair_key ) {
+		#	$keypair_keys["$keypair_key"] = $keypair_key;
+		#}
+		#$instanceInfo['keypair'] = array(
+		#	'type' => 'select',
+		#	'section' => 'instance/info',
+		#	'options' => $keypair_keys,
+		#	'label-message' => 'keypair',
+		#);
 
 		$instanceInfo['action'] = array(
 			'type' => 'hidden',
@@ -234,7 +234,8 @@ class SpecialNovaInstance extends SpecialPage {
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut;
 
-		$instance = $this->userNova->createInstance( $formData['instanceName'], $formData['imageType'], $formData['keypair'], $formData['instanceType'], $formData['availabilityZone'] );
+		#$instance = $this->userNova->createInstance( $formData['instancename'], $formData['imageType'], $formData['keypair'], $formData['instanceType'], $formData['availabilityZone'] );
+		$instance = $this->userNova->createInstance( $formData['instancename'], $formData['imageType'], '', $formData['instanceType'], $formData['availabilityZone'] );
 
 		$out = Html::element( 'p', array(), 'Created instance ' . $instance->getInstanceID() . ' with image ' . $instance->getImageId() );
 		$out .= $sk->link( $this->getTitle(), 'Back to instance list', array(), array(), array() );

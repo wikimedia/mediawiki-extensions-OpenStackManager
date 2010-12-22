@@ -75,7 +75,7 @@ class SpecialNovaProject extends SpecialPage {
 		$wgOut->setPagetitle("Create Project");
  
 		$projectInfo = Array(); 
-		$projectInfo['projectName'] = array(
+		$projectInfo['projectname'] = array(
 			'type' => 'text',
 			'label-message' => 'projectname',
 			'default' => '',
@@ -232,7 +232,7 @@ class SpecialNovaProject extends SpecialPage {
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 
-		$success = OpenStackNovaProject::createProject( $formData['projectName'] );
+		$success = OpenStackNovaProject::createProject( $formData['projectname'] );
 		if ( ! $success ) {
 			$out = Html::element( 'p', array(), 'Failed to create project' );
 			return false;

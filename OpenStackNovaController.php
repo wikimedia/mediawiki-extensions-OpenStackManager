@@ -96,13 +96,14 @@ class OpenStackNovaController {
 	function createInstance( $instanceName, $image, $key, $instanceType, $availabilityZone ) {
 		# 1, 1 is min and max number of instances to create.
 		# We never want to make more than one at a time.
-		$response = $this->novaConnection->run_instances($image, 1, 1, array(
-			'KeyName' => $key,
-			'InstanceType' => $instanceType,
-			'Placement.AvailabilityZone' => $availabilityZone,
-			'DisplayName' => $instanceName,
-		));
-
+		$options = array();
+		if ( $key ) {
+			$options['KeyName'] = $key;
+		}
+		$options['InstanceType'] = $instanceType;
+		$options['Placement.AvailabilityZone'] = $availabilityZone;
+		$options['DisplayName'] = $instanceName;
+		$response = $this->novaConnection->run_instances( $image, 1, 1, $options );
 		$instance = new OpenStackNovaInstance( $response->body->reservationSet->item );
 		$instanceId = $instance->getInstanceId();
 		$this->instances["$instanceId"] = $instance;

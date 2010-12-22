@@ -174,15 +174,13 @@ class OpenStackNovaProject {
 		}
 		$dn = $project->projectDN;
 
-		# Projects can have roles as sub entries, delete them first
+		# Projects can have roles as sub entries, fail if they exist
+		# It is a bad idea to rely on LDAP failure here, as some directories
+		# may simply delete sub entries.
 		$result = ldap_list( $wgAuth->ldapconn, $dn, 'objectclass=*' );
 		$roles = ldap_get_entries( $wgAuth->ldapconn, $result );
-		array_shift( $roles );
-		foreach ( $roles as $role ) {
-			$success = @ldap_delete( $wgAuth->ldapconn, $role[0]['dn'] );
-			if ( ! $success ) {
-				return false;
-			}
+		if ( $roles['count'] != "0" ) {
+			return false;
 		}
 		$success = @ldap_delete( $wgAuth->ldapconn, $dn );
 		if ( $success ) {

@@ -80,7 +80,7 @@ class SpecialNovaKey extends SpecialPage {
 		$keyInfo = Array(); 
 
 		if ( $wgOpenStackManagerNovaKeypairStorage == 'nova' ) {
-			$keyInfo['keyName'] = array(
+			$keyInfo['keyname'] = array(
 				'type' => 'text',
 				'label-message' => 'keyname',
 				'default' => '',
