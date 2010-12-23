@@ -196,8 +196,10 @@ class OpenStackNovaUser {
 	}
 
 	static function uuid4() {
+		$uuid = '';
 		uuid_create( &$uuid );
 		uuid_make( $uuid, UUID_MAKE_V4 );
+		$uuidExport = '';
 		uuid_export( $uuid, UUID_FMT_STR, &$uuidExport );
 		return trim( $uuidExport );
 	}
