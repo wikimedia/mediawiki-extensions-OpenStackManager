@@ -25,7 +25,8 @@ class OpenStackNovaProject {
 		global $wgOpenStackManagerLDAPProjectBaseDN;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 
-		$result = @ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, '(&(cn=' . $this->projectname . ')(projectManager=*))' );
+		$result = @ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN,
+								'(&(cn=' . $this->projectname . ')(projectManager=*))' );
 		$this->projectInfo = @ldap_get_entries( $wgAuth->ldapconn, $result );
 		$this->projectDN = $this->projectInfo[0]['dn'];
 	}

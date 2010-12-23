@@ -16,10 +16,10 @@ $messages = array();
  */
 $messages['en'] = array(
 	#for Special:Version
-	'openstackmanager-desc'      => 'Lets users manage nova and swift',
+	'openstackmanager-desc' => 'Lets users manage nova and swift',
 
 	#for Special:Gadgets
-	'openstackmanager'           => 'OpenStackManager',
-	'openstackmanageinstance'           => 'Manage Instance',
-	'openstackmanager-title'     => 'OpenStackManager',
+	'openstackmanager' => 'OpenStackManager',
+	'openstackmanageinstance' => 'Manage Instance',
+	'openstackmanager-title' => 'OpenStackManager',
 );

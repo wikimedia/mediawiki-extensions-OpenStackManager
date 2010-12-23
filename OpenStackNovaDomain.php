@@ -26,7 +26,8 @@ class OpenStackNovaDomain {
 		global $wgOpenStackManagerLDAPDNSDomainBaseDN;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 
-		$result = @ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPDNSDomainBaseDN, '(dc=' . $this->domainname . ')' );
+		$result = @ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPDNSDomainBaseDN,
+								'(dc=' . $this->domainname . ')' );
 		$this->domainInfo = @ldap_get_entries( $wgAuth->ldapconn, $result );
 		$this->fqdn = $this->domainInfo[0]['associateddomain'][0];
 		$this->domainDN = $this->domainInfo[0]['dn'];
@@ -157,8 +158,9 @@ class OpenStackNovaDomain {
 		global $wgOpenStackManagerDNSSOA;
 
 		$serial = date( 'YmdHis' );
-		$soa = $wgOpenStackManagerDNSSOA['hostmaster'] . ' ' . $serial . ' ' . $wgOpenStackManagerDNSSOA['refresh'] . ' ' . $wgOpenStackManagerDNSSOA['retry'] . ' 
-' . $wgOpenStackManagerDNSSOA['expiry'] . ' ' . $wgOpenStackManagerDNSSOA['minimum'];
+		$soa = $wgOpenStackManagerDNSSOA['hostmaster'] . ' ' . $serial . ' ' .
+			   $wgOpenStackManagerDNSSOA['refresh'] . ' ' . $wgOpenStackManagerDNSSOA['retry'] . ' ' .
+			   $wgOpenStackManagerDNSSOA['expiry'] . ' ' . $wgOpenStackManagerDNSSOA['minimum'];
 
 		return $soa;
 	}

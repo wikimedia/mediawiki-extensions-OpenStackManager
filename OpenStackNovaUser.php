@@ -86,7 +86,7 @@ class OpenStackNovaUser {
 		# roles do not
 		$projects = array();
 		$filter = "(&(projectManager=*)(member=$this->userDN))";
-                $result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, $filter );
+				$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, $filter );
 		if ( $result ) {
 			$entries = ldap_get_entries( $wgAuth->ldapconn, $result );
 			if ( $entries ) {
@@ -114,7 +114,7 @@ class OpenStackNovaUser {
 		$this->connect();
 
 		$filter = "(&(cn=$project)(member=$this->userDN))";
-                $result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, $filter );
+				$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, $filter );
 		if ( $result ) {
 			$entries = ldap_get_entries( $wgAuth->ldapconn, $result );
 			if ( $entries ) {
@@ -218,7 +218,7 @@ class OpenStackNovaUser {
 			$filter = "(objectclass=posixaccount)";
 			$base = USERDN;
 		}
-                $result = ldap_search( $auth->ldapconn, $auth->getBaseDN( $base ), $filter );
+				$result = ldap_search( $auth->ldapconn, $auth->getBaseDN( $base ), $filter );
 		if ( $result ) {
 			$entries = ldap_get_entries( $auth->ldapconn, $result );
 			if ( $entries ) {

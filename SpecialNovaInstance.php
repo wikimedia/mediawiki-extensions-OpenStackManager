@@ -7,7 +7,7 @@ class SpecialNovaInstance extends SpecialPage {
 	function __construct() {
 		parent::__construct( 'NovaInstance' );
 	}
- 
+
 	function execute( $par ) {
 		global $wgRequest, $wgUser;
 		global $wgOpenStackManagerNovaAdminKeys;
@@ -73,7 +73,8 @@ class SpecialNovaInstance extends SpecialPage {
 
 		$this->setHeaders();
 		$wgOut->setPagetitle("No Nova credentials found for your account");
-		$wgOut->addHTML('<p>There were no Nova credentials found for your user account. Please ask a Nova administrator to create credentials for you.</p>');
+		$wgOut->addHTML('<p>There were no Nova credentials found for your user account. '
+						. 'Please ask a Nova administrator to create credentials for you.</p>');
 	}
 
 	function notInProject() {
@@ -89,7 +90,7 @@ class SpecialNovaInstance extends SpecialPage {
 
 		$this->setHeaders();
 		$wgOut->setPagetitle("Create Instance");
- 
+
 		$project = $wgRequest->getVal('project');
 
 		# TODO: Add project name field
@@ -211,20 +212,34 @@ class SpecialNovaInstance extends SpecialPage {
 			$projectArr["$project"] .= Html::element( 'td', array(), $instance->getInstanceState() );
 			$projectArr["$project"] .= Html::element( 'td', array(), $instance->getInstanceType() );
 			$projectArr["$project"] .= Html::element( 'td', array(), $instance->getImageId() );
-			$actions = $sk->link( $this->getTitle(), 'delete', array(), array( 'action' => 'delete', 'project' => $projectname, 'instanceid' => $instance->getInstanceId() ), array() );
+			$actions = $sk->link( $this->getTitle(), 'delete', array(),
+								  array( 'action' => 'delete',
+									   'project' => $projectname,
+									   'instanceid' => $instance->getInstanceId() ),
+								  array() );
 			$actions .= ', ';
-			$actions .= $sk->link( $this->getTitle(), 'rename', array(), array( 'action' => 'rename', 'project' => $projectname, 'instanceid' => $instance->getInstanceId() ), array() );
+			$actions .= $sk->link( $this->getTitle(), 'rename', array(),
+								   array( 'action' => 'rename',
+										'project' => $projectname,
+										'instanceid' => $instance->getInstanceId() ),
+								   array() );
 			$actions .= ', ';
-			$actions .= $sk->link( $this->getTitle(), 'configure', array(), array( 'action' => 'configure', 'project' => $projectname, 'instanceid' => $instance->getInstanceId() ), array() );
+			$actions .= $sk->link( $this->getTitle(), 'configure', array(),
+								   array( 'action' => 'configure',
+										'project' => $projectname,
+										'instanceid' => $instance->getInstanceId() ),
+								   array() );
 			$projectArr["$project"] .= Html::rawElement( 'td', array(), $actions );
 		}
 		foreach ( $userProjects as $projectname ) {
 			$out .= Html::element( 'h2', array(), $projectname );
-			$out .= $sk->link( $this->getTitle(), 'Create a new instance', array(), array( 'action' => 'create', 'project' => $projectname ), array() );
+			$out .= $sk->link( $this->getTitle(), 'Create a new instance', array(),
+							   array( 'action' => 'create', 'project' => $projectname ), array() );
 			if ( isset( $projectArr["$projectname"] ) ) {
 				$projectOut = $header;
 				$projectOut .= Html::rawElement( 'tr', array(), $projectArr["$projectname"] );
-				$out .= Html::rawElement( 'table', array( 'id' => 'novainstancelist', 'class' => 'wikitable' ), $projectOut );
+				$out .= Html::rawElement( 'table',
+										  array( 'id' => 'novainstancelist', 'class' => 'wikitable' ), $projectOut );
 			}
 		}
 
@@ -235,9 +250,11 @@ class SpecialNovaInstance extends SpecialPage {
 		global $wgOut;
 
 		#$instance = $this->userNova->createInstance( $formData['instancename'], $formData['imageType'], $formData['keypair'], $formData['instanceType'], $formData['availabilityZone'] );
-		$instance = $this->userNova->createInstance( $formData['instancename'], $formData['imageType'], '', $formData['instanceType'], $formData['availabilityZone'] );
+		$instance = $this->userNova->createInstance( $formData['instancename'], $formData['imageType'],
+													 '', $formData['instanceType'], $formData['availabilityZone'] );
 
-		$out = Html::element( 'p', array(), 'Created instance ' . $instance->getInstanceID() . ' with image ' . $instance->getImageId() );
+		$out = Html::element( 'p', array(), 'Created instance ' . $instance->getInstanceID() .
+											' with image ' . $instance->getImageId() );
 		$out .= $sk->link( $this->getTitle(), 'Back to instance list', array(), array(), array() );
 
 		$wgOut->addHTML( $out );

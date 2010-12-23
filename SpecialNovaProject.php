@@ -26,7 +26,7 @@ class SpecialNovaProject extends SpecialPage {
 #		#}
 #		return true;
 #	}
- 
+
 	function execute( $par ) {
 		global $wgRequest, $wgUser;
 
@@ -65,7 +65,8 @@ class SpecialNovaProject extends SpecialPage {
 
 		$this->setHeaders();
 		$wgOut->setPagetitle("No Nova credentials found for your account");
-		$wgOut->addHTML('<p>There were no Nova credentials found for your user account. Please ask a Nova administrator to create credentials for you.</p>');
+		$wgOut->addHTML('<p>There were no Nova credentials found for your user account.' .
+						'Please ask a Nova administrator to create credentials for you.</p>');
 	}
 
 	function createProject() { 
@@ -73,7 +74,7 @@ class SpecialNovaProject extends SpecialPage {
 
 		$this->setHeaders();
 		$wgOut->setPagetitle("Create Project");
- 
+
 		$projectInfo = Array(); 
 		$projectInfo['projectname'] = array(
 			'type' => 'text',
@@ -101,7 +102,7 @@ class SpecialNovaProject extends SpecialPage {
 
 		$this->setHeaders();
 		$wgOut->setPagetitle("Add projectmember");
- 
+
 		$project = $wgRequest->getText('projectname');
 		$projectInfo = Array(); 
 		$projectInfo['member'] = array(
@@ -137,7 +138,8 @@ class SpecialNovaProject extends SpecialPage {
 		$member = $wgRequest->getText('member'); 
 		$project = $wgRequest->getText('projectname');
 		if ( ! $wgRequest->wasPosted() ) {
-			$out .= Html::element( 'p', array(), 'Are you sure you wish to remove ' . $member . ' from project ' . $project );
+			$out .= Html::element( 'p', array(), 'Are you sure you wish to remove ' .
+												 $member . ' from project ' . $project );
 			$wgOut->addHTML( $out );
 		}
 		$projectInfo = Array(); 
@@ -171,7 +173,8 @@ class SpecialNovaProject extends SpecialPage {
 
 		$project = $wgRequest->getText('projectname');
 		if ( ! $wgRequest->wasPosted() ) {
-			$out .= Html::element( 'p', array(), 'Are you sure you wish to delete project "' . $project . '"? This action has reprecusions on all VMs. Do not take this action lightly!' );
+			$out .= Html::element( 'p', array(), 'Are you sure you wish to delete project "' . $project .
+												 '"? This action has reprecusions on all VMs. Do not take this action lightly!' );
 			$wgOut->addHTML( $out );
 		}
 		$projectInfo = Array(); 
@@ -212,15 +215,18 @@ class SpecialNovaProject extends SpecialPage {
 			$projectMembers = $project->getMembers();
 			$memberOut = '';
 			foreach ( $projectMembers as $projectMember ) {
-				$link = $sk->link( $this->getTitle(), 'remove member', array(), array( 'action' => 'deletemember', 'projectname' => $projectName, 'member' => $projectMember ), array() );
+				$link = $sk->link( $this->getTitle(), 'remove member', array(),
+								   array( 'action' => 'deletemember', 'projectname' => $projectName, 'member' => $projectMember ), array() );
 				$projectMemberOut = htmlentities( $projectMember) . ' (' . $link . ')';
 				$memberOut .= Html::rawElement( 'li', array(), $projectMemberOut );
 			}
 			$memberOut .= '<br />';
-			$memberOut .= $sk->link( $this->getTitle(), 'Add a member', array(), array( 'action' => 'addmember', 'projectname' => $projectName ), array() );
+			$memberOut .= $sk->link( $this->getTitle(), 'Add a member', array(),
+									 array( 'action' => 'addmember', 'projectname' => $projectName ), array() );
 			$membersOut = Html::rawElement( 'ul', array(), $memberOut );
 			$projectOut .= Html::rawElement( 'td', array(), $membersOut );
-			$link = $sk->link( $this->getTitle(), 'delete project', array(), array( 'action' => 'delete', 'projectname' => $projectName ), array() );
+			$link = $sk->link( $this->getTitle(), 'delete project', array(),
+							   array( 'action' => 'delete', 'projectname' => $projectName ), array() );
 			$projectOut .= Html::rawElement( 'td', array(), $link );
 			$projectsOut .= Html::rawElement( 'tr', array(), $projectOut );
 		}
@@ -269,9 +275,11 @@ class SpecialNovaProject extends SpecialPage {
 		$project = new OpenStackNovaProject( $formData['projectname'] );
 		$success = $project->addMember( $formData['member'] );
 		if ( $success ) {
-			$out = Html::element( 'p', array(), 'Successfully added ' . $formData['member'] . ' to ' . $formData['projectname'] );
+			$out = Html::element( 'p', array(), 'Successfully added ' . $formData['member'] .
+												' to ' . $formData['projectname'] );
 		} else {
-			$out = Html::element( 'p', array(), 'Failed to add ' . $formData['member'] . ' to ' . $formData['projectname'] );
+			$out = Html::element( 'p', array(), 'Failed to add ' . $formData['member'] .
+												' to ' . $formData['projectname'] );
 		}
 		$out .= '<br />';
 		$sk = $wgUser->getSkin();
@@ -287,9 +295,11 @@ class SpecialNovaProject extends SpecialPage {
 		$project = new OpenStackNovaProject( $formData['projectname'] );
 		$success = $project->deleteMember( $formData['member'] );
 		if ( $success ) {
-			$out = Html::element( 'p', array(), 'Successfully removed ' . $formData['member'] . ' from ' . $formData['projectname'] );
+			$out = Html::element( 'p', array(), 'Successfully removed ' . $formData['member'] .
+												' from ' . $formData['projectname'] );
 		} else {
-			$out = Html::element( 'p', array(), 'Failed to remove ' . $formData['member'] . ' from ' . $formData['projectname'] );
+			$out = Html::element( 'p', array(), 'Failed to remove ' . $formData['member'] .
+												' from ' . $formData['projectname'] );
 		}
 		$out .= '<br />';
 		$sk = $wgUser->getSkin();

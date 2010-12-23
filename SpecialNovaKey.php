@@ -8,7 +8,7 @@ class SpecialNovaKey extends SpecialPage {
 	}
 
 	public function isRestricted() {
-	        return true;
+			return true;
 	}
 
 	function execute( $par ) {
@@ -49,7 +49,8 @@ class SpecialNovaKey extends SpecialPage {
 
 		$this->setHeaders();
 		$wgOut->setPagetitle("No Nova credentials found for your account");
-		$wgOut->addHTML('<p>There were no Nova credentials found for your user account. Please ask a Nova administrator to create credentials for you.</p>');
+		$wgOut->addHTML('<p>There were no Nova credentials found for your user account. ' .
+						'Please ask a Nova administrator to create credentials for you.</p>');
 	}
 
 	function notInProject() {
@@ -76,7 +77,7 @@ class SpecialNovaKey extends SpecialPage {
 
 		$this->setHeaders();
 		$wgOut->setPagetitle("Import Key");
- 
+
 		$keyInfo = Array(); 
 
 		if ( $wgOpenStackManagerNovaKeypairStorage == 'nova' ) {
@@ -231,7 +232,8 @@ class SpecialNovaKey extends SpecialPage {
 			# of this option isn't currently recommended
 			$keypair = $this->userNova->importKeypair( $formData['keyname'], $formData['key'] );
 
-			$out = Html::element( 'p', array(), 'Imported keypair ' . $keypair->getKeyName() . ' with fingerprint ' . $keypair->getKeyFingerprint() );
+			$out = Html::element( 'p', array(), 'Imported keypair ' . $keypair->getKeyName() .
+												' with fingerprint ' . $keypair->getKeyFingerprint() );
 		} else {
 			$out = Html::element( 'p', array(), 'Invalid keypair location configured' );
 		}

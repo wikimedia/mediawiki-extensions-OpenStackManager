@@ -39,19 +39,20 @@ class SpecialNovaDomain extends SpecialPage {
 	}
 
 	function notLoggedIn() {
-	        global $wgOut;
+			global $wgOut;
 
-	        $this->setHeaders();
-	        $wgOut->setPagetitle("Not logged in");
-	        $wgOut->addHTML('<p>You must be logged in to perform this action</p>');
+			$this->setHeaders();
+			$wgOut->setPagetitle("Not logged in");
+			$wgOut->addHTML('<p>You must be logged in to perform this action</p>');
 	}
 
 	function noCredentials() {
-	        global $wgOut;
+			global $wgOut;
 
-	        $this->setHeaders();
-	        $wgOut->setPagetitle("No Nova credentials found for your account");
-	        $wgOut->addHTML('<p>There were no Nova credentials found for your user account. Please ask a Nova administrator to create credentials for you.</p>');
+			$this->setHeaders();
+			$wgOut->setPagetitle("No Nova credentials found for your account");
+			$wgOut->addHTML('<p>There were no Nova credentials found for your user account. ' .
+							'Please ask a Nova administrator to create credentials for you.</p>');
 	}
 
 	function createDomain() { 
@@ -59,7 +60,7 @@ class SpecialNovaDomain extends SpecialPage {
 
 		$this->setHeaders();
 		$wgOut->setPagetitle("Create Domain");
- 
+
 		$domainInfo = Array(); 
 		$domainInfo['domainname'] = array(
 			'type' => 'text',
@@ -97,7 +98,8 @@ class SpecialNovaDomain extends SpecialPage {
 
 		$domainname = $wgRequest->getText('domainname');
 		if ( ! $wgRequest->wasPosted() ) {
-			$out = Html::element( 'p', array(), 'Are you sure you wish to delete domain "' . $domainname . '"? This action has reprecusions on all VMs. Do not take this action lightly!' );
+			$out = Html::element( 'p', array(), 'Are you sure you wish to delete domain "' . $domainname .
+												'"? This action has reprecusions on all VMs. Do not take this action lightly!' );
 			$wgOut->addHTML( $out );
 		}
 		$domainInfo = Array(); 
@@ -128,16 +130,17 @@ class SpecialNovaDomain extends SpecialPage {
 		$out = '';
 		$sk = $wgUser->getSkin();
 		$out .= $sk->link( $this->getTitle(), 'Create a new domain', array(), array( 'action' => 'create' ), array() );
-                $domainsOut = Html::element( 'th', array(), 'Domain name' );
-                $domainsOut .= Html::element( 'th', array(), 'FQDN' );
-                $domainsOut .= Html::element( 'th', array(), 'Action' );
+				$domainsOut = Html::element( 'th', array(), 'Domain name' );
+				$domainsOut .= Html::element( 'th', array(), 'FQDN' );
+				$domainsOut .= Html::element( 'th', array(), 'Action' );
 		$domains = OpenStackNovaDomain::getAllDomains();
 		foreach ( $domains as $domain ) {
 			$domainName = $domain->getDomainName();
 			$fqdn = $domain->getFullyQualifiedDomainName();
 			$domainOut = Html::element( 'td', array(), $domainName );
 			$domainOut .= Html::element( 'td', array(), $fqdn );
-			$link = $sk->link( $this->getTitle(), 'delete domain', array(), array( 'action' => 'delete', 'domainname' => $domainName ), array() );
+			$link = $sk->link( $this->getTitle(), 'delete domain', array(),
+							   array( 'action' => 'delete', 'domainname' => $domainName ), array() );
 			$domainOut .= Html::rawElement( 'td', array(), $link );
 			$domainsOut .= Html::rawElement( 'tr', array(), $domainOut );
 		}
