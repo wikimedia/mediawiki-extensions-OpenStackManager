@@ -1,5 +1,5 @@
 <?php
-class SpecialNovaDomain extends SpecialPage {
+class SpecialNovaDomain extends SpecialNova {
 
 	var $userNova, $adminNova;
 
@@ -34,23 +34,6 @@ class SpecialNovaDomain extends SpecialPage {
 		} else {
 			$this->listDomains();
 		}
-	}
-
-	function notLoggedIn() {
-			global $wgOut;
-
-			$this->setHeaders();
-			$wgOut->setPagetitle("Not logged in");
-			$wgOut->addHTML('<p>You must be logged in to perform this action</p>');
-	}
-
-	function noCredentials() {
-			global $wgOut;
-
-			$this->setHeaders();
-			$wgOut->setPagetitle("No Nova credentials found for your account");
-			$wgOut->addHTML('<p>There were no Nova credentials found for your user account. ' .
-							'Please ask a Nova administrator to create credentials for you.</p>');
 	}
 
 	function createDomain() { 

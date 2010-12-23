@@ -50,6 +50,7 @@ $wgAutoloadClasses['SpecialNovaInstance'] = $dir . 'SpecialNovaInstance.php';
 $wgAutoloadClasses['SpecialNovaKey'] = $dir . 'SpecialNovaKey.php';
 $wgAutoloadClasses['SpecialNovaProject'] = $dir . 'SpecialNovaProject.php';
 $wgAutoloadClasses['SpecialNovaDomain'] = $dir . 'SpecialNovaDomain.php';
+$wgAutoloadClasses['SpecialNova'] = $dir . 'SpecialNova.php';
 $wgAutoloadClasses['AmazonEC2'] = $dir . 'aws-sdk/sdk.class.php';
 $wgSpecialPages['NovaInstance'] = 'SpecialNovaInstance';
 $wgSpecialPageGroups['NovaInstance'] = 'other';
