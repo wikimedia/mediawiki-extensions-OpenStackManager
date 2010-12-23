@@ -156,7 +156,7 @@ class OpenStackNovaHost {
 			return false;
 		}
 		$host = OpenStackNovaHost::getLDAPArray( $hostname, $ip, $domainname );
-		$dn = 'dc=' . $hostname . ',dc=' . $this->getDomainName() . ',' . $wgOpenStackManagerLDAPDNSDomainBaseDN;
+		$dn = 'dc=' . $hostname . ',dc=' . $domain->getDomainName() . ',' . $wgOpenStackManagerLDAPDNSDomainBaseDN;
 
 		$success = @ldap_add( $wgAuth->ldapconn, $dn, $host );
 		if ( $success ) {
