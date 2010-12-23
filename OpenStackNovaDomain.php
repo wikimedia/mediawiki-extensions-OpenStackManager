@@ -41,20 +41,6 @@ class OpenStackNovaDomain {
 		return $this->fqdn;
 	}
 
-	function getHosts() {
-		global $wgAuth;
-
-		# Domains can have records as sub entries. If sub-entries exist, fail.
-		$result = ldap_list( $wgAuth->ldapconn, $this->domainDN, 'objectclass=*' );
-		$hostsLDAP = ldap_get_entries( $wgAuth->ldapconn, $result );
-		array_shift( $hostsLDAP );
-		foreach ( $hostsLDAP as $hostLDAP ) {
-			$hosts[] = new OpenStackNovaHost( $hostLDAP[0]['dc'] ); // FIXME: Missing constructor parameter
-		}
-
-		return $hosts;
-	}
-
 	function updateSOA() {
 		global $wgAuth;
 
