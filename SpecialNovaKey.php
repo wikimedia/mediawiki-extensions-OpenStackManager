@@ -196,6 +196,7 @@ class SpecialNovaKey extends SpecialNova {
 			$success = $this->userLDAP->importKeypair( $formData['key'] );
 			if ( ! $success ) {
 				$out = Html::element( 'p', array(), 'Failed to import keypair' );
+				$wgOut->addHTML( $out );
 				return false;
 			}
 			$out = Html::element( 'p', array(), 'Imported keypair' );

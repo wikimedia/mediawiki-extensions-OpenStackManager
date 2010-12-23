@@ -136,6 +136,7 @@ class SpecialNovaDomain extends SpecialNova {
 		$success = OpenStackNovaDomain::createDomain( $formData['domainname'], $formData['fqdn'] );
 		if ( ! $success ) {
 			$out = Html::element( 'p', array(), 'Failed to create domain' );
+			$wgOut->addHTML( $out );
 			return false;
 		}
 		$out = Html::element( 'p', array(), 'Created domain' );

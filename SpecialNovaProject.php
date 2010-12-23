@@ -239,6 +239,7 @@ class SpecialNovaProject extends SpecialPage {
 		$success = OpenStackNovaProject::createProject( $formData['projectname'] );
 		if ( ! $success ) {
 			$out = Html::element( 'p', array(), 'Failed to create project' );
+			$wgOut->addHTML( $out );
 			return false;
 		}
 		$out = Html::element( 'p', array(), 'Created project' );
