@@ -14,8 +14,6 @@ class SpecialNovaKey extends SpecialPage {
 	function execute( $par ) {
 		global $wgRequest, $wgUser;
 
-		wfLoadExtensionMessages('OpenStackManager');
-
 		if ( ! $wgUser->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return true;

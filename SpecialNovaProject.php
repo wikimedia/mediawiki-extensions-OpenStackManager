@@ -30,8 +30,6 @@ class SpecialNovaProject extends SpecialPage {
 	function execute( $par ) {
 		global $wgRequest, $wgUser;
 
-		wfLoadExtensionMessages('OpenStackManager');
-
 		#if ( ! $wgUser->isAllowed( 'manageproject' ) ) {
 		#	return false;
 		#}

@@ -141,6 +141,13 @@ class OpenStackNovaHost {
 		}
 	}
 
+	/**
+	 * @static
+	 * @param  $hostname
+	 * @param  $ip
+	 * @param  $domain OpenStackNovaDomain
+	 * @return bool
+	 */
 	static function addHost( $hostname, $ip, $domain ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;

@@ -12,7 +12,6 @@ class SpecialNovaInstance extends SpecialPage {
 		global $wgRequest, $wgUser;
 		global $wgOpenStackManagerNovaAdminKeys;
 
-		wfLoadExtensionMessages('OpenStackManager');
 		if ( ! $wgUser->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return true;
