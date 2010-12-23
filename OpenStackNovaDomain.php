@@ -49,7 +49,7 @@ class OpenStackNovaDomain {
 		$hostsLDAP = ldap_get_entries( $wgAuth->ldapconn, $result );
 		array_shift( $hostsLDAP );
 		foreach ( $hostsLDAP as $hostLDAP ) {
-			$hosts[] = new OpenStackNovaHost( $hostLDAP[0]['dc'] );
+			$hosts[] = new OpenStackNovaHost( $hostLDAP[0]['dc'] ); // FIXME: Missing constructor parameter
 		}
 
 		return $hosts;
@@ -58,7 +58,7 @@ class OpenStackNovaDomain {
 	function updateSOA() {
 		global $wgAuth;
 
-		$domain['soarecord'] = $OpenStackNovaDomain::generateSOA();
+		$domain['soarecord'] = OpenStackNovaDomain::generateSOA();
 		$success = @ldap_modify( $wgAuth->ldapconn, $this->domainDN, $domain );
 		if ( $success ) {
 			$wgAuth->printDebug( "Successfully modified soarecord for " . $this->domainDN, NONSENSITIVE );

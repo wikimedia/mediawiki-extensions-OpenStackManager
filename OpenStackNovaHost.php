@@ -158,14 +158,14 @@ class OpenStackNovaHost {
 
 		$domainname = $domain->getFullyQualifiedDomainName();
 
-		$host = new OpenStackNovaHost( $hostname );
+		$host = new OpenStackNovaHost( $hostname, $domain );
 		if ( $host ) {
 			return false;
 		}
 		$host = OpenStackNovaHost::getLDAPArray( $hostname, $ip, $domainname );
 		$dn = 'dc=' . $hostname . ',dc=' . $domain->getDomainName() . ',' . $wgOpenStackManagerLDAPDNSDomainBaseDN;
 
-		$success = @ldap_add( $wgAuth->ldapconn, $dn, $host );
+		$success = @ldap_add( $wgAuth->ldapconn, $dn, $hostname );
 		if ( $success ) {
 			$domain->updateSOA();
 			$wgAuth->printDebug( "Successfully added domain $domainname", NONSENSITIVE );
