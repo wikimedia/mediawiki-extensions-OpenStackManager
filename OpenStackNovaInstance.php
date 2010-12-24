@@ -4,11 +4,9 @@
 class OpenStackNovaInstance {
 
 	var $instance;
-	var $domain;
 
-	function __construct( $apiInstanceResponse, $domain ) {
+	function __construct( $apiInstanceResponse ) {
 		$this->instance = $apiInstanceResponse;
-		$this->domain = $domain;
 	}
 
 	function getReservationId() {
@@ -27,10 +25,6 @@ class OpenStackNovaInstance {
 	function getInstancePublicIP() {
 		# Though this is unintuitive, privateDnsName is the private IP
 		return $this->instance->instancesSet->item->dnsName;
-	}
-
-	function getInstanceDomain() {
-		return $this->domain;
 	}
 
 	function getInstanceName() {

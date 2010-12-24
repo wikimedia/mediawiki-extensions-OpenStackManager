@@ -94,7 +94,7 @@ class OpenStackNovaController {
 		return $this->availabilityZones;
 	}
 
-	function createInstance( $instanceName, $image, $key, $instanceType, $availabilityZone, $domain ) {
+	function createInstance( $instanceName, $image, $key, $instanceType, $availabilityZone ) {
 		# 1, 1 is min and max number of instances to create.
 		# We never want to make more than one at a time.
 		$options = array();
@@ -108,7 +108,7 @@ class OpenStackNovaController {
 		if ( ! $response->isOK() ) {
 			return null;
 		}
-		$instance = new OpenStackNovaInstance( $response->body, $domain );
+		$instance = new OpenStackNovaInstance( $response->body );
 		$instanceId = $instance->getInstanceId();
 		$this->instances["$instanceId"] = $instance;
 

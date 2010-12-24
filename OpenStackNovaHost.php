@@ -26,9 +26,13 @@ class OpenStackNovaHost {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 
-		$result = @ldap_search( $wgAuth->ldapconn, $this->domain->domainDN, '(dc=' . $this->hostname . '))' );
+		$result = @ldap_search( $wgAuth->ldapconn, $this->domain->domainDN, '(dc=' . $this->hostname . ')' );
 		$this->hostInfo = @ldap_get_entries( $wgAuth->ldapconn, $result );
-		$this->hostDN = $this->hostInfo[0]['dn'];
+		if ( $this->hostInfo["count"] == "0" ) {
+			$this->hostInfo = null;
+		} else {
+			$this->hostDN = $this->hostInfo[0]['dn'];
+		}
 	}
 
 	function getHostName() {
@@ -139,8 +143,9 @@ class OpenStackNovaHost {
 		$wgAuth->connect();
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 
-		$host = new OpenStackNovaHost( $hostname, $domain );
+		$host = OpenStackNovaHost::getHostByName( $hostname, $domain );
 		if ( ! $host ) {
+			$wgAuth->printDebug( "Failed to delete host $hostname as the DNS entry does not exist", NONSENSITIVE );
 			return false;
 		}
 		$dn = $host->hostDN;
@@ -148,8 +153,10 @@ class OpenStackNovaHost {
 		$success = @ldap_delete( $wgAuth->ldapconn, $dn );
 		if ( $success ) {
 			$domain->updateSOA();
+			$wgAuth->printDebug( "Successfully deleted host $hostname", NONSENSITIVE );
 			return true;
 		} else {
+			$wgAuth->printDebug( "Failed to delete host $hostname", NONSENSITIVE );
 			return false;
 		}
 	}
@@ -161,7 +168,7 @@ class OpenStackNovaHost {
 	 * @param  $domain OpenStackNovaDomain
 	 * @return bool
 	 */
-	static function addHost( $hostname, $ip, $domain ) {
+	static function addHost( $instance, $domain ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
@@ -169,34 +176,35 @@ class OpenStackNovaHost {
 		$wgAuth->connect();
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 
+		$hostname = $instance->getInstanceName();
+		$ip = $instance->getInstancePrivateIP();
 		$domainname = $domain->getFullyQualifiedDomainName();
 		$host = OpenStackNovaHost::getHostByName( $hostname, $domain );
 		if ( $host ) {
+			$wgAuth->printDebug( "Failed to add host $hostname as the DNS entry already exists", NONSENSITIVE );
 			return false;
 		}
 		$hostEntry = OpenStackNovaHost::getLDAPArray( $hostname, $ip, $domainname );
+		$hostEntry['objectclass'][] = 'dcobject';
+		$hostEntry['objectclass'][] = 'dnsdomain';
+		$hostEntry['objectclass'][] = 'domainrelatedobject';
+		$hostEntry['dc'] = $hostname;
+		$hostEntry['arecord'] = $ip;
+		$hostEntry['associateddomain'] = $hostname . '.' . $domainname;
 		$dn = 'dc=' . $hostname . ',dc=' . $domain->getDomainName() . ',' . $wgOpenStackManagerLDAPInstanceBaseDN;
 
 		$success = @ldap_add( $wgAuth->ldapconn, $dn, $hostEntry );
 		if ( $success ) {
 			$domain->updateSOA();
-			$wgAuth->printDebug( "Successfully added host $domainname", NONSENSITIVE );
+			$wgAuth->printDebug( "Successfully added host $hostname", NONSENSITIVE );
 			return new OpenStackNovaHost( $hostname, $domain );
 		} else {
-			$wgAuth->printDebug( "Failed to add host $domainname", NONSENSITIVE );
+			$wgAuth->printDebug( "Failed to add host $hostname", NONSENSITIVE );
 			return null;
 		}
 	}
 
 	static function getLDAPArray( $hostname, $ip, $domainname ) {
-		$host['objectclass'][] = 'dcobject';
-		$host['objectclass'][] = 'dnsdomain';
-		$host['objectclass'][] = 'domainrelatedobject';
-		$host['dc'] = $hostname;
-		$host['arecord'] = $ip;
-		$host['associateddomain'] = $hostname . '.' . $domainname;
-
-		return $host;
 	}
 
 }

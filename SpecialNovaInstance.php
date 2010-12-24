@@ -265,16 +265,15 @@ class SpecialNovaInstance extends SpecialNova {
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 
-		#$instance = $this->userNova->createInstance( $formData['instancename'], $formData['imageType'], $formData['keypair'], $formData['instanceType'], $formData['availabilityZone'] );
+		$sk = $wgUser->getSkin();
 		$domain = new OpenStackNovaDomain( $formData['domain'] );
 		$domain = OpenStackNovaDomain::getDomainByName( $formData['domain'] );
 		if ( ! $domain ) {
 			$out = Html::element( 'p', array(), 'Requested domain is invalid' );
 		}
-		$instance = $this->userNova->createInstance( $formData['instancename'], $formData['imageType'], '', $formData['instanceType'], $formData['availabilityZone'], $domain );
-		$sk = $wgUser->getSkin();
+		$instance = $this->userNova->createInstance( $formData['instancename'], $formData['imageType'], '', $formData['instanceType'], $formData['availabilityZone'] );
 		if ( $instance ) {
-			$host = OpenStackNovaHost::addHost( $instance->getInstanceName(), $instance->getInstancePrivateIP(), $domain );
+			$host = OpenStackNovaHost::addHost( $instance, $domain );
 			if ( $host ) {
 				$out = Html::element( 'p', array(), 'Created instance ' . $instance->getInstanceID() .  ' with image ' . $instance->getImageId() . ' and hostname ' . $host->getFullyQualifiedHostName() . ' and ip ' . $instance->getInstancePrivateIP() );
 			} else {
@@ -295,16 +294,16 @@ class SpecialNovaInstance extends SpecialNova {
 		global $wgOut, $wgUser;
 
 		$instance = $this->adminNova->getInstance( $formData['instanceid'] );
-		$domain = $instance->getInstanceDomain();
 		$instancename = $instance->getInstanceName();
 		$success = $this->userNova->terminateInstance( $formData['instanceid'] );
 		$sk = $wgUser->getSkin();
 		if ( $success ) {
+			$domain = OpenStackNovaDomain::getDomainByHostIP( $instance->getInstancePrivateIP() );
 			$success = OpenStackNovaHost::deleteHost( $instancename, $domain );
 			if ( $success ) {
 				$out = Html::element( 'p', array(), "Deleted instance $instancename" );
 			} else {
-				$out = Html::element( 'p', array(), 'Successfully deleted instance, but failed to remove it from LDAP' );
+				$out = Html::element( 'p', array(), "Successfully deleted instance, but failed to remove $instancename entry from LDAP" );
 			}
 		} else {
 			$out = Html::element( 'p', array(), 'Failed to create instance' );

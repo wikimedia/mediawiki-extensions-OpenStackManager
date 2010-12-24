@@ -89,6 +89,28 @@ class OpenStackNovaDomain {
 		}
 	}
 
+	static function getDomainByHostIP( $ip ) {
+		global $wgAuth;
+		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
+		global $wgOpenStackManagerLDAPInstanceBaseDN;
+
+		$wgAuth->connect();
+		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
+
+		$result = @ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN,
+								'(arecord=' . $ip . ')' );
+		$hostInfo = @ldap_get_entries( $wgAuth->ldapconn, $result );
+		$fqdn = $hostInfo[0]['associateddomain'][0];
+		$domainname = explode( '.', $fqdn );
+		$domainname = $domainname[1];
+		$domain = new OpenStackNovaDomain( $domainname );
+		if ( $domain->domainInfo ) {
+			return $domain;
+		} else {
+			return null;
+		}
+	}
+
 	# TODO: Allow generic domains; get rid of config set base name
 	static function createDomain( $domainname, $fqdn ) {
 		global $wgAuth;
