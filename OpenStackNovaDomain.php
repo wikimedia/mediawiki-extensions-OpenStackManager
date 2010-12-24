@@ -23,10 +23,10 @@ class OpenStackNovaDomain {
 
 	function fetchDomainInfo() {
 		global $wgAuth;
-		global $wgOpenStackManagerLDAPDNSDomainBaseDN;
+		global $wgOpenStackManagerLDAPInstanceBaseDN;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 
-		$result = @ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPDNSDomainBaseDN,
+		$result = @ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN,
 								'(dc=' . $this->domainname . ')' );
 		$this->domainInfo = @ldap_get_entries( $wgAuth->ldapconn, $result );
 		$this->fqdn = $this->domainInfo[0]['associateddomain'][0];
@@ -58,13 +58,13 @@ class OpenStackNovaDomain {
 	static function getAllDomains() {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
-		global $wgOpenStackManagerLDAPDNSDomainBaseDN;
+		global $wgOpenStackManagerLDAPInstanceBaseDN;
 
 		$wgAuth->connect();
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 
 		$domains = array();
-		$result = @ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPDNSDomainBaseDN, '(soarecord=*)' );
+		$result = @ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, '(soarecord=*)' );
 		if ( $result ) {
 			$entries = @ldap_get_entries( $wgAuth->ldapconn, $result );
 			if ( $entries ) {
@@ -80,11 +80,20 @@ class OpenStackNovaDomain {
 		return $domains;
 	}
 
+	static function getDomainByName( $domainname ) {
+		$domain = new OpenStackNovaDomain( $domainname );
+		if ( $domain->domainInfo ) {
+			return $domain;
+		} else {
+			return null;
+		}
+	}
+
 	# TODO: Allow generic domains; get rid of config set base name
 	static function createDomain( $domainname, $fqdn ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
-		global $wgOpenStackManagerLDAPDNSDomainBaseDN, $wgOpenStackManagerLDAPDNSDomainBaseName;
+		global $wgOpenStackManagerLDAPInstanceBaseDN;
 		global $wgOpenStackManagerDNSServers;
 
 		$wgAuth->connect();
@@ -97,15 +106,15 @@ class OpenStackNovaDomain {
 		$domain['dc'] = $domainname;
 		$domain['soarecord'] = $wgOpenStackManagerDNSServers['primary'] . ' ' . $soa;
 		$domain['associateddomain'] = $fqdn;
-		$dn = 'dc=' . $domainname . ',' . $wgOpenStackManagerLDAPDNSDomainBaseDN;
+		$dn = 'dc=' . $domainname . ',' . $wgOpenStackManagerLDAPInstanceBaseDN;
 
 		$success = @ldap_add( $wgAuth->ldapconn, $dn, $domain );
 		if ( $success ) {
 			$wgAuth->printDebug( "Successfully added domain $domainname", NONSENSITIVE );
-			return true;
+			return new OpenStackNovaDomain( $domainname );
 		} else {
 			$wgAuth->printDebug( "Failed to add domain $domainname", NONSENSITIVE );
-			return false;
+			return null;
 		}
 	}
 

@@ -65,10 +65,6 @@ class SpecialNovaInstance extends SpecialNova {
 		$this->setHeaders();
 		$wgOut->setPagetitle("Create Instance");
 
-		$project = $wgRequest->getVal('project');
-
-		# TODO: Add project name field
-
 		$instanceInfo = Array(); 
 		$instanceInfo['instancename'] = array(
 			'type' => 'text',
@@ -132,24 +128,70 @@ class SpecialNovaInstance extends SpecialNova {
 		#	'label-message' => 'keypair',
 		#);
 
+		$domains = OpenStackNovaDomain::getAllDomains();
+		$domain_keys = array();
+		foreach ( $domains as $domain ) {
+			$domainname = $domain->getDomainName();
+			$domain_keys["$domainname"] = $domainname;
+		}
+		$instanceInfo['domain'] = array(
+			'type' => 'select',
+			'section' => 'instance/info',
+			'options' => $domain_keys,
+			'label-message' => 'domain',
+		);
+
+		$instanceInfo['project'] = array(
+			'type' => 'hidden',
+			'default' => $wgRequest->getText( 'project' ),
+		);
+
 		$instanceInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'create',
 		);
 
-		$instanceInfo['project'] = array(
-			'type' => 'hidden',
-			'default' => htmlentities( $project ),
-		);
-
-		#TODO: Add availablity zone field
-
-		$instanceForm = new OpenStackCreateInstanceForm( $instanceInfo, 'novainstance-form' );
+		$instanceForm = new SpecialNovaInstanceForm( $instanceInfo, 'novainstance-form' );
 		$instanceForm->setTitle( SpecialPage::getTitleFor( 'NovaInstance' ));
 		$instanceForm->setSubmitID( 'novainstance-form-createinstancesubmit' );
 		$instanceForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
 		$instanceForm->show();
 
+	}
+
+	function deleteInstance() {
+		global $wgOut, $wgRequest;
+
+		$this->setHeaders();
+		$wgOut->setPagetitle("Delete domain");
+
+		$instanceid = $wgRequest->getText('instanceid');
+		$project = $wgRequest->getText('project');
+		if ( ! $wgRequest->wasPosted() ) {
+			$out = Html::element( 'p', array(), 'Are you sure you wish to delete instance "' . $instanceid .  '"?' );
+			$wgOut->addHTML( $out );
+		}
+		$instanceInfo = Array();
+		$instanceInfo['instanceid'] = array(
+			'type' => 'hidden',
+			'default' => $instanceid,
+		);
+		$instanceInfo['project'] = array(
+			'type' => 'hidden',
+			'default' => $project,
+		);
+		$instanceInfo['action'] = array(
+			'type' => 'hidden',
+			'default' => 'delete',
+		);
+		$instanceForm = new SpecialNovaInstanceForm( $instanceInfo, 'novainstance-form' );
+		$instanceForm->setTitle( SpecialPage::getTitleFor( 'NovaInstance' ));
+		$instanceForm->setSubmitID( 'novainstance-form-deleteinstancesubmit' );
+		$instanceForm->setSubmitCallback( array( $this, 'tryDeleteSubmit' ) );
+		$instanceForm->setSubmitText( 'confirm' );
+		$instanceForm->show();
+
+		return true;
 	}
 
 	function modifyInstance() {
@@ -188,30 +230,30 @@ class SpecialNovaInstance extends SpecialNova {
 			$projectArr["$project"] .= Html::element( 'td', array(), $instance->getImageId() );
 			$actions = $sk->link( $this->getTitle(), 'delete', array(),
 								  array( 'action' => 'delete',
-									   'project' => $projectname,
+									   'project' => $project,
 									   'instanceid' => $instance->getInstanceId() ),
 								  array() );
 			$actions .= ', ';
 			$actions .= $sk->link( $this->getTitle(), 'rename', array(),
 								   array( 'action' => 'rename',
-										'project' => $projectname,
+										'project' => $project,
 										'instanceid' => $instance->getInstanceId() ),
 								   array() );
 			$actions .= ', ';
 			$actions .= $sk->link( $this->getTitle(), 'configure', array(),
 								   array( 'action' => 'configure',
-										'project' => $projectname,
+										'project' => $project,
 										'instanceid' => $instance->getInstanceId() ),
 								   array() );
 			$projectArr["$project"] .= Html::rawElement( 'td', array(), $actions );
 		}
-		foreach ( $userProjects as $projectname ) {
-			$out .= Html::element( 'h2', array(), $projectname );
+		foreach ( $userProjects as $project ) {
+			$out .= Html::element( 'h2', array(), $project );
 			$out .= $sk->link( $this->getTitle(), 'Create a new instance', array(),
-							   array( 'action' => 'create', 'project' => $projectname ), array() );
-			if ( isset( $projectArr["$projectname"] ) ) {
+							   array( 'action' => 'create', 'project' => $project ), array() );
+			if ( isset( $projectArr["$project"] ) ) {
 				$projectOut = $header;
-				$projectOut .= Html::rawElement( 'tr', array(), $projectArr["$projectname"] );
+				$projectOut .= Html::rawElement( 'tr', array(), $projectArr["$project"] );
 				$out .= Html::rawElement( 'table',
 										  array( 'id' => 'novainstancelist', 'class' => 'wikitable' ), $projectOut );
 			}
@@ -221,20 +263,59 @@ class SpecialNovaInstance extends SpecialNova {
 	}
 
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut;
+		global $wgOut, $wgUser;
 
 		#$instance = $this->userNova->createInstance( $formData['instancename'], $formData['imageType'], $formData['keypair'], $formData['instanceType'], $formData['availabilityZone'] );
-		$instance = $this->userNova->createInstance( $formData['instancename'], $formData['imageType'],
-													 '', $formData['instanceType'], $formData['availabilityZone'] );
-
-		$out = Html::element( 'p', array(), 'Created instance ' . $instance->getInstanceID() .
-											' with image ' . $instance->getImageId() );
+		$domain = new OpenStackNovaDomain( $formData['domain'] );
+		$domain = OpenStackNovaDomain::getDomainByName( $formData['domain'] );
+		if ( ! $domain ) {
+			$out = Html::element( 'p', array(), 'Requested domain is invalid' );
+		}
+		$instance = $this->userNova->createInstance( $formData['instancename'], $formData['imageType'], '', $formData['instanceType'], $formData['availabilityZone'], $domain );
+		$sk = $wgUser->getSkin();
+		if ( $instance ) {
+			$host = OpenStackNovaHost::addHost( $instance->getInstanceName(), $instance->getInstancePrivateIP(), $domain );
+			if ( $host ) {
+				$out = Html::element( 'p', array(), 'Created instance ' . $instance->getInstanceID() .  ' with image ' . $instance->getImageId() . ' and hostname ' . $host->getFullyQualifiedHostName() . ' and ip ' . $instance->getInstancePrivateIP() );
+			} else {
+				$this->userNova->terminateInstance( $instance->getInstanceId() );
+				$out = Html::element( 'p', array(), 'Failed to create instance as the host could not be added to LDAP' );
+			}
+			# TODO: also add puppet
+		} else {
+			$out = Html::element( 'p', array(), 'Failed to create instance' );
+		}
 		$out .= $sk->link( $this->getTitle(), 'Back to instance list', array(), array(), array() );
 
 		$wgOut->addHTML( $out );
 		return true;
 	}
+
+	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
+		global $wgOut, $wgUser;
+
+		$instance = $this->adminNova->getInstance( $formData['instanceid'] );
+		$domain = $instance->getInstanceDomain();
+		$instancename = $instance->getInstanceName();
+		$success = $this->userNova->terminateInstance( $formData['instanceid'] );
+		$sk = $wgUser->getSkin();
+		if ( $success ) {
+			$success = OpenStackNovaHost::deleteHost( $instancename, $domain );
+			if ( $success ) {
+				$out = Html::element( 'p', array(), "Deleted instance $instancename" );
+			} else {
+				$out = Html::element( 'p', array(), 'Successfully deleted instance, but failed to remove it from LDAP' );
+			}
+		} else {
+			$out = Html::element( 'p', array(), 'Failed to create instance' );
+		}
+		$out .= $sk->link( $this->getTitle(), 'Back to instance list', array(), array(), array() );
+
+		$wgOut->addHTML( $out );
+		return true;
+	}
+
 }
 
-class OpenStackCreateInstanceForm extends HTMLForm {
+class SpecialNovaInstanceForm extends HTMLForm {
 }

@@ -26,7 +26,7 @@ class OpenStackNovaController {
 			$instance = $this->instances[$instanceId];
 		} else {
 			$response = $this->novaConnection->describe_instances( $instanceId );
-			$instance = new OpenStackNovaInstance($response->body->reservationSet->item);
+			$instance = new OpenStackNovaInstance( $response->body->reservationSet->item );
 			$instanceId = $instance->getInstanceId();
 			$this->instances["$instanceId"] = $instance;
 		}
@@ -39,7 +39,7 @@ class OpenStackNovaController {
 			$response = $this->novaConnection->describe_instances();
 			$instances = $response->body->reservationSet->item;
 			foreach ( $instances as $instance ) {
-				$instance = new OpenStackNovaInstance($instance);
+				$instance = new OpenStackNovaInstance( $instance );
 				$instanceId = $instance->getInstanceId();
 				$this->instances["$instanceId"] = $instance;
 			}
@@ -94,7 +94,7 @@ class OpenStackNovaController {
 		return $this->availabilityZones;
 	}
 
-	function createInstance( $instanceName, $image, $key, $instanceType, $availabilityZone ) {
+	function createInstance( $instanceName, $image, $key, $instanceType, $availabilityZone, $domain ) {
 		# 1, 1 is min and max number of instances to create.
 		# We never want to make more than one at a time.
 		$options = array();
@@ -105,11 +105,20 @@ class OpenStackNovaController {
 		$options['Placement.AvailabilityZone'] = $availabilityZone;
 		$options['DisplayName'] = $instanceName;
 		$response = $this->novaConnection->run_instances( $image, 1, 1, $options );
-		$instance = new OpenStackNovaInstance( $response->body->reservationSet->item );
+		if ( ! $response->isOK() ) {
+			return null;
+		}
+		$instance = new OpenStackNovaInstance( $response->body, $domain );
 		$instanceId = $instance->getInstanceId();
 		$this->instances["$instanceId"] = $instance;
 
 		return $instance;
+	}
+
+	function terminateInstance( $instanceId ) {
+		$response = $this->novaConnection->terminate_instances( $instanceId );
+
+		return $response->isOK();
 	}
 
 	function importKeyPair( $keyName, $key ) {

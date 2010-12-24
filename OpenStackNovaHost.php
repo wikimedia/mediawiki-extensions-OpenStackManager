@@ -35,6 +35,10 @@ class OpenStackNovaHost {
 		return $this->hostname;
 	}
 
+	function getFullyQualifiedHostName() {
+		return $this->hostname . '.' . $this->domain->getFullyQualifiedDomainName();
+	}
+
 	function getARecords() {
 		$arecords = array();
 		if ( isset( $this->hostInfo[0]['arecord'] ) ) {
@@ -96,6 +100,15 @@ class OpenStackNovaHost {
 		}
 	}
 
+	static function getHostByName( $hostname, $domain ) {
+		$host = new OpenStackNovaHost( $hostname, $domain );
+		if ( $host->hostInfo ) {
+			return $host;
+		} else {
+			return null;
+		}
+	}
+
 	static function getAllHosts( $domain ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
@@ -151,38 +164,37 @@ class OpenStackNovaHost {
 	static function addHost( $hostname, $ip, $domain ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
-		global $wgOpenStackManagerLDAPDNSDomainBaseDN;
+		global $wgOpenStackManagerLDAPInstanceBaseDN;
 
 		$wgAuth->connect();
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 
 		$domainname = $domain->getFullyQualifiedDomainName();
-
-		$host = new OpenStackNovaHost( $hostname, $domain );
+		$host = OpenStackNovaHost::getHostByName( $hostname, $domain );
 		if ( $host ) {
 			return false;
 		}
-		$host = OpenStackNovaHost::getLDAPArray( $hostname, $ip, $domainname );
-		$dn = 'dc=' . $hostname . ',dc=' . $domain->getDomainName() . ',' . $wgOpenStackManagerLDAPDNSDomainBaseDN;
+		$hostEntry = OpenStackNovaHost::getLDAPArray( $hostname, $ip, $domainname );
+		$dn = 'dc=' . $hostname . ',dc=' . $domain->getDomainName() . ',' . $wgOpenStackManagerLDAPInstanceBaseDN;
 
-		$success = @ldap_add( $wgAuth->ldapconn, $dn, $hostname );
+		$success = @ldap_add( $wgAuth->ldapconn, $dn, $hostEntry );
 		if ( $success ) {
 			$domain->updateSOA();
-			$wgAuth->printDebug( "Successfully added domain $domainname", NONSENSITIVE );
-			return true;
+			$wgAuth->printDebug( "Successfully added host $domainname", NONSENSITIVE );
+			return new OpenStackNovaHost( $hostname, $domain );
 		} else {
-			$wgAuth->printDebug( "Failed to add domain $domainname", NONSENSITIVE );
-			return false;
+			$wgAuth->printDebug( "Failed to add host $domainname", NONSENSITIVE );
+			return null;
 		}
 	}
 
-	static function getLDAPArray( $hostname, $ip, $domain ) {
+	static function getLDAPArray( $hostname, $ip, $domainname ) {
 		$host['objectclass'][] = 'dcobject';
 		$host['objectclass'][] = 'dnsdomain';
 		$host['objectclass'][] = 'domainrelatedobject';
 		$host['dc'] = $hostname;
 		$host['arecord'] = $ip;
-		$host['associateddomain'] = $hostname . '.' . $domain->getFullyQualifiedDomainName();
+		$host['associateddomain'] = $hostname . '.' . $domainname;
 
 		return $host;
 	}
