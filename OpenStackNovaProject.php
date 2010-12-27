@@ -25,9 +25,11 @@ class OpenStackNovaProject {
 		global $wgOpenStackManagerLDAPProjectBaseDN;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 
-		$result = @ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN,
+		wfSuppressWarnings();
+		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN,
 								'(&(cn=' . $this->projectname . ')(projectManager=*))' );
-		$this->projectInfo = @ldap_get_entries( $wgAuth->ldapconn, $result );
+		$this->projectInfo = ldap_get_entries( $wgAuth->ldapconn, $result );
+		wfRestoreWarnings();
 		$this->projectDN = $this->projectInfo[0]['dn'];
 	}
 
@@ -72,7 +74,9 @@ class OpenStackNovaProject {
 			foreach ( $members as $member ) {
 				$values['member'][] = $member;
 			}
-			$success = @ldap_modify( $wgAuth->ldapconn, $this->projectDN, $values );
+			wfSuppressWarnings();
+			$success = ldap_modify( $wgAuth->ldapconn, $this->projectDN, $values );
+			wfRestoreWarnings();
 			if ( $success ) {
 				$wgAuth->printDebug( "Successfully removed $user->userDN from $this->projectDN", NONSENSITIVE );
 				return true;
@@ -100,7 +104,9 @@ class OpenStackNovaProject {
 		}
 		$members[] = $user->userDN;
 		$values['member'] = $members;
-		$success = @ldap_modify( $wgAuth->ldapconn, $this->projectDN, $values );
+		wfSuppressWarnings();
+		$success = ldap_modify( $wgAuth->ldapconn, $this->projectDN, $values );
+		wfRestoreWarnings();
 		if ( $success ) {
 			$wgAuth->printDebug( "Successfully added $user->userDN to $this->projectDN", NONSENSITIVE );
 			return true;
@@ -119,9 +125,13 @@ class OpenStackNovaProject {
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 
 		$projects = array();
-		$result = @ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, '(projectManager=*)' );
+		wfSuppressWarnings();
+		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, '(projectManager=*)' );
+		wfRestoreWarnings();
 		if ( $result ) {
-			$entries = @ldap_get_entries( $wgAuth->ldapconn, $result );
+			wfSuppressWarnings();
+			$entries = ldap_get_entries( $wgAuth->ldapconn, $result );
+			wfRestoreWarnings();
 			if ( $entries ) {
 				# First entry is always a count
 				array_shift( $entries );
@@ -151,7 +161,9 @@ class OpenStackNovaProject {
 		$project['gidnumber'] = OpenStackNovaUser::getNextIdNumber( $wgAuth, 'gidnumber' );
 		$dn = 'cn=' . $projectname . ',' . $wgOpenStackManagerLDAPProjectBaseDN;
 
-		$success = @ldap_add( $wgAuth->ldapconn, $dn, $project );
+		wfSuppressWarnings();
+		$success = ldap_add( $wgAuth->ldapconn, $dn, $project );
+		wfRestoreWarnings();
 		if ( $success ) {
 			$wgAuth->printDebug( "Successfully added project $projectname", NONSENSITIVE );
 			return true;
@@ -183,7 +195,9 @@ class OpenStackNovaProject {
 		if ( $roles['count'] != "0" ) {
 			return false;
 		}
-		$success = @ldap_delete( $wgAuth->ldapconn, $dn );
+		wfSuppressWarnings();
+		$success = ldap_delete( $wgAuth->ldapconn, $dn );
+		wfRestoreWarnings();
 		if ( $success ) {
 			return true;
 		} else {
@@ -201,8 +215,10 @@ class OpenStackNovaProject {
 		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 
-		$result = @ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, 'projectmanager=*' );
+		wfSuppressWarnings();
+		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, 'projectmanager=*' );
 		$entries = ldap_get_entries( $wgAuth->ldapconn, $result );
+		wfRestoreWarnings();
 		if ( $entries ) {
 			array_shift($entries);
 			foreach ( $entries as $entry ) {

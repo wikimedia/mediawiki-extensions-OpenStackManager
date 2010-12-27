@@ -26,9 +26,11 @@ class OpenStackNovaDomain {
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 
-		$result = @ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN,
+		wfSuppressWarnings();
+		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN,
 								'(dc=' . $this->domainname . ')' );
-		$this->domainInfo = @ldap_get_entries( $wgAuth->ldapconn, $result );
+		$this->domainInfo = ldap_get_entries( $wgAuth->ldapconn, $result );
+		wfRestoreWarnings();
 		$this->fqdn = $this->domainInfo[0]['associateddomain'][0];
 		$this->domainDN = $this->domainInfo[0]['dn'];
 	}
@@ -45,7 +47,9 @@ class OpenStackNovaDomain {
 		global $wgAuth;
 
 		$domain['soarecord'] = OpenStackNovaDomain::generateSOA();
-		$success = @ldap_modify( $wgAuth->ldapconn, $this->domainDN, $domain );
+		wfSuppressWarnings();
+		$success = ldap_modify( $wgAuth->ldapconn, $this->domainDN, $domain );
+		wfRestoreWarnings();
 		if ( $success ) {
 			$wgAuth->printDebug( "Successfully modified soarecord for " . $this->domainDN, NONSENSITIVE );
 			return true;
@@ -64,9 +68,13 @@ class OpenStackNovaDomain {
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 
 		$domains = array();
-		$result = @ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, '(soarecord=*)' );
+		wfSuppressWarnings();
+		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, '(soarecord=*)' );
+		wfRestoreWarnings();
 		if ( $result ) {
-			$entries = @ldap_get_entries( $wgAuth->ldapconn, $result );
+			wfSuppressWarnings();
+			$entries = ldap_get_entries( $wgAuth->ldapconn, $result );
+			wfRestoreWarnings();
 			if ( $entries ) {
 				# First entry is always a count
 				array_shift( $entries );
@@ -97,9 +105,11 @@ class OpenStackNovaDomain {
 		$wgAuth->connect();
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 
-		$result = @ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN,
+		wfSuppressWarnings();
+		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN,
 								'(arecord=' . $ip . ')' );
-		$hostInfo = @ldap_get_entries( $wgAuth->ldapconn, $result );
+		$hostInfo = ldap_get_entries( $wgAuth->ldapconn, $result );
+		wfRestoreWarnings();
 		$fqdn = $hostInfo[0]['associateddomain'][0];
 		$domainname = explode( '.', $fqdn );
 		$domainname = $domainname[1];
@@ -130,7 +140,9 @@ class OpenStackNovaDomain {
 		$domain['associateddomain'] = $fqdn;
 		$dn = 'dc=' . $domainname . ',' . $wgOpenStackManagerLDAPInstanceBaseDN;
 
-		$success = @ldap_add( $wgAuth->ldapconn, $dn, $domain );
+		wfSuppressWarnings();
+		$success = ldap_add( $wgAuth->ldapconn, $dn, $domain );
+		wfRestoreWarnings();
 		if ( $success ) {
 			$wgAuth->printDebug( "Successfully added domain $domainname", NONSENSITIVE );
 			return new OpenStackNovaDomain( $domainname );
@@ -161,7 +173,9 @@ class OpenStackNovaDomain {
 			$wgAuth->printDebug( "Failed to delete domain $domainname, since it had sub entries", NONSENSITIVE );
 			return false;
 		}
-		$success = @ldap_delete( $wgAuth->ldapconn, $dn );
+		wfSuppressWarnings();
+		$success = ldap_delete( $wgAuth->ldapconn, $dn );
+		wfRestoreWarnings();
 		if ( $success ) {
 			$wgAuth->printDebug( "Successfully deleted domain $domainname", NONSENSITIVE );
 			return true;

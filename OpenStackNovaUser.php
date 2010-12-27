@@ -86,9 +86,13 @@ class OpenStackNovaUser {
 		# roles do not
 		$projects = array();
 		$filter = "(&(projectManager=*)(member=$this->userDN))";
-				$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, $filter );
+		wfSuppressWarnings();
+		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, $filter );
+		wfRestoreWarnings();
 		if ( $result ) {
+			wfSuppressWarnings();
 			$entries = ldap_get_entries( $wgAuth->ldapconn, $result );
+			wfRestoreWarnings();
 			if ( $entries ) {
 				# First entry is always a count
 				array_shift( $entries );
@@ -114,9 +118,13 @@ class OpenStackNovaUser {
 		$this->connect();
 
 		$filter = "(&(cn=$project)(member=$this->userDN))";
-				$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, $filter );
+		wfSuppressWarnings();
+		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, $filter );
+		wfRestoreWarnings();
 		if ( $result ) {
+			wfSuppressWarnings();
 			$entries = ldap_get_entries( $wgAuth->ldapconn, $result );
+			wfRestoreWarnings();
 			if ( $entries ) {
 				if ( $entries['count'] == "0" ) {
 					$wgAuth->printDebug( "Couldn't find the user in project: $project", NONSENSITIVE );
@@ -155,7 +163,9 @@ class OpenStackNovaUser {
 		}
 		$keypairs[] = $key;
 		$values['sshpublickey'] = $keypairs;
-		$success = @ldap_modify( $wgAuth->ldapconn, $this->userDN, $values );
+		wfSuppressWarnings();
+		$success = ldap_modify( $wgAuth->ldapconn, $this->userDN, $values );
+		wfRestoreWarnings();
 		if ( $success ) {
 			$wgAuth->printDebug( "Successfully imported the user's sshpublickey", NONSENSITIVE );
 			return true;
@@ -181,7 +191,9 @@ class OpenStackNovaUser {
 			foreach ( $keypairs as $keypair ) {
 				$values['sshpublickey'][] = $keypair;
 			}
-			$success = @ldap_modify( $wgAuth->ldapconn, $this->userDN, $values );
+			wfSuppressWarnings();
+			$success = ldap_modify( $wgAuth->ldapconn, $this->userDN, $values );
+			wfRestoreWarnings();
 			if ( $success ) {
 				$wgAuth->printDebug( "Successfully deleted the user's sshpublickey", NONSENSITIVE );
 				return true;
@@ -220,9 +232,13 @@ class OpenStackNovaUser {
 			$filter = "(objectclass=posixaccount)";
 			$base = USERDN;
 		}
-				$result = ldap_search( $auth->ldapconn, $auth->getBaseDN( $base ), $filter );
+		wfSuppressWarnings();
+		$result = ldap_search( $auth->ldapconn, $auth->getBaseDN( $base ), $filter );
+		wfRestoreWarnings();
 		if ( $result ) {
+			wfSuppressWarnings();
 			$entries = ldap_get_entries( $auth->ldapconn, $result );
+			wfRestoreWarnings();
 			if ( $entries ) {
 				if ( $entries['count'] == "0" ) {
 					$highest = '500';

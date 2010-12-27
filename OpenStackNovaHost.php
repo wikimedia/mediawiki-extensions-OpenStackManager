@@ -26,8 +26,10 @@ class OpenStackNovaHost {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 
-		$result = @ldap_search( $wgAuth->ldapconn, $this->domain->domainDN, '(dc=' . $this->hostname . ')' );
-		$this->hostInfo = @ldap_get_entries( $wgAuth->ldapconn, $result );
+		wfSuppressWarnings();
+		$result = ldap_search( $wgAuth->ldapconn, $this->domain->domainDN, '(dc=' . $this->hostname . ')' );
+		$this->hostInfo = ldap_get_entries( $wgAuth->ldapconn, $result );
+		wfRestoreWarnings();
 		if ( $this->hostInfo["count"] == "0" ) {
 			$this->hostInfo = null;
 		} else {
@@ -69,7 +71,9 @@ class OpenStackNovaHost {
 			foreach ( $arecords as $arecord ) {
 				$values['arecord'][] = $arecord;
 			}
-			$success = @ldap_modify( $wgAuth->ldapconn, $this->hostDN, $values );
+			wfSuppressWarnings();
+			$success = ldap_modify( $wgAuth->ldapconn, $this->hostDN, $values );
+			wfRestoreWarnings();
 			if ( $success ) {
 				$wgAuth->printDebug( "Successfully removed $ip from $this->hostDN", NONSENSITIVE );
 				$this->domain->updateSOA();
@@ -93,7 +97,9 @@ class OpenStackNovaHost {
 		}
 		$arecords[] = $ip;
 		$values['arecord'] = $arecords;
-		$success = @ldap_modify( $wgAuth->ldapconn, $this->hostDN, $values );
+		wfSuppressWarnings();
+		$success = ldap_modify( $wgAuth->ldapconn, $this->hostDN, $values );
+		wfRestoreWarnings();
 		if ( $success ) {
 			$wgAuth->printDebug( "Successfully added $ip to $this->hostDN", NONSENSITIVE );
 			$this->domain->updateSOA();
@@ -121,9 +127,13 @@ class OpenStackNovaHost {
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 
 		$hosts = array();
-		$result = @ldap_search( $wgAuth->ldapconn, $domain->domainDN, '(dc=*)' );
+		wfSuppressWarnings();
+		$result = ldap_search( $wgAuth->ldapconn, $domain->domainDN, '(dc=*)' );
+		wfRestoreWarnings();
 		if ( $result ) {
-			$entries = @ldap_get_entries( $wgAuth->ldapconn, $result );
+			wfSuppressWarnings();
+			$entries = ldap_get_entries( $wgAuth->ldapconn, $result );
+			wfRestoreWarnings();
 			if ( $entries ) {
 				# First entry is always a count
 				array_shift( $entries );
@@ -150,7 +160,9 @@ class OpenStackNovaHost {
 		}
 		$dn = $host->hostDN;
 
-		$success = @ldap_delete( $wgAuth->ldapconn, $dn );
+		wfSuppressWarnings();
+		$success = ldap_delete( $wgAuth->ldapconn, $dn );
+		wfRestoreWarnings();
 		if ( $success ) {
 			$domain->updateSOA();
 			$wgAuth->printDebug( "Successfully deleted host $hostname", NONSENSITIVE );
@@ -193,7 +205,9 @@ class OpenStackNovaHost {
 		$hostEntry['associateddomain'] = $hostname . '.' . $domainname;
 		$dn = 'dc=' . $hostname . ',dc=' . $domain->getDomainName() . ',' . $wgOpenStackManagerLDAPInstanceBaseDN;
 
-		$success = @ldap_add( $wgAuth->ldapconn, $dn, $hostEntry );
+		wfSuppressWarnings();
+		$success = ldap_add( $wgAuth->ldapconn, $dn, $hostEntry );
+		wfRestoreWarnings();
 		if ( $success ) {
 			$domain->updateSOA();
 			$wgAuth->printDebug( "Successfully added host $hostname", NONSENSITIVE );
