@@ -215,10 +215,8 @@ class OpenStackNovaProject {
 		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 
-		wfSuppressWarnings();
 		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, 'projectmanager=*' );
 		$entries = ldap_get_entries( $wgAuth->ldapconn, $result );
-		wfRestoreWarnings();
 		if ( $entries ) {
 			array_shift($entries);
 			foreach ( $entries as $entry ) {
