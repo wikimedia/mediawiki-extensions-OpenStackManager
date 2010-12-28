@@ -26,7 +26,7 @@ class OpenStackNovaController {
 			$instance = $this->instances[$instanceId];
 		} else {
 			$response = $this->novaConnection->describe_instances( $instanceId );
-			$instance = new OpenStackNovaInstance( $response->body->reservationSet->item );
+			$instance = new OpenStackNovaInstance( $response->body->reservationSet->item, true );
 			$instanceId = $instance->getInstanceId();
 			$this->instances["$instanceId"] = $instance;
 		}
@@ -39,7 +39,7 @@ class OpenStackNovaController {
 			$response = $this->novaConnection->describe_instances();
 			$instances = $response->body->reservationSet->item;
 			foreach ( $instances as $instance ) {
-				$instance = new OpenStackNovaInstance( $instance );
+				$instance = new OpenStackNovaInstance( $instance, true );
 				$instanceId = $instance->getInstanceId();
 				$this->instances["$instanceId"] = $instance;
 			}

@@ -2,13 +2,13 @@
 
 class OpenStackNovaHost {
 
-	var $hostname;
+	var $searchvalue;
 	var $hostDN;
 	var $hostInfo;
 	var $domain;
 
 	function __construct( $hostname, $domain ) {
-		$this->hostname = $hostname;
+		$this->searchvalue = $hostname;
 		$this->domain = $domain;
 		$this->connect();
 		$this->fetchHostInfo();
@@ -27,7 +27,7 @@ class OpenStackNovaHost {
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 
 		wfSuppressWarnings();
-		$result = ldap_search( $wgAuth->ldapconn, $this->domain->domainDN, '(dc=' . $this->hostname . ')' );
+		$result = ldap_search( $wgAuth->ldapconn, $this->domain->domainDN, '(|(associateddomain=' . $this->searchvalue . ')(cnamerecord=' . $this->searchvalue . '))' );
 		$this->hostInfo = ldap_get_entries( $wgAuth->ldapconn, $result );
 		wfRestoreWarnings();
 		if ( $this->hostInfo["count"] == "0" ) {
@@ -38,11 +38,15 @@ class OpenStackNovaHost {
 	}
 
 	function getHostName() {
-		return $this->hostname;
+		return $this->hostInfo[0]['associateddomain'][0];
+	}
+
+	function getDomain() {
+		return $this->domain;
 	}
 
 	function getFullyQualifiedHostName() {
-		return $this->hostname . '.' . $this->domain->getFullyQualifiedDomainName();
+		return $this->getHostName() . '.' . $this->domain->getFullyQualifiedDomainName();
 	}
 
 	function getARecords() {
@@ -53,6 +57,16 @@ class OpenStackNovaHost {
 		}
 
 		return $arecords;
+	}
+
+	function getCNAMERecords() {
+		$cnamerecords = array();
+		if ( isset( $this->hostInfo[0]['cnamerecord'] ) ) {
+			$cnamerecords = $this->hostInfo[0]['cnamearecord'];
+			$cnamerecords = array_shift( $cnamerecords );
+		}
+
+		return $cnamerecords;
 	}
 
 	function deleteARecord( $ip ) {
@@ -119,6 +133,11 @@ class OpenStackNovaHost {
 		}
 	}
 
+	static function getHostByInstanceId( $instanceid ) {
+		$domain = OpenStackNovaDomain::getDomainByInstanceId( $instanceid );
+		return self::getHostByName( $instanceid, $domain );
+	}
+
 	static function getAllHosts( $domain ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
@@ -173,22 +192,51 @@ class OpenStackNovaHost {
 		}
 	}
 
+	static function deleteHostByInstanceId( $instanceid ) {
+		global $wgAuth;
+		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
+
+		$wgAuth->connect();
+		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
+
+		$host = OpenStackNovaHost::getHostByInstanceId( $instanceid );
+		if ( ! $host ) {
+			$wgAuth->printDebug( "Failed to delete host $hostname as the DNS entry does not exist", NONSENSITIVE );
+			return false;
+		}
+		$dn = $host->hostDN;
+		$domain = $host->getDomain();
+
+		wfSuppressWarnings();
+		$success = ldap_delete( $wgAuth->ldapconn, $dn );
+		wfRestoreWarnings();
+		if ( $success ) {
+			$domain->updateSOA();
+			$wgAuth->printDebug( "Successfully deleted host $hostname", NONSENSITIVE );
+			return true;
+		} else {
+			$wgAuth->printDebug( "Failed to delete host $hostname", NONSENSITIVE );
+			return false;
+		}
+	}
 	/**
 	 * @static
 	 * @param  $hostname
 	 * @param  $ip
 	 * @param  $domain OpenStackNovaDomain
+	 * @param  $puppetinfo
 	 * @return bool
 	 */
-	static function addHost( $instance, $domain ) {
+	static function addHost( $instance, $domain, $puppetinfo=array() ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
-		global $wgOpenStackManagerLDAPInstanceBaseDN;
+		global $wgOpenStackManagerLDAPInstanceBaseDN, $wgOpenStackManagerPuppetOptions;
 
 		$wgAuth->connect();
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 
 		$hostname = $instance->getInstanceName();
+		$instanceid = $instance->getInstanceId();
 		$ip = $instance->getInstancePrivateIP();
 		$domainname = $domain->getFullyQualifiedDomainName();
 		$host = OpenStackNovaHost::getHostByName( $hostname, $domain );
@@ -201,8 +249,23 @@ class OpenStackNovaHost {
 		$hostEntry['objectclass'][] = 'dnsdomain';
 		$hostEntry['objectclass'][] = 'domainrelatedobject';
 		$hostEntry['dc'] = $hostname;
+		#$hostEntry['l'] = $instance->getInstanceAvailabilityZone();
 		$hostEntry['arecord'] = $ip;
-		$hostEntry['associateddomain'] = $hostname . '.' . $domainname;
+		$hostEntry['associateddomain'][] = $hostname . '.' . $domainname;
+		$hostEntry['cnamerecord'][] = $instanceid . '.' . $domainname;
+		if ( $wgOpenStackManagerPuppetOptions ) {
+			$hostEntry['objectclass'][] = 'puppetClient';
+			if ( isset( $wgOpenStackManagerPuppetOptions['requiredclasses'] ) ) {
+				foreach ( $wgOpenStackManagerPuppetOptions['requiredclasses'] as $class ) {
+					$hostEntry['puppetclass'][] = $class;
+				}
+			}
+			if ( isset( $wgOpenStackManagerPuppetOptions['requiredvariables'] ) ) {
+				foreach ( $wgOpenStackManagerPuppetOptions['requiredvariables'] as $variable ) {
+					$hostEntry['puppetvariable'][] = $variable;
+				}
+			}
+		}
 		$dn = 'dc=' . $hostname . ',dc=' . $domain->getDomainName() . ',' . $wgOpenStackManagerLDAPInstanceBaseDN;
 
 		wfSuppressWarnings();

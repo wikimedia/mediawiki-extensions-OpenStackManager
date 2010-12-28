@@ -4,9 +4,23 @@
 class OpenStackNovaInstance {
 
 	var $instance;
+	var $host;
 
-	function __construct( $apiInstanceResponse ) {
+	function __construct( $apiInstanceResponse, $loadhost=false ) {
 		$this->instance = $apiInstanceResponse;
+		if ( $loadhost ) {
+			$this->host = OpenStackNovaHost::getHostByInstanceId( $this->getInstanceId() );
+		} else {
+			$this->host = null;
+		}
+	}
+
+	function setHost( $host ) {
+		$this->host = $host;
+	}
+
+	function getHost() {
+		return $this->host;
 	}
 
 	function getReservationId() {
@@ -49,6 +63,16 @@ class OpenStackNovaInstance {
 
 	function getOwner() {
 		return $this->instance->ownerId;
+	}
+
+	function getAvailabilityZone() {
+		# NOTE: This is non-existant in openstack for now
+		return $this->instance->instancesSet->item->availabilityZone;
+	}
+
+	function getRegion() {
+		# NOTE: This is non-existant in openstack for now
+		return $this->instance->instancesSet->item->region;
 	}
 
 }

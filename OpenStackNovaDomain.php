@@ -26,6 +26,7 @@ class OpenStackNovaDomain {
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 
+		# TODO: memcache this
 		wfSuppressWarnings();
 		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN,
 								'(dc=' . $this->domainname . ')' );
@@ -108,6 +109,30 @@ class OpenStackNovaDomain {
 		wfSuppressWarnings();
 		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN,
 								'(arecord=' . $ip . ')' );
+		$hostInfo = ldap_get_entries( $wgAuth->ldapconn, $result );
+		wfRestoreWarnings();
+		$fqdn = $hostInfo[0]['associateddomain'][0];
+		$domainname = explode( '.', $fqdn );
+		$domainname = $domainname[1];
+		$domain = new OpenStackNovaDomain( $domainname );
+		if ( $domain->domainInfo ) {
+			return $domain;
+		} else {
+			return null;
+		}
+	}
+
+	static function getDomainByInstanceId( $instanceid ) {
+		global $wgAuth;
+		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
+		global $wgOpenStackManagerLDAPInstanceBaseDN;
+
+		$wgAuth->connect();
+		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
+
+		wfSuppressWarnings();
+		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN,
+								'(cnamerecord=' . $instanceid . ')' );
 		$hostInfo = ldap_get_entries( $wgAuth->ldapconn, $result );
 		wfRestoreWarnings();
 		$fqdn = $hostInfo[0]['associateddomain'][0];

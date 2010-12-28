@@ -266,7 +266,6 @@ class SpecialNovaInstance extends SpecialNova {
 		global $wgOut, $wgUser;
 
 		$sk = $wgUser->getSkin();
-		$domain = new OpenStackNovaDomain( $formData['domain'] );
 		$domain = OpenStackNovaDomain::getDomainByName( $formData['domain'] );
 		if ( ! $domain ) {
 			$out = Html::element( 'p', array(), 'Requested domain is invalid' );
@@ -295,15 +294,15 @@ class SpecialNovaInstance extends SpecialNova {
 
 		$instance = $this->adminNova->getInstance( $formData['instanceid'] );
 		$instancename = $instance->getInstanceName();
+		$instanceid = $instance->getInstanceId();
 		$success = $this->userNova->terminateInstance( $formData['instanceid'] );
 		$sk = $wgUser->getSkin();
 		if ( $success ) {
-			$domain = OpenStackNovaDomain::getDomainByHostIP( $instance->getInstancePrivateIP() );
-			$success = OpenStackNovaHost::deleteHost( $instancename, $domain );
+			$success = OpenStackNovaHost::deleteHostByInstanceId( $instanceid );
 			if ( $success ) {
 				$out = Html::element( 'p', array(), "Deleted instance $instancename" );
 			} else {
-				$out = Html::element( 'p', array(), "Successfully deleted instance, but failed to remove $instancename entry from LDAP" );
+				$out = Html::element( 'p', array(), "Successfully deleted instance, but failed to remove $instancename DNS entry" );
 			}
 		} else {
 			$out = Html::element( 'p', array(), 'Failed to create instance' );
