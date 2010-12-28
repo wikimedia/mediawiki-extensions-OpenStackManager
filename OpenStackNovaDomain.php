@@ -132,7 +132,7 @@ class OpenStackNovaDomain {
 
 		wfSuppressWarnings();
 		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN,
-								'(cnamerecord=' . $instanceid . ')' );
+								'(cnamerecord=' . $instanceid . '.*)' );
 		$hostInfo = ldap_get_entries( $wgAuth->ldapconn, $result );
 		wfRestoreWarnings();
 		$fqdn = $hostInfo[0]['associateddomain'][0];

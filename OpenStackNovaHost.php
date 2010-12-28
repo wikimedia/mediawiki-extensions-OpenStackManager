@@ -26,8 +26,9 @@ class OpenStackNovaHost {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 
+		$hostname = $this->searchvalue . '.' . $this->domain->getFullyQualifiedDomainName();
 		wfSuppressWarnings();
-		$result = ldap_search( $wgAuth->ldapconn, $this->domain->domainDN, '(|(associateddomain=' . $this->searchvalue . ')(cnamerecord=' . $this->searchvalue . '))' );
+		$result = ldap_search( $wgAuth->ldapconn, $this->domain->domainDN, '(|(associateddomain=' . $hostname . ')(cnamerecord=' . $hostname . '))' );
 		$this->hostInfo = ldap_get_entries( $wgAuth->ldapconn, $result );
 		wfRestoreWarnings();
 		if ( $this->hostInfo["count"] == "0" ) {
@@ -201,7 +202,7 @@ class OpenStackNovaHost {
 
 		$host = OpenStackNovaHost::getHostByInstanceId( $instanceid );
 		if ( ! $host ) {
-			$wgAuth->printDebug( "Failed to delete host $hostname as the DNS entry does not exist", NONSENSITIVE );
+			$wgAuth->printDebug( "Failed to delete host $instanceid as the DNS entry does not exist", NONSENSITIVE );
 			return false;
 		}
 		$dn = $host->hostDN;
@@ -212,13 +213,14 @@ class OpenStackNovaHost {
 		wfRestoreWarnings();
 		if ( $success ) {
 			$domain->updateSOA();
-			$wgAuth->printDebug( "Successfully deleted host $hostname", NONSENSITIVE );
+			$wgAuth->printDebug( "Successfully deleted host $instanceid", NONSENSITIVE );
 			return true;
 		} else {
-			$wgAuth->printDebug( "Failed to delete host $hostname", NONSENSITIVE );
+			$wgAuth->printDebug( "Failed to delete host $instanceid", NONSENSITIVE );
 			return false;
 		}
 	}
+
 	/**
 	 * @static
 	 * @param  $hostname
@@ -254,15 +256,23 @@ class OpenStackNovaHost {
 		$hostEntry['associateddomain'][] = $hostname . '.' . $domainname;
 		$hostEntry['cnamerecord'][] = $instanceid . '.' . $domainname;
 		if ( $wgOpenStackManagerPuppetOptions ) {
-			$hostEntry['objectclass'][] = 'puppetClient';
-			if ( isset( $wgOpenStackManagerPuppetOptions['requiredclasses'] ) ) {
-				foreach ( $wgOpenStackManagerPuppetOptions['requiredclasses'] as $class ) {
+			$hostEntry['objectclass'][] = 'puppetclient';
+			if ( isset( $wgOpenStackManagerPuppetOptions['defaultclasses'] ) ) {
+				foreach ( $wgOpenStackManagerPuppetOptions['defaultclasses'] as $class ) {
 					$hostEntry['puppetclass'][] = $class;
 				}
 			}
-			if ( isset( $wgOpenStackManagerPuppetOptions['requiredvariables'] ) ) {
-				foreach ( $wgOpenStackManagerPuppetOptions['requiredvariables'] as $variable ) {
-					$hostEntry['puppetvariable'][] = $variable;
+			if ( isset( $wgOpenStackManagerPuppetOptions['defaultvariables'] ) ) {
+				foreach ( $wgOpenStackManagerPuppetOptions['defaultvariables'] as $variable => $value ) {
+					$hostEntry['puppetvar'][] = $variable . ' = ' . $value;
+				}
+			}
+			if ( $puppetinfo ) {
+				foreach( $puppetinfo['classes'] as $class ) {
+					$hostEntry['puppetclass'][] = $class;
+				}
+				foreach( $puppetinfo['variables'] as $variable => $value ) {
+					$hostEntry['puppetvar'][] = $variable . ' = ' . $value;
 				}
 			}
 		}
