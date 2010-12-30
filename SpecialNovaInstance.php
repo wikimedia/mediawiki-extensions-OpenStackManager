@@ -147,26 +147,28 @@ class SpecialNovaInstance extends SpecialNova {
 			'default' => $wgRequest->getText( 'project' ),
 		);
 
-		if ( isset( $wgOpenStackManagerPuppetOptions['availableclasses'] ) ) {
-			$classes = array();
-			foreach ( $wgOpenStackManagerPuppetOptions['availableclasses'] as $class ) {
-				$classes["$class"] = $class;
-			}
-			$instanceInfo['puppetclasses'] = array(
-				'type' => 'multiselect',
-				'section' => 'instance/puppetinfo',
-				'options' => $classes,
-				'label-message' => 'puppetclasses',
-			);
-		}
-
-		if ( isset( $wgOpenStackManagerPuppetOptions['availablevariables'] ) ) {
-			foreach ( $wgOpenStackManagerPuppetOptions['availablevariables'] as $variable ) {
-				$instanceInfo["$variable"] = array(
-					'type' => 'text',
+		if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
+			if ( $wgOpenStackManagerPuppetOptions['availableclasses'] ) {
+				$classes = array();
+				foreach ( $wgOpenStackManagerPuppetOptions['availableclasses'] as $class ) {
+					$classes["$class"] = $class;
+				}
+				$instanceInfo['puppetclasses'] = array(
+					'type' => 'multiselect',
 					'section' => 'instance/puppetinfo',
-					'label' => $variable,
+					'options' => $classes,
+					'label-message' => 'puppetclasses',
 				);
+			}
+
+			if ( $wgOpenStackManagerPuppetOptions['availablevariables'] ) {
+				foreach ( $wgOpenStackManagerPuppetOptions['availablevariables'] as $variable ) {
+					$instanceInfo["$variable"] = array(
+						'type' => 'text',
+						'section' => 'instance/puppetinfo',
+						'label' => $variable,
+					);
+				}
 			}
 		}
 
@@ -298,14 +300,12 @@ class SpecialNovaInstance extends SpecialNova {
 		$instance = $this->userNova->createInstance( $formData['instancename'], $formData['imageType'], '', $formData['instanceType'], $formData['availabilityZone'] );
 		if ( $instance ) {
 			$puppetinfo = array();
-			if ( isset( $wgOpenStackManagerPuppetOptions['availableclasses'] ) ) {
+			if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
 				foreach ( $formData['puppetclasses'] as $class ) {
 					if ( in_array( $class, $wgOpenStackManagerPuppetOptions['availableclasses'] ) ) {
 						$puppetinfo['classes'][] = $class;
 					}
 				}
-			}
-			if ( isset( $wgOpenStackManagerPuppetOptions['availablevariables'] ) ) {
 				foreach ( $wgOpenStackManagerPuppetOptions['availablevariables'] as $variable ) {
 					if ( isset ( $formData["$variable"] ) ) {
 						$puppetinfo['variables']["$variable"] = $formData["$variable"];

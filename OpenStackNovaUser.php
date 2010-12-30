@@ -280,17 +280,24 @@ class OpenStackNovaUser {
 		$values['accesskey'] = OpenStackNovaUser::uuid4();
 		$values['secretkey'] = OpenStackNovaUser::uuid4();
 		$values['isadmin'] = 'FALSE';
-		$uid = OpenStackNovaUser::getNextIdNumber( $auth, 'uidnumber' );
-		if ( ! $uid ) {
+		$uidnumber = OpenStackNovaUser::getNextIdNumber( $auth, 'uidnumber' );
+		if ( ! $uidnumber ) {
 			$result = false;
 			return false;
 		}
-		$values['uidnumber'] = $uid;
+		$values['uidnumber'] = $uidnumber;
 		$values['gidnumber'] = $wgOpenStackManagerLDAPDefaultGid;
 		$values['homedirectory'] = '/home/' . $username;
 
 		$auth->printDebug( "User account's objectclasses: ", NONSENSITIVE, $values['objectclass'] );
 		$auth->printDebug( "User account's attributes: ", HIGHLYSENSITIVE, $values );
+
+		return true;
+	}
+
+	static function LDAPModifyUITemplate( &$template ) {
+		$input = array( 'msg' => 'shellaccountname', 'type' => 'text', 'name' => 'shellaccountname', 'value' => '', 'helptext' => 'shellaccountnamehelp' );
+		$template->set( 'extraInput', array( $input ) );
 
 		return true;
 	}

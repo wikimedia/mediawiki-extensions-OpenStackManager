@@ -35,6 +35,22 @@ $wgOpenStackManagerNovaServerName = 'localhost';
 $wgOpenStackManagerNovaPort = 8773;
 $wgOpenStackManagerNovaResourcePrefix = '/services/Cloud/';
 $wgOpenStackManagerNovaAdminKeys = array( 'accessKey' => '', 'secretKey' => '' );
+$wgOpenStackManagerNovaKeypairStorage = 'ldap';
+$wgOpenStackManagerLDAPDomain = '';
+$wgOpenStackManagerLDAPUser = '';
+$wgOpenStackManagerLDAPUserPassword = '';
+$wgOpenStackManagerLDAPProjectBaseDN = '';
+$wgOpenStackManagerLDAPInstanceBaseDN = '';
+$wgOpenStackManagerLDAPDefaultGid = '500';
+$wgOpenStackManagerDNSServers = array( 'primary' => 'localhost', 'secondary' => 'localhost' );
+$wgOpenStackManagerDNSSOA = array( 'hostmaster' => 'hostmaster@localhost.localdomain', 'refresh' => '1800', 'retry' => '3600', 'expiry' => '86400', 'minimum' => '7200' );
+$wgOpenStackManagerPuppetOptions = array(
+	'enabled' => false,
+        'defaultclasses' => array(),
+        'defaultvariables' => array(),
+        'availableclasses' => array(),
+        'availablevariables' => array(),
+        );
 
 $dir = dirname(__FILE__) . '/';
 
@@ -62,5 +78,6 @@ $wgSpecialPages['NovaDomain'] = 'SpecialNovaDomain';
 $wgSpecialPageGroups['NovaDomain'] = 'other';
 
 $wgHooks['LDAPSetCreationValues'][] = 'OpenStackNovaUser::LDAPSetCreationValues';
+$wgHooks['LDAPModifyUITemplate'][] = 'OpenStackNovaUser::LDAPModifyUITemplate';
 
 require_once( "$IP/extensions/OpenStackManager/OpenStackNovaProject.php" );

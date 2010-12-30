@@ -255,17 +255,13 @@ class OpenStackNovaHost {
 		$hostEntry['arecord'] = $ip;
 		$hostEntry['associateddomain'][] = $hostname . '.' . $domainname;
 		$hostEntry['cnamerecord'][] = $instanceid . '.' . $domainname;
-		if ( $wgOpenStackManagerPuppetOptions ) {
+		if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
 			$hostEntry['objectclass'][] = 'puppetclient';
-			if ( isset( $wgOpenStackManagerPuppetOptions['defaultclasses'] ) ) {
-				foreach ( $wgOpenStackManagerPuppetOptions['defaultclasses'] as $class ) {
-					$hostEntry['puppetclass'][] = $class;
-				}
+			foreach ( $wgOpenStackManagerPuppetOptions['defaultclasses'] as $class ) {
+				$hostEntry['puppetclass'][] = $class;
 			}
-			if ( isset( $wgOpenStackManagerPuppetOptions['defaultvariables'] ) ) {
-				foreach ( $wgOpenStackManagerPuppetOptions['defaultvariables'] as $variable => $value ) {
-					$hostEntry['puppetvar'][] = $variable . ' = ' . $value;
-				}
+			foreach ( $wgOpenStackManagerPuppetOptions['defaultvariables'] as $variable => $value ) {
+				$hostEntry['puppetvar'][] = $variable . ' = ' . $value;
 			}
 			if ( $puppetinfo ) {
 				foreach( $puppetinfo['classes'] as $class ) {
