@@ -46,11 +46,11 @@ $wgOpenStackManagerDNSServers = array( 'primary' => 'localhost', 'secondary' => 
 $wgOpenStackManagerDNSSOA = array( 'hostmaster' => 'hostmaster@localhost.localdomain', 'refresh' => '1800', 'retry' => '3600', 'expiry' => '86400', 'minimum' => '7200' );
 $wgOpenStackManagerPuppetOptions = array(
 	'enabled' => false,
-        'defaultclasses' => array(),
-        'defaultvariables' => array(),
-        'availableclasses' => array(),
-        'availablevariables' => array(),
-        );
+	'defaultclasses' => array(),
+	'defaultvariables' => array(),
+	'availableclasses' => array(),
+	'availablevariables' => array(),
+	);
 
 $dir = dirname(__FILE__) . '/';
 

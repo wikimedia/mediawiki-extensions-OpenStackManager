@@ -271,6 +271,7 @@ class OpenStackNovaUser {
 	 */
 	static function LDAPSetCreationValues( $auth, $username, &$values, &$result ) {
 		global $wgOpenStackManagerLDAPDefaultGid;
+		global $wgRequest;
 
 		$values['objectclass'][] = 'person';
 		$values['objectclass'][] = 'novauser';
@@ -285,6 +286,16 @@ class OpenStackNovaUser {
 			$result = false;
 			return false;
 		}
+		$values['cn'] = $username;
+		if ( '' != $auth->realname ) {
+			$values['displayname'] = $auth->realname;
+		}
+		$username = $wgRequest->getText('shellaccountname');
+		if ( ! preg_match( "/^[a-z][a-z0-9\-_]*$/", $username ) ) {
+			$result = false;
+			return false;
+		}
+		$values['uid'] = $username;
 		$values['uidnumber'] = $uidnumber;
 		$values['gidnumber'] = $wgOpenStackManagerLDAPDefaultGid;
 		$values['homedirectory'] = '/home/' . $username;
