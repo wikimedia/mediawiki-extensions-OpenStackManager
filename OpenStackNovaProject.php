@@ -27,7 +27,7 @@ class OpenStackNovaProject {
 
 		wfSuppressWarnings();
 		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN,
-								'(&(cn=' . $this->projectname . ')(projectManager=*))' );
+								'(&(cn=' . $this->projectname . ')(owner=*))' );
 		$this->projectInfo = ldap_get_entries( $wgAuth->ldapconn, $result );
 		wfRestoreWarnings();
 		$this->projectDN = $this->projectInfo[0]['dn'];
@@ -126,7 +126,7 @@ class OpenStackNovaProject {
 
 		$projects = array();
 		wfSuppressWarnings();
-		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, '(projectManager=*)' );
+		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, '(owner=*)' );
 		wfRestoreWarnings();
 		if ( $result ) {
 			wfSuppressWarnings();
@@ -153,11 +153,10 @@ class OpenStackNovaProject {
 		$wgAuth->connect();
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 
-		$project['objectclass'][] = 'novaproject';
 		$project['objectclass'][] = 'groupofnames';
 		$project['objectclass'][] = 'posixgroup';
 		$project['cn'] = $projectname;
-		$project['projectmanager'] = $wgOpenStackManagerLDAPUser;
+		$project['owner'] = $wgOpenStackManagerLDAPUser;
 		$project['gidnumber'] = OpenStackNovaUser::getNextIdNumber( $wgAuth, 'gidnumber' );
 		$dn = 'cn=' . $projectname . ',' . $wgOpenStackManagerLDAPProjectBaseDN;
 
@@ -215,7 +214,7 @@ class OpenStackNovaProject {
 		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 
-		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, 'projectmanager=*' );
+		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, 'owner=*' );
 		$entries = ldap_get_entries( $wgAuth->ldapconn, $result );
 		if ( $entries ) {
 			array_shift($entries);

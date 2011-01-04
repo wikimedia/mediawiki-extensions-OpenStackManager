@@ -58,8 +58,8 @@ class OpenStackNovaUser {
 	}
 
 	function isAdmin() {
-		if ( isset( $this->userInfo[0]['isadmin'] ) ) {
-			$isAdmin = $this->userInfo[0]['isadmin'][0];
+		if ( isset( $this->userInfo[0]['isnovaadmin'] ) ) {
+			$isAdmin = $this->userInfo[0]['isnovaadmin'][0];
 			if ( strtolower( $isAdmin ) == "true" ) {
 				return true;
 			}
@@ -82,10 +82,10 @@ class OpenStackNovaUser {
 
 		$this->connect();
 
-		# All projects have a projectManager attribute, project
+		# All projects have a owner attribute, project
 		# roles do not
 		$projects = array();
-		$filter = "(&(projectManager=*)(member=$this->userDN))";
+		$filter = "(&(owner=*)(member=$this->userDN))";
 		wfSuppressWarnings();
 		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, $filter );
 		wfRestoreWarnings();
@@ -280,7 +280,7 @@ class OpenStackNovaUser {
 		$values['objectclass'][] = 'shadowaccount';
 		$values['accesskey'] = OpenStackNovaUser::uuid4();
 		$values['secretkey'] = OpenStackNovaUser::uuid4();
-		$values['isadmin'] = 'FALSE';
+		$values['isnovaadmin'] = 'FALSE';
 		$uidnumber = OpenStackNovaUser::getNextIdNumber( $auth, 'uidnumber' );
 		if ( ! $uidnumber ) {
 			$result = false;
