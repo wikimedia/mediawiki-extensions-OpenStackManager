@@ -50,6 +50,26 @@ class OpenStackNovaHost {
 		return $this->getHostName() . '.' . $this->domain->getFullyQualifiedDomainName();
 	}
 
+	function getPuppetConfiguration() {
+		$puppetinfo = array( 'puppetclass' => array(), 'puppetvar' => array() );
+		if ( isset( $this->hostInfo[0]['puppetclass'] ) ) {
+			array_shift( $this->hostInfo[0]['puppetclass'] );
+			foreach ( $this->hostInfo[0]['puppetclass'] as $class ) {
+				$puppetinfo['puppetclass'][] = $class;
+			}
+		}
+		if ( isset( $this->hostInfo[0]['puppetvar'] ) ) {
+			array_shift( $this->hostInfo[0]['puppetvar'] );
+			foreach ( $this->hostInfo[0]['puppetvar'] as $variable ) {
+				$vararr = explode( '=', $variable );
+				$varname = trim( $vararr[0] );
+				$var = trim( $vararr[1] );
+				$puppetinfo['puppetvar']["$varname"] = $var;
+			}
+		}
+		return $puppetinfo;
+	}
+
 	function getARecords() {
 		$arecords = array();
 		if ( isset( $this->hostInfo[0]['arecord'] ) ) {
@@ -68,6 +88,42 @@ class OpenStackNovaHost {
 		}
 
 		return $cnamerecords;
+	}
+
+	function modifyPuppetConfiguration( $puppetinfo ) {
+		global $wgAuth;
+		global $wgOpenStackManagerPuppetOptions;
+
+		$hostEntry = array();
+		if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
+			foreach ( $wgOpenStackManagerPuppetOptions['defaultclasses'] as $class ) {
+				$hostEntry['puppetclass'][] = $class;
+			}
+			foreach ( $wgOpenStackManagerPuppetOptions['defaultvariables'] as $variable => $value ) {
+				$hostEntry['puppetvar'][] = $variable . ' = ' . $value;
+			}
+			foreach( $puppetinfo['classes'] as $class ) {
+				$hostEntry['puppetclass'][] = $class;
+			}
+			foreach( $puppetinfo['variables'] as $variable => $value ) {
+				$hostEntry['puppetvar'][] = $variable . ' = ' . $value;
+			}
+			if ( $hostEntry ) {
+				wfSuppressWarnings();
+				$success = ldap_modify( $wgAuth->ldapconn, $this->hostDN, $hostEntry );
+				wfRestoreWarnings();
+				if ( $success ) {
+					$wgAuth->printDebug( "Successfully modified puppet configuration for host", NONSENSITIVE );
+					return true;
+				} else {
+					$wgAuth->printDebug( "Failed to modify puppet configuration for host", NONSENSITIVE );
+					return false;
+				}
+			} else {
+				$wgAuth->printDebug( "No hostEntry when trying to modify puppet configuration", NONSENSITIVE );
+				return false;
+			}
+		}
 	}
 
 	function deleteARecord( $ip ) {

@@ -185,6 +185,81 @@ class SpecialNovaInstance extends SpecialNova {
 
 	}
 
+	function configureInstance() {
+		global $wgRequest, $wgOut;
+		global $wgOpenStackManagerPuppetOptions;
+
+		$this->setHeaders();
+		$wgOut->setPagetitle("Configure Instance");
+
+		$instanceid = $wgRequest->getText('instanceid');
+
+		$instanceInfo = Array(); 
+		$instanceInfo['instanceid'] = array(
+			'type' => 'hidden',
+			'default' => $instanceid,
+		);
+		$instanceInfo['project'] = array(
+			'type' => 'hidden',
+			'default' => $wgRequest->getText( 'project' ),
+		);
+
+		if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
+			$host = OpenStackNovaHost::getHostByInstanceId( $instanceid );
+			if ( ! $host ) {
+				$wgOut->addHTML( Html::element( 'p', array(), 'The host requested does not exist.' ) );
+				return false;
+			}
+			$puppetinfo = $host->getPuppetConfiguration();
+
+			if ( $wgOpenStackManagerPuppetOptions['availableclasses'] ) {
+				$classes = array();
+				$defaults = array();
+				foreach ( $wgOpenStackManagerPuppetOptions['availableclasses'] as $class ) {
+					$classes["$class"] = $class;
+					if ( in_array( $class, $puppetinfo['puppetclass'] ) ) {
+						$defaults["$class"] = $class;
+					}
+				}
+				$instanceInfo['puppetclasses'] = array(
+					'type' => 'multiselect',
+					'section' => 'instance/puppetinfo',
+					'options' => $classes,
+					'default' => $defaults,
+					'label-message' => 'puppetclasses',
+				);
+			}
+
+			if ( $wgOpenStackManagerPuppetOptions['availablevariables'] ) {
+				foreach ( $wgOpenStackManagerPuppetOptions['availablevariables'] as $variable ) {
+					$default = '';
+					if ( array_key_exists( $variable, $puppetinfo['puppetvar'] ) ) {
+						$default = $puppetinfo['puppetvar']["$variable"];
+					}
+					$instanceInfo["$variable"] = array(
+						'type' => 'text',
+						'section' => 'instance/puppetinfo',
+						'label' => $variable,
+						'default' => $default,
+					);
+				}
+			}
+		}
+
+		$instanceInfo['action'] = array(
+			'type' => 'hidden',
+			'default' => 'configure',
+		);
+
+		$instanceForm = new SpecialNovaInstanceForm( $instanceInfo, 'novainstance-form' );
+		$instanceForm->setTitle( SpecialPage::getTitleFor( 'NovaInstance' ));
+		$instanceForm->setSubmitID( 'novainstance-form-configureinstancesubmit' );
+		$instanceForm->setSubmitCallback( array( $this, 'tryConfigureSubmit' ) );
+		$instanceForm->show();
+
+		return true;
+	}
+
 	function deleteInstance() {
 		global $wgOut, $wgRequest;
 
@@ -346,6 +421,41 @@ class SpecialNovaInstance extends SpecialNova {
 			}
 		} else {
 			$out = Html::element( 'p', array(), 'Failed to create instance' );
+		}
+		$out .= $sk->link( $this->getTitle(), 'Back to instance list', array(), array(), array() );
+
+		$wgOut->addHTML( $out );
+		return true;
+	}
+
+	function tryConfigureSubmit( $formData, $entryPoint = 'internal' ) {
+		global $wgOut, $wgUser;
+		global $wgOpenStackManagerPuppetOptions;
+
+		$sk = $wgUser->getSkin();
+		$host = OpenStackNovaHost::getHostByInstanceId( $formData['instanceid'] );
+		if ( $host ) {
+			$puppetinfo = array();
+			if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
+				foreach ( $formData['puppetclasses'] as $class ) {
+					if ( in_array( $class, $wgOpenStackManagerPuppetOptions['availableclasses'] ) ) {
+						$puppetinfo['classes'][] = $class;
+					}
+				}
+				foreach ( $wgOpenStackManagerPuppetOptions['availablevariables'] as $variable ) {
+					if ( isset ( $formData["$variable"] ) ) {
+						$puppetinfo['variables']["$variable"] = $formData["$variable"];
+					}
+				}
+			}
+			$success = $host->modifyPuppetConfiguration( $puppetinfo );
+			if ( $success ) {
+				$out = Html::element( 'p', array(), 'Successfully modified instance' );
+			} else {
+				$out = Html::element( 'p', array(), 'Failed to modify instance' );
+			}
+		} else {
+			$out = Html::element( 'p', array(), 'The host requested does not exist.' );
 		}
 		$out .= $sk->link( $this->getTitle(), 'Back to instance list', array(), array(), array() );
 
