@@ -213,7 +213,7 @@ class SpecialNovaProject extends SpecialPage {
 			$projectMembers = $project->getMembers();
 			$memberOut = '';
 			foreach ( $projectMembers as $projectMember ) {
-				$link = $sk->link( $this->getTitle(), 'remove member', array(),
+				$link = $sk->link( $this->getTitle(), 'Remove member', array(),
 								   array( 'action' => 'deletemember', 'projectname' => $projectName, 'member' => $projectMember ), array() );
 				$projectMemberOut = htmlentities( $projectMember) . ' (' . $link . ')';
 				$memberOut .= Html::rawElement( 'li', array(), $projectMemberOut );
