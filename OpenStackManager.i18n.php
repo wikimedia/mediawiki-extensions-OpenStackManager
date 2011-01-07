@@ -16,7 +16,7 @@ $messages = array();
  * @author Sam Reed <reedy@wikimedia.org>
  */
 $messages['en'] = array(
-	'openstackmanager-desc' => 'Lets users manage nova and swift',
+	'openstackmanager-desc' => 'Lets users manage Nova and Swift',
 
 	'openstackmanager' => 'OpenStackManager',
 	'openstackmanager-instance' => 'Manage Instance',
@@ -31,8 +31,8 @@ $messages['en'] = array(
 	'openstackmanager-configure' => 'configure',
 	'openstackmanager-rename' => 'rename',
 	'openstackmanager-actions' => 'Actions',
-	'openstackmanager-notloggedin' => 'Not logged in',
-	'openstackmanager-mustbeloggedin' => '<p>You must be logged in to perform this action</p>',
+	'openstackmanager-notloggedin' => 'Login required',
+	'openstackmanager-mustbeloggedin' => 'You must be logged in to perform this action',
 	'openstackmanager-nonovacred' => 'No Nova credentials found for your account',
 	'openstackmanager-nonovacred-admincreate' => '<p>There were no Nova credentials found for your user account. Please ask a Nova administrator to create credentials for you.</p>',
 	'openstackmanager-noaccount' => 'Your account is not in the project requested',
@@ -136,4 +136,18 @@ $messages['en'] = array(
  */
 $messages['qqq'] = array(
 	'openstackmanager-desc' => '{{desc}}',
+	'openstackmanager-notloggedin' => 'Page title',
+	'openstackmanager-createproject' => 'Page title',
+	'openstackmanager-addmember' => 'Page title',
+	'openstackmanager-removemember' => 'Page title',
+	'openstackmanager-deleteproject' => 'Page title',
+	'openstackmanager-projectlist' => 'Page title',
+	'openstackmanager-instancelist' => 'Page title',
+	'openstackmanager-deletedomain' => 'Page title',
+	'openstackmanager-createdomain' => 'Page title',
+	'openstackmanager-configureinstance' => 'Page title',
+	'openstackmanager-importkey' => 'Page title',
+	'openstackmanager-deletekey' => 'Page title',
+	'openstackmanager-keylist' => 'Page title',
+	'openstackmanager-nonovacred' => 'Page title',
 );
