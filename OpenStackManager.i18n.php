@@ -22,6 +22,15 @@ $messages['en'] = array(
 	'openstackmanager-instance' => 'Manage Instance',
 	'openstackmanager-title' => 'OpenStackManager',
 
+	'novadomain' => 'Nova Domain',
+	'novainstance' => 'Nova Instance',
+	'novakey' => 'Nova Key',
+	'novaproject' => 'Nova Project',
+
+	'openstackmanager-delete' => 'delete',
+	'openstackmanager-configure' => 'configure',
+	'openstackmanager-rename' => 'rename',
+	'openstackmanager-actions' => 'Actions',
 	'openstackmanager-notloggedin' => 'Not logged in',
 	'openstackmanager-mustbeloggedin' => '<p>You must be logged in to perform this action</p>',
 	'openstackmanager-nonovacred' => 'No Nova credentials found for your account',
@@ -32,6 +41,8 @@ $messages['en'] = array(
 
 	'openstackmanager-deletedomain' => 'Delete domain',
 	'openstackmanager-deletedomain-confirm' => 'Are you sure you wish to delete domain "$1"? This action has reprecusions on all VMs. Do not take this action lightly!',
+	'openstackmanager-novadomain-domain' => 'Domain',
+	'openstackmanager-novadomain-info' => 'Domain Information',
 
 	'openstackmanager-createdomainfailed' => 'Failed to create domain',
 	'openstackmanager-createddomain' => 'Created domain',
@@ -39,6 +50,9 @@ $messages['en'] = array(
 	'openstackmanager-backdomainlist' => 'Back to domain list',
 	'openstackmanager-deleteddomain' => 'Successfully deleted domain',
 	'openstackmanager-failedeletedomain' => 'Failed to delete domain',
+	'openstackmanager-domainname' => 'Domain Name',
+	'openstackmanager-fqdn' => 'Fully Qualified Domain Name',
+	'openstackmanager-location' => 'Location',
 
 	'openstackmanager-novainstance-instance' => 'Instance',
 	'openstackmanager-configureinstance' => 'Configure Instance',
@@ -54,15 +68,15 @@ $messages['en'] = array(
 	'openstackmanager-instanceid' => 'Instance ID',
 	'openstackmanager-instancestate' => 'Instance State',
 	'openstackmanager-instancetype' => 'Instance Type',
+	'openstackmanager-instanceip' => 'Instance IP',
 	'openstackmanager-availabilityzone' => 'Availability Zone',
 	'openstackmanager-imageid' => 'Image ID',
 	'openstackmanager-imagetype' => 'Image Type',
-	'openstackmanager-actions' => 'Actions',
 
 	'openstackmanager-createinstance' => 'Create a new instance',
 	'openstackmanager-invaliddomain' => 'Requested domain is invalid',
 
-	'openstackmanager-createdinstance' => 'Created instance $1 with image $2 and hostname $3 and ip $4',
+	'openstackmanager-createdinstance' => 'Created instance $1 with image $2 and hostname $3',
 	'openstackmanager-createfailedldap' => 'Failed to create instance as the host could not be added to LDAP',
 	'openstackmanager-createinstancefailed' => 'Failed to create instance',
 	'openstackmanager-backinstancelist' => 'Back to instance list',
@@ -94,6 +108,7 @@ $messages['en'] = array(
 	'openstackmanager-createproject' => 'Create a new project',
 	'openstackmanager-projectname' => 'Project name',
 	'openstackmanager-members' => 'Members',
+	'openstackmanager-member' => 'Member',
 	'openstackmanager-action' => 'Action',
 	'openstackmanager-createproject' => 'Create project',
 	'openstackmanager-createprojectfailed' => 'Failed to create project',
@@ -108,6 +123,8 @@ $messages['en'] = array(
 	'openstackmanager-removedfrom' => 'Successfully removed $1 from $2',
 	'openstackmanager-failedtoremove' => 'Failed to remove $1 from $2',
 	'openstackmanager-badinstancename' => 'Bad instance name provided. Instance names must start with a-z, and can only contain a-z, 0-9, and - characters.',
+	'openstackmanager-novaproject-project' => 'Project',
+	'openstackmanager-novaproject-info' => 'Project Information',
 
 );
 

@@ -56,7 +56,7 @@ class SpecialNovaKey extends SpecialNova {
 		if ( $wgOpenStackManagerNovaKeypairStorage == 'nova' ) {
 			$keyInfo['keyname'] = array(
 				'type' => 'text',
-				'label-message' => 'keyname',
+				'label-message' => 'openstackmanager-keyname',
 				'default' => '',
 				'section' => 'key/info',
 			);
@@ -66,7 +66,7 @@ class SpecialNovaKey extends SpecialNova {
 			'type' => 'textarea',
 			'section' => 'key/info',
 			'default' => '',
-			'label-message' => 'key',
+			'label-message' => 'openstackmanager-key',
 		);
 
 		$keyInfo['action'] = array(
@@ -79,7 +79,7 @@ class SpecialNovaKey extends SpecialNova {
 			'default' => htmlentities( $project ),
 		);
 
-		$keyForm = new SpecialNovaKeyForm( $keyInfo, 'novakey-form' );
+		$keyForm = new SpecialNovaKeyForm( $keyInfo, 'openstackmanager-novakey' );
 		$keyForm->setTitle( SpecialPage::getTitleFor( 'NovaKey' ) );
 		$keyForm->setSubmitID( 'novakey-form-createkeysubmit' );
 		$keyForm->setSubmitCallback( array( $this, 'tryImportSubmit' ) );
@@ -132,7 +132,7 @@ class SpecialNovaKey extends SpecialNova {
 			'type' => 'hidden',
 			'default' => 'delete',
 		);
-		$keyForm = new SpecialNovaKeyForm( $keyInfo, 'novakey-form' );
+		$keyForm = new SpecialNovaKeyForm( $keyInfo, 'openstackmanager-novakey' );
 		$keyForm->setTitle( SpecialPage::getTitleFor( 'NovaKey' ) );
 		$keyForm->setSubmitID( 'novakey-form-deletekeysubmit' );
 		$keyForm->setSubmitCallback( array( $this, 'tryDeleteSubmit' ) );
@@ -176,7 +176,8 @@ class SpecialNovaKey extends SpecialNova {
 			$keysOut = '';
 			foreach ( $keypairs as $hash => $key ) {
 				$keyOut = Html::element( 'td', array(), $key );
-				$link = $sk->link( $this->getTitle(), 'delete', array(), array( 'action' => 'delete', 'hash' => $hash ), array() );
+				$msg = wfMsg( 'openstackmanager-delete' );
+				$link = $sk->link( $this->getTitle(), $msg, array(), array( 'action' => 'delete', 'hash' => $hash ), array() );
 				$keyOut .= Html::rawElement( 'td', array(), $link );
 				$keysOut .= Html::rawElement( 'tr', array(), $keyOut );
 			}
@@ -206,7 +207,7 @@ class SpecialNovaKey extends SpecialNova {
 			# of this option isn't currently recommended
 			$keypair = $this->userNova->importKeypair( $formData['keyname'], $formData['key'] );
 
-			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-keypairimportedfingerprint',
+			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-keypairimportedfingerprint', array(),
 			                                              $keypair->getKeyName(), $keypair->getKeyFingerprint() ) );
 		} else {
 			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-invalidkeypair' ) );

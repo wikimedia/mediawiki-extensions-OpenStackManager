@@ -227,7 +227,7 @@ class SpecialNovaInstance extends SpecialNova {
 					'section' => 'instance/puppetinfo',
 					'options' => $classes,
 					'default' => $defaults,
-					'label-message' => 'puppetclasses',
+					'label-message' => 'openstackmanager-puppetclasses',
 				);
 			}
 
@@ -252,7 +252,7 @@ class SpecialNovaInstance extends SpecialNova {
 			'default' => 'configure',
 		);
 
-		$instanceForm = new SpecialNovaInstanceForm( $instanceInfo, 'novainstance-form' );
+		$instanceForm = new SpecialNovaInstanceForm( $instanceInfo, 'openstackmanager-novainstance' );
 		$instanceForm->setTitle( SpecialPage::getTitleFor( 'NovaInstance' ) );
 		$instanceForm->setSubmitID( 'novainstance-form-configureinstancesubmit' );
 		$instanceForm->setSubmitCallback( array( $this, 'tryConfigureSubmit' ) );
@@ -270,7 +270,7 @@ class SpecialNovaInstance extends SpecialNova {
 		$instanceid = $wgRequest->getText( 'instanceid' );
 		$project = $wgRequest->getText( 'project' );
 		if ( ! $wgRequest->wasPosted() ) {
-			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-deleteinstancequestion', $instanceid ) );
+			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-deleteinstancequestion', array(), $instanceid ) );
 			$wgOut->addHTML( $out );
 		}
 		$instanceInfo = Array();
@@ -286,7 +286,7 @@ class SpecialNovaInstance extends SpecialNova {
 			'type' => 'hidden',
 			'default' => 'delete',
 		);
-		$instanceForm = new SpecialNovaInstanceForm( $instanceInfo, 'novainstance-form' );
+		$instanceForm = new SpecialNovaInstanceForm( $instanceInfo, 'openstackmanager-novainstance' );
 		$instanceForm->setTitle( SpecialPage::getTitleFor( 'NovaInstance' ) );
 		$instanceForm->setSubmitID( 'novainstance-form-deleteinstancesubmit' );
 		$instanceForm->setSubmitCallback( array( $this, 'tryDeleteSubmit' ) );
@@ -332,19 +332,22 @@ class SpecialNovaInstance extends SpecialNova {
 			$instanceOut .= Html::element( 'td', array(), $instance->getInstanceType() );
 			$instanceOut .= Html::element( 'td', array(), $instance->getInstancePrivateIP() );
 			$instanceOut .= Html::element( 'td', array(), $instance->getImageId() );
-			$actions = $sk->link( $this->getTitle(), 'delete', array(),
+			$msg = wfMsg( 'openstackmanager-delete' );
+			$actions = $sk->link( $this->getTitle(), $msg, array(),
 								  array( 'action' => 'delete',
 									   'project' => $project,
 									   'instanceid' => $instance->getInstanceId() ),
 								  array() );
 			$actions .= ', ';
-			$actions .= $sk->link( $this->getTitle(), 'rename', array(),
+			$msg = wfMsg( 'openstackmanager-rename' );
+			$actions .= $sk->link( $this->getTitle(), $msg, array(),
 								   array( 'action' => 'rename',
 										'project' => $project,
 										'instanceid' => $instance->getInstanceId() ),
 								   array() );
 			$actions .= ', ';
-			$actions .= $sk->link( $this->getTitle(), 'configure', array(),
+			$msg = wfMsg( 'openstackmanager-configure' );
+			$actions .= $sk->link( $this->getTitle(), $msg, array(),
 								   array( 'action' => 'configure',
 										'project' => $project,
 										'instanceid' => $instance->getInstanceId() ),
@@ -398,7 +401,7 @@ class SpecialNovaInstance extends SpecialNova {
 				$title = Title::newFromText( $wgOut->getPageTitle() );
 				$job = new OpenStackNovaHostJob( $title, array( 'instanceid' => (string)$instance->getInstanceId() ) );
 				$job->insert();
-				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-createdinstance',
+				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-createdinstance', array(),
 				                                              $instance->getInstanceID(), $instance->getImageId(),
 				                                              $host->getFullyQualifiedHostName() )  );
 			} else {
@@ -430,9 +433,9 @@ class SpecialNovaInstance extends SpecialNova {
 		if ( $success ) {
 			$success = OpenStackNovaHost::deleteHostByInstanceId( $instanceid );
 			if ( $success ) {
-				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-deletedinstance', $instanceid ) );
+				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-deletedinstance', array(), $instanceid ) );
 			} else {
-				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-deletedinstance-faileddns', $instancename, $instanceid ) );
+				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-deletedinstance-faileddns', array(), $instancename, $instanceid ) );
 			}
 		} else {
 			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-deleteinstancefailed' ) );
