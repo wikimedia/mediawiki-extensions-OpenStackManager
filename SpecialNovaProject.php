@@ -1,5 +1,5 @@
 <?php
-class SpecialNovaProject extends SpecialPage {
+class SpecialNovaProject extends SpecialNova {
 
 	var $userNova, $adminNova;
 
@@ -50,21 +50,6 @@ class SpecialNovaProject extends SpecialPage {
 		} else {
 			$this->listProjects();
 		}
-	}
-
-	function notLoggedIn() {
-		global $wgOut;
-		$this->setHeaders();
-		$wgOut->setPagetitle( wfMsg( 'openstackmanager-notloggedin' ) );
-		$wgOut->addWikiMsg( 'openstackmanager-mustbeloggedin' );
-	}
-
-	function noCredentials() {
-		global $wgOut;
-
-		$this->setHeaders();
-		$wgOut->setPagetitle( wfMsg( 'openstackmanager-nonovacred' ) );
-		$wgOut->addWikiMsg( 'openstackmanager-nonovacred-admincreate' );
 	}
 
 	function createProject() {
