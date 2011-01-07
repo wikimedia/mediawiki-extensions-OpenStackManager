@@ -24,7 +24,7 @@ $messages['en'] = array(
 
 	'openstackmanager-notloggedin' => 'Not logged in',
 	'openstackmanager-mustbeloggedin' => '<p>You must be logged in to perform this action</p>',
-    'openstackmanager-nonovacred' => 'No Nova credentials found for your account',
+	'openstackmanager-nonovacred' => 'No Nova credentials found for your account',
 	'openstackmanager-nonovacred-admincreate' => '<p>There were no Nova credentials found for your user account. Please ask a Nova administrator to create credentials for you.</p>',
 	'openstackmanager-noaccount' => 'Your account is not in the project requested',
 	'openstackmanager-noaccount2' => '<p>You can not complete the action requested as your user account is not in the project requested.</p>',
@@ -63,9 +63,9 @@ $messages['en'] = array(
 
 	'openstackmanager-createdinstance' => 'Created instance $1 with image $2 and hostname $3 and ip $4',
 	'openstackmanager-createfailedldap' => 'Failed to create instance as the host could not be added to LDAP',
-    'openstackmanager-createinstancefailed' => 'Failed to create instance',
+	'openstackmanager-createinstancefailed' => 'Failed to create instance',
 	'openstackmanager-backinstancelist' => 'Back to instance list',
-    'openstackmanager-deletedinstance' => 'Deleted instance $1',
+	'openstackmanager-deletedinstance' => 'Deleted instance $1',
 	'openstackmanager-deletedinstance-failedldap' => 'Successfully deleted instance, but failed to remove $1 DNS entry',
 	'openstackmanager-modifiedinstance' => 'Successfully modified instance',
 	'openstackmanager-modifyinstancefailed' => 'Failed to modify instance',
