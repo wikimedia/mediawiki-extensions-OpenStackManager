@@ -22,10 +22,10 @@ $messages['en'] = array(
 	'openstackmanager-instance' => 'Manage Instance',
 	'openstackmanager-title' => 'OpenStackManager',
 
-	'novadomain' => 'Nova Domain',
-	'novainstance' => 'Nova Instance',
-	'novakey' => 'Nova Key',
-	'novaproject' => 'Nova Project',
+	'openstackmanager-novadomain' => 'Nova Domain',
+	'openstackmanager-novainstance' => 'Nova Instance',
+	'openstackmanager-novakey' => 'Nova Key',
+	'openstackmanager-novaproject' => 'Nova Project',
 
 	'openstackmanager-delete' => 'delete',
 	'openstackmanager-configure' => 'configure',
@@ -34,9 +34,9 @@ $messages['en'] = array(
 	'openstackmanager-notloggedin' => 'Login required',
 	'openstackmanager-mustbeloggedin' => 'You must be logged in to perform this action',
 	'openstackmanager-nonovacred' => 'No Nova credentials found for your account',
-	'openstackmanager-nonovacred-admincreate' => '<p>There were no Nova credentials found for your user account. Please ask a Nova administrator to create credentials for you.</p>',
+	'openstackmanager-nonovacred-admincreate' => 'There were no Nova credentials found for your user account. Please ask a Nova administrator to create credentials for you.',
 	'openstackmanager-noaccount' => 'Your account is not in the project requested',
-	'openstackmanager-noaccount2' => '<p>You can not complete the action requested as your user account is not in the project requested.</p>',
+	'openstackmanager-noaccount2' => 'You can not complete the action requested as your user account is not in the project requested.',
 	'openstackmanager-createdomain' => 'Create Domain',
 
 	'openstackmanager-deletedomain' => 'Delete domain',
@@ -85,7 +85,6 @@ $messages['en'] = array(
 	'openstackmanager-modifiedinstance' => 'Successfully modified instance',
 	'openstackmanager-modifyinstancefailed' => 'Failed to modify instance',
 	'openstackmanager-deleteinstancefailed' => 'Failed to delete instance',
-	'openstackmanager-nonexistanthost' => 'The host requested does not exist.',
 
 	'openstackmanager-deletekey' => 'Delete key',
 	'openstackmanager-deletekeyconfirm' => 'Are you sure you wish to delete the above key?',
@@ -110,7 +109,6 @@ $messages['en'] = array(
 	'openstackmanager-members' => 'Members',
 	'openstackmanager-member' => 'Member',
 	'openstackmanager-action' => 'Action',
-	'openstackmanager-createproject' => 'Create project',
 	'openstackmanager-createprojectfailed' => 'Failed to create project',
 	'openstackmanager-createdproject' => 'Created project',
 	'openstackmanager-projectlist' => 'Project list',
