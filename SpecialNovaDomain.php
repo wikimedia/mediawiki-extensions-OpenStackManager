@@ -42,7 +42,7 @@ class SpecialNovaDomain extends SpecialNova {
 		global $wgOpenStackManagerDNSOptions;
 
 		$this->setHeaders();
-		$wgOut->setPagetitle( "Create Domain" );
+		$wgOut->setPagetitle( wfMsg( 'openstackmanager-createdomain' ) );
 
 		$domainInfo = Array();
 		$domainInfo['domainname'] = array(
@@ -81,7 +81,7 @@ class SpecialNovaDomain extends SpecialNova {
 		global $wgOut, $wgRequest;
 
 		$this->setHeaders();
-		$wgOut->setPagetitle( "Delete domain" );
+		$wgOut->setPagetitle( wfMsg( 'openstackmanager-deletedomain' ) );
 
 		$domainname = $wgRequest->getText( 'domainname' );
 		if ( ! $wgRequest->wasPosted() ) {
@@ -111,7 +111,7 @@ class SpecialNovaDomain extends SpecialNova {
 		global $wgOut, $wgUser;
 
 		$this->setHeaders();
-		$wgOut->setPagetitle( "Domain list" );
+		$wgOut->setPagetitle( wfMsg( 'openstackmanager-domainlist' ) );
 
 		$out = '';
 		$sk = $wgUser->getSkin();

@@ -63,7 +63,7 @@ class SpecialNovaProject extends SpecialPage {
 		global $wgOut;
 
 		$this->setHeaders();
-		$wgOut->setPagetitle( "No Nova credentials found for your account" );
+		$wgOut->setPagetitle( wfMsg( 'openstackmanager-nonovacred' ) );
 		$wgOut->addWikiMsg( 'openstackmanager-nonovacred-admincreate' );
 	}
 

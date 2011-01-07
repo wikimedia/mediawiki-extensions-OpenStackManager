@@ -191,7 +191,7 @@ class SpecialNovaInstance extends SpecialNova {
 		global $wgOpenStackManagerPuppetOptions;
 
 		$this->setHeaders();
-		$wgOut->setPagetitle( "Configure Instance" );
+		$wgOut->setPagetitle( wfMsg( 'openstackmanager-configureinstance' ) );
 
 		$instanceid = $wgRequest->getText( 'instanceid' );
 
@@ -208,7 +208,7 @@ class SpecialNovaInstance extends SpecialNova {
 		if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
 			$host = OpenStackNovaHost::getHostByInstanceId( $instanceid );
 			if ( ! $host ) {
-				$wgOut->addHTML( Html::element( 'p', array(), 'The host requested does not exist.' ) );
+				$wgOut->addHTML( Html::element( 'p', array(), wfMsg( 'openstackmanager-nonexistanthost' ) ) );
 				return false;
 			}
 			$puppetinfo = $host->getPuppetConfiguration();
@@ -354,7 +354,7 @@ class SpecialNovaInstance extends SpecialNova {
 		}
 		foreach ( $userProjects as $project ) {
 			$out .= Html::element( 'h2', array(), $project );
-			$out .= $sk->link( $this->getTitle(), 'Create a new instance', array(),
+			$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-createinstance' ), array(),
 							   array( 'action' => 'create', 'project' => $project ), array() );
 			if ( isset( $projectArr["$project"] ) ) {
 				$projectOut = $header;
@@ -432,7 +432,7 @@ class SpecialNovaInstance extends SpecialNova {
 			if ( $success ) {
 				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-deletedinstance', $instanceid ) );
 			} else {
-				$out = Html::element( 'p', array(), "Successfully deleted instance, but failed to remove $instancename DNS entry for instance $instanceid" );
+				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-deletedinstance-faileddns', $instancename, $instanceid ) );
 			}
 		} else {
 			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-deleteinstancefailed' ) );

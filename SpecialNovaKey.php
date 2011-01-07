@@ -49,7 +49,7 @@ class SpecialNovaKey extends SpecialNova {
 		}
 
 		$this->setHeaders();
-		$wgOut->setPagetitle( "Import Key" );
+		$wgOut->setPagetitle( wfMsg( 'openstackmanager-importkey' ) );
 
 		$keyInfo = Array();
 
@@ -92,7 +92,7 @@ class SpecialNovaKey extends SpecialNova {
 		global $wgOpenStackManagerNovaKeypairStorage;
 
 		$this->setHeaders();
-		$wgOut->setPagetitle( "Delete key" );
+		$wgOut->setPagetitle( wfMsg( 'openstackmanager-deletekey' ) );
 
 		$keyInfo = Array();
 
@@ -146,7 +146,7 @@ class SpecialNovaKey extends SpecialNova {
 		global $wgOpenStackManagerNovaKeypairStorage;
 
 		$this->setHeaders();
-		$wgOut->setPagetitle( "Key list" );
+		$wgOut->setPagetitle( wfMsg( 'openstackmanager-keylist' ) );
 
 		$out = '';
 		$sk = $wgUser->getSkin();

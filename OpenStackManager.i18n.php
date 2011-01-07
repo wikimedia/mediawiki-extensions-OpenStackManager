@@ -35,11 +35,11 @@ $messages['en'] = array(
 
 	'openstackmanager-createdomainfailed' => 'Failed to create domain',
 	'openstackmanager-createddomain' => 'Created domain',
+	'openstackmanager-domainlist' => 'Domain list',
 	'openstackmanager-backdomainlist' => 'Back to domain list',
 	'openstackmanager-deleteddomain' => 'Successfully deleted domain',
 	'openstackmanager-failedeletedomain' => 'Failed to delete domain',
 
-	'openstackmanager-createinstance' => 'Create Instance',
 	'openstackmanager-novainstance-instance' => 'Instance',
 	'openstackmanager-configureinstance' => 'Configure Instance',
 	'openstackmanager-nonexistanthost' => 'The host requested does not exist.',
