@@ -265,7 +265,7 @@ class SpecialNovaInstance extends SpecialNova {
 		global $wgOut, $wgRequest;
 
 		$this->setHeaders();
-		$wgOut->setPagetitle("Delete domain");
+		$wgOut->setPagetitle( wfMsg( 'openstackmanager-deletedomain' ) );
 
 		$instanceid = $wgRequest->getText('instanceid');
 		$project = $wgRequest->getText('project');
@@ -304,19 +304,19 @@ class SpecialNovaInstance extends SpecialNova {
 		global $wgOut, $wgUser;
 
 		$this->setHeaders();
-		$wgOut->setPagetitle("Instance list");
+		$wgOut->setPagetitle( wfMsg( 'openstackmanager-instancelist' ) );
 
 		$userProjects = $this->userLDAP->getProjects();
 		$sk = $wgUser->getSkin();
 		$out = '';
 		$instances = $this->adminNova->getInstances();
-		$header = Html::element( 'th', array(), 'Instance Name' );
-		$header .= Html::element( 'th', array(), 'Instance ID' );
-		$header .= Html::element( 'th', array(), 'Instance State' );
-		$header .= Html::element( 'th', array(), 'Instance Type' );
-		$header .= Html::element( 'th', array(), 'Instance IP' );
-		$header .= Html::element( 'th', array(), 'Image ID' );
-		$header .= Html::element( 'th', array(), 'Actions' );
+		$header = Html::element( 'th', array(), wfMsg( 'openstackmanager-instancename' ) );
+		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-instanceid' ) );
+		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-instancestate' ) );
+		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-instancetype' ) );
+		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-instanceip' ) );
+		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-imageid' ) );
+		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-actions' ) );
 		$projectArr = array();
 		foreach ( $instances as $instance ) {
 			$project = $instance->getOwner();
