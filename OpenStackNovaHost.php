@@ -103,10 +103,10 @@ class OpenStackNovaHost {
 			foreach ( $wgOpenStackManagerPuppetOptions['defaultvariables'] as $variable => $value ) {
 				$hostEntry['puppetvar'][] = $variable . ' = ' . $value;
 			}
-			foreach( $puppetinfo['classes'] as $class ) {
+			foreach ( $puppetinfo['classes'] as $class ) {
 				$hostEntry['puppetclass'][] = $class;
 			}
-			foreach( $puppetinfo['variables'] as $variable => $value ) {
+			foreach ( $puppetinfo['variables'] as $variable => $value ) {
 				$hostEntry['puppetvar'][] = $variable . ' = ' . $value;
 			}
 			if ( $hostEntry ) {
@@ -306,7 +306,7 @@ class OpenStackNovaHost {
 	 * @param  $puppetinfo
 	 * @return bool
 	 */
-	static function addHost( $instance, $domain, $puppetinfo=array() ) {
+	static function addHost( $instance, $domain, $puppetinfo = array() ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPInstanceBaseDN, $wgOpenStackManagerPuppetOptions;
@@ -329,7 +329,7 @@ class OpenStackNovaHost {
 		$hostEntry['objectclass'][] = 'dnsdomain';
 		$hostEntry['objectclass'][] = 'domainrelatedobject';
 		$hostEntry['dc'] = $hostname;
-		#$hostEntry['l'] = $instance->getInstanceAvailabilityZone();
+		# $hostEntry['l'] = $instance->getInstanceAvailabilityZone();
 		$hostEntry['arecord'] = $ip;
 		$hostEntry['associateddomain'][] = $hostname . '.' . $domainname;
 		$hostEntry['cnamerecord'][] = $instanceid . '.' . $domainname;
@@ -342,10 +342,10 @@ class OpenStackNovaHost {
 				$hostEntry['puppetvar'][] = $variable . ' = ' . $value;
 			}
 			if ( $puppetinfo ) {
-				foreach( $puppetinfo['classes'] as $class ) {
+				foreach ( $puppetinfo['classes'] as $class ) {
 					$hostEntry['puppetclass'][] = $class;
 				}
-				foreach( $puppetinfo['variables'] as $variable => $value ) {
+				foreach ( $puppetinfo['variables'] as $variable => $value ) {
 					if ( $value ) {
 						$hostEntry['puppetvar'][] = $variable . ' = ' . $value;
 					}

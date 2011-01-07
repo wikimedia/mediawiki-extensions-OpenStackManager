@@ -30,15 +30,15 @@ class SpecialNovaProject extends SpecialPage {
 	function execute( $par ) {
 		global $wgRequest, $wgUser;
 
-		#if ( ! $wgUser->isAllowed( 'manageproject' ) ) {
+		# if ( ! $wgUser->isAllowed( 'manageproject' ) ) {
 		#	return false;
-		#}
+		# }
 		if ( ! $wgUser->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return false;
 		}
 
-		$action = $wgRequest->getVal('action');
+		$action = $wgRequest->getVal( 'action' );
 		if ( $action == "create" ) {
 			$this->createProject();
 		} else if ( $action == "delete" ) {
@@ -63,17 +63,17 @@ class SpecialNovaProject extends SpecialPage {
 		global $wgOut;
 
 		$this->setHeaders();
-		$wgOut->setPagetitle("No Nova credentials found for your account");
-		$wgOut->addWikiMsg('openstackmanager-nonovacred-admincreate');
+		$wgOut->setPagetitle( "No Nova credentials found for your account" );
+		$wgOut->addWikiMsg( 'openstackmanager-nonovacred-admincreate' );
 	}
 
-	function createProject() { 
+	function createProject() {
 		global $wgRequest, $wgOut;
 
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-createproject' ) );
 
-		$projectInfo = Array(); 
+		$projectInfo = Array();
 		$projectInfo['projectname'] = array(
 			'type' => 'text',
 			'label-message' => 'projectname',
@@ -87,7 +87,7 @@ class SpecialNovaProject extends SpecialPage {
 		);
 
 		$projectForm = new SpecialNovaProjectForm( $projectInfo, 'novaprojectform' );
-		$projectForm->setTitle( SpecialPage::getTitleFor( 'NovaProject' ));
+		$projectForm->setTitle( SpecialPage::getTitleFor( 'NovaProject' ) );
 		$projectForm->setSubmitID( 'novaproject-form-createprojectsubmit' );
 		$projectForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
 		$projectForm->show();
@@ -95,14 +95,14 @@ class SpecialNovaProject extends SpecialPage {
 		return true;
 	}
 
-	function addMember() { 
+	function addMember() {
 		global $wgRequest, $wgOut;
 
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-addmember' ) );
 
-		$project = $wgRequest->getText('projectname');
-		$projectInfo = Array(); 
+		$project = $wgRequest->getText( 'projectname' );
+		$projectInfo = Array();
 		$projectInfo['member'] = array(
 			'type' => 'text',
 			'label-message' => 'member',
@@ -119,7 +119,7 @@ class SpecialNovaProject extends SpecialPage {
 		);
 
 		$projectForm = new SpecialNovaProjectForm( $projectInfo, 'novaprojectform' );
-		$projectForm->setTitle( SpecialPage::getTitleFor( 'NovaProject' ));
+		$projectForm->setTitle( SpecialPage::getTitleFor( 'NovaProject' ) );
 		$projectForm->setSubmitID( 'novaproject-form-addmembersubmit' );
 		$projectForm->setSubmitCallback( array( $this, 'tryAddMemberSubmit' ) );
 		$projectForm->show();
@@ -127,19 +127,19 @@ class SpecialNovaProject extends SpecialPage {
 		return true;
 	}
 
-	function deleteMember() { 
+	function deleteMember() {
 		global $wgRequest, $wgOut;
 
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-removemember' ) );
 
-		$member = $wgRequest->getText('member'); 
-		$project = $wgRequest->getText('projectname');
+		$member = $wgRequest->getText( 'member' );
+		$project = $wgRequest->getText( 'projectname' );
 		if ( ! $wgRequest->wasPosted() ) {
 			$out .= Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removememberconfirm', $member, $project ) );
 			$wgOut->addHTML( $out );
 		}
-		$projectInfo = Array(); 
+		$projectInfo = Array();
 		$projectInfo['member'] = array(
 			'type' => 'hidden',
 			'default' => $member,
@@ -154,7 +154,7 @@ class SpecialNovaProject extends SpecialPage {
 		);
 
 		$projectForm = new SpecialNovaProjectForm( $projectInfo, 'novaprojectform' );
-		$projectForm->setTitle( SpecialPage::getTitleFor( 'NovaProject' ));
+		$projectForm->setTitle( SpecialPage::getTitleFor( 'NovaProject' ) );
 		$projectForm->setSubmitID( 'novaproject-form-deletemembersubmit' );
 		$projectForm->setSubmitCallback( array( $this, 'tryDeleteMemberSubmit' ) );
 		$projectForm->show();
@@ -168,12 +168,12 @@ class SpecialNovaProject extends SpecialPage {
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-deleteproject' ) );
 
-		$project = $wgRequest->getText('projectname');
+		$project = $wgRequest->getText( 'projectname' );
 		if ( ! $wgRequest->wasPosted() ) {
 			$out .= Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removeprojectconfirm', $project ) );
 			$wgOut->addHTML( $out );
 		}
-		$projectInfo = Array(); 
+		$projectInfo = Array();
 		$projectInfo['projectname'] = array(
 			'type' => 'hidden',
 			'default' => $project,
@@ -183,7 +183,7 @@ class SpecialNovaProject extends SpecialPage {
 			'default' => 'delete',
 		);
 		$projectForm = new SpecialNovaProjectForm( $projectInfo, 'novaproject-form' );
-		$projectForm->setTitle( SpecialPage::getTitleFor( 'NovaProject' ));
+		$projectForm->setTitle( SpecialPage::getTitleFor( 'NovaProject' ) );
 		$projectForm->setSubmitID( 'novaproject-form-deleteprojectsubmit' );
 		$projectForm->setSubmitCallback( array( $this, 'tryDeleteSubmit' ) );
 		$projectForm->setSubmitText( 'confirm' );
@@ -223,7 +223,7 @@ class SpecialNovaProject extends SpecialPage {
 				$memberOut .= '<br />';
 				$memberOut = Html::rawElement( 'ul', array(), $memberOut );
 			}
-			$memberOut .= $sk->link( $this->getTitle(),wfMsg( 'openstackmanager-addmember' ), array(),
+			$memberOut .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-addmember' ), array(),
 									 array( 'action' => 'addmember', 'projectname' => $projectName ), array() );
 			$projectOut .= Html::rawElement( 'td', array(), $memberOut );
 			$link = $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-deleteproject' ), array(),

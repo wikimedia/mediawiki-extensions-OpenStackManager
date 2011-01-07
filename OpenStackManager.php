@@ -12,7 +12,7 @@
  * @license GNU General Public Licence 2.0 or later
  */
 
-if( !defined( 'MEDIAWIKI' ) ) {
+if ( !defined( 'MEDIAWIKI' ) ) {
 	echo( "This file is an extension to the MediaWiki software and cannot be used standalone.\n" );
 	die( 1 );
 }
@@ -52,7 +52,7 @@ $wgOpenStackManagerPuppetOptions = array(
 	'availablevariables' => array(),
 	);
 
-$dir = dirname(__FILE__) . '/';
+$dir = dirname( __FILE__ ) . '/';
 
 $wgExtensionMessagesFiles['OpenStackManager'] = $dir . 'OpenStackManager.i18n.php';
 $wgExtensionAliasesFiles['OpenStackManager'] = $dir . 'OpenStackManager.alias.php';

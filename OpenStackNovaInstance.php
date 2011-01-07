@@ -6,7 +6,7 @@ class OpenStackNovaInstance {
 	var $instance;
 	var $host;
 
-	function __construct( $apiInstanceResponse, $loadhost=false ) {
+	function __construct( $apiInstanceResponse, $loadhost = false ) {
 		$this->instance = $apiInstanceResponse;
 		if ( $loadhost ) {
 			$this->host = OpenStackNovaHost::getHostByInstanceId( $this->getInstanceId() );

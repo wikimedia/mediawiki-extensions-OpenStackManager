@@ -222,7 +222,7 @@ class OpenStackNovaProject {
 		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, 'owner=*' );
 		$entries = ldap_get_entries( $wgAuth->ldapconn, $result );
 		if ( $entries ) {
-			array_shift($entries);
+			array_shift( $entries );
 			foreach ( $entries as $entry ) {
 				$id = (int)$entry['gidnumber'][0];
 				$talkid = $id + 1;

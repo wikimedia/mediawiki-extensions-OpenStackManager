@@ -22,13 +22,13 @@ class SpecialNovaInstance extends SpecialNova {
 			return true;
 		}
 		$this->userLDAP = new OpenStackNovaUser();
-		$project = $wgRequest->getVal('project');
+		$project = $wgRequest->getVal( 'project' );
 		$userCredentials = $user->getCredentials( $project );
 		$this->userNova = new OpenStackNovaController( $userCredentials );
 		$adminCredentials = $wgOpenStackManagerNovaAdminKeys;
 		$this->adminNova = new OpenStackNovaController( $adminCredentials );
 
-		$action = $wgRequest->getVal('action');
+		$action = $wgRequest->getVal( 'action' );
 
 		if ( $action == "create" ) {
 			if ( ! $user->inProject( $project ) ) {
@@ -59,14 +59,14 @@ class SpecialNovaInstance extends SpecialNova {
 		}
 	}
 
-	function createInstance() { 
+	function createInstance() {
 		global $wgRequest, $wgOut;
 		global $wgOpenStackManagerPuppetOptions;
 
 		$this->setHeaders();
-		$wgOut->setPagetitle( wfMsg('openstackmanager-createinstance') );
+		$wgOut->setPagetitle( wfMsg( 'openstackmanager-createinstance' ) );
 
-		$instanceInfo = Array(); 
+		$instanceInfo = Array();
 		$instanceInfo['instancename'] = array(
 			'type' => 'text',
 			'label-message' => 'openstackmanager-instancename',
@@ -105,7 +105,7 @@ class SpecialNovaInstance extends SpecialNova {
 		# where the name points to itself as a value
 		$images = $this->adminNova->getImages();
 		$image_keys = Array();
-		foreach ( array_keys($images) as $image_key ) {
+		foreach ( array_keys( $images ) as $image_key ) {
 			$image_keys["$image_key"] = $image_key;
 		}
 		$instanceInfo['imageType'] = array(
@@ -118,17 +118,17 @@ class SpecialNovaInstance extends SpecialNova {
 		# Keypair names can't be translated. Get the keys, and make an array
 		# where the name points to itself as a value
 		# TODO: get keypairs as the user, not the admin
-		#$keypairs = $this->userNova->getKeypairs();
-		#$keypair_keys = Array();
-		#foreach ( array_keys( $keypairs ) as $keypair_key ) {
+		# $keypairs = $this->userNova->getKeypairs();
+		# $keypair_keys = Array();
+		# foreach ( array_keys( $keypairs ) as $keypair_key ) {
 		#	$keypair_keys["$keypair_key"] = $keypair_key;
-		#}
-		#$instanceInfo['keypair'] = array(
+		# }
+		# $instanceInfo['keypair'] = array(
 		#	'type' => 'select',
 		#	'section' => 'instance/info',
 		#	'options' => $keypair_keys,
 		#	'label-message' => 'keypair',
-		#);
+		# );
 
 		$domains = OpenStackNovaDomain::getAllDomains( true );
 		$domain_keys = array();
@@ -179,7 +179,7 @@ class SpecialNovaInstance extends SpecialNova {
 		);
 
 		$instanceForm = new SpecialNovaInstanceForm( $instanceInfo, 'openstackmanager-novainstance' );
-		$instanceForm->setTitle( SpecialPage::getTitleFor( 'NovaInstance' ));
+		$instanceForm->setTitle( SpecialPage::getTitleFor( 'NovaInstance' ) );
 		$instanceForm->setSubmitID( 'openstackmanager-novainstance-createinstancesubmit' );
 		$instanceForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
 		$instanceForm->show();
@@ -191,11 +191,11 @@ class SpecialNovaInstance extends SpecialNova {
 		global $wgOpenStackManagerPuppetOptions;
 
 		$this->setHeaders();
-		$wgOut->setPagetitle("Configure Instance");
+		$wgOut->setPagetitle( "Configure Instance" );
 
-		$instanceid = $wgRequest->getText('instanceid');
+		$instanceid = $wgRequest->getText( 'instanceid' );
 
-		$instanceInfo = Array(); 
+		$instanceInfo = Array();
 		$instanceInfo['instanceid'] = array(
 			'type' => 'hidden',
 			'default' => $instanceid,
@@ -253,7 +253,7 @@ class SpecialNovaInstance extends SpecialNova {
 		);
 
 		$instanceForm = new SpecialNovaInstanceForm( $instanceInfo, 'novainstance-form' );
-		$instanceForm->setTitle( SpecialPage::getTitleFor( 'NovaInstance' ));
+		$instanceForm->setTitle( SpecialPage::getTitleFor( 'NovaInstance' ) );
 		$instanceForm->setSubmitID( 'novainstance-form-configureinstancesubmit' );
 		$instanceForm->setSubmitCallback( array( $this, 'tryConfigureSubmit' ) );
 		$instanceForm->show();
@@ -267,8 +267,8 @@ class SpecialNovaInstance extends SpecialNova {
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-deletedomain' ) );
 
-		$instanceid = $wgRequest->getText('instanceid');
-		$project = $wgRequest->getText('project');
+		$instanceid = $wgRequest->getText( 'instanceid' );
+		$project = $wgRequest->getText( 'project' );
 		if ( ! $wgRequest->wasPosted() ) {
 			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-deleteinstancequestion', $instanceid ) );
 			$wgOut->addHTML( $out );
@@ -287,7 +287,7 @@ class SpecialNovaInstance extends SpecialNova {
 			'default' => 'delete',
 		);
 		$instanceForm = new SpecialNovaInstanceForm( $instanceInfo, 'novainstance-form' );
-		$instanceForm->setTitle( SpecialPage::getTitleFor( 'NovaInstance' ));
+		$instanceForm->setTitle( SpecialPage::getTitleFor( 'NovaInstance' ) );
 		$instanceForm->setSubmitID( 'novainstance-form-deleteinstancesubmit' );
 		$instanceForm->setSubmitCallback( array( $this, 'tryDeleteSubmit' ) );
 		$instanceForm->setSubmitText( 'confirm' );
@@ -393,7 +393,7 @@ class SpecialNovaInstance extends SpecialNova {
 				}
 			}
 			$host = OpenStackNovaHost::addHost( $instance, $domain, $puppetinfo );
-			
+
 			if ( $host ) {
 				$title = Title::newFromText( $wgOut->getPageTitle() );
 				$job = new OpenStackNovaHostJob( $title, array( 'instanceid' => (string)$instance->getInstanceId() ) );

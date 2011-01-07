@@ -1,5 +1,5 @@
 <?php
- 
+
 abstract class SpecialNova extends SpecialPage {
 	function notLoggedIn() {
 		global $wgOut;

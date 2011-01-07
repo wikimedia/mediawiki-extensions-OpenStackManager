@@ -4,7 +4,7 @@ class OpenStackNovaHostJob extends Job {
 		// Replace synchroniseThreadArticleData with the an identifier for your job.
 		parent::__construct( 'addDNSHostToLDAP', $title, $params );
 	}
- 
+
 	/**
 	 * Execute the job
 	 *
@@ -40,7 +40,7 @@ class OpenStackNovaHostJob extends Job {
 			return true;
 		}
 		$host->setARecord( $ip );
- 
+
 		return true;
 	}
 }

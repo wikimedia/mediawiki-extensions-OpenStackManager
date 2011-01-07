@@ -15,9 +15,9 @@ class OpenStackNovaController {
 			$wgOpenStackManagerNovaPort, $wgOpenStackManagerNovaResourcePrefix;
 
 		$this->novaConnection = new AmazonEC2( $credentials['accessKey'], $credentials['secretKey'] );
-		$this->novaConnection->disable_ssl($wgOpenStackManagerNovaDisableSSL);
-		$this->novaConnection->set_hostname($wgOpenStackManagerNovaServerName, $wgOpenStackManagerNovaPort);
-		$this->novaConnection->set_resource_prefix($wgOpenStackManagerNovaResourcePrefix);
+		$this->novaConnection->disable_ssl( $wgOpenStackManagerNovaDisableSSL );
+		$this->novaConnection->set_hostname( $wgOpenStackManagerNovaServerName, $wgOpenStackManagerNovaPort );
+		$this->novaConnection->set_resource_prefix( $wgOpenStackManagerNovaResourcePrefix );
 		$this->instances = array();
 	}
 

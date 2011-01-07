@@ -6,7 +6,7 @@ class OpenStackNovaUser {
 	var $userDN;
 	var $userInfo;
 
-	function __construct( $username='' ) {
+	function __construct( $username = '' ) {
 		$this->username = $username;
 		$this->connect();
 		$this->fetchUserInfo();
@@ -23,7 +23,7 @@ class OpenStackNovaUser {
 		$this->userInfo = $wgAuth->userInfo;
 	}
 
-	function getCredentials( $project='' ) {
+	function getCredentials( $project = '' ) {
 		if ( isset( $this->userInfo[0]['accesskey'] ) ) {
 			$accessKey = $this->userInfo[0]['accesskey'][0];
 			$accessKey = $accessKey . ':' . $project;
@@ -106,7 +106,7 @@ class OpenStackNovaUser {
 		return $projects;
 	}
 
-	function getRoles( $project='' ) {
+	function getRoles( $project = '' ) {
 		# Currently unsupported
 		return array();
 	}
@@ -140,7 +140,7 @@ class OpenStackNovaUser {
 		}
 	}
 
-	function inRole( $role, $project='' ) {
+	function inRole( $role, $project = '' ) {
 		# Currently unsupported
 		return true;
 	}
@@ -291,7 +291,7 @@ class OpenStackNovaUser {
 		if ( '' != $auth->realname ) {
 			$values['displayname'] = $auth->realname;
 		}
-		$username = $wgRequest->getText('shellaccountname');
+		$username = $wgRequest->getText( 'shellaccountname' );
 		if ( ! preg_match( "/^[a-z][a-z0-9\-_]*$/", $username ) ) {
 			$result = false;
 			return false;

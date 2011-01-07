@@ -69,7 +69,7 @@ class OpenStackNovaDomain {
 		}
 	}
 
-	static function getAllDomains( $bylocation=false) {
+	static function getAllDomains( $bylocation = false ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPInstanceBaseDN;

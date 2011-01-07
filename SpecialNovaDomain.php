@@ -19,15 +19,15 @@ class SpecialNovaDomain extends SpecialNova {
 	function execute( $par ) {
 		global $wgRequest, $wgUser;
 
-		#if ( ! $wgUser->isAllowed( 'manageproject' ) ) {
+		# if ( ! $wgUser->isAllowed( 'manageproject' ) ) {
 		#	return false;
-		#}
+		# }
 		if ( ! $wgUser->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return false;
 		}
 
-		$action = $wgRequest->getVal('action');
+		$action = $wgRequest->getVal( 'action' );
 		if ( $action == "create" ) {
 			$this->createDomain();
 		} else if ( $action == "delete" ) {
@@ -37,14 +37,14 @@ class SpecialNovaDomain extends SpecialNova {
 		}
 	}
 
-	function createDomain() { 
+	function createDomain() {
 		global $wgRequest, $wgOut;
 		global $wgOpenStackManagerDNSOptions;
 
 		$this->setHeaders();
-		$wgOut->setPagetitle("Create Domain");
+		$wgOut->setPagetitle( "Create Domain" );
 
-		$domainInfo = Array(); 
+		$domainInfo = Array();
 		$domainInfo['domainname'] = array(
 			'type' => 'text',
 			'label-message' => 'domainname',
@@ -81,14 +81,14 @@ class SpecialNovaDomain extends SpecialNova {
 		global $wgOut, $wgRequest;
 
 		$this->setHeaders();
-		$wgOut->setPagetitle("Delete domain");
+		$wgOut->setPagetitle( "Delete domain" );
 
-		$domainname = $wgRequest->getText('domainname');
+		$domainname = $wgRequest->getText( 'domainname' );
 		if ( ! $wgRequest->wasPosted() ) {
 			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-deletedomain-confirm', $domainname ) );
 			$wgOut->addHTML( $out );
 		}
-		$domainInfo = Array(); 
+		$domainInfo = Array();
 		$domainInfo['domainname'] = array(
 			'type' => 'hidden',
 			'default' => $domainname,
@@ -98,7 +98,7 @@ class SpecialNovaDomain extends SpecialNova {
 			'default' => 'delete',
 		);
 		$domainForm = new SpecialNovaDomainForm( $domainInfo, 'novadomain-form' );
-		$domainForm->setTitle( SpecialPage::getTitleFor( 'NovaDomain' ));
+		$domainForm->setTitle( SpecialPage::getTitleFor( 'NovaDomain' ) );
 		$domainForm->setSubmitID( 'novadomain-form-deletedomainsubmit' );
 		$domainForm->setSubmitCallback( array( $this, 'tryDeleteSubmit' ) );
 		$domainForm->setSubmitText( 'confirm' );
@@ -111,7 +111,7 @@ class SpecialNovaDomain extends SpecialNova {
 		global $wgOut, $wgUser;
 
 		$this->setHeaders();
-		$wgOut->setPagetitle("Domain list");
+		$wgOut->setPagetitle( "Domain list" );
 
 		$out = '';
 		$sk = $wgUser->getSkin();
