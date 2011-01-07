@@ -66,9 +66,10 @@ $messages['en'] = array(
 	'openstackmanager-createinstancefailed' => 'Failed to create instance',
 	'openstackmanager-backinstancelist' => 'Back to instance list',
 	'openstackmanager-deletedinstance' => 'Deleted instance $1',
-	'openstackmanager-deletedinstance-failedldap' => 'Successfully deleted instance, but failed to remove $1 DNS entry',
+	'openstackmanager-deletedinstance-faileddns' => 'Successfully deleted instance, but failed to remove $1 DNS entry',
 	'openstackmanager-modifiedinstance' => 'Successfully modified instance',
 	'openstackmanager-modifyinstancefailed' => 'Failed to modify instance',
+	'openstackmanager-deleteinstancefailed' => 'Failed to delete instance',
 	'openstackmanager-nonexistanthost' => 'The host requested does not exist.',
 
 	'openstackmanager-deletekey' => 'Delete key',

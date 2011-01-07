@@ -85,8 +85,7 @@ class SpecialNovaDomain extends SpecialNova {
 
 		$domainname = $wgRequest->getText('domainname');
 		if ( ! $wgRequest->wasPosted() ) {
-			$out = Html::element( 'p', array(), 'Are you sure you wish to delete domain "' . $domainname .
-												'"? This action has reprecusions on all VMs. Do not take this action lightly!' );
+			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-deletedomain-confirm', $domainname ) );
 			$wgOut->addHTML( $out );
 		}
 		$domainInfo = Array(); 
@@ -116,7 +115,7 @@ class SpecialNovaDomain extends SpecialNova {
 
 		$out = '';
 		$sk = $wgUser->getSkin();
-		$out .= $sk->link( $this->getTitle(), 'Create a new domain', array(), array( 'action' => 'create' ), array() );
+		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-createdomain' ), array(), array( 'action' => 'create' ), array() );
 		$domainsOut = Html::element( 'th', array(), 'Domain name' );
 		$domainsOut .= Html::element( 'th', array(), 'FQDN' );
 		$domainsOut .= Html::element( 'th', array(), 'Location' );
@@ -146,14 +145,14 @@ class SpecialNovaDomain extends SpecialNova {
 
 		$success = OpenStackNovaDomain::createDomain( $formData['domainname'], $formData['fqdn'], $formData['location'] );
 		if ( ! $success ) {
-			$out = Html::element( 'p', array(), 'Failed to create domain' );
+			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-createdomainfailed' ) );
 			$wgOut->addHTML( $out );
 			return false;
 		}
-		$out = Html::element( 'p', array(), 'Created domain' );
+		$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-createddomain' ) );
 		$out .= '<br />';
 		$sk = $wgUser->getSkin();
-		$out .= $sk->link( $this->getTitle(), 'Back to domain list', array(), array(), array() );
+		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backdomainlist' ), array(), array(), array() );
 		$wgOut->addHTML( $out );
 
 		return true;
@@ -164,13 +163,13 @@ class SpecialNovaDomain extends SpecialNova {
 
 		$success = OpenStackNovaDomain::deleteDomain( $formData['domainname'] );
 		if ( $success ) {
-			$out = Html::element( 'p', array(), 'Successfully deleted domain' );
+			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-deleteddomain' ) );
 		} else {
-			$out = Html::element( 'p', array(), 'Failed to delete domain' );
+			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-failedeletedomain' ) );
 		}
 		$out .= '<br />';
 		$sk = $wgUser->getSkin();
-		$out .= $sk->link( $this->getTitle(), 'Back to domain list', array(), array(), array() );
+		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backdomainlist' ), array(), array(), array() );
 		$wgOut->addHTML( $out );
 
 		return true;

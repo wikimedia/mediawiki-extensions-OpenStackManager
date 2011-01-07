@@ -270,7 +270,7 @@ class SpecialNovaInstance extends SpecialNova {
 		$instanceid = $wgRequest->getText('instanceid');
 		$project = $wgRequest->getText('project');
 		if ( ! $wgRequest->wasPosted() ) {
-			$out = Html::element( 'p', array(), 'Are you sure you wish to delete instance "' . $instanceid .  '"?' );
+			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-deleteinstancequestion', $instanceid ) );
 			$wgOut->addHTML( $out );
 		}
 		$instanceInfo = Array();
@@ -374,7 +374,7 @@ class SpecialNovaInstance extends SpecialNova {
 		$sk = $wgUser->getSkin();
 		$domain = OpenStackNovaDomain::getDomainByName( $formData['domain'] );
 		if ( ! $domain ) {
-			$out = Html::element( 'p', array(), 'Requested domain is invalid' );
+			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-invaliddomain' ) );
 			return false;
 		}
 		$instance = $this->userNova->createInstance( $formData['instancename'], $formData['imageType'], '', $formData['instanceType'], $formData['availabilityZone'] );
@@ -398,14 +398,16 @@ class SpecialNovaInstance extends SpecialNova {
 				$title = Title::newFromText( $wgOut->getPageTitle() );
 				$job = new OpenStackNovaHostJob( $title, array( 'instanceid' => (string)$instance->getInstanceId() ) );
 				$job->insert();
-				$out = Html::element( 'p', array(), 'Created instance ' . $instance->getInstanceID() .  ' with image ' . $instance->getImageId() . ' and hostname ' . $host->getFullyQualifiedHostName()  );
+				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-createdinstance',
+				                                              $instance->getInstanceID(), $instance->getImageId(),
+				                                              $host->getFullyQualifiedHostName() )  );
 			} else {
 				$this->userNova->terminateInstance( $instance->getInstanceId() );
-				$out = Html::element( 'p', array(), 'Failed to create instance as the host could not be added to LDAP' );
+				$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-createfailedldap' ) );
 			}
 			# TODO: also add puppet
 		} else {
-			$out = Html::element( 'p', array(), 'Failed to create instance' );
+			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-createinstancefailed' ) );
 		}
 		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backinstancelist' ), array(), array(), array() );
 
@@ -419,7 +421,7 @@ class SpecialNovaInstance extends SpecialNova {
 		$sk = $wgUser->getSkin();
 		$instance = $this->adminNova->getInstance( $formData['instanceid'] );
 		if ( ! $instance ) {
-			$out = Html::element( 'p', array(), 'The instance requested does not exist.' );
+			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-nonexistanthost' ) );
 			return true;
 		}
 		$instancename = $instance->getInstanceName();
@@ -428,12 +430,12 @@ class SpecialNovaInstance extends SpecialNova {
 		if ( $success ) {
 			$success = OpenStackNovaHost::deleteHostByInstanceId( $instanceid );
 			if ( $success ) {
-				$out = Html::element( 'p', array(), "Deleted instance $instanceid" );
+				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-deletedinstance', $instanceid ) );
 			} else {
 				$out = Html::element( 'p', array(), "Successfully deleted instance, but failed to remove $instancename DNS entry for instance $instanceid" );
 			}
 		} else {
-			$out = Html::element( 'p', array(), 'Failed to delete instance' );
+			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-deleteinstancefailed' ) );
 		}
 		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backinstancelist' ), array(), array(), array() );
 
@@ -463,12 +465,12 @@ class SpecialNovaInstance extends SpecialNova {
 			}
 			$success = $host->modifyPuppetConfiguration( $puppetinfo );
 			if ( $success ) {
-				$out = Html::element( 'p', array(), 'Successfully modified instance' );
+				$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-modifiedinstance' ) );
 			} else {
-				$out = Html::element( 'p', array(), 'Failed to modify instance' );
+				$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-modifyinstancefailed' ) );
 			}
 		} else {
-			$out = Html::element( 'p', array(), 'The host requested does not exist.' );
+			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-nonexistanthost' ) );
 		}
 		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backinstancelist' ), array(), array(), array() );
 
