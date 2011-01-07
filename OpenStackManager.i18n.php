@@ -39,17 +39,23 @@ $messages['en'] = array(
 	'openstackmanager' => 'Successfully deleted domain',
 	'openstackmanager' => 'Failed to delete domain',
 
-	'openstackmanager' => 'Create Instance',
+	'openstackmanager-createinstance' => 'Create Instance',
+	'openstackmanager-novainstance-instance' => 'Instance',
 	'openstackmanager' => 'Configure Instance',
 	'openstackmanager' => 'The host requested does not exist.',
+	'openstackmanager-dnsdomain' => 'DNS Domain',
+	'openstackmanager-puppetclasses' => 'Puppet Classes',
+	'openstackmanager-novainstance-info' => 'Instance Information',
+	'openstackmanager-novainstance-puppetinfo' => 'Puppet Information',
 
 	'openstackmanager' => 'Are you sure you wish to delete instance "$1"?',
 	'openstackmanager' => 'Instance list',
-	'openstackmanager' => 'Instance Name',
+	'openstackmanager-instancename' => 'Instance Name',
 	'openstackmanager' => 'Instance ID',
 	'openstackmanager' => 'Instance State',
-	'openstackmanager' => 'Instance Type',
-	'openstackmanager' => 'Image ID',
+	'openstackmanager-instancetype' => 'Instance Type',
+	'openstackmanager-availabilityzone' => 'Availability Zone',
+	'openstackmanager-imagetype' => 'Image Type',
 	'openstackmanager' => 'Actions',
 
 	'openstackmanager' => 'Create a new instance',
@@ -97,5 +103,6 @@ $messages['en'] = array(
 	'openstackmanager' => 'Failed to delete project',
 	'openstackmanager' => 'Successfully added $1 to $2',
 	'openstackmanager' => 'Failed to add $1 to $2',
+	'openstackmanager-badinstancename' => 'Bad instance name provided. Instance names must start with a-z, and can only contain a-z, 0-9, and - characters.',
 
 );

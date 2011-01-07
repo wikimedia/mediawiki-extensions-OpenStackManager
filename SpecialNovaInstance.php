@@ -64,12 +64,13 @@ class SpecialNovaInstance extends SpecialNova {
 		global $wgOpenStackManagerPuppetOptions;
 
 		$this->setHeaders();
-		$wgOut->setPagetitle("Create Instance");
+		$wgOut->setPagetitle( wfMsg('openstackmanager-createinstance') );
 
 		$instanceInfo = Array(); 
 		$instanceInfo['instancename'] = array(
 			'type' => 'text',
-			'label-message' => 'instancename',
+			'label-message' => 'openstackmanager-instancename',
+			'validation-callback' => array( $this, 'validateInstanceName' ),
 			'default' => '',
 			'section' => 'instance/info',
 		);
@@ -81,9 +82,9 @@ class SpecialNovaInstance extends SpecialNova {
 		}
 		$instanceInfo['instanceType'] = array(
 			'type' => 'select',
+			'label-message' => 'openstackmanager-instancetype',
 			'section' => 'instance/info',
 			'options' => $instanceType_keys,
-			'label-message' => 'instancetype',
 		);
 
 		# Availability zone names can't be translated. Get the keys, and make an array
@@ -97,7 +98,7 @@ class SpecialNovaInstance extends SpecialNova {
 			'type' => 'select',
 			'section' => 'instance/info',
 			'options' => $availabilityZone_keys,
-			'label-message' => 'availabilityzone',
+			'label-message' => 'openstackmanager-availabilityzone',
 		);
 
 		# Image names can't be translated. Get the image, and make an array
@@ -111,7 +112,7 @@ class SpecialNovaInstance extends SpecialNova {
 			'type' => 'select',
 			'section' => 'instance/info',
 			'options' => $image_keys,
-			'label-message' => 'imagetype',
+			'label-message' => 'openstackmanager-imagetype',
 		);
 
 		# Keypair names can't be translated. Get the keys, and make an array
@@ -129,7 +130,7 @@ class SpecialNovaInstance extends SpecialNova {
 		#	'label-message' => 'keypair',
 		#);
 
-		$domains = OpenStackNovaDomain::getAllDomains();
+		$domains = OpenStackNovaDomain::getAllDomains( true );
 		$domain_keys = array();
 		foreach ( $domains as $domain ) {
 			$domainname = $domain->getDomainName();
@@ -139,7 +140,7 @@ class SpecialNovaInstance extends SpecialNova {
 			'type' => 'select',
 			'section' => 'instance/info',
 			'options' => $domain_keys,
-			'label-message' => 'domain',
+			'label-message' => 'openstackmanager-dnsdomain',
 		);
 
 		$instanceInfo['project'] = array(
@@ -157,7 +158,7 @@ class SpecialNovaInstance extends SpecialNova {
 					'type' => 'multiselect',
 					'section' => 'instance/puppetinfo',
 					'options' => $classes,
-					'label-message' => 'puppetclasses',
+					'label-message' => 'openstackmanager-puppetclasses',
 				);
 			}
 
@@ -177,9 +178,9 @@ class SpecialNovaInstance extends SpecialNova {
 			'default' => 'create',
 		);
 
-		$instanceForm = new SpecialNovaInstanceForm( $instanceInfo, 'novainstance-form' );
+		$instanceForm = new SpecialNovaInstanceForm( $instanceInfo, 'openstackmanager-novainstance' );
 		$instanceForm->setTitle( SpecialPage::getTitleFor( 'NovaInstance' ));
-		$instanceForm->setSubmitID( 'novainstance-form-createinstancesubmit' );
+		$instanceForm->setSubmitID( 'openstackmanager-novainstance-createinstancesubmit' );
 		$instanceForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
 		$instanceForm->show();
 
@@ -313,6 +314,7 @@ class SpecialNovaInstance extends SpecialNova {
 		$header .= Html::element( 'th', array(), 'Instance ID' );
 		$header .= Html::element( 'th', array(), 'Instance State' );
 		$header .= Html::element( 'th', array(), 'Instance Type' );
+		$header .= Html::element( 'th', array(), 'Instance IP' );
 		$header .= Html::element( 'th', array(), 'Image ID' );
 		$header .= Html::element( 'th', array(), 'Actions' );
 		$projectArr = array();
@@ -324,11 +326,12 @@ class SpecialNovaInstance extends SpecialNova {
 			$instanceName = (string)$instance->getInstanceName();
 			$title = Title::newFromText( $instanceName, NS_VM );
 			$instanceNameLink = $sk->link( $title, $instanceName, array(), array(), array() );
-			$projectArr["$project"] = Html::rawElement( 'td', array(), $instanceNameLink );
-			$projectArr["$project"] .= Html::element( 'td', array(), $instance->getInstanceId() );
-			$projectArr["$project"] .= Html::element( 'td', array(), $instance->getInstanceState() );
-			$projectArr["$project"] .= Html::element( 'td', array(), $instance->getInstanceType() );
-			$projectArr["$project"] .= Html::element( 'td', array(), $instance->getImageId() );
+			$instanceOut = Html::rawElement( 'td', array(), $instanceNameLink );
+			$instanceOut .= Html::element( 'td', array(), $instance->getInstanceId() );
+			$instanceOut .= Html::element( 'td', array(), $instance->getInstanceState() );
+			$instanceOut .= Html::element( 'td', array(), $instance->getInstanceType() );
+			$instanceOut .= Html::element( 'td', array(), $instance->getInstancePrivateIP() );
+			$instanceOut .= Html::element( 'td', array(), $instance->getImageId() );
 			$actions = $sk->link( $this->getTitle(), 'delete', array(),
 								  array( 'action' => 'delete',
 									   'project' => $project,
@@ -346,7 +349,8 @@ class SpecialNovaInstance extends SpecialNova {
 										'project' => $project,
 										'instanceid' => $instance->getInstanceId() ),
 								   array() );
-			$projectArr["$project"] .= Html::rawElement( 'td', array(), $actions );
+			$instanceOut .= Html::rawElement( 'td', array(), $actions );
+			$projectArr["$project"] .= Html::rawElement( 'tr', array(), $instanceOut );
 		}
 		foreach ( $userProjects as $project ) {
 			$out .= Html::element( 'h2', array(), $project );
@@ -354,7 +358,7 @@ class SpecialNovaInstance extends SpecialNova {
 							   array( 'action' => 'create', 'project' => $project ), array() );
 			if ( isset( $projectArr["$project"] ) ) {
 				$projectOut = $header;
-				$projectOut .= Html::rawElement( 'tr', array(), $projectArr["$project"] );
+				$projectOut .= $projectArr["$project"];
 				$out .= Html::rawElement( 'table',
 										  array( 'id' => 'novainstancelist', 'class' => 'wikitable' ), $projectOut );
 			}
@@ -371,6 +375,7 @@ class SpecialNovaInstance extends SpecialNova {
 		$domain = OpenStackNovaDomain::getDomainByName( $formData['domain'] );
 		if ( ! $domain ) {
 			$out = Html::element( 'p', array(), 'Requested domain is invalid' );
+			return false;
 		}
 		$instance = $this->userNova->createInstance( $formData['instancename'], $formData['imageType'], '', $formData['instanceType'], $formData['availabilityZone'] );
 		if ( $instance ) {
@@ -388,8 +393,12 @@ class SpecialNovaInstance extends SpecialNova {
 				}
 			}
 			$host = OpenStackNovaHost::addHost( $instance, $domain, $puppetinfo );
+			
 			if ( $host ) {
-				$out = Html::element( 'p', array(), 'Created instance ' . $instance->getInstanceID() .  ' with image ' . $instance->getImageId() . ' and hostname ' . $host->getFullyQualifiedHostName() . ' and ip ' . $instance->getInstancePrivateIP() );
+				$title = Title::newFromText( $wgOut->getPageTitle() );
+				$job = new OpenStackNovaHostJob( $title, array( 'instanceid' => (string)$instance->getInstanceId() ) );
+				$job->insert();
+				$out = Html::element( 'p', array(), 'Created instance ' . $instance->getInstanceID() .  ' with image ' . $instance->getImageId() . ' and hostname ' . $host->getFullyQualifiedHostName()  );
 			} else {
 				$this->userNova->terminateInstance( $instance->getInstanceId() );
 				$out = Html::element( 'p', array(), 'Failed to create instance as the host could not be added to LDAP' );
@@ -407,20 +416,24 @@ class SpecialNovaInstance extends SpecialNova {
 	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 
+		$sk = $wgUser->getSkin();
 		$instance = $this->adminNova->getInstance( $formData['instanceid'] );
+		if ( ! $instance ) {
+			$out = Html::element( 'p', array(), 'The instance requested does not exist.' );
+			return true;
+		}
 		$instancename = $instance->getInstanceName();
 		$instanceid = $instance->getInstanceId();
-		$success = $this->userNova->terminateInstance( $formData['instanceid'] );
-		$sk = $wgUser->getSkin();
+		$success = $this->userNova->terminateInstance( $instanceid );
 		if ( $success ) {
 			$success = OpenStackNovaHost::deleteHostByInstanceId( $instanceid );
 			if ( $success ) {
-				$out = Html::element( 'p', array(), "Deleted instance $instancename" );
+				$out = Html::element( 'p', array(), "Deleted instance $instanceid" );
 			} else {
-				$out = Html::element( 'p', array(), "Successfully deleted instance, but failed to remove $instancename DNS entry" );
+				$out = Html::element( 'p', array(), "Successfully deleted instance, but failed to remove $instancename DNS entry for instance $instanceid" );
 			}
 		} else {
-			$out = Html::element( 'p', array(), 'Failed to create instance' );
+			$out = Html::element( 'p', array(), 'Failed to delete instance' );
 		}
 		$out .= $sk->link( $this->getTitle(), 'Back to instance list', array(), array(), array() );
 
@@ -461,6 +474,14 @@ class SpecialNovaInstance extends SpecialNova {
 
 		$wgOut->addHTML( $out );
 		return true;
+	}
+
+	function validateInstanceName( $instancename, $alldata ) {
+		if ( ! preg_match( "/^[a-z][a-z0-9\-]*$/", $instancename ) ) {
+			return Xml::element( 'span', array( 'class' => 'error' ), wfMsg( 'openstackmanager-badinstancename' ) );
+		} else {
+			return true;
+		}
 	}
 
 }

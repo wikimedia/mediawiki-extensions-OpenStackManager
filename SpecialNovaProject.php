@@ -34,6 +34,7 @@ class SpecialNovaProject extends SpecialPage {
 		#	return false;
 		#}
 		if ( ! $wgUser->isLoggedIn() ) {
+			$this->notLoggedIn();
 			return false;
 		}
 
@@ -207,6 +208,9 @@ class SpecialNovaProject extends SpecialPage {
 				$projectsOut .= Html::element( 'th', array(), 'Members' );
 				$projectsOut .= Html::element( 'th', array(), 'Action' );
 		$projects = OpenStackNovaProject::getAllProjects();
+		if ( ! $projects ) {
+			$projectsOut = '';
+		}
 		foreach ( $projects as $project ) {
 			$projectName = $project->getProjectName();
 			$projectOut = Html::element( 'td', array(), $projectName );
@@ -218,17 +222,21 @@ class SpecialNovaProject extends SpecialPage {
 				$projectMemberOut = htmlentities( $projectMember) . ' (' . $link . ')';
 				$memberOut .= Html::rawElement( 'li', array(), $projectMemberOut );
 			}
-			$memberOut .= '<br />';
+			if ( $memberOut ) {
+				$memberOut .= '<br />';
+				$memberOut = Html::rawElement( 'ul', array(), $memberOut );
+			}
 			$memberOut .= $sk->link( $this->getTitle(), 'Add a member', array(),
 									 array( 'action' => 'addmember', 'projectname' => $projectName ), array() );
-			$membersOut = Html::rawElement( 'ul', array(), $memberOut );
-			$projectOut .= Html::rawElement( 'td', array(), $membersOut );
+			$projectOut .= Html::rawElement( 'td', array(), $memberOut );
 			$link = $sk->link( $this->getTitle(), 'delete project', array(),
 							   array( 'action' => 'delete', 'projectname' => $projectName ), array() );
 			$projectOut .= Html::rawElement( 'td', array(), $link );
 			$projectsOut .= Html::rawElement( 'tr', array(), $projectOut );
 		}
-		$out .= Html::rawElement( 'table', array( 'class' => 'wikitable' ), $projectsOut );
+		if ( $projectsOut ) {
+			$out .= Html::rawElement( 'table', array( 'class' => 'wikitable' ), $projectsOut );
+		}
 
 		$wgOut->addHTML( $out );
 	}

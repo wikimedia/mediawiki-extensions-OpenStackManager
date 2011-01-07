@@ -6,7 +6,7 @@ class OpenStackNovaController {
 	var $novaConnection;
 	var $instances, $images, $keypairs, $availabilityZones;
 
-	var $instanceTypes = array( 't1.micro', 'm1.small', 'm1.large', 'm1.xlarge', 'm2.xlarge', 'm2.2xlarge',
+	var $instanceTypes = array( 'm1.small', 'm1.large', 'm1.xlarge', 'm2.xlarge', 'm2.2xlarge',
 								'm2.4xlarge', 'c1.medium', 'c1.xlarge', 'cc1.4xlarge' );
 
 	# TODO: Make disable_ssl, hostname, and resource_prefix config options
@@ -21,28 +21,23 @@ class OpenStackNovaController {
 		$this->instances = array();
 	}
 
-	function getInstance( $instanceId, $reload = false ) {
-		if ( isset( $this->instances[$instanceId] ) && !$reload ) {
-			$instance = $this->instances[$instanceId];
+	function getInstance( $instanceId ) {
+		$this->getInstances();
+		if ( isset( $this->instances["$instanceId"] ) ) {
+			return $this->instances["$instanceId"];
 		} else {
-			$response = $this->novaConnection->describe_instances( $instanceId );
-			$instance = new OpenStackNovaInstance( $response->body->reservationSet->item, true );
-			$instanceId = $instance->getInstanceId();
-			$this->instances["$instanceId"] = $instance;
+			return null;
 		}
-		return $instance;
 	}
 
-	function getInstances( $reload = false ) {
-		if ( count( $this->instances ) == 0 || $reload ) {
-			$this->instances = array();
-			$response = $this->novaConnection->describe_instances();
-			$instances = $response->body->reservationSet->item;
-			foreach ( $instances as $instance ) {
-				$instance = new OpenStackNovaInstance( $instance, true );
-				$instanceId = $instance->getInstanceId();
-				$this->instances["$instanceId"] = $instance;
-			}
+	function getInstances() {
+		$this->instances = array();
+		$response = $this->novaConnection->describe_instances();
+		$instances = $response->body->reservationSet->item;
+		foreach ( $instances as $instance ) {
+			$instance = new OpenStackNovaInstance( $instance, true );
+			$instanceId = $instance->getInstanceId();
+			$this->instances["$instanceId"] = $instance;
 		}
 		return $this->instances;
 	}
@@ -51,44 +46,38 @@ class OpenStackNovaController {
 		return $this->instanceTypes;
 	}
 
-	function getImages( $reload = false ) {
-		if ( count( $this->images ) == 0 || $reload ) {
-			$this->images = array();
-			$images = $this->novaConnection->describe_images();
-			$images = $images->body->imagesSet->item;
-			foreach ( $images as $image ) {
-				if ( $image->imageType == 'machine' ) {
-					$this->images["$image->imageId"] = $image;
-				}
+	function getImages() {
+		$this->images = array();
+		$images = $this->novaConnection->describe_images();
+		$images = $images->body->imagesSet->item;
+		foreach ( $images as $image ) {
+			if ( $image->imageType == 'machine' ) {
+				$this->images["$image->imageId"] = $image;
 			}
 		}
 		return $this->images;
 	}
 
 	# TODO: make this user specific
-	function getKeypairs( $reload = false ) {
-		if ( count( $this->keypairs ) == 0 || $reload ) {
-			$this->keypairs = array();
-			$response = $this->novaConnection->describe_key_pairs();
-			$keypairs = $response->body->keypairsSet->item;
-			foreach ( $keypairs as $keypair ) {
-				$keypair = new OpenStackNovaKeypair( $keypair );
-				$keyname = $keypair->getKeyName();
-				$this->keypairs["$keyname"] = $keypair;
-			}
+	function getKeypairs() {
+		$this->keypairs = array();
+		$response = $this->novaConnection->describe_key_pairs();
+		$keypairs = $response->body->keypairsSet->item;
+		foreach ( $keypairs as $keypair ) {
+			$keypair = new OpenStackNovaKeypair( $keypair );
+			$keyname = $keypair->getKeyName();
+			$this->keypairs["$keyname"] = $keypair;
 		}
 		return $this->keypairs;
 	}
 
-	function getAvailabilityZones( $reload = false ) {
-		if ( count( $this->availabilityZones ) == 0 || $reload ) {
-			$this->availabilityZones = array();
-			$availabilityZones = $this->novaConnection->describe_availability_zones();
-			$availabilityZones = $availabilityZones->body->availabilityZoneInfo->item;
-			foreach ( $availabilityZones as $availabilityZone ) {
-				if ( $availabilityZones->zoneState == "available" ) {
-					$this->availabilityZones["$availabilityZones->zoneName"] = $availabilityZone;
-				}
+	function getAvailabilityZones() {
+		$this->availabilityZones = array();
+		$availabilityZones = $this->novaConnection->describe_availability_zones();
+		$availabilityZones = $availabilityZones->body->availabilityZoneInfo->item;
+		foreach ( $availabilityZones as $availabilityZone ) {
+			if ( $availabilityZones->zoneState == "available" ) {
+				$this->availabilityZones["$availabilityZones->zoneName"] = $availabilityZone;
 			}
 		}
 		return $this->availabilityZones;

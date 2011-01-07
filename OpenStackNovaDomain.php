@@ -16,8 +16,9 @@ class OpenStackNovaDomain {
 	function connect() {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
+		global $wgOpenStackManagerLDAPDomain;
 
-		$wgAuth->connect();
+		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 	}
 
@@ -44,6 +45,14 @@ class OpenStackNovaDomain {
 		return $this->fqdn;
 	}
 
+	function getLocation() {
+		if ( isset( $this->domainInfo[0]['l'] ) ) {
+			return $this->domainInfo[0]['l'][0];
+		} else {
+			return '';
+		}
+	}
+
 	function updateSOA() {
 		global $wgAuth;
 
@@ -60,15 +69,21 @@ class OpenStackNovaDomain {
 		}
 	}
 
-	static function getAllDomains() {
+	static function getAllDomains( $bylocation=false) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
+		global $wgOpenStackManagerLDAPDomain;
 
-		$wgAuth->connect();
+		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 
 		$domains = array();
+		if ( $bylocation ) {
+			$query = '(&(soarecord=*)(l=*))';
+		} else {
+			$query = '(soarecord=*)';
+		}
 		wfSuppressWarnings();
 		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, '(soarecord=*)' );
 		wfRestoreWarnings();
@@ -102,8 +117,9 @@ class OpenStackNovaDomain {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
+		global $wgOpenStackManagerLDAPDomain;
 
-		$wgAuth->connect();
+		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 
 		wfSuppressWarnings();
@@ -126,8 +142,9 @@ class OpenStackNovaDomain {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
+		global $wgOpenStackManagerLDAPDomain;
 
-		$wgAuth->connect();
+		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 
 		wfSuppressWarnings();
@@ -147,13 +164,14 @@ class OpenStackNovaDomain {
 	}
 
 	# TODO: Allow generic domains; get rid of config set base name
-	static function createDomain( $domainname, $fqdn ) {
+	static function createDomain( $domainname, $fqdn, $location ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
-		global $wgOpenStackManagerDNSServers;
+		global $wgOpenStackManagerDNSOptions;
+		global $wgOpenStackManagerLDAPDomain;
 
-		$wgAuth->connect();
+		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 
 		$soa = OpenStackNovaDomain::generateSOA();
@@ -161,8 +179,9 @@ class OpenStackNovaDomain {
 		$domain['objectclass'][] = 'dnsdomain';
 		$domain['objectclass'][] = 'domainrelatedobject';
 		$domain['dc'] = $domainname;
-		$domain['soarecord'] = $wgOpenStackManagerDNSServers['primary'] . ' ' . $soa;
+		$domain['soarecord'] = $wgOpenStackManagerDNSOptions['servers']['primary'] . ' ' . $soa;
 		$domain['associateddomain'] = $fqdn;
+		$domain['l'] = $location;
 		$dn = 'dc=' . $domainname . ',' . $wgOpenStackManagerLDAPInstanceBaseDN;
 
 		wfSuppressWarnings();
@@ -180,8 +199,9 @@ class OpenStackNovaDomain {
 	static function deleteDomain( $domainname ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
+		global $wgOpenStackManagerLDAPDomain;
 
-		$wgAuth->connect();
+		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 
 		$domain = new OpenStackNovaDomain( $domainname );
@@ -211,12 +231,14 @@ class OpenStackNovaDomain {
 	}
 
 	static function generateSOA() {
-		global $wgOpenStackManagerDNSSOA;
+		global $wgOpenStackManagerDNSOptions;
 
 		$serial = date( 'YmdHis' );
-		$soa = $wgOpenStackManagerDNSSOA['hostmaster'] . ' ' . $serial . ' ' .
-			   $wgOpenStackManagerDNSSOA['refresh'] . ' ' . $wgOpenStackManagerDNSSOA['retry'] . ' ' .
-			   $wgOpenStackManagerDNSSOA['expiry'] . ' ' . $wgOpenStackManagerDNSSOA['minimum'];
+		$soa = $wgOpenStackManagerDNSOptions['soa']['hostmaster'] . ' ' . $serial . ' ' .
+			   $wgOpenStackManagerDNSOptions['soa']['refresh'] . ' ' .
+			   $wgOpenStackManagerDNSOptions['soa']['retry'] . ' ' .
+			   $wgOpenStackManagerDNSOptions['soa']['expiry'] . ' ' .
+			   $wgOpenStackManagerDNSOptions['soa']['minimum'];
 
 		return $soa;
 	}

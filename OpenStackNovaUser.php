@@ -148,8 +148,9 @@ class OpenStackNovaUser {
 	function connect() {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
+		global $wgOpenStackManagerLDAPDomain;
 
-		$wgAuth->connect();
+		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 	}
 

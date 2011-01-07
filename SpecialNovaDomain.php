@@ -23,6 +23,7 @@ class SpecialNovaDomain extends SpecialNova {
 		#	return false;
 		#}
 		if ( ! $wgUser->isLoggedIn() ) {
+			$this->notLoggedIn();
 			return false;
 		}
 
@@ -36,8 +37,16 @@ class SpecialNovaDomain extends SpecialNova {
 		}
 	}
 
+        function notLoggedIn() {
+                global $wgOut;
+                $this->setHeaders();
+                $wgOut->setPagetitle("Not logged in");
+                $wgOut->addHTML('<p>You must be logged in to perform this action</p>');
+        }
+
 	function createDomain() { 
 		global $wgRequest, $wgOut;
+		global $wgOpenStackManagerDNSOptions;
 
 		$this->setHeaders();
 		$wgOut->setPagetitle("Create Domain");
@@ -55,8 +64,12 @@ class SpecialNovaDomain extends SpecialNova {
 			'default' => '',
 			'section' => 'domain/info',
 		);
-
-
+		$domainInfo['location'] = array(
+			'type' => 'text',
+			'label-message' => 'location',
+			'default' => '',
+			'section' => 'domain/info',
+		);
 		$domainInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'create',
@@ -111,21 +124,26 @@ class SpecialNovaDomain extends SpecialNova {
 		$out = '';
 		$sk = $wgUser->getSkin();
 		$out .= $sk->link( $this->getTitle(), 'Create a new domain', array(), array( 'action' => 'create' ), array() );
-				$domainsOut = Html::element( 'th', array(), 'Domain name' );
-				$domainsOut .= Html::element( 'th', array(), 'FQDN' );
-				$domainsOut .= Html::element( 'th', array(), 'Action' );
+		$domainsOut = Html::element( 'th', array(), 'Domain name' );
+		$domainsOut .= Html::element( 'th', array(), 'FQDN' );
+		$domainsOut .= Html::element( 'th', array(), 'Location' );
+		$domainsOut .= Html::element( 'th', array(), 'Action' );
 		$domains = OpenStackNovaDomain::getAllDomains();
 		foreach ( $domains as $domain ) {
 			$domainName = $domain->getDomainName();
 			$fqdn = $domain->getFullyQualifiedDomainName();
+			$location = $domain->getLocation();
 			$domainOut = Html::element( 'td', array(), $domainName );
 			$domainOut .= Html::element( 'td', array(), $fqdn );
+			$domainOut .= Html::element( 'td', array(), $location );
 			$link = $sk->link( $this->getTitle(), 'delete domain', array(),
 							   array( 'action' => 'delete', 'domainname' => $domainName ), array() );
 			$domainOut .= Html::rawElement( 'td', array(), $link );
 			$domainsOut .= Html::rawElement( 'tr', array(), $domainOut );
 		}
-		$out .= Html::rawElement( 'table', array( 'class' => 'wikitable' ), $domainsOut );
+		if ( $domains ) {
+			$out .= Html::rawElement( 'table', array( 'class' => 'wikitable' ), $domainsOut );
+		}
 
 		$wgOut->addHTML( $out );
 	}
@@ -133,7 +151,7 @@ class SpecialNovaDomain extends SpecialNova {
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 
-		$success = OpenStackNovaDomain::createDomain( $formData['domainname'], $formData['fqdn'] );
+		$success = OpenStackNovaDomain::createDomain( $formData['domainname'], $formData['fqdn'], $formData['location'] );
 		if ( ! $success ) {
 			$out = Html::element( 'p', array(), 'Failed to create domain' );
 			$wgOut->addHTML( $out );

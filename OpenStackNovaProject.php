@@ -15,8 +15,9 @@ class OpenStackNovaProject {
 	function connect() {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
+		global $wgOpenStackManagerLDAPDomain;
 
-		$wgAuth->connect();
+		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 	}
 
@@ -120,8 +121,9 @@ class OpenStackNovaProject {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPProjectBaseDN;
+		global $wgOpenStackManagerLDAPDomain;
 
-		$wgAuth->connect();
+		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 
 		$projects = array();
@@ -149,8 +151,9 @@ class OpenStackNovaProject {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPProjectBaseDN;
+		global $wgOpenStackManagerLDAPDomain;
 
-		$wgAuth->connect();
+		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 
 		$project['objectclass'][] = 'groupofnames';
@@ -175,9 +178,10 @@ class OpenStackNovaProject {
 	static function deleteProject( $projectname ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
+		global $wgOpenStackManagerLDAPDomain;
 
 
-		$wgAuth->connect();
+		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 
 		$project = new OpenStackNovaProject( $projectname );
@@ -210,6 +214,7 @@ class OpenStackNovaProject {
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPDomain;
 		global $wgExtraNamespaces;
+		global $wgOpenStackManagerLDAPDomain;
 
 		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
