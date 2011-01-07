@@ -110,3 +110,10 @@ $messages['en'] = array(
 	'openstackmanager-badinstancename' => 'Bad instance name provided. Instance names must start with a-z, and can only contain a-z, 0-9, and - characters.',
 
 );
+
+/** Message documentation (Message documentation)
+ * @author Sam Reed <reedy@wikimedia.org>
+ */
+$messages['qqq'] = array(
+	'openstackmanager-desc' => '{{desc}}',
+);
