@@ -308,7 +308,7 @@ class OpenStackNovaUser {
 	}
 
 	static function LDAPModifyUITemplate( &$template ) {
-		$input = array( 'msg' => 'shellaccountname', 'type' => 'text', 'name' => 'shellaccountname', 'value' => '', 'helptext' => 'shellaccountnamehelp' );
+		$input = array( 'msg' => 'openstackmanager-shellaccountname', 'type' => 'text', 'name' => 'shellaccountname', 'value' => '', 'helptext' => 'openstackmanager-shellaccountnamehelp' );
 		$template->set( 'extraInput', array( $input ) );
 
 		return true;

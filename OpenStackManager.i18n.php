@@ -126,6 +126,9 @@ $messages['en'] = array(
 	'openstackmanager-novaproject-project' => 'Project',
 	'openstackmanager-novaproject-info' => 'Project Information',
 
+	'openstackmanager-shellaccountname' => 'Instance Shell Account Name',
+	'openstackmanager-shellaccountnamehelp' => 'The shell account name must start with a-z, and can only contain a-z, 0-9, -, and _ characters',
+
 );
 
 /** Message documentation (Message documentation)
