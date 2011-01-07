@@ -5,24 +5,23 @@ abstract class SpecialNova extends SpecialPage {
 		global $wgOut;
 
 		$this->setHeaders();
-		$wgOut->setPagetitle("Not logged in");
-		$wgOut->addHTML('<p>You must be logged in to perform this action</p>');
+		$wgOut->setPagetitle( wfMsg( 'openstackmanager-notloggedin' ) );
+		$wgOut->addHTML( wfMsg( 'openstackmanager-mustbeloggedin' ) );
 	}
 
 	function noCredentials() {
 		global $wgOut;
 
 		$this->setHeaders();
-		$wgOut->setPagetitle("No Nova credentials found for your account");
-		$wgOut->addHTML('<p>There were no Nova credentials found for your user account. ' .
-						'Please ask a Nova administrator to create credentials for you.</p>');
+		$wgOut->setPagetitle( wfMsg( 'openstackmanager-nonovacred' ) );
+		$wgOut->addHTML( wfMsg( 'openstackmanager-nonovacred-admincreate' ) );
 	}
 
 	function notInProject() {
 		global $wgOut;
 
 		$this->setHeaders();
-		$wgOut->setPagetitle("Your account is not in the project requested");
-		$wgOut->addHTML('<p>You can not complete the action requested as your user account is not in the project requested.</p>');
+		$wgOut->setPagetitle( wfMsg( 'openstackmanager-noaccount' ) );
+		$wgOut->addHTML( wfMsg( 'openstackmanager-noaccount2' ) );
 	}
 }

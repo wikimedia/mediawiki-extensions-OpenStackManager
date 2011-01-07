@@ -407,7 +407,7 @@ class SpecialNovaInstance extends SpecialNova {
 		} else {
 			$out = Html::element( 'p', array(), 'Failed to create instance' );
 		}
-		$out .= $sk->link( $this->getTitle(), 'Back to instance list', array(), array(), array() );
+		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backinstancelist' ), array(), array(), array() );
 
 		$wgOut->addHTML( $out );
 		return true;
@@ -435,7 +435,7 @@ class SpecialNovaInstance extends SpecialNova {
 		} else {
 			$out = Html::element( 'p', array(), 'Failed to delete instance' );
 		}
-		$out .= $sk->link( $this->getTitle(), 'Back to instance list', array(), array(), array() );
+		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backinstancelist' ), array(), array(), array() );
 
 		$wgOut->addHTML( $out );
 		return true;
@@ -470,7 +470,7 @@ class SpecialNovaInstance extends SpecialNova {
 		} else {
 			$out = Html::element( 'p', array(), 'The host requested does not exist.' );
 		}
-		$out .= $sk->link( $this->getTitle(), 'Back to instance list', array(), array(), array() );
+		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backinstancelist' ), array(), array(), array() );
 
 		$wgOut->addHTML( $out );
 		return true;

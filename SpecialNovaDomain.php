@@ -37,13 +37,6 @@ class SpecialNovaDomain extends SpecialNova {
 		}
 	}
 
-        function notLoggedIn() {
-                global $wgOut;
-                $this->setHeaders();
-                $wgOut->setPagetitle("Not logged in");
-                $wgOut->addHTML('<p>You must be logged in to perform this action</p>');
-        }
-
 	function createDomain() { 
 		global $wgRequest, $wgOut;
 		global $wgOpenStackManagerDNSOptions;

@@ -116,7 +116,7 @@ class SpecialNovaKey extends SpecialNova {
 			$keypairs = $this->userLDAP->getKeypairs();
 			if ( ! $wgRequest->wasPosted() ) {
 				$out = Html::element( 'pre', array(), $keypairs[$hash] );
-				$out .= Html::element( 'p', array(), 'Are you sure you wish to delete the above key?' );
+				$out .= Html::element( 'p', array(), wfMsg( 'openstackmanager-deletekeyconfirm' ) );
 				$wgOut->addHTML( $out );
 			}
 			$keyInfo['hash'] = array(
@@ -151,7 +151,7 @@ class SpecialNovaKey extends SpecialNova {
 		$out = '';
 		$sk = $wgUser->getSkin();
 		if ( $wgOpenStackManagerNovaKeypairStorage == 'nova' ) {
-			$out .= $sk->link( $this->getTitle(), 'Import a new key', array(), array( 'action' => 'import' ), array() );
+			$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-importkey' ), array(), array( 'action' => 'import' ), array() );
 			$projects = $this->userLDAP->getProjects();
 			foreach( $projects as $project ) {
 				$userCredentials = $this->userLDAP->getCredentials( $project );
@@ -161,8 +161,8 @@ class SpecialNovaKey extends SpecialNova {
 					continue;
 				}
 				$out .= Html::element( 'h2', array(), $project );
-				$projectOut = Html::element( 'th', array(), 'Name' );
-				$projectOut .= Html::element( 'th', array(), 'Fingerprint' );
+				$projectOut = Html::element( 'th', array(), wfMsg( 'openstackmanager-name' ) );
+				$projectOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-fingerprint' ) );
 				foreach ( $keypairs as $keypair ) {
 					$keyOut = Html::element( 'td', array(), $keypair->getKeyName() );
 					$keyOut .= Html::element( 'td', array(), $keypair->getKeyFingerprint() );
@@ -171,7 +171,7 @@ class SpecialNovaKey extends SpecialNova {
 				$out .= Html::rawElement( 'table', array( 'id' => 'novakeylist', 'class' => 'wikitable' ), $projectOut );
 			}
 		} else if ( $wgOpenStackManagerNovaKeypairStorage == 'ldap' ) {
-			$out .= $sk->link( $this->getTitle(), 'Import a new key', array(), array( 'action' => 'import' ), array() );
+			$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-importkey' ), array(), array( 'action' => 'import' ), array() );
 			$keypairs = $this->userLDAP->getKeypairs();
 			$keysOut = '';
 			foreach ( $keypairs as $hash => $key ) {
@@ -182,7 +182,7 @@ class SpecialNovaKey extends SpecialNova {
 			}
 			$out .= Html::rawElement( 'table', array(), $keysOut );
 		} else {
-			$out = Html::element( 'p', array(), 'Invalid keypair location configured' );
+			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-invalidkeypair' ) );
 		}
 
 		$wgOut->addHTML( $out );
@@ -195,25 +195,25 @@ class SpecialNovaKey extends SpecialNova {
 		if ( $wgOpenStackManagerNovaKeypairStorage == 'ldap' ) {
 			$success = $this->userLDAP->importKeypair( $formData['key'] );
 			if ( ! $success ) {
-				$out = Html::element( 'p', array(), 'Failed to import keypair' );
+				$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-keypairimportfailed' ) );
 				$wgOut->addHTML( $out );
 				return false;
 			}
-			$out = Html::element( 'p', array(), 'Imported keypair' );
+			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-keypairimported' ) );
 		} else if ( $wgOpenStackManagerNovaKeypairStorage == 'nova' ) {
 			#wgOpenStackManagerNovaKeypairStorage == 'nova'
 			# OpenStack's EC2 API doesn't yet support importing keys, use
 			# of this option isn't currently recommended
 			$keypair = $this->userNova->importKeypair( $formData['keyname'], $formData['key'] );
 
-			$out = Html::element( 'p', array(), 'Imported keypair ' . $keypair->getKeyName() .
-												' with fingerprint ' . $keypair->getKeyFingerprint() );
+			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-keypairimportedfingerprint',
+			                                              $keypair->getKeyName(), $keypair->getKeyFingerprint() ) );
 		} else {
-			$out = Html::element( 'p', array(), 'Invalid keypair location configured' );
+			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-invalidkeypair' ) );
 		}
 		$out .= '<br />';
 		$sk = $wgUser->getSkin();
-		$out .= $sk->link( $this->getTitle(), 'Back to key list', array(), array(), array() );
+		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backkeylist' ), array(), array(), array() );
 		$wgOut->addHTML( $out );
 		return true;
 	}
@@ -224,13 +224,13 @@ class SpecialNovaKey extends SpecialNova {
 
 		$success = $this->userLDAP->deleteKeypair( $formData['key'] );
 		if ( $success ) {
-			$out = Html::element( 'p', array(), 'Successfully deleted key' );
+			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-deletedkey' ) );
 		} else {
-			$out = Html::element( 'p', array(), 'Failed to delete key' );
+			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-deletedkeyfailed' ) );
 		}
 		$out .= '<br />';
 		$sk = $wgUser->getSkin();
-		$out .= $sk->link( $this->getTitle(), 'Back to key list', array(), array(), array() );
+		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backkeylist' ), array(), array(), array() );
 		$wgOut->addHTML( $out );
 		return true;
 	}
