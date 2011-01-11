@@ -144,7 +144,8 @@ class OpenStackNovaUser {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPGlobalRoles;
 
-		if ( ! array_key_exists( $wgOpenStackManagerLDAPGlobalRoles, $role ) ) {
+		if ( ! array_key_exists( $role, $wgOpenStackManagerLDAPGlobalRoles ) ) {
+			$wgAuth->printDebug( "Requested global role does not exist: $role", NONSENSITIVE );
 			return false;
 		}
 
