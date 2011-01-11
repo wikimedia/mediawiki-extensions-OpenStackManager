@@ -30,6 +30,9 @@ define( "NS_VM_TALK", 499 );
 $wgExtraNamespaces[NS_VM] = 'VM';
 $wgExtraNamespaces[NS_VM_TALK] = 'VM_talk';
 
+$wgGroupPermissions['sysop']['manageproject'] = true;
+$wgAvailableRights[] = 'manageproject';
+
 $wgOpenStackManagerNovaDisableSSL = true;
 $wgOpenStackManagerNovaServerName = 'localhost';
 $wgOpenStackManagerNovaPort = 8773;
@@ -40,6 +43,11 @@ $wgOpenStackManagerLDAPDomain = '';
 $wgOpenStackManagerLDAPUser = '';
 $wgOpenStackManagerLDAPUserPassword = '';
 $wgOpenStackManagerLDAPProjectBaseDN = '';
+$wgOpenStackManagerLDAPGlobalRoles = array(
+	'sysadmin' => '',
+	'netadmin' => '',
+	'cloudadmin' => '',
+	);
 $wgOpenStackManagerLDAPInstanceBaseDN = '';
 $wgOpenStackManagerLDAPDefaultGid = '500';
 $wgOpenStackManagerDNSServers = array( 'primary' => 'localhost', 'secondary' => 'localhost' );
@@ -72,15 +80,15 @@ $wgAutoloadClasses['SpecialNova'] = $dir . 'special/SpecialNova.php';
 $wgAutoloadClasses['OpenStackNovaHostJob'] = $dir . 'OpenStackNovaHostJob.php';
 $wgAutoloadClasses['AmazonEC2'] = $dir . 'aws-sdk/sdk.class.php';
 $wgSpecialPages['NovaInstance'] = 'SpecialNovaInstance';
-$wgSpecialPageGroups['NovaInstance'] = 'other';
+$wgSpecialPageGroups['NovaInstance'] = 'nova';
 $wgSpecialPages['NovaKey'] = 'SpecialNovaKey';
-$wgSpecialPageGroups['NovaKey'] = 'other';
+$wgSpecialPageGroups['NovaKey'] = 'nova';
 $wgSpecialPages['NovaProject'] = 'SpecialNovaProject';
-$wgSpecialPageGroups['NovaProject'] = 'other';
+$wgSpecialPageGroups['NovaProject'] = 'nova';
 $wgSpecialPages['NovaDomain'] = 'SpecialNovaDomain';
-$wgSpecialPageGroups['NovaDomain'] = 'other';
+$wgSpecialPageGroups['NovaDomain'] = 'nova';
 $wgSpecialPages['NovaAddress'] = 'SpecialNovaAddress';
-$wgSpecialPageGroups['NovaAddress'] = 'other';
+$wgSpecialPageGroups['NovaAddress'] = 'nova';
 $wgJobClasses['addDNSHostToLDAP'] = 'OpenStackNovaHostJob';
 
 $wgHooks['LDAPSetCreationValues'][] = 'OpenStackNovaUser::LDAPSetCreationValues';

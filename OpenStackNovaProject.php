@@ -117,6 +117,15 @@ class OpenStackNovaProject {
 		}
 	}
 
+	static function getProjectByName( $projectname ) {
+		$project = new OpenStackNovaProject( $projectname );
+		if ( $project->projectInfo ) {
+			return $project;
+		} else {
+			return null;
+		}
+	}
+
 	static function getAllProjects() {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;

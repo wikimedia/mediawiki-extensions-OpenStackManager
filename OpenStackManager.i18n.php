@@ -22,6 +22,13 @@ $messages['en'] = array(
 	'openstackmanager-instance' => 'Manage Instance',
 	'openstackmanager-title' => 'OpenStackManager',
 
+	'specialpages-group-nova' => 'OpenStack Nova',
+	'novaaddress' => 'Manage public IP addresses',
+	'novadomain' => 'Manage DNS domains',
+	'novainstance' => 'Manage Instances',
+	'novakey' => 'Manage your public SSH keys',
+	'novaproject' => 'Manage OpenStack projects',
+
 	'openstackmanager-novadomain' => 'Nova Domain',
 	'openstackmanager-novainstance' => 'Nova Instance',
 	'openstackmanager-novakey' => 'Nova Key',
@@ -146,6 +153,11 @@ $messages['en'] = array(
 	'openstackmanager-disassociateaddressfailed' => 'Failed to disassociate $1',
 	'openstackmanager-disassociateaddress-confirm' => 'Are you sure you would like to disassociate $1?',
 	'openstackmanager-releaseaddress-confirm' => 'Are you sure you would like to release $1?',
+
+	'openstackmanager-needsysadminrole' => 'Sysadmin Role Required',
+	'openstackmanager-needsysadminrole2' => 'You must be a member of the sysadmin role to perform this action.',
+	'openstackmanager-neednetadminrole' => 'Netadmin Role Required',
+	'openstackmanager-neednetadminrole2' => 'You must be a member of the netadmin role to perform this action.',
 
 );
 

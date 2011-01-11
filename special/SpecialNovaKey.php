@@ -7,10 +7,6 @@ class SpecialNovaKey extends SpecialNova {
 		parent::__construct( 'NovaKey' );
 	}
 
-	public function isRestricted() {
-			return true;
-	}
-
 	function execute( $par ) {
 		global $wgRequest, $wgUser;
 

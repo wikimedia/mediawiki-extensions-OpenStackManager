@@ -4,7 +4,7 @@ class SpecialNovaProject extends SpecialNova {
 	var $userNova, $adminNova;
 
 	function __construct() {
-		parent::__construct( 'NovaProject' );
+		parent::__construct( 'NovaProject', 'manageproject' );
 
 		global $wgOpenStackManagerNovaAdminKeys;
 
@@ -13,26 +13,14 @@ class SpecialNovaProject extends SpecialNova {
 		$this->adminNova = new OpenStackNovaController( $adminCredentials );
 	}
 
-	public function isRestricted() {
-		return true;
-	}
-
-#	public function userCanExecute( $user ) {
-#		global $wgRequest;
-#
-#		#$project = $wgRequest->getVal('project');
-#		#if ( $project && ! $this->userLDAP->inProject( $project ) ) {
-#		#	return false;
-#		#}
-#		return true;
-#	}
-
 	function execute( $par ) {
 		global $wgRequest, $wgUser;
 
-		# if ( ! $wgUser->isAllowed( 'manageproject' ) ) {
-		#	return false;
-		# }
+		if ( !$this->userCanExecute( $wgUser ) ) {
+			$this->displayRestrictionError();
+			return false;
+		}
+
 		if ( ! $wgUser->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return false;

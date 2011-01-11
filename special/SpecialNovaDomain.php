@@ -12,10 +12,6 @@ class SpecialNovaDomain extends SpecialNova {
 		$this->adminNova = new OpenStackNovaController( $wgOpenStackManagerNovaAdminKeys );
 	}
 
-	public function isRestricted() {
-		return true;
-	}
-
 	function execute( $par ) {
 		global $wgRequest, $wgUser;
 
@@ -24,6 +20,12 @@ class SpecialNovaDomain extends SpecialNova {
 		# }
 		if ( ! $wgUser->isLoggedIn() ) {
 			$this->notLoggedIn();
+			return false;
+		}
+		$project = $wgRequest->getText( 'project' );
+		# Must be in the global role
+		if ( ! $this->userLDAP->inRole( 'netadmin' ) ) {
+			$this->notInRole( 'netadmin' );
 			return false;
 		}
 

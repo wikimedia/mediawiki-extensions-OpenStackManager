@@ -140,9 +140,60 @@ class OpenStackNovaUser {
 		}
 	}
 
-	function inRole( $role, $project = '' ) {
-		# Currently unsupported
-		return true;
+	function inRole( $role, $projectname = '' ) {
+		global $wgAuth;
+		global $wgOpenStackManagerLDAPGlobalRoles;
+
+		if ( ! array_key_exists( $wgOpenStackManagerLDAPGlobalRoles, $role ) ) {
+			return false;
+		}
+
+		if ( $wgOpenStackManagerLDAPGlobalRoles["$role"] ) {
+			# Check global role
+			$roledn = $wgOpenStackManagerLDAPGlobalRoles["$role"];
+			$filter = "(member=$this->userDN)";
+			wfSuppressWarnings();
+			$result = ldap_search( $wgAuth->ldapconn, $roledn, $filter );
+			wfRestoreWarnings();
+			if ( $result ) {
+				wfSuppressWarnings();
+				$entries = ldap_get_entries( $wgAuth->ldapconn, $result );
+				wfRestoreWarnings();
+				if ( (int)$entries['count'] > 0 ) {
+					return true;
+				}
+			}
+		}
+		
+		if ( $projectname ) {
+			# Check project specific role
+			$project = OpenStackNovaProject::getProjectByName( $projectname );
+			if ( ! $project ) {
+				return false;
+			}
+			$filter = "(&(cn=$role)(member=$this->userDN))";
+			wfSuppressWarnings();
+			$result = ldap_search( $wgAuth->ldapconn, $project->projectDN, $filter );
+			wfRestoreWarnings();
+			if ( $result ) {
+				wfSuppressWarnings();
+				$entries = ldap_get_entries( $wgAuth->ldapconn, $result );
+				wfRestoreWarnings();
+				if ( $entries ) {
+					if ( $entries['count'] == "0" ) {
+						$wgAuth->printDebug( "Couldn't find the user in role: $role", NONSENSITIVE );
+						return false;
+					} else {
+						return true;
+					}
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		}
+		return false;
 	}
 
 	function connect() {

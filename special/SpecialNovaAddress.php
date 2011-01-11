@@ -46,6 +46,10 @@ class SpecialNovaAddress extends SpecialNova {
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-allocateaddress' ) );
 
 		$project = $wgRequest->getText( 'project' );
+		if ( ! $this->userLDAP->inRole( 'netadmin', $project ) ) {
+			$this->notInRole( 'netadmin' );
+			return false;
+		}
                 $userCredentials = $this->userLDAP->getCredentials( $project );
                 $this->userNova = new OpenStackNovaController( $userCredentials );
 		if ( ! $wgRequest->wasPosted() ) {
@@ -78,6 +82,10 @@ class SpecialNovaAddress extends SpecialNova {
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-releaseaddress' ) );
 
 		$project = $wgRequest->getText( 'project' );
+		if ( ! $this->userLDAP->inRole( 'netadmin', $project ) ) {
+			$this->notInRole( 'netadmin' );
+			return false;
+		}
                 $userCredentials = $this->userLDAP->getCredentials( $project );
                 $this->userNova = new OpenStackNovaController( $userCredentials );
 		$ip = $wgRequest->getText( 'ip' );
@@ -116,6 +124,10 @@ class SpecialNovaAddress extends SpecialNova {
 
 		$ip = $wgRequest->getText( 'ip' );
 		$project = $wgRequest->getText( 'project' );
+		if ( ! $this->userLDAP->inRole( 'netadmin', $project ) ) {
+			$this->notInRole( 'netadmin' );
+			return false;
+		}
                 $userCredentials = $this->userLDAP->getCredentials( $project );
                 $this->userNova = new OpenStackNovaController( $userCredentials );
 		$instances = $this->userNova->getInstances();
@@ -160,6 +172,10 @@ class SpecialNovaAddress extends SpecialNova {
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-disassociateaddress' ) );
 
 		$project = $wgRequest->getText( 'project' );
+		if ( ! $this->userLDAP->inRole( 'netadmin', $project ) ) {
+			$this->notInRole( 'netadmin' );
+			return false;
+		}
                 $userCredentials = $this->userLDAP->getCredentials( $project );
                 $this->userNova = new OpenStackNovaController( $userCredentials );
 		$ip = $wgRequest->getText( 'ip' );

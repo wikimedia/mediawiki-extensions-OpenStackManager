@@ -66,6 +66,11 @@ class SpecialNovaInstance extends SpecialNova {
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-createinstance' ) );
 
+		$project = $wgRequest->getText( 'project' );
+		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
+			$this->notInRole( 'sysadmin' );
+			return false;
+		}
 		$instanceInfo = Array();
 		$instanceInfo['instancename'] = array(
 			'type' => 'text',
@@ -145,7 +150,7 @@ class SpecialNovaInstance extends SpecialNova {
 
 		$instanceInfo['project'] = array(
 			'type' => 'hidden',
-			'default' => $wgRequest->getText( 'project' ),
+			'default' => $project,
 		);
 
 		if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
@@ -193,8 +198,12 @@ class SpecialNovaInstance extends SpecialNova {
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-configureinstance' ) );
 
+		$project = $wgRequest->getText( 'project' );
+		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
+			$this->notInRole( 'sysadmin' );
+			return false;
+		}
 		$instanceid = $wgRequest->getText( 'instanceid' );
-
 		$instanceInfo = Array();
 		$instanceInfo['instanceid'] = array(
 			'type' => 'hidden',
@@ -202,7 +211,7 @@ class SpecialNovaInstance extends SpecialNova {
 		);
 		$instanceInfo['project'] = array(
 			'type' => 'hidden',
-			'default' => $wgRequest->getText( 'project' ),
+			'default' => $project,
 		);
 
 		if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
@@ -267,8 +276,12 @@ class SpecialNovaInstance extends SpecialNova {
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-deletedomain' ) );
 
-		$instanceid = $wgRequest->getText( 'instanceid' );
 		$project = $wgRequest->getText( 'project' );
+		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
+			$this->notInRole( 'sysadmin' );
+			return false;
+		}
+		$instanceid = $wgRequest->getText( 'instanceid' );
 		if ( ! $wgRequest->wasPosted() ) {
 			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-deleteinstancequestion', array(), $instanceid ) );
 			$wgOut->addHTML( $out );
@@ -293,10 +306,6 @@ class SpecialNovaInstance extends SpecialNova {
 		$instanceForm->setSubmitText( 'confirm' );
 		$instanceForm->show();
 
-		return true;
-	}
-
-	function modifyInstance() {
 		return true;
 	}
 

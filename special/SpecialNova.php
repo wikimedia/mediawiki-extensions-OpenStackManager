@@ -24,4 +24,17 @@ abstract class SpecialNova extends SpecialPage {
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-noaccount' ) );
 		$wgOut->addHTML( wfMsg( 'openstackmanager-noaccount2' ) );
 	}
+
+	function notInRole( $role ) {
+		global $wgOut;
+
+		$this->setHeaders();
+		if ( $role == 'sysadmin' ) {
+			$wgOut->setPagetitle( wfMsg( 'openstackmanager-needsysadminrole' ) );
+			$wgOut->addHTML( wfMsg( 'openstackmanager-needsysadminrole2' ) );
+		} else if ( $role == 'netadmin' ) {
+			$wgOut->setPagetitle( wfMsg( 'openstackmanager-neednetadminrole' ) );
+			$wgOut->addHTML( wfMsg( 'openstackmanager-neednetadminrole2' ) );
+		}
+	}
 }
