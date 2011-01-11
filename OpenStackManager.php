@@ -48,6 +48,7 @@ $wgOpenStackManagerLDAPGlobalRoles = array(
 	'netadmin' => '',
 	'cloudadmin' => '',
 	);
+$wgOpenStackManagerLDAPRolesIntersect = false;
 $wgOpenStackManagerLDAPInstanceBaseDN = '';
 $wgOpenStackManagerLDAPDefaultGid = '500';
 $wgOpenStackManagerDNSServers = array( 'primary' => 'localhost', 'secondary' => 'localhost' );

@@ -143,6 +143,7 @@ class OpenStackNovaUser {
 	function inRole( $role, $projectname = '' ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPGlobalRoles;
+		global $wgOpenStackManagerLDAPRolesIntersect;
 
 		if ( ! array_key_exists( $role, $wgOpenStackManagerLDAPGlobalRoles ) ) {
 			$wgAuth->printDebug( "Requested global role does not exist: $role", NONSENSITIVE );
@@ -162,6 +163,10 @@ class OpenStackNovaUser {
 				wfRestoreWarnings();
 				if ( (int)$entries['count'] > 0 ) {
 					return true;
+				} else {
+					if ( $wgOpenStackManagerLDAPRolesIntersect ) {
+						return false;
+					}
 				}
 			}
 		}
