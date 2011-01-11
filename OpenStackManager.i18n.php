@@ -60,6 +60,7 @@ $messages['en'] = array(
 	'openstackmanager-domainname' => 'Domain Name',
 	'openstackmanager-fqdn' => 'Fully Qualified Domain Name',
 	'openstackmanager-location' => 'Location',
+	'openstackmanager-location-help' => 'Location field is for private DNS zones. Leave blank for public zones.',
 
 	'openstackmanager-novainstance-instance' => 'Instance',
 	'openstackmanager-configureinstance' => 'Configure Instance',

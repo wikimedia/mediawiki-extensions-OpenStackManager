@@ -181,7 +181,9 @@ class OpenStackNovaDomain {
 		$domain['dc'] = $domainname;
 		$domain['soarecord'] = $wgOpenStackManagerDNSOptions['servers']['primary'] . ' ' . $soa;
 		$domain['associateddomain'] = $fqdn;
-		$domain['l'] = $location;
+		if ( $location ) {
+			$domain['l'] = $location;
+		}
 		$dn = 'dc=' . $domainname . ',' . $wgOpenStackManagerLDAPInstanceBaseDN;
 
 		wfSuppressWarnings();

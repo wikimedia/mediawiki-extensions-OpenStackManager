@@ -64,6 +64,7 @@ class SpecialNovaDomain extends SpecialNova {
 			'label-message' => 'openstackmanager-location',
 			'default' => '',
 			'section' => 'domain/info',
+			'help-message' => 'openstackmanager-location-help',
 		);
 		$domainInfo['action'] = array(
 			'type' => 'hidden',
