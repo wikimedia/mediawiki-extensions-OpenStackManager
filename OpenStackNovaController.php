@@ -5,8 +5,9 @@ class OpenStackNovaController {
 
 	var $novaConnection;
 	var $instances, $images, $keypairs, $availabilityZones;
+	var $addresses;
 
-	var $instanceTypes = array( 'm1.small', 'm1.large', 'm1.xlarge', 'm2.xlarge', 'm2.2xlarge',
+	var $instanceTypes = array( 'm1.tiny', 'm1.small', 'm1.large', 'm1.xlarge', 'm2.xlarge', 'm2.2xlarge',
 								'm2.4xlarge', 'c1.medium', 'c1.xlarge', 'cc1.4xlarge' );
 
 	# TODO: Make disable_ssl, hostname, and resource_prefix config options
@@ -19,6 +20,18 @@ class OpenStackNovaController {
 		$this->novaConnection->set_hostname( $wgOpenStackManagerNovaServerName, $wgOpenStackManagerNovaPort );
 		$this->novaConnection->set_resource_prefix( $wgOpenStackManagerNovaResourcePrefix );
 		$this->instances = array();
+	}
+
+	function getAddresses() {
+		$this->addresses = array();
+		$response = $this->novaConnection->describe_addresses();
+		$addresses = $response->body->addressesSet->item;
+		foreach ( $addresses as $address ) {
+			$address = new OpenStackNovaAddress( $address );
+			$ip = $address->getPublicIp();
+			$this->addresses["$ip"] = $address;
+		}
+		return $this->addresses;
 	}
 
 	function getInstance( $instanceId ) {
@@ -118,6 +131,40 @@ class OpenStackNovaController {
 		$this->keypairs["$keyName"] = $keypair;
 
 		return $keypair;
+	}
+
+	function allocateAddress() {
+		$response = $this->novaConnection->allocate_address();
+		if ( ! $response->isOK() ) {
+			return null;
+		} else {
+			$address = new OpenStackNovaAddress( $response->body->addressSet->item );
+			$this->addresses["$ip"] = $address;
+			return $address;
+		}
+	}
+
+	function releaseAddress( $ip ) {
+		$response = $this->novaConnection->release_address( $ip );
+
+		return $response->isOK();
+	}
+
+	function associateAddress( $instanceid, $ip ) {
+		$response = $this->novaConnection->associate_address( $instanceid, $ip );
+		if ( ! $response->isOK() ) {
+			return null;
+		} else {
+			$address = new OpenStackNovaAddress( $response->body->addressSet->item );
+			$this->addresses["$ip"] = $address;
+			return $address;
+		}
+	}
+
+	function disassociateAddress( $ip ) {
+		$response = $this->novaConnection->disassociate_address( $ip );
+
+		return $response->isOK();
 	}
 
 }

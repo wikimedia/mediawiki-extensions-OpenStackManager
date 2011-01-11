@@ -127,6 +127,26 @@ $messages['en'] = array(
 	'openstackmanager-shellaccountname' => 'Instance Shell Account Name',
 	'openstackmanager-shellaccountnamehelp' => 'The shell account name must start with a-z, and can only contain a-z, 0-9, -, and _ characters',
 
+	'openstackmanager-addresslist' => 'Public IP Address List',
+	'openstackmanager-address' => 'Public IP Address',
+	'openstackmanager-allocateaddress' => 'Allocate a new public IP address',
+	'openstackmanager-releaseaddress' => 'Release IP',
+	'openstackmanager-associateaddress' => 'Associate IP',
+	'openstackmanager-reassociateaddress' => 'Reassociate IP',
+	'openstackmanager-disassociateaddress' => 'Disassociate IP',
+	'openstackmanager-allocateaddressfailed' => 'Failed to allocate new public IP address',
+	'openstackmanager-allocatedaddress' => 'Allocated new public IP address: $1',
+	'openstackmanager-backaddresslist' => 'Back to address list',
+	'openstackmanager-allocateaddress-confirm' => 'Are you sure you would like to allocate a new public IP address in project $1?',
+	'openstackmanager-releasedaddress' => 'Successfully released address: $1',
+	'openstackmanager-releaseaddressfailed' => 'Failed to release address: $1',
+	'openstackmanager-associatedaddress' => 'Successfully associated $1 with instance id $2',
+	'openstackmanager-associateaddressfailed' => 'Failed to associate $1 with instance id $2',
+	'openstackmanager-disassociatedaddress' => 'Successfully disassociated $1',
+	'openstackmanager-disassociateaddressfailed' => 'Failed to disassociate $1',
+	'openstackmanager-disassociateaddress-confirm' => 'Are you sure you would like to disassociate $1?',
+	'openstackmanager-releaseaddress-confirm' => 'Are you sure you would like to release $1?',
+
 );
 
 /** Message documentation (Message documentation)
