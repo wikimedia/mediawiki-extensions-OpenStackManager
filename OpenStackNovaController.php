@@ -22,6 +22,15 @@ class OpenStackNovaController {
 		$this->instances = array();
 	}
 
+	function getAddress( $ip ) {
+		$this->getAddresses();
+		if ( isset( $this->addresses["$ip"] ) ) {
+			return $this->addresses["$ip"];
+		} else {
+			return null;
+		}
+	}
+
 	function getAddresses() {
 		$this->addresses = array();
 		$response = $this->novaConnection->describe_addresses();

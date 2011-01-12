@@ -69,7 +69,7 @@ class OpenStackNovaDomain {
 		}
 	}
 
-	static function getAllDomains( $bylocation = false ) {
+	static function getAllDomains( $type='all' ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
@@ -79,13 +79,15 @@ class OpenStackNovaDomain {
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 
 		$domains = array();
-		if ( $bylocation ) {
+		if ( $type == 'local' ) {
 			$query = '(&(soarecord=*)(l=*))';
+		} else if ( $type == 'public' ) {
+			$query = '(&(soarecord=*)(!(l=*)))';
 		} else {
 			$query = '(soarecord=*)';
 		}
 		wfSuppressWarnings();
-		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, '(soarecord=*)' );
+		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, $query );
 		wfRestoreWarnings();
 		if ( $result ) {
 			wfSuppressWarnings();

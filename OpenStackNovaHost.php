@@ -40,7 +40,7 @@ class OpenStackNovaHost {
 	}
 
 	function getHostName() {
-		return $this->hostInfo[0]['associateddomain'][0];
+		return $this->hostInfo[0]['dc'][0];
 	}
 
 	function getDomain() {
@@ -48,7 +48,7 @@ class OpenStackNovaHost {
 	}
 
 	function getFullyQualifiedHostName() {
-		return $this->getHostName();
+		return $this->getHostName() . '.' . $this->domain->getFullyQualifiedDomainName();
 	}
 
 	function getPuppetConfiguration() {
@@ -79,6 +79,16 @@ class OpenStackNovaHost {
 		}
 
 		return $arecords;
+	}
+
+	function getAssociatedDomains() {
+		$associateddomain = array();
+		if ( isset( $this->hostInfo[0]['associateddomain'] ) ) {
+			$associateddomain = $this->hostInfo[0]['associateddomain'];
+			$associateddomain = array_shift( $associateddomain );
+		}
+
+		return $associateddomain;
 	}
 
 	function getCNAMERecords() {
@@ -127,6 +137,38 @@ class OpenStackNovaHost {
 		}
 	}
 
+	function deleteAssociatedDomain( $fqdn ) {
+		global $wgAuth;
+
+		if ( isset( $this->hostInfo[0]['associateddomain'] ) ) {
+			$associateddomains = $this->hostInfo[0]['associateddomain'];
+			array_shift( $associateddomains );
+			$index = array_search( $fqdn, $associateddomains );
+			if ( $index === false ) {
+				$wgAuth->printDebug( "Failed to find ip address in arecords list", NONSENSITIVE );
+				return false;
+			}
+			unset( $associateddomains[$index] );
+			$values['associateddomain'] = array();
+			foreach ( $associateddomains as $associateddomain ) {
+				$values['associateddomain'][] = $associateddomain;
+			}
+			wfSuppressWarnings();
+			$success = ldap_modify( $wgAuth->ldapconn, $this->hostDN, $values );
+			wfRestoreWarnings();
+			if ( $success ) {
+				$wgAuth->printDebug( "Successfully removed $fqdn from $this->hostDN", NONSENSITIVE );
+				$this->domain->updateSOA();
+				return true;
+			} else {
+				$wgAuth->printDebug( "Failed to remove $fqdn from $this->hostDN", NONSENSITIVE );
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+
 	function deleteARecord( $ip ) {
 		global $wgAuth;
 
@@ -155,6 +197,29 @@ class OpenStackNovaHost {
 				return false;
 			}
 		} else {
+			return false;
+		}
+	}
+
+	function addAssociatedDomain( $fqdn ) {
+		global $wgAuth;
+
+		$associatedomains = array();
+		if ( isset( $this->hostInfo[0]['associateddomain'] ) ) {
+			$associatedomains = $this->hostInfo[0]['associateddomain'];
+			array_shift( $associatedomains );
+		}
+		$associatedomains[] = $fqdn;
+		$values['associateddomain'] = $associatedomains;
+		wfSuppressWarnings();
+		$success = ldap_modify( $wgAuth->ldapconn, $this->hostDN, $values );
+		wfRestoreWarnings();
+		if ( $success ) {
+			$wgAuth->printDebug( "Successfully added $fqdn to $this->hostDN", NONSENSITIVE );
+			$this->domain->updateSOA();
+			return true;
+		} else {
+			$wgAuth->printDebug( "Failed to add $fqdn to $this->hostDN", NONSENSITIVE );
 			return false;
 		}
 	}
@@ -211,6 +276,54 @@ class OpenStackNovaHost {
 	static function getHostByInstanceId( $instanceid ) {
 		$domain = OpenStackNovaDomain::getDomainByInstanceId( $instanceid );
 		return self::getHostByName( $instanceid, $domain );
+	}
+
+	static function getHostByIP( $ip, $domain ) {
+		global $wgAuth;
+		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
+		global $wgOpenStackManagerLDAPInstanceBaseDN;
+
+		$domain = OpenStackNovaDomain::getDomainByHostIP( $ip );
+		if ( ! $domain ) {
+			return array();
+		}
+		wfSuppressWarnings();
+		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, '(arecord=' . $ip . ')' );
+		$hostInfo = ldap_get_entries( $wgAuth->ldapconn, $result );
+		wfRestoreWarnings();
+		if ( $hostInfo["count"] == "0" ) {
+			return array();
+		} else {
+			array_shift( $hostsInfo );
+			$hostname = $hostInfo[0]['dc'][0];
+			$host = OpenStackNovaHost::getHostByName( $hostname, $domain );
+			return $host;
+		}
+	}
+
+	static function getHostsByIP( $ip ) {
+		global $wgAuth;
+		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
+		global $wgOpenStackManagerLDAPInstanceBaseDN;
+
+		wfSuppressWarnings();
+		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, '(arecord=' . $ip . ')' );
+		$hostsInfo = ldap_get_entries( $wgAuth->ldapconn, $result );
+		wfRestoreWarnings();
+		if ( $hostsInfo["count"] == "0" ) {
+			return array();
+		} else {
+			$hosts = array();
+			array_shift( $hostsInfo );
+			foreach ( $hostsInfo as $host ) {
+				$hostname = $host['dc'][0];
+				$domainname = explode( '.', $host['associateddomain'][0] );
+				$domainname = $domainname[1];
+				$domain = OpenStackNovaDomain::getDomainByName( $domainname );
+				$hosts[] = OpenStackNovaHost::getHostByName( $hostname, $domain );
+			}
+			return $hosts;
+		}
 	}
 
 	static function getAllHosts( $domain ) {
@@ -324,7 +437,6 @@ class OpenStackNovaHost {
 			$wgAuth->printDebug( "Failed to add host $hostname as the DNS entry already exists", NONSENSITIVE );
 			return false;
 		}
-		$hostEntry = OpenStackNovaHost::getLDAPArray( $hostname, $ip, $domainname );
 		$hostEntry['objectclass'][] = 'dcobject';
 		$hostEntry['objectclass'][] = 'dnsdomain';
 		$hostEntry['objectclass'][] = 'domainrelatedobject';
@@ -367,7 +479,40 @@ class OpenStackNovaHost {
 		}
 	}
 
-	static function getLDAPArray( $hostname, $ip, $domainname ) {
+	static function addPublicHost( $hostname, $ip, $domain ) {
+		global $wgAuth;
+		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
+		global $wgOpenStackManagerLDAPInstanceBaseDN;
+		global $wgOpenStackManagerLDAPDomain;
+
+		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
+		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
+
+		$domainname = $domain->getFullyQualifiedDomainName();
+		$host = OpenStackNovaHost::getHostByName( $hostname, $domain );
+		if ( $host ) {
+			$wgAuth->printDebug( "Failed to add public host $hostname as the DNS entry already exists", NONSENSITIVE );
+			return false;
+		}
+		$hostEntry['objectclass'][] = 'dcobject';
+		$hostEntry['objectclass'][] = 'dnsdomain';
+		$hostEntry['objectclass'][] = 'domainrelatedobject';
+		$hostEntry['dc'] = $hostname;
+		$hostEntry['arecord'] = $ip;
+		$hostEntry['associateddomain'][] = $hostname . '.' . $domainname;
+		$dn = 'dc=' . $hostname . ',dc=' . $domain->getDomainName() . ',' . $wgOpenStackManagerLDAPInstanceBaseDN;
+
+		wfSuppressWarnings();
+		$success = ldap_add( $wgAuth->ldapconn, $dn, $hostEntry );
+		wfRestoreWarnings();
+		if ( $success ) {
+			$domain->updateSOA();
+			$wgAuth->printDebug( "Successfully added public host $hostname", NONSENSITIVE );
+			return new OpenStackNovaHost( $hostname, $domain );
+		} else {
+			$wgAuth->printDebug( "Failed to add public host $hostname", NONSENSITIVE );
+			return null;
+		}
 	}
 
 }

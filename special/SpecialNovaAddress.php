@@ -34,6 +34,10 @@ class SpecialNovaAddress extends SpecialNova {
 			$this->associateAddress();
 		} else if ( $action == "disassociate" ) {
 			$this->disassociateAddress();
+		} else if ( $action == "addhost" ) {
+			$this->addHost();
+		} else if ( $action == "removehost" ) {
+			$this->removehost();
 		} else {
 			$this->listAddresses();
 		}
@@ -163,6 +167,7 @@ class SpecialNovaAddress extends SpecialNova {
 		$addressForm->setSubmitCallback( array( $this, 'tryAssociateSubmit' ) );
 		$addressForm->show();
 
+		return true;
 	}
 
 	function disassociateAddress() {
@@ -203,6 +208,61 @@ class SpecialNovaAddress extends SpecialNova {
 		$addressForm->setSubmitText( 'confirm' );
 		$addressForm->show();
 
+		return true;
+	}
+
+	function addHost() {
+		global $wgOut, $wgRequest;
+
+		$this->setHeaders();
+		$wgOut->setPagetitle( wfMsg( 'openstackmanager-addhost' ) );
+
+		$project = $wgRequest->getText( 'project' );
+		if ( ! $this->userLDAP->inRole( 'netadmin', $project ) ) {
+			$this->notInRole( 'netadmin' );
+			return false;
+		}
+		$ip = $wgRequest->getText( 'ip' );
+		$addressInfo = Array();
+		$addressInfo['project'] = array(
+			'type' => 'hidden',
+			'default' => $project,
+		);
+		$addressInfo['ip'] = array(
+			'type' => 'hidden',
+			'default' => $ip,
+		);
+		$addressInfo['hostname'] = array(
+			'type' => 'text',
+			'default' => '',
+			'validation-callback' => array( $this, 'validateHostName' ),
+			'label-message' => 'openstackmanager-hostname',
+		);
+		$domains = OpenStackNovaDomain::getAllDomains( 'public' );
+		$domain_keys = array();
+		foreach ( $domains as $domain ) {
+			$domainname = $domain->getDomainName();
+			$domain_keys["$domainname"] = $domainname;
+		}
+		$addressInfo['domain'] = array(
+			'type' => 'select',
+			'options' => $domain_keys,
+			'label-message' => 'openstackmanager-dnsdomain',
+		);
+		$addressInfo['action'] = array(
+			'type' => 'hidden',
+			'default' => 'addhost',
+		);
+		$addressForm = new SpecialNovaAddressForm( $addressInfo, 'openstackmanager-novaaddress' );
+		$addressForm->setTitle( SpecialPage::getTitleFor( 'NovaAddress' ) );
+		$addressForm->setSubmitID( 'novaaddress-form-disassociateaddresssubmit' );
+		$addressForm->setSubmitCallback( array( $this, 'tryAddHostSubmit' ) );
+		$addressForm->show();
+
+		return true;
+	}
+
+	function removeHost() {
 	}
 
 	function listAddresses() {
@@ -217,6 +277,7 @@ class SpecialNovaAddress extends SpecialNova {
 		$header = Html::element( 'th', array(), wfMsg( 'openstackmanager-address' ) );
 		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-instanceid' ) );
 		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-instancename' ) );
+		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-hostnames' ) );
 		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-actions' ) );
 		$addresses = $this->adminNova->getAddresses();
 		$projectArr = array();
@@ -232,6 +293,22 @@ class SpecialNovaAddress extends SpecialNova {
 				$addressOut .= Html::element( 'td', array(), $instancename );
 			} else {
 				$addressOut .= Html::element( 'td', array(), '' );
+				$addressOut .= Html::element( 'td', array(), '' );
+			}
+			$hosts = OpenStackNovaHost::getHostsByIP( $ip );
+			if ( $hosts ) {
+				$hostsOut = '';
+				$msg = wfMsg( 'openstackmanager-removehost' );
+				foreach ( $hosts as $host ) {
+					$domain = $host->getDomain();
+					$link = $sk->link( $this->getTitle(), $msg, array(),
+							   array( 'action' => 'removehost', 'ip' => $ip, 'project' => $project, 'domain' => $domain->getDomainName() ), array() );
+					$hostOut = $host->getFullyQualifiedHostName() . ' ' . $link;
+					$hostsOut .= Html::rawElement( 'li', array(), $hostOut );
+				}
+				$hostsOut = Html::rawElement( 'ul', array(), $hostsOut );
+				$addressOut .= Html::rawElement( 'td', array(), $hostsOut );
+			} else {
 				$addressOut .= Html::element( 'td', array(), '' );
 			}
 			if ( $instanceid ) {
@@ -252,6 +329,10 @@ class SpecialNovaAddress extends SpecialNova {
 						   array( 'action' => 'disassociate', 'ip' => $ip, 'project' => $project ), array() );
 				$actions .= Html::rawElement( 'li', array(), $link );
 			}
+			$msg = wfMsg( 'openstackmanager-addhost' );
+			$link = $sk->link( $this->getTitle(), $msg, array(),
+					   array( 'action' => 'addhost', 'ip' => $ip, 'project' => $project ), array() );
+			$actions .= Html::rawElement( 'li', array(), $link );
 			$actions = Html::rawElement( 'ul', array(), $actions );
 			$addressOut .= Html::rawElement( 'td', array(), $actions );
 			$projectArr["$project"] = Html::rawElement( 'tr', array(), $addressOut );
@@ -267,6 +348,8 @@ class SpecialNovaAddress extends SpecialNova {
 			}
 		}
 		$wgOut->addHTML( $out );
+
+		return true;
 	}
 
 	function tryAllocateSubmit( $formData, $entryPoint = 'internal' ) {
@@ -343,6 +426,66 @@ class SpecialNovaAddress extends SpecialNova {
 		return true;
 	}
 
+	function tryAddHostSubmit( $formData, $entryPoint = 'internal' ) {
+		global $wgOut, $wgUser;
+
+		$ip = $formData['ip'];
+		$project = $formData['project'];
+		$address = $this->adminNova->getAddress( $ip );
+		if ( ! $address ) {
+			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-invalidaddress', array(), $ip ) );
+			$wgOut->addHTML( $out );
+			return false;
+		}
+		if ( $address->getProject() != $project ) {
+			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-invalidaddressforproject', array(), $ip ) );
+			$wgOut->addHTML( $out );
+			return false;
+		}
+		$hostname = $formData['hostname'];
+		$domain = $formData['domain'];
+		$domain = OpenStackNovaDomain::getDomainByName( $domain );
+		$hostbyname = OpenStackNovaHost::getHostByName( $hostname, $domain );
+		$hostbyip = OpenStackNovaHost::getHostByIP( $ip, $domain );
+		if ( $hostbyname ) {
+			# We need to add an arecord, if the arecord doesn't already exist
+			$success = $host->addARecord( $ip );
+			if ( $success ) {
+				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-addedhost', array(), $hostname, $ip ) );
+			} else {
+				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-addhostfailed', array(), $ip, $instanceid ) );
+			}
+		} else if ( $hostbyip ) {
+			# We need to add an associateddomain, if the associateddomain doesn't already exist
+			$success = $host->addAssociatedDomain( $hostname . '.' . $domain->getFullyQualifiedHostname() );
+			if ( $success ) {
+				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-addedhost', array(), $hostname, $ip ) );
+			} else {
+				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-addhostfailed', array(), $ip, $instanceid ) );
+			}
+		} else {
+			# This is a new host entry
+			$host = OpenStackNovaHost::addPublicHost( $hostname, $ip, $domain );
+			if ( $host ) {
+				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-addedhost', array(), $hostname, $ip ) );
+			} else {
+				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-addhostfailed', array(), $ip, $instanceid ) );
+			}
+		}
+		$out .= '<br />';
+		$sk = $wgUser->getSkin();
+		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backaddresslist' ), array(), array(), array() );
+		$wgOut->addHTML( $out );
+		return true;
+	}
+
+        function validateHostName( $hostname, $alldata ) {
+                if ( ! preg_match( "/^[a-z][a-z0-9\-]*$/", $hostname ) ) {
+                        return Xml::element( 'span', array( 'class' => 'error' ), wfMsg( 'openstackmanager-badinstancename' ) );
+                } else {
+                        return true;
+                }
+        }
 }
 
 class SpecialNovaAddressForm extends HTMLForm {

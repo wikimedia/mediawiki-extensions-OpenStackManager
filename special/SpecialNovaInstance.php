@@ -135,7 +135,7 @@ class SpecialNovaInstance extends SpecialNova {
 		#	'label-message' => 'keypair',
 		# );
 
-		$domains = OpenStackNovaDomain::getAllDomains( true );
+		$domains = OpenStackNovaDomain::getAllDomains( 'local' );
 		$domain_keys = array();
 		foreach ( $domains as $domain ) {
 			$domainname = $domain->getDomainName();
