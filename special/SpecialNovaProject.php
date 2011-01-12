@@ -193,15 +193,17 @@ class SpecialNovaProject extends SpecialNova {
 				$memberOut .= Html::rawElement( 'li', array(), $projectMemberOut );
 			}
 			if ( $memberOut ) {
-				$memberOut .= '<br />';
 				$memberOut = Html::rawElement( 'ul', array(), $memberOut );
 			}
-			$memberOut .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-addmember' ), array(),
-									 array( 'action' => 'addmember', 'projectname' => $projectName ), array() );
 			$projectOut .= Html::rawElement( 'td', array(), $memberOut );
 			$link = $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-deleteproject' ), array(),
 							   array( 'action' => 'delete', 'projectname' => $projectName ), array() );
-			$projectOut .= Html::rawElement( 'td', array(), $link );
+			$actions = Html::rawElement( 'li', array(), $link );
+			$link = $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-addmember' ), array(),
+									 array( 'action' => 'addmember', 'projectname' => $projectName ), array() );
+			$actions .= Html::rawElement( 'li', array(), $link );
+			$actions = Html::rawElement( 'ul', array(), $actions );
+			$projectOut .= Html::rawElement( 'td', array(), $actions );
 			$projectsOut .= Html::rawElement( 'tr', array(), $projectOut );
 		}
 		if ( $projectsOut ) {
