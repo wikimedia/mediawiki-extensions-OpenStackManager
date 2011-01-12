@@ -19,6 +19,7 @@ class OpenStackNovaController {
 		$this->novaConnection->disable_ssl( $wgOpenStackManagerNovaDisableSSL );
 		$this->novaConnection->set_hostname( $wgOpenStackManagerNovaServerName, $wgOpenStackManagerNovaPort );
 		$this->novaConnection->set_resource_prefix( $wgOpenStackManagerNovaResourcePrefix );
+		$this->novaConnection->allow_hostname_override(false);
 		$this->instances = array();
 	}
 
