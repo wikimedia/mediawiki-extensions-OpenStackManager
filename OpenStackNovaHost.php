@@ -75,7 +75,7 @@ class OpenStackNovaHost {
 		$arecords = array();
 		if ( isset( $this->hostInfo[0]['arecord'] ) ) {
 			$arecords = $this->hostInfo[0]['arecord'];
-			$arecords = array_shift( $arecords );
+			array_shift( $arecords );
 		}
 
 		return $arecords;
@@ -85,7 +85,7 @@ class OpenStackNovaHost {
 		$associateddomain = array();
 		if ( isset( $this->hostInfo[0]['associateddomain'] ) ) {
 			$associateddomain = $this->hostInfo[0]['associateddomain'];
-			$associateddomain = array_shift( $associateddomain );
+			array_shift( $associateddomain );
 		}
 
 		return $associateddomain;
@@ -95,7 +95,7 @@ class OpenStackNovaHost {
 		$cnamerecords = array();
 		if ( isset( $this->hostInfo[0]['cnamerecord'] ) ) {
 			$cnamerecords = $this->hostInfo[0]['cnamearecord'];
-			$cnamerecords = array_shift( $cnamerecords );
+			array_shift( $cnamerecords );
 		}
 
 		return $cnamerecords;

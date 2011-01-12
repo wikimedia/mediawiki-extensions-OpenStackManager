@@ -255,7 +255,7 @@ class SpecialNovaAddress extends SpecialNova {
 		);
 		$addressForm = new SpecialNovaAddressForm( $addressInfo, 'openstackmanager-novaaddress' );
 		$addressForm->setTitle( SpecialPage::getTitleFor( 'NovaAddress' ) );
-		$addressForm->setSubmitID( 'novaaddress-form-disassociateaddresssubmit' );
+		$addressForm->setSubmitID( 'novaaddress-form-addhostsubmit' );
 		$addressForm->setSubmitCallback( array( $this, 'tryAddHostSubmit' ) );
 		$addressForm->show();
 
@@ -263,6 +263,54 @@ class SpecialNovaAddress extends SpecialNova {
 	}
 
 	function removeHost() {
+		global $wgOut, $wgRequest;
+
+		$this->setHeaders();
+		$wgOut->setPagetitle( wfMsg( 'openstackmanager-removehost' ) );
+
+		$project = $wgRequest->getText( 'project' );
+		if ( ! $this->userLDAP->inRole( 'netadmin', $project ) ) {
+			$this->notInRole( 'netadmin' );
+			return false;
+		}
+                $userCredentials = $this->userLDAP->getCredentials( $project );
+                $this->userNova = new OpenStackNovaController( $userCredentials );
+		$ip = $wgRequest->getText( 'ip' );
+		$domain = $wgRequest->getText( 'domain' );
+		$hostname = $wgRequest->getText( 'hostname' );
+		if ( ! $wgRequest->wasPosted() ) {
+			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removehost-confirm', array(), $hostname, $ip ) );
+			$wgOut->addHTML( $out );
+		}
+		$addressInfo = Array();
+		$addressInfo['project'] = array(
+			'type' => 'hidden',
+			'default' => $project,
+		);
+		$addressInfo['ip'] = array(
+			'type' => 'hidden',
+			'default' => $ip,
+		);
+		$addressInfo['domain'] = array(
+			'type' => 'hidden',
+			'default' => $domain,
+		);
+		$addressInfo['hostname'] = array(
+			'type' => 'hidden',
+			'default' => $hostname,
+		);
+		$addressInfo['action'] = array(
+			'type' => 'hidden',
+			'default' => 'removehost',
+		);
+		$addressForm = new SpecialNovaAddressForm( $addressInfo, 'openstackmanager-novaaddress' );
+		$addressForm->setTitle( SpecialPage::getTitleFor( 'NovaAddress' ) );
+		$addressForm->setSubmitID( 'novaaddress-form-removehostsubmit' );
+		$addressForm->setSubmitCallback( array( $this, 'tryRemoveHostSubmit' ) );
+		$addressForm->setSubmitText( 'confirm' );
+		$addressForm->show();
+
+		return true;
 	}
 
 	function listAddresses() {
@@ -298,13 +346,18 @@ class SpecialNovaAddress extends SpecialNova {
 			$hosts = OpenStackNovaHost::getHostsByIP( $ip );
 			if ( $hosts ) {
 				$hostsOut = '';
-				$msg = wfMsg( 'openstackmanager-removehost' );
+				$msg = wfMsg( 'openstackmanager-removehost-action' );
 				foreach ( $hosts as $host ) {
 					$domain = $host->getDomain();
-					$link = $sk->link( $this->getTitle(), $msg, array(),
-							   array( 'action' => 'removehost', 'ip' => $ip, 'project' => $project, 'domain' => $domain->getDomainName() ), array() );
-					$hostOut = $host->getFullyQualifiedHostName() . ' ' . $link;
-					$hostsOut .= Html::rawElement( 'li', array(), $hostOut );
+					$fqdns = $host->getAssociatedDomains();
+					foreach ( $fqdns as $fqdn ) {
+						$hostname = explode( '.', $fqdn );
+						$hostname = $hostname[0];
+						$link = $sk->link( $this->getTitle(), $msg, array(),
+								   array( 'action' => 'removehost', 'ip' => $ip, 'project' => $project, 'domain' => $domain->getDomainName(), 'hostname' => $hostname ), array() );
+						$hostOut = $fqdn . ' ' . $link;
+						$hostsOut .= Html::rawElement( 'li', array(), $hostOut );
+					}
 				}
 				$hostsOut = Html::rawElement( 'ul', array(), $hostsOut );
 				$addressOut .= Html::rawElement( 'td', array(), $hostsOut );
@@ -375,6 +428,21 @@ class SpecialNovaAddress extends SpecialNova {
 		global $wgOut, $wgUser;
 
 		$ip = $formData['ip'];
+		#TODO: Instead of throwing an error when host exist or the IP
+		# is associated, remove all host entries and disassociate the IP
+		# then release the address
+		$hosts = OpenStackNovaHost::getHostsByIP( $ip );
+		if ( $hosts ) {
+			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-cannotreleaseaddress', array(), $ip ) );
+			$wgOut->addHTML( $out );
+			return false;
+		}
+		$address = $this->adminNova->getAddress( $ip );
+		if ( $address->getInstanceId() ) {
+			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-cannotreleaseaddress', array(), $ip ) );
+			$wgOut->addHTML( $out );
+			return false;
+		}
 		$success = $this->userNova->releaseAddress( $ip );
 		if ( $success ) {
 			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-releasedaddress', array(), $ip ) );
@@ -449,7 +517,7 @@ class SpecialNovaAddress extends SpecialNova {
 		$hostbyip = OpenStackNovaHost::getHostByIP( $ip, $domain );
 		if ( $hostbyname ) {
 			# We need to add an arecord, if the arecord doesn't already exist
-			$success = $host->addARecord( $ip );
+			$success = $hostbyname->addARecord( $ip );
 			if ( $success ) {
 				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-addedhost', array(), $hostname, $ip ) );
 			} else {
@@ -457,7 +525,7 @@ class SpecialNovaAddress extends SpecialNova {
 			}
 		} else if ( $hostbyip ) {
 			# We need to add an associateddomain, if the associateddomain doesn't already exist
-			$success = $host->addAssociatedDomain( $hostname . '.' . $domain->getFullyQualifiedHostname() );
+			$success = $hostbyip->addAssociatedDomain( $hostname . '.' . $domain->getFullyQualifiedDomainName() );
 			if ( $success ) {
 				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-addedhost', array(), $hostname, $ip ) );
 			} else {
@@ -471,6 +539,56 @@ class SpecialNovaAddress extends SpecialNova {
 			} else {
 				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-addhostfailed', array(), $ip, $instanceid ) );
 			}
+		}
+		$out .= '<br />';
+		$sk = $wgUser->getSkin();
+		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backaddresslist' ), array(), array(), array() );
+		$wgOut->addHTML( $out );
+		return true;
+	}
+
+	function tryRemoveHostSubmit( $formData, $entryPoint = 'internal' ) {
+		global $wgOut, $wgUser;
+
+		$ip = $formData['ip'];
+		$project = $formData['project'];
+		$address = $this->adminNova->getAddress( $ip );
+		if ( ! $address ) {
+			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-invalidaddress', array(), $ip ) );
+			$wgOut->addHTML( $out );
+			return false;
+		}
+		if ( $address->getProject() != $project ) {
+			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-invalidaddressforproject', array(), $ip ) );
+			$wgOut->addHTML( $out );
+			return false;
+		}
+		$hostname = $formData['hostname'];
+		$domain = $formData['domain'];
+		$domain = OpenStackNovaDomain::getDomainByName( $domain );
+		$host = OpenStackNovaHost::getHostByName( $hostname, $domain );
+		if ( $host ) {
+			$fqdn = $hostname . '.' . $domain->getFullyQualifiedDomainName();
+			$records = $host->getAssociatedDomains();
+			if ( count( $records ) > 1 ) {
+				# We need to keep the host, but remove the fqdn
+				$success = $host->deleteAssociatedDomain( $fqdn );
+				if ( $success ) {
+					$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removedhost', array(), $hostname, $ip ) );
+				} else {
+					$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removehostfailed', array(), $ip, $instanceid ) );
+				}
+			} else {
+				# We need to remove the host entry
+				$success = OpenStackNovaHost::deleteHost( $hostname, $domain );
+				if ( $success ) {
+					$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removedhost', array(), $hostname, $ip ) );
+				} else {
+					$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removehostfailed', array(), $ip, $instanceid ) );
+				}
+			}
+		} else {
+			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-nonexistenthost', array() ) );
 		}
 		$out .= '<br />';
 		$sk = $wgUser->getSkin();
