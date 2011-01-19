@@ -127,7 +127,7 @@ class OpenStackNovaController {
 		return $this->securityGroups;
 	}
 
-	function createInstance( $instanceName, $image, $key, $instanceType, $availabilityZone ) {
+	function createInstance( $instanceName, $image, $key, $instanceType, $availabilityZone, $groups ) {
 		# 1, 1 is min and max number of instances to create.
 		# We never want to make more than one at a time.
 		$options = array();
@@ -137,6 +137,11 @@ class OpenStackNovaController {
 		$options['InstanceType'] = $instanceType;
 		$options['Placement.AvailabilityZone'] = $availabilityZone;
 		$options['DisplayName'] = $instanceName;
+		#if ( count( $groups ) > 1 ) {
+			$options['SecurityGroup'] = $groups;
+		#} else if ( count( $groups ) == 1 ) {
+		#	$options['SecurityGroup'] = $groups[0];
+		#}
 		$response = $this->novaConnection->run_instances( $image, 1, 1, $options );
 		if ( ! $response->isOK() ) {
 			return null;

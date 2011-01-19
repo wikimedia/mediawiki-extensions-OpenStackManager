@@ -148,6 +148,21 @@ class SpecialNovaInstance extends SpecialNova {
 			'label-message' => 'openstackmanager-dnsdomain',
 		);
 
+		$securityGroups = $this->adminNova->getSecurityGroups();
+		$group_keys = array();
+		foreach ( $securityGroups as $securityGroup ) {
+			if ( $securityGroup->getOwner() == $project ) {
+				$securityGroupName = $securityGroup->getGroupName();
+				$group_keys["$securityGroupName"] = $securityGroupName;
+			}
+		}
+		$instanceInfo['groups'] = array(
+			'type' => 'multiselect',
+			'section' => 'instance/info',
+			'options' => $group_keys,
+			'label-message' => 'openstackmanager-securitygroups',
+		);
+
 		$instanceInfo['project'] = array(
 			'type' => 'hidden',
 			'default' => $project,
@@ -389,7 +404,7 @@ class SpecialNovaInstance extends SpecialNova {
 			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-invaliddomain' ) );
 			return true;
 		}
-		$instance = $this->userNova->createInstance( $formData['instancename'], $formData['imageType'], '', $formData['instanceType'], $formData['availabilityZone'] );
+		$instance = $this->userNova->createInstance( $formData['instancename'], $formData['imageType'], '', $formData['instanceType'], $formData['availabilityZone'], $formData['groups'] );
 		if ( $instance ) {
 			$puppetinfo = array();
 			if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
