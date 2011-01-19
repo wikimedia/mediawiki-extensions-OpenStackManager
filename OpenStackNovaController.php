@@ -137,11 +137,11 @@ class OpenStackNovaController {
 		$options['InstanceType'] = $instanceType;
 		$options['Placement.AvailabilityZone'] = $availabilityZone;
 		$options['DisplayName'] = $instanceName;
-		#if ( count( $groups ) > 1 ) {
+		if ( count( $groups ) > 1 ) {
 			$options['SecurityGroup'] = $groups;
-		#} else if ( count( $groups ) == 1 ) {
-		#	$options['SecurityGroup'] = $groups[0];
-		#}
+		} else if ( count( $groups ) == 1 ) {
+			$options['SecurityGroup'] = $groups[0];
+		}
 		$response = $this->novaConnection->run_instances( $image, 1, 1, $options );
 		if ( ! $response->isOK() ) {
 			return null;
