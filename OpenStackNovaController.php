@@ -5,7 +5,7 @@ class OpenStackNovaController {
 
 	var $novaConnection;
 	var $instances, $images, $keypairs, $availabilityZones;
-	var $addresses;
+	var $addresses, $securityGroups;
 
 	var $instanceTypes = array( 'm1.tiny', 'm1.small', 'm1.large', 'm1.xlarge', 'm2.xlarge', 'm2.2xlarge',
 								'm2.4xlarge', 'c1.medium', 'c1.xlarge', 'cc1.4xlarge' );
@@ -106,6 +106,27 @@ class OpenStackNovaController {
 		return $this->availabilityZones;
 	}
 
+	function getSecurityGroup( $groupname ) {
+		$this->getSecurityGroups();
+		if ( isset( $this->securityGroups["$groupname"] ) ) {
+			return $this->securityGroups["$groupname"];
+		} else {
+			return null;
+		}
+	}
+
+	function getSecurityGroups() {
+		$this->securityGroups = array();
+		$securityGroups = $this->novaConnection->describe_security_groups();
+		$securityGroups = $securityGroups->body->securityGroupInfo->item;
+		foreach ( $securityGroups as $securityGroup ) {
+			$securityGroup = new OpenStackNovaSecurityGroup( $securityGroup );
+			$groupname = $securityGroup->getGroupName();
+			$this->securityGroups["$groupname"] = $securityGroup;
+		}
+		return $this->securityGroups;
+	}
+
 	function createInstance( $instanceName, $image, $key, $instanceType, $availabilityZone ) {
 		# 1, 1 is min and max number of instances to create.
 		# We never want to make more than one at a time.
@@ -130,6 +151,91 @@ class OpenStackNovaController {
 	function terminateInstance( $instanceId ) {
 		$response = $this->novaConnection->terminate_instances( $instanceId );
 
+		return $response->isOK();
+	}
+
+	function createSecurityGroup( $groupname, $description ) {
+		$response = $this->novaConnection->create_security_group( $groupname, $description );
+		if ( ! $response->isOK() ) {
+			return null;
+		}
+		$securityGroup = new OpenStackNovaSecurityGroup( $response->body->securityGroupSet->item );
+		$groupname = $securityGroup->getGroupName();
+		$this->securityGroups["$groupname"] = $securityGroup;
+
+		return $securityGroup;
+	}
+
+	function deleteSecurityGroup( $groupname ) {
+		$response = $this->novaConnection->delete_security_group( $groupname );
+
+		return $response->isOK();
+	}
+
+	function addSecurityGroupRule( $groupname, $fromport='', $toport='', $protocol='', $ranges=array(), $groups=array() ) {
+		# TODO: Currently this method had commented out sections that use the AWS SDK
+		# recommended method of adding security group rules. When lp704645 is fixed, switch
+		# to using this method.
+		$rule = array();
+		if ( $fromport ) {
+			$rule['FromPort'] = $fromport;
+		}
+		if ( $toport ) {
+			$rule['ToPort'] = $toport;
+		}
+		if ( $protocol ) {
+			$rule['IpProtocol'] = $protocol;
+		}
+		if ( $ranges ) {
+			foreach ( $ranges as $range ) {
+				#$rule['IpRanges'][] = array( 'CidrIp' => $range );
+				$rule['CidrIp'] = $range;
+			}
+		}
+		if ( $groups ) {
+			foreach ( $groups as $group ) {
+				#$rule['Groups'][] = array( 'GroupName' => $group['groupname'], 'UserId' => $group['project'] );
+				$rule['SourceSecurityGroupName'] = $group['groupname'];
+				$rule['SourceSecurityGroupOwnerId'] = $group['project'];
+			}
+		}
+		#$permissions = array( 'IpPermissions' => array( $rule ) );
+		#$response = $this->novaConnection->authorize_security_group_ingress( $groupname, $permissions );
+		$response = $this->novaConnection->authorize_security_group_ingress( $groupname, $rule );
+
+		return $response->isOK();
+	}
+
+	function removeSecurityGroupRule( $groupname, $fromport='', $toport='', $protocol='', $ranges=array(), $groups=array() ) {
+		# TODO: Currently this method had commented out sections that use the AWS SDK
+		# recommended method of removing security group rules. When lp704645 is fixed, switch
+		# to using this method.
+		$rule = array();
+		if ( $fromport ) {
+			$rule['FromPort'] = $fromport;
+		}
+		if ( $toport ) {
+			$rule['ToPort'] = $toport;
+		}
+		if ( $protocol ) {
+			$rule['IpProtocol'] = $protocol;
+		}
+		if ( $ranges ) {
+			foreach ( $ranges as $range ) {
+				#$rule['IpRanges'][] = array( 'CidrIp' => $range );
+				$rule['CidrIp'] = $range;
+			}
+		}
+		if ( $groups ) {
+			foreach ( $groups as $group ) {
+				#$rule['Groups'][] = array( 'GroupName' => $group['groupname'], 'UserId' => $group['project'] );
+				$rule['SourceSecurityGroupName'] = $group['groupname'];
+				$rule['SourceSecurityGroupOwnerId'] = $group['project'];
+			}
+		}
+		#$permissions = array( 'IpPermissions' => array( $rule ) );
+		#$response = $this->novaConnection->revoke_security_group_ingress( $groupname, $permissions );
+		$response = $this->novaConnection->revoke_security_group_ingress( $groupname, $rule );
 		return $response->isOK();
 	}
 

@@ -151,7 +151,7 @@ class SpecialNovaDomain extends SpecialNova {
 		if ( ! $success ) {
 			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-createdomainfailed' ) );
 			$wgOut->addHTML( $out );
-			return false;
+			return true;
 		}
 		$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-createddomain' ) );
 		$out .= '<br />';

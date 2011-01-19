@@ -194,7 +194,7 @@ class SpecialNovaKey extends SpecialNova {
 			if ( ! $success ) {
 				$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-keypairimportfailed' ) );
 				$wgOut->addHTML( $out );
-				return false;
+				return true;
 			}
 			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-keypairimported' ) );
 		} else if ( $wgOpenStackManagerNovaKeypairStorage == 'nova' ) {

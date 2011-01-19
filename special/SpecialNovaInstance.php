@@ -387,7 +387,7 @@ class SpecialNovaInstance extends SpecialNova {
 		$domain = OpenStackNovaDomain::getDomainByName( $formData['domain'] );
 		if ( ! $domain ) {
 			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-invaliddomain' ) );
-			return false;
+			return true;
 		}
 		$instance = $this->userNova->createInstance( $formData['instancename'], $formData['imageType'], '', $formData['instanceType'], $formData['availabilityZone'] );
 		if ( $instance ) {

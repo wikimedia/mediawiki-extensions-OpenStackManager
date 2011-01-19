@@ -9,7 +9,7 @@ class OpenStackNovaSecurityGroup {
 	function __construct( $apiInstanceResponse ) {
 		$this->group = $apiInstanceResponse;
 		$this->rules = array();
-		foreach ( $this->group->ipPermissions as $permission ) {
+		foreach ( $this->group->ipPermissions->item as $permission ) {
 			$this->rules[] = new OpenStackNovaSecurityGroupRule( $permission );
 		}
 	}

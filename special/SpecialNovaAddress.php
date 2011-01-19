@@ -412,7 +412,7 @@ class SpecialNovaAddress extends SpecialNova {
 		if ( ! $address ) {
 			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-allocateaddressfailed' ) );
 			$wgOut->addHTML( $out );
-			return false;
+			return true;
 		}
 		$ip = $address->getPublicIP();
 		$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-allocatedaddress' , array(), $ip ) );
@@ -435,13 +435,13 @@ class SpecialNovaAddress extends SpecialNova {
 		if ( $hosts ) {
 			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-cannotreleaseaddress', array(), $ip ) );
 			$wgOut->addHTML( $out );
-			return false;
+			return true;
 		}
 		$address = $this->adminNova->getAddress( $ip );
 		if ( $address->getInstanceId() ) {
 			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-cannotreleaseaddress', array(), $ip ) );
 			$wgOut->addHTML( $out );
-			return false;
+			return true;
 		}
 		$success = $this->userNova->releaseAddress( $ip );
 		if ( $success ) {
@@ -503,12 +503,12 @@ class SpecialNovaAddress extends SpecialNova {
 		if ( ! $address ) {
 			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-invalidaddress', array(), $ip ) );
 			$wgOut->addHTML( $out );
-			return false;
+			return true;
 		}
 		if ( $address->getProject() != $project ) {
 			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-invalidaddressforproject', array(), $ip ) );
 			$wgOut->addHTML( $out );
-			return false;
+			return true;
 		}
 		$hostname = $formData['hostname'];
 		$domain = $formData['domain'];
@@ -556,12 +556,12 @@ class SpecialNovaAddress extends SpecialNova {
 		if ( ! $address ) {
 			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-invalidaddress', array(), $ip ) );
 			$wgOut->addHTML( $out );
-			return false;
+			return true;
 		}
 		if ( $address->getProject() != $project ) {
 			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-invalidaddressforproject', array(), $ip ) );
 			$wgOut->addHTML( $out );
-			return false;
+			return true;
 		}
 		$hostname = $formData['hostname'];
 		$domain = $formData['domain'];

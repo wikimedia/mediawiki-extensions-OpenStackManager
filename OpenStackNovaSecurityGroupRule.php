@@ -10,20 +10,20 @@ class OpenStackNovaSecurityGroupRule {
 	}
 
 	function getToPort() {
-		return $this->toPort;
+		return $this->rule->toPort;
 	}
 
 	function getFromPort() {
-		return $this->fromPort;
+		return $this->rule->fromPort;
 	}
 
 	function getIPProtocol() {
-		return $this->ipProtocol;
+		return $this->rule->ipProtocol;
 	}
 
 	function getIPRanges() {
 		$ranges = array();
-		foreach ( $this->ipRanges as $iprange ) {
+		foreach ( $this->rule->ipRanges->item as $iprange ) {
 			$ranges[] = $iprange->cidrIp;
 		}
 		return $ranges;
@@ -31,7 +31,7 @@ class OpenStackNovaSecurityGroupRule {
 
 	function getGroups() {
 		$groups = array();
-		foreach ( $this->groups as $group ) {
+		foreach ( $this->rule->groups->item as $group ) {
 			$properties = array();
 			$properties['groupname'] = $group->groupName;
 			$properties['project'] = $group->userId;
