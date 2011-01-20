@@ -340,7 +340,9 @@ class SpecialNovaInstance extends SpecialNova {
 		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-instancetype' ) );
 		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-instanceip' ) );
 		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-securitygroups' ) );
+		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-availabilityzone' ) );
 		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-imageid' ) );
+		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-launchtime' ) );
 		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-actions' ) );
 		$projectArr = array();
 		foreach ( $instances as $instance ) {
@@ -362,7 +364,9 @@ class SpecialNovaInstance extends SpecialNova {
 			}
 			$groupsOut = Html::rawElement( 'ul', array(), $groupsOut );
 			$instanceOut .= Html::rawElement( 'td', array(), $groupsOut );
+			$instanceOut .= Html::element( 'td', array(), $instance->getAvailabilityZone() );
 			$instanceOut .= Html::element( 'td', array(), $instance->getImageId() );
+			$instanceOut .= Html::element( 'td', array(), $instance->getLaunchTime() );
 			$msg = wfMsg( 'openstackmanager-delete' );
 			$actions = $sk->link( $this->getTitle(), $msg, array(),
 								  array( 'action' => 'delete',

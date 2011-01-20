@@ -82,6 +82,7 @@ $messages['en'] = array(
 	'openstackmanager-availabilityzone' => 'Availability Zone',
 	'openstackmanager-imageid' => 'Image ID',
 	'openstackmanager-imagetype' => 'Image Type',
+	'openstackmanager-launchtime' => 'Launch Time',
 
 	'openstackmanager-createinstance' => 'Create a new instance',
 	'openstackmanager-invaliddomain' => 'Requested domain is invalid.',

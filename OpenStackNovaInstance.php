@@ -66,8 +66,7 @@ class OpenStackNovaInstance {
 	}
 
 	function getAvailabilityZone() {
-		# NOTE: This is non-existant in openstack for now
-		return $this->instance->instancesSet->item->availabilityZone;
+		return $this->instance->instancesSet->item->placement->availabilityZone;
 	}
 
 	function getRegion() {
@@ -81,6 +80,10 @@ class OpenStackNovaInstance {
 			$groups[] = $group->groupId;
 		}
 		return $groups;
+	}
+
+	function getLaunchTime() {
+		return $this->instance->instancesSet->item->launchTime;
 	}
 
 }
