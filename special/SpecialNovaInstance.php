@@ -339,6 +339,7 @@ class SpecialNovaInstance extends SpecialNova {
 		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-instancestate' ) );
 		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-instancetype' ) );
 		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-instanceip' ) );
+		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-securitygroups' ) );
 		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-imageid' ) );
 		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-actions' ) );
 		$projectArr = array();
@@ -355,6 +356,12 @@ class SpecialNovaInstance extends SpecialNova {
 			$instanceOut .= Html::element( 'td', array(), $instance->getInstanceState() );
 			$instanceOut .= Html::element( 'td', array(), $instance->getInstanceType() );
 			$instanceOut .= Html::element( 'td', array(), $instance->getInstancePrivateIP() );
+			$groupsOut = '';
+			foreach ( $instance->getSecurityGroups() as $group ) {
+				$groupsOut .= Html::element( 'li', array(), $group );
+			}
+			$groupsOut = Html::rawElement( 'ul', array(), $groupsOut );
+			$instanceOut .= Html::rawElement( 'td', array(), $groupsOut );
 			$instanceOut .= Html::element( 'td', array(), $instance->getImageId() );
 			$msg = wfMsg( 'openstackmanager-delete' );
 			$actions = $sk->link( $this->getTitle(), $msg, array(),

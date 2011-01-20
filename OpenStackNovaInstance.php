@@ -75,4 +75,12 @@ class OpenStackNovaInstance {
 		return $this->instance->instancesSet->item->region;
 	}
 
+	function getSecurityGroups() {
+		$groups = array();
+		foreach ( $this->instance->groupSet->item as $group ) {
+			$groups[] = $group->groupId;
+		}
+		return $groups;
+	}
+
 }
