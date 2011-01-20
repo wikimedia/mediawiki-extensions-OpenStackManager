@@ -370,13 +370,13 @@ class SpecialNovaInstance extends SpecialNova {
 									   'instanceid' => $instance->getInstanceId() ),
 								  array() );
 			$actions .= ', ';
-			$msg = wfMsg( 'openstackmanager-rename' );
-			$actions .= $sk->link( $this->getTitle(), $msg, array(),
-								   array( 'action' => 'rename',
-										'project' => $project,
-										'instanceid' => $instance->getInstanceId() ),
-								   array() );
-			$actions .= ', ';
+			#$msg = wfMsg( 'openstackmanager-rename' );
+			#$actions .= $sk->link( $this->getTitle(), $msg, array(),
+			#					   array( 'action' => 'rename',
+			#							'project' => $project,
+			#							'instanceid' => $instance->getInstanceId() ),
+			#					   array() );
+			#$actions .= ', ';
 			$msg = wfMsg( 'openstackmanager-configure' );
 			$actions .= $sk->link( $this->getTitle(), $msg, array(),
 								   array( 'action' => 'configure',
