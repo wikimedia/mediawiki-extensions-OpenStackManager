@@ -5,6 +5,9 @@ class OpenStackNovaProject {
 	var $projectname;
 	var $projectDN;
 	var $projectInfo;
+	var $roles;
+
+	static $rolenames = array( 'sysadmin', 'netadmin' );
 
 	function __construct( $projectname ) {
 		$this->projectname = $projectname;
@@ -32,10 +35,18 @@ class OpenStackNovaProject {
 		$this->projectInfo = ldap_get_entries( $wgAuth->ldapconn, $result );
 		wfRestoreWarnings();
 		$this->projectDN = $this->projectInfo[0]['dn'];
+		$this->roles = array();
+		foreach ( self::$rolenames as $rolename ) {
+			$this->roles[] = OpenStackNovaRole::getProjectRoleByName( $rolename, $this );
+		}
 	}
 
 	function getProjectName() {
 		return $this->projectname;
+	}
+
+	function getRoles() {
+		return $this->roles;
 	}
 
 	function getMembers() {
@@ -170,12 +181,19 @@ class OpenStackNovaProject {
 		$project['cn'] = $projectname;
 		$project['owner'] = $wgOpenStackManagerLDAPUser;
 		$project['gidnumber'] = OpenStackNovaUser::getNextIdNumber( $wgAuth, 'gidnumber' );
-		$dn = 'cn=' . $projectname . ',' . $wgOpenStackManagerLDAPProjectBaseDN;
+		$projectdn = 'cn=' . $projectname . ',' . $wgOpenStackManagerLDAPProjectBaseDN;
 
 		wfSuppressWarnings();
-		$success = ldap_add( $wgAuth->ldapconn, $dn, $project );
+		$success = ldap_add( $wgAuth->ldapconn, $projectdn, $project );
 		wfRestoreWarnings();
+		$project = OpenStackNovaProject( $projectname );
 		if ( $success ) {
+			foreach ( self::$rolenames as $rolename ) {
+				$role = OpenStackNovaRole::createRole( $rolename, $project );
+				# TODO: If role addition fails, find a way to fail gracefully
+				# Though, if the project was added successfully, it is unlikely
+				# that role addition will fail.
+			}
 			$wgAuth->printDebug( "Successfully added project $projectname", NONSENSITIVE );
 			return true;
 		} else {
@@ -189,7 +207,6 @@ class OpenStackNovaProject {
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPDomain;
 
-
 		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 
@@ -199,20 +216,29 @@ class OpenStackNovaProject {
 		}
 		$dn = $project->projectDN;
 
-		# Projects can have roles as sub entries, fail if they exist
-		# It is a bad idea to rely on LDAP failure here, as some directories
-		# may simply delete sub entries.
+		# Projects can have roles as sub-entries, we need to delete them first
 		$result = ldap_list( $wgAuth->ldapconn, $dn, 'objectclass=*' );
 		$roles = ldap_get_entries( $wgAuth->ldapconn, $result );
-		if ( $roles['count'] != "0" ) {
-			return false;
+		array_shift( $roles );
+		foreach ( $roles as $role ) {
+			$roledn = $role['dn'];
+			wfSuppressWarnings();
+			$success = ldap_delete( $wgAuth->ldapconn, $roledn );
+			wfRestoreWarnings();
+			if ( $success ){
+				$wgAuth->printDebug( "Successfully deleted role $roledn", NONSENSITIVE );
+			} else {
+				$wgAuth->printDebug( "Failed to delete role $roledn", NONSENSITIVE );
+			}
 		}
 		wfSuppressWarnings();
 		$success = ldap_delete( $wgAuth->ldapconn, $dn );
 		wfRestoreWarnings();
 		if ( $success ) {
+			$wgAuth->printDebug( "Successfully deleted project $projectname", NONSENSITIVE );
 			return true;
 		} else {
+			$wgAuth->printDebug( "Failed to delete project $projectname", NONSENSITIVE );
 			return false;
 		}
 	}

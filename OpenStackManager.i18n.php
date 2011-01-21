@@ -134,6 +134,10 @@ $messages['en'] = array(
 	'openstackmanager-badinstancename' => 'Bad instance name provided. Instance names must start with a-z, and can only contain a-z, 0-9, and - characters.',
 	'openstackmanager-novaproject-project' => 'Project',
 	'openstackmanager-novaproject-info' => 'Project Information',
+	'openstackmanager-roles' => 'Roles',
+	'openstackmanager-rolename' => 'Role Name',
+	'openstackmanager-removerolemember' => 'Remove role member',
+	'openstackmanager-addrolemember' => 'Add role member',
 
 	'openstackmanager-shellaccountname' => 'Instance Shell Account Name',
 	'openstackmanager-shellaccountnamehelp' => 'The shell account name must start with a-z, and can only contain a-z, 0-9, -, and _ characters.',
