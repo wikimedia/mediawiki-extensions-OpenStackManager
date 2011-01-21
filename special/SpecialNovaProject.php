@@ -106,16 +106,19 @@ class SpecialNovaProject extends SpecialNova {
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-removemember' ) );
 
-		$member = $wgRequest->getText( 'member' );
-		$project = $wgRequest->getText( 'projectname' );
-		if ( ! $wgRequest->wasPosted() ) {
-			$out .= Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removememberconfirm', array(), $member, $project ) );
-			$wgOut->addHTML( $out );
+		$projectname = $wgRequest->getText( 'projectname' );
+		$project = OpenStackNovaProject::getProjectByName( $projectname );
+		$projectmembers = $project->getMembers();
+		$member_keys = array();
+		foreach ( $projectmembers as $projectmember ) {
+			$member_keys["$projectmember"] = $projectmember;
 		}
 		$projectInfo = Array();
-		$projectInfo['member'] = array(
-			'type' => 'hidden',
-			'default' => $member,
+		$projectInfo['members'] = array(
+			'type' => 'multiselect',
+			'label-message' => 'openstackmanager-member',
+			'section' => 'project/info',
+			'options' => $member_keys,
 		);
 		$projectInfo['action'] = array(
 			'type' => 'hidden',
@@ -123,7 +126,7 @@ class SpecialNovaProject extends SpecialNova {
 		);
 		$projectInfo['projectname'] = array(
 			'type' => 'hidden',
-			'default' => $project,
+			'default' => $projectname,
 		);
 
 		$projectForm = new SpecialNovaProjectForm( $projectInfo, 'openstackmanager-novaproject' );
@@ -188,10 +191,7 @@ class SpecialNovaProject extends SpecialNova {
 			$projectMembers = $project->getMembers();
 			$memberOut = '';
 			foreach ( $projectMembers as $projectMember ) {
-				$link = $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-removemember' ), array(),
-								   array( 'action' => 'deletemember', 'projectname' => $projectName, 'member' => $projectMember ), array() );
-				$projectMemberOut = htmlentities( $projectMember ) . ' (' . $link . ')';
-				$memberOut .= Html::rawElement( 'li', array(), $projectMemberOut );
+				$memberOut .= Html::rawElement( 'li', array(), $projectMember );
 			}
 			if ( $memberOut ) {
 				$memberOut = Html::rawElement( 'ul', array(), $memberOut );
@@ -205,16 +205,16 @@ class SpecialNovaProject extends SpecialNova {
 				$roleMembers = '';
 				$specialRoleTitle = Title::newFromText( 'Special:NovaRole' );
 				foreach ( $role->getMembers() as $member ) {
-					$link = $sk->link( $specialRoleTitle, wfMsg( 'openstackmanager-removerolemember' ), array(),
-									   array( 'action' => 'removemember', 'projectname' => $projectName, 'rolename' => $role->getRoleName(), 'member' => $member, 'referrer' => 'Special:NovaProject' ), array() );
-					$member = $member . ' (' . $link . ')';
 					$roleMembers .= Html::rawElement( 'li', array(), $member );
 				}
 				$roleMembers = Html::rawElement( 'ul', array(), $roleMembers );
 				$roleOut .= Html::rawElement( 'td', array(), $roleMembers );
 				$link = $sk->link( $specialRoleTitle, wfMsg( 'openstackmanager-addrolemember' ), array(),
-								   array( 'action' => 'addmember', 'projectname' => $projectName, 'rolename' => $role->getRoleName(), 'referrer' => 'Special:NovaProject' ), array() );
+								   array( 'action' => 'addmember', 'projectname' => $projectName, 'rolename' => $role->getRoleName(), 'returnto' => 'Special:NovaProject' ), array() );
 				$actions = Html::rawElement( 'li', array(), $link );
+				$link = $sk->link( $specialRoleTitle, wfMsg( 'openstackmanager-removerolemember' ), array(),
+								   array( 'action' => 'deletemember', 'projectname' => $projectName, 'rolename' => $role->getRoleName(), 'returnto' => 'Special:NovaProject' ), array() );
+				$actions .= Html::rawElement( 'li', array(), $link );
 				$actions = Html::rawElement( 'ul', array(), $actions );
 				$roleOut .= Html::rawElement( 'td', array(), $actions );
 				$rolesOut .= Html::rawElement( 'tr', array(), $roleOut );
@@ -226,6 +226,9 @@ class SpecialNovaProject extends SpecialNova {
 			$actions = Html::rawElement( 'li', array(), $link );
 			$link = $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-addmember' ), array(),
 									 array( 'action' => 'addmember', 'projectname' => $projectName ), array() );
+			$actions .= Html::rawElement( 'li', array(), $link );
+			$link = $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-removemember' ), array(),
+							   array( 'action' => 'deletemember', 'projectname' => $projectName ), array() );
 			$actions .= Html::rawElement( 'li', array(), $link );
 			$actions = Html::rawElement( 'ul', array(), $actions );
 			$projectOut .= Html::rawElement( 'td', array(), $actions );
@@ -297,13 +300,20 @@ class SpecialNovaProject extends SpecialNova {
 		global $wgOut, $wgUser;
 
 		$project = new OpenStackNovaProject( $formData['projectname'] );
-		$success = $project->deleteMember( $formData['member'] );
-		if ( $success ) {
-			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removedfrom', array(), $formData['member'],
-			                                              $formData['projectname'] ) );
-		} else {
-			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-failedtoremove', array(), $formData['member'],
-			                                              $formData['projectname'] ) );
+                $project = OpenStackNovaProject::getProjectByName( $formData['projectname'] );
+		if ( ! $project ) {
+			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-nonexistentproject' ) );
+			$wgOut->addHTML( $out );
+			return true;
+		}
+		$out = '';
+		foreach ( $formData['members'] as $member ) {
+			$success = $project->deleteMember( $member );
+			if ( $success ) {
+				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removedfrom', array(), $formData['member'], $formData['projectname'] ) );
+			} else {
+				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-failedtoremove', array(), $formData['member'], $formData['projectname'] ) );
+			}
 		}
 		$out .= '<br />';
 		$sk = $wgUser->getSkin();

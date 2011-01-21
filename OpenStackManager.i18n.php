@@ -113,7 +113,6 @@ $messages['en'] = array(
 
 	'openstackmanager-addmember' => 'Add project member',
 	'openstackmanager-removemember' => 'Remove project member',
-	'openstackmanager-removememberconfirm' => 'Are you sure you wish to remove $1 from project $2?',
 	'openstackmanager-removeprojectconfirm' => 'Are you sure you wish to delete project "$1"? This action has reprecusions on all VMs. Do not take this action lightly!',
 	'openstackmanager-createproject' => 'Create a new project',
 	'openstackmanager-projectname' => 'Project name',
@@ -134,10 +133,15 @@ $messages['en'] = array(
 	'openstackmanager-badinstancename' => 'Bad instance name provided. Instance names must start with a-z, and can only contain a-z, 0-9, and - characters.',
 	'openstackmanager-novaproject-project' => 'Project',
 	'openstackmanager-novaproject-info' => 'Project Information',
+
 	'openstackmanager-roles' => 'Roles',
 	'openstackmanager-rolename' => 'Role Name',
 	'openstackmanager-removerolemember' => 'Remove role member',
 	'openstackmanager-addrolemember' => 'Add role member',
+	'openstackmanager-rolelist' => 'Global Role List',
+	'openstackmanager-nomemberstoremove' => 'There are no members to remove from this group',
+	'openstackmanager-novarole-role' => 'Nova Role',
+	'openstackmanager-novarole-info' => 'Nova Role Information',
 
 	'openstackmanager-shellaccountname' => 'Instance Shell Account Name',
 	'openstackmanager-shellaccountnamehelp' => 'The shell account name must start with a-z, and can only contain a-z, 0-9, -, and _ characters.',

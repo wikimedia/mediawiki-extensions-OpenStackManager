@@ -90,6 +90,12 @@ class OpenStackNovaProject {
 			$success = ldap_modify( $wgAuth->ldapconn, $this->projectDN, $values );
 			wfRestoreWarnings();
 			if ( $success ) {
+				foreach ( $this->roles as $role ) {
+					$success = $role->deleteMember( $username );
+					#TODO: Find a way to fail gracefully if role member
+					# deletion fails
+				}
+				$this->fetchProjectInfo();
 				$wgAuth->printDebug( "Successfully removed $user->userDN from $this->projectDN", NONSENSITIVE );
 				return true;
 			} else {
@@ -120,6 +126,7 @@ class OpenStackNovaProject {
 		$success = ldap_modify( $wgAuth->ldapconn, $this->projectDN, $values );
 		wfRestoreWarnings();
 		if ( $success ) {
+			$this->fetchProjectInfo();
 			$wgAuth->printDebug( "Successfully added $user->userDN to $this->projectDN", NONSENSITIVE );
 			return true;
 		} else {

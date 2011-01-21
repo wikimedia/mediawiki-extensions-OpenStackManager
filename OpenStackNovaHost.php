@@ -124,6 +124,7 @@ class OpenStackNovaHost {
 				$success = ldap_modify( $wgAuth->ldapconn, $this->hostDN, $hostEntry );
 				wfRestoreWarnings();
 				if ( $success ) {
+					$this->fetchHostInfo();
 					$wgAuth->printDebug( "Successfully modified puppet configuration for host", NONSENSITIVE );
 					return true;
 				} else {
@@ -159,6 +160,7 @@ class OpenStackNovaHost {
 			if ( $success ) {
 				$wgAuth->printDebug( "Successfully removed $fqdn from $this->hostDN", NONSENSITIVE );
 				$this->domain->updateSOA();
+				$this->fetchHostInfo();
 				return true;
 			} else {
 				$wgAuth->printDebug( "Failed to remove $fqdn from $this->hostDN", NONSENSITIVE );
@@ -191,6 +193,7 @@ class OpenStackNovaHost {
 			if ( $success ) {
 				$wgAuth->printDebug( "Successfully removed $ip from $this->hostDN", NONSENSITIVE );
 				$this->domain->updateSOA();
+				$this->fetchHostInfo();
 				return true;
 			} else {
 				$wgAuth->printDebug( "Failed to remove $ip from $this->hostDN", NONSENSITIVE );
@@ -217,6 +220,7 @@ class OpenStackNovaHost {
 		if ( $success ) {
 			$wgAuth->printDebug( "Successfully added $fqdn to $this->hostDN", NONSENSITIVE );
 			$this->domain->updateSOA();
+			$this->fetchHostInfo();
 			return true;
 		} else {
 			$wgAuth->printDebug( "Failed to add $fqdn to $this->hostDN", NONSENSITIVE );
@@ -240,6 +244,7 @@ class OpenStackNovaHost {
 		if ( $success ) {
 			$wgAuth->printDebug( "Successfully added $ip to $this->hostDN", NONSENSITIVE );
 			$this->domain->updateSOA();
+			$this->fetchHostInfo();
 			return true;
 		} else {
 			$wgAuth->printDebug( "Failed to add $ip to $this->hostDN", NONSENSITIVE );
@@ -257,6 +262,7 @@ class OpenStackNovaHost {
 		if ( $success ) {
 			$wgAuth->printDebug( "Successfully set $ip on $this->hostDN", NONSENSITIVE );
 			$this->domain->updateSOA();
+			$this->fetchHostInfo();
 			return true;
 		} else {
 			$wgAuth->printDebug( "Failed to set $ip on $this->hostDN", NONSENSITIVE );

@@ -62,6 +62,7 @@ class OpenStackNovaDomain {
 		wfRestoreWarnings();
 		if ( $success ) {
 			$wgAuth->printDebug( "Successfully modified soarecord for " . $this->domainDN, NONSENSITIVE );
+			$this->fetchDomainInfo();
 			return true;
 		} else {
 			$wgAuth->printDebug( "Failed to modify soarecord for " . $this->domainDN, NONSENSITIVE );

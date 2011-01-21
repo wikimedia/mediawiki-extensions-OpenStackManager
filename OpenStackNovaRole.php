@@ -5,6 +5,7 @@ class OpenStackNovaRole {
 	var $rolename;
 	var $roleDN;
 	var $roleInfo;
+	var $project;
 	var $global;
 
 	function __construct( $rolename, $project=null ) {
@@ -37,15 +38,17 @@ class OpenStackNovaRole {
 		if ( $this->global ) {
 			if ( isset ( $wgOpenStackManagerLDAPGlobalRoles["$this->rolename"] ) ) {
 				$dn = $wgOpenStackManagerLDAPGlobalRoles["$this->rolename"];
+				$query = '(objectclass=groupofnames)';
 			} else {
 				# This condition would be a bug...
 				$dn = '';
 			}
 		} else {
 			$dn = $this->project->projectDN;
+			$query = '(cn=' . $this->rolename . ')';
 		}
 		wfSuppressWarnings();
-		$result = ldap_search( $wgAuth->ldapconn, $dn, '(cn=' . $this->rolename . ')' );
+		$result = ldap_search( $wgAuth->ldapconn, $dn, $query );
 		$this->roleInfo = ldap_get_entries( $wgAuth->ldapconn, $result );
 		wfRestoreWarnings();
 		$this->roleDN = $this->roleInfo[0]['dn'];
@@ -96,6 +99,7 @@ class OpenStackNovaRole {
 			$success = ldap_modify( $wgAuth->ldapconn, $this->roleDN, $values );
 			wfRestoreWarnings();
 			if ( $success ) {
+				$this->fetchRoleInfo();
 				$wgAuth->printDebug( "Successfully removed $user->userDN from $this->roleDN", NONSENSITIVE );
 				return true;
 			} else {
@@ -126,6 +130,7 @@ class OpenStackNovaRole {
 		$success = ldap_modify( $wgAuth->ldapconn, $this->roleDN, $values );
 		wfRestoreWarnings();
 		if ( $success ) {
+			$this->fetchRoleInfo();
 			$wgAuth->printDebug( "Successfully added $user->userDN to $this->roleDN", NONSENSITIVE );
 			return true;
 		} else {

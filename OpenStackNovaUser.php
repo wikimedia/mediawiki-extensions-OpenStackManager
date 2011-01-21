@@ -226,6 +226,7 @@ class OpenStackNovaUser {
 		wfRestoreWarnings();
 		if ( $success ) {
 			$wgAuth->printDebug( "Successfully imported the user's sshpublickey", NONSENSITIVE );
+			$this->fetchUserInfo();
 			return true;
 		} else {
 			$wgAuth->printDebug( "Failed to import the user's sshpublickey", NONSENSITIVE );
@@ -254,6 +255,7 @@ class OpenStackNovaUser {
 			wfRestoreWarnings();
 			if ( $success ) {
 				$wgAuth->printDebug( "Successfully deleted the user's sshpublickey", NONSENSITIVE );
+				$this->fetchHostInfo();
 				return true;
 			} else {
 				$wgAuth->printDebug( "Failed to delete the user's sshpublickey", NONSENSITIVE );
