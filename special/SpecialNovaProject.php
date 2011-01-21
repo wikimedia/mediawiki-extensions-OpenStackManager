@@ -191,7 +191,7 @@ class SpecialNovaProject extends SpecialNova {
 			$projectMembers = $project->getMembers();
 			$memberOut = '';
 			foreach ( $projectMembers as $projectMember ) {
-				$memberOut .= Html::rawElement( 'li', array(), $projectMember );
+				$memberOut .= Html::element( 'li', array(), $projectMember );
 			}
 			if ( $memberOut ) {
 				$memberOut = Html::rawElement( 'ul', array(), $memberOut );
@@ -205,7 +205,7 @@ class SpecialNovaProject extends SpecialNova {
 				$roleMembers = '';
 				$specialRoleTitle = Title::newFromText( 'Special:NovaRole' );
 				foreach ( $role->getMembers() as $member ) {
-					$roleMembers .= Html::rawElement( 'li', array(), $member );
+					$roleMembers .= Html::element( 'li', array(), $member );
 				}
 				$roleMembers = Html::rawElement( 'ul', array(), $roleMembers );
 				$roleOut .= Html::rawElement( 'td', array(), $roleMembers );

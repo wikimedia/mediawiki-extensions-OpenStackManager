@@ -351,6 +351,7 @@ class SpecialNovaInstance extends SpecialNova {
 				continue;
 			}
 			$instanceName = (string)$instance->getInstanceName();
+			$instanceName = htmlentities( $instanceName );
 			$title = Title::newFromText( $instanceName, NS_VM );
 			$instanceNameLink = $sk->link( $title, $instanceName, array(), array(), array() );
 			$instanceOut = Html::rawElement( 'td', array(), $instanceNameLink );

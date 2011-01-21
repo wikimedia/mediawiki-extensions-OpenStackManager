@@ -355,7 +355,7 @@ class SpecialNovaAddress extends SpecialNova {
 						$hostname = $hostname[0];
 						$link = $sk->link( $this->getTitle(), $msg, array(),
 								   array( 'action' => 'removehost', 'ip' => $ip, 'project' => $project, 'domain' => $domain->getDomainName(), 'hostname' => $hostname ), array() );
-						$hostOut = $fqdn . ' ' . $link;
+						$hostOut = htmlentities( $fqdn ) . ' ' . $link;
 						$hostsOut .= Html::rawElement( 'li', array(), $hostOut );
 					}
 				}

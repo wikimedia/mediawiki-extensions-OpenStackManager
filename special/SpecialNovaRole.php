@@ -187,10 +187,10 @@ class SpecialNovaRole extends SpecialNova {
 			$roleMembers = $role->getMembers();
 			$memberOut = '';
 			foreach ( $roleMembers as $roleMember ) {
-				$memberOut .= Html::rawElement( 'li', array(), $roleMember );
+				$memberOut .= Html::element( 'li', array(), $roleMember );
 			}
 			if ( $memberOut ) {
-				$memberOut = Html::rawElement( 'ul', array(), $memberOut );
+				$memberOut = Html::element( 'ul', array(), $memberOut );
 			}
 			$roleOut .= Html::rawElement( 'td', array(), $memberOut );
 			$link = $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-addrolemember' ), array(), array( 'action' => 'addmember', 'rolename' => $roleName, 'returnto' => 'Special:NovaRole' ), array() );

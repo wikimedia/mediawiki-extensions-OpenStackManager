@@ -15,9 +15,6 @@ class SpecialNovaDomain extends SpecialNova {
 	function execute( $par ) {
 		global $wgRequest, $wgUser;
 
-		# if ( ! $wgUser->isAllowed( 'manageproject' ) ) {
-		#	return false;
-		# }
 		if ( ! $wgUser->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return false;

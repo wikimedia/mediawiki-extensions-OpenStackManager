@@ -29,6 +29,7 @@ $messages['en'] = array(
 	'novakey' => 'Manage your public SSH keys',
 	'novaproject' => 'Manage OpenStack projects',
 	'novasecuritygroup' => 'Manage Firewall Security Groups',
+	'novarole' => 'Manage Global Roles',
 
 	'openstackmanager-novadomain' => 'Nova Domain',
 	'openstackmanager-novainstance' => 'Nova Instance',

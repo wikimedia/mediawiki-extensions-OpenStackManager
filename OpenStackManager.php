@@ -21,7 +21,7 @@ $wgExtensionCredits['other'][] = array(
 	'path' => __FILE__,
 	'name' => 'OpenStackManager',
 	'author' => 'Ryan Lane',
-	'version' => '0.9',
+	'version' => '1.0',
 	'url' => 'http://mediawiki.org/wiki/Extension:OpenStackManager',
 	'descriptionmsg' => 'openstackmanager-desc',
 );
