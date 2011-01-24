@@ -95,7 +95,7 @@ class SpecialNovaInstance extends SpecialNova {
 		# Availability zone names can't be translated. Get the keys, and make an array
 		# where the name points to itself as a value
 		$availabilityZones = $this->adminNova->getAvailabilityZones();
-		$availabilityZone_keys = Array();
+		$availabilityZone_keys = array();
 		foreach ( array_keys( $availabilityZones ) as $availabilityZone_key ) {
 			$availabilityZone_keys["$availabilityZone_key"] = $availabilityZone_key;
 		}

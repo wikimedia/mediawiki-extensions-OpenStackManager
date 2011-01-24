@@ -3,6 +3,7 @@ class SpecialNovaAddress extends SpecialNova {
 
 	var $adminNova;
 	var $userNova;
+
 	var $userLDAP;
 
 	function __construct() {

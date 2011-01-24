@@ -71,6 +71,11 @@ class OpenStackNovaDomain {
 		}
 	}
 
+	/**
+	 * @static
+	 * @param string $type
+	 * @return array of OpenNovaDomain
+	 */
 	static function getAllDomains( $type='all' ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
@@ -108,6 +113,11 @@ class OpenStackNovaDomain {
 		return $domains;
 	}
 
+	/**
+	 * @static
+	 * @param  $domainname
+	 * @return null|OpenStackNovaDomain
+	 */
 	static function getDomainByName( $domainname ) {
 		$domain = new OpenStackNovaDomain( $domainname );
 		if ( $domain->domainInfo ) {
@@ -117,6 +127,11 @@ class OpenStackNovaDomain {
 		}
 	}
 
+	/**
+	 * @static
+	 * @param  $ip
+	 * @return null|OpenStackNovaDomain
+	 */
 	static function getDomainByHostIP( $ip ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
@@ -142,6 +157,11 @@ class OpenStackNovaDomain {
 		}
 	}
 
+	/**
+	 * @static
+	 * @param  $instanceid
+	 * @return null|OpenStackNovaDomain
+	 */
 	static function getDomainByInstanceId( $instanceid ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
@@ -168,6 +188,13 @@ class OpenStackNovaDomain {
 	}
 
 	# TODO: Allow generic domains; get rid of config set base name
+	/**
+	 * @static
+	 * @param  $domainname
+	 * @param  $fqdn
+	 * @param  $location
+	 * @return null|OpenStackNovaDomain
+	 */
 	static function createDomain( $domainname, $fqdn, $location ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
@@ -203,6 +230,11 @@ class OpenStackNovaDomain {
 		}
 	}
 
+	/**
+	 * @static
+	 * @param  $domainname
+	 * @return bool
+	 */
 	static function deleteDomain( $domainname ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
@@ -237,6 +269,10 @@ class OpenStackNovaDomain {
 		}
 	}
 
+	/**
+	 * @static
+	 * @return string
+	 */
 	static function generateSOA() {
 		global $wgOpenStackManagerDNSOptions;
 

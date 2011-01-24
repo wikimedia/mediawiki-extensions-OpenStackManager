@@ -57,6 +57,9 @@ class OpenStackNovaUser {
 		}
 	}
 
+	/**
+	 * @return bool
+	 */
 	function isAdmin() {
 		if ( isset( $this->userInfo[0]['isnovaadmin'] ) ) {
 			$isAdmin = $this->userInfo[0]['isnovaadmin'][0];
@@ -67,6 +70,9 @@ class OpenStackNovaUser {
 		return false;
 	}
 
+	/**
+	 * @return bool
+	 */
 	function exists() {
 		$credentials = $this->getCredentials();
 		if ( $credentials['accessKey'] && $credentials['secretKey'] ) {

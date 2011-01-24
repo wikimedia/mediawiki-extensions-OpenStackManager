@@ -212,6 +212,11 @@ class OpenStackNovaProject {
 		}
 	}
 
+	/**
+	 * @static
+	 * @param  $projectname String
+	 * @return bool
+	 */
 	static function deleteProject( $projectname ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;

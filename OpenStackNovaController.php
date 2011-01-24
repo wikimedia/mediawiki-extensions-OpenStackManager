@@ -44,6 +44,10 @@ class OpenStackNovaController {
 		return $this->addresses;
 	}
 
+	/**
+	 * @param  $instanceId
+	 * @return null|OpenStackNovaInstance
+	 */
 	function getInstance( $instanceId ) {
 		$this->getInstances();
 		if ( isset( $this->instances["$instanceId"] ) ) {
@@ -53,6 +57,9 @@ class OpenStackNovaController {
 		}
 	}
 
+	/**
+	 * @return array
+	 */
 	function getInstances() {
 		$this->instances = array();
 		$response = $this->novaConnection->describe_instances();
@@ -127,6 +134,15 @@ class OpenStackNovaController {
 		return $this->securityGroups;
 	}
 
+	/**
+	 * @param  $instanceName
+	 * @param  $image
+	 * @param  $key
+	 * @param  $instanceType
+	 * @param  $availabilityZone
+	 * @param  $groups
+	 * @return null|OpenStackNovaInstance
+	 */
 	function createInstance( $instanceName, $image, $key, $instanceType, $availabilityZone, $groups ) {
 		# 1, 1 is min and max number of instances to create.
 		# We never want to make more than one at a time.

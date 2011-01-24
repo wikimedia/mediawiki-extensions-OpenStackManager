@@ -4,6 +4,10 @@
 class OpenStackNovaInstance {
 
 	var $instance;
+
+	/**
+	 * @var OpenStackNovaHost
+	 */
 	var $host;
 
 	function __construct( $apiInstanceResponse, $loadhost = false ) {

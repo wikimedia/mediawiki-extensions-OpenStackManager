@@ -29,6 +29,9 @@ class OpenStackNovaSecurityGroupRule {
 		return $ranges;
 	}
 
+	/**
+	 * @return array
+	 */
 	function getGroups() {
 		$groups = array();
 		foreach ( $this->rule->groups->item as $group ) {

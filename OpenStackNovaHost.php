@@ -5,6 +5,10 @@ class OpenStackNovaHost {
 	var $searchvalue;
 	var $hostDN;
 	var $hostInfo;
+
+	/**
+	 * @var OpenStackNovaDomain
+	 */
 	var $domain;
 
 	function __construct( $hostname, $domain ) {
@@ -274,6 +278,12 @@ class OpenStackNovaHost {
 		}
 	}
 
+	/**
+	 * @static
+	 * @param  $hostname
+	 * @param  $domain
+	 * @return OpenStackNovaHost
+	 */
 	static function getHostByName( $hostname, $domain ) {
 		$host = new OpenStackNovaHost( $hostname, $domain );
 		if ( $host->hostInfo ) {
@@ -283,11 +293,22 @@ class OpenStackNovaHost {
 		}
 	}
 
+	/**
+	 * @static
+	 * @param  $instanceid
+	 * @return OpenStackNovaHost
+	 */
 	static function getHostByInstanceId( $instanceid ) {
 		$domain = OpenStackNovaDomain::getDomainByInstanceId( $instanceid );
 		return self::getHostByName( $instanceid, $domain );
 	}
 
+	/**
+	 * @static
+	 * @param  $ip
+	 * @param  $domain OpenStackNovaDomain
+	 * @return array|null|OpenStackNovaHost
+	 */
 	static function getHostByIP( $ip, $domain ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
@@ -336,6 +357,11 @@ class OpenStackNovaHost {
 		}
 	}
 
+	/**
+	 * @static
+	 * @param  $domain OpenStackNovaDomain
+	 * @return array
+	 */
 	static function getAllHosts( $domain ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
@@ -364,6 +390,12 @@ class OpenStackNovaHost {
 		return $hosts;
 	}
 
+	/**
+	 * @static
+	 * @param  $hostname String
+	 * @param  $domain OpenStackNovaDomain
+	 * @return bool
+	 */
 	static function deleteHost( $hostname, $domain ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
@@ -427,7 +459,7 @@ class OpenStackNovaHost {
 	 * @param  $ip
 	 * @param  $domain OpenStackNovaDomain
 	 * @param  $puppetinfo
-	 * @return bool
+	 * @return OpenStackNovaHost
 	 */
 	static function addHost( $instance, $domain, $puppetinfo = array() ) {
 		global $wgAuth;
@@ -490,6 +522,13 @@ class OpenStackNovaHost {
 		}
 	}
 
+	/**
+	 * @static
+	 * @param  $hostname
+	 * @param  $ip
+	 * @param  $domain OpenStackNovaDomain
+	 * @return bool|null|OpenStackNovaHost
+	 */
 	static function addPublicHost( $hostname, $ip, $domain ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;

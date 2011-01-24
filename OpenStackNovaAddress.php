@@ -9,6 +9,9 @@ class OpenStackNovaAddress {
 		$this->address = $apiInstanceResponse;
 	}
 
+	/**
+	 * @return string
+	 */
 	function getInstanceId() {
 		# instanceId returns as: instanceid (project)
 		$info = explode( ' ', $this->address->instanceId );
