@@ -98,6 +98,9 @@ $messages['en'] = array(
 	'openstackmanager-modifyinstancefailed' => 'Failed to modify instance.',
 	'openstackmanager-deleteinstancefailed' => 'Failed to delete instance.',
 
+	'openstackmanager-novapublickey' => 'Public SSH Key',
+	'openstackmanager-novakey-key' => 'Public SSH Key',
+	'openstackmanager-novakey-info' => 'Public SSH Key Info',
 	'openstackmanager-deletekey' => 'Delete key',
 	'openstackmanager-deletekeyconfirm' => 'Are you sure you wish to delete the above key?',
 	'openstackmanager-keylist' => 'Key list',

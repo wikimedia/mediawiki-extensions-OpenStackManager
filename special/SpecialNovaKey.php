@@ -52,7 +52,7 @@ class SpecialNovaKey extends SpecialNova {
 		if ( $wgOpenStackManagerNovaKeypairStorage == 'nova' ) {
 			$keyInfo['keyname'] = array(
 				'type' => 'text',
-				'label-message' => 'openstackmanager-keyname',
+				'label-message' => 'openstackmanager-novakeyname',
 				'default' => '',
 				'section' => 'key/info',
 			);
@@ -62,7 +62,7 @@ class SpecialNovaKey extends SpecialNova {
 			'type' => 'textarea',
 			'section' => 'key/info',
 			'default' => '',
-			'label-message' => 'openstackmanager-key',
+			'label-message' => 'openstackmanager-novapublickey',
 		);
 
 		$keyInfo['action'] = array(
