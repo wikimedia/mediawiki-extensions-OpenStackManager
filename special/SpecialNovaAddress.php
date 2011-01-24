@@ -364,6 +364,7 @@ class SpecialNovaAddress extends SpecialNova {
 			} else {
 				$addressOut .= Html::element( 'td', array(), '' );
 			}
+			$actions = '';
 			if ( $instanceid ) {
 				$msg = wfMsg( 'openstackmanager-reassociateaddress' );
 			} else {
@@ -515,6 +516,9 @@ class SpecialNovaAddress extends SpecialNova {
 		$domain = OpenStackNovaDomain::getDomainByName( $domain );
 		$hostbyname = OpenStackNovaHost::getHostByName( $hostname, $domain );
 		$hostbyip = OpenStackNovaHost::getHostByIP( $ip, $domain );
+
+		// FIXME: Usages of $instanceid are undefined
+
 		if ( $hostbyname ) {
 			# We need to add an arecord, if the arecord doesn't already exist
 			$success = $hostbyname->addARecord( $ip );

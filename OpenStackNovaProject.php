@@ -82,6 +82,7 @@ class OpenStackNovaProject {
 				return false;
 			}
 			unset( $members[$index] );
+			$values = array();
 			$values['member'] = array();
 			foreach ( $members as $member ) {
 				$values['member'][] = $member;
@@ -121,6 +122,7 @@ class OpenStackNovaProject {
 			return false;
 		}
 		$members[] = $user->userDN;
+		$values = array();
 		$values['member'] = $members;
 		wfSuppressWarnings();
 		$success = ldap_modify( $wgAuth->ldapconn, $this->projectDN, $values );
@@ -183,6 +185,7 @@ class OpenStackNovaProject {
 		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 
+		$project = array();
 		$project['objectclass'][] = 'groupofnames';
 		$project['objectclass'][] = 'posixgroup';
 		$project['cn'] = $projectname;

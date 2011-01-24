@@ -260,7 +260,7 @@ class OpenStackNovaController {
 			return null;
 		} else {
 			$address = new OpenStackNovaAddress( $response->body->addressSet->item );
-			$this->addresses["$ip"] = $address;
+			$this->addresses["$ip"] = $address; // FIXME: $ip is undefined
 			return $address;
 		}
 	}

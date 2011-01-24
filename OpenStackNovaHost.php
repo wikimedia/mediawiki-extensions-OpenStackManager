@@ -150,6 +150,7 @@ class OpenStackNovaHost {
 				return false;
 			}
 			unset( $associateddomains[$index] );
+			$values = array();
 			$values['associateddomain'] = array();
 			foreach ( $associateddomains as $associateddomain ) {
 				$values['associateddomain'][] = $associateddomain;
@@ -183,6 +184,7 @@ class OpenStackNovaHost {
 				return false;
 			}
 			unset( $arecords[$index] );
+			$values = array();
 			$values['arecord'] = array();
 			foreach ( $arecords as $arecord ) {
 				$values['arecord'][] = $arecord;
@@ -213,6 +215,7 @@ class OpenStackNovaHost {
 			array_shift( $associatedomains );
 		}
 		$associatedomains[] = $fqdn;
+		$values = array();
 		$values['associateddomain'] = $associatedomains;
 		wfSuppressWarnings();
 		$success = ldap_modify( $wgAuth->ldapconn, $this->hostDN, $values );
@@ -237,6 +240,7 @@ class OpenStackNovaHost {
 			array_shift( $arecords );
 		}
 		$arecords[] = $ip;
+		$values = array();
 		$values['arecord'] = $arecords;
 		wfSuppressWarnings();
 		$success = ldap_modify( $wgAuth->ldapconn, $this->hostDN, $values );
@@ -300,7 +304,7 @@ class OpenStackNovaHost {
 		if ( $hostInfo["count"] == "0" ) {
 			return array();
 		} else {
-			array_shift( $hostsInfo );
+			array_shift( $hostInfo );
 			$hostname = $hostInfo[0]['dc'][0];
 			$host = OpenStackNovaHost::getHostByName( $hostname, $domain );
 			return $host;
@@ -443,6 +447,7 @@ class OpenStackNovaHost {
 			$wgAuth->printDebug( "Failed to add host $hostname as the DNS entry already exists", NONSENSITIVE );
 			return false;
 		}
+		$hostEntry = array();
 		$hostEntry['objectclass'][] = 'dcobject';
 		$hostEntry['objectclass'][] = 'dnsdomain';
 		$hostEntry['objectclass'][] = 'domainrelatedobject';
@@ -500,6 +505,7 @@ class OpenStackNovaHost {
 			$wgAuth->printDebug( "Failed to add public host $hostname as the DNS entry already exists", NONSENSITIVE );
 			return false;
 		}
+		$hostEntry = array();
 		$hostEntry['objectclass'][] = 'dcobject';
 		$hostEntry['objectclass'][] = 'dnsdomain';
 		$hostEntry['objectclass'][] = 'domainrelatedobject';

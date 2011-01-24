@@ -220,6 +220,7 @@ class OpenStackNovaUser {
 			array_shift( $keypairs );
 		}
 		$keypairs[] = $key;
+		$values = array();
 		$values['sshpublickey'] = $keypairs;
 		wfSuppressWarnings();
 		$success = ldap_modify( $wgAuth->ldapconn, $this->userDN, $values );
@@ -246,6 +247,7 @@ class OpenStackNovaUser {
 				return false;
 			}
 			unset( $keypairs[$index] );
+			$values = array();
 			$values['sshpublickey'] = array();
 			foreach ( $keypairs as $keypair ) {
 				$values['sshpublickey'][] = $keypair;

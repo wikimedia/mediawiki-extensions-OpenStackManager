@@ -56,6 +56,7 @@ class OpenStackNovaDomain {
 	function updateSOA() {
 		global $wgAuth;
 
+		$domain = array();
 		$domain['soarecord'] = OpenStackNovaDomain::generateSOA();
 		wfSuppressWarnings();
 		$success = ldap_modify( $wgAuth->ldapconn, $this->domainDN, $domain );
@@ -178,6 +179,7 @@ class OpenStackNovaDomain {
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 
 		$soa = OpenStackNovaDomain::generateSOA();
+		$domain = array();
 		$domain['objectclass'][] = 'dcobject';
 		$domain['objectclass'][] = 'dnsdomain';
 		$domain['objectclass'][] = 'domainrelatedobject';

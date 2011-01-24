@@ -35,6 +35,8 @@ class OpenStackNovaRole {
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPGlobalRoles;
 
+		$query = '';
+
 		if ( $this->global ) {
 			if ( isset ( $wgOpenStackManagerLDAPGlobalRoles["$this->rolename"] ) ) {
 				$dn = $wgOpenStackManagerLDAPGlobalRoles["$this->rolename"];
@@ -125,6 +127,7 @@ class OpenStackNovaRole {
 			return false;
 		}
 		$members[] = $user->userDN;
+		$values = array();
 		$values['member'] = $members;
 		wfSuppressWarnings();
 		$success = ldap_modify( $wgAuth->ldapconn, $this->roleDN, $values );

@@ -146,7 +146,7 @@ class SpecialNovaProject extends SpecialNova {
 
 		$project = $wgRequest->getText( 'projectname' );
 		if ( ! $wgRequest->wasPosted() ) {
-			$out .= Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removeprojectconfirm', array(), $project ) );
+			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removeprojectconfirm', array(), $project ) );
 			$wgOut->addHTML( $out );
 		}
 		$projectInfo = Array();
