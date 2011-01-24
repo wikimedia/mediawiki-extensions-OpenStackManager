@@ -43,7 +43,7 @@ class SpecialNovaDomain extends SpecialNova {
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-createdomain' ) );
 
-		$domainInfo = Array();
+		$domainInfo = array();
 		$domainInfo['domainname'] = array(
 			'type' => 'text',
 			'label-message' => 'openstackmanager-domainname',
@@ -88,7 +88,7 @@ class SpecialNovaDomain extends SpecialNova {
 			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-deletedomain-confirm', array(), $domainname ) );
 			$wgOut->addHTML( $out );
 		}
-		$domainInfo = Array();
+		$domainInfo = array();
 		$domainInfo['domainname'] = array(
 			'type' => 'hidden',
 			'default' => $domainname,

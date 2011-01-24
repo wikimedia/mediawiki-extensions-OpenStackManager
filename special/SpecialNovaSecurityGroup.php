@@ -54,7 +54,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 			$this->notInRole( 'netadmin' );
 			return false;
 		}
-		$securityGroupInfo = Array();
+		$securityGroupInfo = array();
 		$securityGroupInfo['groupname'] = array(
 			'type' => 'text',
 			'label-message' => 'openstackmanager-securitygroupname',
@@ -100,7 +100,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 			$this->notInRole( 'netadmin' );
 			return false;
 		}
-		$securityGroupInfo = Array();
+		$securityGroupInfo = array();
 		$securityGroupInfo['groupname'] = array(
 			'type' => 'hidden',
 			'default' => $securitygroupname,
@@ -146,7 +146,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-deletesecuritygroup-confirm', array(), $securitygroupname ) );
 			$wgOut->addHTML( $out );
 		}
-		$securityGroupInfo = Array();
+		$securityGroupInfo = array();
 		$securityGroupInfo['groupname'] = array(
 			'type' => 'hidden',
 			'default' => $securitygroupname,
@@ -319,7 +319,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 			$group_keys["$securityGroupName"] = $securityGroupName . ':' . $securityGroupProject;
 		}
 		$securitygroupname = $wgRequest->getText( 'groupname' );
-		$securityGroupInfo = Array();
+		$securityGroupInfo = array();
 		$securityGroupInfo['groupname'] = array(
 			'type' => 'hidden',
 			'default' => $securitygroupname,
@@ -384,7 +384,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removerule-confirm', array(), $securitygroupname ) );
 			$wgOut->addHTML( $out );
 		}
-		$securityGroupInfo = Array();
+		$securityGroupInfo = array();
 		$securityGroupInfo['groupname'] = array(
 			'type' => 'hidden',
 			'default' => $securitygroupname,

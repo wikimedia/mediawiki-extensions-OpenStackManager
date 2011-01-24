@@ -71,7 +71,7 @@ class SpecialNovaInstance extends SpecialNova {
 			$this->notInRole( 'sysadmin' );
 			return false;
 		}
-		$instanceInfo = Array();
+		$instanceInfo = array();
 		$instanceInfo['instancename'] = array(
 			'type' => 'text',
 			'label-message' => 'openstackmanager-instancename',
@@ -81,7 +81,7 @@ class SpecialNovaInstance extends SpecialNova {
 		);
 
 		$instanceTypes = $this->adminNova->getInstanceTypes();
-		$instanceType_keys = Array();
+		$instanceType_keys = array();
 		foreach ( $instanceTypes as $instanceType ) {
 			$instanceType_keys["$instanceType"] = $instanceType;
 		}
@@ -109,7 +109,7 @@ class SpecialNovaInstance extends SpecialNova {
 		# Image names can't be translated. Get the image, and make an array
 		# where the name points to itself as a value
 		$images = $this->adminNova->getImages();
-		$image_keys = Array();
+		$image_keys = array();
 		foreach ( array_keys( $images ) as $image_key ) {
 			$image_keys["$image_key"] = $image_key;
 		}
@@ -124,7 +124,7 @@ class SpecialNovaInstance extends SpecialNova {
 		# where the name points to itself as a value
 		# TODO: get keypairs as the user, not the admin
 		# $keypairs = $this->userNova->getKeypairs();
-		# $keypair_keys = Array();
+		# $keypair_keys = array();
 		# foreach ( array_keys( $keypairs ) as $keypair_key ) {
 		#	$keypair_keys["$keypair_key"] = $keypair_key;
 		# }
@@ -219,7 +219,7 @@ class SpecialNovaInstance extends SpecialNova {
 			return false;
 		}
 		$instanceid = $wgRequest->getText( 'instanceid' );
-		$instanceInfo = Array();
+		$instanceInfo = array();
 		$instanceInfo['instanceid'] = array(
 			'type' => 'hidden',
 			'default' => $instanceid,
@@ -301,7 +301,7 @@ class SpecialNovaInstance extends SpecialNova {
 			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-deleteinstancequestion', array(), $instanceid ) );
 			$wgOut->addHTML( $out );
 		}
-		$instanceInfo = Array();
+		$instanceInfo = array();
 		$instanceInfo['instanceid'] = array(
 			'type' => 'hidden',
 			'default' => $instanceid,

@@ -42,7 +42,7 @@ class SpecialNovaRole extends SpecialNova {
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-addmember' ) );
 
-		$roleInfo = Array();
+		$roleInfo = array();
 		$rolename = $wgRequest->getText( 'rolename' );
 		$projectname = $wgRequest->getText( 'projectname' );
 		if ( $projectname ) {
@@ -133,7 +133,7 @@ class SpecialNovaRole extends SpecialNova {
 			$wgOut->addHTML( $out );
 			return true;
 		}
-		$roleInfo = Array();
+		$roleInfo = array();
 		$roleInfo['members'] = array(
 			'type' => 'multiselect',
 			'label-message' => 'openstackmanager-member',

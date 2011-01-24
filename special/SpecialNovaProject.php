@@ -46,7 +46,7 @@ class SpecialNovaProject extends SpecialNova {
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-createproject' ) );
 
-		$projectInfo = Array();
+		$projectInfo = array();
 		$projectInfo['projectname'] = array(
 			'type' => 'text',
 			'label-message' => 'openstackmanager-projectname',
@@ -75,7 +75,7 @@ class SpecialNovaProject extends SpecialNova {
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-addmember' ) );
 
 		$project = $wgRequest->getText( 'projectname' );
-		$projectInfo = Array();
+		$projectInfo = array();
 		$projectInfo['member'] = array(
 			'type' => 'text',
 			'label-message' => 'openstackmanager-member',
@@ -113,7 +113,7 @@ class SpecialNovaProject extends SpecialNova {
 		foreach ( $projectmembers as $projectmember ) {
 			$member_keys["$projectmember"] = $projectmember;
 		}
-		$projectInfo = Array();
+		$projectInfo = array();
 		$projectInfo['members'] = array(
 			'type' => 'multiselect',
 			'label-message' => 'openstackmanager-member',
@@ -149,7 +149,7 @@ class SpecialNovaProject extends SpecialNova {
 			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removeprojectconfirm', array(), $project ) );
 			$wgOut->addHTML( $out );
 		}
-		$projectInfo = Array();
+		$projectInfo = array();
 		$projectInfo['projectname'] = array(
 			'type' => 'hidden',
 			'default' => $project,

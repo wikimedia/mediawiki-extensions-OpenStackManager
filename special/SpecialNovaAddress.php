@@ -61,7 +61,7 @@ class SpecialNovaAddress extends SpecialNova {
 			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-allocateaddress-confirm', array(), $project ) );
 			$wgOut->addHTML( $out );
 		}
-		$addressInfo = Array();
+		$addressInfo = array();
 		$addressInfo['project'] = array(
 			'type' => 'hidden',
 			'default' => $project,
@@ -98,7 +98,7 @@ class SpecialNovaAddress extends SpecialNova {
 			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-releaseaddress-confirm', array(), $ip ) );
 			$wgOut->addHTML( $out );
 		}
-		$addressInfo = Array();
+		$addressInfo = array();
 		$addressInfo['project'] = array(
 			'type' => 'hidden',
 			'default' => $project,
@@ -189,7 +189,7 @@ class SpecialNovaAddress extends SpecialNova {
 			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-disassociateaddress-confirm', array(), $ip ) );
 			$wgOut->addHTML( $out );
 		}
-		$addressInfo = Array();
+		$addressInfo = array();
 		$addressInfo['project'] = array(
 			'type' => 'hidden',
 			'default' => $project,
@@ -224,7 +224,7 @@ class SpecialNovaAddress extends SpecialNova {
 			return false;
 		}
 		$ip = $wgRequest->getText( 'ip' );
-		$addressInfo = Array();
+		$addressInfo = array();
 		$addressInfo['project'] = array(
 			'type' => 'hidden',
 			'default' => $project,
@@ -283,7 +283,7 @@ class SpecialNovaAddress extends SpecialNova {
 			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removehost-confirm', array(), $hostname, $ip ) );
 			$wgOut->addHTML( $out );
 		}
-		$addressInfo = Array();
+		$addressInfo = array();
 		$addressInfo['project'] = array(
 			'type' => 'hidden',
 			'default' => $project,
@@ -602,13 +602,13 @@ class SpecialNovaAddress extends SpecialNova {
 		return true;
 	}
 
-        function validateHostName( $hostname, $alldata ) {
-                if ( ! preg_match( "/^[a-z][a-z0-9\-]*$/", $hostname ) ) {
-                        return Xml::element( 'span', array( 'class' => 'error' ), wfMsg( 'openstackmanager-badinstancename' ) );
-                } else {
-                        return true;
-                }
-        }
+	function validateHostName( $hostname, $alldata ) {
+		if ( ! preg_match( "/^[a-z][a-z0-9\-]*$/", $hostname ) ) {
+			return Xml::element( 'span', array( 'class' => 'error' ), wfMsg( 'openstackmanager-badinstancename' ) );
+		} else {
+			return true;
+		}
+	}
 }
 
 class SpecialNovaAddressForm extends HTMLForm {

@@ -47,7 +47,7 @@ class SpecialNovaKey extends SpecialNova {
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-importkey' ) );
 
-		$keyInfo = Array();
+		$keyInfo = array();
 
 		if ( $wgOpenStackManagerNovaKeypairStorage == 'nova' ) {
 			$keyInfo['keyname'] = array(
@@ -90,7 +90,7 @@ class SpecialNovaKey extends SpecialNova {
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-deletekey' ) );
 
-		$keyInfo = Array();
+		$keyInfo = array();
 
 		if ( $wgOpenStackManagerNovaKeypairStorage == 'nova' ) {
 			$keyname = $wgRequest->getVal( 'keyname' );
