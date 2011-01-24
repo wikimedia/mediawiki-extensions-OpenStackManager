@@ -59,6 +59,9 @@ class SpecialNovaInstance extends SpecialNova {
 		}
 	}
 
+	/**
+	 * @return bool
+	 */
 	function createInstance() {
 		global $wgRequest, $wgOut;
 		global $wgOpenStackManagerPuppetOptions;
@@ -206,6 +209,9 @@ class SpecialNovaInstance extends SpecialNova {
 
 	}
 
+	/**
+	 * @return bool
+	 */
 	function configureInstance() {
 		global $wgRequest, $wgOut;
 		global $wgOpenStackManagerPuppetOptions;
@@ -285,6 +291,9 @@ class SpecialNovaInstance extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @return bool
+	 */
 	function deleteInstance() {
 		global $wgOut, $wgRequest;
 
@@ -324,6 +333,9 @@ class SpecialNovaInstance extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @return void
+	 */
 	function listInstances() {
 		global $wgOut, $wgUser;
 
@@ -406,6 +418,11 @@ class SpecialNovaInstance extends SpecialNova {
 		$wgOut->addHTML( $out );
 	}
 
+	/**
+	 * @param  $formData
+	 * @param string $entryPoint
+	 * @return bool
+	 */
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 		global $wgOpenStackManagerPuppetOptions;
@@ -455,6 +472,11 @@ class SpecialNovaInstance extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @param  $formData
+	 * @param string $entryPoint
+	 * @return bool
+	 */
 	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 
@@ -484,6 +506,11 @@ class SpecialNovaInstance extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @param  $formData
+	 * @param string $entryPoint
+	 * @return bool
+	 */
 	function tryConfigureSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 		global $wgOpenStackManagerPuppetOptions;
@@ -519,6 +546,11 @@ class SpecialNovaInstance extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @param  $instancename
+	 * @param  $alldata
+	 * @return bool|string
+	 */
 	function validateInstanceName( $instancename, $alldata ) {
 		if ( ! preg_match( "/^[a-z][a-z0-9\-]*$/", $instancename ) ) {
 			return Xml::element( 'span', array( 'class' => 'error' ), wfMsg( 'openstackmanager-badinstancename' ) );

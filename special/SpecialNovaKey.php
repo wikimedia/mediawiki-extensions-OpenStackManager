@@ -30,6 +30,9 @@ class SpecialNovaKey extends SpecialNova {
 		}
 	}
 
+	/**
+	 * @return bool
+	 */
 	function importKey() {
 		global $wgRequest, $wgOut;
 		global $wgOpenStackManagerNovaKeypairStorage;
@@ -83,6 +86,9 @@ class SpecialNovaKey extends SpecialNova {
 
 	}
 
+	/**
+	 * @return bool
+	 */
 	function deleteKey() {
 		global $wgOut, $wgRequest;
 		global $wgOpenStackManagerNovaKeypairStorage;
@@ -137,6 +143,9 @@ class SpecialNovaKey extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @return void
+	 */
 	function listKeys() {
 		global $wgOut, $wgUser;
 		global $wgOpenStackManagerNovaKeypairStorage;
@@ -185,6 +194,11 @@ class SpecialNovaKey extends SpecialNova {
 		$wgOut->addHTML( $out );
 	}
 
+	/**
+	 * @param  $formData
+	 * @param string $entryPoint
+	 * @return bool
+	 */
 	function tryImportSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 		global $wgOpenStackManagerNovaKeypairStorage;
@@ -215,6 +229,11 @@ class SpecialNovaKey extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @param  $formData
+	 * @param string $entryPoint
+	 * @return bool
+	 */
 	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 		global $wgOpenStackManagerNovaKeypairStorage;

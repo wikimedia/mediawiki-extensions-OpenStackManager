@@ -5,6 +5,9 @@ class OpenStackNovaAddress {
 
 	var $address;
 
+	/**
+	 * @param  $apiInstanceResponse
+	 */
 	function __construct( $apiInstanceResponse ) {
 		$this->address = $apiInstanceResponse;
 	}
@@ -22,10 +25,16 @@ class OpenStackNovaAddress {
 		}
 	}
 
+	/**
+	 * @return
+	 */
 	function getPublicIP() {
 		return $this->address->publicIp;
 	}
 
+	/**
+	 * @return mixed
+	 */
 	function getProject() {
 		# instanceId returns as: instanceid (project)
 		$info = explode( ' ', $this->address->instanceId );

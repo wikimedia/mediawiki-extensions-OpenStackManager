@@ -36,6 +36,9 @@ class SpecialNovaRole extends SpecialNova {
 		}
 	}
 
+	/**
+	 * @return bool
+	 */
 	function addMember() {
 		global $wgRequest, $wgOut;
 
@@ -101,6 +104,9 @@ class SpecialNovaRole extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @return bool
+	 */
 	function deleteMember() {
 		global $wgRequest, $wgOut;
 
@@ -166,6 +172,9 @@ class SpecialNovaRole extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @return void
+	 */
 	function listGlobalRoles() {
 		global $wgOut, $wgUser;
 
@@ -208,6 +217,11 @@ class SpecialNovaRole extends SpecialNova {
 		$wgOut->addHTML( $out );
 	}
 
+	/**
+	 * @param  $formData
+	 * @param string $entryPoint
+	 * @return bool
+	 */
 	function tryAddMemberSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 
@@ -248,6 +262,11 @@ class SpecialNovaRole extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @param  $formData
+	 * @param string $entryPoint
+	 * @return bool
+	 */
 	function tryDeleteMemberSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 

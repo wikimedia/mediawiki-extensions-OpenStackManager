@@ -22,6 +22,9 @@ class OpenStackNovaHost {
 		$this->fetchHostInfo();
 	}
 
+	/**
+	 * @return void
+	 */
 	function connect() {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
@@ -31,6 +34,9 @@ class OpenStackNovaHost {
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 	}
 
+	/**
+	 * @return void
+	 */
 	function fetchHostInfo() {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
@@ -47,18 +53,30 @@ class OpenStackNovaHost {
 		}
 	}
 
+	/**
+	 * @return
+	 */
 	function getHostName() {
 		return $this->hostInfo[0]['dc'][0];
 	}
 
+	/**
+	 * @return OpenStackNovaDomain
+	 */
 	function getDomain() {
 		return $this->domain;
 	}
 
+	/**
+	 * @return string
+	 */
 	function getFullyQualifiedHostName() {
 		return $this->getHostName() . '.' . $this->domain->getFullyQualifiedDomainName();
 	}
 
+	/**
+	 * @return array
+	 */
 	function getPuppetConfiguration() {
 		$puppetinfo = array( 'puppetclass' => array(), 'puppetvar' => array() );
 		if ( isset( $this->hostInfo[0]['puppetclass'] ) ) {
@@ -79,6 +97,9 @@ class OpenStackNovaHost {
 		return $puppetinfo;
 	}
 
+	/**
+	 * @return array
+	 */
 	function getARecords() {
 		$arecords = array();
 		if ( isset( $this->hostInfo[0]['arecord'] ) ) {
@@ -99,6 +120,9 @@ class OpenStackNovaHost {
 		return $associateddomain;
 	}
 
+	/**
+	 * @return array
+	 */
 	function getCNAMERecords() {
 		$cnamerecords = array();
 		if ( isset( $this->hostInfo[0]['cnamerecord'] ) ) {
@@ -109,6 +133,10 @@ class OpenStackNovaHost {
 		return $cnamerecords;
 	}
 
+	/**
+	 * @param  $puppetinfo
+	 * @return bool
+	 */
 	function modifyPuppetConfiguration( $puppetinfo ) {
 		global $wgAuth;
 		global $wgOpenStackManagerPuppetOptions;
@@ -146,6 +174,10 @@ class OpenStackNovaHost {
 		}
 	}
 
+	/**
+	 * @param  $fqdn
+	 * @return bool
+	 */
 	function deleteAssociatedDomain( $fqdn ) {
 		global $wgAuth;
 
@@ -180,6 +212,10 @@ class OpenStackNovaHost {
 		}
 	}
 
+	/**
+	 * @param  $ip
+	 * @return bool
+	 */
 	function deleteARecord( $ip ) {
 		global $wgAuth;
 
@@ -214,6 +250,10 @@ class OpenStackNovaHost {
 		}
 	}
 
+	/**
+	 * @param  $fqdn
+	 * @return bool
+	 */
 	function addAssociatedDomain( $fqdn ) {
 		global $wgAuth;
 
@@ -239,6 +279,10 @@ class OpenStackNovaHost {
 		}
 	}
 
+	/**
+	 * @param  $ip
+	 * @return bool
+	 */
 	function addARecord( $ip ) {
 		global $wgAuth;
 
@@ -264,6 +308,10 @@ class OpenStackNovaHost {
 		}
 	}
 
+	/**
+	 * @param  $ip
+	 * @return bool
+	 */
 	function setARecord( $ip ) {
 		global $wgAuth;
 
@@ -336,6 +384,11 @@ class OpenStackNovaHost {
 		}
 	}
 
+	/**
+	 * @static
+	 * @param  $ip
+	 * @return array
+	 */
 	static function getHostsByIP( $ip ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
@@ -428,6 +481,11 @@ class OpenStackNovaHost {
 		}
 	}
 
+	/**
+	 * @static
+	 * @param  $instanceid
+	 * @return bool
+	 */
 	static function deleteHostByInstanceId( $instanceid ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;

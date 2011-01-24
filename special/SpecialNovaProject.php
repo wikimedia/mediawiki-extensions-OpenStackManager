@@ -40,6 +40,9 @@ class SpecialNovaProject extends SpecialNova {
 		}
 	}
 
+	/**
+	 * @return bool
+	 */
 	function createProject() {
 		global $wgRequest, $wgOut;
 
@@ -68,6 +71,9 @@ class SpecialNovaProject extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @return bool
+	 */
 	function addMember() {
 		global $wgRequest, $wgOut;
 
@@ -100,6 +106,9 @@ class SpecialNovaProject extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @return bool
+	 */
 	function deleteMember() {
 		global $wgRequest, $wgOut;
 
@@ -138,6 +147,9 @@ class SpecialNovaProject extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @return bool
+	 */
 	function deleteProject() {
 		global $wgOut, $wgRequest;
 
@@ -168,6 +180,9 @@ class SpecialNovaProject extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @return void
+	 */
 	function listProjects() {
 		global $wgOut, $wgUser;
 
@@ -241,6 +256,11 @@ class SpecialNovaProject extends SpecialNova {
 		$wgOut->addHTML( $out );
 	}
 
+	/**
+	 * @param  $formData
+	 * @param string $entryPoint
+	 * @return bool
+	 */
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 
@@ -259,6 +279,11 @@ class SpecialNovaProject extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @param  $formData
+	 * @param string $entryPoint
+	 * @return bool
+	 */
 	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 
@@ -276,6 +301,11 @@ class SpecialNovaProject extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @param  $formData
+	 * @param string $entryPoint
+	 * @return bool
+	 */
 	function tryAddMemberSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 
@@ -296,6 +326,11 @@ class SpecialNovaProject extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @param  $formData
+	 * @param string $entryPoint
+	 * @return bool
+	 */
 	function tryDeleteMemberSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 

@@ -11,6 +11,9 @@ class OpenStackNovaController {
 								'm2.4xlarge', 'c1.medium', 'c1.xlarge', 'cc1.4xlarge' );
 
 	# TODO: Make disable_ssl, hostname, and resource_prefix config options
+	/**
+	 * @param  $credentials
+	 */
 	function __construct( $credentials ) {
 		global $wgOpenStackManagerNovaDisableSSL, $wgOpenStackManagerNovaServerName,
 			$wgOpenStackManagerNovaPort, $wgOpenStackManagerNovaResourcePrefix;
@@ -23,6 +26,10 @@ class OpenStackNovaController {
 		$this->instances = array();
 	}
 
+	/**
+	 * @param  $ip
+	 * @return null
+	 */
 	function getAddress( $ip ) {
 		$this->getAddresses();
 		if ( isset( $this->addresses["$ip"] ) ) {
@@ -32,6 +39,9 @@ class OpenStackNovaController {
 		}
 	}
 
+	/**
+	 * @return
+	 */
 	function getAddresses() {
 		$this->addresses = array();
 		$response = $this->novaConnection->describe_addresses();
@@ -72,10 +82,16 @@ class OpenStackNovaController {
 		return $this->instances;
 	}
 
+	/**
+	 * @return array
+	 */
 	function getInstanceTypes() {
 		return $this->instanceTypes;
 	}
 
+	/**
+	 * @return
+	 */
 	function getImages() {
 		$this->images = array();
 		$images = $this->novaConnection->describe_images();
@@ -89,6 +105,9 @@ class OpenStackNovaController {
 	}
 
 	# TODO: make this user specific
+	/**
+	 * @return
+	 */
 	function getKeypairs() {
 		$this->keypairs = array();
 		$response = $this->novaConnection->describe_key_pairs();
@@ -101,6 +120,9 @@ class OpenStackNovaController {
 		return $this->keypairs;
 	}
 
+	/**
+	 * @return
+	 */
 	function getAvailabilityZones() {
 		$this->availabilityZones = array();
 		$availabilityZones = $this->novaConnection->describe_availability_zones();
@@ -113,6 +135,10 @@ class OpenStackNovaController {
 		return $this->availabilityZones;
 	}
 
+	/**
+	 * @param  $groupname
+	 * @return null
+	 */
 	function getSecurityGroup( $groupname ) {
 		$this->getSecurityGroups();
 		if ( isset( $this->securityGroups["$groupname"] ) ) {
@@ -122,6 +148,9 @@ class OpenStackNovaController {
 		}
 	}
 
+	/**
+	 * @return
+	 */
 	function getSecurityGroups() {
 		$this->securityGroups = array();
 		$securityGroups = $this->novaConnection->describe_security_groups();
@@ -169,12 +198,21 @@ class OpenStackNovaController {
 		return $instance;
 	}
 
+	/**
+	 * @param  $instanceId
+	 * @return
+	 */
 	function terminateInstance( $instanceId ) {
 		$response = $this->novaConnection->terminate_instances( $instanceId );
 
 		return $response->isOK();
 	}
 
+	/**
+	 * @param  $groupname
+	 * @param  $description
+	 * @return null|OpenStackNovaSecurityGroup
+	 */
 	function createSecurityGroup( $groupname, $description ) {
 		$response = $this->novaConnection->create_security_group( $groupname, $description );
 		if ( ! $response->isOK() ) {
@@ -187,12 +225,25 @@ class OpenStackNovaController {
 		return $securityGroup;
 	}
 
+	/**
+	 * @param  $groupname
+	 * @return
+	 */
 	function deleteSecurityGroup( $groupname ) {
 		$response = $this->novaConnection->delete_security_group( $groupname );
 
 		return $response->isOK();
 	}
 
+	/**
+	 * @param  $groupname
+	 * @param string $fromport
+	 * @param string $toport
+	 * @param string $protocol
+	 * @param array $ranges
+	 * @param array $groups
+	 * @return
+	 */
 	function addSecurityGroupRule( $groupname, $fromport='', $toport='', $protocol='', $ranges=array(), $groups=array() ) {
 		# TODO: Currently this method had commented out sections that use the AWS SDK
 		# recommended method of adding security group rules. When lp704645 is fixed, switch
@@ -227,6 +278,15 @@ class OpenStackNovaController {
 		return $response->isOK();
 	}
 
+	/**
+	 * @param  $groupname
+	 * @param string $fromport
+	 * @param string $toport
+	 * @param string $protocol
+	 * @param array $ranges
+	 * @param array $groups
+	 * @return
+	 */
 	function removeSecurityGroupRule( $groupname, $fromport='', $toport='', $protocol='', $ranges=array(), $groups=array() ) {
 		# TODO: Currently this method had commented out sections that use the AWS SDK
 		# recommended method of removing security group rules. When lp704645 is fixed, switch
@@ -260,6 +320,11 @@ class OpenStackNovaController {
 		return $response->isOK();
 	}
 
+	/**
+	 * @param  $keyName
+	 * @param  $key
+	 * @return OpenStackNovaKeypair
+	 */
 	function importKeyPair( $keyName, $key ) {
 		$response = $this->novaConnection->import_key_pair( $keyName, $key );
 
@@ -270,6 +335,9 @@ class OpenStackNovaController {
 		return $keypair;
 	}
 
+	/**
+	 * @return null|OpenStackNovaAddress
+	 */
 	function allocateAddress() {
 		$response = $this->novaConnection->allocate_address();
 		if ( ! $response->isOK() ) {
@@ -281,12 +349,21 @@ class OpenStackNovaController {
 		}
 	}
 
+	/**
+	 * @param  $ip
+	 * @return
+	 */
 	function releaseAddress( $ip ) {
 		$response = $this->novaConnection->release_address( $ip );
 
 		return $response->isOK();
 	}
 
+	/**
+	 * @param  $instanceid
+	 * @param  $ip
+	 * @return null|OpenStackNovaAddress
+	 */
 	function associateAddress( $instanceid, $ip ) {
 		$response = $this->novaConnection->associate_address( $instanceid, $ip );
 		if ( ! $response->isOK() ) {
@@ -298,6 +375,10 @@ class OpenStackNovaController {
 		}
 	}
 
+	/**
+	 * @param  $ip
+	 * @return
+	 */
 	function disassociateAddress( $ip ) {
 		$response = $this->novaConnection->disassociate_address( $ip );
 

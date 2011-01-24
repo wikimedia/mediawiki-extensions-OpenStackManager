@@ -44,6 +44,9 @@ class SpecialNovaAddress extends SpecialNova {
 		}
 	}
 
+	/**
+	 * @return bool
+	 */
 	function allocateAddress() {
 		global $wgRequest, $wgOut;
 
@@ -80,6 +83,9 @@ class SpecialNovaAddress extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @return bool
+	 */
 	function releaseAddress() {
 		global $wgOut, $wgRequest;
 
@@ -121,6 +127,9 @@ class SpecialNovaAddress extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @return bool
+	 */
 	function associateAddress() {
 		global $wgOut, $wgRequest;
 
@@ -171,6 +180,9 @@ class SpecialNovaAddress extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @return bool
+	 */
 	function disassociateAddress() {
 		global $wgOut, $wgRequest;
 
@@ -212,6 +224,9 @@ class SpecialNovaAddress extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @return bool
+	 */
 	function addHost() {
 		global $wgOut, $wgRequest;
 
@@ -263,6 +278,9 @@ class SpecialNovaAddress extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @return bool
+	 */
 	function removeHost() {
 		global $wgOut, $wgRequest;
 
@@ -314,6 +332,9 @@ class SpecialNovaAddress extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @return bool
+	 */
 	function listAddresses() {
 		global $wgOut, $wgUser;
 
@@ -407,6 +428,11 @@ class SpecialNovaAddress extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @param  $formData
+	 * @param string $entryPoint
+	 * @return bool
+	 */
 	function tryAllocateSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 
@@ -426,6 +452,11 @@ class SpecialNovaAddress extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @param  $formData
+	 * @param string $entryPoint
+	 * @return bool
+	 */
 	function tryReleaseSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 
@@ -459,6 +490,11 @@ class SpecialNovaAddress extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @param  $formData
+	 * @param string $entryPoint
+	 * @return bool
+	 */
 	function tryAssociateSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 
@@ -478,6 +514,11 @@ class SpecialNovaAddress extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @param  $formData
+	 * @param string $entryPoint
+	 * @return bool
+	 */
 	function tryDisassociateSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 
@@ -496,6 +537,11 @@ class SpecialNovaAddress extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @param  $formData
+	 * @param string $entryPoint
+	 * @return bool
+	 */
 	function tryAddHostSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 
@@ -552,6 +598,11 @@ class SpecialNovaAddress extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @param  $formData
+	 * @param string $entryPoint
+	 * @return bool
+	 */
 	function tryRemoveHostSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 
@@ -602,6 +653,11 @@ class SpecialNovaAddress extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @param  $hostname
+	 * @param  $alldata
+	 * @return bool|string
+	 */
 	function validateHostName( $hostname, $alldata ) {
 		if ( ! preg_match( "/^[a-z][a-z0-9\-]*$/", $hostname ) ) {
 			return Xml::element( 'span', array( 'class' => 'error' ), wfMsg( 'openstackmanager-badinstancename' ) );

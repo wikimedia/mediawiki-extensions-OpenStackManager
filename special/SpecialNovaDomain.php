@@ -36,6 +36,9 @@ class SpecialNovaDomain extends SpecialNova {
 		}
 	}
 
+	/**
+	 * @return bool
+	 */
 	function createDomain() {
 		global $wgRequest, $wgOut;
 		global $wgOpenStackManagerDNSOptions;
@@ -77,6 +80,9 @@ class SpecialNovaDomain extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @return bool
+	 */
 	function deleteDomain() {
 		global $wgOut, $wgRequest;
 
@@ -107,6 +113,9 @@ class SpecialNovaDomain extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @return void
+	 */
 	function listDomains() {
 		global $wgOut, $wgUser;
 
@@ -141,6 +150,11 @@ class SpecialNovaDomain extends SpecialNova {
 		$wgOut->addHTML( $out );
 	}
 
+	/**
+	 * @param  $formData
+	 * @param string $entryPoint
+	 * @return bool
+	 */
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 
@@ -159,6 +173,11 @@ class SpecialNovaDomain extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @param  $formData
+	 * @param string $entryPoint
+	 * @return bool
+	 */
 	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 

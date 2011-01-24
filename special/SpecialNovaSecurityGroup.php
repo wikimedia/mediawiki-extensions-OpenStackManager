@@ -43,6 +43,9 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		}
 	}
 
+	/**
+	 * @return bool
+	 */
 	function createSecurityGroup() {
 		global $wgRequest, $wgOut;
 
@@ -85,6 +88,9 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 
 	}
 
+	/**
+	 * @return bool
+	 */
 	function configureSecurityGroup() {
 		global $wgRequest, $wgOut;
 		global $wgOpenStackManagerPuppetOptions;
@@ -130,6 +136,9 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 
 	}
 
+	/**
+	 * @return bool
+	 */
 	function deleteSecurityGroup() {
 		global $wgOut, $wgRequest;
 
@@ -169,6 +178,9 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @return bool
+	 */
 	function listSecurityGroups() {
 		global $wgOut, $wgUser;
 
@@ -300,6 +312,9 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @return bool
+	 */
 	function addRule() {
 		global $wgOut, $wgRequest;
 
@@ -368,6 +383,9 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @return bool
+	 */
 	function removeRule() {
 		global $wgOut, $wgRequest;
 
@@ -431,6 +449,11 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @param  $formData
+	 * @param string $entryPoint
+	 * @return bool
+	 */
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 
@@ -452,6 +475,11 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @param  $formData
+	 * @param string $entryPoint
+	 * @return bool
+	 */
 	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 
@@ -479,6 +507,11 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @param  $formData
+	 * @param string $entryPoint
+	 * @return bool
+	 */
 	function tryConfigureSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 		global $wgOpenStackManagerPuppetOptions;
@@ -503,6 +536,11 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @param  $formData
+	 * @param string $entryPoint
+	 * @return bool
+	 */
 	function tryAddRuleSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 
@@ -543,6 +581,11 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @param  $formData
+	 * @param string $entryPoint
+	 * @return bool
+	 */
 	function tryRemoveRuleSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 
@@ -585,15 +628,6 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		$wgOut->addHTML( $out );
 		return true;
 	}
-
-	function validateInstanceName( $instancename, $alldata ) {
-		if ( ! preg_match( "/^[a-z][a-z0-9\-]*$/", $instancename ) ) {
-			return Xml::element( 'span', array( 'class' => 'error' ), wfMsg( 'openstackmanager-badinstancename' ) );
-		} else {
-			return true;
-		}
-	}
-
 }
 
 class SpecialNovaSecurityGroupForm extends HTMLForm {

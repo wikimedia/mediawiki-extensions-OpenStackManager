@@ -1,6 +1,10 @@
 <?php
 
 abstract class SpecialNova extends SpecialPage {
+
+	/**
+	 * @return void
+	 */
 	function notLoggedIn() {
 		global $wgOut;
 
@@ -9,6 +13,9 @@ abstract class SpecialNova extends SpecialPage {
 		$wgOut->addHTML( wfMsg( 'openstackmanager-mustbeloggedin' ) );
 	}
 
+	/**
+	 * @return void
+	 */
 	function noCredentials() {
 		global $wgOut;
 
@@ -17,6 +24,9 @@ abstract class SpecialNova extends SpecialPage {
 		$wgOut->addHTML( wfMsg( 'openstackmanager-nonovacred-admincreate' ) );
 	}
 
+	/**
+	 * @return void
+	 */
 	function notInProject() {
 		global $wgOut;
 
@@ -25,6 +35,10 @@ abstract class SpecialNova extends SpecialPage {
 		$wgOut->addHTML( wfMsg( 'openstackmanager-noaccount2' ) );
 	}
 
+	/**
+	 * @param  $role
+	 * @return void
+	 */
 	function notInRole( $role ) {
 		global $wgOut;
 

@@ -7,12 +7,18 @@ class OpenStackNovaDomain {
 	var $domainInfo;
 	var $fqdn;
 
+	/**
+	 * @param  $domainname
+	 */
 	function __construct( $domainname ) {
 		$this->domainname = $domainname;
 		$this->connect();
 		$this->fetchDomainInfo();
 	}
 
+	/**
+	 * @return void
+	 */
 	function connect() {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
@@ -22,6 +28,9 @@ class OpenStackNovaDomain {
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 	}
 
+	/**
+	 * @return void
+	 */
 	function fetchDomainInfo() {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
@@ -37,14 +46,23 @@ class OpenStackNovaDomain {
 		$this->domainDN = $this->domainInfo[0]['dn'];
 	}
 
+	/**
+	 * @return
+	 */
 	function getDomainName() {
 		return $this->domainname;
 	}
 
+	/**
+	 * @return
+	 */
 	function getFullyQualifiedDomainName() {
 		return $this->fqdn;
 	}
 
+	/**
+	 * @return string
+	 */
 	function getLocation() {
 		if ( isset( $this->domainInfo[0]['l'] ) ) {
 			return $this->domainInfo[0]['l'][0];
@@ -53,6 +71,9 @@ class OpenStackNovaDomain {
 		}
 	}
 
+	/**
+	 * @return bool
+	 */
 	function updateSOA() {
 		global $wgAuth;
 
