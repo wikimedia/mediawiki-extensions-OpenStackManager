@@ -143,7 +143,6 @@ class OpenStackNovaController {
 			$options['SecurityGroup'] = $groups[0];
 		}
 		$response = $this->novaConnection->run_instances( $image, 1, 1, $options );
-		print_r($response);
 		if ( ! $response->isOK() ) {
 			return null;
 		}
