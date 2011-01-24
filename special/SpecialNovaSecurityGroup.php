@@ -462,6 +462,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		$securitygroup = $this->adminNova->getSecurityGroup( $formData['groupname'] );
 		if ( ! $securitygroup ) {
 			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-nonexistantsecuritygroup' ) );
+			$wgOut->addHtml( $out );
 			return true;
 		}
 		$groupname = $securitygroup->getGroupName();
@@ -525,6 +526,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		$securitygroup = $this->adminNova->getSecurityGroup( $formData['groupname'] );
 		if ( ! $securitygroup ) {
 			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-nonexistantsecuritygroup' ) );
+			$wgOut->addHtml( $out );
 			return false;
 		}
 		$groupname = $securitygroup->getGroupName();
@@ -567,6 +569,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		$securitygroup = $this->adminNova->getSecurityGroup( $formData['groupname'] );
 		if ( ! $securitygroup ) {
 			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-nonexistantsecuritygroup' ) );
+			$wgOut->addHtml( $out );
 			return false;
 		}
 		$groupname = $securitygroup->getGroupName();

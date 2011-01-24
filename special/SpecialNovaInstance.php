@@ -412,8 +412,9 @@ class SpecialNovaInstance extends SpecialNova {
 
 		$sk = $wgUser->getSkin();
 		$domain = OpenStackNovaDomain::getDomainByName( $formData['domain'] );
-		if ( ! $domain ) {
+		if ( !$domain ) {
 			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-invaliddomain' ) );
+			$wgOut->addHtml( $out );
 			return true;
 		}
 		$instance = $this->userNova->createInstance( $formData['instancename'], $formData['imageType'], '', $formData['instanceType'], $formData['availabilityZone'], $formData['groups'] );
@@ -461,6 +462,7 @@ class SpecialNovaInstance extends SpecialNova {
 		$instance = $this->adminNova->getInstance( $formData['instanceid'] );
 		if ( ! $instance ) {
 			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-nonexistanthost' ) );
+			$wgOut->addHtml( $out );
 			return true;
 		}
 		$instancename = $instance->getInstanceName();

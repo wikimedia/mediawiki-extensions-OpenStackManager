@@ -299,8 +299,7 @@ class SpecialNovaProject extends SpecialNova {
 	function tryDeleteMemberSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 
-		$project = new OpenStackNovaProject( $formData['projectname'] );
-                $project = OpenStackNovaProject::getProjectByName( $formData['projectname'] );
+		$project = OpenStackNovaProject::getProjectByName( $formData['projectname'] );
 		if ( ! $project ) {
 			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-nonexistentproject' ) );
 			$wgOut->addHTML( $out );
