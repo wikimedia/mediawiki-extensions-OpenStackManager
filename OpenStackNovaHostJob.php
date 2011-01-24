@@ -1,5 +1,10 @@
 <?php
 class OpenStackNovaHostJob extends Job {
+
+	/**
+	 * @param  $title
+	 * @param  $params
+	 */
 	public function __construct( $title, $params ) {
 		// Replace synchroniseThreadArticleData with the an identifier for your job.
 		parent::__construct( 'addDNSHostToLDAP', $title, $params );

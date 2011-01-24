@@ -9,12 +9,18 @@ class OpenStackNovaProject {
 
 	static $rolenames = array( 'sysadmin', 'netadmin' );
 
+	/**
+	 * @param  $projectname
+	 */
 	function __construct( $projectname ) {
 		$this->projectname = $projectname;
 		$this->connect();
 		$this->fetchProjectInfo();
 	}
 
+	/**
+	 * @return void
+	 */
 	function connect() {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
@@ -24,6 +30,9 @@ class OpenStackNovaProject {
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 	}
 
+	/**
+	 * @return void
+	 */
 	function fetchProjectInfo() {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPProjectBaseDN;
@@ -41,14 +50,23 @@ class OpenStackNovaProject {
 		}
 	}
 
+	/**
+	 * @return  String
+	 */
 	function getProjectName() {
 		return $this->projectname;
 	}
 
+	/**
+	 * @return
+	 */
 	function getRoles() {
 		return $this->roles;
 	}
 
+	/**
+	 * @return array
+	 */
 	function getMembers() {
 		$members = array();
 		if ( isset( $this->projectInfo[0]['member'] ) ) {
@@ -65,6 +83,10 @@ class OpenStackNovaProject {
 		return $members;
 	}
 
+	/**
+	 * @param  $username string
+	 * @return bool
+	 */
 	function deleteMember( $username ) {
 		global $wgAuth;
 
@@ -108,6 +130,10 @@ class OpenStackNovaProject {
 		}
 	}
 
+	/**
+	 * @param  $username string
+	 * @return bool
+	 */
 	function addMember( $username ) {
 		global $wgAuth;
 
@@ -137,6 +163,11 @@ class OpenStackNovaProject {
 		}
 	}
 
+	/**
+	 * @static
+	 * @param  $projectname
+	 * @return null|OpenStackNovaProject
+	 */
 	static function getProjectByName( $projectname ) {
 		$project = new OpenStackNovaProject( $projectname );
 		if ( $project->projectInfo ) {
@@ -146,6 +177,10 @@ class OpenStackNovaProject {
 		}
 	}
 
+	/**
+	 * @static
+	 * @return array
+	 */
 	static function getAllProjects() {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
@@ -176,6 +211,11 @@ class OpenStackNovaProject {
 		return $projects;
 	}
 
+	/**
+	 * @static
+	 * @param  $projectname
+	 * @return bool
+	 */
 	static function createProject( $projectname ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
@@ -258,6 +298,10 @@ class OpenStackNovaProject {
 		}
 	}
 
+	/**
+	 * @static
+	 * @return void
+	 */
 	static function addNamespaces() {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPProjectBaseDN;

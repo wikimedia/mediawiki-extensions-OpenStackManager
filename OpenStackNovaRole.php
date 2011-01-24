@@ -8,6 +8,10 @@ class OpenStackNovaRole {
 	var $project;
 	var $global;
 
+	/**
+	 * @param  $rolename
+	 * @param null $project
+	 */
 	function __construct( $rolename, $project=null ) {
 		$this->rolename = $rolename;
 		$this->project = $project;
@@ -20,6 +24,9 @@ class OpenStackNovaRole {
 		$this->fetchRoleInfo();
 	}
 
+	/**
+	 * @return void
+	 */
 	function connect() {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
@@ -29,6 +36,9 @@ class OpenStackNovaRole {
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 	}
 
+	/**
+	 * @return void
+	 */
 	function fetchRoleInfo() {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPProjectBaseDN;
@@ -56,10 +66,16 @@ class OpenStackNovaRole {
 		$this->roleDN = $this->roleInfo[0]['dn'];
 	}
 
+	/**
+	 * @return string
+	 */
 	function getRoleName() {
 		return $this->rolename;
 	}
 
+	/**
+	 * @return array
+	 */
 	function getMembers() {
 		$members = array();
 		if ( isset( $this->roleInfo[0]['member'] ) ) {
@@ -76,6 +92,10 @@ class OpenStackNovaRole {
 		return $members;
 	}
 
+	/**
+	 * @param  $username
+	 * @return bool
+	 */
 	function deleteMember( $username ) {
 		global $wgAuth;
 
@@ -114,6 +134,10 @@ class OpenStackNovaRole {
 		}
 	}
 
+	/**
+	 * @param  $username
+	 * @return bool
+	 */
 	function addMember( $username ) {
 		global $wgAuth;
 
@@ -143,6 +167,12 @@ class OpenStackNovaRole {
 		}
 	}
 
+	/**
+	 * @static
+	 * @param  $rolename
+	 * @param  $project
+	 * @return null|OpenStackNovaRole
+	 */
 	static function getProjectRoleByName( $rolename, $project ) {
 		$role = new OpenStackNovaRole( $rolename, $project );
 		if ( $role->roleInfo ) {
@@ -152,6 +182,11 @@ class OpenStackNovaRole {
 		}
 	}
 
+	/**
+	 * @static
+	 * @param  $rolename
+	 * @return null|OpenStackNovaRole
+	 */
 	static function getGlobalRoleByName( $rolename ) {
 		$role = new OpenStackNovaRole( $rolename );
 		if ( $role->roleInfo ) {
@@ -161,6 +196,10 @@ class OpenStackNovaRole {
 		}
 	}
 
+	/**
+	 * @static
+	 * @return array
+	 */
 	static function getAllGlobalRoles() {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;

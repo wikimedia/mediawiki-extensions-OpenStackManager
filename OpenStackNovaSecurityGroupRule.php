@@ -5,22 +5,38 @@ class OpenStackNovaSecurityGroupRule {
 
 	var $rule;
 
+	/**
+	 * @param  $apiInstanceResponse
+	 */
 	function __construct( $apiInstanceResponse ) {
 		$this->rule = $apiInstanceResponse;
 	}
 
+	/**
+	 * @return
+	 *
+	 */
 	function getToPort() {
 		return $this->rule->toPort;
 	}
 
+	/**
+	 * @return
+	 */
 	function getFromPort() {
 		return $this->rule->fromPort;
 	}
 
+	/**
+	 * @return
+	 */
 	function getIPProtocol() {
 		return $this->rule->ipProtocol;
 	}
 
+	/**
+	 * @return array
+	 */
 	function getIPRanges() {
 		$ranges = array();
 		foreach ( $this->rule->ipRanges->item as $iprange ) {

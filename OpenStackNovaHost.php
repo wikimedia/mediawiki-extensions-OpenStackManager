@@ -11,6 +11,10 @@ class OpenStackNovaHost {
 	 */
 	var $domain;
 
+	/**
+	 * @param  $hostname
+	 * @param  $domain
+	 */
 	function __construct( $hostname, $domain ) {
 		$this->searchvalue = $hostname;
 		$this->domain = $domain;

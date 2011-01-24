@@ -6,12 +6,18 @@ class OpenStackNovaUser {
 	var $userDN;
 	var $userInfo;
 
+	/**
+	 * @param string $username
+	 */
 	function __construct( $username = '' ) {
 		$this->username = $username;
 		$this->connect();
 		$this->fetchUserInfo();
 	}
 
+	/**
+	 * @return void
+	 */
 	function fetchUserInfo() {
 		global $wgAuth, $wgUser;
 
@@ -23,6 +29,10 @@ class OpenStackNovaUser {
 		$this->userInfo = $wgAuth->userInfo;
 	}
 
+	/**
+	 * @param string $project
+	 * @return array
+	 */
 	function getCredentials( $project = '' ) {
 		if ( isset( $this->userInfo[0]['accesskey'] ) ) {
 			$accessKey = $this->userInfo[0]['accesskey'][0];
@@ -38,6 +48,9 @@ class OpenStackNovaUser {
 		return array( 'accessKey' => $accessKey, 'secretKey' => $secretKey );
 	}
 
+	/**
+	 * @return array
+	 */
 	function getKeypairs() {
 		global $wgAuth;
 
@@ -82,6 +95,9 @@ class OpenStackNovaUser {
 		}
 	}
 
+	/**
+	 * @return array
+	 */
 	function getProjects() {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPProjectBaseDN;
@@ -112,11 +128,19 @@ class OpenStackNovaUser {
 		return $projects;
 	}
 
+	/**
+	 * @param string $project
+	 * @return array
+	 */
 	function getRoles( $project = '' ) {
 		# Currently unsupported
 		return array();
 	}
 
+	/**
+	 * @param  $project
+	 * @return bool
+	 */
 	function inProject( $project ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPProjectBaseDN;
@@ -146,6 +170,11 @@ class OpenStackNovaUser {
 		}
 	}
 
+	/**
+	 * @param  $role
+	 * @param string $projectname
+	 * @return bool
+	 */
 	function inRole( $role, $projectname = '' ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPGlobalRoles;
@@ -208,6 +237,9 @@ class OpenStackNovaUser {
 		return false;
 	}
 
+	/**
+	 * @return void
+	 */
 	function connect() {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
@@ -217,6 +249,10 @@ class OpenStackNovaUser {
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 	}
 
+	/**
+	 * @param  $key
+	 * @return bool
+	 */
 	function importKeypair( $key ) {
 		global $wgAuth;
 
@@ -241,6 +277,10 @@ class OpenStackNovaUser {
 		}
 	}
 
+	/**
+	 * @param  $key
+	 * @return bool
+	 */
 	function deleteKeypair( $key ) {
 		global $wgAuth;
 
@@ -275,6 +315,10 @@ class OpenStackNovaUser {
 		}
 	}
 
+	/**
+	 * @static
+	 * @return string
+	 */
 	static function uuid4() {
 		$uuid = '';
 		uuid_create( &$uuid );
@@ -290,6 +334,11 @@ class OpenStackNovaUser {
 	 * LDAP queries by the client or the server.
 	 *
 	 * TODO: write a better and more efficient version of this.
+	 *
+	 * @static
+	 * @param  $auth
+	 * @param  $attr
+	 * @return mixed|string
 	 */
 	static function getNextIdNumber( $auth, $attr ) {
 		$highest = '';
@@ -336,6 +385,13 @@ class OpenStackNovaUser {
 
 	/**
 	 * Hook to add objectclasses and attributes for users being created.
+	 *
+	 * @static
+	 * @param  $auth
+	 * @param  $username
+	 * @param  $values
+	 * @param  $result
+	 * @return bool
 	 */
 	static function LDAPSetCreationValues( $auth, $username, &$values, &$result ) {
 		global $wgOpenStackManagerLDAPDefaultGid;
@@ -374,6 +430,11 @@ class OpenStackNovaUser {
 		return true;
 	}
 
+	/**
+	 * @static
+	 * @param  $template
+	 * @return bool
+	 */
 	static function LDAPModifyUITemplate( &$template ) {
 		$input = array( 'msg' => 'openstackmanager-shellaccountname', 'type' => 'text', 'name' => 'shellaccountname', 'value' => '', 'helptext' => 'openstackmanager-shellaccountnamehelp' );
 		$template->set( 'extraInput', array( $input ) );
