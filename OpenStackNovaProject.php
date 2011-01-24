@@ -196,7 +196,7 @@ class OpenStackNovaProject {
 		wfSuppressWarnings();
 		$success = ldap_add( $wgAuth->ldapconn, $projectdn, $project );
 		wfRestoreWarnings();
-		$project = OpenStackNovaProject( $projectname );
+		$project = new OpenStackNovaProject( $projectname );
 		if ( $success ) {
 			foreach ( self::$rolenames as $rolename ) {
 				$role = OpenStackNovaRole::createRole( $rolename, $project );

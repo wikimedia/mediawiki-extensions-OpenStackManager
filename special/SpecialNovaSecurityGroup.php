@@ -488,7 +488,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		$group = $this->adminNova->getSecurityGroup( $groupname );
 		if ( $group ) {
 			# This isn't a supported function in the API for now. Leave this action out for now
-			$success = $this->userNova->modifySecurityGroup( $groupname, array( 'description' => $description )) ;
+			$success = $this->userNova->modifySecurityGroup( $groupname, array( 'description' => $description )); // FIXME: $description is undefined
 			if ( $success ) {
 				$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-modifiedgroup' ) );
 			} else {

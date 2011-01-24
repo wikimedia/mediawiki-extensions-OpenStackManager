@@ -93,6 +93,7 @@ class OpenStackNovaRole {
 				return false;
 			}
 			unset( $members[$index] );
+			$values = array();
 			$values['member'] = array();
 			foreach ( $members as $member ) {
 				$values['member'][] = $member;
@@ -178,6 +179,12 @@ class OpenStackNovaRole {
 		return $roles;
 	}
 
+	/**
+	 * @static
+	 * @param  $rolename
+	 * @param  $project OpenStackNovaProject
+	 * @return bool
+	 */
 	static function createRole( $rolename, $project ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
