@@ -2,6 +2,7 @@
 class SpecialNovaProject extends SpecialNova {
 
 	var $userNova, $adminNova;
+	var $userLDAP;
 
 	function __construct() {
 		parent::__construct( 'NovaProject', 'manageproject' );
@@ -16,16 +17,11 @@ class SpecialNovaProject extends SpecialNova {
 	function execute( $par ) {
 		global $wgRequest, $wgUser;
 
-		if ( !$this->userCanExecute( $wgUser ) ) {
-			$this->displayRestrictionError();
-			return false;
-		}
-
 		if ( ! $wgUser->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return false;
 		}
-
+		$this->userLDAP = new OpenStackNovaUser();
 		$action = $wgRequest->getVal( 'action' );
 		if ( $action == "create" ) {
 			$this->createProject();
@@ -45,8 +41,13 @@ class SpecialNovaProject extends SpecialNova {
 	 */
 	function createProject() {
 		global $wgRequest, $wgOut;
+		global $wgUser;
 
 		$this->setHeaders();
+		if ( !$this->userCanExecute( $wgUser ) ) {
+			$this->displayRestrictionError();
+			return false;
+		}
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-createproject' ) );
 
 		$projectInfo = array();
@@ -76,11 +77,16 @@ class SpecialNovaProject extends SpecialNova {
 	 */
 	function addMember() {
 		global $wgRequest, $wgOut;
+		global $wgUser;
 
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-addmember' ) );
 
 		$project = $wgRequest->getText( 'projectname' );
+		if ( !$this->userCanExecute( $wgUser ) && !$this->userLDAP->inProject( $project ) ) {
+			$this->notInProject();
+			return false;
+		}
 		$projectInfo = array();
 		$projectInfo['member'] = array(
 			'type' => 'text',
@@ -111,11 +117,16 @@ class SpecialNovaProject extends SpecialNova {
 	 */
 	function deleteMember() {
 		global $wgRequest, $wgOut;
+		global $wgUser;
 
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-removemember' ) );
 
 		$projectname = $wgRequest->getText( 'projectname' );
+		if ( !$this->userCanExecute( $wgUser ) && !$this->userLDAP->inProject( $projectname ) ) {
+			$this->notInProject();
+			return false;
+		}
 		$project = OpenStackNovaProject::getProjectByName( $projectname );
 		$projectmembers = $project->getMembers();
 		$member_keys = array();
@@ -152,8 +163,13 @@ class SpecialNovaProject extends SpecialNova {
 	 */
 	function deleteProject() {
 		global $wgOut, $wgRequest;
+		global $wgUser;
 
 		$this->setHeaders();
+		if ( !$this->userCanExecute( $wgUser ) ) {
+			$this->displayRestrictionError();
+			return false;
+		}
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-deleteproject' ) );
 
 		$project = $wgRequest->getText( 'projectname' );

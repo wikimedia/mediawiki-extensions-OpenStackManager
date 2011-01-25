@@ -16,14 +16,13 @@ class SpecialNovaInstance extends SpecialNova {
 			$this->notLoggedIn();
 			return true;
 		}
-		$user = new OpenStackNovaUser();
-		if ( ! $user->exists() ) {
+		$this->userLDAP = new OpenStackNovaUser();
+		if ( ! $this->userLDAP->exists() ) {
 			$this->noCredentials();
 			return true;
 		}
-		$this->userLDAP = new OpenStackNovaUser();
 		$project = $wgRequest->getVal( 'project' );
-		$userCredentials = $user->getCredentials( $project );
+		$userCredentials = $this->userLDAP->getCredentials( $project );
 		$this->userNova = new OpenStackNovaController( $userCredentials );
 		$adminCredentials = $wgOpenStackManagerNovaAdminKeys;
 		$this->adminNova = new OpenStackNovaController( $adminCredentials );
@@ -31,25 +30,25 @@ class SpecialNovaInstance extends SpecialNova {
 		$action = $wgRequest->getVal( 'action' );
 
 		if ( $action == "create" ) {
-			if ( ! $user->inProject( $project ) ) {
+			if ( ! $this->userLDAP->inProject( $project ) ) {
 				$this->notInProject();
 				return true;
 			}
 			$this->createInstance();
 		} else if ( $action == "delete" ) {
-			if ( ! $user->inProject( $project ) ) {
+			if ( ! $this->userLDAP->inProject( $project ) ) {
 				$this->notInProject();
 				return true;
 			}
 			$this->deleteInstance();
 		} else if ( $action == "rename" ) {
-			if ( ! $user->inProject( $project ) ) {
+			if ( ! $this->userLDAP->inProject( $project ) ) {
 				$this->notInProject();
 				return true;
 			}
 			$this->renameInstance();
 		} else if ( $action == "configure" ) {
-			if ( ! $user->inProject( $project ) ) {
+			if ( ! $this->userLDAP->inProject( $project ) ) {
 				$this->notInProject();
 				return true;
 			}

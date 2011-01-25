@@ -147,7 +147,7 @@ class OpenStackNovaUser {
 
 		$this->connect();
 
-		$filter = "(&(cn=$project)(member=$this->userDN))";
+		$filter = "(&(cn=$project)(member=$this->userDN)(owner=*))";
 		wfSuppressWarnings();
 		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, $filter );
 		wfRestoreWarnings();
