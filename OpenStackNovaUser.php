@@ -396,6 +396,7 @@ class OpenStackNovaUser {
 	static function LDAPSetCreationValues( $auth, $username, &$values, &$result ) {
 		global $wgOpenStackManagerLDAPDefaultGid;
 		global $wgRequest;
+		global $wgAuth;
 
 		$values['objectclass'][] = 'person';
 		$values['objectclass'][] = 'novauser';
@@ -420,6 +421,23 @@ class OpenStackNovaUser {
 			return false;
 		}
 		$values['uid'] = $username;
+		$base = $auth->getBaseDN( USERDN );
+		# Though the LDAP plugin checks to see if the user account exists,
+		# it does not check to see if the uid attribute is already used.
+		wfSuppressWarnings();
+		$result = ldap_search( $auth->ldapconn, $base, "(uid=$username)" );
+		wfRestoreWarnings();
+		if ( $result ) {
+			wfSuppressWarnings();
+			$entries = ldap_get_entries( $auth->ldapconn, $result );
+			wfRestoreWarnings();
+			if ( (int)$entries['count'] > 0 ) {
+				$auth->printDebug( "User $username already exists.", NONSENSITIVE );
+				# uid attribute is already in use, fail.
+				$result = false;
+				return false;
+			}
+		}
 		$values['uidnumber'] = $uidnumber;
 		$values['gidnumber'] = $wgOpenStackManagerLDAPDefaultGid;
 		$values['homedirectory'] = '/home/' . $username;
