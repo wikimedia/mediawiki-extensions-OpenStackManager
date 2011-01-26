@@ -143,7 +143,8 @@ $messages['en'] = array(
 	'openstackmanager-removerolemember' => 'Remove role member',
 	'openstackmanager-addrolemember' => 'Add role member',
 	'openstackmanager-rolelist' => 'Global Role List',
-	'openstackmanager-nomemberstoremove' => 'There are no members to remove from this group',
+	'openstackmanager-nomemberstoadd' => 'There are no members to add to this group.',
+	'openstackmanager-nomemberstoremove' => 'There are no members to remove from this group.',
 	'openstackmanager-novarole-role' => 'Nova Role',
 	'openstackmanager-novarole-info' => 'Nova Role Information',
 

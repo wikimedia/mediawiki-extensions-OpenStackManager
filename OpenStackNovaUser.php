@@ -175,7 +175,7 @@ class OpenStackNovaUser {
 	 * @param string $projectname
 	 * @return bool
 	 */
-	function inRole( $role, $projectname = '' ) {
+	function inRole( $role, $projectname='', $strict=false ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPGlobalRoles;
 		global $wgOpenStackManagerLDAPRolesIntersect;
@@ -197,7 +197,11 @@ class OpenStackNovaUser {
 				$entries = ldap_get_entries( $wgAuth->ldapconn, $result );
 				wfRestoreWarnings();
 				if ( (int)$entries['count'] > 0 ) {
-					return true;
+					# If roles intersect, or we wish to explicitly check
+					# project role, we can't return here.
+					if ( !$wgOpenStackManagerLDAPRolesIntersect && !$strict ) {
+						return true;
+					}
 				} else {
 					if ( $wgOpenStackManagerLDAPRolesIntersect ) {
 						return false;

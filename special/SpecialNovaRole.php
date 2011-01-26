@@ -2,6 +2,7 @@
 class SpecialNovaRole extends SpecialNova {
 
 	var $userNova, $adminNova;
+	var $userLDAP;
 
 	function __construct() {
 		parent::__construct( 'NovaRole', 'manageproject' );
@@ -16,16 +17,11 @@ class SpecialNovaRole extends SpecialNova {
 	function execute( $par ) {
 		global $wgRequest, $wgUser;
 
-		if ( !$this->userCanExecute( $wgUser ) ) {
-			$this->displayRestrictionError();
-			return false;
-		}
-
 		if ( ! $wgUser->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return false;
 		}
-
+		$this->userLDAP = new OpenStackNovaUser();
 		$action = $wgRequest->getVal( 'action' );
 		if ( $action == "addmember" ) {
 			$this->addMember();
@@ -41,6 +37,7 @@ class SpecialNovaRole extends SpecialNova {
 	 */
 	function addMember() {
 		global $wgRequest, $wgOut;
+		global $wgUser;
 
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-addmember' ) );
@@ -49,6 +46,10 @@ class SpecialNovaRole extends SpecialNova {
 		$rolename = $wgRequest->getText( 'rolename' );
 		$projectname = $wgRequest->getText( 'projectname' );
 		if ( $projectname ) {
+			if ( !$this->userCanExecute( $wgUser ) && !$this->userLDAP->inRole( $rolename, $projectname, true ) ) {
+				$this->displayRestrictionError();
+				return false;
+			}
 			$project = OpenStackNovaProject::getProjectByName( $projectname );
 			$projectmembers = $project->getMembers();
 			$role = OpenStackNovaRole::getProjectRoleByName( $rolename, $projectname );
@@ -71,6 +72,10 @@ class SpecialNovaRole extends SpecialNova {
 				'section' => 'role/info',
 			);
 		} else {
+			if ( !$this->userCanExecute( $wgUser ) ) {
+				$this->displayRestrictionError();
+				return false;
+			}
 			$roleInfo['members'] = array(
 				'type' => 'text',
 				'label-message' => 'openstackmanager-member',
@@ -109,6 +114,7 @@ class SpecialNovaRole extends SpecialNova {
 	 */
 	function deleteMember() {
 		global $wgRequest, $wgOut;
+		global $wgUser;
 
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-removerolemember' ) );
@@ -116,6 +122,10 @@ class SpecialNovaRole extends SpecialNova {
 		$rolename = $wgRequest->getText( 'rolename' );
 		$projectname = $wgRequest->getText( 'projectname' );
 		if ( $projectname ) {
+			if ( !$this->userCanExecute( $wgUser ) && !$this->userLDAP->inRole( $rolename, $projectname, true ) ) {
+				$this->displayRestrictionError();
+				return false;
+			}
 			$project = OpenStackNovaProject::getProjectByName( $projectname );
 			$projectmembers = $project->getMembers();
 			$role = OpenStackNovaRole::getProjectRoleByName( $rolename, $projectname );
@@ -127,6 +137,10 @@ class SpecialNovaRole extends SpecialNova {
 				}
 			}
 		} else {
+			if ( !$this->userCanExecute( $wgUser ) ) {
+				$this->displayRestrictionError();
+				return false;
+			}
 			$role = OpenStackNovaRole::getGlobalRoleByName( $rolename );
 			$rolemembers = $role->getMembers();
 			$member_keys = array();
