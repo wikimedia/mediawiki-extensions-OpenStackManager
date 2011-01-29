@@ -21,7 +21,7 @@ $wgExtensionCredits['other'][] = array(
 	'path' => __FILE__,
 	'name' => 'OpenStackManager',
 	'author' => 'Ryan Lane',
-	'version' => '1.0',
+	'version' => '1.1',
 	'url' => 'http://mediawiki.org/wiki/Extension:OpenStackManager',
 	'descriptionmsg' => 'openstackmanager-desc',
 );
@@ -60,6 +60,11 @@ $wgOpenStackManagerPuppetOptions = array(
 	'defaultvariables' => array(),
 	'availableclasses' => array(),
 	'availablevariables' => array(),
+	);
+$wgOpenStackManagerInstanceUserData = array(
+	'cloud-config' => array(),
+	'scripts' => array(),
+	'upstarts' => array(),
 	);
 
 $dir = dirname( __FILE__ ) . '/';

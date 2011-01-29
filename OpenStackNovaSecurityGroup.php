@@ -21,21 +21,21 @@ class OpenStackNovaSecurityGroup {
 	 * @return
 	 */
 	function getGroupName() {
-		return $this->group->groupName;
+		return (string)$this->group->groupName;
 	}
 
 	/**
 	 * @return
 	 */
 	function getGroupDescription() {
-		return $this->group->groupDescription;
+		return (string)$this->group->groupDescription;
 	}
 
 	/**
 	 * @return
 	 */
 	function getOwner() {
-		return $this->group->ownerId;
+		return (string)$this->group->ownerId;
 	}
 
 	/**

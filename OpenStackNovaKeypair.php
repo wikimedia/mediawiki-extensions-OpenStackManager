@@ -16,14 +16,14 @@ class OpenStackNovaKeyPair {
 	 * @return
 	 */
 	function getKeyName() {
-		return $this->keypair->keyName;
+		return (string)$this->keypair->keyName;
 	}
 
 	/**
 	 * @return
 	 */
 	function getKeyFingerprint() {
-		return $this->keypair->keyFingerprint;
+		return (string)$this->keypair->keyFingerprint;
 	}
 
 }

@@ -29,7 +29,7 @@ class OpenStackNovaAddress {
 	 * @return
 	 */
 	function getPublicIP() {
-		return $this->address->publicIp;
+		return (string)$this->address->publicIp;
 	}
 
 	/**

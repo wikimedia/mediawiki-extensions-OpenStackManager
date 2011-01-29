@@ -173,6 +173,8 @@ class OpenStackNovaController {
 	 * @return null|OpenStackNovaInstance
 	 */
 	function createInstance( $instanceName, $image, $key, $instanceType, $availabilityZone, $groups ) {
+		global $wgOpenStackManagerInstanceUserData;
+
 		# 1, 1 is min and max number of instances to create.
 		# We never want to make more than one at a time.
 		$options = array();
@@ -182,6 +184,48 @@ class OpenStackNovaController {
 		$options['InstanceType'] = $instanceType;
 		$options['Placement.AvailabilityZone'] = $availabilityZone;
 		$options['DisplayName'] = $instanceName;
+		if ( $wgOpenStackManagerInstanceUserData ) {
+			$random_hash = md5(date('r', time()));
+			$endl = $this->getLineEnding();
+			$boundary = '===============' . $random_hash .'==';
+			$userdata = 'Content-Type: multipart/mixed; boundary="' . $boundary .'"' . $endl;
+			$userdata .= 'MIME-Version: 1.0' . $endl;
+			$boundary = '--' . $boundary;
+			$userdata .= $endl;
+			$userdata .= $boundary;
+			if ( $wgOpenStackManagerInstanceUserData['cloud-config'] ) {
+				$userdata .= $endl . $this->getAttachmentMime( Spyc::YAMLDump( $wgOpenStackManagerInstanceUserData['cloud-config'] ), 'text/cloud-config', 'cloud-config.txt' );
+				$userdata .= $endl . $boundary;
+			}
+			if ( $wgOpenStackManagerInstanceUserData['scripts'] ) {
+				$i = 0;
+				foreach ( $wgOpenStackManagerInstanceUserData['scripts'] as $script ) {
+					$stat = @stat( $script );
+					if ( ! $stat ) {
+						continue;
+					}
+					$scripttext = file_get_contents( $script );
+					$userdata .= $endl . $this->getAttachmentMime( $scripttext, 'text/x-shellscript', 'wiki-script-' . $i . '.sh' );
+					$userdata .= $endl . $boundary;
+					$i = $i + 1;
+				}
+			}
+			if ( $wgOpenStackManagerInstanceUserData['upstarts'] ) {
+				$i = 0;
+				foreach ( $wgOpenStackManagerInstanceUserData['upstarts'] as $upstart ) {
+					$stat = @stat( $upstart );
+					if ( ! $stat ) {
+						continue;
+					}
+					$upstarttext = file_get_contents( $upstart );
+					$userdata .= $endl . $this->getAttachmentMime( $upstarttext, 'text/upstart-job', 'wiki-upstart-config-' . $i . '.conf' );
+					$userdata .= $endl . $boundary;
+					$i = $i + 1;
+				}
+			}
+			$userdata .= '--';
+			$options['UserData'] = base64_encode( $userdata );
+		}
 		if ( count( $groups ) > 1 ) {
 			$options['SecurityGroup'] = $groups;
 		} else if ( count( $groups ) == 1 ) {
@@ -196,6 +240,25 @@ class OpenStackNovaController {
 		$this->instances["$instanceId"] = $instance;
 
 		return $instance;
+	}
+
+	function getAttachmentMime( $attachmenttext, $mimetype, $filename ) {
+			$endl = $this->getLineEnding();
+			$attachment = 'Content-Type: ' . $mimetype . '; charset="us-ascii"'. $endl;
+			$attachment .= 'MIME-Version: 1.0' . $endl;
+			$attachment .= 'Content-Transfer-Encoding: 7bit' . $endl;
+			$attachment .= 'Content-Disposition: attachment; filename="' . $filename . '"' . $endl;
+			$attachment .= $endl;
+			$attachment .= $attachmenttext;
+			return $attachment;
+	}
+
+	function getLineEnding() {
+		if ( wfIsWindows() ) {
+			return "\r\n";
+		} else {
+			return "\n";
+		}
 	}
 
 	/**

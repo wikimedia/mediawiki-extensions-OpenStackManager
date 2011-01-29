@@ -350,6 +350,7 @@ class SpecialNovaInstance extends SpecialNova {
 		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-instancestate' ) );
 		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-instancetype' ) );
 		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-instanceip' ) );
+		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-instancepublicip' ) );
 		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-securitygroups' ) );
 		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-availabilityzone' ) );
 		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-imageid' ) );
@@ -361,7 +362,7 @@ class SpecialNovaInstance extends SpecialNova {
 			if ( ! in_array( $project, $userProjects ) ) {
 				continue;
 			}
-			$instanceName = (string)$instance->getInstanceName();
+			$instanceName = $instance->getInstanceName();
 			$instanceName = htmlentities( $instanceName );
 			$title = Title::newFromText( $instanceName, NS_VM );
 			$instanceNameLink = $sk->link( $title, $instanceName, array(), array(), array() );
@@ -369,7 +370,14 @@ class SpecialNovaInstance extends SpecialNova {
 			$instanceOut .= Html::element( 'td', array(), $instance->getInstanceId() );
 			$instanceOut .= Html::element( 'td', array(), $instance->getInstanceState() );
 			$instanceOut .= Html::element( 'td', array(), $instance->getInstanceType() );
-			$instanceOut .= Html::element( 'td', array(), $instance->getInstancePrivateIP() );
+			$privateip = $instance->getInstancePrivateIP();
+			$publicip = $instance->getInstancePublicIP();
+			$instanceOut .= Html::element( 'td', array(), $privateip );
+			if ( $privateip != $publicip ) {
+				$instanceOut .= Html::element( 'td', array(), $publicip );
+			} else {
+				$instanceOut .= Html::element( 'td', array(), '' );
+			}
 			$groupsOut = '';
 			foreach ( $instance->getSecurityGroups() as $group ) {
 				$groupsOut .= Html::element( 'li', array(), $group );
@@ -452,7 +460,7 @@ class SpecialNovaInstance extends SpecialNova {
 
 			if ( $host ) {
 				$title = Title::newFromText( $wgOut->getPageTitle() );
-				$job = new OpenStackNovaHostJob( $title, array( 'instanceid' => (string)$instance->getInstanceId() ) );
+				$job = new OpenStackNovaHostJob( $title, array( 'instanceid' => $instance->getInstanceId() ) );
 				$job->insert();
 				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-createdinstance', array(),
 				                                              $instance->getInstanceID(), $instance->getImageId(),

@@ -79,6 +79,7 @@ $messages['en'] = array(
 	'openstackmanager-instancestate' => 'Instance State',
 	'openstackmanager-instancetype' => 'Instance Type',
 	'openstackmanager-instanceip' => 'Instance IP',
+	'openstackmanager-instancepublicip' => 'Instance Floating IP',
 	'openstackmanager-securitygroups' => 'Security Groups',
 	'openstackmanager-availabilityzone' => 'Availability Zone',
 	'openstackmanager-imageid' => 'Image ID',

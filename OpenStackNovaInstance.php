@@ -42,14 +42,14 @@ class OpenStackNovaInstance {
 	 * @return
 	 */
 	function getReservationId() {
-		return $this->instance->reservationId;
+		return (string)$this->instance->reservationId;
 	}
 
 	/**
 	 * @return
 	 */
 	function getInstanceId() {
-		return $this->instance->instancesSet->item->instanceId;
+		return (string)$this->instance->instancesSet->item->instanceId;
 	}
 
 	/**
@@ -57,7 +57,7 @@ class OpenStackNovaInstance {
 	 */
 	function getInstancePrivateIP() {
 		# Though this is unintuitive, privateDnsName is the private IP
-		return $this->instance->instancesSet->item->privateDnsName;
+		return (string)$this->instance->instancesSet->item->privateDnsName;
 	}
 
 	/**
@@ -65,56 +65,56 @@ class OpenStackNovaInstance {
 	 */
 	function getInstancePublicIP() {
 		# Though this is unintuitive, privateDnsName is the private IP
-		return $this->instance->instancesSet->item->dnsName;
+		return (string)$this->instance->instancesSet->item->dnsName;
 	}
 
 	/**
 	 * @return
 	 */
 	function getInstanceName() {
-		return $this->instance->instancesSet->item->displayName;
+		return (string)$this->instance->instancesSet->item->displayName;
 	}
 
 	/**
 	 * @return
 	 */
 	function getInstanceState() {
-		return $this->instance->instancesSet->item->instanceState->name;
+		return (string)$this->instance->instancesSet->item->instanceState->name;
 	}
 
 	/**
 	 * @return
 	 */
 	function getInstanceType() {
-		return $this->instance->instancesSet->item->instanceType;
+		return (string)$this->instance->instancesSet->item->instanceType;
 	}
 
 	/**
 	 * @return
 	 */
 	function getImageId() {
-		return $this->instance->instancesSet->item->imageId;
+		return (string)$this->instance->instancesSet->item->imageId;
 	}
 
 	/**
 	 * @return
 	 */
 	function getKeyName() {
-		return $this->instance->instancesSet->item->keyName;
+		return (string)$this->instance->instancesSet->item->keyName;
 	}
 
 	/**
 	 * @return
 	 */
 	function getOwner() {
-		return $this->instance->ownerId;
+		return (string)$this->instance->ownerId;
 	}
 
 	/**
 	 * @return
 	 */
 	function getAvailabilityZone() {
-		return $this->instance->instancesSet->item->placement->availabilityZone;
+		return (string)$this->instance->instancesSet->item->placement->availabilityZone;
 	}
 
 	/**
@@ -122,7 +122,7 @@ class OpenStackNovaInstance {
 	 */
 	function getRegion() {
 		# NOTE: This is non-existant in openstack for now
-		return $this->instance->instancesSet->item->region;
+		return (string)$this->instance->instancesSet->item->region;
 	}
 
 	/**
@@ -131,7 +131,7 @@ class OpenStackNovaInstance {
 	function getSecurityGroups() {
 		$groups = array();
 		foreach ( $this->instance->groupSet->item as $group ) {
-			$groups[] = $group->groupId;
+			$groups[] = (string)$group->groupId;
 		}
 		return $groups;
 	}
@@ -140,7 +140,7 @@ class OpenStackNovaInstance {
 	 * @return 
 	 */
 	function getLaunchTime() {
-		return $this->instance->instancesSet->item->launchTime;
+		return (string)$this->instance->instancesSet->item->launchTime;
 	}
 
 }

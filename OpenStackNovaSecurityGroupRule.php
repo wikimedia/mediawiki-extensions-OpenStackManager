@@ -17,21 +17,21 @@ class OpenStackNovaSecurityGroupRule {
 	 *
 	 */
 	function getToPort() {
-		return $this->rule->toPort;
+		return (string)$this->rule->toPort;
 	}
 
 	/**
 	 * @return
 	 */
 	function getFromPort() {
-		return $this->rule->fromPort;
+		return (string)$this->rule->fromPort;
 	}
 
 	/**
 	 * @return
 	 */
 	function getIPProtocol() {
-		return $this->rule->ipProtocol;
+		return (string)$this->rule->ipProtocol;
 	}
 
 	/**
@@ -40,7 +40,7 @@ class OpenStackNovaSecurityGroupRule {
 	function getIPRanges() {
 		$ranges = array();
 		foreach ( $this->rule->ipRanges->item as $iprange ) {
-			$ranges[] = $iprange->cidrIp;
+			$ranges[] = (string)$iprange->cidrIp;
 		}
 		return $ranges;
 	}
@@ -52,8 +52,8 @@ class OpenStackNovaSecurityGroupRule {
 		$groups = array();
 		foreach ( $this->rule->groups->item as $group ) {
 			$properties = array();
-			$properties['groupname'] = $group->groupName;
-			$properties['project'] = $group->userId;
+			$properties['groupname'] = (string)$group->groupName;
+			$properties['project'] = (string)$group->userId;
 			$groups[] = $properties;
 		}
 		return $groups;
