@@ -37,6 +37,7 @@ class SpecialNovaKey extends SpecialNova {
 		global $wgRequest, $wgOut;
 		global $wgOpenStackManagerNovaKeypairStorage;
 
+		$project = '';
 		if ( $wgOpenStackManagerNovaKeypairStorage == 'nova' ) {
 			$project = $wgRequest->getVal( 'project' );
 			if ( $project && ! $this->userLDAP->inProject( $project ) ) {
@@ -97,6 +98,8 @@ class SpecialNovaKey extends SpecialNova {
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-deletekey' ) );
 
 		$keyInfo = array();
+		$hash = '';
+		$keypairs = array();
 
 		if ( $wgOpenStackManagerNovaKeypairStorage == 'nova' ) {
 			$keyname = $wgRequest->getVal( 'keyname' );

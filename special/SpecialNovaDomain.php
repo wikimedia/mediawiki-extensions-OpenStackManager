@@ -19,7 +19,7 @@ class SpecialNovaDomain extends SpecialNova {
 			$this->notLoggedIn();
 			return false;
 		}
-		$project = $wgRequest->getText( 'project' );
+		//$project = $wgRequest->getText( 'project' );
 		# Must be in the global role
 		if ( ! $this->userLDAP->inRole( 'netadmin' ) ) {
 			$this->notInRole( 'netadmin' );

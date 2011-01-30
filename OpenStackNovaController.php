@@ -200,8 +200,10 @@ class OpenStackNovaController {
 			if ( $wgOpenStackManagerInstanceUserData['scripts'] ) {
 				$i = 0;
 				foreach ( $wgOpenStackManagerInstanceUserData['scripts'] as $script ) {
-					$stat = @stat( $script );
-					if ( ! $stat ) {
+					wfSuppressWarnings();
+					$stat = stat( $script );
+					wfRestoreWarnings();
+					if ( $stat ) {
 						continue;
 					}
 					$scripttext = file_get_contents( $script );
@@ -213,7 +215,9 @@ class OpenStackNovaController {
 			if ( $wgOpenStackManagerInstanceUserData['upstarts'] ) {
 				$i = 0;
 				foreach ( $wgOpenStackManagerInstanceUserData['upstarts'] as $upstart ) {
-					$stat = @stat( $upstart );
+					wfSuppressWarnings();
+					$stat = stat( $upstart );
+					wfRestoreWarnings();
 					if ( ! $stat ) {
 						continue;
 					}
