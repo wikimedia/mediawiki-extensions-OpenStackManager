@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@
  * 	Visit <http://aws.amazon.com/s3/> for more information.
  *
  * Version:
- * 	2010.12.02
+ * 	2011.01.16
  *
  * License and Copyright:
  * 	See the included NOTICE.md file for more information.
@@ -261,6 +261,12 @@ class AmazonS3 extends CFRuntime
 	 */
 	public $path_style = false;
 
+	/**
+	 * Property: temporary_prefix
+	 * 	The state of whether the prefix change is temporary or permanent.
+	 */
+	public $temporary_prefix = false;
+
 
 	/*%******************************************************************************************%*/
 	// CONSTRUCTOR
@@ -338,14 +344,14 @@ class AmazonS3 extends CFRuntime
 		 * 	<verb> /<resource>?<sub_resource>&<query_string>
 		 * 	GET /filename.txt?versions&prefix=abc&max-items=1
 		 *
-		 * ## versionId, uploadId, partNumber ##
+		 * ## versionId, uploadId, partNumber, response-* ##
 		 * 	These don't follow the same rules as above, in that the they needs to be signed, while
 		 * 	other query_string values do not.
 		 *
 		 * ## curlopts ##
 		 * 	These values get passed directly to the cURL methods in RequestCore.
 		 *
-		 * ## fileUpload, fileDownload, seekTo, length ##
+		 * ## fileUpload, fileDownload, seekTo ##
 		 * 	These are slightly modified and then passed to the cURL methods in RequestCore.
 		 *
 		 * ## headers ##
@@ -406,7 +412,13 @@ class AmazonS3 extends CFRuntime
 		if (!$this->resource_prefix || $this->path_style)
 		{
 			// And if the bucket name isn't DNS-valid...
-			if (!$this->validate_bucketname_create($bucket) || $this->path_style)
+			if (!$this->validate_bucketname_create($bucket))
+			{
+				// Fall back to the older path-style URI
+				$this->set_resource_prefix('/' . $bucket);
+				$this->temporary_prefix = true;
+			}
+			elseif ($this->path_style)
 			{
 				// Fall back to the older path-style URI
 				$this->set_resource_prefix('/' . $bucket);
@@ -455,19 +467,24 @@ class AmazonS3 extends CFRuntime
 		$query_string = $this->util->to_query_string($query_string_params);
 
 		// Merge the signable query string values. Must be alphabetical.
-		if (isset($opt['partNumber']))
+		$signable_list = array(
+			'partNumber',
+			'response-cache-control',
+			'response-content-disposition',
+			'response-content-encoding',
+			'response-content-language',
+			'response-content-type',
+			'response-expires',
+			'uploadId',
+			'versionId'
+		);
+		foreach ($signable_list as $item)
 		{
-			$signable_query_string_params['partNumber'] = rawurlencode($opt['partNumber']);
+			if (isset($opt[$item]))
+			{
+				$signable_query_string_params[$item] = $opt[$item];
+			}
 		}
-		if (isset($opt['uploadId']))
-		{
-			$signable_query_string_params['uploadId'] = rawurlencode($opt['uploadId']);
-		}
-		if (isset($opt['versionId']))
-		{
-			$signable_query_string_params['versionId'] = rawurlencode($opt['versionId']);
-		}
-		// ksort($signable_query_string_params);
 		$signable_query_string = $this->util->to_query_string($signable_query_string_params);
 
 		// Merge the HTTP headers
@@ -478,7 +495,7 @@ class AmazonS3 extends CFRuntime
 
 		// Compile the URI to request
 		$conjunction = '?';
-		$signable_resource = '/' . rawurlencode($resource);
+		$signable_resource = '/' . str_replace('%2F', '/', rawurlencode($resource));
 		$non_signable_resource = '';
 
 		if (isset($opt['sub_resource']))
@@ -488,7 +505,7 @@ class AmazonS3 extends CFRuntime
 		}
 		if ($signable_query_string !== '')
 		{
-			$signable_resource .= $conjunction . $signable_query_string;
+			$signable_query_string = $conjunction . $signable_query_string;
 			$conjunction = '&';
 		}
 		if ($query_string !== '')
@@ -496,7 +513,7 @@ class AmazonS3 extends CFRuntime
 			$non_signable_resource .= $conjunction . $query_string;
 			$conjunction = '&';
 		}
-		$this->request_url = $scheme . $hostname . $signable_resource . $non_signable_resource;
+		$this->request_url = $scheme . $hostname . $signable_resource . $signable_query_string . $non_signable_resource;
 
 		// Instantiate the request class
 		$request = new $this->request_class($this->request_url, $this->proxy);
@@ -510,7 +527,25 @@ class AmazonS3 extends CFRuntime
 		{
 			if (is_resource($opt['fileUpload']))
 			{
-				$request->set_read_stream($opt['fileUpload'], isset($opt['length']) ? $opt['length'] : -1);
+				// Determine the length to read from the stream
+				$length = null; // From current position until EOF by default, size determined by set_read_stream()
+
+				if (isset($headers['Content-Length']))
+				{
+					$length = $headers['Content-Length'];
+				}
+				elseif (isset($opt['seekTo']))
+				{
+					// Read from seekTo until EOF by default
+					$stats = fstat($opt['fileUpload']);
+
+					if ($stats && $stats['size'] >= 0)
+					{
+						$length = $stats['size'] - (integer) $opt['seekTo'];
+					}
+				}
+
+				$request->set_read_stream($opt['fileUpload'], $length);
 
 				if ($headers['Content-Type'] === 'application/x-www-form-urlencoded')
 				{
@@ -520,6 +555,21 @@ class AmazonS3 extends CFRuntime
 			else
 			{
 				$request->set_read_file($opt['fileUpload']);
+
+				// Determine the length to read from the file
+				$length = $request->read_stream_size; // The file size by default
+
+				if (isset($headers['Content-Length']))
+				{
+					$length = $headers['Content-Length'];
+				}
+				elseif (isset($opt['seekTo']) && isset($length))
+				{
+					// Read from seekTo until EOF by default
+					$length -= (integer) $opt['seekTo'];
+				}
+
+				$request->set_read_stream_size($length);
 
 				// Attempt to guess the correct mime-type
 				if ($headers['Content-Type'] === 'application/x-www-form-urlencoded')
@@ -532,8 +582,14 @@ class AmazonS3 extends CFRuntime
 			}
 
 			$headers['Content-Length'] = $request->read_stream_size;
-			$curlopts[CURLOPT_INFILESIZE] = $headers['Content-Length'];
 			$headers['Content-MD5'] = '';
+		}
+
+		// Handle streaming file offsets
+		if (isset($opt['seekTo']))
+		{
+			// Pass the seek position to RequestCore
+			$request->set_seek_position((integer) $opt['seekTo']);
 		}
 
 		// Streaming downloads
@@ -562,23 +618,6 @@ class AmazonS3 extends CFRuntime
 		if ($this->debug_mode)
 		{
 			$curlopts[CURLOPT_VERBOSE] = true;
-		}
-
-		// Handle streaming file offsets
-		if (isset($opt['seekTo']))
-		{
-			// Pass the seek position to RequestCore
-			$request->set_seek_position((integer) $opt['seekTo']);
-
-			$headers['Content-Length'] = (!is_resource($opt['fileUpload']) ? (filesize($opt['fileUpload']) - (integer) $opt['seekTo']) : -1);
-			$curlopts[CURLOPT_INFILESIZE] = $headers['Content-Length'];
-		}
-
-		// Override the content length
-		if (isset($opt['length']))
-		{
-			$headers['Content-Length'] = (integer) $opt['length'];
-			$curlopts[CURLOPT_INFILESIZE] = $headers['Content-Length'];
 		}
 
 		// Set the curl options.
@@ -616,7 +655,7 @@ class AmazonS3 extends CFRuntime
 		{
 			unset($headers['Date']);
 			$headers['Content-Type'] = '';
-			$headers['Expires'] = strtotime($opt['preauth']);
+			$headers['Expires'] = is_int($opt['preauth']) ? $opt['preauth'] : strtotime($opt['preauth']);
 		}
 
 		// Sort headers
@@ -652,7 +691,7 @@ class AmazonS3 extends CFRuntime
 
 		// Add the signable resource location
 		$string_to_sign .= ($this->resource_prefix ? $this->resource_prefix : '');
-		$string_to_sign .= (($bucket === '' || $this->resource_prefix === '/' . $bucket) ? '' : ('/' . $bucket)) . $signable_resource;
+		$string_to_sign .= (($bucket === '' || $this->resource_prefix === '/' . $bucket) ? '' : ('/' . $bucket)) . $signable_resource . urldecode($signable_query_string);
 
 		// Hash the AWS secret key and generate a signature for the request.
 		$signature = base64_encode(hash_hmac('sha1', $string_to_sign, $this->secret_key, true));
@@ -661,7 +700,7 @@ class AmazonS3 extends CFRuntime
 		// If we're generating a URL, return certain data to the calling method.
 		if (isset($opt['preauth']) && (integer) $opt['preauth'] > 0)
 		{
-			return $this->request_url . (isset($opt['sub_resource']) ? '&' : '?') . 'AWSAccessKeyId=' . $this->key . '&Expires=' . $headers['Expires'] . '&Signature=' . rawurlencode($signature);
+			return $this->request_url . $conjunction . 'AWSAccessKeyId=' . $this->key . '&Expires=' . $headers['Expires'] . '&Signature=' . rawurlencode($signature);
 		}
 		elseif (isset($opt['preauth']))
 		{
@@ -669,6 +708,13 @@ class AmazonS3 extends CFRuntime
 		}
 
 		/*%******************************************************************************************%*/
+
+		// If our changes were temporary, reset them.
+		if ($this->temporary_prefix)
+		{
+			$this->temporary_prefix = false;
+			$this->resource_prefix = null;
+		}
 
 		// Manage the (newer) batch request API or the (older) returnCurlHandle setting.
 		if ($this->use_batch_flow)
@@ -1199,6 +1245,7 @@ class AmazonS3 extends CFRuntime
 		}
 		else
 		{
+			$opt['body'] = '';
 			$opt['headers']['x-amz-acl'] = $acl;
 		}
 
@@ -1214,7 +1261,7 @@ class AmazonS3 extends CFRuntime
 	 * Method: create_object()
 	 * 	Creates an Amazon S3 object. After an Amazon S3 bucket is created, objects can be stored in it.
 	 *
-	 * 	Each object can hold up to 5 GB of data. When an object is stored in Amazon S3, the data is streamed
+	 * 	Each standard object can hold up to 5 GB of data. When an object is stored in Amazon S3, the data is streamed
 	 * 	to multiple storage servers in multiple data centers. This ensures the data remains available in the
 	 * 	event of internal network or hardware failure.
 	 *
@@ -1228,11 +1275,13 @@ class AmazonS3 extends CFRuntime
 	 *
 	 * Keys for the $opt parameter:
 	 * 	body - _string_ (Required; Conditional) The data to be stored in the object. Either this parameter or `fileUpload` must be specified.
-	 * 	fileUpload - _string_|_resource_ (Required; Conditional) The file system path for the local file to upload, or an open file resource. Either this parameter or `body` is required.
+	 * 	fileUpload - _string_|_resource_ (Required; Conditional) The URL/path for the file to upload, or an open resource. Either this parameter or `body` is required.
 	 * 	acl - _string_ (Optional) The ACL settings for the specified object. [Allowed values: `AmazonS3::ACL_PRIVATE`, `AmazonS3::ACL_PUBLIC`, `AmazonS3::ACL_OPEN`, `AmazonS3::ACL_AUTH_READ`, `AmazonS3::ACL_OWNER_READ`, `AmazonS3::ACL_OWNER_FULL_CONTROL`]. The default value is <ACL_PRIVATE>.
 	 * 	contentType - _string_ (Optional) The type of content that is being sent in the body. If a file is being uploaded via `fileUpload` as a file system path, it will attempt to determine the correct mime-type based on the file extension. The default value is `application/octet-stream`.
 	 * 	headers - _array_ (Optional) The standard HTTP headers to send along in the request.
+	 * 	length - _integer_ (Optional) The size of the object in bytes. For more information, see [RFC 2616, section 14.13](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.13). The value can also be passed to the `header` option as `Content-Length`.
 	 * 	meta - _array_ (Optional) An associative array of key-value pairs. Represented by `x-amz-meta-:` Any header starting with this prefix is considered user metadata. It will be stored with the object and returned when you retrieve the object. The total size of the HTTP request, not including the body, must be less than 4 KB.
+	 * 	seekTo - _integer_ (Optional) The starting position in bytes within the file/stream to upload from.
 	 * 	storage - _string_ (Optional) Whether to use Standard or Reduced Redundancy storage. [Allowed values: `AmazonS3::STORAGE_STANDARD`, `AmazonS3::STORAGE_REDUCED`]. The default value is <STORAGE_STANDARD>.
 	 * 	returnCurlHandle - _boolean_ (Optional) A private toggle specifying that the cURL handle be returned rather than actually completing the request. This toggle is useful for manually managed batch requests.
 	 *
@@ -1249,6 +1298,13 @@ class AmazonS3 extends CFRuntime
 		// Add this to our request
 		$opt['verb'] = 'PUT';
 		$opt['resource'] = $filename;
+
+		// Handle content length. Can also be passed as an HTTP header.
+		if (isset($opt['length']))
+		{
+			$opt['headers']['Content-Length'] = $opt['length'];
+			unset($opt['length']);
+		}
 
 		// Handle content type. Can also be passed as an HTTP header.
 		if (isset($opt['contentType']))
@@ -1305,6 +1361,7 @@ class AmazonS3 extends CFRuntime
 	 * 	lastmodified - _string_ (Optional) The `LastModified` header passed in from a previous request. If specified, request `etag` option must be specified as well. Will trigger a `304 Not Modified` status code if the file hasn't changed.
 	 * 	preauth - _integer_|_string_ (Optional) Specifies that a presigned URL for this request should be returned. May be passed as a number of seconds since UNIX Epoch, or any string compatible with `strtotime()`.
 	 * 	range - _string_ (Optional) The range of bytes to fetch from the object. Specify this parameter when downloading partial bits or completing incomplete object downloads. The specified range must be notated with a hyphen (e.g., 0-10485759). Defaults to the byte range of the complete Amazon S3 object.
+	 * 	response - _array_ (Optional) Allows adjustments to specific response headers. Pass an associative array where each key is one of the following: `cache-control`, `content-disposition`, `content-encoding`, `content-language`, `content-type`, `expires`. The `expires` value should use `gmdate()` and be formatted with the `DATE_RFC2822` constant.
 	 * 	versionId - _string_ (Optional) The version of the object to retrieve. Version IDs are returned in the `x-amz-version-id` header of any previous object-related request.
 	 * 	returnCurlHandle - _boolean_ (Optional) A private toggle specifying that the cURL handle be returned rather than actually completing the request. This toggle is useful for manually managed batch requests.
 	 *
@@ -1335,6 +1392,16 @@ class AmazonS3 extends CFRuntime
 		if (isset($opt['range']))
 		{
 			$opt['headers']['Range'] = 'bytes=' . $opt['range'];
+		}
+
+		// GET responses
+		if (isset($opt['response']))
+		{
+			foreach ($opt['response'] as $key => $value)
+			{
+				$opt['response-' . $key] = $value;
+				unset($opt['response'][$key]);
+			}
 		}
 
 		// Authenticate to S3
@@ -1505,6 +1572,7 @@ class AmazonS3 extends CFRuntime
 		// Add this to our request
 		$opt['verb'] = 'PUT';
 		$opt['resource'] = $dest['filename'];
+		$opt['body'] = '';
 
 		// Handle copy source
 		if (isset($source['bucket']) && isset($source['filename']))
@@ -1738,6 +1806,7 @@ class AmazonS3 extends CFRuntime
 		}
 		else
 		{
+			$opt['body'] = '';
 			$opt['headers']['x-amz-acl'] = $acl;
 		}
 
@@ -2631,6 +2700,7 @@ class AmazonS3 extends CFRuntime
 	 *
 	 * Keys for the $opt parameter:
 	 * 	method - _string_ (Optional) The HTTP method to use for the request. Defaults to a value of `GET`.
+	 * 	response - _array_ (Optional) Allows adjustments to specific response headers. Pass an associative array where each key is one of the following: `cache-control`, `content-disposition`, `content-encoding`, `content-language`, `content-type`, `expires`. The `expires` value should use `gmdate()` and be formatted with the `DATE_RFC2822` constant.
 	 * 	torrent - _boolean_ (Optional) A value of `true` will return a URL to a torrent of the Amazon S3 object. A value of `false` will return a non-torrent URL. Defaults to `false`.
 	 * 	returnCurlHandle - _boolean_ (Optional) A private toggle specifying that the cURL handle be returned rather than actually completing the request. This toggle is useful for manually managed batch requests.
 	 *
@@ -2652,6 +2722,16 @@ class AmazonS3 extends CFRuntime
 		{
 			$opt['sub_resource'] = 'torrent';
 			unset($opt['torrent']);
+		}
+
+		// GET responses
+		if (isset($opt['response']))
+		{
+			foreach ($opt['response'] as $key => $value)
+			{
+				$opt['response-' . $key] = $value;
+				unset($opt['response'][$key]);
+			}
 		}
 
 		// Authenticate to S3
@@ -3174,12 +3254,19 @@ class AmazonS3 extends CFRuntime
 		$opt['verb'] = 'POST';
 		$opt['resource'] = $filename;
 		$opt['sub_resource'] = 'uploads';
+		$opt['body'] = '';
 
 		// Handle content type. Can also be passed as an HTTP header.
 		if (isset($opt['contentType']))
 		{
 			$opt['headers']['Content-Type'] = $opt['contentType'];
 			unset($opt['contentType']);
+		}
+
+		// Set a default content type.
+		if (!isset($opt['headers']['Content-Type']))
+		{
+			$opt['headers']['Content-Type'] = 'application/octet-stream';
 		}
 
 		// Handle Access Control Lists. Can also be passed as an HTTP header.
@@ -3214,7 +3301,7 @@ class AmazonS3 extends CFRuntime
 	/**
 	 * Method: upload_part()
 	 * 	Uploads a single part of a multipart upload. The part size cannot be smaller than 5 MB
-	 * 	or larger than 5 GB. A multipart upload can have no more than 10,000 parts.
+	 * 	or larger than 5 TB. A multipart upload can have no more than 10,000 parts.
 	 *
 	 * 	Amazon S3 charges for storage as well as requests to the service. Smaller part sizes (and more
 	 * 	requests) allow for faster failures and better upload reliability. Larger part sizes (and fewer
@@ -3230,13 +3317,13 @@ class AmazonS3 extends CFRuntime
 	 * 	$opt - _array_ (Optional) An associative array of parameters that can have the keys listed in the following section.
 	 *
 	 * Keys for the $opt parameter:
-	 * 	fileUpload - _string_|_resource_ (Required) The file system path for the local file to upload or an open file resource.
+	 * 	fileUpload - _string_|_resource_ (Required) The URL/path for the file to upload or an open resource.
 	 * 	partNumber - _integer_ (Required) The part number order of the multipart upload.
 	 * 	expect - _string_ (Optional) Specifies that the SDK not send the request body until it receives an acknowledgement. If the message is rejected based on the headers, the body of the message is not sent. For more information, see [RFC 2616, section 14.20](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.20). The value can also be passed to the `header` option as `Expect`. [Allowed values: `100-continue`]
 	 * 	headers - _array_ (Optional) The standard HTTP headers to send along in the request.
 	 * 	length - _integer_ (Optional) The size of the part in bytes. For more information, see [RFC 2616, section 14.13](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.13). The value can also be passed to the `header` option as `Content-Length`.
 	 * 	md5 - _string_ (Optional) The base64 encoded 128-bit MD5 digest of the part data. This header can be used as a message integrity check to verify that the part data is the same data that was originally sent. Although it is optional, we recommend using this mechanism as an end-to-end integrity check. For more information, see [RFC 1864](http://www.ietf.org/rfc/rfc1864.txt). The value can also be passed to the `header` option as `Content-MD5`.
-	 * 	seekTo - _integer_ (Optional) The starting position in bytes for the piece of the file to upload.
+	 * 	seekTo - _integer_ (Optional) The starting position in bytes for the piece of the file/stream to upload.
 	 * 	returnCurlHandle - _boolean_ (Optional) A private toggle specifying that the cURL handle be returned rather than actually completing the request. This toggle is useful for manually managed batch requests.
 	 *
 	 * Returns:
@@ -3261,6 +3348,13 @@ class AmazonS3 extends CFRuntime
 		{
 			$opt['headers']['Expect'] = $opt['expect'];
 			unset($opt['expect']);
+		}
+
+		// Handle content length. Can also be passed as an HTTP header.
+		if (isset($opt['length']))
+		{
+			$opt['headers']['Content-Length'] = $opt['length'];
+			unset($opt['length']);
 		}
 
 		// Handle content md5. Can also be passed as an HTTP header.
@@ -3390,12 +3484,12 @@ class AmazonS3 extends CFRuntime
 		if (is_string($parts))
 		{
 			// Assume it's the intended XML.
-			$opt['body'] = $xml;
+			$opt['body'] = $parts;
 		}
 		elseif ($parts instanceof SimpleXMLElement)
 		{
 			// Assume it's a SimpleXMLElement object representing the XML.
-			$opt['body'] = $xml->asXML();
+			$opt['body'] = $parts->asXML();
 		}
 		elseif (is_array($parts) || $parts instanceof CFResponse)
 		{
@@ -3476,7 +3570,7 @@ class AmazonS3 extends CFRuntime
 	 * 	Creates an Amazon S3 object using the multipart upload APIs. It is analogous to <create_object()>.
 	 *
 	 * 	While each individual part of a multipart upload can hold up to 5 GB of data, this method limits the
-	 * 	part size to a maximum of 500 MB. The combined size of all parts can not exceed 5 GB of data. When an
+	 * 	part size to a maximum of 500 MB. The combined size of all parts can not exceed 5 TB of data. When an
 	 * 	object is stored in Amazon S3, the data is streamed to multiple storage servers in multiple data
 	 * 	centers. This ensures the data remains available in the event of internal network or hardware failure.
 	 *
@@ -3493,12 +3587,15 @@ class AmazonS3 extends CFRuntime
 	 * 	$opt - _array_ (Optional) An associative array of parameters that can have the keys listed in the following section.
 	 *
 	 * Keys for the $opt parameter:
-	 * 	fileUpload - _string_|_resource_ (Required) The file system path for the local file to upload or an open file resource.
+	 * 	fileUpload - _string_|_resource_ (Required) The URL/path for the file to upload, or an open resource.
 	 * 	acl - _string_ (Optional) The ACL settings for the specified object. [Allowed values: `AmazonS3::ACL_PRIVATE`, `AmazonS3::ACL_PUBLIC`, `AmazonS3::ACL_OPEN`, `AmazonS3::ACL_AUTH_READ`, `AmazonS3::ACL_OWNER_READ`, `AmazonS3::ACL_OWNER_FULL_CONTROL`]. The default value is <ACL_PRIVATE>.
 	 * 	contentType - _string_ (Optional) The type of content that is being sent in the body. The default value is `application/octet-stream`.
 	 * 	headers - _array_ (Optional) The standard HTTP headers to send along in the request.
+	 * 	length - _integer_ (Optional) The size of the object in bytes. For more information, see [RFC 2616, section 14.13](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.13). The value can also be passed to the `header` option as `Content-Length`.
+	 * 	limit - _integer_ (Optional) The maximum number of concurrent uploads done by cURL. Gets passed to `CFBatchRequest`.
 	 * 	meta - _array_ (Optional) An associative array of key-value pairs. Any header starting with `x-amz-meta-:` is considered user metadata. It will be stored with the object and returned when you retrieve the object. The total size of the HTTP request, not including the body, must be less than 4 KB.
 	 * 	partSize - _integer_ (Optional) The size of an individual part. The size may not be smaller than 5 MB or larger than 500 MB. The default value is 50 MB.
+	 * 	seekTo - _integer_ (Optional) The starting position in bytes for the first piece of the file/stream to upload.
 	 * 	storage - _string_ (Optional) Whether to use Standard or Reduced Redundancy storage. [Allowed values: `AmazonS3::STORAGE_STANDARD`, `AmazonS3::STORAGE_REDUCED`]. The default value is <STORAGE_STANDARD>.
 	 * 	uploadId - _string_ (Optional) An upload ID identifying an existing multipart upload to use. If this option is not set, one will be created automatically.
 	 * 	returnCurlHandle - _boolean_ (Optional) A private toggle specifying that the cURL handle be returned rather than actually completing the request. This toggle is useful for manually managed batch requests.
@@ -3511,12 +3608,62 @@ class AmazonS3 extends CFRuntime
 	 */
 	public function create_mpu_object($bucket, $filename, $opt = null)
 	{
-		// Don't timeout!
-		set_time_limit(0);
+		if ($this->use_batch_flow)
+		{
+			throw new S3_Exception(__FUNCTION__ . '() cannot be batch requested');
+		}
+
+		if (!$opt) $opt = array();
+
+		// Handle content length. Can also be passed as an HTTP header.
+		if (isset($opt['length']))
+		{
+			$opt['headers']['Content-Length'] = $opt['length'];
+			unset($opt['length']);
+		}
 
 		if (!isset($opt['fileUpload']))
 		{
 			throw new S3_Exception('The `fileUpload` option is required in ' . __FUNCTION__ . '().');
+		}
+		elseif (is_resource($opt['fileUpload']))
+		{
+			$opt['limit'] = 1; // We can only read from this one resource.
+			$upload_position = isset($opt['seekTo']) ? (integer) $opt['seekTo'] : ftell($opt['fileUpload']);
+			$upload_filesize = isset($opt['headers']['Content-Length']) ? (integer) $opt['headers']['Content-Length'] : null;
+
+			if (!isset($upload_filesize) && $upload_position !== false)
+			{
+				$stats = fstat($opt['fileUpload']);
+
+				if ($stats && $stats['size'] >= 0)
+				{
+					$upload_filesize = $stats['size'] - $upload_position;
+				}
+			}
+		}
+		else
+		{
+			$upload_position = isset($opt['seekTo']) ? (integer) $opt['seekTo'] : 0;
+
+			if (isset($opt['headers']['Content-Length']))
+			{
+				$upload_filesize = (integer) $opt['headers']['Content-Length'];
+			}
+			else
+			{
+				$upload_filesize = filesize($opt['fileUpload']);
+
+				if ($upload_filesize !== false)
+				{
+					$upload_filesize -= $upload_position;
+				}
+			}
+		}
+
+		if ($upload_position === false || !isset($upload_filesize) || $upload_filesize === false || $upload_filesize < 0)
+		{
+		throw new S3_Exception('The size of `fileUpload` cannot be determined in ' . __FUNCTION__ . '().');
 		}
 
 		// Handle part size
@@ -3538,10 +3685,8 @@ class AmazonS3 extends CFRuntime
 			$opt['partSize'] = 52428800; // 50 MB
 		}
 
-		$upload_filesize = filesize($opt['fileUpload']);
-
 		// If the upload size is smaller than the piece size, failover to create_object().
-		if ($upload_filesize < $opt['partSize'])
+		if ($upload_filesize < $opt['partSize'] && !isset($opt['uploadId']))
 		{
 			return $this->create_object($bucket, $filename, $opt);
 		}
@@ -3566,7 +3711,7 @@ class AmazonS3 extends CFRuntime
 			$upload = $this->initiate_multipart_upload($bucket, $filename, $_opt);
 			if (!$upload->isOK())
 			{
-				return false;
+				return $upload;
 			}
 
 			// Fetch the UploadId
@@ -3577,14 +3722,14 @@ class AmazonS3 extends CFRuntime
 		$pieces = $this->get_multipart_counts($upload_filesize, (integer) $opt['partSize']);
 
 		// Queue batch requests
-		$batch = new CFBatchRequest();
+		$batch = new CFBatchRequest(isset($opt['limit']) ? (integer) $opt['limit'] : null);
 		foreach ($pieces as $i => $piece)
 		{
 			$this->batch($batch)->upload_part($bucket, $filename, $upload_id, array(
 				'expect' => '100-continue',
 				'fileUpload' => $opt['fileUpload'],
 				'partNumber' => ($i + 1),
-				'seekTo' => (integer) $piece['seekTo'],
+				'seekTo' => $upload_position + (integer) $piece['seekTo'],
 				'length' => (integer) $piece['length'],
 			));
 		}
@@ -3593,7 +3738,7 @@ class AmazonS3 extends CFRuntime
 		$batch_responses = $this->batch($batch)->send();
 		if (!$batch_responses->areOK())
 		{
-			return false;
+			return $batch_responses;
 		}
 
 		// Compose completion XML
@@ -3604,6 +3749,68 @@ class AmazonS3 extends CFRuntime
 		}
 
 		return $this->complete_multipart_upload($bucket, $filename, $upload_id, $parts);
+	}
+
+	/**
+	 * Method: abort_multipart_uploads_by_date()
+	 * 	Aborts all multipart uploads initiated before the specified date. This operation cannot be reversed.
+	 *
+	 * Access:
+	 * 	public
+	 *
+	 * Parameters:
+	 * 	$bucket - _string_ (Required) The name of the bucket to use.
+	 * 	$when - _string_|_integer_ (Optional) The time and date to use for comparison. Accepts any value that `strtotime()` understands.
+	 *
+	 * Returns:
+	 * 	_CFArray_ A <CFArray> containing a series of 0 or more <CFResponse> objects, containing a parsed HTTP response.
+	 */
+	public function abort_multipart_uploads_by_date($bucket, $when = null)
+	{
+		if ($this->use_batch_flow)
+		{
+			throw new S3_Exception(__FUNCTION__ . '() cannot be batch requested');
+		}
+
+		$when = $when ? $when : time();
+		$handles = array();
+		$data = $this->list_multipart_uploads($bucket)->body;
+		$when = is_int($when) ? $when : strtotime($when);
+
+		if (!($data instanceof CFSimpleXML))
+		{
+			return false;
+		}
+
+		$list = $data->query('descendant-or-self::Upload/Initiated');
+
+		foreach ($list as $node)
+		{
+			if (strtotime((string) $node) < $when)
+			{
+				$q = new CFBatchRequest();
+				$parent = $node->parent();
+
+				$upload_id = $parent
+					->query('descendant-or-self::UploadId')
+					->first()
+					->to_string();
+
+				$filename = $parent
+					->query('descendant-or-self::Key')
+					->first()
+					->to_string();
+
+				$handles[] = $this->abort_multipart_upload($bucket, $filename, $upload_id, array(
+					'returnCurlHandle' => true
+				));
+			}
+		}
+
+		$http = new CFRequest();
+		$responses = $http->send_multi_request($handles);
+
+		return new CFArray($responses);
 	}
 
 

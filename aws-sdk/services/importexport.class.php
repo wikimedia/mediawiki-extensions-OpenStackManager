@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@
  * 	upgrading your connectivity.
  *
  * Version:
- * 	Fri Dec 03 16:26:16 PST 2010
+ * 	Mon Jan 24 14:56:54 PST 2011
  *
  * License and Copyright:
  * 	See the included NOTICE.md file for complete information.

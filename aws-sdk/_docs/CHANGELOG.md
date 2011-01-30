@@ -1,3 +1,73 @@
+# Changelog: 1.2.3 "Fayth"
+
+Launched Monday, January 24, 2011
+
+## New Features & Highlights (Summary)
+* Support for Amazon Simple Email Service has been added to the SDK.
+
+## Service Classes
+### AmazonSES
+* **New:** Support for Amazon Simple Email Service has been added to the SDK.
+
+
+----
+
+# Changelog: 1.2.2 "Esper"
+
+Launched Tuesday, January 18, 2011
+
+## New Features & Highlights (Summary)
+* Support for Amazon Elastic Beanstalk has been added to the SDK.
+* Bug fixes and enhancements:
+	* [AWS PHP S3 Library is not working out of the box](https://forums.aws.amazon.com/thread.jspa?threadID=55174)
+	* [Problem with create_mpu_object() and streaming_read_callback() in S3](https://forums.aws.amazon.com/thread.jspa?threadID=54541)
+	* [Integrated Uranium235's GitHub contributions](https://github.com/Uranium235/aws-sdk-for-php/compare/Streaming)
+
+## Service Classes
+### AmazonElasticBeanstalk
+* **New:** Support for AWS Elastic Beanstalk has been added to the SDK.
+
+### AmazonS3
+* **Fixed:** Major improvements to transferring data over streams.
+
+## Utility classes
+###RequestCore
+* **New:** Upgraded to version 1.4.
+* **Fixed:** Major improvements to transferring data over streams.
+
+
+----
+
+# Changelog: 1.2.1 "Dio"
+
+Launched Friday, January 14, 2011
+
+
+## New Features & Highlights (Summary)
+* Support for S3 Response Headers has been added to the SDK.
+* Bug fixes and enhancements:
+	* [copy_object failed between regions](https://forums.aws.amazon.com/thread.jspa?threadID=56893)
+	* [Possible S3 bug with multiple buckets?](https://forums.aws.amazon.com/thread.jspa?threadID=56561)
+
+## Service Classes
+### AmazonS3
+* **New:** Support for S3 Response Headers has been added to the SDK.
+* **New:** Documentation for Amazon S3 has been updated to include large object support details.
+* **New:** The `abort_multipart_uploads_by_date()` method has been added to the SDK, which aborts multipart uploads that were initiated before a specific date.
+* **Fixed:** Resolved an issue where the resource prefix wasn't being reset correctly.
+
+## Utility classes
+### CFArray
+* **New:** Instantiating the class without passing an array will use an empty array instead.
+* **New:** Added the `compress()` method which removes null values from the array.
+* **New:** Added the `reindex()` method which reindexes all array elements starting at zero.
+
+## Compatibility Test
+* **New:** The command-line compatibility test now color-codes the responses.
+
+
+----
+
 # Changelog: 1.2 "Cloud"
 
 Launched Friday, December 3, 2010
