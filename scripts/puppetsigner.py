@@ -14,7 +14,6 @@ def main():
 	ldapSupportLib.addParserOptions(parser)
 	(options, args) = parser.parse_args()
 	ldapSupportLib.setBindInfoByOptions(options, parser)
-	base = ldapSupportLib.getBase()
 	ds = ldapSupportLib.connect()
 	try:
 		proc = subprocess.Popen('/usr/sbin/puppetca -l', shell=True, stdout=subprocess.PIPE)
