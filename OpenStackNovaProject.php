@@ -19,6 +19,8 @@ class OpenStackNovaProject {
 	}
 
 	/**
+	 * Connect to LDAP as the open stack manager account using wgAuth
+	 *
 	 * @return void
 	 */
 	function connect() {
@@ -31,6 +33,7 @@ class OpenStackNovaProject {
 	}
 
 	/**
+	 * Fetch the project from LDAP and initialize the object
 	 * @return void
 	 */
 	function fetchProjectInfo() {
@@ -51,20 +54,23 @@ class OpenStackNovaProject {
 	}
 
 	/**
-	 * @return  String
+	 * @return  string
 	 */
 	function getProjectName() {
 		return $this->projectname;
 	}
 
 	/**
-	 * @return
+	 * Return all roles for this project
+	 * @return array
 	 */
 	function getRoles() {
 		return $this->roles;
 	}
 
 	/**
+	 * Return all users who are a member of this project
+	 *
 	 * @return array
 	 */
 	function getMembers() {
@@ -84,6 +90,8 @@ class OpenStackNovaProject {
 	}
 
 	/**
+	 * Remove a member from the project based on username
+	 *
 	 * @param  $username string
 	 * @return bool
 	 */
@@ -131,6 +139,8 @@ class OpenStackNovaProject {
 	}
 
 	/**
+	 * Add a member to this project based on username
+	 *
 	 * @param  $username string
 	 * @return bool
 	 */
@@ -164,6 +174,8 @@ class OpenStackNovaProject {
 	}
 
 	/**
+	 * Return a project by its project name. Returns null if the project does not exist.
+	 *
 	 * @static
 	 * @param  $projectname
 	 * @return null|OpenStackNovaProject
@@ -178,6 +190,8 @@ class OpenStackNovaProject {
 	}
 
 	/**
+	 * Return all existing projects. Returns an empty array if no projects exist.
+	 *
 	 * @static
 	 * @return array
 	 */
@@ -212,6 +226,9 @@ class OpenStackNovaProject {
 	}
 
 	/**
+	 * Create a new project based on project name. This function will also create
+	 * all roles needed by the project.
+	 *
 	 * @static
 	 * @param  $projectname
 	 * @return bool
@@ -253,6 +270,9 @@ class OpenStackNovaProject {
 	}
 
 	/**
+	 * Deletes a project based on project name. This function will also delete all roles
+	 * associated with the project.
+	 *
 	 * @static
 	 * @param  $projectname String
 	 * @return bool
@@ -299,6 +319,9 @@ class OpenStackNovaProject {
 	}
 
 	/**
+	 * Pulls all projects from LDAP and adds them as MediaWiki namespaces. Also adds
+	 * associated talk namespaces. This function must be called from LocalSettings.
+	 *
 	 * @static
 	 * @return void
 	 */

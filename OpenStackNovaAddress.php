@@ -13,6 +13,9 @@ class OpenStackNovaAddress {
 	}
 
 	/**
+	 * Return the instance associated with this address, or an
+	 * empty string if the address isn't associated
+	 *
 	 * @return string
 	 */
 	function getInstanceId() {
@@ -26,14 +29,18 @@ class OpenStackNovaAddress {
 	}
 
 	/**
-	 * @return
+	 * Return the floating IP address from the EC2 response
+	 *
+	 * @return string
 	 */
 	function getPublicIP() {
 		return (string)$this->address->publicIp;
 	}
 
 	/**
-	 * @return mixed
+	 * Return the project associated with this address
+	 *
+	 * @return string
 	 */
 	function getProject() {
 		# instanceId returns as: instanceid (project)

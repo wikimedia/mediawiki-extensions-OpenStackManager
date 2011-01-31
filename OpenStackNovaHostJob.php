@@ -11,7 +11,9 @@ class OpenStackNovaHostJob extends Job {
 	}
 
 	/**
-	 * Execute the job
+	 * Execute the job. Add an IP address to a DNS record when it is available
+	 * on the instance. If the instance does not exist, or it has not been
+	 * assigned an IP address, re-add the job.
 	 *
 	 * @return bool
 	 */

@@ -13,14 +13,18 @@ class OpenStackNovaKeyPair {
 	}
 
 	/**
-	 * @return
+	 * Return the name given to this key upon creation
+	 *
+	 * @return string
 	 */
 	function getKeyName() {
 		return (string)$this->keypair->keyName;
 	}
 
 	/**
-	 * @return
+	 * Return the fingerprint generated from the public SSH key
+	 *
+	 * @return string
 	 */
 	function getKeyFingerprint() {
 		return (string)$this->keypair->keyFingerprint;

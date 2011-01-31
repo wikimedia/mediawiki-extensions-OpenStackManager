@@ -24,7 +24,8 @@ class OpenStackNovaInstance {
 	}
 
 	/**
-	 * @param  $host
+	 * Manually set an OpenStackNovaHost object to this instance.
+	 * @param  $host OpenStackNovaHost
 	 * @return void
 	 */
 	function setHost( $host ) {
@@ -32,6 +33,9 @@ class OpenStackNovaInstance {
 	}
 
 	/**
+	 * Return the host entry associated with this instance, or null if one is not
+	 * associated.
+	 *
 	 * @return null|OpenStackNovaHost
 	 */
 	function getHost() {
@@ -39,21 +43,27 @@ class OpenStackNovaInstance {
 	}
 
 	/**
-	 * @return
+	 * Get the EC2 reservation ID associated with this instance.
+	 *
+	 * @return string
 	 */
 	function getReservationId() {
 		return (string)$this->instance->reservationId;
 	}
 
 	/**
-	 * @return
+	 * Return the EC2 instance ID assigned to this instance
+	 *
+	 * @return string
 	 */
 	function getInstanceId() {
 		return (string)$this->instance->instancesSet->item->instanceId;
 	}
 
 	/**
-	 * @return
+	 * Return the private IP address assigned to this instance
+	 *
+	 * @return string
 	 */
 	function getInstancePrivateIP() {
 		# Though this is unintuitive, privateDnsName is the private IP
@@ -61,7 +71,10 @@ class OpenStackNovaInstance {
 	}
 
 	/**
-	 * @return
+	 * Return the public IP address associated with this object. If there is no
+	 * public IP associated, this will return the same as getInstancePrivateIP().
+	 *
+	 * @return string
 	 */
 	function getInstancePublicIP() {
 		# Though this is unintuitive, privateDnsName is the private IP
@@ -69,56 +82,71 @@ class OpenStackNovaInstance {
 	}
 
 	/**
-	 * @return
+	 * Get the name assigned to this instance
+	 *
+	 * @return string
 	 */
 	function getInstanceName() {
 		return (string)$this->instance->instancesSet->item->displayName;
 	}
 
 	/**
-	 * @return
+	 * Return the state in which this instance currently exists
+	 *
+	 * @return string
 	 */
 	function getInstanceState() {
 		return (string)$this->instance->instancesSet->item->instanceState->name;
 	}
 
 	/**
-	 * @return
+	 * Return the type (size) of the instance
+	 *
+	 * @return string
 	 */
 	function getInstanceType() {
 		return (string)$this->instance->instancesSet->item->instanceType;
 	}
 
 	/**
-	 * @return
+	 * Return the image this instance was created using
+	 *
+	 * @return string
 	 */
 	function getImageId() {
 		return (string)$this->instance->instancesSet->item->imageId;
 	}
 
 	/**
-	 * @return
+	 * Return public ssh keys associated with this instance
+	 *
+	 * @return string
 	 */
 	function getKeyName() {
 		return (string)$this->instance->instancesSet->item->keyName;
 	}
 
 	/**
-	 * @return
+	 * Return the project this instance is a member of
+	 *
+	 * @return string
 	 */
 	function getOwner() {
 		return (string)$this->instance->ownerId;
 	}
 
 	/**
-	 * @return
+	 * Return the availability zone this instance is associated with
+	 * @return string
 	 */
 	function getAvailabilityZone() {
 		return (string)$this->instance->instancesSet->item->placement->availabilityZone;
 	}
 
 	/**
-	 * @return
+	 * Return the region in which this instance exists
+	 *
+	 * @return string
 	 */
 	function getRegion() {
 		# NOTE: This is non-existant in openstack for now
@@ -126,6 +154,7 @@ class OpenStackNovaInstance {
 	}
 
 	/**
+	 * Return all security groups to which this instance belongs
 	 * @return array
 	 */
 	function getSecurityGroups() {
@@ -137,7 +166,9 @@ class OpenStackNovaInstance {
 	}
 
 	/**
-	 * @return 
+	 * Return the time at which this instance was created
+	 *
+	 * @return string
 	 */
 	function getLaunchTime() {
 		return (string)$this->instance->instancesSet->item->launchTime;

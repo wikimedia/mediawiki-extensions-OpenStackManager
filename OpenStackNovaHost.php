@@ -2,8 +2,19 @@
 
 class OpenStackNovaHost {
 
+	/**
+	 * @var string
+	 */
 	var $searchvalue;
+
+	/**
+	 * @var string
+	 */
 	var $hostDN;
+
+	/**
+	 * @var mixed
+	 */
 	var $hostInfo;
 
 	/**
@@ -23,6 +34,8 @@ class OpenStackNovaHost {
 	}
 
 	/**
+	 * Connect to LDAP as the open stack manager account using wgAuth
+	 *
 	 * @return void
 	 */
 	function connect() {
@@ -35,6 +48,8 @@ class OpenStackNovaHost {
 	}
 
 	/**
+	 * Fetch the host from LDAP and initialize the object
+	 *
 	 * @return void
 	 */
 	function fetchHostInfo() {
@@ -54,6 +69,8 @@ class OpenStackNovaHost {
 	}
 
 	/**
+	 * Return the host's short name
+	 *
 	 * @return
 	 */
 	function getHostName() {
@@ -61,6 +78,8 @@ class OpenStackNovaHost {
 	}
 
 	/**
+	 * Return the domain associated with this host
+	 *
 	 * @return OpenStackNovaDomain
 	 */
 	function getDomain() {
@@ -68,6 +87,8 @@ class OpenStackNovaHost {
 	}
 
 	/**
+	 * Return the host's fully qualified domain name
+	 *
 	 * @return string
 	 */
 	function getFullyQualifiedHostName() {
@@ -75,6 +96,8 @@ class OpenStackNovaHost {
 	}
 
 	/**
+	 * Return the puppet classes and variables assigned to this host
+	 *
 	 * @return array
 	 */
 	function getPuppetConfiguration() {
@@ -98,6 +121,9 @@ class OpenStackNovaHost {
 	}
 
 	/**
+	 * Return all arecords associated with this host. Return an empty
+	 * array if the arecord attribute is not set.
+	 *
 	 * @return array
 	 */
 	function getARecords() {
@@ -110,6 +136,12 @@ class OpenStackNovaHost {
 		return $arecords;
 	}
 
+	/**
+	 * Return all associateddomain records associated with this host.
+	 * Return an empty array if the arecord attribute is not set.
+	 *
+	 * @return array
+	 */
 	function getAssociatedDomains() {
 		$associateddomain = array();
 		if ( isset( $this->hostInfo[0]['associateddomain'] ) ) {
@@ -121,6 +153,9 @@ class OpenStackNovaHost {
 	}
 
 	/**
+	 * Return all cname records associated with this host.
+	 * Return an empty array if the arecord attribute is not set.
+	 *
 	 * @return array
 	 */
 	function getCNAMERecords() {
@@ -134,6 +169,8 @@ class OpenStackNovaHost {
 	}
 
 	/**
+	 * Update puppet classes and variables for this host.
+	 *
 	 * @param  $puppetinfo
 	 * @return bool
 	 */
@@ -175,6 +212,8 @@ class OpenStackNovaHost {
 	}
 
 	/**
+	 * Remove an associated domain record from this entry.
+	 *
 	 * @param  $fqdn
 	 * @return bool
 	 */
@@ -213,6 +252,8 @@ class OpenStackNovaHost {
 	}
 
 	/**
+	 * Remove an arecord from the host.
+	 *
 	 * @param  $ip
 	 * @return bool
 	 */
@@ -251,6 +292,8 @@ class OpenStackNovaHost {
 	}
 
 	/**
+	 * Add an associated domain record to this host.
+	 *
 	 * @param  $fqdn
 	 * @return bool
 	 */
@@ -280,6 +323,8 @@ class OpenStackNovaHost {
 	}
 
 	/**
+	 * Add an arecord entry to this host.
+	 *
 	 * @param  $ip
 	 * @return bool
 	 */
@@ -309,6 +354,8 @@ class OpenStackNovaHost {
 	}
 
 	/**
+	 * Replace all arecords on this host with $ip.
+	 *
 	 * @param  $ip
 	 * @return bool
 	 */
@@ -331,6 +378,9 @@ class OpenStackNovaHost {
 	}
 
 	/**
+	 * Get a host by the host's short name, and a OpenStackNovaDomain object. Returns
+	 * null if the entry does not exist.
+	 *
 	 * @static
 	 * @param  $hostname
 	 * @param  $domain
@@ -346,6 +396,8 @@ class OpenStackNovaHost {
 	}
 
 	/**
+	 * Get a host by an instance ID. Returns null if the entry does not exist.
+	 *
 	 * @static
 	 * @param  $instanceid
 	 * @return OpenStackNovaHost
@@ -356,6 +408,9 @@ class OpenStackNovaHost {
 	}
 
 	/**
+	 * Get a host by ip address and an OpenStackNovaDomain. Returns null if
+	 * the entry does not exist.
+	 *
 	 * @static
 	 * @param  $ip
 	 * @param  $domain OpenStackNovaDomain
@@ -385,6 +440,9 @@ class OpenStackNovaHost {
 	}
 
 	/**
+	 * Get all host entries that have the specified IP address assigned. Returns
+	 * an empty array if none are found.
+	 *
 	 * @static
 	 * @param  $ip
 	 * @return array
@@ -415,6 +473,9 @@ class OpenStackNovaHost {
 	}
 
 	/**
+	 * Get all host entries in the specified domain. Returns an empty array
+	 * if no entries are found.
+	 *
 	 * @static
 	 * @param  $domain OpenStackNovaDomain
 	 * @return array
@@ -448,6 +509,8 @@ class OpenStackNovaHost {
 	}
 
 	/**
+	 * Delete a host based on the host's shortname, and its domain.
+	 *
 	 * @static
 	 * @param  $hostname String
 	 * @param  $domain OpenStackNovaDomain
@@ -482,6 +545,8 @@ class OpenStackNovaHost {
 	}
 
 	/**
+	 * Deletes a host based on its instanceid.
+	 *
 	 * @static
 	 * @param  $instanceid
 	 * @return bool
@@ -516,9 +581,13 @@ class OpenStackNovaHost {
 	}
 
 	/**
+	 * Add a new host entry from an OpenStackNovaInstance object, an OpenStackNovaDomain object,
+	 * and optional puppet information. Returns null if a host already exists, or if
+	 * if the host additional fails. This function should be used for adding host entries
+	 * for instances (private DNS).
+	 *
 	 * @static
-	 * @param  $hostname
-	 * @param  $ip
+	 * @param  $instance OpenStackNovaInstance
 	 * @param  $domain OpenStackNovaDomain
 	 * @param  $puppetinfo
 	 * @return OpenStackNovaHost
@@ -539,17 +608,17 @@ class OpenStackNovaHost {
 		$host = OpenStackNovaHost::getHostByName( $hostname, $domain );
 		if ( $host ) {
 			$wgAuth->printDebug( "Failed to add host $hostname as the DNS entry already exists", NONSENSITIVE );
-			return false;
+			return null;
 		}
 		$hostEntry = array();
 		$hostEntry['objectclass'][] = 'dcobject';
 		$hostEntry['objectclass'][] = 'dnsdomain';
 		$hostEntry['objectclass'][] = 'domainrelatedobject';
-		$hostEntry['dc'] = $hostname;
+		$hostEntry['dc'] = $instanceid;
 		# $hostEntry['l'] = $instance->getInstanceAvailabilityZone();
 		$hostEntry['arecord'] = $ip;
+		$hostEntry['associateddomain'][] = $instanceid . '.' . $domainname;
 		$hostEntry['associateddomain'][] = $hostname . '.' . $domainname;
-		$hostEntry['cnamerecord'][] = $instanceid . '.' . $domainname;
 		if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
 			$hostEntry['objectclass'][] = 'puppetclient';
 			foreach ( $wgOpenStackManagerPuppetOptions['defaultclasses'] as $class ) {
@@ -569,7 +638,7 @@ class OpenStackNovaHost {
 				}
 			}
 		}
-		$dn = 'dc=' . $hostname . ',dc=' . $domain->getDomainName() . ',' . $wgOpenStackManagerLDAPInstanceBaseDN;
+		$dn = 'dc=' . $instanceid . ',dc=' . $domain->getDomainName() . ',' . $wgOpenStackManagerLDAPInstanceBaseDN;
 
 		wfSuppressWarnings();
 		$success = ldap_add( $wgAuth->ldapconn, $dn, $hostEntry );
@@ -585,6 +654,10 @@ class OpenStackNovaHost {
 	}
 
 	/**
+	 * Adds a host entry based on the hostname, IP addrss, and a domain. Returns null
+	 * if the entry already exists, or if the additional fails. This function should be used
+	 * for adding public DNS entries.
+	 *
 	 * @static
 	 * @param  $hostname
 	 * @param  $ip
@@ -604,7 +677,7 @@ class OpenStackNovaHost {
 		$host = OpenStackNovaHost::getHostByName( $hostname, $domain );
 		if ( $host ) {
 			$wgAuth->printDebug( "Failed to add public host $hostname as the DNS entry already exists", NONSENSITIVE );
-			return false;
+			return null;
 		}
 		$hostEntry = array();
 		$hostEntry['objectclass'][] = 'dcobject';
