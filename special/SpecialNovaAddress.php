@@ -564,15 +564,13 @@ class SpecialNovaAddress extends SpecialNova {
 		$hostbyname = OpenStackNovaHost::getHostByName( $hostname, $domain );
 		$hostbyip = OpenStackNovaHost::getHostByIP( $ip, $domain );
 
-		// FIXME: Usages of $instanceid are undefined
-
 		if ( $hostbyname ) {
 			# We need to add an arecord, if the arecord doesn't already exist
 			$success = $hostbyname->addARecord( $ip );
 			if ( $success ) {
 				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-addedhost', array(), $hostname, $ip ) );
 			} else {
-				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-addhostfailed', array(), $ip, $instanceid ) );
+				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-addhostfailed', array(), $ip, $hostname ) );
 			}
 		} else if ( $hostbyip ) {
 			# We need to add an associateddomain, if the associateddomain doesn't already exist
@@ -580,7 +578,7 @@ class SpecialNovaAddress extends SpecialNova {
 			if ( $success ) {
 				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-addedhost', array(), $hostname, $ip ) );
 			} else {
-				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-addhostfailed', array(), $ip, $instanceid ) );
+				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-addhostfailed', array(), $ip, $hostname ) );
 			}
 		} else {
 			# This is a new host entry
@@ -588,7 +586,7 @@ class SpecialNovaAddress extends SpecialNova {
 			if ( $host ) {
 				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-addedhost', array(), $hostname, $ip ) );
 			} else {
-				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-addhostfailed', array(), $ip, $instanceid ) );
+				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-addhostfailed', array(), $ip, $hostname ) );
 			}
 		}
 		$out .= '<br />';
@@ -632,7 +630,7 @@ class SpecialNovaAddress extends SpecialNova {
 				if ( $success ) {
 					$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removedhost', array(), $hostname, $ip ) );
 				} else {
-					$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removehostfailed', array(), $ip, $instanceid ) );
+					$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removehostfailed', array(), $ip, $hostname ) );
 				}
 			} else {
 				# We need to remove the host entry
@@ -640,7 +638,7 @@ class SpecialNovaAddress extends SpecialNova {
 				if ( $success ) {
 					$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removedhost', array(), $hostname, $ip ) );
 				} else {
-					$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removehostfailed', array(), $ip, $instanceid ) );
+					$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removehostfailed', array(), $ip, $hostname ) );
 				}
 			}
 		} else {

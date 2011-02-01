@@ -246,7 +246,6 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 					} else {
 						$ruleOut .= Html::rawElement( 'td', array(), '' );
 					}
-					#TODO: Add actions
 					$msg = wfMsg( 'openstackmanager-removerule-action' );
 					$args = array(  'action' => 'removerule',
 							'project' => $project,
@@ -518,10 +517,11 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 
 		$sk = $wgUser->getSkin();
 		$groupname = $formData['groupname'];
+		$description = $formData['description'];
 		$group = $this->adminNova->getSecurityGroup( $groupname );
 		if ( $group ) {
 			# This isn't a supported function in the API for now. Leave this action out for now
-			$success = $this->userNova->modifySecurityGroup( $groupname, array( 'description' => $description )); // FIXME: $description is undefined
+			$success = $this->userNova->modifySecurityGroup( $groupname, array( 'description' => $description ));
 			if ( $success ) {
 				$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-modifiedgroup' ) );
 			} else {

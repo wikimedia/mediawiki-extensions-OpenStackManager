@@ -10,7 +10,6 @@ class OpenStackNovaController {
 	var $instanceTypes = array( 'm1.tiny', 'm1.small', 'm1.large', 'm1.xlarge', 'm2.xlarge', 'm2.2xlarge',
 								'm2.4xlarge', 'c1.medium', 'c1.xlarge', 'cc1.4xlarge' );
 
-	# TODO: Make disable_ssl, hostname, and resource_prefix config options
 	/**
 	 * @param  $credentials
 	 */
@@ -411,7 +410,8 @@ class OpenStackNovaController {
 			return null;
 		} else {
 			$address = new OpenStackNovaAddress( $response->body->addressSet->item );
-			$this->addresses["$ip"] = $address; // FIXME: $ip is undefined
+			$ip = $address->getPublicIP();
+			$this->addresses["$ip"] = $address;
 			return $address;
 		}
 	}
