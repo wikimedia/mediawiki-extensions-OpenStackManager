@@ -126,6 +126,7 @@ $messages['en'] = array(
 	'openstackmanager-action' => 'Action',
 	'openstackmanager-createprojectfailed' => 'Failed to create project.',
 	'openstackmanager-createdproject' => 'Created project.',
+	'openstackmanager-badprojectname' => 'Bad project name provided. Project names start with a-z, and can only contain a-z, 0-9, -, and _ characters.',
 	'openstackmanager-projectlist' => 'Project list',
 	'openstackmanager-backprojectlist' => 'Back to project list',
 	'openstackmanager-deleteproject' => 'Delete project',

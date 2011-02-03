@@ -54,6 +54,7 @@ class SpecialNovaProject extends SpecialNova {
 		$projectInfo['projectname'] = array(
 			'type' => 'text',
 			'label-message' => 'openstackmanager-projectname',
+			'validation-callback' => array( $this, 'validateProjectName' ),
 			'default' => '',
 			'section' => 'project/info',
 		);
@@ -372,6 +373,20 @@ class SpecialNovaProject extends SpecialNova {
 
 		return true;
 	}
+
+        /**
+         * @param  $projectname
+         * @param  $alldata
+         * @return bool|string
+         */
+        function validateProjectName( $projectname, $alldata ) {
+                if ( ! preg_match( "/^[a-z][a-z0-9\-_]*$/", $project ) ) {
+                        return Xml::element( 'span', array( 'class' => 'error' ), wfMsg( 'openstackmanager-badprojectname' ) );
+                } else {
+                        return true;
+                }
+        }
+
 }
 
 class SpecialNovaProjectForm extends HTMLForm {
