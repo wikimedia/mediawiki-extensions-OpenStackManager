@@ -633,7 +633,7 @@ class OpenStackNovaHost {
 				}
 				foreach ( $puppetinfo['variables'] as $variable => $value ) {
 					if ( $value ) {
-						$hostEntry['puppetvar'][] = $variable . ' = ' . $value;
+						$hostEntry['puppetvar'][] = $variable . '=' . $value;
 					}
 				}
 			}
