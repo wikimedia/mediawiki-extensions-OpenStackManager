@@ -77,6 +77,12 @@ class HomeDirectoryManager:
 			AllUsers = {}
 			for user in UsersData:
 				uid = user[1]['uid'][0]
+				if 'uidNumber' not in user[1].keys():
+					continue
+				if 'gidNumber' not in user[1].keys():
+					continue
+				if 'sshPublicKey' not in user[1].keys():
+					continue
 				# uidNumber and gidNumber come back from LDAP as strings, we need ints here.
 				uidNumber = int(user[1]['uidNumber'][0])
 				gidNumber = int(user[1]['gidNumber'][0])
