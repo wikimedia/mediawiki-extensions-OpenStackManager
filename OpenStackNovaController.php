@@ -269,6 +269,12 @@ class OpenStackNovaController {
 	 * @return
 	 */
 	function terminateInstance( $instanceId ) {
+		$this->getAddresses();
+		foreach ( $this->addresses as $address ) {
+			if ( $address->getInstanceId() == $instanceId ) {
+				$this->disassociateAddress( $address->getPublicIP() );
+			}
+		}
 		$response = $this->novaConnection->terminate_instances( $instanceId );
 
 		return $response->isOK();
