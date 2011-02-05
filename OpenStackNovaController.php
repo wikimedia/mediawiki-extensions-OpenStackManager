@@ -197,8 +197,7 @@ class OpenStackNovaController {
 				$userdata .= $endl . $boundary;
 			}
 			if ( $wgOpenStackManagerInstanceUserData['scripts'] ) {
-				$i = 0;
-				foreach ( $wgOpenStackManagerInstanceUserData['scripts'] as $script ) {
+				foreach ( $wgOpenStackManagerInstanceUserData['scripts'] as $scriptname => $script ) {
 					wfSuppressWarnings();
 					$stat = stat( $script );
 					wfRestoreWarnings();
@@ -206,14 +205,12 @@ class OpenStackNovaController {
 						continue;
 					}
 					$scripttext = file_get_contents( $script );
-					$userdata .= $endl . $this->getAttachmentMime( $scripttext, 'text/x-shellscript', 'wiki-script-' . $i . '.sh' );
+					$userdata .= $endl . $this->getAttachmentMime( $scripttext, 'text/x-shellscript', $scriptname );
 					$userdata .= $endl . $boundary;
-					$i = $i + 1;
 				}
 			}
 			if ( $wgOpenStackManagerInstanceUserData['upstarts'] ) {
-				$i = 0;
-				foreach ( $wgOpenStackManagerInstanceUserData['upstarts'] as $upstart ) {
+				foreach ( $wgOpenStackManagerInstanceUserData['upstarts'] as $upstartname => $upstart ) {
 					wfSuppressWarnings();
 					$stat = stat( $upstart );
 					wfRestoreWarnings();
@@ -221,9 +218,8 @@ class OpenStackNovaController {
 						continue;
 					}
 					$upstarttext = file_get_contents( $upstart );
-					$userdata .= $endl . $this->getAttachmentMime( $upstarttext, 'text/upstart-job', 'wiki-upstart-config-' . $i . '.conf' );
+					$userdata .= $endl . $this->getAttachmentMime( $upstarttext, 'text/upstart-job', $upstartname );
 					$userdata .= $endl . $boundary;
-					$i = $i + 1;
 				}
 			}
 			$userdata .= '--';

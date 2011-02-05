@@ -593,6 +593,7 @@ class OpenStackNovaHost {
 	 * @return OpenStackNovaHost
 	 */
 	static function addHost( $instance, $domain, $puppetinfo = array() ) {
+		global $wgUser, $wgLang;
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPInstanceBaseDN, $wgOpenStackManagerPuppetOptions;
@@ -625,7 +626,7 @@ class OpenStackNovaHost {
 				$hostEntry['puppetclass'][] = $class;
 			}
 			foreach ( $wgOpenStackManagerPuppetOptions['defaultvariables'] as $variable => $value ) {
-				$hostEntry['puppetvar'][] = $variable . '=' . $value;
+				$hostEntry['puppetvar'][] = $variable . '="' . $value . '"';
 			}
 			if ( $puppetinfo ) {
 				foreach ( $puppetinfo['classes'] as $class ) {
@@ -633,10 +634,15 @@ class OpenStackNovaHost {
 				}
 				foreach ( $puppetinfo['variables'] as $variable => $value ) {
 					if ( $value ) {
-						$hostEntry['puppetvar'][] = $variable . '=' . $value;
+						$hostEntry['puppetvar'][] = $variable . '="' . $value . '"';
 					}
 				}
 			}
+			if ( $wgUser->getEmail() ) {
+				$hostEntry['puppetvar'][] = 'instancecreator_email=' . $wgUser->getEmail();
+			}
+			$hostEntry['puppetvar'][] = 'instancecreator_username=' . $wgUser->getName();
+			$hostEntry['puppetvar'][] = 'instancecreator_lang=' . $wgLang->getCode();
 		}
 		$dn = 'dc=' . $instanceid . ',dc=' . $domain->getDomainName() . ',' . $wgOpenStackManagerLDAPInstanceBaseDN;
 

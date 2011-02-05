@@ -232,6 +232,9 @@ $messages['en'] = array(
 	'openstackmanager-addedrule' => 'Successfully added rule.',
 	'openstackmanager-addrulefailed' => 'Failed to add rule.',
 
+	'openstackmanager-email-subject' => 'Your instance is ready to be logged into.',
+	'openstackmanager-email-body' => 'The following instance has been created, and is ready to be logged into: ',
+
 );
 
 /** Message documentation (Message documentation)
