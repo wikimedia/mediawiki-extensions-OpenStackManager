@@ -13,5 +13,6 @@ $specialPageAliases = array();
  */
 $specialPageAliases['en'] = array(
 	'OpenStackManager' => array( 'OpenStackManager' ),
-	'OpenStackManageInstance' => array( 'Manager Instance' ),
+	'OpenStackManageInstance' => array( 'Manage Instance' ),
 );
+
