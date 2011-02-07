@@ -85,10 +85,8 @@ $messages['en'] = array(
 	'openstackmanager-imageid' => 'Image ID',
 	'openstackmanager-imagetype' => 'Image type',
 	'openstackmanager-launchtime' => 'Launch time',
-
 	'openstackmanager-createinstance' => 'Create a new instance',
 	'openstackmanager-invaliddomain' => 'Requested domain is invalid.',
-
 	'openstackmanager-createdinstance' => 'Created instance $1 with image $2 and hostname $3.',
 	'openstackmanager-createfailedldap' => 'Failed to create instance as the host could not be added to LDAP.',
 	'openstackmanager-createinstancefailed' => 'Failed to create instance.',
@@ -98,6 +96,8 @@ $messages['en'] = array(
 	'openstackmanager-modifiedinstance' => 'Successfully modified instance.',
 	'openstackmanager-modifyinstancefailed' => 'Failed to modify instance.',
 	'openstackmanager-deleteinstancefailed' => 'Failed to delete instance.',
+	'openstackmanager-consoleoutput' => 'Console Output',
+	'openstackmanager-getconsoleoutput' => 'get console output',
 
 	'openstackmanager-novapublickey' => 'Public SSH key',
 	'openstackmanager-novakey-key' => 'Public SSH key',

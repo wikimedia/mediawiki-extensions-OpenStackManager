@@ -53,6 +53,12 @@ class SpecialNovaInstance extends SpecialNova {
 				return true;
 			}
 			$this->configureInstance();
+		} else if ( $action == "consoleoutput" ) {
+			if ( ! $this->userLDAP->inProject( $project ) ) {
+				$this->notInProject();
+				return true;
+			}
+			$this->getConsoleOutput();
 		} else {
 			$this->listInstances();
 		}
@@ -333,6 +339,29 @@ class SpecialNovaInstance extends SpecialNova {
 	}
 
 	/**
+	 * @return bool
+	 */
+	function getConsoleOutput() {
+		global $wgOut, $wgRequest;
+		global $wgUser;
+
+		$this->setHeaders();
+		$wgOut->setPagetitle( wfMsg( 'openstackmanager-consoleoutput' ) );
+
+		$project = $wgRequest->getText( 'project' );
+		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
+			$this->notInRole( 'sysadmin' );
+			return false;
+		}
+		$instanceid = $wgRequest->getText( 'instanceid' );
+		$consoleOutput = $this->userNova->getConsoleOutput( $instanceid );
+		$sk = $wgUser->getSkin();
+		$out = $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backinstancelist' ), array(), array(), array() );
+		$out .= Html::element( 'pre', array(), $consoleOutput );
+		$wgOut->addHTML( $out );
+	}
+
+	/**
 	 * @return void
 	 */
 	function listInstances() {
@@ -388,25 +417,33 @@ class SpecialNovaInstance extends SpecialNova {
 			$instanceOut .= Html::element( 'td', array(), $instance->getImageId() );
 			$instanceOut .= Html::element( 'td', array(), $instance->getLaunchTime() );
 			$msg = wfMsg( 'openstackmanager-delete' );
-			$actions = $sk->link( $this->getTitle(), $msg, array(),
+			$link = $sk->link( $this->getTitle(), $msg, array(),
 								  array( 'action' => 'delete',
 									   'project' => $project,
 									   'instanceid' => $instance->getInstanceId() ),
 								  array() );
-			$actions .= ', ';
+			$actions = Html::rawElement( 'li', array(), $link );
 			#$msg = wfMsg( 'openstackmanager-rename' );
 			#$actions .= $sk->link( $this->getTitle(), $msg, array(),
 			#					   array( 'action' => 'rename',
 			#							'project' => $project,
 			#							'instanceid' => $instance->getInstanceId() ),
 			#					   array() );
-			#$actions .= ', ';
 			$msg = wfMsg( 'openstackmanager-configure' );
-			$actions .= $sk->link( $this->getTitle(), $msg, array(),
+			$link = $sk->link( $this->getTitle(), $msg, array(),
 								   array( 'action' => 'configure',
 										'project' => $project,
 										'instanceid' => $instance->getInstanceId() ),
 								   array() );
+			$actions .= Html::rawElement( 'li', array(), $link );
+			$msg = wfMsg( 'openstackmanager-getconsoleoutput' );
+			$link = $sk->link( $this->getTitle(), $msg, array(),
+								   array( 'action' => 'consoleoutput',
+										'project' => $project,
+										'instanceid' => $instance->getInstanceId() ),
+								   array() );
+			$actions .= Html::rawElement( 'li', array(), $link );
+			$actions = Html::rawElement( 'ul', array(), $actions );
 			$instanceOut .= Html::rawElement( 'td', array(), $actions );
 			$projectArr["$project"] .= Html::rawElement( 'tr', array(), $instanceOut );
 		}
