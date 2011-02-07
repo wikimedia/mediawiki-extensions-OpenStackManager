@@ -243,18 +243,86 @@ $messages['en'] = array(
 $messages['qqq'] = array(
 	'openstackmanager-desc' => '{{desc}}',
 	'openstackmanager-notloggedin' => 'Page title',
-	'openstackmanager-createproject' => 'Page title',
-	'openstackmanager-addmember' => 'Page title',
-	'openstackmanager-removemember' => 'Page title',
-	'openstackmanager-deleteproject' => 'Page title',
-	'openstackmanager-projectlist' => 'Page title',
-	'openstackmanager-instancelist' => 'Page title',
-	'openstackmanager-deletedomain' => 'Page title',
+	'openstackmanager-nonovacred' => 'Page title',
 	'openstackmanager-createdomain' => 'Page title',
+	'openstackmanager-deletedomain' => 'Page title',
 	'openstackmanager-configureinstance' => 'Page title',
-	'openstackmanager-importkey' => 'Page title',
+	'openstackmanager-instancelist' => 'Page title',
 	'openstackmanager-deletekey' => 'Page title',
 	'openstackmanager-keylist' => 'Page title',
-	'openstackmanager-nonovacred' => 'Page title',
+	'openstackmanager-importkey' => 'Page title',
+	'openstackmanager-addmember' => 'Page title',
+	'openstackmanager-removemember' => 'Page title',
+	'openstackmanager-createproject' => 'Page title',
+	'openstackmanager-projectlist' => 'Page title',
+	'openstackmanager-deleteproject' => 'Page title',
+);
+
+/** Breton (Brezhoneg)
+ * @author Fulup
+ */
+$messages['br'] = array(
+	'openstackmanager-delete' => 'diverkañ',
+	'openstackmanager-configure' => 'kefluniañ',
+	'openstackmanager-rename' => 'adenvel',
+	'openstackmanager-actions' => 'Oberiadennoù',
+	'openstackmanager-notloggedin' => 'Ret eo kevreañ',
+	'openstackmanager-novadomain-domain' => 'Domani',
+	'openstackmanager-domainname' => 'Anv domani',
+	'openstackmanager-deletekey' => "Diverkañ an alc'hwez",
+	'openstackmanager-importkey' => "Enporzhiañ un alc'hwez nevez",
+	'openstackmanager-name' => 'Anv',
+	'openstackmanager-createproject' => 'Krouiñ ur raktres nevez',
+	'openstackmanager-projectname' => 'Anv ar raktres',
+	'openstackmanager-members' => 'Izili',
+	'openstackmanager-member' => 'Ezel',
+	'openstackmanager-action' => 'Oberiadenn',
+	'openstackmanager-createdproject' => 'Raktres krouet.',
+);
+
+/** German (Deutsch)
+ * @author Kghbln
+ */
+$messages['de'] = array(
+	'openstackmanager-desc' => 'Ermöglicht Benutzern die Verwaltung von Nova und Swift',
+	'openstackmanager' => 'OpenStack-Verwaltung',
+	'openstackmanager-instance' => 'Instanz verwalten',
+	'openstackmanager-title' => 'OpenStack-Verwaltung',
+	'specialpages-group-nova' => 'OpenStack Nova',
+	'novaaddress' => 'Öffentliche IP-Adressen verwalten',
+	'novadomain' => 'DNS-Domains verwalten',
+	'novainstance' => 'Instanzen verwalten',
+	'novakey' => 'Öffentliche SSH-Schlüssel verwalten',
+	'novaproject' => 'OpenStack-Projekte verwalten',
+	'novasecuritygroup' => 'Firewall-Sicherheitsgruppen verwalten',
+	'novarole' => 'Globale Rollen verwalten',
+	'openstackmanager-novadomain' => 'Nova-Domain',
+	'openstackmanager-novainstance' => 'Nova-Instanz',
+	'openstackmanager-novakey' => 'Nova-Schlüssel',
+	'openstackmanager-novaproject' => 'Nova-Projekt',
+	'openstackmanager-delete' => 'löschen',
+	'openstackmanager-configure' => 'konfigurieren',
+	'openstackmanager-rename' => 'umbenennen',
+	'openstackmanager-actions' => 'Aktionen',
+	'openstackmanager-notloggedin' => 'Anmeldung erforderlich',
+	'openstackmanager-mustbeloggedin' => 'Um diese Aktion ausführen zu können, muss man angemeldet sein.',
+	'openstackmanager-nonovacred' => 'Zu diesem Benutzerkonto wurden keine Anmeldedaten für Nova gefunden.',
+	'openstackmanager-nonovacred-admincreate' => 'Zu diesem Benutzerkonto wurden keine Anmeldedaten für Nova gefunden. Bitte einen Administrator bitten, die benötigten Anmeldedaten zu erzeugen.',
+	'openstackmanager-noaccount' => 'Das Benutzerkonto gehört nicht zum angeforderten Projekt.',
+	'openstackmanager-noaccount2' => 'Diese Aktion kann nicht ausgeführt werden, da das Benutzerkonto nicht zu angeforderten Projekt gehört.',
+	'openstackmanager-createdomain' => 'Domain erstellen',
+	'openstackmanager-deletedomain' => 'Domain löschen',
+	'openstackmanager-novadomain-domain' => 'Domain',
+	'openstackmanager-novadomain-info' => 'Domaininformationen',
+);
+
+/** Telugu (తెలుగు)
+ * @author Veeven
+ */
+$messages['te'] = array(
+	'openstackmanager-actions' => 'చర్యలు',
+	'openstackmanager-name' => 'పేరు',
+	'openstackmanager-members' => 'సభ్యులు',
+	'openstackmanager-action' => 'చర్య',
 );
 
