@@ -53,7 +53,13 @@ $wgOpenStackManagerLDAPRolesIntersect = false;
 $wgOpenStackManagerLDAPInstanceBaseDN = '';
 $wgOpenStackManagerLDAPDefaultGid = '500';
 $wgOpenStackManagerDNSServers = array( 'primary' => 'localhost', 'secondary' => 'localhost' );
-$wgOpenStackManagerDNSSOA = array( 'hostmaster' => 'hostmaster@localhost.localdomain', 'refresh' => '1800', 'retry' => '3600', 'expiry' => '86400', 'minimum' => '7200' );
+$wgOpenStackManagerDNSSOA = array(
+	'hostmaster' => 'hostmaster@localhost.localdomain',
+	'refresh' => '1800',
+	'retry' => '3600',
+	'expiry' => '86400',
+	'minimum' => '7200'
+	);
 $wgOpenStackManagerPuppetOptions = array(
 	'enabled' => false,
 	'defaultclasses' => array(),
