@@ -234,7 +234,7 @@ $messages['en'] = array(
 
 	'openstackmanager-email-subject' => 'Your instance is ready to be logged into.',
 	'openstackmanager-email-body' => 'The following instance has been created, and is ready to be logged into: ',
-	# 'right-manageproject' => '', Please add a description of this userights
+	'right-manageproject' => 'This right is given to users allowed manage (create, edit and delete) OpenStack projects and roles',
 );
 
 /** Message documentation (Message documentation)
