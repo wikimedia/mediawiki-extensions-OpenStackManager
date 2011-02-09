@@ -46,8 +46,10 @@ class OpenStackNovaDomain {
 								'(dc=' . $this->domainname . ')' );
 		$this->domainInfo = ldap_get_entries( $wgAuth->ldapconn, $result );
 		wfRestoreWarnings();
-		$this->fqdn = $this->domainInfo[0]['associateddomain'][0];
-		$this->domainDN = $this->domainInfo[0]['dn'];
+		if ( $this->domainInfo ) {
+			$this->fqdn = $this->domainInfo[0]['associateddomain'][0];
+			$this->domainDN = $this->domainInfo[0]['dn'];
+		}
 	}
 
 	/**
@@ -189,6 +191,9 @@ class OpenStackNovaDomain {
 								'(arecord=' . $ip . ')' );
 		$hostInfo = ldap_get_entries( $wgAuth->ldapconn, $result );
 		wfRestoreWarnings();
+		if ( $hostInfo['count'] == "0" ) {
+			return null;
+		}
 		$fqdn = $hostInfo[0]['associateddomain'][0];
 		$domainname = explode( '.', $fqdn );
 		$domainname = $domainname[1];
@@ -222,6 +227,9 @@ class OpenStackNovaDomain {
 								'(associateddomain=' . $instanceid . '.*)' );
 		$hostInfo = ldap_get_entries( $wgAuth->ldapconn, $result );
 		wfRestoreWarnings();
+		if ( $hostInfo['count'] == "0" ) {
+			return null;
+		}
 		$fqdn = $hostInfo[0]['associateddomain'][0];
 		$domainname = explode( '.', $fqdn );
 		$domainname = $domainname[1];

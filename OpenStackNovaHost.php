@@ -56,9 +56,9 @@ class OpenStackNovaHost {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 
-		$hostname = $this->searchvalue . '.' . $this->domain->getFullyQualifiedDomainName();
+		$fqdn = $this->searchvalue . '.' . $this->domain->getFullyQualifiedDomainName();
 		wfSuppressWarnings();
-		$result = ldap_search( $wgAuth->ldapconn, $this->domain->domainDN, '(|(associateddomain=' . $hostname . ')(cnamerecord=' . $hostname . '))' );
+		$result = ldap_search( $wgAuth->ldapconn, $this->domain->domainDN, '(|(associateddomain=' . $fqdn . ')(cnamerecord=' . $fqdn . ')(dc=' . $this->searchvalue . '))' );
 		$this->hostInfo = ldap_get_entries( $wgAuth->ldapconn, $result );
 		wfRestoreWarnings();
 		if ( $this->hostInfo["count"] == "0" ) {
@@ -186,11 +186,15 @@ class OpenStackNovaHost {
 			foreach ( $wgOpenStackManagerPuppetOptions['defaultvariables'] as $variable => $value ) {
 				$hostEntry['puppetvar'][] = $variable . ' = ' . $value;
 			}
-			foreach ( $puppetinfo['classes'] as $class ) {
-				$hostEntry['puppetclass'][] = $class;
+			if ( isset( $puppetinfo['classes'] ) ) {
+				foreach ( $puppetinfo['classes'] as $class ) {
+					$hostEntry['puppetclass'][] = $class;
+				}
 			}
-			foreach ( $puppetinfo['variables'] as $variable => $value ) {
-				$hostEntry['puppetvar'][] = $variable . ' = ' . $value;
+			if ( isset( $puppetinfo['variables'] ) ) {
+				foreach ( $puppetinfo['variables'] as $variable => $value ) {
+					$hostEntry['puppetvar'][] = $variable . ' = ' . $value;
+				}
 			}
 			if ( $hostEntry ) {
 				wfSuppressWarnings();
@@ -404,7 +408,11 @@ class OpenStackNovaHost {
 	 */
 	static function getHostByInstanceId( $instanceid ) {
 		$domain = OpenStackNovaDomain::getDomainByInstanceId( $instanceid );
-		return self::getHostByName( $instanceid, $domain );
+		if ( $domain ) {
+			return self::getHostByName( $instanceid, $domain );
+		} else {
+			return null;
+		}
 	}
 
 	/**
@@ -414,7 +422,7 @@ class OpenStackNovaHost {
 	 * @static
 	 * @param  $ip
 	 * @param  $domain OpenStackNovaDomain
-	 * @return array|null|OpenStackNovaHost
+	 * @return null|OpenStackNovaHost
 	 */
 	static function getHostByIP( $ip, $domain ) {
 		global $wgAuth;
@@ -423,14 +431,14 @@ class OpenStackNovaHost {
 
 		$domain = OpenStackNovaDomain::getDomainByHostIP( $ip );
 		if ( ! $domain ) {
-			return array();
+			return null;
 		}
 		wfSuppressWarnings();
 		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, '(arecord=' . $ip . ')' );
 		$hostInfo = ldap_get_entries( $wgAuth->ldapconn, $result );
 		wfRestoreWarnings();
 		if ( $hostInfo["count"] == "0" ) {
-			return array();
+			return null;
 		} else {
 			array_shift( $hostInfo );
 			$hostname = $hostInfo[0]['dc'][0];
@@ -466,7 +474,10 @@ class OpenStackNovaHost {
 				$domainname = explode( '.', $host['associateddomain'][0] );
 				$domainname = $domainname[1];
 				$domain = OpenStackNovaDomain::getDomainByName( $domainname );
-				$hosts[] = OpenStackNovaHost::getHostByName( $hostname, $domain );
+				$hostObject = OpenStackNovaHost::getHostByName( $hostname, $domain );
+				if ( $hostObject ) {
+					$hosts[] = $hostObject;
+				}
 			}
 			return $hosts;
 		}

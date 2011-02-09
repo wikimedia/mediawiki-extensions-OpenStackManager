@@ -179,7 +179,7 @@ class OpenStackNovaController {
 	 * @param $instanceid string
 	 */
 	function getConsoleOutput( $instanceid ) {
-		$consoleOutput = $this->novaConnection->get_console_output( $instanceid, $opt );
+		$consoleOutput = $this->novaConnection->get_console_output( $instanceid, array() );
 		return (string)$consoleOutput->body->output;
 	}
 

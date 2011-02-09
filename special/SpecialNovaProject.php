@@ -361,9 +361,9 @@ class SpecialNovaProject extends SpecialNova {
 		foreach ( $formData['members'] as $member ) {
 			$success = $project->deleteMember( $member );
 			if ( $success ) {
-				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removedfrom', array(), $formData['member'], $formData['projectname'] ) );
+				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removedfrom', array(), $member, $formData['projectname'] ) );
 			} else {
-				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-failedtoremove', array(), $formData['member'], $formData['projectname'] ) );
+				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-failedtoremove', array(), $member, $formData['projectname'] ) );
 			}
 		}
 		$out .= '<br />';

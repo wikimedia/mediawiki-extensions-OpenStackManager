@@ -464,7 +464,11 @@ class SpecialNovaInstance extends SpecialNova {
 			$actions .= Html::rawElement( 'li', array(), $link );
 			$actions = Html::rawElement( 'ul', array(), $actions );
 			$instanceOut .= Html::rawElement( 'td', array(), $actions );
-			$projectArr["$project"] .= Html::rawElement( 'tr', array(), $instanceOut );
+			if ( isset( $projectArr["$project"] ) ) {
+				$projectArr["$project"] .= Html::rawElement( 'tr', array(), $instanceOut );
+			} else {
+				$projectArr["$project"] = Html::rawElement( 'tr', array(), $instanceOut );
+			}
 		}
 		foreach ( $userProjects as $project ) {
 			$out .= Html::element( 'h2', array(), $project );

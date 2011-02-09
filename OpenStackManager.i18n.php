@@ -192,6 +192,8 @@ $messages['en'] = array(
 	'openstackmanager-needsysadminrole2' => 'You must be a member of the sysadmin role to perform this action.',
 	'openstackmanager-neednetadminrole' => 'Netadmin role required',
 	'openstackmanager-neednetadminrole2' => 'You must be a member of the netadmin role to perform this action.',
+	'openstackmanager-needcloudadminrole' => 'Cloudadmin role required',
+	'openstackmanager-needcloudadminrole2' => 'You must be a member of the cloudadmin role to perform this action.',
 
 	'openstackmanager-createsecuritygroup' => 'Create security group',
 	'openstackmanager-securitygroupname' => 'Security group name',

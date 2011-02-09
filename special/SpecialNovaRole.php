@@ -52,7 +52,7 @@ class SpecialNovaRole extends SpecialNova {
 			}
 			$project = OpenStackNovaProject::getProjectByName( $projectname );
 			$projectmembers = $project->getMembers();
-			$role = OpenStackNovaRole::getProjectRoleByName( $rolename, $projectname );
+			$role = OpenStackNovaRole::getProjectRoleByName( $rolename, $project );
 			$rolemembers = $role->getMembers();
 			$member_keys = array();
 			foreach ( $projectmembers as $projectmember ) {
@@ -128,7 +128,7 @@ class SpecialNovaRole extends SpecialNova {
 			}
 			$project = OpenStackNovaProject::getProjectByName( $projectname );
 			$projectmembers = $project->getMembers();
-			$role = OpenStackNovaRole::getProjectRoleByName( $rolename, $projectname );
+			$role = OpenStackNovaRole::getProjectRoleByName( $rolename, $project );
 			$rolemembers = $role->getMembers();
 			$member_keys = array();
 			foreach ( $projectmembers as $projectmember ) {

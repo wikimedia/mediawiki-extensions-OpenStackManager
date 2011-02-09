@@ -2,6 +2,7 @@
 class SpecialNovaDomain extends SpecialNova {
 
 	var $userNova, $adminNova;
+	var $userLDAP;
 
 	function __construct() {
 		parent::__construct( 'NovaDomain' );
@@ -14,16 +15,30 @@ class SpecialNovaDomain extends SpecialNova {
 
 	function execute( $par ) {
 		global $wgRequest, $wgUser;
+		global $wgOpenStackManagerLDAPRolesIntersect;
 
 		if ( ! $wgUser->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return false;
 		}
-		//$project = $wgRequest->getText( 'project' );
+                if ( ! $this->userLDAP->exists() ) {
+                        $this->noCredentials();
+                        return false;
+                }
 		# Must be in the global role
-		if ( ! $this->userLDAP->inRole( 'netadmin' ) ) {
-			$this->notInRole( 'netadmin' );
-			return false;
+		if ( $wgOpenStackManagerLDAPRolesIntersect ) {
+			# If roles intersect, we need to require cloudadmins, since
+			# users are required to be in netadmins to manage project
+			# specific netadmin things
+			if ( ! $this->userLDAP->inGlobalRole( 'cloudadmin' ) ) {
+				$this->notInRole( 'cloudadmin' );
+				return false;
+			}
+		} else {
+			if ( ! $this->userLDAP->inGlobalRole( 'netadmin' ) ) {
+				$this->notInRole( 'netadmin' );
+				return false;
+			}
 		}
 
 		$action = $wgRequest->getVal( 'action' );

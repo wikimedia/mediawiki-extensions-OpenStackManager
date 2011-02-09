@@ -63,7 +63,9 @@ class OpenStackNovaRole {
 		$result = ldap_search( $wgAuth->ldapconn, $dn, $query );
 		$this->roleInfo = ldap_get_entries( $wgAuth->ldapconn, $result );
 		wfRestoreWarnings();
-		$this->roleDN = $this->roleInfo[0]['dn'];
+		if ( $this->roleInfo['count'] != "0" ) {
+			$this->roleDN = $this->roleInfo[0]['dn'];
+		}
 	}
 
 	/**

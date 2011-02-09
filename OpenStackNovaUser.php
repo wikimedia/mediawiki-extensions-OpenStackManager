@@ -177,39 +177,20 @@ class OpenStackNovaUser {
 	 */
 	function inRole( $role, $projectname='', $strict=false ) {
 		global $wgAuth;
-		global $wgOpenStackManagerLDAPGlobalRoles;
 		global $wgOpenStackManagerLDAPRolesIntersect;
 
-		if ( ! array_key_exists( $role, $wgOpenStackManagerLDAPGlobalRoles ) ) {
-			$wgAuth->printDebug( "Requested global role does not exist: $role", NONSENSITIVE );
-			return false;
-		}
-
-		if ( $wgOpenStackManagerLDAPGlobalRoles["$role"] ) {
-			# Check global role
-			$roledn = $wgOpenStackManagerLDAPGlobalRoles["$role"];
-			$filter = "(member=$this->userDN)";
-			wfSuppressWarnings();
-			$result = ldap_search( $wgAuth->ldapconn, $roledn, $filter );
-			wfRestoreWarnings();
-			if ( $result ) {
-				wfSuppressWarnings();
-				$entries = ldap_get_entries( $wgAuth->ldapconn, $result );
-				wfRestoreWarnings();
-				if ( (int)$entries['count'] > 0 ) {
-					# If roles intersect, or we wish to explicitly check
-					# project role, we can't return here.
-					if ( !$wgOpenStackManagerLDAPRolesIntersect && !$strict ) {
-						return true;
-					}
-				} else {
-					if ( $wgOpenStackManagerLDAPRolesIntersect ) {
-						return false;
-					}
-				}
+		if ( $this->inGlobalRole( $role ) ) {
+			# If roles intersect, or we wish to explicitly check
+			# project role, we can't return here.
+			if ( !$wgOpenStackManagerLDAPRolesIntersect && !$strict ) {
+				return true;
+			}
+		} else {
+			if ( $wgOpenStackManagerLDAPRolesIntersect ) {
+				return false;
 			}
 		}
-		
+
 		if ( $projectname ) {
 			# Check project specific role
 			$project = OpenStackNovaProject::getProjectByName( $projectname );
@@ -240,6 +221,44 @@ class OpenStackNovaUser {
 		}
 		return false;
 	}
+
+	/**
+	 * Check if user is in global role
+	 *
+	 * @param  $role
+	 * @return bool
+	 */
+	function inGlobalRole( $role ) {
+		global $wgAuth;
+		global $wgOpenStackManagerLDAPGlobalRoles;
+
+		if ( ! array_key_exists( $role, $wgOpenStackManagerLDAPGlobalRoles ) ) {
+			$wgAuth->printDebug( "Requested global role does not exist: $role", NONSENSITIVE );
+			return false;
+		}
+
+		if ( $wgOpenStackManagerLDAPGlobalRoles["$role"] ) {
+			# Check global role
+			$roledn = $wgOpenStackManagerLDAPGlobalRoles["$role"];
+			$filter = "(member=$this->userDN)";
+			wfSuppressWarnings();
+			$result = ldap_search( $wgAuth->ldapconn, $roledn, $filter );
+			wfRestoreWarnings();
+			if ( $result ) {
+				wfSuppressWarnings();
+				$entries = ldap_get_entries( $wgAuth->ldapconn, $result );
+				wfRestoreWarnings();
+				if ( (int)$entries['count'] > 0 ) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		} else {
+			return false;
+		}
+	}
+
 
 	/**
 	 * @return void
