@@ -91,7 +91,12 @@ class SpecialNovaInstance extends SpecialNova {
 		$instanceTypes = $this->adminNova->getInstanceTypes();
 		$instanceType_keys = array();
 		foreach ( $instanceTypes as $instanceType ) {
-			$instanceType_keys["$instanceType"] = $instanceType;
+			$instanceTypeName = $instanceType->getInstanceTypeName();
+			$cpus = $instanceType->getNumberOfCPUs();
+			$ram = $instanceType->getMemorySize();
+			$storage = $instanceType->getStorageSize();
+			$instanceLabel = $instanceTypeName . ' (' . wfMsgExt( 'openstackmanager-instancetypelabel', 'parsemag', $cpus, $ram, $storage ) . ')';
+			$instanceType_keys["$instanceLabel"] = $instanceTypeName;
 		}
 		$instanceInfo['instanceType'] = array(
 			'type' => 'select',

@@ -6,9 +6,7 @@ class OpenStackNovaController {
 	var $novaConnection;
 	var $instances, $images, $keypairs, $availabilityZones;
 	var $addresses, $securityGroups;
-
-	var $instanceTypes = array( 'm1.tiny', 'm1.small', 'm1.large', 'm1.xlarge', 'm2.xlarge', 'm2.2xlarge',
-								'm2.4xlarge', 'c1.medium', 'c1.xlarge', 'cc1.4xlarge' );
+	var $instanceTypes;
 
 	/**
 	 * @param  $credentials
@@ -85,6 +83,19 @@ class OpenStackNovaController {
 	 * @return array
 	 */
 	function getInstanceTypes() {
+		global $wgOpenStackManagerNovaResourcePrefix;
+		global $wgOpenStackManagerNovaAdminResourcePrefix;
+
+		$this->novaConnection->set_resource_prefix( $wgOpenStackManagerNovaAdminResourcePrefix );
+		$response = $this->novaConnection->authenticate( 'DescribeInstanceTypes', array(), $this->novaConnection->hostname );
+		$instanceTypes = $response->body->instanceTypeSet->item;
+		foreach ( $instanceTypes as $instanceType ) {
+			$instanceType = new OpenStackNovaInstanceType( $instanceType );
+			$instanceTypeName = $instanceType->getInstanceTypeName();
+			$this->instanceTypes["$instanceTypeName"] = $instanceType;
+		}
+		$this->novaConnection->set_resource_prefix( $wgOpenStackManagerNovaResourcePrefix );
+		OpenStackNovaInstanceType::sort( $this->instanceTypes );
 		return $this->instanceTypes;
 	}
 
