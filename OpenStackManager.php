@@ -80,6 +80,7 @@ $wgExtensionMessagesFiles['OpenStackManager'] = $dir . 'OpenStackManager.i18n.ph
 $wgExtensionAliasesFiles['OpenStackManager'] = $dir . 'OpenStackManager.alias.php';
 $wgAutoloadClasses['OpenStackNovaInstance'] = $dir . 'OpenStackNovaInstance.php';
 $wgAutoloadClasses['OpenStackNovaInstanceType'] = $dir . 'OpenStackNovaInstanceType.php';
+$wgAutoloadClasses['OpenStackNovaImage'] = $dir . 'OpenStackNovaImage.php';
 $wgAutoloadClasses['OpenStackNovaKeypair'] = $dir . 'OpenStackNovaKeypair.php';
 $wgAutoloadClasses['OpenStackNovaController'] = $dir . 'OpenStackNovaController.php';
 $wgAutoloadClasses['OpenStackNovaUser'] = $dir . 'OpenStackNovaUser.php';

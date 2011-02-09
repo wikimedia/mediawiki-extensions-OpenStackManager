@@ -107,9 +107,9 @@ class OpenStackNovaController {
 		$images = $this->novaConnection->describe_images();
 		$images = $images->body->imagesSet->item;
 		foreach ( $images as $image ) {
-			if ( $image->imageType == 'machine' ) {
-				$this->images["$image->imageId"] = $image;
-			}
+			$image = new OpenStackNovaImage( $image );
+			$imageId = $image->getImageId();
+			$this->images["$imageId"] = $image;
 		}
 		return $this->images;
 	}

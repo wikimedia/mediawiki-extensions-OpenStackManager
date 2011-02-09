@@ -123,8 +123,22 @@ class SpecialNovaInstance extends SpecialNova {
 		# where the name points to itself as a value
 		$images = $this->adminNova->getImages();
 		$image_keys = array();
-		foreach ( array_keys( $images ) as $image_key ) {
-			$image_keys["$image_key"] = $image_key;
+		foreach ( $images as $image ) {
+			if ( ! $image->imageIsPublic() ) {
+				continue;
+			}
+			if ( $image->getImageState() != "available" ) {
+				continue;
+			}
+			if ( $image->getImageType() != "machine" ) {
+				continue;
+			}
+			$imageName = $image->getImageName();
+			if ( $imageName == '' ) {
+				continue;
+			}
+			$imageLabel = $imageName . ' (' . $image->getImageArchitecture() . ')';
+			$image_keys["$imageLabel"] = $image->getImageId();
 		}
 		$instanceInfo['imageType'] = array(
 			'type' => 'select',
