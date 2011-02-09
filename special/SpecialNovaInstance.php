@@ -262,7 +262,7 @@ class SpecialNovaInstance extends SpecialNova {
 		if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
 			$host = OpenStackNovaHost::getHostByInstanceId( $instanceid );
 			if ( ! $host ) {
-				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-nonexistenthost' ) );
+				$wgOut->addWikiMsg( 'openstackmanager-nonexistenthost' );
 				return false;
 			}
 			$puppetinfo = $host->getPuppetConfiguration();
@@ -331,7 +331,7 @@ class SpecialNovaInstance extends SpecialNova {
 		}
 		$instanceid = $wgRequest->getText( 'instanceid' );
 		if ( ! $wgRequest->wasPosted() ) {
-			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-deleteinstancequestion', $instanceid ) );
+			$wgOut->addWikiMsg( 'openstackmanager-deleteinstancequestion', $instanceid );
 		}
 		$instanceInfo = array();
 		$instanceInfo['instanceid'] = array(
@@ -373,7 +373,7 @@ class SpecialNovaInstance extends SpecialNova {
 		$instanceid = $wgRequest->getText( 'instanceid' );
 		$consoleOutput = $this->userNova->getConsoleOutput( $instanceid );
 		$sk = $wgUser->getSkin();
-		$out = $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backinstancelist' ), array(), array(), array() );
+		$out = $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backinstancelist' ) );
 		$out .= Html::element( 'pre', array(), $consoleOutput );
 		$wgOut->addHTML( $out );
 	}
@@ -411,7 +411,7 @@ class SpecialNovaInstance extends SpecialNova {
 			$instanceName = $instance->getInstanceName();
 			$instanceName = htmlentities( $instanceName );
 			$title = Title::newFromText( $instanceName, NS_VM );
-			$instanceNameLink = $sk->link( $title, $instanceName, array(), array(), array() );
+			$instanceNameLink = $sk->link( $title, $instanceName );
 			$instanceOut = Html::rawElement( 'td', array(), $instanceNameLink );
 			$instanceOut .= Html::element( 'td', array(), $instance->getInstanceId() );
 			$instanceOut .= Html::element( 'td', array(), $instance->getInstanceState() );
@@ -433,32 +433,28 @@ class SpecialNovaInstance extends SpecialNova {
 			$instanceOut .= Html::element( 'td', array(), $instance->getAvailabilityZone() );
 			$instanceOut .= Html::element( 'td', array(), $instance->getImageId() );
 			$instanceOut .= Html::element( 'td', array(), $instance->getLaunchTime() );
-			$msg = wfMsg( 'openstackmanager-delete' );
+			$msg = wfMsgHtml( 'openstackmanager-delete' );
 			$link = $sk->link( $this->getTitle(), $msg, array(),
 								  array( 'action' => 'delete',
 									   'project' => $project,
-									   'instanceid' => $instance->getInstanceId() ),
-								  array() );
+									   'instanceid' => $instance->getInstanceId() ) );
 			$actions = Html::rawElement( 'li', array(), $link );
-			#$msg = wfMsg( 'openstackmanager-rename' );
+			#$msg = wfMsgHtml( 'openstackmanager-rename' );
 			#$actions .= $sk->link( $this->getTitle(), $msg, array(),
 			#					   array( 'action' => 'rename',
 			#							'project' => $project,
-			#							'instanceid' => $instance->getInstanceId() ),
-			#					   array() );
-			$msg = wfMsg( 'openstackmanager-configure' );
+			#							'instanceid' => $instance->getInstanceId() ) );
+			$msg = wfMsgHtml( 'openstackmanager-configure' );
 			$link = $sk->link( $this->getTitle(), $msg, array(),
 								   array( 'action' => 'configure',
 										'project' => $project,
-										'instanceid' => $instance->getInstanceId() ),
-								   array() );
+										'instanceid' => $instance->getInstanceId() ) );
 			$actions .= Html::rawElement( 'li', array(), $link );
-			$msg = wfMsg( 'openstackmanager-getconsoleoutput' );
+			$msg = wfMsgHtml( 'openstackmanager-getconsoleoutput' );
 			$link = $sk->link( $this->getTitle(), $msg, array(),
 								   array( 'action' => 'consoleoutput',
 										'project' => $project,
-										'instanceid' => $instance->getInstanceId() ),
-								   array() );
+										'instanceid' => $instance->getInstanceId() ) );
 			$actions .= Html::rawElement( 'li', array(), $link );
 			$actions = Html::rawElement( 'ul', array(), $actions );
 			$instanceOut .= Html::rawElement( 'td', array(), $actions );
@@ -470,8 +466,8 @@ class SpecialNovaInstance extends SpecialNova {
 		}
 		foreach ( $userProjects as $project ) {
 			$out .= Html::element( 'h2', array(), $project );
-			$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-createinstance' ), array(),
-							   array( 'action' => 'create', 'project' => $project ), array() );
+			$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-createinstance' ), array(),
+							   array( 'action' => 'create', 'project' => $project ) );
 			if ( isset( $projectArr["$project"] ) ) {
 				$projectOut = $header;
 				$projectOut .= $projectArr["$project"];
@@ -494,7 +490,7 @@ class SpecialNovaInstance extends SpecialNova {
 
 		$domain = OpenStackNovaDomain::getDomainByName( $formData['domain'] );
 		if ( !$domain ) {
-			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-invaliddomain' ) );
+			$wgOut->addWikiMsg( 'openstackmanager-invaliddomain' );
 			return true;
 		}
 		$instance = $this->userNova->createInstance( $formData['instancename'], $formData['imageType'], '', $formData['instanceType'], $formData['availabilityZone'], $formData['groups'] );
@@ -518,18 +514,18 @@ class SpecialNovaInstance extends SpecialNova {
 				$title = Title::newFromText( $wgOut->getPageTitle() );
 				$job = new OpenStackNovaHostJob( $title, array( 'instanceid' => $instance->getInstanceId() ) );
 				$job->insert();
-				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-createdinstance', $instance->getInstanceID(), $instance->getImageId(), $host->getFullyQualifiedHostName() ) );
+				$wgOut->addWikiMsg( 'openstackmanager-createdinstance', $instance->getInstanceID(), $instance->getImageId(), $host->getFullyQualifiedHostName() );
 			} else {
 				$this->userNova->terminateInstance( $instance->getInstanceId() );
-				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-createfailedldap' ) );
+				$wgOut->addWikiMsg( 'openstackmanager-createfailedldap' );
 			}
 			# TODO: also add puppet
 		} else {
-			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-createeinstancefailed' ) );
+			$wgOut->addWikiMsg( 'openstackmanager-createeinstancefailed' );
 		}
 		$sk = $wgUser->getSkin();
 		$out = '<br />';
-		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backinstancelist' ), array(), array(), array() );
+		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backinstancelist' ) );
 
 		$wgOut->addHTML( $out );
 		return true;
@@ -545,7 +541,7 @@ class SpecialNovaInstance extends SpecialNova {
 
 		$instance = $this->adminNova->getInstance( $formData['instanceid'] );
 		if ( ! $instance ) {
-			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-nonexistanthost' ) );
+			$wgOut->addWikiMsg( 'openstackmanager-nonexistanthost' );
 			return true;
 		}
 		$instancename = $instance->getInstanceName();
@@ -554,16 +550,16 @@ class SpecialNovaInstance extends SpecialNova {
 		if ( $success ) {
 			$success = OpenStackNovaHost::deleteHostByInstanceId( $instanceid );
 			if ( $success ) {
-				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-deletedinstance', $instanceid ) );
+				$wgOut->addWikiMsg( 'openstackmanager-deletedinstance', $instanceid );
 			} else {
-				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-deletedinstance-faileddns', $instancename, $instanceid ) );
+				$wgOut->addWikiMsg( 'openstackmanager-deletedinstance-faileddns', $instancename, $instanceid );
 			}
 		} else {
-			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-deleteinstancefailed' ) );
+			$wgOut->addWikiMsg( 'openstackmanager-deleteinstancefailed' );
 		}
 		$sk = $wgUser->getSkin();
 		$out = '<br />';
-		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backinstancelist' ), array(), array(), array() );
+		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backinstancelist' ) );
 
 		$wgOut->addHTML( $out );
 		return true;
@@ -595,16 +591,16 @@ class SpecialNovaInstance extends SpecialNova {
 			}
 			$success = $host->modifyPuppetConfiguration( $puppetinfo );
 			if ( $success ) {
-				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-modifiedinstance' ) );
+				$wgOut->addWikiMsg( 'openstackmanager-modifiedinstance' );
 			} else {
-				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-modifyinstancefailed' ) );
+				$wgOut->addWikiMsg( 'openstackmanager-modifyinstancefailed' );
 			}
 		} else {
-			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-nonexistanthost' ) );
+			$wgOut->addWikiMsg( 'openstackmanager-nonexistanthost' );
 		}
 		$sk = $wgUser->getSkin();
 		$out = '<br /';
-		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backinstancelist' ), array(), array(), array() );
+		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backinstancelist' ) );
 
 		$wgOut->addHTML( $out );
 		return true;

@@ -106,7 +106,7 @@ class SpecialNovaDomain extends SpecialNova {
 
 		$domainname = $wgRequest->getText( 'domainname' );
 		if ( ! $wgRequest->wasPosted() ) {
-			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-deletedomain-confirm', $domainname ) );
+			$wgOut->addWikiMsg( 'openstackmanager-deletedomain-confirm', $domainname );
 		}
 		$domainInfo = array();
 		$domainInfo['domainname'] = array(
@@ -137,7 +137,7 @@ class SpecialNovaDomain extends SpecialNova {
 
 		$out = '';
 		$sk = $wgUser->getSkin();
-		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-createdomain' ), array(), array( 'action' => 'create' ), array() );
+		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-createdomain' ), array(), array( 'action' => 'create' ) );
 		$domainsOut = Html::element( 'th', array(), wfMsg( 'openstackmanager-domainname' ) );
 		$domainsOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-fqdn' ) );
 		$domainsOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-location' ) );
@@ -150,9 +150,9 @@ class SpecialNovaDomain extends SpecialNova {
 			$domainOut = Html::element( 'td', array(), $domainName );
 			$domainOut .= Html::element( 'td', array(), $fqdn );
 			$domainOut .= Html::element( 'td', array(), $location );
-			$msg = wfMsg( 'openstackmanager-delete' );
+			$msg = wfMsgHtml( 'openstackmanager-delete' );
 			$link = $sk->link( $this->getTitle(), $msg, array(),
-							   array( 'action' => 'delete', 'domainname' => $domainName ), array() );
+							   array( 'action' => 'delete', 'domainname' => $domainName ) );
 			$domainOut .= Html::rawElement( 'td', array(), $link );
 			$domainsOut .= Html::rawElement( 'tr', array(), $domainOut );
 		}
@@ -173,13 +173,13 @@ class SpecialNovaDomain extends SpecialNova {
 
 		$success = OpenStackNovaDomain::createDomain( $formData['domainname'], $formData['fqdn'], $formData['location'] );
 		if ( ! $success ) {
-			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-createdomainfailed' ) );
+			$wgOut->addWikiMsg( 'openstackmanager-createdomainfailed' );
 			return true;
 		}
-		$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-createddomain' ) );
+		$wgOut->addWikiMsg( 'openstackmanager-createddomain' );
 		$sk = $wgUser->getSkin();
 		$out = '<br />';
-		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backdomainlist' ), array(), array(), array() );
+		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backdomainlist' ) );
 		$wgOut->addHTML( $out );
 
 		return true;
@@ -195,13 +195,13 @@ class SpecialNovaDomain extends SpecialNova {
 
 		$success = OpenStackNovaDomain::deleteDomain( $formData['domainname'] );
 		if ( $success ) {
-			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-deleteddomain' ) );
+			$wgOut->addWikiMsg( 'openstackmanager-deleteddomain' );
 		} else {
-			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-failedeleteddomain' ) );
+			$wgOut->addWikiMsg( 'openstackmanager-failedeleteddomain' );
 		}
 		$sk = $wgUser->getSkin();
 		$out = '<br />';
-		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backdomainlist' ), array(), array(), array() );
+		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backdomainlist' ) );
 		$wgOut->addHTML( $out );
 
 		return true;

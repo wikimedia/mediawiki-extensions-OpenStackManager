@@ -61,7 +61,7 @@ class SpecialNovaRole extends SpecialNova {
 				}
 			}
 			if ( ! $member_keys ) {
-				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-nomemberstoadd' ) );
+				$wgOut->addWikiMsg( 'openstackmanager-nomemberstoadd' );
 				return true;
 			}
 			$roleInfo['members'] = array(
@@ -148,7 +148,7 @@ class SpecialNovaRole extends SpecialNova {
 			}
 		}
 		if ( ! $member_keys ) {
-			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-nomemberstoremove' ) );
+			$wgOut->addWikiMsg( 'openstackmanager-nomemberstoremove' );
 			return true;
 		}
 		$roleInfo = array();
@@ -214,9 +214,9 @@ class SpecialNovaRole extends SpecialNova {
 				$memberOut = Html::rawElement( 'ul', array(), $memberOut );
 			}
 			$roleOut .= Html::rawElement( 'td', array(), $memberOut );
-			$link = $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-addrolemember' ), array(), array( 'action' => 'addmember', 'rolename' => $roleName, 'returnto' => 'Special:NovaRole' ), array() );
+			$link = $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-addrolemember' ), array(), array( 'action' => 'addmember', 'rolename' => $roleName, 'returnto' => 'Special:NovaRole' ) );
 			$actions = Html::rawElement( 'li', array(), $link );
-			$link = $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-removerolemember' ), array(), array( 'action' => 'deletemember', 'rolename' => $roleName, 'returnto' => 'Special:NovaRole' ), array() );
+			$link = $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-removerolemember' ), array(), array( 'action' => 'deletemember', 'rolename' => $roleName, 'returnto' => 'Special:NovaRole' ) );
 			$actions .= Html::rawElement( 'li', array(), $link );
 			$actions = Html::rawElement( 'ul', array(), $actions );
 			$roleOut .= Html::rawElement( 'td', array(), $actions );
@@ -241,7 +241,7 @@ class SpecialNovaRole extends SpecialNova {
 		if ( $projectname ) {
 			$project = OpenStackNovaProject::getProjectByName( $projectname );
 			if ( ! $project ) {
-				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-nonexistentproject' ) );
+				$wgOut->addWikiMsg( 'openstackmanager-nonexistentproject' );
 				return true;
 			}
 			$role = OpenStackNovaRole::getProjectRoleByName( $formData['rolename'], $project );
@@ -251,21 +251,21 @@ class SpecialNovaRole extends SpecialNova {
 			$members = array( $formData['members'] );
 		}
 		if ( ! $role ) {
-			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-nonexistentrole' ) );
+			$wgOut->addWikiMsg( 'openstackmanager-nonexistentrole' );
 			return true;
 		}
 		foreach ( $members as $member ) {
 			$success = $role->addMember( $member );
 			if ( $success ) {
-				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-addedto', $member, $formData['rolename'] ) );
+				$wgOut->addWikiMsg( 'openstackmanager-addedto', $member, $formData['rolename'] );
 			} else {
-				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-failedtoadd', $member, $formData['rolename'] ) );
+				$wgOut->addWikiMsg( 'openstackmanager-failedtoadd', $member, $formData['rolename'] );
 			}
 		}
 		$sk = $wgUser->getSkin();
 		$out = '<br />';
 		$returnto = Title::newFromText( $formData['returnto'] );
-		$out .= $sk->link( $returnto, wfMsg( 'openstackmanager-backprojectlist' ), array(), array(), array() );
+		$out .= $sk->link( $returnto, wfMsgHtml( 'openstackmanager-backprojectlist' ) );
 		$wgOut->addHTML( $out );
 
 		return true;
@@ -283,7 +283,7 @@ class SpecialNovaRole extends SpecialNova {
 		if ( $projectname ) {
 			$project = OpenStackNovaProject::getProjectByName( $projectname );
 			if ( ! $project ) {
-				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-nonexistentproject' ) );
+				$wgOut->addWikiMsg( 'openstackmanager-nonexistentproject' );
 				return true;
 			}
 			$role = OpenStackNovaRole::getProjectRoleByName( $formData['rolename'], $project );
@@ -291,21 +291,21 @@ class SpecialNovaRole extends SpecialNova {
 			$role = OpenStackNovaRole::getGlobalRoleByName( $formData['rolename'] );
 		}
 		if ( ! $role ) {
-			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-nonexistentrole' ) );
+			$wgOut->addWikiMsg( 'openstackmanager-nonexistentrole' );
 			return true;
 		}
 		foreach ( $formData['members'] as $member ) {
 			$success = $role->deleteMember( $member );
 			if ( $success ) {
-				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-removedfrom', $member, $formData['rolename'] ) );
+				$wgOut->addWikiMsg( 'openstackmanager-removedfrom', $member, $formData['rolename'] );
 			} else {
-				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-failedtoremove', $member, $formData['rolename'] ) );
+				$wgOut->addWikiMsg( 'openstackmanager-failedtoremove', $member, $formData['rolename'] );
 			}
 		}
 		$sk = $wgUser->getSkin();
 		$out = '<br />';
 		$returnto = Title::newFromText( $formData['returnto'] );
-		$out .= $sk->link( $returnto, wfMsg( 'openstackmanager-backprojectlist' ), array(), array(), array() );
+		$out .= $sk->link( $returnto, wfMsgHtml( 'openstackmanager-backprojectlist' ) );
 		$wgOut->addHTML( $out );
 
 		return true;
