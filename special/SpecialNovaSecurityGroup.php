@@ -152,8 +152,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		}
 		$securitygroupname = $wgRequest->getText( 'groupname' );
 		if ( ! $wgRequest->wasPosted() ) {
-			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-deletesecuritygroup-confirm', array(), $securitygroupname ) );
-			$wgOut->addHTML( $out );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-deletesecuritygroup-confirm', $securitygroupname ) );
 		}
 		$securityGroupInfo = array();
 		$securityGroupInfo['groupname'] = array(
@@ -172,7 +171,6 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		$securityGroupForm->setTitle( SpecialPage::getTitleFor( 'NovaSecurityGroup' ) );
 		$securityGroupForm->setSubmitID( 'novainstance-form-deletesecuritygroupsubmit' );
 		$securityGroupForm->setSubmitCallback( array( $this, 'tryDeleteSubmit' ) );
-		$securityGroupForm->setSubmitText( 'confirm' );
 		$securityGroupForm->show();
 
 		return true;
@@ -398,8 +396,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		}
 		$securitygroupname = $wgRequest->getText( 'groupname' );
 		if ( ! $wgRequest->wasPosted() ) {
-			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removerule-confirm', array(), $securitygroupname ) );
-			$wgOut->addHTML( $out );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-removerule-confirm', $securitygroupname ) );
 		}
 		$securityGroupInfo = array();
 		$securityGroupInfo['groupname'] = array(
@@ -442,7 +439,6 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		$securityGroupForm->setTitle( SpecialPage::getTitleFor( 'NovaSecurityGroup' ) );
 		$securityGroupForm->setSubmitID( 'novainstance-form-removerulesubmit' );
 		$securityGroupForm->setSubmitCallback( array( $this, 'tryRemoveRuleSubmit' ) );
-		$securityGroupForm->setSubmitText( 'confirm' );
 		$securityGroupForm->show();
 
 		return true;
@@ -456,7 +452,6 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 
-		$sk = $wgUser->getSkin();
 		$project = $formData['project'];
 		$groupname = $formData['groupname'];
 		$description = $formData['description'];
@@ -464,10 +459,12 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		$this->userNova = new OpenStackNovaController( $userCredentials );
 		$securitygroup = $this->userNova->createSecurityGroup( $groupname, $description );
 		if ( $securitygroup ) {
-			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-createdsecuritygroup' ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-createdsecuritygroup' ) );
 		} else {
-			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-createsecuritygroupfailed' ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-createsecuritygroupfailed' ) );
 		}
+		$sk = $wgUser->getSkin();
+		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backsecuritygrouplist' ), array(), array(), array() );
 
 		$wgOut->addHTML( $out );
@@ -482,24 +479,24 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 
-		$sk = $wgUser->getSkin();
 		$project = $formData['project'];
 		$userCredentials = $this->userLDAP->getCredentials( $project );
 		$this->userNova = new OpenStackNovaController( $userCredentials );
 		$securitygroup = $this->adminNova->getSecurityGroup( $formData['groupname'] );
 		if ( ! $securitygroup ) {
-			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-nonexistantsecuritygroup' ) );
-			$wgOut->addHtml( $out );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-nonexistantsecuritygroup' ) );
 			return true;
 		}
 		$groupname = $securitygroup->getGroupName();
 		$success = $this->userNova->deleteSecurityGroup( $groupname );
 		if ( $success ) {
 			# TODO: Ensure group isn't being used
-			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-deletedsecuritygroup' ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-deletedsecuritygroup' ) );
 		} else {
-			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-deletesecuritygroupfailed' ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-deletesecuritygroupfailed' ) );
 		}
+		$sk = $wgUser->getSkin();
+		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backsecuritygrouplist' ), array(), array(), array() );
 
 		$wgOut->addHTML( $out );
@@ -515,21 +512,22 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		global $wgOut, $wgUser;
 		global $wgOpenStackManagerPuppetOptions;
 
-		$sk = $wgUser->getSkin();
 		$groupname = $formData['groupname'];
 		$description = $formData['description'];
 		$group = $this->adminNova->getSecurityGroup( $groupname );
 		if ( $group ) {
 			# This isn't a supported function in the API for now. Leave this action out for now
-			$success = $this->userNova->modifySecurityGroup( $groupname, array( 'description' => $description ));
+			$success = $this->userNova->modifySecurityGroup( $groupname, array( 'description' => $description ) );
 			if ( $success ) {
-				$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-modifiedgroup' ) );
+				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-modifiedgroup' ) );
 			} else {
-				$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-modifygroupfailed' ) );
+				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-modifygroupfailed' ) );
 			}
 		} else {
-			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-nonexistantgroup' ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-nonexistantgroup' ) );
 		}
+		$sk = $wgUser->getSkin();
+		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backsecuritygrouplist' ), array(), array(), array() );
 
 		$wgOut->addHTML( $out );
@@ -544,7 +542,6 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	function tryAddRuleSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 
-		$sk = $wgUser->getSkin();
 		$project = $formData['project'];
 		$fromport = $formData['fromport'];
 		$toport = $formData['toport'];
@@ -563,18 +560,19 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		$this->userNova = new OpenStackNovaController( $userCredentials );
 		$securitygroup = $this->adminNova->getSecurityGroup( $formData['groupname'] );
 		if ( ! $securitygroup ) {
-			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-nonexistantsecuritygroup' ) );
-			$wgOut->addHtml( $out );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-nonexistantsecuritygroup' ) );
 			return false;
 		}
 		$groupname = $securitygroup->getGroupName();
 		$success = $this->userNova->addSecurityGroupRule( $groupname, $fromport, $toport, $protocol, $ranges, $groups );
 		if ( $success ) {
 			# TODO: Ensure group isn't being used
-			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-addedrule' ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-addedrule' ) );
 		} else {
-			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-addrulefailed' ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-addrulefailed' ) );
 		}
+		$sk = $wgUser->getSkin();
+		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backsecuritygrouplist' ), array(), array(), array() );
 
 		$wgOut->addHTML( $out );
@@ -589,7 +587,6 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	function tryRemoveRuleSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 
-		$sk = $wgUser->getSkin();
 		$project = $formData['project'];
 		$fromport = $formData['fromport'];
 		$toport = $formData['toport'];
@@ -611,18 +608,19 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		$this->userNova = new OpenStackNovaController( $userCredentials );
 		$securitygroup = $this->adminNova->getSecurityGroup( $formData['groupname'] );
 		if ( ! $securitygroup ) {
-			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-nonexistantsecuritygroup' ) );
-			$wgOut->addHtml( $out );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-nonexistantsecuritygroup' ) );
 			return false;
 		}
 		$groupname = $securitygroup->getGroupName();
 		$success = $this->userNova->removeSecurityGroupRule( $groupname, $fromport, $toport, $protocol, $ranges, $groups );
 		if ( $success ) {
 			# TODO: Ensure group isn't being used
-			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-removedrule' ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-removedrule' ) );
 		} else {
-			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-removerulefailed' ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-removerulefailed' ) );
 		}
+		$sk = $wgUser->getSkin();
+		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backsecuritygrouplist' ), array(), array(), array() );
 
 		$wgOut->addHTML( $out );

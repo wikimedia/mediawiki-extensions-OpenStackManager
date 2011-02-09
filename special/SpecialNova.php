@@ -10,7 +10,7 @@ abstract class SpecialNova extends SpecialPage {
 
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-notloggedin' ) );
-		$wgOut->addHTML( wfMsg( 'openstackmanager-mustbeloggedin' ) );
+		$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-mustbeloggedin' ) );
 	}
 
 	/**
@@ -21,7 +21,7 @@ abstract class SpecialNova extends SpecialPage {
 
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-nonovacred' ) );
-		$wgOut->addHTML( wfMsg( 'openstackmanager-nonovacred-admincreate' ) );
+		$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-nonovacred-admincreate' ) );
 	}
 
 	/**
@@ -32,7 +32,7 @@ abstract class SpecialNova extends SpecialPage {
 
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-noaccount' ) );
-		$wgOut->addHTML( wfMsg( 'openstackmanager-noaccount2' ) );
+		$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-noaccount2' ) );
 	}
 
 	/**
@@ -45,13 +45,13 @@ abstract class SpecialNova extends SpecialPage {
 		$this->setHeaders();
 		if ( $role == 'sysadmin' ) {
 			$wgOut->setPagetitle( wfMsg( 'openstackmanager-needsysadminrole' ) );
-			$wgOut->addHTML( wfMsg( 'openstackmanager-needsysadminrole2' ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-needsysadminrole2' ) );
 		} else if ( $role == 'netadmin' ) {
 			$wgOut->setPagetitle( wfMsg( 'openstackmanager-neednetadminrole' ) );
-			$wgOut->addHTML( wfMsg( 'openstackmanager-neednetadminrole2' ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-neednetadminrole2' ) );
 		} else if ( $role == 'cloudadmin' ) {
 			$wgOut->setPagetitle( wfMsg( 'openstackmanager-needcloudadminrole' ) );
-			$wgOut->addHTML( wfMsg( 'openstackmanager-needcloudadminrole2' ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-needcloudadminrole2' ) );
 		}
 	}
 }

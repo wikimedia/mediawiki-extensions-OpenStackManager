@@ -175,8 +175,7 @@ class SpecialNovaProject extends SpecialNova {
 
 		$project = $wgRequest->getText( 'projectname' );
 		if ( ! $wgRequest->wasPosted() ) {
-			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removeprojectconfirm', array(), $project ) );
-			$wgOut->addHTML( $out );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-removeprojectconfirm', $project ) );
 		}
 		$projectInfo = array();
 		$projectInfo['projectname'] = array(
@@ -191,7 +190,6 @@ class SpecialNovaProject extends SpecialNova {
 		$projectForm->setTitle( SpecialPage::getTitleFor( 'NovaProject' ) );
 		$projectForm->setSubmitID( 'novaproject-form-deleteprojectsubmit' );
 		$projectForm->setSubmitCallback( array( $this, 'tryDeleteSubmit' ) );
-		$projectForm->setSubmitText( 'confirm' );
 		$projectForm->show();
 
 		return true;
@@ -283,13 +281,12 @@ class SpecialNovaProject extends SpecialNova {
 
 		$success = OpenStackNovaProject::createProject( $formData['projectname'] );
 		if ( ! $success ) {
-			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-createprojectfailed' ) );
-			$wgOut->addHTML( $out );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-createprojectfailed' ) );
 			return true;
 		}
-		$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-createdproject' ) );
-		$out .= '<br />';
+		$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-createdproject' ) );
 		$sk = $wgUser->getSkin();
+		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backprojectlist' ), array(), array(), array() );
 		$wgOut->addHTML( $out );
 
@@ -306,12 +303,12 @@ class SpecialNovaProject extends SpecialNova {
 
 		$success = OpenStackNovaProject::deleteProject( $formData['projectname'] );
 		if ( $success ) {
-			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-deletedproject' ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-deletedproject' ) );
 		} else {
-			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-deleteprojectfailed' ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-deleteprojectfailed' ) );
 		}
-		$out .= '<br />';
 		$sk = $wgUser->getSkin();
+		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backprojectlist' ), array(), array(), array() );
 		$wgOut->addHTML( $out );
 
@@ -329,14 +326,12 @@ class SpecialNovaProject extends SpecialNova {
 		$project = new OpenStackNovaProject( $formData['projectname'] );
 		$success = $project->addMember( $formData['member'] );
 		if ( $success ) {
-			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-addedto', array(), $formData['member'],
-			                                              $formData['projectname'] ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-addedto', $formData['member'], $formData['projectname'] ) );
 		} else {
-			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-failedtoadd', array(), $formData['member'],
-			                                              $formData['projectname'] ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-failedtoadd', $formData['member'], $formData['projectname'] ) );
 		}
-		$out .= '<br />';
 		$sk = $wgUser->getSkin();
+		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backprojectlist' ), array(), array(), array() );
 		$wgOut->addHTML( $out );
 
@@ -353,20 +348,18 @@ class SpecialNovaProject extends SpecialNova {
 
 		$project = OpenStackNovaProject::getProjectByName( $formData['projectname'] );
 		if ( ! $project ) {
-			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-nonexistentproject' ) );
-			$wgOut->addHTML( $out );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-nonexistentproject' ) );
 			return true;
 		}
-		$out = '';
 		foreach ( $formData['members'] as $member ) {
 			$success = $project->deleteMember( $member );
 			if ( $success ) {
-				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removedfrom', array(), $member, $formData['projectname'] ) );
+				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-removedfrom', $member, $formData['projectname'] ) );
 			} else {
-				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-failedtoremove', array(), $member, $formData['projectname'] ) );
+				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-failedtoremove', $member, $formData['projectname'] ) );
 			}
 		}
-		$out .= '<br />';
+		$out = '<br />';
 		$sk = $wgUser->getSkin();
 		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backprojectlist' ), array(), array(), array() );
 		$wgOut->addHTML( $out );

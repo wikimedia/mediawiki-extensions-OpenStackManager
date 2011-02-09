@@ -61,8 +61,7 @@ class SpecialNovaRole extends SpecialNova {
 				}
 			}
 			if ( ! $member_keys ) {
-				$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-nomemberstoadd' ) );
-				$wgOut->addHTML( $out );
+				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-nomemberstoadd' ) );
 				return true;
 			}
 			$roleInfo['members'] = array(
@@ -149,8 +148,7 @@ class SpecialNovaRole extends SpecialNova {
 			}
 		}
 		if ( ! $member_keys ) {
-			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-nomemberstoremove' ) );
-			$wgOut->addHTML( $out );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-nomemberstoremove' ) );
 			return true;
 		}
 		$roleInfo = array();
@@ -243,8 +241,7 @@ class SpecialNovaRole extends SpecialNova {
 		if ( $projectname ) {
 			$project = OpenStackNovaProject::getProjectByName( $projectname );
 			if ( ! $project ) {
-				$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-nonexistentproject' ) );
-				$wgOut->addHTML( $out );
+				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-nonexistentproject' ) );
 				return true;
 			}
 			$role = OpenStackNovaRole::getProjectRoleByName( $formData['rolename'], $project );
@@ -254,21 +251,19 @@ class SpecialNovaRole extends SpecialNova {
 			$members = array( $formData['members'] );
 		}
 		if ( ! $role ) {
-			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-nonexistentrole' ) );
-			$wgOut->addHTML( $out );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-nonexistentrole' ) );
 			return true;
 		}
-		$out = '';
 		foreach ( $members as $member ) {
 			$success = $role->addMember( $member );
 			if ( $success ) {
-				$out .= Html::element( 'p', array(), wfMsgExt( 'openstackmanager-addedto', array(), $member, $formData['rolename'] ) );
+				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-addedto', $member, $formData['rolename'] ) );
 			} else {
-				$out .= Html::element( 'p', array(), wfMsgExt( 'openstackmanager-failedtoadd', array(), $member, $formData['rolename'] ) );
+				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-failedtoadd', $member, $formData['rolename'] ) );
 			}
 		}
-		$out .= '<br />';
 		$sk = $wgUser->getSkin();
+		$out = '<br />';
 		$returnto = Title::newFromText( $formData['returnto'] );
 		$out .= $sk->link( $returnto, wfMsg( 'openstackmanager-backprojectlist' ), array(), array(), array() );
 		$wgOut->addHTML( $out );
@@ -288,8 +283,7 @@ class SpecialNovaRole extends SpecialNova {
 		if ( $projectname ) {
 			$project = OpenStackNovaProject::getProjectByName( $projectname );
 			if ( ! $project ) {
-				$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-nonexistentproject' ) );
-				$wgOut->addHTML( $out );
+				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-nonexistentproject' ) );
 				return true;
 			}
 			$role = OpenStackNovaRole::getProjectRoleByName( $formData['rolename'], $project );
@@ -297,21 +291,19 @@ class SpecialNovaRole extends SpecialNova {
 			$role = OpenStackNovaRole::getGlobalRoleByName( $formData['rolename'] );
 		}
 		if ( ! $role ) {
-			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-nonexistentrole' ) );
-			$wgOut->addHTML( $out );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-nonexistentrole' ) );
 			return true;
 		}
-		$out = '';
 		foreach ( $formData['members'] as $member ) {
 			$success = $role->deleteMember( $member );
 			if ( $success ) {
-				$out .= Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removedfrom', array(), $member, $formData['rolename'] ) );
+				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-removedfrom', $member, $formData['rolename'] ) );
 			} else {
-				$out .= Html::element( 'p', array(), wfMsgExt( 'openstackmanager-failedtoremove', array(), $member, $formData['rolename'] ) );
+				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-failedtoremove', $member, $formData['rolename'] ) );
 			}
 		}
-		$out .= '<br />';
 		$sk = $wgUser->getSkin();
+		$out = '<br />';
 		$returnto = Title::newFromText( $formData['returnto'] );
 		$out .= $sk->link( $returnto, wfMsg( 'openstackmanager-backprojectlist' ), array(), array(), array() );
 		$wgOut->addHTML( $out );

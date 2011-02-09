@@ -262,7 +262,7 @@ class SpecialNovaInstance extends SpecialNova {
 		if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
 			$host = OpenStackNovaHost::getHostByInstanceId( $instanceid );
 			if ( ! $host ) {
-				$wgOut->addHTML( Html::element( 'p', array(), wfMsg( 'openstackmanager-nonexistanthost' ) ) );
+				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-nonexistenthost' ) );
 				return false;
 			}
 			$puppetinfo = $host->getPuppetConfiguration();
@@ -331,8 +331,7 @@ class SpecialNovaInstance extends SpecialNova {
 		}
 		$instanceid = $wgRequest->getText( 'instanceid' );
 		if ( ! $wgRequest->wasPosted() ) {
-			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-deleteinstancequestion', array(), $instanceid ) );
-			$wgOut->addHTML( $out );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-deleteinstancequestion', $instanceid ) );
 		}
 		$instanceInfo = array();
 		$instanceInfo['instanceid'] = array(
@@ -351,7 +350,6 @@ class SpecialNovaInstance extends SpecialNova {
 		$instanceForm->setTitle( SpecialPage::getTitleFor( 'NovaInstance' ) );
 		$instanceForm->setSubmitID( 'novainstance-form-deleteinstancesubmit' );
 		$instanceForm->setSubmitCallback( array( $this, 'tryDeleteSubmit' ) );
-		$instanceForm->setSubmitText( 'confirm' );
 		$instanceForm->show();
 
 		return true;
@@ -494,11 +492,9 @@ class SpecialNovaInstance extends SpecialNova {
 		global $wgOut, $wgUser;
 		global $wgOpenStackManagerPuppetOptions;
 
-		$sk = $wgUser->getSkin();
 		$domain = OpenStackNovaDomain::getDomainByName( $formData['domain'] );
 		if ( !$domain ) {
-			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-invaliddomain' ) );
-			$wgOut->addHtml( $out );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-invaliddomain' ) );
 			return true;
 		}
 		$instance = $this->userNova->createInstance( $formData['instancename'], $formData['imageType'], '', $formData['instanceType'], $formData['availabilityZone'], $formData['groups'] );
@@ -522,17 +518,17 @@ class SpecialNovaInstance extends SpecialNova {
 				$title = Title::newFromText( $wgOut->getPageTitle() );
 				$job = new OpenStackNovaHostJob( $title, array( 'instanceid' => $instance->getInstanceId() ) );
 				$job->insert();
-				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-createdinstance', array(),
-				                                              $instance->getInstanceID(), $instance->getImageId(),
-				                                              $host->getFullyQualifiedHostName() )  );
+				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-createdinstance', $instance->getInstanceID(), $instance->getImageId(), $host->getFullyQualifiedHostName() ) );
 			} else {
 				$this->userNova->terminateInstance( $instance->getInstanceId() );
-				$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-createfailedldap' ) );
+				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-createfailedldap' ) );
 			}
 			# TODO: also add puppet
 		} else {
-			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-createinstancefailed' ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-createeinstancefailed' ) );
 		}
+		$sk = $wgUser->getSkin();
+		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backinstancelist' ), array(), array(), array() );
 
 		$wgOut->addHTML( $out );
@@ -547,11 +543,9 @@ class SpecialNovaInstance extends SpecialNova {
 	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
 
-		$sk = $wgUser->getSkin();
 		$instance = $this->adminNova->getInstance( $formData['instanceid'] );
 		if ( ! $instance ) {
-			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-nonexistanthost' ) );
-			$wgOut->addHtml( $out );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-nonexistanthost' ) );
 			return true;
 		}
 		$instancename = $instance->getInstanceName();
@@ -560,13 +554,15 @@ class SpecialNovaInstance extends SpecialNova {
 		if ( $success ) {
 			$success = OpenStackNovaHost::deleteHostByInstanceId( $instanceid );
 			if ( $success ) {
-				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-deletedinstance', array(), $instanceid ) );
+				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-deletedinstance', $instanceid ) );
 			} else {
-				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-deletedinstance-faileddns', array(), $instancename, $instanceid ) );
+				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-deletedinstance-faileddns', $instancename, $instanceid ) );
 			}
 		} else {
-			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-deleteinstancefailed' ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-deleteinstancefailed' ) );
 		}
+		$sk = $wgUser->getSkin();
+		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backinstancelist' ), array(), array(), array() );
 
 		$wgOut->addHTML( $out );
@@ -582,7 +578,6 @@ class SpecialNovaInstance extends SpecialNova {
 		global $wgOut, $wgUser;
 		global $wgOpenStackManagerPuppetOptions;
 
-		$sk = $wgUser->getSkin();
 		$host = OpenStackNovaHost::getHostByInstanceId( $formData['instanceid'] );
 		if ( $host ) {
 			$puppetinfo = array();
@@ -600,13 +595,15 @@ class SpecialNovaInstance extends SpecialNova {
 			}
 			$success = $host->modifyPuppetConfiguration( $puppetinfo );
 			if ( $success ) {
-				$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-modifiedinstance' ) );
+				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-modifiedinstance' ) );
 			} else {
-				$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-modifyinstancefailed' ) );
+				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-modifyinstancefailed' ) );
 			}
 		} else {
-			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-nonexistanthost' ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-nonexistanthost' ) );
 		}
+		$sk = $wgUser->getSkin();
+		$out = '<br /';
 		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backinstancelist' ), array(), array(), array() );
 
 		$wgOut->addHTML( $out );

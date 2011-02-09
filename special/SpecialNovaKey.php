@@ -120,9 +120,8 @@ class SpecialNovaKey extends SpecialNova {
 			$hash = $wgRequest->getVal( 'hash' );
 			$keypairs = $this->userLDAP->getKeypairs();
 			if ( ! $wgRequest->wasPosted() ) {
-				$out = Html::element( 'pre', array(), $keypairs[$hash] );
-				$out .= Html::element( 'p', array(), wfMsg( 'openstackmanager-deletekeyconfirm' ) );
-				$wgOut->addHTML( $out );
+				$wgOut->addHTML( Html::element( 'pre', array(), $keypairs[$hash] ) );
+				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-deletekeyconfirm' ) );
 			}
 			$keyInfo['hash'] = array(
 				'type' => 'hidden',
@@ -141,7 +140,6 @@ class SpecialNovaKey extends SpecialNova {
 		$keyForm->setTitle( SpecialPage::getTitleFor( 'NovaKey' ) );
 		$keyForm->setSubmitID( 'novakey-form-deletekeysubmit' );
 		$keyForm->setSubmitCallback( array( $this, 'tryDeleteSubmit' ) );
-		$keyForm->setSubmitText( 'confirm' );
 		$keyForm->show();
 		return true;
 	}
@@ -191,7 +189,7 @@ class SpecialNovaKey extends SpecialNova {
 			}
 			$out .= Html::rawElement( 'table', array(), $keysOut );
 		} else {
-			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-invalidkeypair' ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-invalidkeypair' ) );
 		}
 
 		$wgOut->addHTML( $out );
@@ -209,23 +207,21 @@ class SpecialNovaKey extends SpecialNova {
 		if ( $wgOpenStackManagerNovaKeypairStorage == 'ldap' ) {
 			$success = $this->userLDAP->importKeypair( $formData['key'] );
 			if ( ! $success ) {
-				$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-keypairimportfailed' ) );
-				$wgOut->addHTML( $out );
+				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-keypairimportfailed' ) );
 				return true;
 			}
-			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-keypairimported' ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-keypairimported' ) );
 		} else if ( $wgOpenStackManagerNovaKeypairStorage == 'nova' ) {
 			# wgOpenStackManagerNovaKeypairStorage == 'nova'
 			# OpenStack's EC2 API doesn't yet support importing keys, use
 			# of this option isn't currently recommended
 			$keypair = $this->userNova->importKeypair( $formData['keyname'], $formData['key'] );
 
-			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-keypairimportedfingerprint', array(),
-			                                              $keypair->getKeyName(), $keypair->getKeyFingerprint() ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-keypairimportedfingerprint', $keypair->getKeyName(), $keypair->getKeyFingerprint() ) );
 		} else {
-			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-invalidkeypair' ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-invalidkeypair' ) );
 		}
-		$out .= '<br />';
+		$out = '<br />';
 		$sk = $wgUser->getSkin();
 		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backkeylist' ), array(), array(), array() );
 		$wgOut->addHTML( $out );
@@ -243,11 +239,11 @@ class SpecialNovaKey extends SpecialNova {
 
 		$success = $this->userLDAP->deleteKeypair( $formData['key'] );
 		if ( $success ) {
-			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-deletedkey' ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-deletedkey' ) );
 		} else {
-			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-deletedkeyfailed' ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-deletedkeyfailed' ) );
 		}
-		$out .= '<br />';
+		$out = '<br />';
 		$sk = $wgUser->getSkin();
 		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backkeylist' ), array(), array(), array() );
 		$wgOut->addHTML( $out );

@@ -61,8 +61,7 @@ class SpecialNovaAddress extends SpecialNova {
                 $userCredentials = $this->userLDAP->getCredentials( $project );
                 $this->userNova = new OpenStackNovaController( $userCredentials );
 		if ( ! $wgRequest->wasPosted() ) {
-			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-allocateaddress-confirm', array(), $project ) );
-			$wgOut->addHTML( $out );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-allocateaddress-confirm', $project ) );
 		}
 		$addressInfo = array();
 		$addressInfo['project'] = array(
@@ -101,8 +100,7 @@ class SpecialNovaAddress extends SpecialNova {
                 $this->userNova = new OpenStackNovaController( $userCredentials );
 		$ip = $wgRequest->getText( 'ip' );
 		if ( ! $wgRequest->wasPosted() ) {
-			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-releaseaddress-confirm', array(), $ip ) );
-			$wgOut->addHTML( $out );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-releaseaddress-confirm', $ip ) );
 		}
 		$addressInfo = array();
 		$addressInfo['project'] = array(
@@ -198,8 +196,7 @@ class SpecialNovaAddress extends SpecialNova {
                 $this->userNova = new OpenStackNovaController( $userCredentials );
 		$ip = $wgRequest->getText( 'ip' );
 		if ( ! $wgRequest->wasPosted() ) {
-			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-disassociateaddress-confirm', array(), $ip ) );
-			$wgOut->addHTML( $out );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-disassociateaddress-confirm', $ip ) );
 		}
 		$addressInfo = array();
 		$addressInfo['project'] = array(
@@ -298,8 +295,7 @@ class SpecialNovaAddress extends SpecialNova {
 		$domain = $wgRequest->getText( 'domain' );
 		$hostname = $wgRequest->getText( 'hostname' );
 		if ( ! $wgRequest->wasPosted() ) {
-			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removehost-confirm', array(), $hostname, $ip ) );
-			$wgOut->addHTML( $out );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-removehost-confirm', $hostname, $ip ) );
 		}
 		$addressInfo = array();
 		$addressInfo['project'] = array(
@@ -438,14 +434,13 @@ class SpecialNovaAddress extends SpecialNova {
 
 		$address = $this->userNova->allocateAddress();
 		if ( ! $address ) {
-			$out = Html::element( 'p', array(), wfMsg( 'openstackmanager-allocateaddressfailed' ) );
-			$wgOut->addHTML( $out );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-allocateaddressfailed' ) );
 			return true;
 		}
 		$ip = $address->getPublicIP();
-		$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-allocatedaddress' , array(), $ip ) );
-		$out .= '<br />';
+		$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-allocatedaddress', $ip ) );
 		$sk = $wgUser->getSkin();
+		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backaddresslist' ), array(), array(), array() );
 		$wgOut->addHTML( $out );
 
@@ -466,24 +461,22 @@ class SpecialNovaAddress extends SpecialNova {
 		# then release the address
 		$hosts = OpenStackNovaHost::getHostsByIP( $ip );
 		if ( $hosts ) {
-			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-cannotreleaseaddress', array(), $ip ) );
-			$wgOut->addHTML( $out );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-cannotreleaseaddress', $ip ) );
 			return true;
 		}
 		$address = $this->adminNova->getAddress( $ip );
 		if ( $address->getInstanceId() ) {
-			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-cannotreleaseaddress', array(), $ip ) );
-			$wgOut->addHTML( $out );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-cannotreleaseaddress', $ip ) );
 			return true;
 		}
 		$success = $this->userNova->releaseAddress( $ip );
 		if ( $success ) {
-			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-releasedaddress', array(), $ip ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-releasedaddress', $ip ) );
 		} else {
-			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-releaseaddressfailed', array(), $ip ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-releasedaddressfailed', $ip ) );
 		}
-		$out .= '<br />';
 		$sk = $wgUser->getSkin();
+		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backaddresslist' ), array(), array(), array() );
 		$wgOut->addHTML( $out );
 
@@ -502,12 +495,12 @@ class SpecialNovaAddress extends SpecialNova {
 		$ip = $formData['ip'];
 		$address = $this->userNova->associateAddress( $instanceid, $ip );
 		if ( $address ) {
-			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-associatedaddress', array(), $ip, $instanceid ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-associatedaddress', $ip, $instanceid ) );
 		} else {
-			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-associateaddressfailed', array(), $ip, $instanceid ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-associatedaddressfailed', $ip, $instanceid ) );
 		}
-		$out .= '<br />';
 		$sk = $wgUser->getSkin();
+		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backaddresslist' ), array(), array(), array() );
 		$wgOut->addHTML( $out );
 
@@ -525,12 +518,12 @@ class SpecialNovaAddress extends SpecialNova {
 		$ip = $formData['ip'];
 		$address = $this->userNova->disassociateAddress( $ip );
 		if ( $address ) {
-			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-disassociatedaddress', array(), $ip ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-disassociatedaddress', $ip ) );
 		} else {
-			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-disassociateaddressfailed', array(), $ip ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-disassociatedaddressfailed', $ip ) );
 		}
-		$out .= '<br />';
 		$sk = $wgUser->getSkin();
+		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backaddresslist' ), array(), array(), array() );
 		$wgOut->addHTML( $out );
 
@@ -549,13 +542,11 @@ class SpecialNovaAddress extends SpecialNova {
 		$project = $formData['project'];
 		$address = $this->adminNova->getAddress( $ip );
 		if ( ! $address ) {
-			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-invalidaddress', array(), $ip ) );
-			$wgOut->addHTML( $out );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-invalidaddress', $ip ) );
 			return true;
 		}
 		if ( $address->getProject() != $project ) {
-			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-invalidaddressforproject', array(), $ip ) );
-			$wgOut->addHTML( $out );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-invalidaddressforproject', $ip ) );
 			return true;
 		}
 		$hostname = $formData['hostname'];
@@ -568,29 +559,29 @@ class SpecialNovaAddress extends SpecialNova {
 			# We need to add an arecord, if the arecord doesn't already exist
 			$success = $hostbyname->addARecord( $ip );
 			if ( $success ) {
-				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-addedhost', array(), $hostname, $ip ) );
+				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-addedhost', $hostname, $ip ) );
 			} else {
-				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-addhostfailed', array(), $ip, $hostname ) );
+				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-addhostfailed', $ip, $hostname ) );
 			}
 		} else if ( $hostbyip ) {
 			# We need to add an associateddomain, if the associateddomain doesn't already exist
 			$success = $hostbyip->addAssociatedDomain( $hostname . '.' . $domain->getFullyQualifiedDomainName() );
 			if ( $success ) {
-				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-addedhost', array(), $hostname, $ip ) );
+				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-addedhost', $hostname, $ip ) );
 			} else {
-				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-addhostfailed', array(), $ip, $hostname ) );
+				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-addhostfailed', $ip, $hostname ) );
 			}
 		} else {
 			# This is a new host entry
 			$host = OpenStackNovaHost::addPublicHost( $hostname, $ip, $domain );
 			if ( $host ) {
-				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-addedhost', array(), $hostname, $ip ) );
+				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-addedhost', $hostname, $ip ) );
 			} else {
-				$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-addhostfailed', array(), $ip, $hostname ) );
+				$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-addhostfailed', $ip, $hostname ) );
 			}
 		}
-		$out .= '<br />';
 		$sk = $wgUser->getSkin();
+		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backaddresslist' ), array(), array(), array() );
 		$wgOut->addHTML( $out );
 		return true;
@@ -608,13 +599,11 @@ class SpecialNovaAddress extends SpecialNova {
 		$project = $formData['project'];
 		$address = $this->adminNova->getAddress( $ip );
 		if ( ! $address ) {
-			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-invalidaddress', array(), $ip ) );
-			$wgOut->addHTML( $out );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-invalidaddress', $ip ) );
 			return true;
 		}
 		if ( $address->getProject() != $project ) {
-			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-invalidaddressforproject', array(), $ip ) );
-			$wgOut->addHTML( $out );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-invalidaddressforproject', $ip ) );
 			return true;
 		}
 		$hostname = $formData['hostname'];
@@ -628,23 +617,23 @@ class SpecialNovaAddress extends SpecialNova {
 				# We need to keep the host, but remove the fqdn
 				$success = $host->deleteAssociatedDomain( $fqdn );
 				if ( $success ) {
-					$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removedhost', array(), $hostname, $ip ) );
+					$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-removedhost', $hostname, $ip ) );
 				} else {
-					$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removehostfailed', array(), $ip, $hostname ) );
+					$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-removehostfailed', $ip, $hostname ) );
 				}
 			} else {
 				# We need to remove the host entry
 				$success = OpenStackNovaHost::deleteHost( $hostname, $domain );
 				if ( $success ) {
-					$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removedhost', array(), $hostname, $ip ) );
+					$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-removedhost', $hostname, $ip ) );
 				} else {
-					$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-removehostfailed', array(), $ip, $hostname ) );
+					$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-removehostfailed', $ip, $hostname ) );
 				}
 			}
 		} else {
-			$out = Html::element( 'p', array(), wfMsgExt( 'openstackmanager-nonexistenthost', array() ) );
+			$wgOut->wrapWikiMsg( '<div>$1</div>', array( 'openstackmanager-nonexistenthost' ) );
 		}
-		$out .= '<br />';
+		$out = '<br />';
 		$sk = $wgUser->getSkin();
 		$out .= $sk->link( $this->getTitle(), wfMsg( 'openstackmanager-backaddresslist' ), array(), array(), array() );
 		$wgOut->addHTML( $out );
