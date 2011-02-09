@@ -640,12 +640,16 @@ class OpenStackNovaHost {
 				$hostEntry['puppetvar'][] = $variable . '="' . $value . '"';
 			}
 			if ( $puppetinfo ) {
-				foreach ( $puppetinfo['classes'] as $class ) {
-					$hostEntry['puppetclass'][] = $class;
+				if ( isset( $puppetinfo['classes'] ) ) {
+					foreach ( $puppetinfo['classes'] as $class ) {
+						$hostEntry['puppetclass'][] = $class;
+					}
 				}
-				foreach ( $puppetinfo['variables'] as $variable => $value ) {
-					if ( $value ) {
-						$hostEntry['puppetvar'][] = $variable . '="' . $value . '"';
+				if ( isset( $puppetinfo['variables'] ) ) {
+					foreach ( $puppetinfo['variables'] as $variable => $value ) {
+						if ( $value ) {
+							$hostEntry['puppetvar'][] = $variable . '="' . $value . '"';
+						}
 					}
 				}
 			}
