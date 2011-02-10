@@ -248,6 +248,7 @@ $messages['qqq'] = array(
 	'openstackmanager-desc' => '{{desc}}',
 	'openstackmanager-delete' => '{{Identical|Delete}}',
 	'openstackmanager-rename' => '{{Identical|Rename}}',
+	'openstackmanager-actions' => '{{Identical|Action}}',
 	'openstackmanager-notloggedin' => 'Page title',
 	'openstackmanager-nonovacred' => 'Page title',
 	'openstackmanager-createdomain' => 'Page title',
@@ -288,6 +289,16 @@ $messages['be-tarask'] = array(
 	'openstackmanager-delete' => 'выдаліць',
 	'openstackmanager-configure' => 'наладзіць',
 	'openstackmanager-rename' => 'перайменаваць',
+	'openstackmanager-actions' => 'Дзеяньні',
+	'openstackmanager-notloggedin' => 'Патрабуецца ўваход у сыстэму',
+	'openstackmanager-mustbeloggedin' => 'Вы павінны ўвайсьці ў сыстэму, каб выканаць гэтае дзеяньне.',
+	'openstackmanager-nonovacred' => 'Ня знойдзеныя пасьведчаньні Nova для Вашага рахунку.',
+	'openstackmanager-nonovacred-admincreate' => 'Ня знойдзеныя пасьведчаньні Nova для Вашага рахунку. Калі ласка, падайце запыт адміністратару Nova на стварэньне пасьведчаньняў для Вас.',
+	'openstackmanager-noaccount' => 'Ваш рахунак не запатрабаваны праектам.',
+	'openstackmanager-noaccount2' => 'Вы ня можаце скончыць запыт, таму што Ваш рахунак не запатрабаваны праектам.',
+	'openstackmanager-createdomain' => 'Стварыць дамэн',
+	'openstackmanager-deletedomain' => 'Выдаліць дамэн',
+	'openstackmanager-deletedomain-confirm' => 'Вы ўпэўнены, што жадаеце выдаліць дамэн «$1»? Гэтае дзеяньне паўплывае на ўсе VM. Добра падумайце перад тым як гэта зрабіць!',
 );
 
 /** Breton (Brezhoneg)
@@ -521,6 +532,15 @@ $messages['de'] = array(
 	'right-manageproject' => 'OpenStack-Projekte und Rollen verwalten',
 );
 
+/** Swiss German (Alemannisch)
+ * @author Als-Holder
+ */
+$messages['gsw'] = array(
+	'novasecuritygroup' => 'Firewall-Sicherheitsgruppe verwalte',
+	'novarole' => 'Wältwyti Rolle verwalte',
+	'openstackmanager-cannotreleaseaddress' => 'IP-Adrässe mit DNS-Yytreg oder wu ere Inschtanz zuegordnet sin, chenne nit frejgee wäre. Vor eme nomolige Frejgabeversuech mien alli Hostyytreg un Zueornige zue IP-Adrässen uusegnuu wäre.',
+);
+
 /** Interlingua (Interlingua)
  * @author McDutchie
  */
@@ -568,7 +588,7 @@ $messages['ia'] = array(
 	'openstackmanager-location-help' => 'Le campo "Loco" es pro zonas DNS private. Lassar vacue pro zonas public.',
 	'openstackmanager-novainstance-instance' => 'Instantia',
 	'openstackmanager-configureinstance' => 'Configurar instantia',
-	'openstackmanager-nonexistanthost' => 'Le hospite requestate non existe.',
+	'openstackmanager-nonexistanthost' => 'Le host requestate non existe.',
 	'openstackmanager-dnsdomain' => 'Dominio DNS',
 	'openstackmanager-puppetclasses' => 'Classes de marionettes',
 	'openstackmanager-novainstance-info' => 'Informationes del instantia',
@@ -585,11 +605,12 @@ $messages['ia'] = array(
 	'openstackmanager-availabilityzone' => 'Zona de disponibilitate',
 	'openstackmanager-imageid' => 'ID del imagine',
 	'openstackmanager-imagetype' => 'Typo del imagine',
+	'openstackmanager-instancetypelabel' => '{{PLURAL:$1|$1 CPU|$1 CPUs}}, $2 MB de RAM, $3 GB de immagazinage',
 	'openstackmanager-launchtime' => 'Hora de lanceamento',
 	'openstackmanager-createinstance' => 'Crear un nove instantia',
 	'openstackmanager-invaliddomain' => 'Le dominio requestate es invalide.',
-	'openstackmanager-createdinstance' => 'Instantia $1 create con imagine $2 e nomine de hospite $3.',
-	'openstackmanager-createfailedldap' => 'Impossibile crear le instantia proque le hospite non poteva esser addite a LDAP.',
+	'openstackmanager-createdinstance' => 'Instantia $1 create con imagine $2 e nomine de host $3.',
+	'openstackmanager-createfailedldap' => 'Impossibile crear le instantia proque le host non poteva esser addite a LDAP.',
 	'openstackmanager-createinstancefailed' => 'Falleva de crear instantia.',
 	'openstackmanager-backinstancelist' => 'Retornar al lista de instantias',
 	'openstackmanager-deletedinstance' => 'Instantia $1 delite',
@@ -657,6 +678,29 @@ $messages['ia'] = array(
 	'openstackmanager-reassociateaddress' => 'Reassociar adresse IP',
 	'openstackmanager-disassociateaddress' => 'Disassociar adresse IP',
 	'openstackmanager-allocateaddressfailed' => 'Falleva de allocar nove adresses IP public.',
+	'openstackmanager-allocatedaddress' => 'Nove adresse IP public allocate: $1',
+	'openstackmanager-backaddresslist' => 'Retornar al lista de adresses',
+	'openstackmanager-allocateaddress-confirm' => 'Es tu secur de voler allocar un nove adresse IP public in le projecto $1?',
+	'openstackmanager-releasedaddress' => 'Adresse liberate con successo: $1',
+	'openstackmanager-releaseaddressfailed' => 'Liberation de adresse fallite: $1',
+	'openstackmanager-cannotreleaseaddress' => 'Impossibile liberar un adresse que ha entratas DNS o es associate con un instantia. Per favor remove tote le entratas de host e disassocia le adresse IP ante de tentar liberar lo.',
+	'openstackmanager-associatedaddress' => '$1 associate con ID de instantia $2 con successo.',
+	'openstackmanager-associateaddressfailed' => 'Association de $1 con ID de instantia $2 fallite.',
+	'openstackmanager-disassociatedaddress' => '$1 disassociate con successo.',
+	'openstackmanager-disassociateaddressfailed' => 'Disassociation de $1 fallite.',
+	'openstackmanager-disassociateaddress-confirm' => 'Es tu secur de voler disassociar $1?',
+	'openstackmanager-releaseaddress-confirm' => 'Es tu secur de voler liberar $1?',
+	'openstackmanager-invalidaddress' => '$1 non es un valide adresse IP allocate.',
+	'openstackmanager-invalidaddressforproject' => '$1 non es in le projecto requestate.',
+	'openstackmanager-addedhost' => 'Entrata $1 addite con successo pro adresse IP $2.',
+	'openstackmanager-addhostfailed' => 'Addition de entrata $1 pro adresse IP $2 fallite.',
+	'openstackmanager-hostname' => 'Nomine de host',
+	'openstackmanager-hostnames' => 'Nomines de host',
+	'openstackmanager-addhost' => 'Adder nomine de host',
+	'openstackmanager-removehost' => 'Remover host',
+	'openstackmanager-removehost-action' => '(Remover nomine de host)',
+	'openstackmanager-removehost-confirm' => 'Es tu secur de voler remover le host $1 de $2?',
+	'openstackmanager-removedhost' => '$1 removite con successo.',
 );
 
 /** Kurdish (Latin) (Kurdî (Latin))
