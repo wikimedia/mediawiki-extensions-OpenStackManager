@@ -67,12 +67,14 @@ class SpecialNovaDomain extends SpecialNova {
 			'label-message' => 'openstackmanager-domainname',
 			'default' => '',
 			'section' => 'domain/info',
+			'name' => 'domainname',
 		);
 		$domainInfo['fqdn'] = array(
 			'type' => 'text',
 			'label-message' => 'openstackmanager-fqdn',
 			'default' => '',
 			'section' => 'domain/info',
+			'name' => 'fqdn',
 		);
 		$domainInfo['location'] = array(
 			'type' => 'text',
@@ -80,10 +82,12 @@ class SpecialNovaDomain extends SpecialNova {
 			'default' => '',
 			'section' => 'domain/info',
 			'help-message' => 'openstackmanager-location-help',
+			'name' => 'location',
 		);
 		$domainInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'create',
+			'name' => 'action',
 		);
 
 		$domainForm = new SpecialNovaDomainForm( $domainInfo, 'openstackmanager-novadomain' );
@@ -112,10 +116,12 @@ class SpecialNovaDomain extends SpecialNova {
 		$domainInfo['domainname'] = array(
 			'type' => 'hidden',
 			'default' => $domainname,
+			'name' => 'domainname',
 		);
 		$domainInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'delete',
+			'name' => 'action',
 		);
 		$domainForm = new SpecialNovaDomainForm( $domainInfo, 'openstackmanager-novadomain' );
 		$domainForm->setTitle( SpecialPage::getTitleFor( 'NovaDomain' ) );

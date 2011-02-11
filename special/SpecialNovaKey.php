@@ -59,6 +59,7 @@ class SpecialNovaKey extends SpecialNova {
 				'label-message' => 'openstackmanager-novakeyname',
 				'default' => '',
 				'section' => 'key/info',
+				'name' => 'keyname',
 			);
 		}
 
@@ -67,16 +68,19 @@ class SpecialNovaKey extends SpecialNova {
 			'section' => 'key/info',
 			'default' => '',
 			'label-message' => 'openstackmanager-novapublickey',
+			'name' => 'key',
 		);
 
 		$keyInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'import',
+			'name' => 'action',
 		);
 
 		$keyInfo['project'] = array(
 			'type' => 'hidden',
 			'default' => htmlentities( $project ),
+			'name' => 'project',
 		);
 
 		$keyForm = new SpecialNovaKeyForm( $keyInfo, 'openstackmanager-novakey' );
@@ -111,10 +115,12 @@ class SpecialNovaKey extends SpecialNova {
 			$keyInfo['keyname'] = array(
 				'type' => 'hidden',
 				'default' => $project,
+				'name' => 'keyname',
 			);
 			$keyInfo['project'] = array(
 				'type' => 'hidden',
 				'default' => $keyname,
+				'name' => 'project',
 			);
 		} else if ( $wgOpenStackManagerNovaKeypairStorage == 'ldap' ) {
 			$hash = $wgRequest->getVal( 'hash' );
@@ -126,15 +132,18 @@ class SpecialNovaKey extends SpecialNova {
 			$keyInfo['hash'] = array(
 				'type' => 'hidden',
 				'default' => $hash,
+				'name' => 'hash',
 			);
 		}
 		$keyInfo['key'] = array(
 			'type' => 'hidden',
 			'default' => $keypairs[$hash],
+			'name' => 'key',
 		);
 		$keyInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'delete',
+			'name' => 'action',
 		);
 		$keyForm = new SpecialNovaKeyForm( $keyInfo, 'openstackmanager-novakey' );
 		$keyForm->setTitle( SpecialPage::getTitleFor( 'NovaKey' ) );

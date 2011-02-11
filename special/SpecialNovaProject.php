@@ -57,11 +57,13 @@ class SpecialNovaProject extends SpecialNova {
 			'validation-callback' => array( $this, 'validateProjectName' ),
 			'default' => '',
 			'section' => 'project/info',
+			'name' => 'projectname',
 		);
 
 		$projectInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'create',
+			'name' => 'action',
 		);
 
 		$projectForm = new SpecialNovaProjectForm( $projectInfo, 'openstackmanager-novaproject' );
@@ -94,14 +96,17 @@ class SpecialNovaProject extends SpecialNova {
 			'label-message' => 'openstackmanager-member',
 			'default' => '',
 			'section' => 'project/info',
+			'name' => 'member',
 		);
 		$projectInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'addmember',
+			'name' => 'action',
 		);
 		$projectInfo['projectname'] = array(
 			'type' => 'hidden',
 			'default' => $project,
+			'name' => 'projectname',
 		);
 
 		$projectForm = new SpecialNovaProjectForm( $projectInfo, 'openstackmanager-novaproject' );
@@ -140,14 +145,17 @@ class SpecialNovaProject extends SpecialNova {
 			'label-message' => 'openstackmanager-member',
 			'section' => 'project/info',
 			'options' => $member_keys,
+			'name' => 'members',
 		);
 		$projectInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'deletemember',
+			'name' => 'action',
 		);
 		$projectInfo['projectname'] = array(
 			'type' => 'hidden',
 			'default' => $projectname,
+			'name' => 'projectname',
 		);
 
 		$projectForm = new SpecialNovaProjectForm( $projectInfo, 'openstackmanager-novaproject' );
@@ -181,10 +189,12 @@ class SpecialNovaProject extends SpecialNova {
 		$projectInfo['projectname'] = array(
 			'type' => 'hidden',
 			'default' => $project,
+			'name' => 'projectname',
 		);
 		$projectInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'delete',
+			'name' => 'action',
 		);
 		$projectForm = new SpecialNovaProjectForm( $projectInfo, 'openstackmanager-novaproject' );
 		$projectForm->setTitle( SpecialPage::getTitleFor( 'NovaProject' ) );

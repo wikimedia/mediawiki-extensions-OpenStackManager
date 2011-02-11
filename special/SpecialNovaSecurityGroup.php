@@ -62,20 +62,24 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 			'type' => 'text',
 			'label-message' => 'openstackmanager-securitygroupname',
 			'default' => '',
+			'name' => 'groupname',
 		);
 		$securityGroupInfo['description'] = array(
 			'type' => 'text',
 			'label-message' => 'openstackmanager-securitygroupdescription',
 			'default' => '',
+			'name' => 'description',
 		);
 		$securityGroupInfo['project'] = array(
 			'type' => 'hidden',
 			'default' => $project,
+			'name' => 'project',
 		);
 
 		$securityGroupInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'create',
+			'name' => 'action',
 		);
 
 		$securityGroupForm = new SpecialNovaSecurityGroupForm( $securityGroupInfo, 'openstackmanager-novasecuritygroup' );
@@ -110,20 +114,24 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		$securityGroupInfo['groupname'] = array(
 			'type' => 'hidden',
 			'default' => $securitygroupname,
+			'name' => 'groupname',
 		);
 		$securityGroupInfo['description'] = array(
 			'type' => 'text',
 			'label-message' => 'openstackmanager-securitygroupdescription',
 			'default' => $description,
+			'name' => 'description',
 		);
 		$securityGroupInfo['project'] = array(
 			'type' => 'hidden',
 			'default' => $project,
+			'name' => 'project',
 		);
 
 		$securityGroupInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'configure',
+			'name' => 'action',
 		);
 
 		$securityGroupForm = new SpecialNovaSecurityGroupForm( $securityGroupInfo, 'openstackmanager-novasecuritygroup' );
@@ -158,14 +166,17 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		$securityGroupInfo['groupname'] = array(
 			'type' => 'hidden',
 			'default' => $securitygroupname,
+			'name' => 'groupname',
 		);
 		$securityGroupInfo['project'] = array(
 			'type' => 'hidden',
 			'default' => $project,
+			'name' => 'project',
 		);
 		$securityGroupInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'delete',
+			'name' => 'action',
 		);
 		$securityGroupForm = new SpecialNovaSecurityGroupForm( $securityGroupInfo, 'openstackmanager-novasecuritygroup' );
 		$securityGroupForm->setTitle( SpecialPage::getTitleFor( 'NovaSecurityGroup' ) );
@@ -332,41 +343,49 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		$securityGroupInfo['groupname'] = array(
 			'type' => 'hidden',
 			'default' => $securitygroupname,
+			'name' => 'groupname',
 		);
 		$securityGroupInfo['project'] = array(
 			'type' => 'hidden',
 			'default' => $project,
+			'name' => 'project',
 		);
 		$securityGroupInfo['fromport'] = array(
 			'type' => 'text',
 			'label-message' => 'openstackmanager-securitygrouprule-fromport',
 			'default' => '',
+			'name' => 'fromport',
 		);
 		$securityGroupInfo['toport'] = array(
 			'type' => 'text',
 			'label-message' => 'openstackmanager-securitygrouprule-toport',
 			'default' => '',
+			'name' => 'toport',
 		);
 		$securityGroupInfo['protocol'] = array(
 			'type' => 'select',
 			'label-message' => 'openstackmanager-securitygrouprule-protocol',
 			'options' => array( '' => '', 'icmp' => 'icmp', 'tcp' => 'tcp', 'udp' => 'udp' ),
+			'name' => 'protocol',
 		);
 		$securityGroupInfo['ranges'] = array(
 			'type' => 'text',
 			'label-message' => 'openstackmanager-securitygrouprule-ranges',
 			'help-message' => 'openstackmanager-securitygrouprule-ranges-help',
 			'default' => '',
+			'name' => 'ranges',
 		);
 		$securityGroupInfo['groups'] = array(
 			'type' => 'multiselect',
 			'label-message' => 'openstackmanager-securitygrouprule-groups',
 			'help-message' => 'openstackmanager-securitygrouprule-groups-help',
 			'options' => $group_keys,
+			'name' => 'groups',
 		);
 		$securityGroupInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'addrule',
+			'name' => 'action',
 		);
 		$securityGroupForm = new SpecialNovaSecurityGroupForm( $securityGroupInfo, 'openstackmanager-novasecuritygroup' );
 		$securityGroupForm->setTitle( SpecialPage::getTitleFor( 'NovaSecurityGroup' ) );
@@ -399,38 +418,46 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		$securityGroupInfo['groupname'] = array(
 			'type' => 'hidden',
 			'default' => $securitygroupname,
+			'name' => 'groupname',
 		);
 		$securityGroupInfo['project'] = array(
 			'type' => 'hidden',
 			'default' => $project,
+			'name' => 'project',
 		);
 		$securityGroupInfo['fromport'] = array(
 			'type' => 'hidden',
 			'default' => $wgRequest->getText( 'fromport' ),
+			'name' => 'fromport',
 		);
 		$securityGroupInfo['toport'] = array(
 			'type' => 'hidden',
 			'default' => $wgRequest->getText( 'toport' ),
+			'name' => 'toport',
 		);
 		$securityGroupInfo['protocol'] = array(
 			'type' => 'hidden',
 			'default' => $wgRequest->getText( 'protocol' ),
+			'name' => 'protocol',
 		);
 		if ( $wgRequest->getText( 'ranges' ) ) {
 			$securityGroupInfo['ranges'] = array(
 				'type' => 'hidden',
 				'default' => $wgRequest->getText( 'ranges' ),
+				'name' => 'ranges',
 			);
 		}
 		if ( $wgRequest->getText( 'groups' ) ) {
 			$securityGroupInfo['groups'] = array(
 				'type' => 'hidden',
 				'default' => $wgRequest->getText( 'groups' ),
+				'name' => 'groups',
 			);
 		}
 		$securityGroupInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'removerule',
+			'name' => 'action',
 		);
 		$securityGroupForm = new SpecialNovaSecurityGroupForm( $securityGroupInfo, 'openstackmanager-novasecuritygroup' );
 		$securityGroupForm->setTitle( SpecialPage::getTitleFor( 'NovaSecurityGroup' ) );

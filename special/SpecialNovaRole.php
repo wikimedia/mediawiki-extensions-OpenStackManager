@@ -69,6 +69,7 @@ class SpecialNovaRole extends SpecialNova {
 				'label-message' => 'openstackmanager-member',
 				'options' => $member_keys,
 				'section' => 'role/info',
+				'name' => 'members',
 			);
 		} else {
 			if ( !$this->userCanExecute( $wgUser ) ) {
@@ -80,23 +81,28 @@ class SpecialNovaRole extends SpecialNova {
 				'label-message' => 'openstackmanager-member',
 				'default' => '',
 				'section' => 'role/info',
+				'name' => 'members',
 			);
 		}
 		$roleInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'addmember',
+			'name' => 'action',
 		);
 		$roleInfo['rolename'] = array(
 			'type' => 'hidden',
 			'default' => $rolename,
+			'name' => 'rolename',
 		);
 		$roleInfo['projectname'] = array(
 			'type' => 'hidden',
 			'default' => $projectname,
+			'name' => 'projectname',
 		);
 		$roleInfo['returnto'] = array(
 			'type' => 'hidden',
 			'default' => $wgRequest->getText('returnto'),
+			'name' => 'returnto',
 		);
 
 		$roleForm = new SpecialNovaRoleForm( $roleInfo, 'openstackmanager-novarole' );
@@ -157,22 +163,27 @@ class SpecialNovaRole extends SpecialNova {
 			'label-message' => 'openstackmanager-member',
 			'options' => $member_keys,
 			'section' => 'role/info',
+			'name' => 'members',
 		);
 		$roleInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'deletemember',
+			'name' => 'action',
 		);
 		$roleInfo['rolename'] = array(
 			'type' => 'hidden',
 			'default' => $rolename,
+			'name' => 'rolename',
 		);
 		$roleInfo['projectname'] = array(
 			'type' => 'hidden',
 			'default' => $projectname,
+			'name' => 'projectname',
 		);
 		$roleInfo['returnto'] = array(
 			'type' => 'hidden',
 			'default' => $wgRequest->getText('returnto'),
+			'name' => 'returnto',
 		);
 
 		$roleForm = new SpecialNovaRoleForm( $roleInfo, 'openstackmanager-novarole' );

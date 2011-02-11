@@ -67,10 +67,12 @@ class SpecialNovaAddress extends SpecialNova {
 		$addressInfo['project'] = array(
 			'type' => 'hidden',
 			'default' => $project,
+			'name' => 'project',
 		);
 		$addressInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'allocate',
+			'name' => 'action',
 		);
 
 		$addressForm = new SpecialNovaAddressForm( $addressInfo, 'openstackmanager-novaaddress' );
@@ -106,14 +108,17 @@ class SpecialNovaAddress extends SpecialNova {
 		$addressInfo['project'] = array(
 			'type' => 'hidden',
 			'default' => $project,
+			'name' => 'project',
 		);
 		$addressInfo['ip'] = array(
 			'type' => 'hidden',
 			'default' => $ip,
+			'name' => 'ip',
 		);
 		$addressInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'release',
+			'name' => 'action',
 		);
 		$addressForm = new SpecialNovaAddressForm( $addressInfo, 'openstackmanager-novaaddress' );
 		$addressForm->setTitle( SpecialPage::getTitleFor( 'NovaAddress' ) );
@@ -155,19 +160,23 @@ class SpecialNovaAddress extends SpecialNova {
 		$addressInfo['project'] = array(
 			'type' => 'hidden',
 			'default' => $project,
+			'name' => 'project',
 		);
 		$addressInfo['ip'] = array(
 			'type' => 'hidden',
 			'default' => $ip,
+			'name' => 'ip',
 		);
 		$addressInfo['instanceid'] = array(
 			'type' => 'select',
 			'label-message' => 'openstackmanager-instancename',
 			'options' => $instance_keys,
+			'name' => 'instanceid',
 		);
 		$addressInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'associate',
+			'name' => 'action',
 		);
 		$addressForm = new SpecialNovaAddressForm( $addressInfo, 'openstackmanager-novaaddress' );
 		$addressForm->setTitle( SpecialPage::getTitleFor( 'NovaAddress' ) );
@@ -202,14 +211,17 @@ class SpecialNovaAddress extends SpecialNova {
 		$addressInfo['project'] = array(
 			'type' => 'hidden',
 			'default' => $project,
+			'name' => 'project',
 		);
 		$addressInfo['ip'] = array(
 			'type' => 'hidden',
 			'default' => $ip,
+			'name' => 'ip',
 		);
 		$addressInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'disassociate',
+			'name' => 'action',
 		);
 		$addressForm = new SpecialNovaAddressForm( $addressInfo, 'openstackmanager-novaaddress' );
 		$addressForm->setTitle( SpecialPage::getTitleFor( 'NovaAddress' ) );
@@ -240,16 +252,19 @@ class SpecialNovaAddress extends SpecialNova {
 		$addressInfo['project'] = array(
 			'type' => 'hidden',
 			'default' => $project,
+			'name' => 'project',
 		);
 		$addressInfo['ip'] = array(
 			'type' => 'hidden',
 			'default' => $ip,
+			'name' => 'ip',
 		);
 		$addressInfo['hostname'] = array(
 			'type' => 'text',
 			'default' => '',
 			'validation-callback' => array( $this, 'validateHostName' ),
 			'label-message' => 'openstackmanager-hostname',
+			'name' => 'hostname',
 		);
 		$domains = OpenStackNovaDomain::getAllDomains( 'public' );
 		$domain_keys = array();
@@ -261,10 +276,12 @@ class SpecialNovaAddress extends SpecialNova {
 			'type' => 'select',
 			'options' => $domain_keys,
 			'label-message' => 'openstackmanager-dnsdomain',
+			'name' => 'domain',
 		);
 		$addressInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'addhost',
+			'name' => 'action',
 		);
 		$addressForm = new SpecialNovaAddressForm( $addressInfo, 'openstackmanager-novaaddress' );
 		$addressForm->setTitle( SpecialPage::getTitleFor( 'NovaAddress' ) );
@@ -301,22 +318,27 @@ class SpecialNovaAddress extends SpecialNova {
 		$addressInfo['project'] = array(
 			'type' => 'hidden',
 			'default' => $project,
+			'name' => 'project',
 		);
 		$addressInfo['ip'] = array(
 			'type' => 'hidden',
 			'default' => $ip,
+			'name' => 'ip',
 		);
 		$addressInfo['domain'] = array(
 			'type' => 'hidden',
 			'default' => $domain,
+			'name' => 'domain',
 		);
 		$addressInfo['hostname'] = array(
 			'type' => 'hidden',
 			'default' => $hostname,
+			'name' => 'hostname',
 		);
 		$addressInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'removehost',
+			'name' => 'action',
 		);
 		$addressForm = new SpecialNovaAddressForm( $addressInfo, 'openstackmanager-novaaddress' );
 		$addressForm->setTitle( SpecialPage::getTitleFor( 'NovaAddress' ) );

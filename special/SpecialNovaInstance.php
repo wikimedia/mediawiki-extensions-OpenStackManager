@@ -86,6 +86,7 @@ class SpecialNovaInstance extends SpecialNova {
 			'validation-callback' => array( $this, 'validateInstanceName' ),
 			'default' => '',
 			'section' => 'instance/info',
+			'name' => 'instancename',
 		);
 
 		$instanceTypes = $this->adminNova->getInstanceTypes();
@@ -103,6 +104,7 @@ class SpecialNovaInstance extends SpecialNova {
 			'label-message' => 'openstackmanager-instancetype',
 			'section' => 'instance/info',
 			'options' => $instanceType_keys,
+			'name' => 'instanceType',
 		);
 
 		# Availability zone names can't be translated. Get the keys, and make an array
@@ -117,6 +119,7 @@ class SpecialNovaInstance extends SpecialNova {
 			'section' => 'instance/info',
 			'options' => $availabilityZone_keys,
 			'label-message' => 'openstackmanager-availabilityzone',
+			'name' => 'availabilityZone',
 		);
 
 		# Image names can't be translated. Get the image, and make an array
@@ -145,6 +148,7 @@ class SpecialNovaInstance extends SpecialNova {
 			'section' => 'instance/info',
 			'options' => $image_keys,
 			'label-message' => 'openstackmanager-imagetype',
+			'name' => 'imageType',
 		);
 
 		# Keypair names can't be translated. Get the keys, and make an array
@@ -173,6 +177,7 @@ class SpecialNovaInstance extends SpecialNova {
 			'section' => 'instance/info',
 			'options' => $domain_keys,
 			'label-message' => 'openstackmanager-dnsdomain',
+			'name' => 'domain',
 		);
 
 		$securityGroups = $this->adminNova->getSecurityGroups();
@@ -188,11 +193,13 @@ class SpecialNovaInstance extends SpecialNova {
 			'section' => 'instance/info',
 			'options' => $group_keys,
 			'label-message' => 'openstackmanager-securitygroups',
+			'name' => 'groups',
 		);
 
 		$instanceInfo['project'] = array(
 			'type' => 'hidden',
 			'default' => $project,
+			'name' => 'project',
 		);
 
 		if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
@@ -206,6 +213,7 @@ class SpecialNovaInstance extends SpecialNova {
 					'section' => 'instance/puppetinfo',
 					'options' => $classes,
 					'label-message' => 'openstackmanager-puppetclasses',
+					'name' => 'puppetclasses',
 				);
 			}
 
@@ -215,6 +223,7 @@ class SpecialNovaInstance extends SpecialNova {
 						'type' => 'text',
 						'section' => 'instance/puppetinfo',
 						'label' => $variable,
+						'name' => "$variable",
 					);
 				}
 			}
@@ -223,6 +232,7 @@ class SpecialNovaInstance extends SpecialNova {
 		$instanceInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'create',
+			'name' => 'action',
 		);
 
 		$instanceForm = new SpecialNovaInstanceForm( $instanceInfo, 'openstackmanager-novainstance' );
@@ -231,6 +241,7 @@ class SpecialNovaInstance extends SpecialNova {
 		$instanceForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
 		$instanceForm->show();
 
+		return true;
 	}
 
 	/**
@@ -253,10 +264,12 @@ class SpecialNovaInstance extends SpecialNova {
 		$instanceInfo['instanceid'] = array(
 			'type' => 'hidden',
 			'default' => $instanceid,
+			'name' => 'instanceid',
 		);
 		$instanceInfo['project'] = array(
 			'type' => 'hidden',
 			'default' => $project,
+			'name' => 'project',
 		);
 
 		if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
@@ -282,6 +295,7 @@ class SpecialNovaInstance extends SpecialNova {
 					'options' => $classes,
 					'default' => $defaults,
 					'label-message' => 'openstackmanager-puppetclasses',
+					'name' => 'puppetclasses',
 				);
 			}
 
@@ -296,6 +310,7 @@ class SpecialNovaInstance extends SpecialNova {
 						'section' => 'instance/puppetinfo',
 						'label' => $variable,
 						'default' => $default,
+						'name' => "$variable",
 					);
 				}
 			}
@@ -304,6 +319,7 @@ class SpecialNovaInstance extends SpecialNova {
 		$instanceInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'configure',
+			'name' => 'action',
 		);
 
 		$instanceForm = new SpecialNovaInstanceForm( $instanceInfo, 'openstackmanager-novainstance' );
@@ -337,14 +353,17 @@ class SpecialNovaInstance extends SpecialNova {
 		$instanceInfo['instanceid'] = array(
 			'type' => 'hidden',
 			'default' => $instanceid,
+			'name' => 'instanceid',
 		);
 		$instanceInfo['project'] = array(
 			'type' => 'hidden',
 			'default' => $project,
+			'name' => 'project',
 		);
 		$instanceInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'delete',
+			'name' => 'action',
 		);
 		$instanceForm = new SpecialNovaInstanceForm( $instanceInfo, 'openstackmanager-novainstance' );
 		$instanceForm->setTitle( SpecialPage::getTitleFor( 'NovaInstance' ) );
