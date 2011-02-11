@@ -55,7 +55,7 @@ class OpenStackNovaUser {
 		global $wgAuth;
 
 		$this->fetchUserInfo();
-		if ( $this->userInfo[0]['sshpublickey'] ) {
+		if ( isset( $this->userInfo[0]['sshpublickey'] ) ) {
 			$keys = $this->userInfo[0]['sshpublickey'];
 			$keypairs = array();
 			array_shift( $keys );
@@ -418,6 +418,7 @@ class OpenStackNovaUser {
 	 */
 	static function LDAPSetCreationValues( $auth, $username, &$values, &$result ) {
 		global $wgOpenStackManagerLDAPDefaultGid;
+		global $wgOpenStackManagerLDAPDefaultShell;
 		global $wgRequest;
 		global $wgAuth;
 
@@ -464,6 +465,7 @@ class OpenStackNovaUser {
 		$values['uidnumber'] = $uidnumber;
 		$values['gidnumber'] = $wgOpenStackManagerLDAPDefaultGid;
 		$values['homedirectory'] = '/home/' . $username;
+		$values['loginshell'] = $wgOpenStackManagerLDAPDefaultShell;
 
 		$auth->printDebug( "User account's objectclasses: ", NONSENSITIVE, $values['objectclass'] );
 		$auth->printDebug( "User account's attributes: ", HIGHLYSENSITIVE, $values );

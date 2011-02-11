@@ -631,6 +631,7 @@ class OpenStackNovaHost {
 		$hostEntry['arecord'] = $ip;
 		$hostEntry['associateddomain'][] = $instanceid . '.' . $domainname;
 		$hostEntry['associateddomain'][] = $hostname . '.' . $domainname;
+		$hostEntry['l'] = $domain->getLocation();
 		if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
 			$hostEntry['objectclass'][] = 'puppetclient';
 			foreach ( $wgOpenStackManagerPuppetOptions['defaultclasses'] as $class ) {

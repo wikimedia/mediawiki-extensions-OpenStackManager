@@ -53,6 +53,7 @@ $wgOpenStackManagerLDAPGlobalRoles = array(
 $wgOpenStackManagerLDAPRolesIntersect = false;
 $wgOpenStackManagerLDAPInstanceBaseDN = '';
 $wgOpenStackManagerLDAPDefaultGid = '500';
+$wgOpenStackManagerLDAPDefaultShell = '/bin/bash';
 $wgOpenStackManagerDNSServers = array( 'primary' => 'localhost', 'secondary' => 'localhost' );
 $wgOpenStackManagerDNSSOA = array(
 	'hostmaster' => 'hostmaster@localhost.localdomain',
