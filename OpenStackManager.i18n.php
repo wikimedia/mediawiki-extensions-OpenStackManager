@@ -16,7 +16,7 @@ $messages = array();
  * @author Sam Reed <reedy@wikimedia.org>
  */
 $messages['en'] = array(
-	'openstackmanager-desc' => 'Lets users manage Nova and Swift.',
+	'openstackmanager-desc' => 'Lets users manage Nova and Swift',
 
 	'openstackmanager' => 'OpenStackManager',
 	'openstackmanager-instance' => 'Manage instance',
