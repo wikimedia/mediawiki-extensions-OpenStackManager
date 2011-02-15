@@ -487,6 +487,7 @@ class SpecialNovaInstance extends SpecialNova {
 			$out .= Html::element( 'h2', array(), $project );
 			$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-createinstance' ), array(),
 							   array( 'action' => 'create', 'project' => $project ) );
+			$out .= ' ' . $sk->link( Special::getTitleFor( 'NovaAddress' ), wfMsgHtml( 'openstackmanager-allocateips' ) );
 			if ( isset( $projectArr["$project"] ) ) {
 				$projectOut = $header;
 				$projectOut .= $projectArr["$project"];
