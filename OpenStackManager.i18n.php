@@ -266,8 +266,8 @@ $messages['qqq'] = array(
 	'openstackmanager-createproject' => 'Page title',
 	'openstackmanager-projectlist' => 'Page title',
 	'openstackmanager-deleteproject' => 'Page title',
-	'openstackmanager-createinstance' => 'Header shown in Special:NovaInstance for its create action'
-	'openstackmanager-allocateips' => 'Header shown in Special:NovaInstance for linking to Special:NovaAddress'
+	'openstackmanager-createinstance' => 'Header shown in Special:NovaInstance for its create action',
+	'openstackmanager-allocateips' => 'Header shown in Special:NovaInstance for linking to Special:NovaAddress',
 );
 
 /** Belarusian (Taraškievica orthography) (‪Беларуская (тарашкевіца)‬)
