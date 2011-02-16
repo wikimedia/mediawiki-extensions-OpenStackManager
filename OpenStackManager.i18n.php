@@ -258,6 +258,8 @@ $messages['qqq'] = array(
 	'openstackmanager-location' => '{{Identical|Location}}',
 	'openstackmanager-configureinstance' => 'Page title',
 	'openstackmanager-instancelist' => 'Page title',
+	'openstackmanager-createinstance' => 'Header shown in Special:NovaInstance for its create action',
+	'openstackmanager-allocateips' => 'Header shown in Special:NovaInstance for linking to Special:NovaAddress',
 	'openstackmanager-deletekey' => 'Page title',
 	'openstackmanager-keylist' => 'Page title',
 	'openstackmanager-importkey' => 'Page title',
@@ -266,8 +268,6 @@ $messages['qqq'] = array(
 	'openstackmanager-createproject' => 'Page title',
 	'openstackmanager-projectlist' => 'Page title',
 	'openstackmanager-deleteproject' => 'Page title',
-	'openstackmanager-createinstance' => 'Header shown in Special:NovaInstance for its create action',
-	'openstackmanager-allocateips' => 'Header shown in Special:NovaInstance for linking to Special:NovaAddress',
 );
 
 /** Belarusian (Taraškievica orthography) (‪Беларуская (тарашкевіца)‬)
@@ -320,10 +320,20 @@ $messages['be-tarask'] = array(
 	'openstackmanager-configureinstance' => 'Канфігураваць экзэмпляр',
 	'openstackmanager-nonexistanthost' => 'Запатрабаваны хост не існуе.',
 	'openstackmanager-dnsdomain' => 'DNS-дамэн',
+	'openstackmanager-novainstance-info' => 'Неабходная інфармацыя',
+	'openstackmanager-instancetype' => 'Неабходны тып',
+	'openstackmanager-securitygroups' => 'Групы бясьпекі',
+	'openstackmanager-availabilityzone' => 'Зона працаздольнасьці',
+	'openstackmanager-imageid' => 'Ідэнтыфікатар выявы',
+	'openstackmanager-imagetype' => 'Тып выявы',
+	'openstackmanager-instancetypelabel' => '{{PLURAL:$1|$1 CPU|$1 CPU}}, $2 MB RAM, памяць $3 GB',
+	'openstackmanager-launchtime' => 'Час пачатку',
+	'openstackmanager-allocateips' => 'Разьмясьціць IP-адрасы',
 );
 
 /** Breton (Brezhoneg)
  * @author Fulup
+ * @author Y-M D
  */
 $messages['br'] = array(
 	'openstackmanager-novadomain' => 'Domani Nova',
@@ -344,6 +354,7 @@ $messages['br'] = array(
 	'openstackmanager-domainlist' => 'Roll an domanioù',
 	'openstackmanager-backdomainlist' => 'Distreiñ da roll an domanioù',
 	'openstackmanager-domainname' => 'Anv domani',
+	'openstackmanager-location' => "Lec'hiadur",
 	'openstackmanager-dnsdomain' => 'Domani DNS',
 	'openstackmanager-deletekey' => "Diverkañ an alc'hwez",
 	'openstackmanager-importkey' => "Enporzhiañ un alc'hwez nevez",
@@ -358,6 +369,8 @@ $messages['br'] = array(
 	'openstackmanager-novaproject-info' => 'Titouroù diwar-benn ar raktres',
 	'openstackmanager-roles' => 'Roloù',
 	'openstackmanager-rolename' => 'Anv ar rol',
+	'openstackmanager-securitygroupdescription' => 'Deskrivadur',
+	'openstackmanager-securitygrouprule' => 'Reolennoù',
 );
 
 /** German (Deutsch)
@@ -428,6 +441,7 @@ $messages['de'] = array(
 	'openstackmanager-instancetypelabel' => '{{PLURAL:$1|$1 CPU|$1 CPUs}}, $2 MB RAM, $3 GB Speicher',
 	'openstackmanager-launchtime' => 'Startzeit',
 	'openstackmanager-createinstance' => 'Neue Instanz erstellen',
+	'openstackmanager-allocateips' => 'IP-Adressen zuweisen',
 	'openstackmanager-invaliddomain' => 'Die angeforderte Domain ist ungültig.',
 	'openstackmanager-createdinstance' => 'Die Instanz $1 mit Image $2 und Hostname $3 wurde erstellt.',
 	'openstackmanager-createfailedldap' => 'Die Instanz konnte nicht erstellt werden, da der Host nicht zu LDAP hinzugefügt werden konnte.',
@@ -1037,6 +1051,7 @@ $messages['mk'] = array(
 	'openstackmanager-instancetypelabel' => '{{PLURAL:$1|$1 обработувач|$1 обработувачи}}, RAM: $2 МБ, склад: $3 ГБ',
 	'openstackmanager-launchtime' => 'Време на пуштање',
 	'openstackmanager-createinstance' => 'Создај нов примерок',
+	'openstackmanager-allocateips' => 'Додели IP-адреса',
 	'openstackmanager-invaliddomain' => 'Побараниот домен е неважечки.',
 	'openstackmanager-createdinstance' => 'Создаден примерокот $1 со слика $2 и домаќин $3.',
 	'openstackmanager-createfailedldap' => 'Не успеав да го создадам примерокот бидејќи не можев да го додадам домаќинот во LDAP.',
@@ -1245,6 +1260,7 @@ $messages['nl'] = array(
 	'openstackmanager-instancetypelabel' => "{{PLURAL:$1|$1 CPU|$1 CPU's}}, $2 MB RAM, $3 GB opslag",
 	'openstackmanager-launchtime' => 'Starttijd',
 	'openstackmanager-createinstance' => 'Nieuwe instantie aanmaken',
+	'openstackmanager-allocateips' => 'IP-adressen toewijzen',
 	'openstackmanager-invaliddomain' => 'Het opgegeven domein is ongeldig.',
 	'openstackmanager-createdinstance' => 'De instantie $1 met het image $2 en hostnaam $3 is aangemaakt.',
 	'openstackmanager-createfailedldap' => 'Het aanmaken van de instantie is mislukt omdat de host niet toegevoegd kon worden aan LDAP.',
@@ -1329,6 +1345,8 @@ $messages['nl'] = array(
 	'openstackmanager-releaseaddress-confirm' => 'Weet u zeker dat u $1 wilt vrijgeven?',
 	'openstackmanager-invalidaddress' => '$1 is geen geldig toegewezen IP-adres.',
 	'openstackmanager-invalidaddressforproject' => '$1 maakt geen deel uit van het opgegeven project.',
+	'openstackmanager-addedhost' => '$1 is toegevoegd voor het IP-adres $2.',
+	'openstackmanager-addhostfailed' => 'Het toevoegen van $1 voor het IP-adres $2 is mislukt.',
 	'openstackmanager-hostname' => 'Hostnaam',
 	'openstackmanager-hostnames' => 'Hostnamen',
 	'openstackmanager-addhost' => 'Hostnaam toevoegen',
