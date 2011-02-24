@@ -346,7 +346,7 @@ div.important h3 {
 		</div>
 		<?php else: ?>
 		<div class="chunk important error">
-			<h3>Bottom Line: We're sorry…</h3>
+			<h3>Bottom Line: We're sorry&hellip;</h3>
 			<p>Your PHP environment does not support the minimum requirements for the <strong>AWS SDK for PHP</strong>.</p>
 		</div>
 		<div class="chunk">
@@ -398,7 +398,7 @@ div.important h3 {
 				<?php endif; ?>
 
 				<?php if (!$curl_ok): ?>
-					<li><strong>cURL:</strong> The <a href="http://php.net/curl">cURL</a> extension is not available. Without cURL, the SDK cannot connect to ― or authenticate with ― Amazon's services.</li>
+					<li><strong>cURL:</strong> The <a href="http://php.net/curl">cURL</a> extension is not available. Without cURL, the SDK cannot connect to &mdash; or authenticate with &mdash; Amazon's services.</li>
 				<?php endif; ?>
 
 				<?php if (!$simplexml_ok): ?>
@@ -425,7 +425,7 @@ div.important h3 {
 		</div>
 
 		<div class="chunk">
-			<p class="footnote"><strong>NOTE</strong>: Passing this test does not guarantee that the AWS SDK for PHP will run on your web server ― it only ensures that the requirements have been addressed.</p>
+			<p class="footnote"><strong>NOTE</strong>: Passing this test does not guarantee that the AWS SDK for PHP will run on your web server &mdash; it only ensures that the requirements have been addressed.</p>
 		</div>
 	</div>
 
