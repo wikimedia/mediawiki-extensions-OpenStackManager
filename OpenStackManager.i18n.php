@@ -1013,6 +1013,8 @@ $messages['ku-latn'] = array(
  */
 $messages['lb'] = array(
 	'openstackmanager-desc' => 'Erméiglecht et de Benotzer fir Nova a Swift ze verwalten',
+	'openstackmanager' => 'OpenStack-Gestionnaire',
+	'openstackmanager-novaproject' => 'Nova-Projet',
 	'openstackmanager-delete' => 'läschen',
 	'openstackmanager-configure' => 'astellen',
 	'openstackmanager-rename' => 'ëmbenennen',
