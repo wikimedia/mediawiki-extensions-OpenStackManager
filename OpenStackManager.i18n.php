@@ -263,6 +263,7 @@ $messages['qqq'] = array(
 	'openstackmanager-deletekey' => 'Page title',
 	'openstackmanager-keylist' => 'Page title',
 	'openstackmanager-importkey' => 'Page title',
+	'openstackmanager-name' => '{{Identical|Name}}',
 	'openstackmanager-addmember' => 'Page title',
 	'openstackmanager-removemember' => 'Page title',
 	'openstackmanager-createproject' => 'Page title',
@@ -352,6 +353,16 @@ $messages['be-tarask'] = array(
 	'openstackmanager-novapublickey' => 'Публічны ключ SSH',
 	'openstackmanager-novakey-key' => 'Публічны ключ SSH',
 	'openstackmanager-novakey-info' => 'Інфармацыя пра публічны ключ SSH',
+	'openstackmanager-deletekey' => 'Выдаліць ключ',
+	'openstackmanager-deletekeyconfirm' => 'Вы ўпэўнены, што жадаеце выдаліць ніжэй прыведзены ключ?',
+	'openstackmanager-keylist' => 'Сьпіс ключоў',
+	'openstackmanager-importkey' => 'Імпартаваць новы ключ',
+	'openstackmanager-name' => 'Назва',
+	'openstackmanager-invalidkeypair' => 'Няслушнае месцазнаходжаньне пары ключоў.',
+	'openstackmanager-keypairimportfailed' => 'Немагчыма імпартаваць пару ключоў.',
+	'openstackmanager-keypairimported' => 'Імпартаваная пара ключоў.',
+	'openstackmanager-backkeylist' => 'Вярнуцца да сьпісу ключоў',
+	'openstackmanager-deletedkey' => 'Пасьпяхова выдалены ключ.',
 );
 
 /** Breton (Brezhoneg)
