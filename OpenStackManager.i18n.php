@@ -363,6 +363,14 @@ $messages['be-tarask'] = array(
 	'openstackmanager-keypairimported' => 'Імпартаваная пара ключоў.',
 	'openstackmanager-backkeylist' => 'Вярнуцца да сьпісу ключоў',
 	'openstackmanager-deletedkey' => 'Пасьпяхова выдалены ключ.',
+	'openstackmanager-deletedkeyfailed' => 'Немагчыма выдаліць ключ.',
+	'openstackmanager-addmember' => 'Дадаць удзельніка праекту',
+	'openstackmanager-removemember' => 'Выдаліць удзельніка праекту',
+	'openstackmanager-removeprojectconfirm' => 'Вы ўпэўнены, што жадаеце выдаліць праект «$1»? Гэтае дзеяньне паўплывае на віртуальныя машыны. Не прымайце гэтае рашэньне не падумаўшы!',
+	'openstackmanager-createproject' => 'Стварыць новы праект',
+	'openstackmanager-projectname' => 'Назва праекту',
+	'openstackmanager-members' => 'Удзельнікі',
+	'openstackmanager-member' => 'Удзельнік',
 );
 
 /** Breton (Brezhoneg)
@@ -1486,6 +1494,30 @@ $messages['nl'] = array(
 	'openstackmanager-email-subject' => 'U kunt nu aanmelden op uw instantie.',
 	'openstackmanager-email-body' => 'De volgende instantie is aangemaakt en er kan op aangemeld worden:',
 	'right-manageproject' => 'OpenStack-projecten en -rollen beheren',
+);
+
+/** Portuguese (Português)
+ * @author Hamilton Abreu
+ * @author Waldir
+ */
+$messages['pt'] = array(
+	'openstackmanager-instance' => 'Gerir instância',
+	'novaaddress' => 'Gerir endereços IP públicos',
+	'novadomain' => 'Gerir domínios DNS',
+	'novainstance' => 'Gerir instâncias',
+	'novakey' => 'Gerir as suas chaves SSH públicas',
+	'novasecuritygroup' => 'Gerir grupos de segurança da firewall',
+	'novarole' => 'Gerir funções globais',
+	'openstackmanager-delete' => 'eliminar',
+	'openstackmanager-configure' => 'configurar',
+	'openstackmanager-rename' => 'mudar o nome',
+	'openstackmanager-actions' => 'Ações',
+	'openstackmanager-notloggedin' => 'Autenticação necessária',
+	'openstackmanager-mustbeloggedin' => 'Tem de estar autenticado para executar esta ação.',
+	'openstackmanager-noaccount' => 'A sua conta não está no projeto solicitado.',
+	'openstackmanager-noaccount2' => 'Não pode concluir a ação solicitada porque a sua conta de utilizador não está no projeto solicitado.',
+	'openstackmanager-createdomain' => 'Criar domínio',
+	'openstackmanager-deletedomain' => 'Eliminar domínio',
 );
 
 /** Telugu (తెలుగు)
