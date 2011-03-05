@@ -19,7 +19,7 @@
  * This is the Amazon Elastic MapReduce API Reference Guide. This guide is for programmers who need detailed information
  * about the Amazon Elastic MapReduce APIs.
  *
- * @version Wed Feb 16 17:07:23 PST 2011
+ * @version Tue Mar 01 17:16:53 PST 2011
  * @license See the included NOTICE.md file for complete information.
  * @copyright See the included NOTICE.md file for complete information.
  * @link http://aws.amazon.com/elasticmapreduce/Amazon Elastic MapReduce
@@ -55,6 +55,11 @@ class AmazonEMR extends CFRuntime
 	 * Specify the queue URL for the Asia Pacific (Singapore) Region.
 	 */
 	const REGION_APAC_SE1 = 'ap-southeast-1.elasticmapreduce.amazonaws.com';
+
+	/**
+	 * Specify the queue URL for the Asia Pacific (Japan) Region.
+	 */
+	const REGION_APAC_NE1 = 'ap-northeast-1.elasticmapreduce.amazonaws.com';
 
 
 	/*%******************************************************************************************%*/

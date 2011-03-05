@@ -49,7 +49,7 @@ class S3_Exception extends Exception {}
  *
  * Visit <http://aws.amazon.com/s3/> for more information.
  *
- * @version 2011.02.16
+ * @version 2011.03.01
  * @license See the included NOTICE.md file for more information.
  * @copyright See the included NOTICE.md file for more information.
  * @link http://aws.amazon.com/s3/ Amazon Simple Storage Service
@@ -84,6 +84,11 @@ class AmazonS3 extends CFRuntime
 	 * Specify the queue URL for the Asia Pacific (Singapore) Region.
 	 */
 	const REGION_APAC_SE1 = 'ap-southeast-1';
+
+	/**
+	 * Specify the queue URL for the Asia Pacific (Japan) Region.
+	 */
+	const REGION_APAC_NE1 = 'ap-northeast-1';
 
 	/**
 	 * ACL: Owner-only read/write.
@@ -281,7 +286,7 @@ class AmazonS3 extends CFRuntime
 	 * @param string $location (Do Not Use) Used internally by this function on occasions when Amazon S3 returns a redirect code and it needs to call itself recursively.
 	 * @param integer $redirects (Do Not Use) Used internally by this function on occasions when Amazon S3 returns a redirect code and it needs to call itself recursively.
 	 * @return CFResponse A <CFResponse> object containing a parsed HTTP response.
-	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/RESTAuthentication.html REST authentication
+	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/dev/S3_Authentication.html REST authentication
 	 */
 	public function authenticate($bucket, $opt = null, $location = null, $redirects = 0, $nothing = null)
 	{
@@ -469,6 +474,17 @@ class AmazonS3 extends CFRuntime
 		// Update RequestCore settings
 		$request->request_class = $this->request_class;
 		$request->response_class = $this->response_class;
+
+		// Pass along registered stream callbacks
+		if ($this->registered_streaming_read_callback)
+		{
+			$request->register_streaming_read_callback($this->registered_streaming_read_callback);
+		}
+
+		if ($this->registered_streaming_write_callback)
+		{
+			$request->register_streaming_write_callback($this->registered_streaming_write_callback);
+		}
 
 		// Streaming uploads
 		if (isset($opt['fileUpload']))
@@ -697,7 +713,7 @@ class AmazonS3 extends CFRuntime
 		$data = new $this->response_class($headers, $this->parse_callback($request->get_response_body()), $request->get_response_code());
 
 		// Did Amazon tell us to redirect? Typically happens for multiple rapid requests EU datacenters.
-		// @see: http://docs.amazonwebservices.com/AmazonS3/latest/Redirects.html
+		// @see: http://docs.amazonwebservices.com/AmazonS3/latest/dev/Redirects.html
 		if ((integer) $request->get_response_code() === 307) // Temporary redirect to new endpoint.
 		{
 			$data = $this->authenticate($bucket, $opt, $headers['location'], ++$redirects);
@@ -805,16 +821,15 @@ class AmazonS3 extends CFRuntime
 	 * Sets the region to use for subsequent Amazon S3 operations. This will also reset any prior use of
 	 * <enable_path_style()>.
 	 *
-	 * @param string $region (Required) The region to use for subsequent Amazon S3 operations. [Allowed values: `AmazonS3::REGION_US_E1 `, `AmazonS3::REGION_US_W1`, `AmazonS3::REGION_EU_W1`, `AmazonS3::REGION_APAC_SE1`]
+	 * @param string $region (Required) The region to use for subsequent Amazon S3 operations. [Allowed values: `AmazonS3::REGION_US_E1 `, `AmazonS3::REGION_US_W1`, `AmazonS3::REGION_EU_W1`, `AmazonS3::REGION_APAC_SE1`, `AmazonS3::REGION_APAC_NE1`]
 	 * @return $this A reference to the current instance.
 	 */
 	public function set_region($region)
 	{
 		switch ($region)
 		{
-			case self::REGION_US_W1: // Northern California
-			case self::REGION_APAC_SE1: // Singapore
-				$this->set_hostname('s3-' . $region . '.amazonaws.com');
+			case self::REGION_US_E1: // Northern Virginia
+				$this->set_hostname(self::DEFAULT_URL);
 				$this->enable_path_style(false);
 				break;
 
@@ -823,9 +838,11 @@ class AmazonS3 extends CFRuntime
 				$this->enable_path_style(); // Always use path-style access for EU endpoint.
 				break;
 
+			case self::REGION_US_W1: // Northern California
+			case self::REGION_APAC_SE1: // Singapore
+			case self::REGION_APAC_NE1: // Japan
 			default:
-				// REGION_US_E1 // Northern Virginia
-				$this->set_hostname(self::DEFAULT_URL);
+				$this->set_hostname('s3-' . $region . '.amazonaws.com');
 				$this->enable_path_style(false);
 				break;
 		}
@@ -838,7 +855,7 @@ class AmazonS3 extends CFRuntime
 	 *
 	 * @param string $vhost (Required) The virtual host to use in place of the default `bucket.s3.amazonaws.com` domain.
 	 * @return $this A reference to the current instance.
-	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/VirtualHosting.html Virtual Hosting of Buckets
+	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/dev/VirtualHosting.html Virtual Hosting of Buckets
 	 */
 	public function set_vhost($vhost)
 	{
@@ -870,12 +887,12 @@ class AmazonS3 extends CFRuntime
 	 * However, bucket names must be unique across all of Amazon S3.
 	 *
 	 * @param string $bucket (Required) The name of the bucket to create.
-	 * @param string $region (Required) The preferred geographical location for the bucket. [Allowed values: `AmazonS3::REGION_US_E1 `, `AmazonS3::REGION_US_W1`, `AmazonS3::REGION_EU_W1`, `AmazonS3::REGION_APAC_SE1`]
+	 * @param string $region (Required) The preferred geographical location for the bucket. [Allowed values: `AmazonS3::REGION_US_E1 `, `AmazonS3::REGION_US_W1`, `AmazonS3::REGION_EU_W1`, `AmazonS3::REGION_APAC_SE1`, `AmazonS3::REGION_APAC_NE1`]
 	 * @param string $acl (Optional) The ACL settings for the specified bucket. [Allowed values: <code>AmazonS3::ACL_PRIVATE</code>, <code>AmazonS3::ACL_PUBLIC</code>, <code>AmazonS3::ACL_OPEN</code>, <code>AmazonS3::ACL_AUTH_READ</code>, <code>AmazonS3::ACL_OWNER_READ</code>, <code>AmazonS3::ACL_OWNER_FULL_CONTROL</code>]. The default value is <ACL_PRIVATE>.
 	 * @param array $opt (Optional) An associative array of parameters that can have the following keys: <ul>
 	 * 	<li><code>returnCurlHandle</code> - <code>boolean</code> - Optional - A private toggle specifying that the cURL handle be returned rather than actually completing the request.</li></ul>
 	 * @return CFResponse A <CFResponse> object containing a parsed HTTP response.
-	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/UsingBucket.html Working with Amazon S3 Buckets
+	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/dev/UsingBucket.html Working with Amazon S3 Buckets
 	 */
 	public function create_bucket($bucket, $region, $acl = self::ACL_PRIVATE, $opt = null)
 	{
@@ -908,10 +925,8 @@ class AmazonS3 extends CFRuntime
 
 		switch ($region)
 		{
-			case self::REGION_US_W1:    // Northern California
-			case self::REGION_APAC_SE1: // Singapore
-				$xml->LocationConstraint = $region;
-				$opt['body'] = $xml->asXML();
+			case self::REGION_US_E1: // Northern Virginia
+				$opt['body'] = '';
 				break;
 
 			case self::REGION_EU_W1:    // Ireland
@@ -920,8 +935,12 @@ class AmazonS3 extends CFRuntime
 				$opt['body'] = $xml->asXML();
 				break;
 
-			default: // REGION_US_E1 // Northern Virginia
-				$opt['body'] = '';
+			case self::REGION_US_W1:    // Northern California
+			case self::REGION_APAC_SE1: // Singapore
+			case self::REGION_APAC_NE1: // Japan
+			default:
+				$xml->LocationConstraint = $region;
+				$opt['body'] = $xml->asXML();
 				break;
 		}
 
@@ -1031,7 +1050,7 @@ class AmazonS3 extends CFRuntime
 	 * 	<li><code>preauth</code> - <code>integer|string</code> - Optional - Specifies that a presigned URL for this request should be returned. May be passed as a number of seconds since UNIX Epoch, or any string compatible with <php:strtotime()>.</li>
 	 * 	<li><code>returnCurlHandle</code> - <code>boolean</code> - Optional - A private toggle specifying that the cURL handle be returned rather than actually completing the request. This toggle is useful for manually managed batch requests.</li></ul>
 	 * @return CFResponse A <CFResponse> object containing a parsed HTTP response.
-	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/RESTAccessPolicy.html REST Access Control Policy
+	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/dev/RESTAccessPolicy.html REST Access Control Policy
 	 */
 	public function get_bucket_acl($bucket, $opt = null)
 	{
@@ -1052,7 +1071,7 @@ class AmazonS3 extends CFRuntime
 	 * @param array $opt (Optional) An associative array of parameters that can have the following keys: <ul>
 	 * 	<li><code>returnCurlHandle</code> - <code>boolean</code> - Optional - A private toggle specifying that the cURL handle be returned rather than actually completing the request. This toggle is useful for manually managed batch requests.</li></ul>
 	 * @return CFResponse A <CFResponse> object containing a parsed HTTP response.
-	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/RESTAccessPolicy.html REST Access Control Policy
+	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/dev/RESTAccessPolicy.html REST Access Control Policy
 	 */
 	public function set_bucket_acl($bucket, $acl = self::ACL_PRIVATE, $opt = null)
 	{
@@ -1112,7 +1131,7 @@ class AmazonS3 extends CFRuntime
 	 * 	<li><code>storage</code> - <code>string</code> - Optional - Whether to use Standard or Reduced Redundancy storage. [Allowed values: <code>AmazonS3::STORAGE_STANDARD</code>, <code>AmazonS3::STORAGE_REDUCED</code>]. The default value is <code>STORAGE_STANDARD</code>.</li>
 	 * 	<li><code>returnCurlHandle</code> - <code>boolean</code> - Optional - A private toggle specifying that the cURL handle be returned rather than actually completing the request. This toggle is useful for manually managed batch requests.</li></ul>
 	 * @return CFResponse A <CFResponse> object containing a parsed HTTP response.
-	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/RESTAccessPolicy.html REST Access Control Policy
+	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/dev/RESTAccessPolicy.html REST Access Control Policy
 	 */
 	public function create_object($bucket, $filename, $opt = null)
 	{
@@ -1331,7 +1350,7 @@ class AmazonS3 extends CFRuntime
 	 * 	<li><code>metadataDirective</code> - <code>string</code> - Optional - Accepts either COPY or REPLACE. You will likely never need to use this, as it manages itself with no issues.</li>
 	 * 	<li><code>returnCurlHandle</code> - <code>boolean</code> - Optional - A private toggle specifying that the cURL handle be returned rather than actually completing the request. This toggle is useful for manually managed batch requests.</li></ul>
 	 * @return CFResponse A <CFResponse> object containing a parsed HTTP response.
-	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/UsingCopyingObjects.html Copying Amazon S3 Objects
+	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/dev/API/RESTObjectCOPY.html Copying Amazon S3 Objects
 	 */
 	public function copy_object($source, $dest, $opt = null)
 	{
@@ -1452,7 +1471,7 @@ class AmazonS3 extends CFRuntime
 	 * 	<li><code>meta</code> - <code>array</code> - Optional - An associative array of key-value pairs. Any header with the <code>x-amz-meta-</code> prefix is considered user metadata and is stored with the Amazon S3 object. It will be stored with the object and returned when you retrieve the object. The total size of the HTTP request, not including the body, must be less than 4 KB.</li>
 	 * 	<li><code>returnCurlHandle</code> - <code>boolean</code> - Optional - A private toggle specifying that the cURL handle be returned rather than actually completing the request. This toggle is useful for manually managed batch requests.</li></ul>
 	 * @return CFResponse A <CFResponse> object containing a parsed HTTP response.
-	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/UsingCopyingObjects.html Copying Amazon S3 Objects
+	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/dev/API/RESTObjectCOPY.html Copying Amazon S3 Objects
 	 */
 	public function update_object($bucket, $filename, $opt = null)
 	{
@@ -1481,7 +1500,7 @@ class AmazonS3 extends CFRuntime
 	 * 	<li><code>preauth</code> - <code>integer|string</code> - Optional - Specifies that a presigned URL for this request should be returned. May be passed as a number of seconds since UNIX Epoch, or any string compatible with <php:strtotime()>.</li>
 	 * 	<li><code>returnCurlHandle</code> - <code>boolean</code> - Optional - A private toggle specifying that the cURL handle be returned rather than actually completing the request. This toggle is useful for manually managed batch requests.</li></ul>
 	 * @return CFResponse A <CFResponse> object containing a parsed HTTP response.
-	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/RESTAccessPolicy.html REST Access Control Policy
+	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/dev/RESTAccessPolicy.html REST Access Control Policy
 	 */
 	public function get_object_acl($bucket, $filename, $opt = null)
 	{
@@ -1504,7 +1523,7 @@ class AmazonS3 extends CFRuntime
 	 * @param array $opt (Optional) An associative array of parameters that can have the following keys: <ul>
 	 * 	<li><code>returnCurlHandle</code> - <code>boolean</code> - Optional - A private toggle specifying that the cURL handle be returned rather than actually completing the request. This toggle is useful for manually managed batch requests.</li></ul>
 	 * @return CFResponse A <CFResponse> object containing a parsed HTTP response.
-	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/RESTAccessPolicy.html REST Access Control Policy
+	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/dev/RESTAccessPolicy.html REST Access Control Policy
 	 */
 	public function set_object_acl($bucket, $filename, $acl = self::ACL_PRIVATE, $opt = null)
 	{
@@ -1555,7 +1574,7 @@ class AmazonS3 extends CFRuntime
 	 * @param string $canonical_name (Required) The canonical display name for the bucket owner. Use the `AWS_CANONICAL_NAME` constant or the `display_name` value from <get_canonical_user_id()>.
 	 * @param array $users (Optional) An array of associative arrays. Each associative array contains an `id` value and a `permission` value.
 	 * @return string Access Control Policy XML.
-	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/S3_ACLs.html Access Control Lists
+	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/dev/S3_ACLs.html Access Control Lists
 	 */
 	public function generate_access_policy($canonical_id, $canonical_name, $users)
 	{
@@ -1624,7 +1643,7 @@ class AmazonS3 extends CFRuntime
 	 * 	<li><code>preauth</code> - <code>integer|string</code> - Optional - Specifies that a presigned URL for this request should be returned. May be passed as a number of seconds since UNIX Epoch, or any string compatible with <php:strtotime()>.</li>
 	 * 	<li><code>returnCurlHandle</code> - <code>boolean</code> - Optional - A private toggle specifying that the cURL handle be returned rather than actually completing the request. This toggle is useful for manually managed batch requests.</li></ul>
 	 * @return CFResponse A <CFResponse> object containing a parsed HTTP response.
-	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/ServerLogs.html Server Access Logging
+	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/dev/ServerLogs.html Server Access Logging
 	 */
 	public function get_logs($bucket, $opt = null)
 	{
@@ -1647,7 +1666,7 @@ class AmazonS3 extends CFRuntime
 	 * 	<li><code>users</code> - <code>array</code> - Optional - An array of associative arrays specifying any user to give access to. Each associative array contains an <code>id</code> and <code>permission</code> value.</li>
 	 * 	<li><code>returnCurlHandle</code> - <code>boolean</code> - Optional - A private toggle specifying that the cURL handle be returned rather than actually completing the request. This toggle is useful for manually managed batch requests.</li></ul>
 	 * @return CFResponse A <CFResponse> object containing a parsed HTTP response.
-	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/LoggingAPI.html Server Access Logging Configuration API
+	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/dev/LoggingAPI.html Server Access Logging Configuration API
 	 */
 	public function enable_logging($bucket, $target_bucket, $target_prefix, $opt = null)
 	{
@@ -1725,7 +1744,7 @@ class AmazonS3 extends CFRuntime
 	 * @param array $opt (Optional) An associative array of parameters that can have the following keys: <ul>
 	 * 	<li><code>returnCurlHandle</code> - <code>boolean</code> - Optional - A private toggle specifying that the cURL handle be returned rather than actually completing the request. This toggle is useful for manually managed batch requests.</li></ul>
 	 * @return CFResponse A <CFResponse> object containing a parsed HTTP response.
-	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/LoggingAPI.html Server Access Logging Configuration API
+	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/dev/LoggingAPI.html Server Access Logging Configuration API
 	 */
 	public function disable_logging($bucket, $opt = null)
 	{
@@ -2285,7 +2304,7 @@ class AmazonS3 extends CFRuntime
 	 * 	<li><code>torrent</code> - <code>boolean</code> - Optional - A value of <code>true</code> will return a URL to a torrent of the Amazon S3 object. A value of <code>false</code> will return a non-torrent URL. Defaults to <code>false</code>.</li>
 	 * 	<li><code>returnCurlHandle</code> - <code>boolean</code> - Optional - A private toggle specifying that the cURL handle be returned rather than actually completing the request. This toggle is useful for manually managed batch requests.</li></ul>
 	 * @return string The file URL, with authentication and/or torrent parameters if requested.
-	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/S3_QSAuth.html Using Query String Authentication
+	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/dev/S3_QSAuth.html Using Query String Authentication
 	 */
 	public function get_object_url($bucket, $filename, $preauth = 0, $opt = null)
 	{
@@ -2328,7 +2347,7 @@ class AmazonS3 extends CFRuntime
 	 * @param string $filename (Required) The file name for the object.
 	 * @param integer|string $preauth (Optional) Specifies that a presigned URL for this request should be returned. May be passed as a number of seconds since UNIX Epoch, or any string compatible with <php:strtotime()>.
 	 * @return string The torrent URL, with authentication parameters if requested.
-	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/index.html?S3TorrentRetrieve.html Using BitTorrent to Retrieve Objects Stored in Amazon S3
+	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/dev/index.html?S3TorrentRetrieve.html Using BitTorrent to Retrieve Objects Stored in Amazon S3
 	 */
 	public function get_torrent_url($bucket, $filename, $preauth = 0)
 	{
@@ -2692,7 +2711,7 @@ class AmazonS3 extends CFRuntime
 	 * 	<li><code>storage</code> - <code>string</code> - Optional - Whether to use Standard or Reduced Redundancy storage. [Allowed values: <code>AmazonS3::STORAGE_STANDARD</code>, <code>AmazonS3::STORAGE_REDUCED</code>]. The default value is <code>STORAGE_STANDARD</code>.</li>
 	 * 	<li><code>returnCurlHandle</code> - <code>boolean</code> - Optional - A private toggle specifying that the cURL handle be returned rather than actually completing the request. This toggle is useful for manually managed batch requests.</li></ul>
 	 * @return CFResponse A <CFResponse> object containing a parsed HTTP response.
-	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/RESTAccessPolicy.html REST Access Control Policy
+	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/dev/RESTAccessPolicy.html REST Access Control Policy
 	 */
 	public function initiate_multipart_upload($bucket, $filename, $opt = null)
 	{
@@ -2995,7 +3014,7 @@ class AmazonS3 extends CFRuntime
 	 * 	<li><code>uploadId</code> - <code>string</code> - Optional - An upload ID identifying an existing multipart upload to use. If this option is not set, one will be created automatically.</li>
 	 * 	<li><code>returnCurlHandle</code> - <code>boolean</code> - Optional - A private toggle specifying that the cURL handle be returned rather than actually completing the request. This toggle is useful for manually managed batch requests.</li></ul>
 	 * @return CFResponse A <CFResponse> object containing a parsed HTTP response.
-	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/RESTAccessPolicy.html REST Access Control Policy
+	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/dev/RESTAccessPolicy.html REST Access Control Policy
 	 */
 	public function create_mpu_object($bucket, $filename, $opt = null)
 	{
@@ -3202,13 +3221,13 @@ class AmazonS3 extends CFRuntime
 	// WEBSITE CONFIGURATION
 
 	/**
-	 * This operation enables/configures an S3 Website using the corresponding bucket as the content source.
+	 * Enables and configures an Amazon S3 website using the corresponding bucket as the content source.
 	 * The website will have one default domain name associated with it, which is the bucket name. If you
-	 * attempt to configure an S3 website for a bucket whose name is not compatible with DNS, Amazon S3
-	 * returns an <code>InvalidBucketName</code> error. For more information on bucket names and DNS,
-	 * refer to Bucket Restrictions and Limitations.
+	 * attempt to configure an Amazon S3 website for a bucket whose name is not compatible with DNS,
+	 * Amazon S3 returns an <code>InvalidBucketName</code> error. For more information on bucket names and DNS,
+	 * refer to <a href="http://docs.amazonwebservices.com/AmazonS3/latest/dev/BucketRestrictions.html">Bucket Restrictions and Limitations.</a>
 	 *
-	 * To visit the S3 bucket as a website a new endpoint is created in the following pattern
+	 * To visit the bucket as a website a new endpoint is created in the following pattern:
 	 * <code>http://&lt;bucketName&gt;.s3-website-&lt;region&gt;.amazonaws.com</code>. This is a sample URL
 	 * for a bucket called <code>example-bucket</code> in the <code>us-east-1</code> region.
 	 * (e.g., <code>http://example-bucket.s3-website-us-east-1.amazonaws.com</code>)
@@ -3243,8 +3262,8 @@ class AmazonS3 extends CFRuntime
 	}
 
 	/**
-	 * This operation retrieves the website configuration for a bucket. The contents of this response are identical
-	 * to the content submitted by the user during the website creation operation. If a website configuration has
+	 * Retrieves the website configuration for a bucket. The contents of this response are identical to the
+	 * content submitted by the user during the website creation operation. If a website configuration has
 	 * never been set, Amazon S3 will return a 404 error.
 	 *
 	 * @param string $bucket (Required) The name of the bucket to use.
@@ -3266,7 +3285,7 @@ class AmazonS3 extends CFRuntime
 	}
 
 	/**
-	 * This operation removes the website configuration for a bucket.
+	 * Removes the website configuration for a bucket.
 	 *
 	 * @param string $bucket (Required) The name of the bucket to use.
 	 * @param array $opt (Optional) An associative array of parameters that can have the following keys: <ul>
