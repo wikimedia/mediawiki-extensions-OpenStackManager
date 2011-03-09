@@ -652,6 +652,7 @@ $messages['de'] = array(
 );
 
 /** French (Français)
+ * @author Crochet.david
  * @author IAlex
  */
 $messages['fr'] = array(
@@ -796,6 +797,37 @@ $messages['fr'] = array(
 	'openstackmanager-releaseaddressfailed' => "Échec de la libération de l'adresse : $1",
 	'openstackmanager-cannotreleaseaddress' => "Impossible de libérer une adresse qui est associée avec entrée DNS ou une instance. Veuillez supprimer toutes les entrées d'hôte et dissocier l'adresse IP avant d'essayer de la libérer.",
 	'openstackmanager-associatedaddress' => "$1 associé avec succès avec l'instance d'ID $2.",
+	'openstackmanager-securitygroupdescription' => 'Description',
+	'openstackmanager-deletesecuritygroup-confirm' => 'Êtes-vous sûr de vouloir supprimer $1 ?',
+	'openstackmanager-securitygrouprule' => 'Règles',
+	'openstackmanager-securitygrouprule-protocol' => 'Protocole',
+	'openstackmanager-addrule-action' => 'Ajouter une règle',
+	'openstackmanager-removerule-action' => 'supprimer une règle',
+	'openstackmanager-removerule' => 'Enlever la règle',
+	'openstackmanager-addrule' => 'Ajouter une règle',
+);
+
+/** Galician (Galego)
+ * @author Toliño
+ */
+$messages['gl'] = array(
+	'openstackmanager-delete' => 'borrar',
+	'openstackmanager-configure' => 'configurar',
+	'openstackmanager-rename' => 'renomear',
+	'openstackmanager-actions' => 'Accións',
+	'openstackmanager-notloggedin' => 'Cómpre acceder ao sistema',
+	'openstackmanager-mustbeloggedin' => 'Cómpre acceder ao sistema para levar a cabo a acción.',
+	'openstackmanager-createdomain' => 'Crear un dominio',
+	'openstackmanager-deletedomain' => 'Borrar un dominio',
+	'openstackmanager-novadomain-domain' => 'Dominio',
+	'openstackmanager-novadomain-info' => 'Información do dominio',
+	'openstackmanager-createproject' => 'Crear un novo proxecto',
+	'openstackmanager-projectname' => 'Nome do proxecto',
+	'openstackmanager-members' => 'Membros',
+	'openstackmanager-member' => 'Membro',
+	'openstackmanager-action' => 'Acción',
+	'openstackmanager-createprojectfailed' => 'Non se puido crear o proxecto.',
+	'openstackmanager-createdproject' => 'Proxecto creado.',
 );
 
 /** Swiss German (Alemannisch)
@@ -1041,7 +1073,16 @@ $messages['lb'] = array(
 	'openstackmanager-actions' => 'Aktiounen',
 	'openstackmanager-notloggedin' => 'Umeldung néideg',
 	'openstackmanager-mustbeloggedin' => 'Dir musst ageloggt si fir dës Aktioun maachen ze kënnen.',
+	'openstackmanager-noaccount' => 'Äre Benotzerkont ass net an deem gefrote Projet.',
 	'openstackmanager-novadomain-domain' => 'Domain',
+	'openstackmanager-domainname' => 'Numm vum Domain',
+	'openstackmanager-novainstance-instance' => 'Instanz',
+	'openstackmanager-configureinstance' => 'Instanz astellen',
+	'openstackmanager-dnsdomain' => 'DNS-Domain',
+	'openstackmanager-novainstance-info' => "Informatioun iwwert d'Instanz",
+	'openstackmanager-instancename' => 'Numm vun der Instanz',
+	'openstackmanager-imagetype' => 'Bildtyp',
+	'openstackmanager-backinstancelist' => "Zréck op d'Lëscht vun den Instanzen",
 	'openstackmanager-deletekey' => 'Schlëssel läschen',
 	'openstackmanager-name' => 'Numm',
 	'openstackmanager-fingerprint' => 'Fangerofdrock',
@@ -1498,6 +1539,7 @@ $messages['nl'] = array(
 
 /** Portuguese (Português)
  * @author Hamilton Abreu
+ * @author SandroHc
  * @author Waldir
  */
 $messages['pt'] = array(
@@ -1518,6 +1560,8 @@ $messages['pt'] = array(
 	'openstackmanager-noaccount2' => 'Não pode concluir a ação solicitada porque a sua conta de utilizador não está no projeto solicitado.',
 	'openstackmanager-createdomain' => 'Criar domínio',
 	'openstackmanager-deletedomain' => 'Eliminar domínio',
+	'openstackmanager-novaproject-project' => 'Projecto',
+	'openstackmanager-securitygrouprule' => 'Regras',
 );
 
 /** Telugu (తెలుగు)
