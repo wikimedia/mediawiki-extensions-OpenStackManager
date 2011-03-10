@@ -267,6 +267,8 @@ $messages['qqq'] = array(
 	'openstackmanager-addmember' => 'Page title',
 	'openstackmanager-removemember' => 'Page title',
 	'openstackmanager-createproject' => 'Page title',
+	'openstackmanager-members' => '{{Identical|Member}}',
+	'openstackmanager-member' => '{{Identical|Member}}',
 	'openstackmanager-projectlist' => 'Page title',
 	'openstackmanager-deleteproject' => 'Page title',
 );
@@ -1582,5 +1584,28 @@ $messages['te'] = array(
  */
 $messages['yi'] = array(
 	'openstackmanager-name' => 'נאָמען',
+);
+
+/** Simplified Chinese (‪中文(简体)‬)
+ * @author Hydra
+ */
+$messages['zh-hans'] = array(
+	'openstackmanager-delete' => '删除',
+	'openstackmanager-rename' => '改名',
+	'openstackmanager-actions' => '动作',
+	'openstackmanager-notloggedin' => '必须登入',
+	'openstackmanager-name' => '名',
+	'openstackmanager-createproject' => '创造一个新项目',
+	'openstackmanager-projectname' => '项目名',
+	'openstackmanager-members' => '成员们',
+	'openstackmanager-member' => '成员',
+	'openstackmanager-createprojectfailed' => '创造新项目失败',
+	'openstackmanager-projectlist' => '项目列表',
+	'openstackmanager-backprojectlist' => '回到项目列表',
+	'openstackmanager-deleteproject' => '删除项目',
+	'openstackmanager-deletedproject' => '成功地删除项目',
+	'openstackmanager-deleteprojectfailed' => '删除项目失败',
+	'openstackmanager-novaproject-project' => '项目',
+	'openstackmanager-novaproject-info' => '项目信息',
 );
 
