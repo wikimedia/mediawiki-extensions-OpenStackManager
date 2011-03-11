@@ -543,4 +543,35 @@ class OpenStackNovaController {
 		return $response->isOK();
 	}
 
+	/**
+	 * Attach a nova volume to the specified device on an instance
+	 *
+	 * @param volumeid
+	 * @param instanceid
+	 * @param device
+	 * @return boolean
+	 */
+	function attachVolume( $volumeid, $instanceid, $device ) {
+		$response = $this->novaConnection->attachVolume( $volumeid, $instanceid, $device );
+
+		return $response->isOK();
+	}
+
+	/**
+	 * Detaches a nova volume from an instance
+	 *
+	 * @param volumeid
+	 * @param force
+	 * @return boolean
+	 */
+	function detachVolume( $volumeid, $force ) {
+		$opt = Array();
+		if ( $force ) {
+			$opt["Force"] = $force;
+		}
+		$response = $this->novaConnection->detachVolume( $volumeid, $opt );
+
+		return $response->isOK();
+	}
+
 }

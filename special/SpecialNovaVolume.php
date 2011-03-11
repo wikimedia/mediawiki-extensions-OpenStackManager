@@ -176,6 +176,133 @@ class SpecialNovaVolume extends SpecialNova {
 	}
 
 	/**
+	 * @return bool
+	 */
+	function attachVolume() {
+		global $wgRequest, $wgOut;
+
+		$this->setHeaders();
+		$wgOut->setPagetitle( wfMsg( 'openstackmanager-attachvolume' ) );
+
+		$project = $wgRequest->getText( 'project' );
+		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
+			$this->notInRole( 'sysadmin' );
+			return false;
+		}
+		$instances = $this->userNova->getInstances();
+		$instance_keys = array();
+		foreach ( $instances as $instance ) {
+			if ( $instance->getOwner() == $project ) {
+				$instancename = $instance->getInstanceName();
+				$instanceid = $instance->getInstanceId();
+				$instance_keys["$instancename"] = $instanceid;
+			}
+		}
+		$volumeInfo = array();
+		$volumeInfo['volumeinfo'] = array(
+			'type' => 'info',
+			'label-message' => 'openstackmanager-volumename',
+			'default' => $wgRequest->getText( 'volumeid' ),
+			'section' => 'volume/info',
+			'name' => 'volumeinfo',
+		);
+		$volumeInfo['volumeid'] = array(
+			'type' => 'hidden',
+			'default' => $wgRequest->getText( 'volumeid' ),
+			'name' => 'volumeid',
+		);
+		$volumeInfo['volumedescription'] = array(
+			'type' => 'info',
+			'label-message' => 'openstackmanager-volumedescription',
+			'section' => 'volume/info',
+			'name' => 'volumedescription',
+		);
+		$volumeInfo['instanceid'] = array(
+			'type' => 'select',
+			'label-message' => 'openstackmanager-instancename',
+			'options' => $instance_keys,
+			'section' => 'volume/info',
+			'name' => 'instanceid',
+		);
+		$volumeInfo['device'] = array(
+			'type' => 'select',
+			'label-message' => 'openstackmanager-device',
+			'options' => $this->getDrives(),
+			'section' => 'volume/info',
+			'name' => 'device',
+		);
+		$volumeInfo['project'] = array(
+			'type' => 'hidden',
+			'default' => $project,
+			'name' => 'project',
+		);
+		$volumeInfo['action'] = array(
+			'type' => 'hidden',
+			'default' => 'attach',
+			'name' => 'action',
+		);
+		$volumeForm = new SpecialNovaVolumeForm( $volumeInfo, 'openstackmanager-novavolume' );
+		$volumeForm->setTitle( SpecialPage::getTitleFor( 'NovaVolume' ) );
+		$volumeForm->setSubmitID( 'novavolume-form-attachvolumesubmit' );
+		$volumeForm->setSubmitCallback( array( $this, 'tryAttachSubmit' ) );
+		$volumeForm->show();
+
+		return true;
+	}
+
+	/**
+	 * @return bool
+	 */
+	function detachVolume() {
+		global $wgRequest, $wgOut;
+
+		$this->setHeaders();
+		$wgOut->setPagetitle( wfMsg( 'openstackmanager-detachvolume' ) );
+
+		$project = $wgRequest->getText( 'project' );
+		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
+			$this->notInRole( 'sysadmin' );
+			return false;
+		}
+		$volumeInfo = array();
+		$volumeInfo['volumeinfo'] = array(
+			'type' => 'info',
+			'label-message' => 'openstackmanager-volumename',
+			'default' => $wgRequest->getText( 'volumeid' ),
+			'section' => 'volume/info',
+			'name' => 'volumeinfo',
+		);
+		$volumeInfo['force'] = array(
+			'type' => 'toggle',
+			'label-message' => 'openstackmanager-forcedetachment',
+			'help-message' => 'openstackmanager-forcedetachmenthelp',
+			'section' => 'volume/info',
+			'name' => 'volumeinfo',
+		);
+		$volumeInfo['volumeid'] = array(
+			'type' => 'hidden',
+			'default' => $wgRequest->getText( 'volumeid' ),
+			'name' => 'volumeid',
+		);
+		$volumeInfo['project'] = array(
+			'type' => 'hidden',
+			'default' => $project,
+			'name' => 'project',
+		);
+		$volumeInfo['action'] = array(
+			'type' => 'hidden',
+			'default' => 'detach',
+			'name' => 'action',
+		);
+		$volumeForm = new SpecialNovaVolumeForm( $volumeInfo, 'openstackmanager-novavolume' );
+		$volumeForm->setTitle( SpecialPage::getTitleFor( 'NovaVolume' ) );
+		$volumeForm->setSubmitID( 'novavolume-form-detachvolumesubmit' );
+		$volumeForm->setSubmitCallback( array( $this, 'tryDetachSubmit' ) );
+		$volumeForm->show();
+
+		return true;
+	}
+	/**
 	 * @return void
 	 */
 	function listVolumes() {
@@ -315,6 +442,74 @@ class SpecialNovaVolume extends SpecialNova {
 
 		$wgOut->addHTML( $out );
 		return true;
+	}
+
+	/**
+	 * @param  $formData
+	 * @param string $entryPoint
+	 * @return bool
+	 */
+	function tryAttachSubmit( $formData, $entryPoint = 'internal' ) {
+		global $wgOut, $wgUser;
+
+		$success = $this->userNova->attachVolume( $formData['volumeid'], $formData['instanceid'], $formData['device'] );
+		if ( $success ) {
+			$wgOut->addWikiMsg( 'openstackmanager-attachedvolume' );
+		} else {
+			$wgOut->addWikiMsg( 'openstackmanager-attachvolumefailed' );
+		}
+		$sk = $wgUser->getSkin();
+		$out = '<br />';
+		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backvolumelist' ) );
+
+		$wgOut->addHTML( $out );
+		return true;
+	}
+
+	/**
+	 * @param  $formData
+	 * @param string $entryPoint
+	 * @return bool
+	 */
+	function tryDetachSubmit( $formData, $entryPoint = 'internal' ) {
+		global $wgOut, $wgUser;
+
+		if ( isset( $formData['force'] ) && $formData['force'] ) {
+			$force = true;
+		} else {
+			$force = false;
+		}
+		$success = $this->userNova->detachVolume( $formData['volumeid'], $force );
+		if ( $success ) {
+			$wgOut->addWikiMsg( 'openstackmanager-detachedvolume' );
+		} else {
+			$wgOut->addWikiMsg( 'openstackmanager-detachvolumefailed' );
+		}
+		$sk = $wgUser->getSkin();
+		$out = '<br />';
+		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backvolumelist' ) );
+
+		$wgOut->addHTML( $out );
+		return true;
+	}
+
+	/**
+	 * Return an array of drive devices
+	 *
+	 * @return string
+	 */
+	function getDrives() {
+		$drives = array();
+		foreach ( range('a', 'z') as $letter ) {
+			$drive = '/dev/vd' . $letter;
+			$drives["$drive"] = $drive;
+		}
+		foreach ( range('a', 'z') as $letter ) {
+			$drive = '/dev/vda' . $letter;
+			$drives["$drive"] = $drive;
+		}
+
+		return $drives;
 	}
 
 	/**
