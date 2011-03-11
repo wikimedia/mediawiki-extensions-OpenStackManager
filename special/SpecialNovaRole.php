@@ -234,7 +234,7 @@ class SpecialNovaRole extends SpecialNova {
 			$rolesOut .= Html::rawElement( 'tr', array(), $roleOut );
 		}
 		if ( $rolesOut ) {
-			$out .= Html::rawElement( 'table', array( 'class' => 'wikitable' ), $rolesOut );
+			$out .= Html::rawElement( 'table', array( 'class' => 'wikitable sortable collapsible' ), $rolesOut );
 		}
 
 		$wgOut->addHTML( $out );

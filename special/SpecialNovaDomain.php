@@ -163,7 +163,7 @@ class SpecialNovaDomain extends SpecialNova {
 			$domainsOut .= Html::rawElement( 'tr', array(), $domainOut );
 		}
 		if ( $domains ) {
-			$out .= Html::rawElement( 'table', array( 'class' => 'wikitable' ), $domainsOut );
+			$out .= Html::rawElement( 'table', array( 'class' => 'wikitable sortable collapsible' ), $domainsOut );
 		}
 
 		$wgOut->addHTML( $out );

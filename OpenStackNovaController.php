@@ -7,6 +7,7 @@ class OpenStackNovaController {
 	var $instances, $images, $keypairs, $availabilityZones;
 	var $addresses, $securityGroups;
 	var $instanceTypes;
+	var $volumes;
 
 	/**
 	 * @param  $credentials
@@ -181,6 +182,36 @@ class OpenStackNovaController {
 	function getConsoleOutput( $instanceid ) {
 		$consoleOutput = $this->novaConnection->get_console_output( $instanceid, array() );
 		return (string)$consoleOutput->body->output;
+	}
+
+	/**
+	 * @param  $volumeId
+	 * @return null|OpenStackNovaVolume
+	 */
+	function getVolume( $volumeId ) {
+		$this->getVolumes();
+		if ( isset( $this->volumes["$volumeId"] ) ) {
+			return $this->volumes["$volumeId"];
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * Get all volumes
+	 *
+	 * @return array
+	 */
+	function getVolumes() {
+		$this->volumes = array();
+		$volumes = $this->novaConnection->describe_volumes();
+		$volumes = $volumes->body->volumeSet->item;
+		foreach ( $volumes as $volume ) {
+			$volume = new OpenStackNovaVolume( $volume );
+			$volumeId = $volume->getVolumeId();
+			$this->volumes["$volumeId"] = $volume;
+		}
+		return $this->volumes;
 	}
 
 	/**
@@ -471,6 +502,43 @@ class OpenStackNovaController {
 	 */
 	function disassociateAddress( $ip ) {
 		$response = $this->novaConnection->disassociate_address( $ip );
+
+		return $response->isOK();
+	}
+
+	/**
+	 * Create a Nova volume
+	 *
+	 * @param  $zone
+	 * @param  $size
+	 * @param  $name
+	 * @param  $description
+	 * @return OpenStackNovaVolume
+	 */
+	function createVolume( $zone, $size, $name, $description ) {
+		$response = $this->novaConnection->createVolume( $zone, array(
+			'Size' => (int)$size,
+			'DisplayName' => $name,
+			'DisplayDescription' => $description,
+		));
+		if ( ! $response->isOK() ) {
+			return null;
+		} else {
+			$volume = new OpenStackNovaVolume( $response->body->volumeSet->item );
+			$id = $volume->getVolumeId();
+			$this->volumes["$id"] = $volume;
+			return $volume;
+		}
+	}
+
+	/**
+	 * Delete a Nova volume
+	 *
+	 * @param  $volumeid
+	 * @return boolean
+	 */
+	function deleteVolume( $volumeid ) {
+		$response = $this->novaConnection->deleteVolume( $volumeid );
 
 		return $response->isOK();
 	}

@@ -183,7 +183,7 @@ class SpecialNovaKey extends SpecialNova {
 					$keyOut .= Html::element( 'td', array(), $keypair->getKeyFingerprint() );
 					$projectOut .= Html::rawElement( 'tr', array(), $keyOut );
 				}
-				$out .= Html::rawElement( 'table', array( 'id' => 'novakeylist', 'class' => 'wikitable' ), $projectOut );
+				$out .= Html::rawElement( 'table', array( 'id' => 'novakeylist', 'class' => 'wikitable sortable collapsible' ), $projectOut );
 			}
 		} else if ( $wgOpenStackManagerNovaKeypairStorage == 'ldap' ) {
 			$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-importkey' ), array(), array( 'action' => 'import' ) );

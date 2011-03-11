@@ -259,7 +259,7 @@ class SpecialNovaProject extends SpecialNova {
 				$roleOut .= Html::rawElement( 'td', array(), $actions );
 				$rolesOut .= Html::rawElement( 'tr', array(), $roleOut );
 			}
-			$rolesOut = Html::rawElement( 'table', array( 'class' => 'wikitable' ), $rolesOut );
+			$rolesOut = Html::rawElement( 'table', array( 'class' => 'wikitable sortable collapsible' ), $rolesOut );
 			$projectOut .= Html::rawElement( 'td', array(), $rolesOut );
 			$link = $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-deleteproject' ), array(),
 							   array( 'action' => 'delete', 'projectname' => $projectName ) );
@@ -275,7 +275,7 @@ class SpecialNovaProject extends SpecialNova {
 			$projectsOut .= Html::rawElement( 'tr', array(), $projectOut );
 		}
 		if ( $projectsOut ) {
-			$out .= Html::rawElement( 'table', array( 'class' => 'wikitable' ), $projectsOut );
+			$out .= Html::rawElement( 'table', array( 'class' => 'wikitable sortable collapsible' ), $projectsOut );
 		}
 
 		$wgOut->addHTML( $out );

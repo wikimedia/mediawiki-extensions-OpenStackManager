@@ -438,7 +438,7 @@ class SpecialNovaAddress extends SpecialNova {
 				$projectOut = $header;
 				$projectOut .= $projectArr["$project"];
 				$out .= Html::rawElement( 'table',
-							  array( 'id' => 'novainstancelist', 'class' => 'wikitable' ), $projectOut );
+							  array( 'id' => 'novainstancelist', 'class' => 'wikitable sortable collapsible' ), $projectOut );
 			}
 		}
 		$wgOut->addHTML( $out );

@@ -338,7 +338,7 @@ class SpecialNovaInstance extends SpecialNova {
 		global $wgOut, $wgRequest;
 
 		$this->setHeaders();
-		$wgOut->setPagetitle( wfMsg( 'openstackmanager-deletedomain' ) );
+		$wgOut->setPagetitle( wfMsg( 'openstackmanager-deleteinstance' ) );
 
 		$project = $wgRequest->getText( 'project' );
 		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
@@ -427,12 +427,12 @@ class SpecialNovaInstance extends SpecialNova {
 			if ( ! in_array( $project, $userProjects ) ) {
 				continue;
 			}
-			$instanceName = $instance->getInstanceName();
-			$instanceName = htmlentities( $instanceName );
-			$title = Title::newFromText( $instanceName, NS_VM );
-			$instanceNameLink = $sk->link( $title, $instanceName );
-			$instanceOut = Html::rawElement( 'td', array(), $instanceNameLink );
-			$instanceOut .= Html::element( 'td', array(), $instance->getInstanceId() );
+			$instanceOut = Html::element( 'td', array(), $instance->getInstanceName() );
+			$instanceId = $instance->getInstanceId();
+			$instanceId = htmlentities( $instanceId );
+			$title = Title::newFromText( $instanceId, NS_NOVA_RESOURCE );
+			$instanceIdLink = $sk->link( $title, $instanceId );
+			$instanceOut .= Html::rawElement( 'td', array(), $instanceIdLink );
 			$instanceOut .= Html::element( 'td', array(), $instance->getInstanceState() );
 			$instanceOut .= Html::element( 'td', array(), $instance->getInstanceType() );
 			$privateip = $instance->getInstancePrivateIP();
@@ -492,7 +492,7 @@ class SpecialNovaInstance extends SpecialNova {
 				$projectOut = $header;
 				$projectOut .= $projectArr["$project"];
 				$out .= Html::rawElement( 'table',
-										  array( 'id' => 'novainstancelist', 'class' => 'wikitable' ), $projectOut );
+										  array( 'id' => 'novainstancelist', 'class' => 'wikitable sortable collapsible' ), $projectOut );
 			}
 		}
 

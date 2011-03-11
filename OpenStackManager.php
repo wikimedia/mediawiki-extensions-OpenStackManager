@@ -21,15 +21,15 @@ $wgExtensionCredits['other'][] = array(
 	'path' => __FILE__,
 	'name' => 'OpenStackManager',
 	'author' => 'Ryan Lane',
-	'version' => '1.1',
+	'version' => '1.2',
 	'url' => 'http://mediawiki.org/wiki/Extension:OpenStackManager',
 	'descriptionmsg' => 'openstackmanager-desc',
 );
 
-define( "NS_VM", 498 );
-define( "NS_VM_TALK", 499 );
-$wgExtraNamespaces[NS_VM] = 'VM';
-$wgExtraNamespaces[NS_VM_TALK] = 'VM_talk';
+define( "NS_NOVA_RESOURCE", 498 );
+define( "NS_NOVA_RESOURCE_TALK", 499 );
+$wgExtraNamespaces[NS_NOVA_RESOURCE] = 'Nova_Resource';
+$wgExtraNamespaces[NS_NOVA_RESOURCE_TALK] = 'Nova_Resource_Talk';
 
 $wgGroupPermissions['sysop']['manageproject'] = true;
 $wgAvailableRights[] = 'manageproject';
@@ -91,6 +91,7 @@ $wgAutoloadClasses['OpenStackNovaAddress'] = $dir . 'OpenStackNovaAddress.php';
 $wgAutoloadClasses['OpenStackNovaSecurityGroup'] = $dir . 'OpenStackNovaSecurityGroup.php';
 $wgAutoloadClasses['OpenStackNovaSecurityGroupRule'] = $dir . 'OpenStackNovaSecurityGroupRule.php';
 $wgAutoloadClasses['OpenStackNovaRole'] = $dir . 'OpenStackNovaRole.php';
+$wgAutoloadClasses['OpenStackNovaVolume'] = $dir . 'OpenStackNovaVolume.php';
 $wgAutoloadClasses['SpecialNovaInstance'] = $dir . 'special/SpecialNovaInstance.php';
 $wgAutoloadClasses['SpecialNovaKey'] = $dir . 'special/SpecialNovaKey.php';
 $wgAutoloadClasses['SpecialNovaProject'] = $dir . 'special/SpecialNovaProject.php';
@@ -98,6 +99,7 @@ $wgAutoloadClasses['SpecialNovaDomain'] = $dir . 'special/SpecialNovaDomain.php'
 $wgAutoloadClasses['SpecialNovaAddress'] = $dir . 'special/SpecialNovaAddress.php';
 $wgAutoloadClasses['SpecialNovaSecurityGroup'] = $dir . 'special/SpecialNovaSecurityGroup.php';
 $wgAutoloadClasses['SpecialNovaRole'] = $dir . 'special/SpecialNovaRole.php';
+$wgAutoloadClasses['SpecialNovaVolume'] = $dir . 'special/SpecialNovaVolume.php';
 $wgAutoloadClasses['SpecialNova'] = $dir . 'special/SpecialNova.php';
 $wgAutoloadClasses['OpenStackNovaHostJob'] = $dir . 'OpenStackNovaHostJob.php';
 $wgAutoloadClasses['AmazonEC2'] = $dir . 'aws-sdk/sdk.class.php';
@@ -115,6 +117,8 @@ $wgSpecialPages['NovaSecurityGroup'] = 'SpecialNovaSecurityGroup';
 $wgSpecialPageGroups['NovaSecurityGroup'] = 'nova';
 $wgSpecialPages['NovaRole'] = 'SpecialNovaRole';
 $wgSpecialPageGroups['NovaRole'] = 'nova';
+$wgSpecialPages['NovaVolume'] = 'SpecialNovaVolume';
+$wgSpecialPageGroups['NovaVolume'] = 'nova';
 $wgJobClasses['addDNSHostToLDAP'] = 'OpenStackNovaHostJob';
 
 $wgHooks['LDAPSetCreationValues'][] = 'OpenStackNovaUser::LDAPSetCreationValues';

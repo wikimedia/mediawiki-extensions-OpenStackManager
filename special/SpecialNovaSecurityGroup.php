@@ -270,7 +270,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 					$ruleOut .= Html::rawElement( 'td', array(), $actions );
 					$rulesOut .= Html::rawElement( 'tr', array(), $ruleOut );
 				}
-				$rulesOut = Html::rawElement( 'table', array( 'id' => 'novasecuritygrouplist', 'class' => 'wikitable' ), $rulesOut );
+				$rulesOut = Html::rawElement( 'table', array( 'id' => 'novasecuritygrouplist', 'class' => 'wikitable sortable collapsible' ), $rulesOut );
 				$groupOut .= Html::rawElement( 'td', array(), $rulesOut );
 			} else {
 				$groupOut .= Html::rawElement( 'td', array(), '' );
@@ -309,7 +309,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 				$projectOut = $groupheader;
 				$projectOut .= $projectArr["$project"];
 				$out .= Html::rawElement( 'table',
-										  array( 'id' => 'novainstancelist', 'class' => 'wikitable' ), $projectOut );
+										  array( 'id' => 'novainstancelist', 'class' => 'wikitable sortable collapsible' ), $projectOut );
 			}
 		}
 
