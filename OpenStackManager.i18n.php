@@ -88,7 +88,6 @@ $messages['en'] = array(
 	'openstackmanager-instancetypelabel' => '{{PLURAL:$1|$1 CPU|$1 CPUs}}, $2 MB RAM, $3 GB storage',
 	'openstackmanager-launchtime' => 'Launch time',
 	'openstackmanager-createinstance' => 'Create a new instance',
-	'openstackmanager-allocateips' => 'Allocate IP addresses',
 	'openstackmanager-invaliddomain' => 'Requested domain is invalid.',
 	'openstackmanager-createdinstance' => 'Created instance $1 with image $2 and hostname $3.',
 	'openstackmanager-createfailedldap' => 'Failed to create instance as the host could not be added to LDAP.',
