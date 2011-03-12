@@ -567,6 +567,7 @@ class SpecialNovaInstance extends SpecialNova {
 		$instanceid = $instance->getInstanceId();
 		$success = $this->userNova->terminateInstance( $instanceid );
 		if ( $success ) {
+			$instance->deleteArticle();
 			$success = OpenStackNovaHost::deleteHostByInstanceId( $instanceid );
 			if ( $success ) {
 				$wgOut->addWikiMsg( 'openstackmanager-deletedinstance', $instanceid );
@@ -593,7 +594,8 @@ class SpecialNovaInstance extends SpecialNova {
 		global $wgOut, $wgUser;
 		global $wgOpenStackManagerPuppetOptions;
 
-		$host = OpenStackNovaHost::getHostByInstanceId( $formData['instanceid'] );
+		$instance = $this->adminNova->getInstance( $formData['instanceid'] );
+		$host = $instance->getHost();
 		if ( $host ) {
 			$puppetinfo = array();
 			if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
@@ -610,6 +612,7 @@ class SpecialNovaInstance extends SpecialNova {
 			}
 			$success = $host->modifyPuppetConfiguration( $puppetinfo );
 			if ( $success ) {
+				$instance->editArticle();
 				$wgOut->addWikiMsg( 'openstackmanager-modifiedinstance' );
 			} else {
 				$wgOut->addWikiMsg( 'openstackmanager-modifyinstancefailed' );

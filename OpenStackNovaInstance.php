@@ -174,4 +174,71 @@ class OpenStackNovaInstance {
 		return (string)$this->instance->instancesSet->item->launchTime;
 	}
 
+	/**
+	 * Adds or edits an article for this instance
+	 *
+	 * @return void
+	 */
+	function editArticle() {
+		global $wgOpenStackManagerCreateResourcePages;
+
+		if ( ! $wgOpenStackManagerCreateResourcePages ) {
+			return;
+		}
+
+		$title = Title::newFromText( $this->getInstanceId(), NS_NOVA_RESOURCE );
+		$article = new Article( $title );
+		$format = "{{Nova Resource|resourcetype=instance|name=%s|reservationid=%s|instanceid={{PAGENAME}}|privateip=%s|publicip=%s|instancestate=%s|instancetype=%s|imageid=%s|project=%s|availabilityzone=%s|region=%s|securitygroups=%s|launchtime=%s|fqdn=%s|puppetclass=%s|puppetvar=%s}}";
+		$host = $this->getHost();
+		$puppetinfo = $host->getPuppetConfiguration();
+		if ( $puppetinfo['puppetclass'] ) {
+			$puppetclasses = implode( ',', $puppetinfo['puppetclass'] );
+		} else {
+			$puppetclasses = '';
+		}
+		$puppetvars = '';
+		if ( $puppetinfo['puppetvar'] ) {
+			foreach ( $puppetinfo['puppetvar'] as $key => $val ) {
+				# Let's not leak user's email addresses; we know this
+				# will be set, since we are setting it.
+				if ( $key == 'instancecreator_email' ) {
+					continue;
+				}
+				$puppetvars .= $key . '=' . $val . ',';
+			}
+		}
+		$text = sprintf( $format,
+			$this->getInstanceName(),
+			$this->getReservationId(),
+			$this->getInstancePrivateIP(),
+			$this->getInstancePublicIP(),
+			// Since instance state is somewhat dynamic, is this useful?
+			$this->getInstanceState(),
+			$this->getInstanceType(),
+			$this->getImageId(),
+			$this->getOwner(),
+			$this->getAvailabilityZone(),
+			$this->getRegion(),
+			implode( ',', $this->getSecurityGroups() ),
+			$this->getLaunchTime(),
+			$host->getFullyQualifiedHostName(),
+			$puppetclasses,
+			$puppetvars
+		);
+		$article->doEdit( $text, '', EDIT_SUPPRESS_RC );
+	}
+
+	function deleteArticle() {
+		global $wgOpenStackManagerCreateResourcePages;
+
+		if ( ! $wgOpenStackManagerCreateResourcePages ) {
+			return;
+		}
+
+		$title = Title::newFromText( $this->getInstanceId(), NS_NOVA_RESOURCE );
+		$article = new Article( $title );
+		$suppress = Revision::DELETED_TEXT && Revision::DELETED_COMMENT && Revision::DELETED_USER && Revision::DELETED_RESTRICTED;
+		$article->doDeleteArticle( '', $suppress );
+	}
+
 }

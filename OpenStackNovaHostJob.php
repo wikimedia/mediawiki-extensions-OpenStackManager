@@ -15,6 +15,9 @@ class OpenStackNovaHostJob extends Job {
 	 * on the instance. If the instance does not exist, or it has not been
 	 * assigned an IP address, re-add the job.
 	 *
+	 * Upon successfully adding the host, this job will also add an Article for the
+	 * instance.
+	 *
 	 * @return bool
 	 */
 	public function run() {
@@ -32,7 +35,7 @@ class OpenStackNovaHostJob extends Job {
 			# Instance no longer exists
 			return true;
 		}
-		$ip = (string)$instance->getInstancePrivateIP();
+		$ip = $instance->getInstancePrivateIP();
 		if ( trim( $ip ) == '' ) {
 			# IP hasn't been assigned yet
 			# re-add to queue
@@ -47,6 +50,7 @@ class OpenStackNovaHostJob extends Job {
 			return true;
 		}
 		$host->setARecord( $ip );
+		$instance->editArticle();
 
 		return true;
 	}
