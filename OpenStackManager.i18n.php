@@ -1338,7 +1338,7 @@ $messages['mk'] = array(
 	'openstackmanager-volumedeleteonvolumedelete' => 'Да го избришам со бришењето на примерокот?',
 	'openstackmanager-volumecreationtime' => 'Време на создавање на носачот',
 	'openstackmanager-attach' => 'приложи',
-	'openstackmanager-detach' => 'тргни',
+	'openstackmanager-detach' => 'оттргни',
 	'openstackmanager-deletevolume' => 'Избриши носач',
 	'openstackmanager-deletevolumequestion' => 'Дали сте сигурни дека сакате да го избвришете носачот „$1“?',
 	'openstackmanager-volumelist' => 'Список на носачи',
@@ -1350,6 +1350,15 @@ $messages['mk'] = array(
 	'openstackmanager-deletedvolume' => 'Носачот е избришан.',
 	'openstackmanager-deletevolumefailed' => 'Не успеав да го избришам носачот.',
 	'openstackmanager-backvolumelist' => 'Кон списокот на носачи',
+	'openstackmanager-attachvolume' => 'Приложи носач',
+	'openstackmanager-device' => 'Уред',
+	'openstackmanager-attachedvolume' => 'Носачот е успешно приложен.',
+	'openstackmanager-attachvolumefailed' => 'Не успеав да го приложам носачот.',
+	'openstackmanager-detachvolume' => 'Одвој носач',
+	'openstackmanager-forcedetachment' => 'Наложи оттргнување на носачот',
+	'openstackmanager-forcedetachmenthelp' => 'Наложеното оттргнувањена носачот се препорачува само ако носачот не може да се оттргне по нормална постапка. Ова може да предизвика негово оштетување и загуба на податоци.',
+	'openstackmanager-detachedvolume' => 'Носачот е успешно одвоен.',
+	'openstackmanager-detachvolumefailed' => 'Не успеав да го оттргнам носачот.',
 	'openstackmanager-novapublickey' => 'Јавен SSH-клуч',
 	'openstackmanager-novakey-key' => 'Јавен SSH-клуч',
 	'openstackmanager-novakey-info' => 'Инфо за јавниот SSH-клуч',
@@ -1719,6 +1728,14 @@ $messages['nl'] = array(
 	'openstackmanager-email-subject' => 'U kunt nu aanmelden op uw instantie.',
 	'openstackmanager-email-body' => 'De volgende instantie is aangemaakt en er kan op aangemeld worden:',
 	'right-manageproject' => 'OpenStack-projecten en -rollen beheren',
+);
+
+/** Polish (Polski)
+ * @author Odder
+ */
+$messages['pl'] = array(
+	'openstackmanager-novapublickey' => 'Klucz publiczny SSH',
+	'openstackmanager-novakey-key' => 'Klucz publiczny SSH',
 );
 
 /** Portuguese (Português)
