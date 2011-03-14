@@ -52,6 +52,7 @@ $wgOpenStackManagerLDAPGlobalRoles = array(
 	);
 $wgOpenStackManagerLDAPRolesIntersect = false;
 $wgOpenStackManagerLDAPInstanceBaseDN = '';
+$wgOpenStackManagerLDAPSudoerBaseDN = '';
 $wgOpenStackManagerLDAPDefaultGid = '500';
 $wgOpenStackManagerLDAPDefaultShell = '/bin/bash';
 $wgOpenStackManagerDNSServers = array( 'primary' => 'localhost', 'secondary' => 'localhost' );
@@ -93,6 +94,7 @@ $wgAutoloadClasses['OpenStackNovaSecurityGroup'] = $dir . 'OpenStackNovaSecurity
 $wgAutoloadClasses['OpenStackNovaSecurityGroupRule'] = $dir . 'OpenStackNovaSecurityGroupRule.php';
 $wgAutoloadClasses['OpenStackNovaRole'] = $dir . 'OpenStackNovaRole.php';
 $wgAutoloadClasses['OpenStackNovaVolume'] = $dir . 'OpenStackNovaVolume.php';
+$wgAutoloadClasses['OpenStackNovaSudoer'] = $dir . 'OpenStackNovaSudoer.php';
 $wgAutoloadClasses['SpecialNovaInstance'] = $dir . 'special/SpecialNovaInstance.php';
 $wgAutoloadClasses['SpecialNovaKey'] = $dir . 'special/SpecialNovaKey.php';
 $wgAutoloadClasses['SpecialNovaProject'] = $dir . 'special/SpecialNovaProject.php';
@@ -101,6 +103,7 @@ $wgAutoloadClasses['SpecialNovaAddress'] = $dir . 'special/SpecialNovaAddress.ph
 $wgAutoloadClasses['SpecialNovaSecurityGroup'] = $dir . 'special/SpecialNovaSecurityGroup.php';
 $wgAutoloadClasses['SpecialNovaRole'] = $dir . 'special/SpecialNovaRole.php';
 $wgAutoloadClasses['SpecialNovaVolume'] = $dir . 'special/SpecialNovaVolume.php';
+$wgAutoloadClasses['SpecialNovaSudoer'] = $dir . 'special/SpecialNovaSudoer.php';
 $wgAutoloadClasses['SpecialNova'] = $dir . 'special/SpecialNova.php';
 $wgAutoloadClasses['OpenStackNovaHostJob'] = $dir . 'OpenStackNovaHostJob.php';
 $wgAutoloadClasses['AmazonEC2'] = $dir . 'aws-sdk/sdk.class.php';
@@ -120,6 +123,8 @@ $wgSpecialPages['NovaRole'] = 'SpecialNovaRole';
 $wgSpecialPageGroups['NovaRole'] = 'nova';
 $wgSpecialPages['NovaVolume'] = 'SpecialNovaVolume';
 $wgSpecialPageGroups['NovaVolume'] = 'nova';
+$wgSpecialPages['NovaSudoer'] = 'SpecialNovaSudoer';
+$wgSpecialPageGroups['NovaSudoer'] = 'nova';
 $wgJobClasses['addDNSHostToLDAP'] = 'OpenStackNovaHostJob';
 
 $wgHooks['LDAPSetCreationValues'][] = 'OpenStackNovaUser::LDAPSetCreationValues';
