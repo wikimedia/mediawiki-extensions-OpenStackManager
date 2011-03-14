@@ -615,6 +615,7 @@ class OpenStackNovaHost {
 
 		$hostname = $instance->getInstanceName();
 		$instanceid = $instance->getInstanceId();
+		$project = $instance->getOwner();
 		$ip = $instance->getInstancePrivateIP();
 		$domainname = $domain->getFullyQualifiedDomainName();
 		$host = OpenStackNovaHost::getHostByName( $hostname, $domain );
@@ -659,6 +660,7 @@ class OpenStackNovaHost {
 			}
 			$hostEntry['puppetvar'][] = 'instancecreator_username=' . $wgUser->getName();
 			$hostEntry['puppetvar'][] = 'instancecreator_lang=' . $wgLang->getCode();
+			$hostEntry['puppetvar'][] = 'instanceproject=' . $project;
 		}
 		$dn = 'dc=' . $instanceid . ',dc=' . $domain->getDomainName() . ',' . $wgOpenStackManagerLDAPInstanceBaseDN;
 
