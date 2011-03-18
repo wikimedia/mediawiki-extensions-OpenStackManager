@@ -131,7 +131,6 @@ class OpenStackNovaSudoer {
 	function modifySudoer( $users, $hosts, $commands, $options ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
-		global $wgOpenStackManagerLDAPSudoerBaseDN;
 		global $wgOpenStackManagerLDAPDomain;
 
 		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
@@ -172,7 +171,7 @@ class OpenStackNovaSudoer {
 	static function getAllSudoers() {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
-		global $wgOpenStackManagerLDAPSudoerBaseDN;
+		global $wgOpenStackManagerLDAPSudoerBaseDN, $wgOpenStackManagerLDAPDomain;
 
 		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );

@@ -37,7 +37,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	 * @return bool
 	 */
 	function createSudoer() {
-		global $wgRequest, $wgOut;
+		global $wgOut;
 
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-createsudoer' ) );
