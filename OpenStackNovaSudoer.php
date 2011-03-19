@@ -157,7 +157,7 @@ class OpenStackNovaSudoer {
 			$wgAuth->printDebug( "Successfully modified sudoer $this->sudoerDN", NONSENSITIVE );
 			return true;
 		} else {
-			$wgAuth->printDebug( "Failed to modified sudoer $this->sudoerDN", NONSENSITIVE );
+			$wgAuth->printDebug( "Failed to modify sudoer $this->sudoerDN", NONSENSITIVE );
 			return false;
 		}
 	}
