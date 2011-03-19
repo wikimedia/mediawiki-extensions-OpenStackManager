@@ -1,7 +1,12 @@
 <?php
 class SpecialNovaKey extends SpecialNova {
 
-	var $userNova, $userLDAP;
+	var $userNova;
+
+	/**
+	 * @var OpenStackNovaUser
+	 */
+	var $userLDAP;
 
 	function __construct() {
 		parent::__construct( 'NovaKey' );

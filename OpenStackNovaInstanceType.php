@@ -57,6 +57,12 @@ class OpenStackNovaInstanceType {
 		return (int)$this->instanceType->flavorId;
 	}
 
+	/**
+	 * @static
+	 * @param OpenStackNovaInstanceType $a
+	 * @param OpenStackNovaInstanceType $b
+	 * @return bool
+	 */
 	public static function sorter( $a, $b ) {
 		return $a->getInstanceTypeId() > $b->getInstanceTypeId();
 	}

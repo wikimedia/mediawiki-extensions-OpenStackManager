@@ -1,6 +1,9 @@
 <?php
 class SpecialNovaSecurityGroup extends SpecialNova {
 
+	/**
+	 * @var OpenStackNovaController
+	 */
 	var $adminNova, $userNova;
 
 	/**

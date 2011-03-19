@@ -1,6 +1,9 @@
 <?php
 class SpecialNovaInstance extends SpecialNova {
 
+	/**
+	 * @var OpenStackNovaController
+	 */
 	var $adminNova, $userNova;
 
 	/**

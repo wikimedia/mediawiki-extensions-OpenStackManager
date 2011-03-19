@@ -1,7 +1,14 @@
 <?php
 class SpecialNovaVolume extends SpecialNova {
 
+	/**
+	 * @var OpenStackNovaController
+	 */
 	var $adminNova, $userNova;
+
+	/**
+	 * @var OpenStackNovaUser
+	 */
 	var $userLDAP;
 
 	function __construct() {

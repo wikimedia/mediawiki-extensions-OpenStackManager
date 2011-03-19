@@ -148,7 +148,7 @@ class OpenStackNovaController {
 
 	/**
 	 * @param  $groupname
-	 * @return null
+	 * @return OpenStackNovaSecurityGroup
 	 */
 	function getSecurityGroup( $groupname ) {
 		$this->getSecurityGroups();

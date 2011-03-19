@@ -4,6 +4,9 @@ class SpecialNovaAddress extends SpecialNova {
 	var $adminNova;
 	var $userNova;
 
+	/**
+	 * @var OpenStackNovaUser
+	 */
 	var $userLDAP;
 
 	function __construct() {
@@ -19,10 +22,10 @@ class SpecialNovaAddress extends SpecialNova {
 			return false;
 		}
 		$this->userLDAP = new OpenStackNovaUser();
-                if ( ! $this->userLDAP->exists() ) {
-                        $this->noCredentials();
-                        return true;
-                }
+		if ( ! $this->userLDAP->exists() ) {
+				$this->noCredentials();
+				return true;
+		}
 		$adminCredentials = $wgOpenStackManagerNovaAdminKeys;
 		$this->adminNova = new OpenStackNovaController( $adminCredentials );
 
