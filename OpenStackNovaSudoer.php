@@ -154,10 +154,10 @@ class OpenStackNovaSudoer {
 		$success = ldap_modify( $wgAuth->ldapconn, $this->sudoerDN, $sudoer );
 		wfRestoreWarnings();
 		if ( $success ) {
-			$wgAuth->printDebug( "Successfully modified sudoer $sudoername", NONSENSITIVE );
+			$wgAuth->printDebug( "Successfully modified sudoer $this->sudoerDN", NONSENSITIVE );
 			return true;
 		} else {
-			$wgAuth->printDebug( "Failed to modified sudoer $sudoername", NONSENSITIVE );
+			$wgAuth->printDebug( "Failed to modified sudoer $this->sudoerDN", NONSENSITIVE );
 			return false;
 		}
 	}
