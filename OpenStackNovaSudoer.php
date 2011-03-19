@@ -35,15 +35,23 @@ class OpenStackNovaSudoer {
 	 * @return void
 	 */
 	function fetchSudoerInfo() {
-		global $wgAuth;
+		global $wgAuth, $wgMemc;
 		global $wgOpenStackManagerLDAPSudoerBaseDN;
 
-		# TODO: memcache this
-		wfSuppressWarnings();
-		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPSudoerBaseDN,
-								'(cn=' . $this->sudoername . ')' );
-		$this->sudoerInfo = ldap_get_entries( $wgAuth->ldapconn, $result );
-		wfRestoreWarnings();
+		$key = wfMemcKey( 'openstackmanager', 'sudoerinfo', $this->sudoername );
+
+		$sudoerInfo = $wgMemc->get( $key );
+
+		if ( is_array( $sudoerInfo ) ) {
+			$this->sudoerInfo = $sudoerInfo;
+		} else {
+			wfSuppressWarnings();
+			$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPSudoerBaseDN,
+									'(cn=' . $this->sudoername . ')' );
+			$this->sudoerInfo = ldap_get_entries( $wgAuth->ldapconn, $result );
+			wfRestoreWarnings();
+			$wgMemc->set( $key, $this->sudoerInfo, 3600 * 24 );
+		}
 		if ( $this->sudoerInfo ) {
 			$this->sudoerDN = $this->sudoerInfo[0]['dn'];
 		}
