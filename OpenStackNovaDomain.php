@@ -36,15 +36,23 @@ class OpenStackNovaDomain {
 	 * @return void
 	 */
 	function fetchDomainInfo() {
-		global $wgAuth;
+		global $wgAuth, $wgMemc;
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
 
-		# TODO: memcache this
-		wfSuppressWarnings();
-		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN,
-								'(dc=' . $this->domainname . ')' );
-		$this->domainInfo = ldap_get_entries( $wgAuth->ldapconn, $result );
-		wfRestoreWarnings();
+		$key = wfMemcKey( 'openstackmanager', 'domaininfo', $this->domainname );
+
+		$domainInfo = $wgMemc->get( $key );
+
+		if ( is_array( $domainInfo ) ) {
+			$this->domainInfo = $domainInfo;
+		} else {
+			wfSuppressWarnings();
+			$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN,
+									'(dc=' . $this->domainname . ')' );
+			$this->domainInfo = ldap_get_entries( $wgAuth->ldapconn, $result );
+			wfRestoreWarnings();
+			$wgMemc->set( $key, $this->domainInfo, 3600 * 24 );
+		}
 		if ( $this->domainInfo ) {
 			$this->fqdn = $this->domainInfo[0]['associateddomain'][0];
 			$this->domainDN = $this->domainInfo[0]['dn'];
