@@ -38,7 +38,6 @@ class OpenStackNovaDomain {
 	function fetchDomainInfo() {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 
 		# TODO: memcache this
 		wfSuppressWarnings();

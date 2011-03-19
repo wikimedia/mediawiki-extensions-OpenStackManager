@@ -41,8 +41,6 @@ class OpenStackNovaRole {
 	 */
 	function fetchRoleInfo() {
 		global $wgAuth;
-		global $wgOpenStackManagerLDAPProjectBaseDN;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPGlobalRoles;
 
 		$query = '';
@@ -229,7 +227,6 @@ class OpenStackNovaRole {
 	static function createRole( $rolename, $project ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
-		global $wgOpenStackManagerLDAPProjectBaseDN;
 		global $wgOpenStackManagerLDAPDomain;
 
 		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );

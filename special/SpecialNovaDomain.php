@@ -55,8 +55,7 @@ class SpecialNovaDomain extends SpecialNova {
 	 * @return bool
 	 */
 	function createDomain() {
-		global $wgRequest, $wgOut;
-		global $wgOpenStackManagerDNSOptions;
+		global $wgOut;
 
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-createdomain' ) );

@@ -2,6 +2,10 @@
 class SpecialNovaSecurityGroup extends SpecialNova {
 
 	var $adminNova, $userNova;
+
+	/**
+	 * @var OpenStackNovaUser
+	 */
 	var $userLDAP;
 
 	function __construct() {
@@ -97,7 +101,6 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	 */
 	function configureSecurityGroup() {
 		global $wgRequest, $wgOut;
-		global $wgOpenStackManagerPuppetOptions;
 
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-configuresecuritygroup' ) );
@@ -534,7 +537,6 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	 */
 	function tryConfigureSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
-		global $wgOpenStackManagerPuppetOptions;
 
 		$groupname = $formData['groupname'];
 		$description = $formData['description'];

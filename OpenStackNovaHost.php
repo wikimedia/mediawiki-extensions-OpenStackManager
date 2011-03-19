@@ -54,7 +54,6 @@ class OpenStackNovaHost {
 	 */
 	function fetchHostInfo() {
 		global $wgAuth;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 
 		$fqdn = $this->searchvalue . '.' . $this->domain->getFullyQualifiedDomainName();
 		wfSuppressWarnings();
@@ -426,7 +425,6 @@ class OpenStackNovaHost {
 	 */
 	static function getHostByIP( $ip, $domain ) {
 		global $wgAuth;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
 
 		$domain = OpenStackNovaDomain::getDomainByHostIP( $ip );
@@ -457,7 +455,6 @@ class OpenStackNovaHost {
 	 */
 	static function getHostsByIP( $ip ) {
 		global $wgAuth;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
 
 		wfSuppressWarnings();

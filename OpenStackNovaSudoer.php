@@ -37,7 +37,6 @@ class OpenStackNovaSudoer {
 	function fetchSudoerInfo() {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPSudoerBaseDN;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 
 		# TODO: memcache this
 		wfSuppressWarnings();

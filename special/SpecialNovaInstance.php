@@ -2,6 +2,10 @@
 class SpecialNovaInstance extends SpecialNova {
 
 	var $adminNova, $userNova;
+
+	/**
+	 * @var OpenStackNovaUser
+	 */
 	var $userLDAP;
 
 	function __construct() {

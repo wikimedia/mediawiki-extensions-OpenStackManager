@@ -420,7 +420,6 @@ class OpenStackNovaUser {
 		global $wgOpenStackManagerLDAPDefaultGid;
 		global $wgOpenStackManagerLDAPDefaultShell;
 		global $wgRequest;
-		global $wgAuth;
 
 		$values['objectclass'][] = 'person';
 		$values['objectclass'][] = 'novauser';

@@ -244,7 +244,6 @@ class SpecialNovaKey extends SpecialNova {
 	 */
 	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut, $wgUser;
-		global $wgOpenStackManagerNovaKeypairStorage;
 
 		$success = $this->userLDAP->deleteKeypair( $formData['key'] );
 		if ( $success ) {

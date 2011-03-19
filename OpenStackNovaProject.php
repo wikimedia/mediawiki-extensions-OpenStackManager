@@ -39,7 +39,6 @@ class OpenStackNovaProject {
 	function fetchProjectInfo() {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPProjectBaseDN;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 
 		wfSuppressWarnings();
 		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN,
@@ -329,7 +328,6 @@ class OpenStackNovaProject {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPProjectBaseDN;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
-		global $wgOpenStackManagerLDAPDomain;
 		global $wgExtraNamespaces;
 		global $wgOpenStackManagerLDAPDomain;
 

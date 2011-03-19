@@ -40,8 +40,7 @@ class SpecialNovaProject extends SpecialNova {
 	 * @return bool
 	 */
 	function createProject() {
-		global $wgRequest, $wgOut;
-		global $wgUser;
+		global $wgOut, $wgUser;
 
 		$this->setHeaders();
 		if ( !$this->userCanExecute( $wgUser ) ) {
