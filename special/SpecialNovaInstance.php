@@ -45,12 +45,6 @@ class SpecialNovaInstance extends SpecialNova {
 				return true;
 			}
 			$this->deleteInstance();
-		} else if ( $action == "rename" ) {
-			if ( ! $this->userLDAP->inProject( $project ) ) {
-				$this->notInProject();
-				return true;
-			}
-			$this->renameInstance();
 		} else if ( $action == "configure" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
 				$this->notInProject();
