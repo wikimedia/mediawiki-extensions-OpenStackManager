@@ -772,6 +772,7 @@ $messages['de'] = array(
 
 /** French (Français)
  * @author Crochet.david
+ * @author Hashar
  * @author IAlex
  */
 $messages['fr'] = array(
@@ -793,6 +794,7 @@ $messages['fr'] = array(
 	'openstackmanager-novaproject' => 'Projet Nova',
 	'openstackmanager-delete' => 'supprimer',
 	'openstackmanager-configure' => 'configurer',
+	'openstackmanager-modify' => 'modifier',
 	'openstackmanager-rename' => 'renommer',
 	'openstackmanager-actions' => 'Actions',
 	'openstackmanager-notloggedin' => 'Connexion nécessaire',
@@ -850,6 +852,9 @@ $messages['fr'] = array(
 	'openstackmanager-deleteinstancefailed' => "Échec de la suppression de l'instance.",
 	'openstackmanager-consoleoutput' => 'Sortie de la console',
 	'openstackmanager-getconsoleoutput' => 'obtenir la sortie de la console',
+	'openstackmanager-createvolume' => 'Créer un volume',
+	'openstackmanager-volumename' => 'Nom de volume',
+	'openstackmanager-novavolume-volume' => 'Volume',
 	'openstackmanager-novapublickey' => 'Clé publique SSH',
 	'openstackmanager-novakey-key' => 'Clé publique SSH',
 	'openstackmanager-novakey-info' => 'Informations sur la clé publique SSH',
@@ -923,6 +928,8 @@ $messages['fr'] = array(
 	'openstackmanager-removerule-action' => 'supprimer une règle',
 	'openstackmanager-removerule' => 'Enlever la règle',
 	'openstackmanager-addrule' => 'Ajouter une règle',
+	'openstackmanager-novasudoer-sudoer' => 'Politique Sudo',
+	'openstackmanager-novasudoer-info' => 'Information Politique Sudo',
 );
 
 /** Galician (Galego)
@@ -1859,6 +1866,18 @@ $messages['pt'] = array(
 	'openstackmanager-deletedomain' => 'Eliminar domínio',
 	'openstackmanager-novaproject-project' => 'Projecto',
 	'openstackmanager-securitygrouprule' => 'Regras',
+);
+
+/** Russian (Русский)
+ * @author Haffman
+ */
+$messages['ru'] = array(
+	'openstackmanager-delete' => 'удалить',
+	'openstackmanager-rename' => 'переименовать',
+	'openstackmanager-actions' => 'Действия',
+	'openstackmanager-notloggedin' => 'Требуется авторизация',
+	'openstackmanager-attach' => 'прикрепить',
+	'openstackmanager-detach' => 'открепить',
 );
 
 /** Telugu (తెలుగు)
