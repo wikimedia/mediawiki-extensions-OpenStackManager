@@ -308,6 +308,7 @@ $messages['en'] = array(
 $messages['qqq'] = array(
 	'openstackmanager-desc' => '{{desc}}',
 	'openstackmanager-delete' => '{{Identical|Delete}}',
+	'openstackmanager-modify' => '{{Identical|Modify}}',
 	'openstackmanager-rename' => '{{Identical|Rename}}',
 	'openstackmanager-actions' => '{{Identical|Action}}',
 	'openstackmanager-notloggedin' => 'Page title',
@@ -359,6 +360,7 @@ $messages['be-tarask'] = array(
 	'openstackmanager-novaproject' => 'Праект Nova',
 	'openstackmanager-delete' => 'выдаліць',
 	'openstackmanager-configure' => 'наладзіць',
+	'openstackmanager-modify' => 'зьмяніць',
 	'openstackmanager-rename' => 'перайменаваць',
 	'openstackmanager-actions' => 'Дзеяньні',
 	'openstackmanager-notloggedin' => 'Патрабуецца ўваход у сыстэму',
@@ -387,6 +389,7 @@ $messages['be-tarask'] = array(
 	'openstackmanager-nonexistanthost' => 'Запатрабаваны хост не існуе.',
 	'openstackmanager-dnsdomain' => 'DNS-дамэн',
 	'openstackmanager-novainstance-info' => 'Інфармацыя пра экзэмпляр',
+	'openstackmanager-deleteinstance' => 'Выдаліць экзэмпляр',
 	'openstackmanager-deleteinstancequestion' => 'Вы ўпэўнены, што жадаеце выдаліць экзэмпляр «$1»?',
 	'openstackmanager-instancelist' => 'Сьпіс экзэмпляраў',
 	'openstackmanager-instancename' => 'Назва экзэмпляру',
@@ -414,6 +417,12 @@ $messages['be-tarask'] = array(
 	'openstackmanager-deleteinstancefailed' => 'Немагчыма выдаліць экзэмпляр.',
 	'openstackmanager-consoleoutput' => 'Вывад кансолі',
 	'openstackmanager-getconsoleoutput' => 'атрымаць кансольны вывад',
+	'openstackmanager-createvolume' => 'Стварыць разьдзел сховішча',
+	'openstackmanager-volumename' => 'Назва разьдзелу сховішча',
+	'openstackmanager-volumeid' => 'Ідэнтыфікатар разьдзелу сховішча',
+	'openstackmanager-volumedescription' => 'Апісаньне разьдзелу сховішча',
+	'openstackmanager-volumestate' => 'Стан разьдзелу сховішча',
+	'openstackmanager-volumeattachmentinstance' => 'Далучаны да экзэмпляру',
 	'openstackmanager-novapublickey' => 'Публічны ключ SSH',
 	'openstackmanager-novakey-key' => 'Публічны ключ SSH',
 	'openstackmanager-novakey-info' => 'Інфармацыя пра публічны ключ SSH',
@@ -1230,6 +1239,13 @@ $messages['ia'] = array(
 	'openstackmanager-email-subject' => 'Le instantia es preste pro apertura de session.',
 	'openstackmanager-email-body' => 'Le sequente instantia ha essite create, e es preste pro apertura de session:',
 	'right-manageproject' => 'Gerer projectos e rolos de OpenStack',
+);
+
+/** Colognian (Ripoarisch)
+ * @author Purodha
+ */
+$messages['ksh'] = array(
+	'openstackmanager-desc' => 'Määd et müjjelesch föt Metmaacher, <i lang="en">Nova</i> un <i lang="en">Swift</i> ze verwallde.',
 );
 
 /** Kurdish (Latin) (Kurdî (Latin))
