@@ -54,6 +54,12 @@ class SpecialNovaInstance extends SpecialNova {
 				return true;
 			}
 			$this->configureInstance();
+		} else if ( $action == "reboot" ) {
+			if ( ! $this->userLDAP->inProject( $project ) ) {
+				$this->notInProject();
+				return true;
+			}
+			$this->rebootInstance();
 		} else if ( $action == "consoleoutput" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
 				$this->notInProject();
@@ -378,6 +384,48 @@ class SpecialNovaInstance extends SpecialNova {
 	/**
 	 * @return bool
 	 */
+	function rebootInstance() {
+		global $wgOut, $wgRequest;
+
+		$this->setHeaders();
+		$wgOut->setPagetitle( wfMsg( 'openstackmanager-rebootinstance' ) );
+
+		$project = $wgRequest->getText( 'project' );
+		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
+			$this->notInRole( 'sysadmin' );
+			return false;
+		}
+		$instanceid = $wgRequest->getText( 'instanceid' );
+		if ( ! $wgRequest->wasPosted() ) {
+			$wgOut->addWikiMsg( 'openstackmanager-rebootinstancequestion', $instanceid );
+		}
+		$instanceInfo = array();
+		$instanceInfo['instanceid'] = array(
+			'type' => 'hidden',
+			'default' => $instanceid,
+			'name' => 'instanceid',
+		);
+		$instanceInfo['project'] = array(
+			'type' => 'hidden',
+			'default' => $project,
+			'name' => 'project',
+		);
+		$instanceInfo['action'] = array(
+			'type' => 'hidden',
+			'default' => 'reboot',
+			'name' => 'action',
+		);
+		$instanceForm = new SpecialNovaInstanceForm( $instanceInfo, 'openstackmanager-novainstance' );
+		$instanceForm->setTitle( SpecialPage::getTitleFor( 'NovaInstance' ) );
+		$instanceForm->setSubmitID( 'novainstance-form-deleteinstancesubmit' );
+		$instanceForm->setSubmitCallback( array( $this, 'tryRebootSubmit' ) );
+		$instanceForm->show();
+
+		return true;
+	}
+	/**
+	 * @return bool
+	 */
 	function getConsoleOutput() {
 		global $wgOut, $wgRequest;
 		global $wgUser;
@@ -459,11 +507,12 @@ class SpecialNovaInstance extends SpecialNova {
 									   'project' => $project,
 									   'instanceid' => $instance->getInstanceId() ) );
 			$actions = Html::rawElement( 'li', array(), $link );
-			#$msg = wfMsgHtml( 'openstackmanager-rename' );
-			#$actions .= $sk->link( $this->getTitle(), $msg, array(),
-			#					   array( 'action' => 'rename',
-			#							'project' => $project,
-			#							'instanceid' => $instance->getInstanceId() ) );
+			$msg = wfMsgHtml( 'openstackmanager-reboot' );
+			$link = $sk->link( $this->getTitle(), $msg, array(),
+								   array( 'action' => 'reboot',
+										'project' => $project,
+										'instanceid' => $instance->getInstanceId() ) );
+			$actions .= Html::rawElement( 'li', array(), $link );
 			$msg = wfMsgHtml( 'openstackmanager-configure' );
 			$link = $sk->link( $this->getTitle(), $msg, array(),
 								   array( 'action' => 'configure',
@@ -577,6 +626,29 @@ class SpecialNovaInstance extends SpecialNova {
 			}
 		} else {
 			$wgOut->addWikiMsg( 'openstackmanager-deleteinstancefailed' );
+		}
+		$sk = $wgUser->getSkin();
+		$out = '<br />';
+		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backinstancelist' ) );
+
+		$wgOut->addHTML( $out );
+		return true;
+	}
+
+	/**
+	 * @param  $formData
+	 * @param string $entryPoint
+	 * @return bool
+	 */
+	function tryRebootSubmit( $formData, $entryPoint = 'internal' ) {
+		global $wgOut, $wgUser;
+
+		$instanceid = $formData['instanceid'];
+		$success = $this->userNova->rebootInstance( $instanceid );
+		if ( $success ) {
+			$wgOut->addWikiMsg( 'openstackmanager-rebootedinstance', $instanceid );
+		} else {
+			$wgOut->addWikiMsg( 'openstackmanager-rebootinstancefailed' );
 		}
 		$sk = $wgUser->getSkin();
 		$out = '<br />';

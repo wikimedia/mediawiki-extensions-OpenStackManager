@@ -574,4 +574,16 @@ class OpenStackNovaController {
 		return $response->isOK();
 	}
 
+	/**
+	 * Reboots an instance
+	 *
+	 * @param instanceid
+	 * @return boolean
+	 */
+	function rebootInstance( $instanceid ) {
+		$response = $this->novaConnection->rebootInstances( $instanceid );
+
+		return $response->isOK();
+	}
+
 }

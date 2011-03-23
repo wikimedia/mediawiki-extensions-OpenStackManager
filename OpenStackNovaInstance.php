@@ -188,7 +188,26 @@ class OpenStackNovaInstance {
 
 		$title = Title::newFromText( $this->getInstanceId(), NS_NOVA_RESOURCE );
 		$article = new Article( $title );
-		$format = "{{Nova Resource|resourcetype=instance|name=%s|reservationid=%s|instanceid={{PAGENAME}}|privateip=%s|publicip=%s|instancestate=%s|instancetype=%s|imageid=%s|project=%s|availabilityzone=%s|region=%s|securitygroups=%s|launchtime=%s|fqdn=%s|puppetclass=%s|puppetvar=%s}}";
+		$format = <<<RESOURCEINFO
+{{Nova Resource
+|Resource Type=instance
+|Instance Name=%s
+|Reservation Id=%s
+|Instance Id={{PAGENAME}}
+|Private IP=%s
+|Public IP=%s
+|Instance State=%s
+|Instance Type=%s
+|Image Id=%s
+|Project=%s
+|Availability Zone=%s
+|Region=%s
+|Security Group=%s
+|Launch Time=%s
+|FQDN=%s
+|Puppet Class=%s
+|Puppet Var=%s}}
+RESOURCEINFO;
 		$host = $this->getHost();
 		$puppetinfo = $host->getPuppetConfiguration();
 		if ( $puppetinfo['puppetclass'] ) {
@@ -225,7 +244,7 @@ class OpenStackNovaInstance {
 			$puppetclasses,
 			$puppetvars
 		);
-		$article->doEdit( $text, '', EDIT_SUPPRESS_RC );
+		$article->doEdit( $text, '' );
 	}
 
 	function deleteArticle() {
@@ -237,8 +256,7 @@ class OpenStackNovaInstance {
 
 		$title = Title::newFromText( $this->getInstanceId(), NS_NOVA_RESOURCE );
 		$article = new Article( $title );
-		$suppress = Revision::DELETED_TEXT && Revision::DELETED_COMMENT && Revision::DELETED_USER && Revision::DELETED_RESTRICTED;
-		$article->doDeleteArticle( '', $suppress );
+		$article->doDeleteArticle( '' );
 	}
 
 }
