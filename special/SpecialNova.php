@@ -54,4 +54,17 @@ abstract class SpecialNova extends SpecialPage {
 			$wgOut->addWikiMsg( 'openstackmanager-needcloudadminrole2' );
 		}
 	}
+
+	/**
+	 * @param  $hostname
+	 * @param  $alldata
+	 * @return bool|string
+	 */
+	function validateHostName( $hostname, $alldata ) {
+		if ( ! preg_match( "/^[a-z][a-z0-9\-]*$/", $hostname ) ) {
+			return Xml::element( 'span', array( 'class' => 'error' ), wfMsg( 'openstackmanager-badinstancename' ) );
+		} else {
+			return true;
+		}
+	}
 }

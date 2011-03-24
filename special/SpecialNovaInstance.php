@@ -700,20 +700,6 @@ class SpecialNovaInstance extends SpecialNova {
 		$wgOut->addHTML( $out );
 		return true;
 	}
-
-	/**
-	 * @param  $instancename
-	 * @param  $alldata
-	 * @return bool|string
-	 */
-	function validateInstanceName( $instancename, $alldata ) {
-		if ( ! preg_match( "/^[a-z][a-z0-9\-]*$/", $instancename ) ) {
-			return Xml::element( 'span', array( 'class' => 'error' ), wfMsg( 'openstackmanager-badinstancename' ) );
-		} else {
-			return true;
-		}
-	}
-
 }
 
 class SpecialNovaInstanceForm extends HTMLForm {
