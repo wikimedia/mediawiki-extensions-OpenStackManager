@@ -578,7 +578,7 @@ class SpecialNovaAddress extends SpecialNova {
 		$domain = $formData['domain'];
 		$domain = OpenStackNovaDomain::getDomainByName( $domain );
 		$hostbyname = OpenStackNovaHost::getHostByName( $hostname, $domain );
-		$hostbyip = OpenStackNovaHost::getHostByIP( $ip, $domain );
+		$hostbyip = OpenStackNovaHost::getHostByIP( $ip );
 
 		if ( $hostbyname ) {
 			# We need to add an arecord, if the arecord doesn't already exist

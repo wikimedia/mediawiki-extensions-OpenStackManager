@@ -376,19 +376,6 @@ class SpecialNovaProject extends SpecialNova {
 		return true;
 	}
 
-        /**
-         * @param  $projectname
-         * @param  $alldata
-         * @return bool|string
-         */
-	function validateProjectName( $projectname, $alldata ) {
-		if ( !preg_match( "/^[a-z][a-z0-9\-_]*$/", $projectname ) ) {
-				return Xml::element( 'span', array( 'class' => 'error' ), wfMsg( 'openstackmanager-badprojectname' ) );
-		} else {
-				return true;
-		}
-	}
-
 }
 
 class SpecialNovaProjectForm extends HTMLForm {

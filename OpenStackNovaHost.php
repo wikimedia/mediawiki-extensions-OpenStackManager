@@ -420,10 +420,9 @@ class OpenStackNovaHost {
 	 *
 	 * @static
 	 * @param  $ip
-	 * @param  $domain OpenStackNovaDomain
 	 * @return null|OpenStackNovaHost
 	 */
-	static function getHostByIP( $ip, $domain ) {
+	static function getHostByIP( $ip ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
 

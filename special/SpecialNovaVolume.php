@@ -518,20 +518,6 @@ class SpecialNovaVolume extends SpecialNova {
 
 		return $drives;
 	}
-
-	/**
-	 * @param  $volumename
-	 * @param  $alldata
-	 * @return bool|string
-	 */
-	function validateVolumeName( $volumename, $alldata ) {
-		if ( ! preg_match( "/^[a-z][a-z0-9\-]*$/", $volumename ) ) {
-			return Xml::element( 'span', array( 'class' => 'error' ), wfMsg( 'openstackmanager-badvolumename' ) );
-		} else {
-			return true;
-		}
-	}
-
 }
 
 class SpecialNovaVolumeForm extends HTMLForm {

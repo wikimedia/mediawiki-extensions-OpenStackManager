@@ -57,14 +57,14 @@ abstract class SpecialNova extends SpecialPage {
 
 	/**
 	 * @param  $hostname
-	 * @param  $alldata
 	 * @return bool|string
 	 */
-	function validateHostName( $hostname, $alldata ) {
+	function validateText( $hostname, $error ) {
 		if ( ! preg_match( "/^[a-z][a-z0-9\-]*$/", $hostname ) ) {
-			return Xml::element( 'span', array( 'class' => 'error' ), wfMsg( 'openstackmanager-badinstancename' ) );
+			return Xml::element( 'span', array( 'class' => 'error' ), wfMsg( $error ) );
 		} else {
 			return true;
 		}
 	}
+
 }
