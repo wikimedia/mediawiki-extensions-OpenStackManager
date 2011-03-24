@@ -194,14 +194,18 @@ class SpecialNovaKey extends SpecialNova {
 			$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-importkey' ), array(), array( 'action' => 'import' ) );
 			$keypairs = $this->userLDAP->getKeypairs();
 			$keysOut = '';
+			$keysOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-keys' ) );
+			$keysOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-actions' ) );
 			foreach ( $keypairs as $hash => $key ) {
 				$keyOut = Html::element( 'td', array(), $key );
 				$msg = wfMsgHtml( 'openstackmanager-delete' );
 				$link = $sk->link( $this->getTitle(), $msg, array(), array( 'action' => 'delete', 'hash' => $hash ) );
-				$keyOut .= Html::rawElement( 'td', array(), $link );
+				$action = Html::rawElement( 'li', array(), $link );
+				$action = Html::rawElement( 'ul', array(), $action );
+				$keyOut .= Html::rawElement( 'td', array(), $action );
 				$keysOut .= Html::rawElement( 'tr', array(), $keyOut );
 			}
-			$out .= Html::rawElement( 'table', array(), $keysOut );
+			$out .= Html::rawElement( 'table', array( 'id' => 'novakeylist', 'class' => 'wikitable' ), $keysOut );
 		} else {
 			$wgOut->addWikiMsg( 'openstackmanager-invalidkeypair' );
 		}

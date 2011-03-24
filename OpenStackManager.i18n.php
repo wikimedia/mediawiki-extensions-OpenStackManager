@@ -154,6 +154,7 @@ $messages['en'] = array(
 	'openstackmanager-importkey' => 'Import a new key',
 	'openstackmanager-name' => 'Name',
 	'openstackmanager-fingerprint' => 'Fingerprint',
+	'openstackmanager-keys' => 'Keys',
 	'openstackmanager-invalidkeypair' => 'Invalid keypair location configured.',
 	'openstackmanager-keypairimportfailed' => 'Failed to import keypair.',
 	'openstackmanager-keypairimported' => 'Imported keypair.',
