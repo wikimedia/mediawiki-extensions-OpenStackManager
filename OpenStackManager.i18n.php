@@ -1233,7 +1233,7 @@ $messages['ia'] = array(
 	'openstackmanager-createinstancefailed' => 'Falleva de crear instantia.',
 	'openstackmanager-backinstancelist' => 'Retornar al lista de instantias',
 	'openstackmanager-deletedinstance' => 'Instantia $1 delite',
-	'openstackmanager-deletedinstance-faileddns' => 'Instantia delite con successo, ma falleva de remover le entrata DNS $1.',
+	'openstackmanager-deletedinstance-faileddns' => 'Le instantia ha essite delite con successo, ma le remotion del entrata DNS $1 ha fallite.',
 	'openstackmanager-modifiedinstance' => 'Instantia modificate con successo.',
 	'openstackmanager-modifyinstancefailed' => 'Falleva de modificar instantia.',
 	'openstackmanager-deleteinstancefailed' => 'Falleva de deler instantia.',
@@ -1428,6 +1428,7 @@ $messages['ia'] = array(
  */
 $messages['ksh'] = array(
 	'openstackmanager-desc' => 'Määd et müjjelesch föt Metmaacher, <i lang="en">Nova</i> un <i lang="en">Swift</i> ze verwallde.',
+	'openstackmanager-deletedinstance-faileddns' => 'Dat Denge es jäz fott, ävver dä Endraach „$1“ em <i lang="en">Domain Name System</i> es övverisch jeblrevve.',
 );
 
 /** Kurdish (Latin) (Kurdî (Latin))
@@ -1475,6 +1476,7 @@ $messages['lb'] = array(
 	'openstackmanager-members' => 'Memberen',
 	'openstackmanager-member' => 'Member',
 	'openstackmanager-action' => 'Aktioun',
+	'openstackmanager-createdproject' => 'De Projet gouf ugeluecht.',
 	'openstackmanager-projectlist' => 'Lëscht vun de Projeten',
 	'openstackmanager-deleteproject' => 'Projet läschen',
 	'openstackmanager-deletedproject' => 'De Projet gouf geläscht.',
@@ -1498,6 +1500,8 @@ $messages['lb'] = array(
 	'openstackmanager-removerule' => 'Regel ewechhuelen',
 	'openstackmanager-removerulefailed' => "D'Regel konnt net ewechgeholl ginn.",
 	'openstackmanager-addrule' => 'Regel derbäisetzen',
+	'openstackmanager-sudoerusers' => 'Benotzer',
+	'openstackmanager-sudoeroptions' => 'Optiounen',
 	'right-manageproject' => 'OpenStack Projeten a Rolle geréieren',
 );
 
