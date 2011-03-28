@@ -535,6 +535,23 @@ $messages['br'] = array(
 	'openstackmanager-sudoerusers' => 'Implijerien',
 );
 
+/** Bosnian (Bosanski)
+ * @author CERminator
+ */
+$messages['bs'] = array(
+	'openstackmanager-desc' => 'Daje mogućnost korisnicima da upravljaju sa Nova i Swift',
+	'openstackmanager-novaproject' => 'Nova projekat',
+	'openstackmanager-delete' => 'obriši',
+	'openstackmanager-configure' => 'podesi',
+	'openstackmanager-modify' => 'izmijeni',
+	'openstackmanager-rename' => 'preimenuj',
+	'openstackmanager-reboot' => 'pokreni ponovo',
+	'openstackmanager-actions' => 'Akcije',
+	'openstackmanager-notloggedin' => 'Potrebno je prijavljivanje',
+	'openstackmanager-novadomain-domain' => 'Domena',
+	'openstackmanager-location' => 'Lokacija',
+);
+
 /** German (Deutsch)
  * @author Fujnky
  * @author Kghbln
@@ -1136,6 +1153,7 @@ $messages['he'] = array(
 	'openstackmanager-createinstancefailed' => 'יצירת המופע נכשלה.',
 	'openstackmanager-backinstancelist' => 'חזרה לרשימת מופעים',
 	'openstackmanager-deletedinstance' => 'מופע $1 נמחק.',
+	'openstackmanager-deletedinstance-faileddns' => 'מחיקת המופע הצליחה, אבל מחיקת ערך ה־DNS&rlm; $1 נכשלה.',
 	'openstackmanager-modifiedinstance' => 'המופע שונה בהצלחה.',
 	'openstackmanager-modifyinstancefailed' => 'שינוי המופע נכשל.',
 	'openstackmanager-deleteinstancefailed' => 'מחיקת המופע נכשלה.',
@@ -1149,6 +1167,20 @@ $messages['he'] = array(
 	'openstackmanager-volumeattachmentinstance' => 'משויך למופע',
 	'openstackmanager-volumeattachmentdevice' => 'משויך כהתקן',
 	'openstackmanager-volumesize' => 'גודל הכרך (בג״ב)',
+	'openstackmanager-volumeattachmentstatus' => 'מצב שיוך',
+	'openstackmanager-volumedeleteonvolumedelete' => 'למחוק עם מחיקת מופע?',
+	'openstackmanager-volumecreationtime' => 'זמן יצירת הכרך',
+	'openstackmanager-attach' => 'לשייך',
+	'openstackmanager-detach' => 'לבטל שיוך',
+	'openstackmanager-attachvolume' => 'לשייך כרך',
+	'openstackmanager-device' => 'התקן',
+	'openstackmanager-attachedvolume' => 'הכרך שויך בהצלחה.',
+	'openstackmanager-attachvolumefailed' => 'שיוך הכרך נכשל.',
+	'openstackmanager-detachvolume' => 'לבטל שיוך כרך',
+	'openstackmanager-forcedetachment' => 'לכפות ביטל שיוך כרך',
+	'openstackmanager-forcedetachmenthelp' => 'ביטול שיוך כפוי מומלץ רק לא ניתן לבטל את שיוך הכרך באופן רגיל. זה יכול לגרום לקלקול הכרך ולאבדן מידע.',
+	'openstackmanager-detachedvolume' => 'ביטול שיוך הכרך הצליח.',
+	'openstackmanager-detachvolumefailed' => 'ביטול שיוך הכרך נכשל.',
 );
 
 /** Interlingua (Interlingua)
