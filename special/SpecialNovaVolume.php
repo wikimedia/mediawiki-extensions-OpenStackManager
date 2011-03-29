@@ -83,7 +83,7 @@ class SpecialNovaVolume extends SpecialNova {
 		$volumeInfo['volumename'] = array(
 			'type' => 'text',
 			'label-message' => 'openstackmanager-volumename',
-			'validation-callback' => array( $this, 'validateVolumeName' ),
+			'validation-callback' => array( $this, 'validateText' ),
 			'default' => '',
 			'section' => 'volume/info',
 			'name' => 'volumename',

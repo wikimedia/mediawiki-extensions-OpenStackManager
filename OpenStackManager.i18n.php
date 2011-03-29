@@ -22,6 +22,8 @@ $messages['en'] = array(
 	'openstackmanager-instance' => 'Manage instance',
 	'openstackmanager-title' => 'OpenStackManager',
 
+	'openstackmanager-badresourcename' => 'Bad resource name provided. Resource names start with a-z, and can only contain a-z, 0-9, -, and _ characters.',
+
 	'specialpages-group-nova' => 'OpenStack Nova',
 	'novaaddress' => 'Manage public IP addresses',
 	'novadomain' => 'Manage DNS domains',
@@ -127,7 +129,6 @@ $messages['en'] = array(
 	'openstackmanager-deletevolume' => 'Delete Volume',
 	'openstackmanager-deletevolumequestion' => 'Are you sure you wish to delete volume "$1"?',
 	'openstackmanager-volumelist' => 'Volume List',
-	'openstackmanager-badvolumename' => 'An invalid volume name was given.',
 	'openstackmanager-novavolume-volume' => 'Volume',
 	'openstackmanager-novavolume-info' => 'Volume Info',
 	'openstackmanager-createdvolume' => 'Created volume $1.',
@@ -173,7 +174,6 @@ $messages['en'] = array(
 	'openstackmanager-action' => 'Action',
 	'openstackmanager-createprojectfailed' => 'Failed to create project.',
 	'openstackmanager-createdproject' => 'Created project.',
-	'openstackmanager-badprojectname' => 'Bad project name provided. Project names start with a-z, and can only contain a-z, 0-9, -, and _ characters.',
 	'openstackmanager-projectlist' => 'Project list',
 	'openstackmanager-backprojectlist' => 'Back to project list',
 	'openstackmanager-deleteproject' => 'Delete project',
@@ -183,7 +183,6 @@ $messages['en'] = array(
 	'openstackmanager-failedtoadd' => 'Failed to add $1 to $2.',
 	'openstackmanager-removedfrom' => 'Successfully removed $1 from $2.',
 	'openstackmanager-failedtoremove' => 'Failed to remove $1 from $2.',
-	'openstackmanager-badinstancename' => 'Bad instance name provided. Instance names must start with a-z, and can only contain a-z, 0-9, and - characters.',
 	'openstackmanager-novaproject-project' => 'Project',
 	'openstackmanager-novaproject-info' => 'Project information',
 

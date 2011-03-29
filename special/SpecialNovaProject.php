@@ -53,7 +53,7 @@ class SpecialNovaProject extends SpecialNova {
 		$projectInfo['projectname'] = array(
 			'type' => 'text',
 			'label-message' => 'openstackmanager-projectname',
-			'validation-callback' => array( $this, 'validateProjectName' ),
+			'validation-callback' => array( $this, 'validateText' ),
 			'default' => '',
 			'section' => 'project/info',
 			'name' => 'projectname',

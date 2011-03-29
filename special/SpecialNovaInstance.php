@@ -90,7 +90,7 @@ class SpecialNovaInstance extends SpecialNova {
 		$instanceInfo['instancename'] = array(
 			'type' => 'text',
 			'label-message' => 'openstackmanager-instancename',
-			'validation-callback' => array( $this, 'validateInstanceName' ),
+			'validation-callback' => array( $this, 'validateText' ),
 			'default' => '',
 			'section' => 'instance/info',
 			'name' => 'instancename',

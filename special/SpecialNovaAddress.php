@@ -265,7 +265,7 @@ class SpecialNovaAddress extends SpecialNova {
 		$addressInfo['hostname'] = array(
 			'type' => 'text',
 			'default' => '',
-			'validation-callback' => array( $this, 'validateHostName' ),
+			'validation-callback' => array( $this, 'validateText' ),
 			'label-message' => 'openstackmanager-hostname',
 			'name' => 'hostname',
 		);
