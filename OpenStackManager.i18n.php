@@ -340,6 +340,7 @@ $messages['qqq'] = array(
 	'openstackmanager-member' => '{{Identical|Member}}',
 	'openstackmanager-projectlist' => 'Page title',
 	'openstackmanager-deleteproject' => 'Page title',
+	'openstackmanager-deletedinstance-faileddns' => 'Tells the user an instance was deleted, but the DNS entry was not. $1 is the specific dns name.'
 );
 
 /** Belarusian (Taraškievica orthography) (‪Беларуская (тарашкевіца)‬)

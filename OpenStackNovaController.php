@@ -83,7 +83,20 @@ class OpenStackNovaController {
 	/**
 	 * @return array
 	 */
-	function getInstanceTypes() {
+	function getInstanceType( $instanceType ) {
+		$this->getInstanceTypes( false );
+		if ( isset( $this->instanceTypes["$instanceType"] ) ) {
+			return $this->instanceTypes["$instanceType"];
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * @param  $sort
+	 * @return array
+	 */
+	function getInstanceTypes( $sort = true ) {
 		global $wgOpenStackManagerNovaResourcePrefix;
 		global $wgOpenStackManagerNovaAdminResourcePrefix;
 
@@ -96,7 +109,9 @@ class OpenStackNovaController {
 			$this->instanceTypes["$instanceTypeName"] = $instanceType;
 		}
 		$this->novaConnection->set_resource_prefix( $wgOpenStackManagerNovaResourcePrefix );
-		OpenStackNovaInstanceType::sort( $this->instanceTypes );
+		if ( $sort ) {
+			OpenStackNovaInstanceType::sort( $this->instanceTypes );
+		}
 		return $this->instanceTypes;
 	}
 

@@ -136,6 +136,16 @@ class OpenStackNovaInstance {
 	}
 
 	/**
+	 * Return the host this instance is running on
+	 *
+	 * @return string
+	 */
+	function getInstanceHost() {
+		$info = explode( ' ', (string)$this->instance->instancesSet->item->keyName );
+		return str_replace( array(',',')'), '', $info[2] );
+	}
+
+	/**
 	 * Return the availability zone this instance is associated with
 	 * @return string
 	 */
@@ -181,6 +191,7 @@ class OpenStackNovaInstance {
 	 */
 	function editArticle() {
 		global $wgOpenStackManagerCreateResourcePages;
+		global $wgOpenStackManagerNovaAdminKeys;
 
 		if ( ! $wgOpenStackManagerCreateResourcePages ) {
 			return;
@@ -197,7 +208,11 @@ class OpenStackNovaInstance {
 |Private IP=%s
 |Public IP=%s
 |Instance State=%s
+|Instance Host=%s
 |Instance Type=%s
+|RAM Size=%s
+|Number of CPUs=%s
+|Amount of Storage=%s
 |Image Id=%s
 |Project=%s
 |Availability Zone=%s
@@ -226,6 +241,8 @@ RESOURCEINFO;
 				$puppetvars .= $key . '=' . $val . ',';
 			}
 		}
+		$adminNova = new OpenStackNovaController( $wgOpenStackManagerNovaAdminKeys );
+		$instanceType = $adminNova->getInstanceType( $this->getInstanceType() );
 		$text = sprintf( $format,
 			$this->getInstanceName(),
 			$this->getReservationId(),
@@ -233,7 +250,11 @@ RESOURCEINFO;
 			$this->getInstancePublicIP(),
 			// Since instance state is somewhat dynamic, is this useful?
 			$this->getInstanceState(),
+			$this->getInstanceHost(),
 			$this->getInstanceType(),
+			$instanceType->getMemorySize(),
+			$instanceType->getNumberOfCPUs(),
+			$instanceType->getStorageSize(),
 			$this->getImageId(),
 			$this->getOwner(),
 			$this->getAvailabilityZone(),
