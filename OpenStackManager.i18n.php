@@ -309,6 +309,7 @@ $messages['en'] = array(
 
 /** Message documentation (Message documentation)
  * @author EugeneZelenko
+ * @author Purodha
  * @author Sam Reed <reedy@wikimedia.org>
  * @author Siebrand
  */
@@ -327,7 +328,7 @@ $messages['qqq'] = array(
 	'openstackmanager-configureinstance' => 'Page title',
 	'openstackmanager-instancelist' => 'Page title',
 	'openstackmanager-createinstance' => 'Header shown in Special:NovaInstance for its create action',
-	'openstackmanager-deletedinstance-faileddns' => 'Tells the user an instance was deleted, but the DNS entry was not. $1 is the specific dns name.',
+	'openstackmanager-deletedinstance-faileddns' => 'Tells the user an instance was deleted, but the [[wikipedia:Domain Name System|DNS]] entry was not. $1 is the specific dns name.',
 	'openstackmanager-attach' => 'Verb.',
 	'openstackmanager-detach' => 'Verb.',
 	'openstackmanager-deletekey' => 'Page title',
@@ -342,6 +343,7 @@ $messages['qqq'] = array(
 	'openstackmanager-action' => '{{Identical|Action}}',
 	'openstackmanager-projectlist' => 'Page title',
 	'openstackmanager-deleteproject' => 'Page title',
+	'openstackmanager-novaproject-project' => '{{Identical|Project}}',
 );
 
 /** Belarusian (Taraškievica orthography) (‪Беларуская (тарашкевіца)‬)
@@ -489,6 +491,16 @@ $messages['be-tarask'] = array(
 	'openstackmanager-action' => 'Дзеяньне',
 	'openstackmanager-createprojectfailed' => 'Немагчыма стварыць праект.',
 	'openstackmanager-createdproject' => 'Праект створаны.',
+	'openstackmanager-projectlist' => 'Сьпіс праектаў',
+	'openstackmanager-backprojectlist' => 'Вярнуцца ў сьпіс праектаў',
+	'openstackmanager-deleteproject' => 'Выдаліць праект',
+	'openstackmanager-deletedproject' => 'Праект выдалены пасьпяхова.',
+	'openstackmanager-deleteprojectfailed' => 'Немагчыма выдаліць праект.',
+	'openstackmanager-addedto' => '$1 дададзены да $2 пасьпяхова.',
+	'openstackmanager-failedtoadd' => 'Немагчыма дадаць $1 да $2.',
+	'openstackmanager-removedfrom' => '$1 з $2 выдалены пасьпяхова.',
+	'openstackmanager-failedtoremove' => 'Немагчыма выдаліць $1 з $2.',
+	'openstackmanager-novaproject-project' => 'Праект',
 );
 
 /** Breton (Brezhoneg)
@@ -1482,7 +1494,7 @@ $messages['ia'] = array(
  */
 $messages['ksh'] = array(
 	'openstackmanager-desc' => 'Määd et müjjelesch föt Metmaacher, <i lang="en">Nova</i> un <i lang="en">Swift</i> ze verwallde.',
-	'openstackmanager-deletedinstance-faileddns' => 'Dat Denge es jäz fott, ävver dä Endraach „$1“ em <i lang="en">Domain Name System</i> es övverisch jeblrevve.',
+	'openstackmanager-deletedinstance-faileddns' => 'Dat Denge es jäz fott, ävver dä Endraach „$1“ em <i lang="en">Domain Name System</i> es övverisch jeblevve.',
 );
 
 /** Kurdish (Latin) (Kurdî (Latin))
@@ -1506,7 +1518,9 @@ $messages['lb'] = array(
 	'openstackmanager-novaproject' => 'Nova-Projet',
 	'openstackmanager-delete' => 'läschen',
 	'openstackmanager-configure' => 'astellen',
+	'openstackmanager-modify' => 'änneren',
 	'openstackmanager-rename' => 'ëmbenennen',
+	'openstackmanager-reboot' => 'nei starten',
 	'openstackmanager-actions' => 'Aktiounen',
 	'openstackmanager-notloggedin' => 'Umeldung néideg',
 	'openstackmanager-mustbeloggedin' => 'Dir musst ageloggt si fir dës Aktioun maachen ze kënnen.',
@@ -1837,6 +1851,7 @@ $messages['nl'] = array(
 	'openstackmanager' => 'OpenStack-beheer',
 	'openstackmanager-instance' => 'Instantie beheren',
 	'openstackmanager-title' => 'OpenStack-beheer',
+	'openstackmanager-badresourcename' => 'Er is een onjuiste bronnaam opgegeven. Bronnamen beginnen met a-z en kunnen alleen de tekens a-z, 0-9, - en _ bevatten.',
 	'specialpages-group-nova' => 'OpenStack Nova',
 	'novaaddress' => 'Publieke IP-adressen beheren',
 	'novadomain' => 'DNS-domeinen beheren',
@@ -1933,7 +1948,6 @@ $messages['nl'] = array(
 	'openstackmanager-deletevolume' => 'Volume verwijderen',
 	'openstackmanager-deletevolumequestion' => 'Weet u zeker dat u het volume "$1" wilt verwijderen?',
 	'openstackmanager-volumelist' => 'Volumelijst',
-	'openstackmanager-badvolumename' => 'Er is een ongeldige volumenaam opgegeven.',
 	'openstackmanager-novavolume-volume' => 'Volume',
 	'openstackmanager-novavolume-info' => 'Volumegegevens',
 	'openstackmanager-createdvolume' => 'Het volume "$1" is aangemaakt.',
@@ -1977,7 +1991,6 @@ $messages['nl'] = array(
 	'openstackmanager-action' => 'Handeling',
 	'openstackmanager-createprojectfailed' => 'Het aanmaken van het project is mislukt.',
 	'openstackmanager-createdproject' => 'Het project is aangemaakt.',
-	'openstackmanager-badprojectname' => 'Er is een verkeerde projectnaam opgegeven. Projectnamen beginnen met a-z en kunnen alleen de tekens a-z, 0-9, - en _ bevatten.',
 	'openstackmanager-projectlist' => 'Projectenlijst',
 	'openstackmanager-backprojectlist' => 'Terug naar de projectenlijst',
 	'openstackmanager-deleteproject' => 'Project verwijderen',
@@ -1987,7 +2000,6 @@ $messages['nl'] = array(
 	'openstackmanager-failedtoadd' => 'Het toevoegen van $1 aan $2 is mislukt.',
 	'openstackmanager-removedfrom' => '$1 is uit $2 verwijderd.',
 	'openstackmanager-failedtoremove' => 'Het verwijderen van $1 uit $2 is mislukt.',
-	'openstackmanager-badinstancename' => 'Er is een verkeerde instantienaam opgegeven. Instantienamen beginnen met a-z en kunnen alleen de tekens a-z, 0-9, - en _ bevatten.',
 	'openstackmanager-novaproject-project' => 'Project',
 	'openstackmanager-novaproject-info' => 'Projectgegevens',
 	'openstackmanager-roles' => 'Rollen',
