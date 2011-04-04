@@ -310,6 +310,7 @@ $messages['en'] = array(
 /** Message documentation (Message documentation)
  * @author EugeneZelenko
  * @author Purodha
+ * @author Raymond
  * @author Sam Reed <reedy@wikimedia.org>
  * @author Siebrand
  */
@@ -328,7 +329,7 @@ $messages['qqq'] = array(
 	'openstackmanager-configureinstance' => 'Page title',
 	'openstackmanager-instancelist' => 'Page title',
 	'openstackmanager-createinstance' => 'Header shown in Special:NovaInstance for its create action',
-	'openstackmanager-deletedinstance-faileddns' => 'Tells the user an instance was deleted, but the [[wikipedia:Domain Name System|DNS]] entry was not. $1 is the specific dns name.',
+	'openstackmanager-deletedinstance-faileddns' => 'Tells the user an instance was deleted, but the [[wikipedia:Domain Name System|DNS]] entry was not. $1 is the specific DNS name.',
 	'openstackmanager-attach' => 'Verb.',
 	'openstackmanager-detach' => 'Verb.',
 	'openstackmanager-deletekey' => 'Page title',
@@ -501,6 +502,15 @@ $messages['be-tarask'] = array(
 	'openstackmanager-removedfrom' => '$1 з $2 выдалены пасьпяхова.',
 	'openstackmanager-failedtoremove' => 'Немагчыма выдаліць $1 з $2.',
 	'openstackmanager-novaproject-project' => 'Праект',
+	'openstackmanager-novaproject-info' => 'Інфармацыя пра праект',
+	'openstackmanager-roles' => 'Ролі',
+	'openstackmanager-rolename' => 'Назва ролі',
+	'openstackmanager-removerolemember' => 'Выдаліць удзельніка ролі',
+	'openstackmanager-addrolemember' => 'Дадаць удзельніка ролі',
+	'openstackmanager-rolelist' => 'Сьпіс глябальных роляў',
+	'openstackmanager-nomemberstoadd' => 'Няма ўдзельнікаў для даданьня да гэтай групы.',
+	'openstackmanager-nomemberstoremove' => 'Няма ўдзельнікаў для выдаленьня з гэтай групы.',
+	'openstackmanager-novarole-role' => 'Новая роля',
 );
 
 /** Breton (Brezhoneg)
@@ -587,7 +597,26 @@ $messages['bs'] = array(
 	'openstackmanager-actions' => 'Akcije',
 	'openstackmanager-notloggedin' => 'Potrebno je prijavljivanje',
 	'openstackmanager-novadomain-domain' => 'Domena',
+	'openstackmanager-domainlist' => 'Spisak domena',
+	'openstackmanager-domainname' => 'Naziv domene',
 	'openstackmanager-location' => 'Lokacija',
+	'openstackmanager-dnsdomain' => 'DNS domena',
+	'openstackmanager-imageid' => 'ID slike',
+	'openstackmanager-attach' => 'dodaj',
+	'openstackmanager-detach' => 'otrgni',
+	'openstackmanager-deletevolume' => 'Obriši nosač',
+	'openstackmanager-deletevolumequestion' => 'Da li ste sigurni da želite obrisati nosač "$1"?',
+	'openstackmanager-device' => 'Uređaj',
+	'openstackmanager-deletekey' => 'Brisanje ključa',
+	'openstackmanager-deletekeyconfirm' => 'Da li ste sigurni da želite obrisati gornji ključ?',
+	'openstackmanager-keylist' => 'Spisak ključeva',
+	'openstackmanager-importkey' => 'Uvoz novog ključa',
+	'openstackmanager-name' => 'Naziv',
+	'openstackmanager-fingerprint' => 'Otisak prsta',
+	'openstackmanager-keys' => 'Ključevi',
+	'openstackmanager-projectname' => 'Naslov projekta',
+	'openstackmanager-members' => 'Članovi',
+	'openstackmanager-member' => 'Član',
 );
 
 /** German (Deutsch)
