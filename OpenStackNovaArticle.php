@@ -14,7 +14,7 @@ class OpenStackNovaArticle {
 
 	public static function editArticle( $titletext, $text ) {
 		$title = Title::newFromText( $titletext, NS_NOVA_RESOURCE );
-		$article = new Article( $title );
+		$article = new Article( $title, 0 );
 		$article->doEdit( $text, '' );
 	}
 
@@ -23,7 +23,7 @@ class OpenStackNovaArticle {
 			return;
 		}
                 $title = Title::newFromText( $titletext, NS_NOVA_RESOURCE );
-                $article = new Article( $title );
+                $article = new Article( $title, 0 );
                 $article->doDeleteArticle( '' );
 	}
 

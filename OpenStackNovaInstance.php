@@ -190,15 +190,12 @@ class OpenStackNovaInstance {
 	 * @return void
 	 */
 	function editArticle() {
-		global $wgOpenStackManagerCreateResourcePages;
 		global $wgOpenStackManagerNovaAdminKeys;
 
-		if ( ! $wgOpenStackManagerCreateResourcePages ) {
+		if ( ! OpenStackNovaArticle::canCreatePages() ) {
 			return;
 		}
 
-		$title = Title::newFromText( $this->getInstanceId(), NS_NOVA_RESOURCE );
-		$article = new Article( $title );
 		$format = <<<RESOURCEINFO
 {{Nova Resource
 |Resource Type=instance
@@ -265,19 +262,11 @@ RESOURCEINFO;
 			$puppetclasses,
 			$puppetvars
 		);
-		$article->doEdit( $text, '' );
+		OpenStackNovaArticle::editArticle( $this->getInstanceId(), $text );
 	}
 
 	function deleteArticle() {
-		global $wgOpenStackManagerCreateResourcePages;
-
-		if ( ! $wgOpenStackManagerCreateResourcePages ) {
-			return;
-		}
-
-		$title = Title::newFromText( $this->getInstanceId(), NS_NOVA_RESOURCE );
-		$article = new Article( $title );
-		$article->doDeleteArticle( '' );
+		OpenStackNovaArticle::deleteArticle( $this->getInstanceId() );
 	}
 
 }
