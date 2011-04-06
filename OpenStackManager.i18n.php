@@ -511,6 +511,17 @@ $messages['be-tarask'] = array(
 	'openstackmanager-nomemberstoadd' => 'Няма ўдзельнікаў для даданьня да гэтай групы.',
 	'openstackmanager-nomemberstoremove' => 'Няма ўдзельнікаў для выдаленьня з гэтай групы.',
 	'openstackmanager-novarole-role' => 'Новая роля',
+	'openstackmanager-novarole-info' => 'Інфармацыя пра новую ролю',
+	'openstackmanager-shellaccountname' => 'Назва рахунку для выкарыстаньня абалонкі ў экзэмпляры',
+	'openstackmanager-shellaccountnamehelp' => 'Назва рахунку для выкарыстаньня абалонкі павінна пачынацца з a-z, і можа ўтрымліваць сымбалі a-z, 0-9, -, and _.',
+	'openstackmanager-addresslist' => 'Сьпіс публічных IP-адрасоў',
+	'openstackmanager-address' => 'Публічны IP-адрас',
+	'openstackmanager-allocateaddress' => 'Выдзеліць новы публічны IP-адрас',
+	'openstackmanager-releaseaddress' => 'Вызваліць IP-адрасу',
+	'openstackmanager-associateaddress' => 'Зьвязаць IP-адрас',
+	'openstackmanager-reassociateaddress' => 'Зьвязаць IP-адрас з іншым экзэмплярам',
+	'openstackmanager-disassociateaddress' => 'Выдаліць сувязь IP-адрасу',
+	'openstackmanager-allocateaddressfailed' => 'Немагчыма зьвязаць новы публічны IP-адрас.',
 );
 
 /** Breton (Brezhoneg)
