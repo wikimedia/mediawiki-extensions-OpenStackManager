@@ -2218,6 +2218,13 @@ $messages['nl'] = array(
 	'right-manageproject' => 'OpenStack-projecten en -rollen beheren',
 );
 
+/** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
+ * @author Nghtwlkr
+ */
+$messages['no'] = array(
+	'specialpages-group-nova' => 'OpenStack Nova',
+);
+
 /** Polish (Polski)
  * @author Odder
  */
