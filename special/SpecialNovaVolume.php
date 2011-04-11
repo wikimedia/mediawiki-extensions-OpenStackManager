@@ -313,13 +313,13 @@ class SpecialNovaVolume extends SpecialNova {
 	 * @return void
 	 */
 	function listVolumes() {
-		global $wgOut, $wgUser;
+		global $wgOut;
 
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-volumelist' ) );
 
 		$userProjects = $this->userLDAP->getProjects();
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$out = '';
 		$volumes = $this->adminNova->getVolumes();
 		$header = Html::element( 'th', array(), wfMsg( 'openstackmanager-volumename' ) );
@@ -407,7 +407,7 @@ class SpecialNovaVolume extends SpecialNova {
 	 * @return bool
 	 */
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut, $wgUser;
+		global $wgOut;
 
 		$volume = $this->userNova->createVolume( $formData['availabilityZone'], $formData['volumeSize'], $formData['volumename'], $formData['volumedescription'] );
 		if ( $volume ) {
@@ -415,7 +415,7 @@ class SpecialNovaVolume extends SpecialNova {
 		} else {
 			$wgOut->addWikiMsg( 'openstackmanager-createevolumefailed' );
 		}
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backvolumelist' ) );
 
@@ -429,7 +429,7 @@ class SpecialNovaVolume extends SpecialNova {
 	 * @return bool
 	 */
 	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut, $wgUser;
+		global $wgOut;
 
 		$volume = $this->adminNova->getVolume( $formData['volumeid'] );
 		if ( ! $volume ) {
@@ -443,7 +443,7 @@ class SpecialNovaVolume extends SpecialNova {
 		} else {
 			$wgOut->addWikiMsg( 'openstackmanager-deletevolumefailed' );
 		}
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backvolumelist' ) );
 
@@ -457,7 +457,7 @@ class SpecialNovaVolume extends SpecialNova {
 	 * @return bool
 	 */
 	function tryAttachSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut, $wgUser;
+		global $wgOut;
 
 		$success = $this->userNova->attachVolume( $formData['volumeid'], $formData['instanceid'], $formData['device'] );
 		if ( $success ) {
@@ -465,7 +465,7 @@ class SpecialNovaVolume extends SpecialNova {
 		} else {
 			$wgOut->addWikiMsg( 'openstackmanager-attachvolumefailed' );
 		}
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backvolumelist' ) );
 
@@ -479,7 +479,7 @@ class SpecialNovaVolume extends SpecialNova {
 	 * @return bool
 	 */
 	function tryDetachSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut, $wgUser;
+		global $wgOut;
 
 		if ( isset( $formData['force'] ) && $formData['force'] ) {
 			$force = true;
@@ -492,7 +492,7 @@ class SpecialNovaVolume extends SpecialNova {
 		} else {
 			$wgOut->addWikiMsg( 'openstackmanager-detachvolumefailed' );
 		}
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backvolumelist' ) );
 

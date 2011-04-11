@@ -209,13 +209,13 @@ class SpecialNovaSudoer extends SpecialNova {
 	 * @return void
 	 */
 	function listSudoers() {
-		global $wgOut, $wgUser;
+		global $wgOut;
 
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-sudoerlist' ) );
 
 		$out = '';
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-createsudoer' ), array(), array( 'action' => 'create' ) );
 		$sudoersOut = Html::element( 'th', array(), wfMsg( 'openstackmanager-sudoername' ) );
 		$sudoersOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-sudoerusers' ) );
@@ -308,7 +308,7 @@ class SpecialNovaSudoer extends SpecialNova {
 			return true;
 		}
 		$wgOut->addWikiMsg( 'openstackmanager-createdsudoer' );
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backsudoerlist' ) );
 		$wgOut->addHTML( $out );
@@ -322,7 +322,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	 * @return bool
 	 */
 	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut, $wgUser;
+		global $wgOut;
 
 		$success = OpenStackNovaSudoer::deleteSudoer( $formData['sudoername'] );
 		if ( $success ) {
@@ -330,7 +330,7 @@ class SpecialNovaSudoer extends SpecialNova {
 		} else {
 			$wgOut->addWikiMsg( 'openstackmanager-failedeletedsudoer' );
 		}
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backsudoerlist' ) );
 		$wgOut->addHTML( $out );
@@ -344,7 +344,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	 * @return bool
 	 */
 	function tryModifySubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut, $wgUser;
+		global $wgOut;
 
 		$sudoer = OpenStackNovaSudoer::getSudoerByName( $formData['sudoername'] );
 		if ( $sudoer ) {
@@ -377,7 +377,7 @@ class SpecialNovaSudoer extends SpecialNova {
 		} else {
 			$wgOut->addWikiMsg( 'openstackmanager-nonexistantsudoer' );
 		}
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backsudoerlist' ) );
 		$wgOut->addHTML( $out );

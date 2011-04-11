@@ -197,13 +197,13 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function listSecurityGroups() {
-		global $wgOut, $wgUser;
+		global $wgOut;
 
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-securitygrouplist' ) );
 
 		$userProjects = $this->userLDAP->getProjects();
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$out = '';
 		$groupheader = Html::element( 'th', array(), wfMsg( 'openstackmanager-securitygroupname' ) );
 		$groupheader .= Html::element( 'th', array(), wfMsg( 'openstackmanager-securitygroupdescription' ) );
@@ -480,7 +480,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut, $wgUser;
+		global $wgOut;
 
 		$project = $formData['project'];
 		$groupname = $formData['groupname'];
@@ -493,7 +493,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		} else {
 			$wgOut->addWikiMsg( 'openstackmanager-createsecuritygroupfailed' );
 		}
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backsecuritygrouplist' ) );
 
@@ -507,13 +507,13 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut, $wgUser;
+		global $wgOut;
 
 		$project = $formData['project'];
 		$userCredentials = $this->userLDAP->getCredentials( $project );
 		$this->userNova = new OpenStackNovaController( $userCredentials );
 		$securitygroup = $this->adminNova->getSecurityGroup( $formData['groupname'] );
-		if ( ! $securitygroup ) {
+		if ( !$securitygroup ) {
 			$wgOut->addWikiMsg( 'openstackmanager-nonexistantsecuritygroup' );
 			return true;
 		}
@@ -525,7 +525,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		} else {
 			$wgOut->addWikiMsg( 'openstackmanager-deletesecuritygroupfailed' );
 		}
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backsecuritygrouplist' ) );
 
@@ -539,7 +539,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function tryConfigureSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut, $wgUser;
+		global $wgOut;
 
 		$groupname = $formData['groupname'];
 		$description = $formData['description'];
@@ -555,7 +555,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		} else {
 			$wgOut->addWikiMsg( 'openstackmanager-nonexistantgroup' );
 		}
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backsecuritygrouplist' ) );
 
@@ -569,7 +569,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function tryAddRuleSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut, $wgUser;
+		global $wgOut;
 
 		$project = $formData['project'];
 		$fromport = $formData['fromport'];
@@ -600,7 +600,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		} else {
 			$wgOut->addWikiMsg( 'openstackmanager-addrulefailed' );
 		}
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backsecuritygrouplist' ) );
 
@@ -648,7 +648,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		} else {
 			$wgOut->addWikiMsg( 'openstackmanager-removerulefailed' );
 		}
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backsecuritygrouplist' ) );
 

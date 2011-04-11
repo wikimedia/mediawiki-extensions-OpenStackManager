@@ -357,14 +357,14 @@ class SpecialNovaAddress extends SpecialNova {
 	 * @return bool
 	 */
 	function listAddresses() {
-		global $wgOut, $wgUser;
+		global $wgOut;
 
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-addresslist' ) );
 
 		$userProjects = $this->userLDAP->getProjects();
 		$out = '';
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$header = Html::element( 'th', array(), wfMsg( 'openstackmanager-address' ) );
 		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-instanceid' ) );
 		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-instancename' ) );
@@ -455,7 +455,7 @@ class SpecialNovaAddress extends SpecialNova {
 	 * @return bool
 	 */
 	function tryAllocateSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut, $wgUser;
+		global $wgOut;
 
 		$address = $this->userNova->allocateAddress();
 		if ( ! $address ) {
@@ -464,7 +464,7 @@ class SpecialNovaAddress extends SpecialNova {
 		}
 		$ip = $address->getPublicIP();
 		$wgOut->addWikiMsg( 'openstackmanager-allocatedaddress', $ip );
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backaddresslist' ) );
 		$wgOut->addHTML( $out );
@@ -478,7 +478,7 @@ class SpecialNovaAddress extends SpecialNova {
 	 * @return bool
 	 */
 	function tryReleaseSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut, $wgUser;
+		global $wgOut;
 
 		$ip = $formData['ip'];
 		#TODO: Instead of throwing an error when host exist or the IP
@@ -500,7 +500,7 @@ class SpecialNovaAddress extends SpecialNova {
 		} else {
 			$wgOut->addWikiMsg( 'openstackmanager-releasedaddressfailed', $ip );
 		}
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backaddresslist' ) );
 		$wgOut->addHTML( $out );
@@ -514,7 +514,7 @@ class SpecialNovaAddress extends SpecialNova {
 	 * @return bool
 	 */
 	function tryAssociateSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut, $wgUser;
+		global $wgOut;
 
 		$instanceid = $formData['instanceid'];
 		$ip = $formData['ip'];
@@ -524,7 +524,7 @@ class SpecialNovaAddress extends SpecialNova {
 		} else {
 			$wgOut->addWikiMsg( 'openstackmanager-associatedaddressfailed', $ip, $instanceid );
 		}
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backaddresslist' ) );
 		$wgOut->addHTML( $out );
@@ -538,7 +538,7 @@ class SpecialNovaAddress extends SpecialNova {
 	 * @return bool
 	 */
 	function tryDisassociateSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut, $wgUser;
+		global $wgOut;
 
 		$ip = $formData['ip'];
 		$address = $this->userNova->disassociateAddress( $ip );
@@ -547,7 +547,7 @@ class SpecialNovaAddress extends SpecialNova {
 		} else {
 			$wgOut->addWikiMsg( 'openstackmanager-disassociatedaddressfailed', $ip );
 		}
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backaddresslist' ) );
 		$wgOut->addHTML( $out );
@@ -561,7 +561,7 @@ class SpecialNovaAddress extends SpecialNova {
 	 * @return bool
 	 */
 	function tryAddHostSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut, $wgUser;
+		global $wgOut;
 
 		$ip = $formData['ip'];
 		$project = $formData['project'];
@@ -605,7 +605,7 @@ class SpecialNovaAddress extends SpecialNova {
 				$wgOut->addWikiMsg( 'openstackmanager-addhostfailed', $ip, $hostname );
 			}
 		}
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backaddresslist' ) );
 		$wgOut->addHTML( $out );
@@ -618,7 +618,7 @@ class SpecialNovaAddress extends SpecialNova {
 	 * @return bool
 	 */
 	function tryRemoveHostSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut, $wgUser;
+		global $wgOut;
 
 		$ip = $formData['ip'];
 		$project = $formData['project'];
@@ -659,7 +659,7 @@ class SpecialNovaAddress extends SpecialNova {
 			$wgOut->addWikiMsg( 'openstackmanager-nonexistenthost' );
 		}
 		$out = '<br />';
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backaddresslist' ) );
 		$wgOut->addHTML( $out );
 		return true;

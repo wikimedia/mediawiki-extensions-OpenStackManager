@@ -208,13 +208,13 @@ class SpecialNovaProject extends SpecialNova {
 	 * @return void
 	 */
 	function listProjects() {
-		global $wgOut, $wgUser;
+		global $wgOut;
 
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-projectlist' ) );
 
 		$out = '';
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-createproject' ), array(), array( 'action' => 'create' ) );
 		$projectsOut = Html::element( 'th', array(), wfMsg( 'openstackmanager-projectname' ) );
 		$projectsOut .= Html::element( 'th', array(),  wfMsg( 'openstackmanager-members' ) );
@@ -286,7 +286,7 @@ class SpecialNovaProject extends SpecialNova {
 	 * @return bool
 	 */
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut, $wgUser;
+		global $wgOut;
 
 		$success = OpenStackNovaProject::createProject( $formData['projectname'] );
 		if ( ! $success ) {
@@ -294,7 +294,7 @@ class SpecialNovaProject extends SpecialNova {
 			return true;
 		}
 		$wgOut->addWikiMsg( 'openstackmanager-createdproject' );
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backprojectlist' ) );
 		$wgOut->addHTML( $out );
@@ -308,7 +308,7 @@ class SpecialNovaProject extends SpecialNova {
 	 * @return bool
 	 */
 	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut, $wgUser;
+		global $wgOut;
 
 		$success = OpenStackNovaProject::deleteProject( $formData['projectname'] );
 		if ( $success ) {
@@ -316,7 +316,7 @@ class SpecialNovaProject extends SpecialNova {
 		} else {
 			$wgOut->addWikiMsg( 'openstackmanager-deleteprojectfailed' );
 		}
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backprojectlist' ) );
 		$wgOut->addHTML( $out );
@@ -330,7 +330,7 @@ class SpecialNovaProject extends SpecialNova {
 	 * @return bool
 	 */
 	function tryAddMemberSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut, $wgUser;
+		global $wgOut;
 
 		$project = new OpenStackNovaProject( $formData['projectname'] );
 		$success = $project->addMember( $formData['member'] );
@@ -339,7 +339,7 @@ class SpecialNovaProject extends SpecialNova {
 		} else {
 			$wgOut->addWikiMsg( 'openstackmanager-failedtoadd', $formData['member'], $formData['projectname'] );
 		}
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backprojectlist' ) );
 		$wgOut->addHTML( $out );
@@ -353,7 +353,7 @@ class SpecialNovaProject extends SpecialNova {
 	 * @return bool
 	 */
 	function tryDeleteMemberSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut, $wgUser;
+		global $wgOut;
 
 		$project = OpenStackNovaProject::getProjectByName( $formData['projectname'] );
 		if ( ! $project ) {
@@ -369,7 +369,7 @@ class SpecialNovaProject extends SpecialNova {
 			}
 		}
 		$out = '<br />';
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backprojectlist' ) );
 		$wgOut->addHTML( $out );
 

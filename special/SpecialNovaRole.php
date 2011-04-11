@@ -199,13 +199,13 @@ class SpecialNovaRole extends SpecialNova {
 	 * @return void
 	 */
 	function listGlobalRoles() {
-		global $wgOut, $wgUser;
+		global $wgOut;
 
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-rolelist' ) );
 
 		$out = '';
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$rolesOut = Html::element( 'th', array(), wfMsg( 'openstackmanager-rolename' ) );
 		$rolesOut .= Html::element( 'th', array(),  wfMsg( 'openstackmanager-members' ) );
 		$rolesOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-actions' ) );
@@ -246,7 +246,7 @@ class SpecialNovaRole extends SpecialNova {
 	 * @return bool
 	 */
 	function tryAddMemberSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut, $wgUser;
+		global $wgOut;
 
 		$projectname = $formData['projectname'];
 		if ( $projectname ) {
@@ -273,7 +273,7 @@ class SpecialNovaRole extends SpecialNova {
 				$wgOut->addWikiMsg( 'openstackmanager-failedtoadd', $member, $formData['rolename'] );
 			}
 		}
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$out = '<br />';
 		$returnto = Title::newFromText( $formData['returnto'] );
 		$out .= $sk->link( $returnto, wfMsgHtml( 'openstackmanager-backprojectlist' ) );
@@ -288,7 +288,7 @@ class SpecialNovaRole extends SpecialNova {
 	 * @return bool
 	 */
 	function tryDeleteMemberSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut, $wgUser;
+		global $wgOut;
 
 		$projectname = $formData['projectname'];
 		if ( $projectname ) {
@@ -313,7 +313,7 @@ class SpecialNovaRole extends SpecialNova {
 				$wgOut->addWikiMsg( 'openstackmanager-failedtoremove', $member, $formData['rolename'] );
 			}
 		}
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$out = '<br />';
 		$returnto = Title::newFromText( $formData['returnto'] );
 		$out .= $sk->link( $returnto, wfMsgHtml( 'openstackmanager-backprojectlist' ) );

@@ -162,14 +162,14 @@ class SpecialNovaKey extends SpecialNova {
 	 * @return void
 	 */
 	function listKeys() {
-		global $wgOut, $wgUser;
+		global $wgOut;
 		global $wgOpenStackManagerNovaKeypairStorage;
 
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-keylist' ) );
 
 		$out = '';
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		if ( $wgOpenStackManagerNovaKeypairStorage == 'nova' ) {
 			$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-importkey' ), array(), array( 'action' => 'import' ) );
 			$projects = $this->userLDAP->getProjects();
@@ -219,7 +219,7 @@ class SpecialNovaKey extends SpecialNova {
 	 * @return bool
 	 */
 	function tryImportSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut, $wgUser;
+		global $wgOut;
 		global $wgOpenStackManagerNovaKeypairStorage;
 
 		if ( $wgOpenStackManagerNovaKeypairStorage == 'ldap' ) {
@@ -240,7 +240,7 @@ class SpecialNovaKey extends SpecialNova {
 			$wgOut->addWikiMsg( 'openstackmanager-invalidkeypair' );
 		}
 		$out = '<br />';
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backkeylist' ) );
 		$wgOut->addHTML( $out );
 		return true;
@@ -252,7 +252,7 @@ class SpecialNovaKey extends SpecialNova {
 	 * @return bool
 	 */
 	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut, $wgUser;
+		global $wgOut;
 
 		$success = $this->userLDAP->deleteKeypair( $formData['key'] );
 		if ( $success ) {
@@ -261,7 +261,7 @@ class SpecialNovaKey extends SpecialNova {
 			$wgOut->addWikiMsg( 'openstackmanager-deletedkeyfailed' );
 		}
 		$out = '<br />';
-		$sk = $wgUser->getSkin();
+		$sk = $wgOut->getSkin();
 		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backkeylist' ) );
 		$wgOut->addHTML( $out );
 		return true;
