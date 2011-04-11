@@ -522,6 +522,15 @@ $messages['be-tarask'] = array(
 	'openstackmanager-reassociateaddress' => 'Зьвязаць IP-адрас з іншым экзэмплярам',
 	'openstackmanager-disassociateaddress' => 'Выдаліць сувязь IP-адрасу',
 	'openstackmanager-allocateaddressfailed' => 'Немагчыма зьвязаць новы публічны IP-адрас.',
+	'openstackmanager-allocatedaddress' => 'Выдзелены новы публічны IP-адрас $1',
+	'openstackmanager-backaddresslist' => 'Вярнуцца ў сьпіс адрасоў',
+	'openstackmanager-allocateaddress-confirm' => 'Вы ўпэўнены, што жадаеце выдзеліць новы публічны IP-адрас у праекце $1?',
+	'openstackmanager-releasedaddress' => 'Адрас $1 вызвалены пасьпяхова',
+	'openstackmanager-releaseaddressfailed' => 'Немагчыма выдзеліць адрас $1',
+	'openstackmanager-cannotreleaseaddress' => 'Немагчыма вызваліць адрас, які ўтрымліваецца ў DNS-запісах, ці зьвязаны з экзэмплярам. Калі ласка, выдаліце ўсе спасылкі на хост і разлучыце IP-адрас перад спробай яго выхваленьня.',
+	'openstackmanager-associatedaddress' => '$1 зьвязаны з ідэнтыфікатарам экзэмпляру $2 пасьпяхова.',
+	'openstackmanager-associateaddressfailed' => 'Немагчыма злучыць $1 з ідэнтыфікатарам экзэмпляру $2.',
+	'openstackmanager-disassociatedaddress' => '$1 разлучаны пасьпяхова.',
 );
 
 /** Breton (Brezhoneg)
