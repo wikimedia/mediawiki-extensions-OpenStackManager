@@ -21,10 +21,10 @@ class SpecialNovaDomain extends SpecialNova {
 			$this->notLoggedIn();
 			return false;
 		}
-                if ( ! $this->userLDAP->exists() ) {
-                        $this->noCredentials();
-                        return false;
-                }
+		if ( ! $this->userLDAP->exists() ) {
+			$this->noCredentials();
+			return false;
+		}
 		# Must be in the global role
 		if ( $wgOpenStackManagerLDAPRolesIntersect ) {
 			# If roles intersect, we need to require cloudadmins, since

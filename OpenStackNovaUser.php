@@ -248,11 +248,7 @@ class OpenStackNovaUser {
 				wfSuppressWarnings();
 				$entries = ldap_get_entries( $wgAuth->ldapconn, $result );
 				wfRestoreWarnings();
-				if ( (int)$entries['count'] > 0 ) {
-					return true;
-				} else {
-					return false;
-				}
+				return ( (int)$entries['count'] > 0 );
 			}
 		} else {
 			return false;

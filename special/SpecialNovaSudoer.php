@@ -16,10 +16,10 @@ class SpecialNovaSudoer extends SpecialNova {
 			$this->notLoggedIn();
 			return false;
 		}
-                if ( ! $this->userLDAP->exists() ) {
-                        $this->noCredentials();
-                        return false;
-                }
+		if ( ! $this->userLDAP->exists() ) {
+			$this->noCredentials();
+			return false;
+		}
 
 		$action = $wgRequest->getVal( 'action' );
 		if ( $action == "create" ) {

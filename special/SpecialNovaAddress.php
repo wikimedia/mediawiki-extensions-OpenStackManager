@@ -23,8 +23,8 @@ class SpecialNovaAddress extends SpecialNova {
 		}
 		$this->userLDAP = new OpenStackNovaUser();
 		if ( ! $this->userLDAP->exists() ) {
-				$this->noCredentials();
-				return true;
+			$this->noCredentials();
+			return true;
 		}
 		$adminCredentials = $wgOpenStackManagerNovaAdminKeys;
 		$this->adminNova = new OpenStackNovaController( $adminCredentials );
