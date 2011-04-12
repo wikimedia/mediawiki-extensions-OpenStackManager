@@ -531,6 +531,15 @@ $messages['be-tarask'] = array(
 	'openstackmanager-associatedaddress' => '$1 зьвязаны з ідэнтыфікатарам экзэмпляру $2 пасьпяхова.',
 	'openstackmanager-associateaddressfailed' => 'Немагчыма злучыць $1 з ідэнтыфікатарам экзэмпляру $2.',
 	'openstackmanager-disassociatedaddress' => '$1 разлучаны пасьпяхова.',
+	'openstackmanager-disassociateaddressfailed' => 'Немагчыма разлучыць $1.',
+	'openstackmanager-disassociateaddress-confirm' => 'Вы ўпэўнены, што жадаеце разлучыць $1?',
+	'openstackmanager-releaseaddress-confirm' => 'Вы ўпэўнены, што жадаеце вызваліць $1?',
+	'openstackmanager-invalidaddress' => '$1 не зьяўляецца слушным прызначаным IP-адрасам.',
+	'openstackmanager-invalidaddressforproject' => 'Няма $1 ў запытаным праекце.',
+	'openstackmanager-addedhost' => 'Пасьпяхова дададзены $1 запіс для IP-адрасу $2.',
+	'openstackmanager-addhostfailed' => 'Немагчыма дадаць $1 запіс для IP-адрасу $2.',
+	'openstackmanager-hostname' => 'Назва хосту',
+	'openstackmanager-hostnames' => 'Назвы хостаў',
 );
 
 /** Breton (Brezhoneg)
