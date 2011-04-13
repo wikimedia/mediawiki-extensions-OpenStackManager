@@ -384,6 +384,7 @@ class OpenStackNovaController {
 		# recommended method of adding security group rules. When lp704645 is fixed, switch
 		# to using this method.
 		$rule = array();
+		$rule['GroupName'] = $groupname;
 		if ( $fromport ) {
 			$rule['FromPort'] = $fromport;
 		}
@@ -407,8 +408,8 @@ class OpenStackNovaController {
 			}
 		}
 		#$permissions = array( 'IpPermissions' => array( $rule ) );
-		#$response = $this->novaConnection->authorize_security_group_ingress( $groupname, $permissions );
-		$response = $this->novaConnection->authorize_security_group_ingress( $groupname, $rule );
+		#$response = $this->novaConnection->authorize_security_group_ingress( $permissions );
+		$response = $this->novaConnection->authorize_security_group_ingress( $rule );
 
 		return $response->isOK();
 	}
@@ -427,6 +428,7 @@ class OpenStackNovaController {
 		# recommended method of removing security group rules. When lp704645 is fixed, switch
 		# to using this method.
 		$rule = array();
+		$rule['GroupName'] = $groupname;
 		if ( $fromport ) {
 			$rule['FromPort'] = $fromport;
 		}
@@ -450,8 +452,8 @@ class OpenStackNovaController {
 			}
 		}
 		#$permissions = array( 'IpPermissions' => array( $rule ) );
-		#$response = $this->novaConnection->revoke_security_group_ingress( $groupname, $permissions );
-		$response = $this->novaConnection->revoke_security_group_ingress( $groupname, $rule );
+		#$response = $this->novaConnection->revoke_security_group_ingress( $permissions );
+		$response = $this->novaConnection->revoke_security_group_ingress( $rule );
 		return $response->isOK();
 	}
 

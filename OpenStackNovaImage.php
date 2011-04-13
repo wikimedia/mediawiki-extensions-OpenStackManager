@@ -27,7 +27,7 @@ class OpenStackNovaImage {
 	 * @return string
 	 */
 	function getImageId() {
-		return (string)$this->image->id;
+		return (string)$this->image->imageId;
 	}
 
 	/**

@@ -589,7 +589,7 @@ class SpecialNovaInstance extends SpecialNova {
 			}
 			# TODO: also add puppet
 		} else {
-			$wgOut->addWikiMsg( 'openstackmanager-createeinstancefailed' );
+			$wgOut->addWikiMsg( 'openstackmanager-createinstancefailed' );
 		}
 		$sk = $wgOut->getSkin();
 		$out = '<br />';
