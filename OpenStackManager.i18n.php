@@ -540,6 +540,11 @@ $messages['be-tarask'] = array(
 	'openstackmanager-addhostfailed' => 'Немагчыма дадаць $1 запіс для IP-адрасу $2.',
 	'openstackmanager-hostname' => 'Назва хосту',
 	'openstackmanager-hostnames' => 'Назвы хостаў',
+	'openstackmanager-addhost' => 'Дадаць назву хосту',
+	'openstackmanager-removehost' => 'Выдаліць хост',
+	'openstackmanager-removehost-action' => '(Выдаліць назву хосту)',
+	'openstackmanager-removehost-confirm' => 'Вы ўпэўнены, што жадаеце выдаліць хост $1 з $2?',
+	'openstackmanager-removedhost' => '$1 выдалены пасьпяхова.',
 );
 
 /** Breton (Brezhoneg)
@@ -547,6 +552,12 @@ $messages['be-tarask'] = array(
  * @author Y-M D
  */
 $messages['br'] = array(
+	'novaaddress' => "Merañ ar c'homlec'hioù IP foran",
+	'novadomain' => 'Merañ an domanioù DNS',
+	'novakey' => "Merañ hoc'h alc'hwezhioù foran SSH",
+	'novaproject' => 'Merañ ar raktresoù OpenStack',
+	'novasecuritygroup' => 'Merañ strolladoù surentez ar voger-dan',
+	'novarole' => 'Merañ ar rolloù hollek',
 	'openstackmanager-novadomain' => 'Domani Nova',
 	'openstackmanager-novakey' => "Alc'hwez Nova",
 	'openstackmanager-novaproject' => 'Raktres Nova',
