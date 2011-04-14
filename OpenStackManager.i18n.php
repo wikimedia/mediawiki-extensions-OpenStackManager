@@ -545,6 +545,16 @@ $messages['be-tarask'] = array(
 	'openstackmanager-removehost-action' => '(Выдаліць назву хосту)',
 	'openstackmanager-removehost-confirm' => 'Вы ўпэўнены, што жадаеце выдаліць хост $1 з $2?',
 	'openstackmanager-removedhost' => '$1 выдалены пасьпяхова.',
+	'openstackmanager-removehostfailed' => 'Немагчыма выдаліць $1.',
+	'openstackmanager-nonexistenthost' => 'Запатрабаваны хост не існуе.',
+	'openstackmanager-needsysadminrole' => 'Неабходная роля сыстэмнага адміністратара',
+	'openstackmanager-needsysadminrole2' => 'Вы павінны быць удзельнікам ролі сыстэмнага адміністратара каб выканаць гэтае дзеяньне.',
+	'openstackmanager-neednetadminrole' => 'Неабходная роля сеткавага адміністратара',
+	'openstackmanager-neednetadminrole2' => 'Вы павінны быць удзельнікам ролі сеткавага адміністратара каб выканаць гэтае дзеяньне.',
+	'openstackmanager-createsecuritygroup' => 'Стварыць групу бясьпекі',
+	'openstackmanager-securitygroupname' => 'Назва групы бясьпекі',
+	'openstackmanager-securitygroupdescription' => 'Апісаньне',
+	'openstackmanager-configuresecuritygroup' => 'Наладзіць групу бясьпекі',
 );
 
 /** Breton (Brezhoneg)
