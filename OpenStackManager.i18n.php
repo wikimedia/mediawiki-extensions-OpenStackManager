@@ -345,6 +345,7 @@ $messages['qqq'] = array(
 	'openstackmanager-projectlist' => 'Page title',
 	'openstackmanager-deleteproject' => 'Page title',
 	'openstackmanager-novaproject-project' => '{{Identical|Project}}',
+	'openstackmanager-securitygroupdescription' => '{{Identical|Description}}',
 );
 
 /** Belarusian (Taraškievica orthography) (‪Беларуская (тарашкевіца)‬)
@@ -548,13 +549,14 @@ $messages['be-tarask'] = array(
 	'openstackmanager-removehostfailed' => 'Немагчыма выдаліць $1.',
 	'openstackmanager-nonexistenthost' => 'Запатрабаваны хост не існуе.',
 	'openstackmanager-needsysadminrole' => 'Неабходная роля сыстэмнага адміністратара',
-	'openstackmanager-needsysadminrole2' => 'Вы павінны быць удзельнікам ролі сыстэмнага адміністратара каб выканаць гэтае дзеяньне.',
+	'openstackmanager-needsysadminrole2' => 'Вы павінны быць удзельнікам у ролі сыстэмнага адміністратара каб выканаць гэтае дзеяньне.',
 	'openstackmanager-neednetadminrole' => 'Неабходная роля сеткавага адміністратара',
-	'openstackmanager-neednetadminrole2' => 'Вы павінны быць удзельнікам ролі сеткавага адміністратара каб выканаць гэтае дзеяньне.',
+	'openstackmanager-neednetadminrole2' => 'Вы павінны быць удзельнікам у ролі сеткавага адміністратара каб выканаць гэтае дзеяньне.',
 	'openstackmanager-createsecuritygroup' => 'Стварыць групу бясьпекі',
 	'openstackmanager-securitygroupname' => 'Назва групы бясьпекі',
 	'openstackmanager-securitygroupdescription' => 'Апісаньне',
 	'openstackmanager-configuresecuritygroup' => 'Наладзіць групу бясьпекі',
+	'openstackmanager-deletesecuritygroup' => 'Выдаліць групу бясьпекі',
 );
 
 /** Breton (Brezhoneg)
