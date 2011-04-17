@@ -1673,6 +1673,7 @@ $messages['lb'] = array(
 	'openstackmanager-noaccount' => 'Äre Benotzerkont ass net an deem gefrote Projet.',
 	'openstackmanager-novadomain-domain' => 'Domain',
 	'openstackmanager-domainname' => 'Numm vum Domain',
+	'openstackmanager-location' => 'Plaz:',
 	'openstackmanager-novainstance-instance' => 'Instanz',
 	'openstackmanager-configureinstance' => 'Instanz astellen',
 	'openstackmanager-dnsdomain' => 'DNS-Domain',
