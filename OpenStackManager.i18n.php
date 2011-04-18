@@ -348,6 +348,13 @@ $messages['qqq'] = array(
 	'openstackmanager-securitygroupdescription' => '{{Identical|Description}}',
 );
 
+/** Asturian (Asturianu)
+ * @author Xuacu
+ */
+$messages['ast'] = array(
+	'openstackmanager-modify' => 'camudar',
+);
+
 /** Belarusian (Taraškievica orthography) (‪Беларуская (тарашкевіца)‬)
  * @author EugeneZelenko
  * @author Jim-by
@@ -557,6 +564,14 @@ $messages['be-tarask'] = array(
 	'openstackmanager-securitygroupdescription' => 'Апісаньне',
 	'openstackmanager-configuresecuritygroup' => 'Наладзіць групу бясьпекі',
 	'openstackmanager-deletesecuritygroup' => 'Выдаліць групу бясьпекі',
+	'openstackmanager-deletesecuritygroup-confirm' => 'Вы ўпэўнены, што жадаеце выдаліць $1?',
+	'openstackmanager-securitygrouplist' => 'Сьпіс групаў бясьпекі',
+	'openstackmanager-securitygrouprule' => 'Правілы',
+	'openstackmanager-securitygrouprule-toport' => 'У порт',
+	'openstackmanager-securitygrouprule-fromport' => 'З порту',
+	'openstackmanager-securitygrouprule-protocol' => 'Пратакол',
+	'openstackmanager-securitygrouprule-ipranges' => 'Дыяпазоны CIDR',
+	'openstackmanager-securitygrouprule-groups' => 'Групы бясьпекі',
 );
 
 /** Breton (Brezhoneg)
@@ -597,13 +612,21 @@ $messages['br'] = array(
 	'openstackmanager-imagetype' => 'Seurt skeudenn',
 	'openstackmanager-launchtime' => 'Amzer kregiñ',
 	'openstackmanager-deletekey' => "Diverkañ an alc'hwez",
+	'openstackmanager-keylist' => "Roll an alc'hwezioù",
 	'openstackmanager-importkey' => "Enporzhiañ un alc'hwez nevez",
 	'openstackmanager-name' => 'Anv',
+	'openstackmanager-fingerprint' => 'Roudoù-bizied',
+	'openstackmanager-keys' => "Alc'hwezioù",
+	'openstackmanager-backkeylist' => "Distreiñ d'ar roll alc'hwezioù",
+	'openstackmanager-deletedkeyfailed' => "N'eus ket bet gallet diverkañ an alc'hwez.",
+	'openstackmanager-addmember' => "Ouzhpennañ un ezel d'ar raktres",
+	'openstackmanager-removemember' => 'Diverkañ un ezel eus ar raktres',
 	'openstackmanager-createproject' => 'Krouiñ ur raktres nevez',
 	'openstackmanager-projectname' => 'Anv ar raktres',
 	'openstackmanager-members' => 'Izili',
 	'openstackmanager-member' => 'Ezel',
 	'openstackmanager-action' => 'Oberiadenn',
+	'openstackmanager-createprojectfailed' => "C'hwitet krouiñ ar raktres.",
 	'openstackmanager-createdproject' => 'Raktres krouet.',
 	'openstackmanager-projectlist' => 'Roll ar raktresoù',
 	'openstackmanager-backprojectlist' => 'Distreiñ da roll ar raktresoù',
@@ -618,21 +641,47 @@ $messages['br'] = array(
 	'openstackmanager-novaproject-info' => 'Titouroù diwar-benn ar raktres',
 	'openstackmanager-roles' => 'Roloù',
 	'openstackmanager-rolename' => 'Anv ar rol',
+	'openstackmanager-removerolemember' => 'Diverkañ un ezel eus ar roll',
+	'openstackmanager-addresslist' => "Roll ar chomlec'hioù IP foran",
+	'openstackmanager-address' => "Chomlec'h IP foran",
+	'openstackmanager-allocateaddress' => "Dereiñ ur chomlec'h IP foran nevez",
+	'openstackmanager-backaddresslist' => "Distreiñ d'ar roll chomlec'hioù",
 	'openstackmanager-hostname' => "Anv herberc'hier",
 	'openstackmanager-hostnames' => "Anvioù herberc'hier",
 	'openstackmanager-addhost' => "Lemel anv an herberc'hier",
 	'openstackmanager-removehost' => "Lemel an herberc'hier",
 	'openstackmanager-removehost-action' => "(Lemel anv an herberc'hier)",
+	'openstackmanager-createsecuritygroup' => 'Krouiñ ur strollad surentez',
+	'openstackmanager-securitygroupname' => 'Anv ar strollad surentez',
 	'openstackmanager-securitygroupdescription' => 'Deskrivadur',
+	'openstackmanager-configuresecuritygroup' => 'Kefluniañ ar strollad surentez',
+	'openstackmanager-deletesecuritygroup' => 'Diverkañ ar strollad surentez',
+	'openstackmanager-deletesecuritygroup-confirm' => "Ha sur oc'h e fell deoc'h diverkañ $1?",
+	'openstackmanager-securitygrouplist' => 'Roll ar strolladoù surentez',
 	'openstackmanager-securitygrouprule' => 'Reolennoù',
 	'openstackmanager-securitygrouprule-toport' => "D'ar porzh",
 	'openstackmanager-securitygrouprule-fromport' => 'Adalek ar porzh',
 	'openstackmanager-securitygrouprule-protocol' => 'Protokol',
+	'openstackmanager-securitygrouprule-groups' => 'Strolladoù surentez',
+	'openstackmanager-createnewsecuritygroup' => 'Krouiñ ur strollad surentez nevez',
 	'openstackmanager-addrule-action' => 'ouzhpennañ ar reolenn',
 	'openstackmanager-removerule-action' => 'diverkañ ar reolenn',
+	'openstackmanager-modifiedgroup' => 'Kemmet eo bet ar strollad surentez ervat.',
+	'openstackmanager-modifygroupfailed' => "N'eus ket bet gallet degas kemmoù er strollad surentez.",
+	'openstackmanager-nonexistantgroup' => "N'eus ket eus ar strollad surentez goulennet.",
+	'openstackmanager-backsecuritygrouplist' => 'Dsitreiñ da roll ar strolladoù surentez',
+	'openstackmanager-createdsecuritygroup' => 'Krouet eo bet ar strollad surentez ervat.',
+	'openstackmanager-createsecuritygroupfailed' => "N'eus ket bet gallet krouiñ ar strollad surentez.",
+	'openstackmanager-nonexistantsecuritygroup' => "Ar strollad surentez a fell deoc'h diverkañ n'eus ket anezhañ.",
+	'openstackmanager-deletedsecuritygroup' => 'Diverket eo bet ar strollad surentez ervat.',
+	'openstackmanager-deletesecuritygroupfailed' => "N'eus ket bet gallet diverkañ ar strollad surentez.",
 	'openstackmanager-removerule' => 'Diverkañ ar reolenn',
+	'openstackmanager-removerule-confirm' => "Ha sur oc'h e fell deoc'h lemel ar reolenn-mañ eus $1",
+	'openstackmanager-removedrule' => 'Lamet eo bet ar reolenn ervat.',
+	'openstackmanager-removerulefailed' => "N'eus ket bet gallet lemel ar reolenn.",
 	'openstackmanager-addrule' => 'Ouzhpennañ ar reolenn',
 	'openstackmanager-sudoerusers' => 'Implijerien',
+	'openstackmanager-sudoeroptions' => 'Dibarzhioù',
 );
 
 /** Bosnian (Bosanski)
