@@ -582,6 +582,16 @@ $messages['be-tarask'] = array(
 	'openstackmanager-createdsecuritygroup' => 'Група бясьпекі створаная пасьпяхова.',
 	'openstackmanager-createsecuritygroupfailed' => 'Немагчыма стварыць групу бясьпекі.',
 	'openstackmanager-nonexistantsecuritygroup' => 'Група бясьпекі, якую Вы спрабуеце выдаліць, не існуе.',
+	'openstackmanager-deletedsecuritygroup' => 'Група бясьпекі выдаленая пасьпяхова.',
+	'openstackmanager-deletesecuritygroupfailed' => 'Немагчыма выдаліць групу бясьпекі.',
+	'openstackmanager-removerule' => 'Выдаліць правіла',
+	'openstackmanager-removerule-confirm' => 'Вы ўпэўнены, што жадаеце выдаліць гэтае правіла з $1?',
+	'openstackmanager-removedrule' => 'Правіла выдаленае пасьпяхова.',
+	'openstackmanager-removerulefailed' => 'Немагчыма выдаліць правіла.',
+	'openstackmanager-addrule' => 'Дадаць правіла',
+	'openstackmanager-securitygrouprule-ranges' => 'Дыяпазоны CIDR',
+	'openstackmanager-securitygrouprule-ranges-help' => 'Дыяпазоны CIDR — падзелены коскамі сьпіс дыяпазонаў.',
+	'openstackmanager-securitygrouprule-groups-help' => 'Для экзэмпляраў у дададзеных групах бясьпекі будзе дазволены доступ да ўсіх партоў і пратаколаў.',
 );
 
 /** Breton (Brezhoneg)
