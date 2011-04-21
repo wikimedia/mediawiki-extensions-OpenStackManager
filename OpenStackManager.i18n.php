@@ -346,6 +346,8 @@ $messages['qqq'] = array(
 	'openstackmanager-deleteproject' => 'Page title',
 	'openstackmanager-novaproject-project' => '{{Identical|Project}}',
 	'openstackmanager-securitygroupdescription' => '{{Identical|Description}}',
+	'openstackmanager-sudoerusers' => '{{Identical|User}}',
+	'openstackmanager-sudoeroptions' => '{{Identical|Options}}',
 );
 
 /** Asturian (Asturianu)
@@ -592,6 +594,18 @@ $messages['be-tarask'] = array(
 	'openstackmanager-securitygrouprule-ranges' => 'Дыяпазоны CIDR',
 	'openstackmanager-securitygrouprule-ranges-help' => 'Дыяпазоны CIDR — падзелены коскамі сьпіс дыяпазонаў.',
 	'openstackmanager-securitygrouprule-groups-help' => 'Для экзэмпляраў у дададзеных групах бясьпекі будзе дазволены доступ да ўсіх партоў і пратаколаў.',
+	'openstackmanager-addedrule' => 'Правіла дададзенае пасьпяхова.',
+	'openstackmanager-addrulefailed' => 'Немагчыма дадаць правіла.',
+	'openstackmanager-createsudoer' => 'Стварыць правілы Sudo',
+	'openstackmanager-novasudoer-sudoer' => 'Правілы Sudo',
+	'openstackmanager-novasudoer-info' => 'Інфармацыя пра правілы Sudo',
+	'openstackmanager-sudoername' => 'Назва правілаў Sudo',
+	'openstackmanager-commadelimiter' => 'Падзеленыя коскамі',
+	'openstackmanager-sudoerusers' => 'Карыстальнікі',
+	'openstackmanager-sudoerhosts' => 'Хосты',
+	'openstackmanager-sudoercommands' => 'Каманды',
+	'openstackmanager-sudoeroptions' => 'Налады',
+	'openstackmanager-deletesudoer-confirm' => 'Вы ўпэўнены, што жадаеце выдаліць правілы Sudo $1?',
 );
 
 /** Breton (Brezhoneg)
