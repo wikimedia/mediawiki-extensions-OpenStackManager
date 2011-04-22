@@ -605,7 +605,17 @@ $messages['be-tarask'] = array(
 	'openstackmanager-sudoerhosts' => 'Хосты',
 	'openstackmanager-sudoercommands' => 'Каманды',
 	'openstackmanager-sudoeroptions' => 'Налады',
+	'openstackmanager-deletesudoer' => 'Выдаліць правілы Sudo',
 	'openstackmanager-deletesudoer-confirm' => 'Вы ўпэўнены, што жадаеце выдаліць правілы Sudo $1?',
+	'openstackmanager-createsudoerfailed' => 'Немагчыма стварыць правілы Sudo.',
+	'openstackmanager-createdsudoer' => 'Правілы Sudo створаныя пасьпяхова.',
+	'openstackmanager-backsudoerlist' => 'Вярнуцца ў сьпіс Sudo.',
+	'openstackmanager-deletedsudoer' => 'Правілы Sudo выдаленыя пасьпяхова.',
+	'openstackmanager-failedeletedsudoer' => 'Немагчыма выдаліць правілы Sudo.',
+	'openstackmanager-sudoerlist' => 'Сьпіс правілаў Sudo',
+	'openstackmanager-modifysudoer' => 'Зьмяніць правілы Sudo',
+	'openstackmanager-modifysudoerfailed' => 'Немагчыма абнавіць правілы Sudo.',
+	'openstackmanager-modifiedsudoer' => 'Правілы Sudo абноўленыя пасьпяхова.',
 );
 
 /** Breton (Brezhoneg)
