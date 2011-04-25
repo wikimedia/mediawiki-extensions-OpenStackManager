@@ -260,7 +260,7 @@ class OpenStackNovaController {
 			$userdata .= $endl;
 			$userdata .= $boundary;
 			if ( $wgOpenStackManagerInstanceUserData['cloud-config'] ) {
-				$userdata .= $endl . $this->getAttachmentMime( Spyc::YAMLDump( $wgOpenStackManagerInstanceUserData['cloud-config'] ), 'text/cloud-config', 'cloud-config.txt' );
+				$userdata .= $endl . $this->getAttachmentMime( FormatJson::encode( $wgOpenStackManagerInstanceUserData['cloud-config'] ), 'text/cloud-config', 'cloud-config.txt' );
 				$userdata .= $endl . $boundary;
 			}
 			if ( $wgOpenStackManagerInstanceUserData['scripts'] ) {
