@@ -771,6 +771,7 @@ $messages['bs'] = array(
 /** German (Deutsch)
  * @author Fujnky
  * @author Kghbln
+ * @author Purodha
  */
 $messages['de'] = array(
 	'openstackmanager-desc' => 'Ermöglicht Benutzern die Verwaltung von Nova und Swift',
@@ -972,7 +973,7 @@ $messages['de'] = array(
 	'openstackmanager-removedhost' => 'Der Host $1 wurde erfolgreich entfernt.',
 	'openstackmanager-removehostfailed' => 'Der Host $1 konnte nicht entfernt werden.',
 	'openstackmanager-nonexistenthost' => 'Der gewünschte Host ist nicht vorhanden.',
-	'openstackmanager-needsysadminrole' => 'Hierfür muss man Systemadministrators sein',
+	'openstackmanager-needsysadminrole' => 'Hierfür muss man Systemadministrator sein',
 	'openstackmanager-needsysadminrole2' => 'Man muss Systemadministrator sein, um diese Aktion ausführen zu können.',
 	'openstackmanager-neednetadminrole' => 'Hierfür muss man Netzwerkadministrator sein',
 	'openstackmanager-neednetadminrole2' => 'Man muss Netzwerkadministrator sein, um diese Aktion ausführen zu können.',
@@ -1298,6 +1299,17 @@ $messages['fr'] = array(
 	'openstackmanager-deletesudoer-confirm' => 'Êtes-vous sûr de vouloir supprimer la règle sudo $1 ?',
 	'openstackmanager-createsudoerfailed' => 'Échec de la création de la règle sudo.',
 	'openstackmanager-createdsudoer' => 'Règle sudo créée avec succès.',
+	'openstackmanager-backsudoerlist' => 'Retour à la liste des sudo.',
+	'openstackmanager-deletedsudoer' => 'Règle sudo supprimée avec succès.',
+	'openstackmanager-failedeletedsudoer' => 'Échec de la suppression de la règle sudo.',
+	'openstackmanager-sudoerlist' => 'Liste des règles sudo',
+	'openstackmanager-modifysudoer' => 'Modifier la règle sudo',
+	'openstackmanager-modifysudoerfailed' => 'Échec de la modification de la règle sudo.',
+	'openstackmanager-modifiedsudoer' => 'Règle sudo modifiée avec succès.',
+	'openstackmanager-nonexistantsudoer' => "La règle sudo demandée n'existe pas.",
+	'openstackmanager-email-subject' => 'Votre instance est prête à recevoir des connexions.',
+	'openstackmanager-email-body' => "L'instance suivante a été créée et est prête à recevoir des connexions :",
+	'right-manageproject' => 'Gérer les rôles et projets Openstack',
 );
 
 /** Galician (Galego)
@@ -1943,7 +1955,60 @@ $messages['ia'] = array(
  */
 $messages['ksh'] = array(
 	'openstackmanager-desc' => 'Määd et müjjelesch föt Metmaacher, <i lang="en">Nova</i> un <i lang="en">Swift</i> ze verwallde.',
+	'openstackmanager' => 'De <i lang="en">OpenStack</i> Verwaldong',
+	'openstackmanager-novakey' => 'Ene Nova-Schlößel',
+	'openstackmanager-novaproject' => 'Et Nova-Projäk',
+	'openstackmanager-delete' => 'fottschmiiße',
+	'openstackmanager-configure' => 'enshtälle',
+	'openstackmanager-modify' => 'ändere',
+	'openstackmanager-rename' => 'ömnänne',
+	'openstackmanager-reboot' => 'et Süßteem neu huhfahre',
+	'openstackmanager-notloggedin' => 'Enlogge es nüdich',
+	'openstackmanager-mustbeloggedin' => 'Do moß ald enjelogg sin, öm dat maache ze dörve.',
 	'openstackmanager-deletedinstance-faileddns' => 'Dat Denge es jäz fott, ävver dä Endraach „$1“ em <i lang="en">Domain Name System</i> es övverisch jeblevve.',
+	'openstackmanager-novapublickey' => 'Ene öffentlesche SSH-Schlößel',
+	'openstackmanager-novakey-key' => 'Ene öffentlesche SSH-Schlößel',
+	'openstackmanager-novakey-info' => 'Öffentlesch Enfommazjuhne em SSH-Schlößel',
+	'openstackmanager-deletekey' => 'Ene Schlößel fott schmiiße',
+	'openstackmanager-deletekeyconfirm' => 'Wells De bovve dä Schlößel verhaftesch fott schmiiße?',
+	'openstackmanager-keylist' => 'Leß met Schlößele',
+	'openstackmanager-importkey' => 'Ene Schlößel holle',
+	'openstackmanager-name' => 'Name',
+	'openstackmanager-keys' => 'Schlößele',
+	'openstackmanager-backkeylist' => 'Jangk retuur op de Leß met de Schlößele',
+	'openstackmanager-deletedkey' => 'Dä Schlößel es fottjeschmeße.',
+	'openstackmanager-deletedkeyfailed' => 'Mer kunnte dä Schlößel nit fott schmiiße.',
+	'openstackmanager-backaddresslist' => 'Jangk retuur op de Leß met de Adräße',
+	'openstackmanager-hostname' => 'Däm Rääschner singe Name',
+	'openstackmanager-hostnames' => 'Dä Rääschner iehre Name',
+	'openstackmanager-addhost' => 'Donn enem Rääschner singe Name dobei',
+	'openstackmanager-removehost' => 'Donn enem Rääschner singe Name fott nämme',
+	'openstackmanager-removehost-action' => '(Enem Rääschner singe Name fott nämme)',
+	'openstackmanager-removedhost' => 'Dä Rääschner $1 es jäz fott.',
+	'openstackmanager-removehostfailed' => 'Met kunnte dä Rääschner $1 nit fott nämme.',
+	'openstackmanager-nonexistenthost' => 'Dä Rääschner jidd_et nit.',
+	'openstackmanager-needsysadminrole' => 'Öm dat ze dörve, moß mer ene Adminstrator vum Süßteem sin.',
+	'openstackmanager-needsysadminrole2' => 'Öm dat ze dörve, moß mer ene Adminstrator vum Süßteem sin.',
+	'openstackmanager-neednetadminrole' => 'Öm dat ze dörve, moß mer ene Adminstrator vum Netwärk sin.',
+	'openstackmanager-neednetadminrole2' => 'Öm dat ze dörve, moß mer ene Adminstrator vum Netwärk sin.',
+	'openstackmanager-needcloudadminrole' => 'Öm dat ze dörve, moß mer ene Adminstrator vun dä Wolk sin.',
+	'openstackmanager-needcloudadminrole2' => 'Öm dat ze dörve, moß mer ene Adminstrator vun dä Wolk sin.',
+	'openstackmanager-securitygrouprule' => 'Rääjelle',
+	'openstackmanager-addrule-action' => 'Rääjel dobei donn',
+	'openstackmanager-removerule-action' => 'Rääjel fott nämme',
+	'openstackmanager-removerule' => 'En Rääjel fott nämme',
+	'openstackmanager-removerule-confirm' => 'Sull di Rääjel verhaftesch uß $1 fott jenumme wääde?
+',
+	'openstackmanager-removedrule' => 'Die Rääjel es jäz fott.',
+	'openstackmanager-removerulefailed' => 'Met kunnte di Rääjel nit fott nämme.',
+	'openstackmanager-addrule' => 'En Rääjel dobei donn',
+	'openstackmanager-addedrule' => 'Di Rääjel es jäz dobei jekumme.',
+	'openstackmanager-addrulefailed' => 'Di Rääjel dobeizedonn es donävve jejange.',
+	'openstackmanager-commadelimiter' => 'Met Kommas dozwesche',
+	'openstackmanager-sudoerusers' => 'Metmaacher',
+	'openstackmanager-sudoerhosts' => 'Rääschner',
+	'openstackmanager-sudoercommands' => 'Kommandos',
+	'openstackmanager-sudoeroptions' => 'Ennshtällunge',
 );
 
 /** Kurdish (Latin) (Kurdî (Latin))
