@@ -622,11 +622,24 @@ $messages['be-tarask'] = array(
 	'right-manageproject' => 'кіраваньне праектамі і ролямі Openstack',
 );
 
+/** Bulgarian (Български)
+ * @author DCLXVI
+ */
+$messages['bg'] = array(
+	'openstackmanager-delete' => 'изтриване',
+	'openstackmanager-configure' => 'конфигуриране',
+	'openstackmanager-modify' => 'промяна',
+	'openstackmanager-rename' => 'преименуване',
+	'openstackmanager-reboot' => 'рестартиране',
+	'openstackmanager-actions' => 'Действия',
+);
+
 /** Breton (Brezhoneg)
  * @author Fulup
  * @author Y-M D
  */
 $messages['br'] = array(
+	'openstackmanager-desc' => 'Lezel a ra an implijerien da verañ Nova ha Swift',
 	'novaaddress' => "Merañ ar c'homlec'hioù IP foran",
 	'novadomain' => 'Merañ an domanioù DNS',
 	'novakey' => "Merañ hoc'h alc'hwezhioù foran SSH",
@@ -640,6 +653,7 @@ $messages['br'] = array(
 	'openstackmanager-configure' => 'kefluniañ',
 	'openstackmanager-modify' => 'kemmañ',
 	'openstackmanager-rename' => 'adenvel',
+	'openstackmanager-reboot' => "adloc'hañ",
 	'openstackmanager-actions' => 'Oberiadennoù',
 	'openstackmanager-notloggedin' => 'Ret eo kevreañ',
 	'openstackmanager-mustbeloggedin' => "Ret deoc'h bezañ kevreet evit kas da benn an oberiadenn-mañ.",
@@ -651,6 +665,7 @@ $messages['br'] = array(
 	'openstackmanager-createddomain' => 'Domani krouet.',
 	'openstackmanager-domainlist' => 'Roll an domanioù',
 	'openstackmanager-backdomainlist' => 'Distreiñ da roll an domanioù',
+	'openstackmanager-deleteddomain' => 'Diverket eo bet an domani ervat.',
 	'openstackmanager-failedeletedomain' => "N'eus ket bet gallet diverkañ an domani.",
 	'openstackmanager-domainname' => 'Anv domani',
 	'openstackmanager-location' => "Lec'hiadur",
@@ -661,7 +676,11 @@ $messages['br'] = array(
 	'openstackmanager-launchtime' => 'Amzer kregiñ',
 	'openstackmanager-attach' => 'Stagañ',
 	'openstackmanager-detach' => 'Distagañ',
+	'openstackmanager-novapublickey' => "Alc'hwez foran SSH",
+	'openstackmanager-novakey-key' => "Alc'hwez foran SSH",
+	'openstackmanager-novakey-info' => "Titouroù a-zivout an alc'hwez foran SSH",
 	'openstackmanager-deletekey' => "Diverkañ an alc'hwez",
+	'openstackmanager-deletekeyconfirm' => "Ha sur oc'h hoc'h eus c'hoant da zilemel an alc'hwez a-us ?",
 	'openstackmanager-keylist' => "Roll an alc'hwezioù",
 	'openstackmanager-importkey' => "Enporzhiañ un alc'hwez nevez",
 	'openstackmanager-name' => 'Anv',
@@ -692,15 +711,30 @@ $messages['br'] = array(
 	'openstackmanager-roles' => 'Roloù',
 	'openstackmanager-rolename' => 'Anv ar rol',
 	'openstackmanager-removerolemember' => 'Diverkañ un ezel eus ar roll',
+	'openstackmanager-addrolemember' => "Ouzhpennañ un ezel d'ar roll",
+	'openstackmanager-rolelist' => 'Listenn ar rolloù hollek',
+	'openstackmanager-nomemberstoadd' => "N'eus ezel ebet da ouzhpennañ d'ar strollad-mañ.",
+	'openstackmanager-nomemberstoremove' => "N'eus ezel ebet da lemel a-ziwar ar strollad-mañ.",
+	'openstackmanager-novarole-role' => 'Roll Nova',
+	'openstackmanager-novarole-info' => 'Titouroù a-zivout ar roll Nova',
 	'openstackmanager-addresslist' => "Roll ar chomlec'hioù IP foran",
 	'openstackmanager-address' => "Chomlec'h IP foran",
 	'openstackmanager-allocateaddress' => "Dereiñ ur chomlec'h IP foran nevez",
+	'openstackmanager-releaseaddress' => "Dieubiñ ur chomlec'h IP",
+	'openstackmanager-associateaddress' => "Kevredañ ur chomlec'h IP",
+	'openstackmanager-reassociateaddress' => "Adkevredañ ur chomlec'h IP",
+	'openstackmanager-disassociateaddress' => "Digevredañ ur chomlec'h IP",
+	'openstackmanager-allocateaddressfailed' => "N'eus ket bet gallet reiñ ar chomlec'h IP foran nevez.",
+	'openstackmanager-allocatedaddress' => "Dereiñ ur chomlec'h IP foran nevez : $1",
 	'openstackmanager-backaddresslist' => "Distreiñ d'ar roll chomlec'hioù",
+	'openstackmanager-allocateaddress-confirm' => "Ha sur oc'h e fell deoc'h dereiñ ur chomlec'h IP foran nevez da raktres $1 ?",
+	'openstackmanager-invalidaddressforproject' => "N'emañ ket $1 er raktres goulennet.",
 	'openstackmanager-hostname' => "Anv herberc'hier",
 	'openstackmanager-hostnames' => "Anvioù herberc'hier",
 	'openstackmanager-addhost' => "Lemel anv an herberc'hier",
 	'openstackmanager-removehost' => "Lemel an herberc'hier",
 	'openstackmanager-removehost-action' => "(Lemel anv an herberc'hier)",
+	'openstackmanager-removedhost' => 'Diverket eo bet $1 ervat.',
 	'openstackmanager-createsecuritygroup' => 'Krouiñ ur strollad surentez',
 	'openstackmanager-securitygroupname' => 'Anv ar strollad surentez',
 	'openstackmanager-securitygroupdescription' => 'Deskrivadur',
@@ -730,6 +764,7 @@ $messages['br'] = array(
 	'openstackmanager-removedrule' => 'Lamet eo bet ar reolenn ervat.',
 	'openstackmanager-removerulefailed' => "N'eus ket bet gallet lemel ar reolenn.",
 	'openstackmanager-addrule' => 'Ouzhpennañ ar reolenn',
+	'openstackmanager-addrulefailed' => "N'eus ket bet gallet ouzhpennañ ur reolenn.",
 	'openstackmanager-sudoerusers' => 'Implijerien',
 	'openstackmanager-sudoeroptions' => 'Dibarzhioù',
 );
