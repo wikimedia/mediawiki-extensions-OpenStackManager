@@ -330,7 +330,8 @@ $messages['qqq'] = array(
 	'openstackmanager-instancelist' => 'Page title',
 	'openstackmanager-createinstance' => 'Header shown in Special:NovaInstance for its create action',
 	'openstackmanager-deletedinstance-faileddns' => 'Tells the user an instance was deleted, but the [[wikipedia:Domain Name System|DNS]] entry was not. $1 is the specific DNS name.',
-	'openstackmanager-attach' => 'Verb.',
+	'openstackmanager-attach' => 'Verb.
+{{Identical|Attach}}',
 	'openstackmanager-detach' => 'Verb.',
 	'openstackmanager-deletekey' => 'Page title',
 	'openstackmanager-keylist' => 'Page title',
