@@ -358,6 +358,15 @@ $messages['ast'] = array(
 	'openstackmanager-modify' => 'camudar',
 );
 
+/** Azerbaijani (Azərbaycanca)
+ * @author Cekli829
+ */
+$messages['az'] = array(
+	'openstackmanager-delete' => 'sil',
+	'openstackmanager-name' => 'Ad',
+	'openstackmanager-novaproject-project' => 'Layihə',
+);
+
 /** Belarusian (Taraškievica orthography) (‪Беларуская (тарашкевіца)‬)
  * @author EugeneZelenko
  * @author Jim-by
@@ -768,7 +777,10 @@ $messages['br'] = array(
 	'openstackmanager-domainname' => 'Anv domani',
 	'openstackmanager-fqdn' => 'Anv domani perzhekaet da vat.',
 	'openstackmanager-location' => "Lec'hiadur",
+	'openstackmanager-location-help' => "Evit an takadoù DNS prevez eo ar vaezienn lec'hiañ. Lezel goullo evit an takadoù foran.",
+	'openstackmanager-nonexistanthost' => "N'eus ket eus an herberc'hier goulennet.",
 	'openstackmanager-dnsdomain' => 'Domani DNS',
+	'openstackmanager-puppetclasses' => 'Seurtoù margodennoù',
 	'openstackmanager-securitygroups' => 'Strolladoù surentez',
 	'openstackmanager-availabilityzone' => 'Takad hegerz',
 	'openstackmanager-imageid' => 'ID ar skeudenn',
@@ -776,8 +788,10 @@ $messages['br'] = array(
 	'openstackmanager-instancetypelabel' => '{{PLURAL:$1|$1 CPU|$1 CPU}}, $2 MO RAM, $3 GO stokañ',
 	'openstackmanager-launchtime' => 'Amzer kregiñ',
 	'openstackmanager-invaliddomain' => 'Direizh eo an domani goulennet.',
+	'openstackmanager-volumeattachmentstatus' => 'Stad ar stagadenn',
 	'openstackmanager-attach' => 'Stagañ',
 	'openstackmanager-detach' => 'Distagañ',
+	'openstackmanager-device' => 'Trobarzhell',
 	'openstackmanager-novapublickey' => "Alc'hwez foran SSH",
 	'openstackmanager-novakey-key' => "Alc'hwez foran SSH",
 	'openstackmanager-novakey-info' => "Titouroù a-zivout an alc'hwez foran SSH",
@@ -788,6 +802,10 @@ $messages['br'] = array(
 	'openstackmanager-name' => 'Anv',
 	'openstackmanager-fingerprint' => 'Roudoù-bizied',
 	'openstackmanager-keys' => "Alc'hwezioù",
+	'openstackmanager-invalidkeypair' => "Direizh eo lec'hiadur kefluniet an daouad alc'hwezioù.",
+	'openstackmanager-keypairimportfailed' => "Dibosupl enporzhiañ an daouad alc'hwezioù.",
+	'openstackmanager-keypairimported' => "Daouad alc'hwezioù enporzhiet.",
+	'openstackmanager-keypairimportedfingerprint' => "Enporzhiet an daouad alc'hwezioù $1, gant roudoù bizied $2.",
 	'openstackmanager-backkeylist' => "Distreiñ d'ar roll alc'hwezioù",
 	'openstackmanager-deletedkey' => "Diverket eo bet an alc'hwez ervat.",
 	'openstackmanager-deletedkeyfailed' => "N'eus ket bet gallet diverkañ an alc'hwez.",
@@ -847,6 +865,7 @@ $messages['br'] = array(
 	'openstackmanager-removehost' => "Lemel an herberc'hier",
 	'openstackmanager-removehost-action' => "(Lemel anv an herberc'hier)",
 	'openstackmanager-removedhost' => 'Diverket eo bet $1 ervat.',
+	'openstackmanager-nonexistenthost' => "N'eus ket eus an herberc'hier goulennet.",
 	'openstackmanager-createsecuritygroup' => 'Krouiñ ur strollad surentez',
 	'openstackmanager-securitygroupname' => 'Anv ar strollad surentez',
 	'openstackmanager-securitygroupdescription' => 'Deskrivadur',
@@ -877,8 +896,14 @@ $messages['br'] = array(
 	'openstackmanager-removerulefailed' => "N'eus ket bet gallet lemel ar reolenn.",
 	'openstackmanager-addrule' => 'Ouzhpennañ ar reolenn',
 	'openstackmanager-addrulefailed' => "N'eus ket bet gallet ouzhpennañ ur reolenn.",
+	'openstackmanager-novasudoer-sudoer' => 'Reolenn Sudo',
+	'openstackmanager-novasudoer-info' => 'Titouroù reolenn Sudo',
+	'openstackmanager-sudoername' => 'Anv reolenn Sudo',
 	'openstackmanager-sudoerusers' => 'Implijerien',
 	'openstackmanager-sudoeroptions' => 'Dibarzhioù',
+	'openstackmanager-modifiedsudoer' => 'Kemmet eo bet reolenn Sudo ervat.',
+	'openstackmanager-nonexistantsudoer' => "N'eus ket eus ar reolenn Sudo goulennet.",
+	'right-manageproject' => 'Merañ raktresoù ha rolloù Openstack',
 );
 
 /** Bosnian (Bosanski)
