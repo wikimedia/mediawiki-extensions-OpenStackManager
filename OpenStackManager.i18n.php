@@ -1583,6 +1583,10 @@ $messages['gl'] = array(
 	'openstackmanager-deletevolumefailed' => 'Erro ao borrar o volume.',
 	'openstackmanager-backvolumelist' => 'Volver á lista de volumes',
 	'openstackmanager-device' => 'Trebello',
+	'openstackmanager-attachvolumefailed' => 'Erro ao anexar o volume.',
+	'openstackmanager-detachvolumefailed' => 'Erro ao desligar o volume.',
+	'openstackmanager-novapublickey' => 'Clave pública SSH',
+	'openstackmanager-novakey-key' => 'Clave pública SSH',
 	'openstackmanager-deletekey' => 'Borrar a clave',
 	'openstackmanager-deletekeyconfirm' => 'Está seguro de querer borrar a clave anterior?',
 	'openstackmanager-keylist' => 'Lista de claves',
@@ -1607,6 +1611,14 @@ $messages['gl'] = array(
 	'openstackmanager-roles' => 'Funcións',
 	'openstackmanager-rolename' => 'Nome da función',
 	'openstackmanager-novarole-role' => 'Función Nova',
+	'openstackmanager-addresslist' => 'Lista de enderezos IP públicos',
+	'openstackmanager-address' => 'Enderezo IP público',
+	'openstackmanager-hostname' => 'Nome do servidor',
+	'openstackmanager-hostnames' => 'Nomes do servidores',
+	'openstackmanager-addhost' => 'Engadir o nome do servidor',
+	'openstackmanager-removehost' => 'Eliminar o servidor',
+	'openstackmanager-removehost-action' => '(Eliminar o nome do servidor)',
+	'openstackmanager-removehostfailed' => 'Erro ao eliminar $1.',
 	'openstackmanager-securitygroupdescription' => 'Descrición',
 	'openstackmanager-securitygrouplist' => 'Lista de grupos de seguridade',
 	'openstackmanager-securitygrouprule' => 'Regras',
@@ -2642,6 +2654,7 @@ $messages['mk'] = array(
  */
 $messages['ms'] = array(
 	'openstackmanager-location' => 'Lokasi',
+	'openstackmanager-securitygroupdescription' => 'Keterangan',
 );
 
 /** Dutch (Nederlands)
