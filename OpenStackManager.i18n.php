@@ -2990,6 +2990,9 @@ $messages['pt'] = array(
 	'openstackmanager-noaccount2' => 'Não pode concluir a ação solicitada porque a sua conta de utilizador não está no projeto solicitado.',
 	'openstackmanager-createdomain' => 'Criar domínio',
 	'openstackmanager-deletedomain' => 'Eliminar domínio',
+	'openstackmanager-location' => 'Localização',
+	'openstackmanager-imageid' => 'ID da imagem',
+	'openstackmanager-imagetype' => 'Tipo da imagem',
 	'openstackmanager-novaproject-project' => 'Projecto',
 	'openstackmanager-securitygrouprule' => 'Regras',
 );
