@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import sys, traceback, ldapsupportlib, pwd, subprocess, os
 from optparse import OptionParser
 
