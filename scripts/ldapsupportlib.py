@@ -2,10 +2,10 @@
 import os, traceback, getpass, sys
 
 try:
-        import ldap
+	import ldap
 except ImportError:
-        sys.stderr.write("Unable to import LDAP library.\n")
-        sys.exit(1)
+	sys.stderr.write("Unable to import LDAP library.\n")
+	sys.exit(1)
 
 class LDAPSupportLib:
 
@@ -15,8 +15,6 @@ class LDAPSupportLib:
 		self.sslType = self.getLdapInfo("ssl")
 		self.binddn = self.getLdapInfo("binddn")
 		self.bindpw = self.getLdapInfo("bindpw")
-		# TODO: add a config file to set this
-		self.bindfile = "/etc/ldap/changeme"
 		self.defaults = {}
 
 	def addParserOptions(self, parser, default="proxy"):
@@ -67,8 +65,8 @@ class LDAPSupportLib:
 			self.binddn = "uid=" + options.bindas + ",ou=people," + self.base
 			self.bindpw = getpass.getpass()
 		elif options.scriptuser:
-			self.binddn = self.getLdapInfo('USER', self.bindfile)
-			self.bindpw = self.getLdapInfo('PASS', self.bindfile)
+			self.binddn = self.getLdapInfo('USER', '/etc/ldap/.ldapscriptrc')
+			self.bindpw = self.getLdapInfo('PASS', '/etc/ldap/.ldapscriptrc')
 
 	def setBindDN(self, binddn):
 		self.binddn = binddn
@@ -83,12 +81,18 @@ class LDAPSupportLib:
 		return self.ldapHost
 
 	def getLdapInfo(self, attr, conffile="/etc/ldap.conf"):
-		f = open(conffile)
+		try:
+			f = open(conffile)
+		except IOError:
+			if conffile == "/etc/ldap.conf":
+				# fallback to /etc/ldap/ldap.conf, which will likely
+				# have less information
+				f = open("/etc/ldap/ldap.conf")
 		for line in f:
 			if line.strip() == "":
 				continue
-			if line.split()[0] == attr:
-				return line.split()[1]
+			if line.split()[0].lower() == attr.lower():
+				return line.split(None, 1)[1].strip()
 				break
 
 	def connect(self):
