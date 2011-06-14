@@ -2605,6 +2605,7 @@ $messages['ksh'] = array(
 	'openstackmanager-reboot' => 'et Süßteem neu huhfahre',
 	'openstackmanager-notloggedin' => 'Enlogge es nüdich',
 	'openstackmanager-mustbeloggedin' => 'Do moß ald enjelogg sin, öm dat maache ze dörve.',
+	'openstackmanager-nonexistanthost' => 'Dä nohjefroochte Rääschner jidd_et nit.',
 	'openstackmanager-deletedinstance-faileddns' => 'Dat Denge es jäz fott, ävver dä Endraach „$1“ em <i lang="en">Domain Name System</i> es övverisch jeblevve.',
 	'openstackmanager-novapublickey' => 'Ene öffentlesche SSH-Schlößel',
 	'openstackmanager-novakey-key' => 'Ene öffentlesche SSH-Schlößel',
