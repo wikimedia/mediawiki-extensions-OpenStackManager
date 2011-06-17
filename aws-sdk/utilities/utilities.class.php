@@ -170,7 +170,7 @@ class CFUtilities
 			{
 				$data[$q[0]][] = urldecode($q[1]);
 			}
-			else if (isset($data[$q[0]]) && !is_array($data[$q[0]]))
+			elseif (isset($data[$q[0]]) && !is_array($data[$q[0]]))
 			{
 				$data[$q[0]] = array($data[$q[0]]);
 				$data[$q[0]][] = urldecode($q[1]);
