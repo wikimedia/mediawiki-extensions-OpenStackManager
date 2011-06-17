@@ -32,15 +32,15 @@ class SpecialNovaAddress extends SpecialNova {
         	$action = $wgRequest->getVal( 'action' );
 		if ( $action == "allocate" ) {
 			$this->allocateAddress();
-		} else if ( $action == "release" ) {
+		} elseif ( $action == "release" ) {
 			$this->releaseAddress();
-		} else if ( $action == "associate" ) {
+		} elseif ( $action == "associate" ) {
 			$this->associateAddress();
-		} else if ( $action == "disassociate" ) {
+		} elseif ( $action == "disassociate" ) {
 			$this->disassociateAddress();
-		} else if ( $action == "addhost" ) {
+		} elseif ( $action == "addhost" ) {
 			$this->addHost();
-		} else if ( $action == "removehost" ) {
+		} elseif ( $action == "removehost" ) {
 			$this->removehost();
 		} else {
 			$this->listAddresses();
@@ -588,7 +588,7 @@ class SpecialNovaAddress extends SpecialNova {
 			} else {
 				$wgOut->addWikiMsg( 'openstackmanager-addhostfailed', $ip, $hostname );
 			}
-		} else if ( $hostbyip ) {
+		} elseif ( $hostbyip ) {
 			# We need to add an associateddomain, if the associateddomain doesn't already exist
 			$success = $hostbyip->addAssociatedDomain( $hostname . '.' . $domain->getFullyQualifiedDomainName() );
 			if ( $success ) {

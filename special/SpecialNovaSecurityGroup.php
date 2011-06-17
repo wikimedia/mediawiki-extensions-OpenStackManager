@@ -35,15 +35,15 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 
 		if ( $action == "create" ) {
 			$this->createSecurityGroup();
-		} else if ( $action == "delete" ) {
+		} elseif ( $action == "delete" ) {
 			$this->deleteSecurityGroup();
-		} else if ( $action == "configure" ) {
+		} elseif ( $action == "configure" ) {
 			// Currently unsupported
 			#$this->configureSecurityGroup();
 			$this->listSecurityGroups();
-		} else if ( $action == "addrule" ) {
+		} elseif ( $action == "addrule" ) {
 			$this->addRule();
-		} else if ( $action == "removerule" ) {
+		} elseif ( $action == "removerule" ) {
 			$this->removeRule();
 		} else {
 			$this->listSecurityGroups();

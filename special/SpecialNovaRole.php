@@ -25,7 +25,7 @@ class SpecialNovaRole extends SpecialNova {
 		$action = $wgRequest->getVal( 'action' );
 		if ( $action == "addmember" ) {
 			$this->addMember();
-		} else if ( $action == "deletemember" ) {
+		} elseif ( $action == "deletemember" ) {
 			$this->deleteMember();
 		} else {
 			$this->listGlobalRoles();

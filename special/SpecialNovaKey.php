@@ -28,7 +28,7 @@ class SpecialNovaKey extends SpecialNova {
 		$action = $wgRequest->getVal( 'action' );
 		if ( $action == "import" ) {
 			$this->importKey();
-		} else if ( $action == "delete" ) {
+		} elseif ( $action == "delete" ) {
 			$this->deleteKey();
 		} else {
 			$this->listKeys();
@@ -127,7 +127,7 @@ class SpecialNovaKey extends SpecialNova {
 				'default' => $keyname,
 				'name' => 'project',
 			);
-		} else if ( $wgOpenStackManagerNovaKeypairStorage == 'ldap' ) {
+		} elseif ( $wgOpenStackManagerNovaKeypairStorage == 'ldap' ) {
 			$hash = $wgRequest->getVal( 'hash' );
 			$keypairs = $this->userLDAP->getKeypairs();
 			if ( ! $wgRequest->wasPosted() ) {
@@ -190,7 +190,7 @@ class SpecialNovaKey extends SpecialNova {
 				}
 				$out .= Html::rawElement( 'table', array( 'id' => 'novakeylist', 'class' => 'wikitable sortable collapsible' ), $projectOut );
 			}
-		} else if ( $wgOpenStackManagerNovaKeypairStorage == 'ldap' ) {
+		} elseif ( $wgOpenStackManagerNovaKeypairStorage == 'ldap' ) {
 			$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-importkey' ), array(), array( 'action' => 'import' ) );
 			$keypairs = $this->userLDAP->getKeypairs();
 			$keysOut = '';
@@ -229,7 +229,7 @@ class SpecialNovaKey extends SpecialNova {
 				return true;
 			}
 			$wgOut->addWikiMsg( 'openstackmanager-keypairimported' );
-		} else if ( $wgOpenStackManagerNovaKeypairStorage == 'nova' ) {
+		} elseif ( $wgOpenStackManagerNovaKeypairStorage == 'nova' ) {
 			# wgOpenStackManagerNovaKeypairStorage == 'nova'
 			# OpenStack's EC2 API doesn't yet support importing keys, use
 			# of this option isn't currently recommended

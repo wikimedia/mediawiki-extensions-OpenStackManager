@@ -134,7 +134,7 @@ class OpenStackNovaDomain {
 		$domains = array();
 		if ( $type == 'local' ) {
 			$query = '(&(soarecord=*)(l=*))';
-		} else if ( $type == 'public' ) {
+		} elseif ( $type == 'public' ) {
 			$query = '(&(soarecord=*)(!(l=*)))';
 		} else {
 			$query = '(soarecord=*)';

@@ -42,19 +42,19 @@ class SpecialNovaVolume extends SpecialNova {
 				return true;
 			}
 			$this->createVolume();
-		} else if ( $action == "delete" ) {
+		} elseif ( $action == "delete" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
 				$this->notInProject();
 				return true;
 			}
 			$this->deleteVolume();
-		} else if ( $action == "attach" ) {
+		} elseif ( $action == "attach" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
 				$this->notInProject();
 				return true;
 			}
 			$this->attachVolume();
-		} else if ( $action == "detach" ) {
+		} elseif ( $action == "detach" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
 				$this->notInProject();
 				return true;

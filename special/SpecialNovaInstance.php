@@ -42,25 +42,25 @@ class SpecialNovaInstance extends SpecialNova {
 				return true;
 			}
 			$this->createInstance();
-		} else if ( $action == "delete" ) {
+		} elseif ( $action == "delete" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
 				$this->notInProject();
 				return true;
 			}
 			$this->deleteInstance();
-		} else if ( $action == "configure" ) {
+		} elseif ( $action == "configure" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
 				$this->notInProject();
 				return true;
 			}
 			$this->configureInstance();
-		} else if ( $action == "reboot" ) {
+		} elseif ( $action == "reboot" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
 				$this->notInProject();
 				return true;
 			}
 			$this->rebootInstance();
-		} else if ( $action == "consoleoutput" ) {
+		} elseif ( $action == "consoleoutput" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
 				$this->notInProject();
 				return true;

@@ -44,7 +44,7 @@ class SpecialNovaDomain extends SpecialNova {
 		$action = $wgRequest->getVal( 'action' );
 		if ( $action == "create" ) {
 			$this->createDomain();
-		} else if ( $action == "delete" ) {
+		} elseif ( $action == "delete" ) {
 			$this->deleteDomain();
 		} else {
 			$this->listDomains();

@@ -25,11 +25,11 @@ class SpecialNovaProject extends SpecialNova {
 		$action = $wgRequest->getVal( 'action' );
 		if ( $action == "create" ) {
 			$this->createProject();
-		} else if ( $action == "delete" ) {
+		} elseif ( $action == "delete" ) {
 			$this->deleteProject();
-		} else if ( $action == "addmember" ) {
+		} elseif ( $action == "addmember" ) {
 			$this->addMember();
-		} else if ( $action == "deletemember" ) {
+		} elseif ( $action == "deletemember" ) {
 			$this->deleteMember();
 		} else {
 			$this->listProjects();

@@ -24,9 +24,9 @@ class SpecialNovaSudoer extends SpecialNova {
 		$action = $wgRequest->getVal( 'action' );
 		if ( $action == "create" ) {
 			$this->createSudoer();
-		} else if ( $action == "delete" ) {
+		} elseif ( $action == "delete" ) {
 			$this->deleteSudoer();
-		} else if ( $action == "modify" ) {
+		} elseif ( $action == "modify" ) {
 			$this->modifySudoer();
 		} else {
 			$this->listSudoers();
