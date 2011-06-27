@@ -3017,6 +3017,7 @@ $messages['mk'] = array(
 $messages['ms'] = array(
 	'openstackmanager-location' => 'Lokasi',
 	'openstackmanager-securitygroupdescription' => 'Keterangan',
+	'openstackmanager-sudoeroptions' => 'Pilihan',
 );
 
 /** Dutch (Nederlands)
