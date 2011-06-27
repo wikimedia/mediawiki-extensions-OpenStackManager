@@ -121,7 +121,7 @@ class sfYamlParser
           }
         }
       }
-      elseif (preg_match('#^(?P<key>'.sfYamlInline::REGEX_QUOTED_STRING.'|[^ \'"].*?) *\:(\s+(?P<value>.+?))?\s*$#', $this->currentLine, $values))
+      else if (preg_match('#^(?P<key>'.sfYamlInline::REGEX_QUOTED_STRING.'|[^ \'"].*?) *\:(\s+(?P<value>.+?))?\s*$#', $this->currentLine, $values))
       {
         $key = sfYamlInline::parseScalar($values['key']);
 
@@ -155,7 +155,7 @@ class sfYamlParser
             {
               throw new InvalidArgumentException(sprintf("YAML merge keys used with a scalar value instead of an array at line %s (%s)", $this->getRealCurrentLineNb() + 1, $this->currentLine));
             }
-            elseif (isset($parsed[0]))
+            else if (isset($parsed[0]))
             {
               // Numeric array, merge individual elements
               foreach (array_reverse($parsed) as $parsedItem)
@@ -176,7 +176,7 @@ class sfYamlParser
             $isProcessed = $merged;
           }
         }
-        elseif (isset($values['value']) && preg_match('#^&(?P<ref>[^ ]+) *(?P<value>.*)#', $values['value'], $matches))
+        else if (isset($values['value']) && preg_match('#^&(?P<ref>[^ ]+) *(?P<value>.*)#', $values['value'], $matches))
         {
           $isRef = $matches['ref'];
           $values['value'] = $matches['value'];
@@ -188,7 +188,7 @@ class sfYamlParser
           $data = $isProcessed;
         }
         // hash
-        elseif (!isset($values['value']) || '' == trim($values['value'], ' ') || 0 === strpos(ltrim($values['value'], ' '), '#'))
+        else if (!isset($values['value']) || '' == trim($values['value'], ' ') || 0 === strpos(ltrim($values['value'], ' '), '#'))
         {
           // if next line is less indented or equal, then it means that the current value is null
           if ($this->isNextLineIndented())
@@ -347,11 +347,11 @@ class sfYamlParser
         // empty line
         $data[] = $match['text'];
       }
-      elseif ($indent >= $newIndent)
+      else if ($indent >= $newIndent)
       {
         $data[] = substr($this->currentLine, $newIndent);
       }
-      elseif (0 == $indent)
+      else if (0 == $indent)
       {
         $this->moveToPreviousLine();
 
@@ -481,7 +481,7 @@ class sfYamlParser
 
         $text .= str_repeat(' ', $diff = strlen($matches['indent']) - strlen($textIndent)).$matches['text'].($diff ? "\n" : $separator);
       }
-      elseif (preg_match('#^(?P<text> *)$#', $this->currentLine, $matches))
+      else if (preg_match('#^(?P<text> *)$#', $this->currentLine, $matches))
       {
         $text .= preg_replace('#^ {1,'.strlen($textIndent).'}#', '', $matches['text'])."\n";
       }
