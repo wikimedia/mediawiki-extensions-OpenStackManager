@@ -3016,6 +3016,7 @@ $messages['mk'] = array(
  */
 $messages['ms'] = array(
 	'openstackmanager-location' => 'Lokasi',
+	'openstackmanager-name' => 'Nama',
 	'openstackmanager-securitygroupdescription' => 'Keterangan',
 	'openstackmanager-sudoeroptions' => 'Pilihan',
 );
