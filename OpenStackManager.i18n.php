@@ -3015,6 +3015,7 @@ $messages['mk'] = array(
  * @author Anakmalaysia
  */
 $messages['ms'] = array(
+	'openstackmanager-delete' => 'hapuskan',
 	'openstackmanager-location' => 'Lokasi',
 	'openstackmanager-name' => 'Nama',
 	'openstackmanager-securitygroupdescription' => 'Keterangan',
@@ -3951,6 +3952,7 @@ $messages['yi'] = array(
 
 /** Simplified Chinese (‪中文(简体)‬)
  * @author Hydra
+ * @author Xiaomingyan
  */
 $messages['zh-hans'] = array(
 	'openstackmanager-delete' => '删除',
@@ -3970,5 +3972,6 @@ $messages['zh-hans'] = array(
 	'openstackmanager-deleteprojectfailed' => '删除项目失败',
 	'openstackmanager-novaproject-project' => '项目',
 	'openstackmanager-novaproject-info' => '项目信息',
+	'openstackmanager-securitygroupdescription' => '说明',
 );
 
