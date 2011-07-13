@@ -3016,9 +3016,12 @@ $messages['mk'] = array(
  */
 $messages['ms'] = array(
 	'openstackmanager-delete' => 'hapuskan',
+	'openstackmanager-actions' => 'Tindakan',
 	'openstackmanager-location' => 'Lokasi',
 	'openstackmanager-name' => 'Nama',
+	'openstackmanager-action' => 'Tindakan',
 	'openstackmanager-securitygroupdescription' => 'Keterangan',
+	'openstackmanager-sudoerusers' => 'Pengguna',
 	'openstackmanager-sudoeroptions' => 'Pilihan',
 );
 
