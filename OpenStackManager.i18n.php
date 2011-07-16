@@ -2590,6 +2590,13 @@ $messages['ia'] = array(
 	'right-manageproject' => 'Gerer projectos e rolos de OpenStack',
 );
 
+/** Japanese (日本語)
+ * @author Fryed-peach
+ */
+$messages['ja'] = array(
+	'openstackmanager-modify' => '改変',
+);
+
 /** Colognian (Ripoarisch)
  * @author Purodha
  */
