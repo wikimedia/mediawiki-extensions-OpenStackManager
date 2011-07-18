@@ -2700,6 +2700,7 @@ $messages['lb'] = array(
 	'openstackmanager-deletekey' => 'Schlëssel läschen',
 	'openstackmanager-name' => 'Numm',
 	'openstackmanager-fingerprint' => 'Fangerofdrock',
+	'openstackmanager-keys' => 'Schlësselen',
 	'openstackmanager-deletedkeyfailed' => 'De Schlëssel konnt net geläscht ginn.',
 	'openstackmanager-addmember' => 'Member vum Projet derbäisetzen',
 	'openstackmanager-createproject' => 'En neie Projet uleeën',
