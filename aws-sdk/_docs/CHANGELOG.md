@@ -1,4 +1,57 @@
-# Changelog: "Nero"
+# Changelog: 1.3.7 "Quistis"
+<http://finalfantasy.wikia.com/wiki/Quistis_Trepe>
+
+Launched Wednesday, July 25, 2011
+
+## Bug fixes and enhancements
+* Addressed minor bug fixes reported via the feedback form in the API Reference.
+
+## Service Classes
+### AmazonAS
+* **New:**
+* **Changed:** Introduced backwards-incompatible changes to the <code>put_scheduled_update_group_action()</code> method.
+
+
+----
+
+# Changelog: 1.3.6 "Penelo"
+<http://finalfantasy.wikia.com/wiki/Penelo>
+
+Launched Tuesday, July 12, 2011
+
+## Bug fixes and enhancements
+* [[Bug Report] rawurlencode error when using SES and curlopts](https://forums.aws.amazon.com/thread.jspa?threadID=68484)
+
+## Service Classes
+### AmazonCloudFormation
+* **New:** Support for the `list_stacks()` method has been added to the SDK.
+
+### AmazonElasticBeanstalk
+* **New:** Support for the `swap_environment_cnames()` method has been added to the SDK.
+
+### AmazonS3
+* **Fixed:** Additional information about maximum open connections has been added to the `create_mpu_object()` method.
+
+## Compatibility Test
+* **New:** Now tests whether the system is 64- or 32-bit.
+
+
+----
+
+# Changelog: 1.3.5 "Occuria"
+<http://finalfantasy.wikia.com/wiki/Occuria>
+
+Launched Tuesday, June 21, 2011
+
+## Service Classes
+### AmazonS3
+* **New:** Support for S3 copy part has been added to the SDK.
+
+
+----
+
+# Changelog: 1.3.4 "Nero"
+<http://finalfantasy.wikia.com/wiki/Nero>
 
 Launched Tuesday, June 7, 2011
 
@@ -30,6 +83,7 @@ Launched Tuesday, June 7, 2011
 ----
 
 # Changelog: 1.3.3 "Moogle"
+<http://finalfantasy.wikia.com/wiki/Moogle>
 
 Launched Tuesday, May 10, 2011
 
@@ -80,6 +134,7 @@ Launched Tuesday, May 10, 2011
 ----
 
 # Changelog: 1.3.2 "Luna"
+<http://finalfantasy.wikia.com/wiki/Luna_Wolf>
 
 Launched Tuesday, April 5, 2011
 
@@ -100,6 +155,7 @@ Launched Tuesday, April 5, 2011
 ----
 
 # Changelog: 1.3.1 "Kraken"
+<http://finalfantasy.wikia.com/wiki/Kraken>
 
 Launched Friday, March 25, 2011
 
@@ -131,6 +187,7 @@ Launched Friday, March 25, 2011
 ----
 
 # Changelog: 1.3 "Jecht"
+<http://finalfantasy.wikia.com/wiki/Jecht>
 
 Launched Tuesday, March 15, 2011
 
@@ -146,7 +203,7 @@ Launched Tuesday, March 15, 2011
 * **Fixed:** The `$image_location` parameter in the `register_image()` method is no longer required. This is a backwards-incompatible change.
 
 ### AmazonS3
-* **Fixed:** Resolved an issue in <code>get_object()</code> where using the `lastmodified` and `etag` parameters required both to be set before taking effect. They can now be set independently from each other.
+* **Fixed:** Resolved an issue in `get_object()` where using the `lastmodified` and `etag` parameters required both to be set before taking effect. They can now be set independently from each other.
 
 
 ## Utility classes
@@ -171,6 +228,7 @@ Launched Tuesday, March 15, 2011
 ----
 
 # Changelog: 1.2.6 "Ifrit"
+<http://finalfantasy.wikia.com/wiki/Ifrit>
 
 Launched Wednesday, March 2, 2011
 
@@ -228,6 +286,7 @@ Launched Wednesday, March 2, 2011
 ----
 
 # Changelog: 1.2.5 "Heidegger"
+<http://finalfantasy.wikia.com/wiki/Heidegger>
 
 Launched Thursday, February 24, 2011
 
@@ -251,6 +310,7 @@ Launched Thursday, February 24, 2011
 ----
 
 # Changelog: 1.2.4 "Goltanna"
+<http://finalfantasy.wikia.com/wiki/Druksmald_Goltanna>
 
 Launched Wednesday, February 16, 2011
 
@@ -278,6 +338,7 @@ Launched Wednesday, February 16, 2011
 ----
 
 # Changelog: 1.2.3 "Fayth"
+<http://finalfantasy.wikia.com/wiki/Fayth>
 
 Launched Tuesday, January 25, 2010
 
@@ -292,6 +353,7 @@ Launched Tuesday, January 25, 2010
 ----
 
 # Changelog: 1.2.2 "Esper"
+<http://finalfantasy.wikia.com/wiki/Esper>
 
 Launched Tuesday, January 18, 2011
 
@@ -318,6 +380,7 @@ Launched Tuesday, January 18, 2011
 ----
 
 # Changelog: 1.2.1 "Dio"
+<http://finalfantasy.wikia.com/wiki/Dio>
 
 Launched Friday, January 14, 2011
 
@@ -348,6 +411,7 @@ Launched Friday, January 14, 2011
 ----
 
 # Changelog: 1.2 "Cloud"
+<http://finalfantasy.wikia.com/wiki/Cloud_Strife>
 
 Launched Friday, December 3, 2010
 
@@ -379,7 +443,7 @@ Launched Friday, December 3, 2010
 * **Fixed:** Resolved an issue where the incorrect formatting of an XML element prevented the ability to update the list of trusted signers.
 
 ### AmazonCloudWatch
-* **New:** Support for the Amazon CloudWatch <code>2010-08-01</code> service release expands Amazon's cloud monitoring offerings with custom alarms.
+* **New:** Support for the Amazon CloudWatch `2010-08-01` service release expands Amazon's cloud monitoring offerings with custom alarms.
 * **Changed:** The changes made to the `get_metric_statistics()` method are backwards-incompatible with the previous release. The `Namespace` and `Period` parameters are now required and the parameter order has changed.
 
 ### AmazonEMR
@@ -421,6 +485,7 @@ Launched Friday, December 3, 2010
 ----
 
 # Changelog: 1.1 "Barret"
+<http://finalfantasy.wikia.com/wiki/Barret_Wallace>
 
 Launched Wednesday, November 10, 2010
 
@@ -502,6 +567,7 @@ Launched Wednesday, November 10, 2010
 ----
 
 # Changelog: 1.0.1 "Aeris"
+<http://finalfantasy.wikia.com/wiki/Aerith_Gainsborough>
 
 Launched Tuesday, October 12, 2010
 

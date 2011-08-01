@@ -49,7 +49,7 @@ class S3_Exception extends Exception {}
  *
  * Visit <http://aws.amazon.com/s3/> for more information.
  *
- * @version 2011.04.22
+ * @version 2011.05.18
  * @license See the included NOTICE.md file for more information.
  * @copyright See the included NOTICE.md file for more information.
  * @link http://aws.amazon.com/s3/ Amazon Simple Storage Service
@@ -2370,6 +2370,7 @@ class AmazonS3 extends CFRuntime
 	 * 	<li><code>method</code> - <code>string</code> - Optional - The HTTP method to use for the request. Defaults to a value of <code>GET</code>.</li>
 	 * 	<li><code>response</code> - <code>array</code> - Optional - Allows adjustments to specific response headers. Pass an associative array where each key is one of the following: <code>cache-control</code>, <code>content-disposition</code>, <code>content-encoding</code>, <code>content-language</code>, <code>content-type</code>, <code>expires</code>. The <code>expires</code> value should use <php:gmdate()> and be formatted with the <code>DATE_RFC2822</code> constant.</li>
 	 * 	<li><code>torrent</code> - <code>boolean</code> - Optional - A value of <code>true</code> will return a URL to a torrent of the Amazon S3 object. A value of <code>false</code> will return a non-torrent URL. Defaults to <code>false</code>.</li>
+	 * 	<li><code>versionId</code> - <code>string</code> - Optional - The version of the object. Version IDs are returned in the <code>x-amz-version-id</code> header of any previous object-related request.</li>
 	 * 	<li><code>returnCurlHandle</code> - <code>boolean</code> - Optional - A private toggle specifying that the cURL handle be returned rather than actually completing the request. This toggle is useful for manually managed batch requests.</li></ul>
 	 * @return string The file URL, with authentication and/or torrent parameters if requested.
 	 * @link http://docs.amazonwebservices.com/AmazonS3/latest/dev/S3_QSAuth.html Using Query String Authentication
@@ -3168,6 +3169,11 @@ class AmazonS3 extends CFRuntime
 	 * requests) allow for faster failures and better upload reliability. Larger part sizes (and fewer
 	 * requests) costs slightly less but has lower upload reliability.
 	 *
+	 * In certain cases with large objects, it's possible for this method to attempt to open more file system
+	 * connections than allowed by the OS. In this case, either
+	 * <a href="https://forums.aws.amazon.com/thread.jspa?threadID=70216">increase the number of connections
+	 * allowed</a> or increase the value of the <code>partSize</code> parameter to use a larger part size.
+	 *
 	 * @param string $bucket (Required) The name of the bucket to use.
 	 * @param string $filename (Required) The file name for the object.
 	 * @param array $opt (Optional) An associative array of parameters that can have the following keys: <ul>
@@ -3244,7 +3250,7 @@ class AmazonS3 extends CFRuntime
 
 		if ($upload_position === false || !isset($upload_filesize) || $upload_filesize === false || $upload_filesize < 0)
 		{
-		throw new S3_Exception('The size of `fileUpload` cannot be determined in ' . __FUNCTION__ . '().');
+			throw new S3_Exception('The size of `fileUpload` cannot be determined in ' . __FUNCTION__ . '().');
 		}
 
 		// Handle part size
