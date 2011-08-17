@@ -3321,10 +3321,13 @@ $messages['no'] = array(
 
 /** Polish (Polski)
  * @author Odder
+ * @author Woytecr
  */
 $messages['pl'] = array(
 	'openstackmanager-novapublickey' => 'Klucz publiczny SSH',
 	'openstackmanager-novakey-key' => 'Klucz publiczny SSH',
+	'openstackmanager-securitygroupdescription' => 'Opis',
+	'openstackmanager-sudoerusers' => 'Użytkownicy',
 );
 
 /** Pashto (پښتو)
