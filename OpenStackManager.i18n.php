@@ -3328,6 +3328,8 @@ $messages['pl'] = array(
 	'openstackmanager-novakey-key' => 'Klucz publiczny SSH',
 	'openstackmanager-securitygroupdescription' => 'Opis',
 	'openstackmanager-sudoerusers' => 'Użytkownicy',
+	'openstackmanager-sudoercommands' => 'Polecenia',
+	'openstackmanager-sudoeroptions' => 'Opcje',
 );
 
 /** Pashto (پښتو)
