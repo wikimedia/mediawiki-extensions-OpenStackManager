@@ -73,15 +73,26 @@ class OpenStackNovaProject {
 	 * @return array
 	 */
 	function getMembers() {
+		global $wgAuth;
+
 		$members = array();
 		if ( isset( $this->projectInfo[0]['member'] ) ) {
 			$memberdns = $this->projectInfo[0]['member'];
 			array_shift( $memberdns );
 			foreach ( $memberdns as $memberdn ) {
-				$member = explode( '=', $memberdn );
-				$member = explode( ',', $member[1] );
-				$member = $member[0];
-				$members[] = $member;
+				$searchattr = $wgAuth->getSearchAttribute();
+				if ( $searchattr ) {
+					// We need to look up the search attr from the user entry
+					// this is expensive, but must be done.
+					// TODO: memcache this
+					$userInfo = $wgAuth->getUserInfoStateless( $memberdn );
+					$members[] = $userInfo[0][$searchattr][0];                                                
+				} else {
+					$member = explode( '=', $memberdn );
+					$member = explode( ',', $member[1] );
+					$member = $member[0];
+					$members[] = $member;
+				}
 			}
 		}
 

@@ -20,12 +20,13 @@ class OpenStackNovaUser {
 	 */
 	function fetchUserInfo() {
 		global $wgAuth, $wgUser;
-		global $wgOpenStackManagerLDAPUseUidAsNamingAttribute;
 
-		if ( $this->username && !$wgOpenStackManagerLDAPUseUidAsNamingAttribute ) {
+		if ( $this->username ) {
 			$this->userDN = $wgAuth->getUserDN( strtolower( $this->username ) );
+			$wgAuth->printDebug( "Fetching userdn using username: $this->userDN ", NONSENSITIVE );
 		} else {
 			$this->userDN = $wgAuth->getUserDN( strtolower( $wgUser->getName() ) );
+			$wgAuth->printDebug( "Fetching userdn using wiki name: $this->userDN", NONSENSITIVE );
 		}
 		$this->userInfo = $wgAuth->userInfo;
 	}
