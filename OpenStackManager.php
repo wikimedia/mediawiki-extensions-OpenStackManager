@@ -76,6 +76,7 @@ $wgOpenStackManagerInstanceUserData = array(
 	'upstarts' => array(),
 	);
 $wgOpenStackManagerCreateResourcePages = true;
+$wgOpenStackManagerLDAPUseUidAsNamingAttribute = false;
 
 $dir = dirname( __FILE__ ) . '/';
 
