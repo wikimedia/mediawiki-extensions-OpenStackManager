@@ -489,10 +489,9 @@ class OpenStackNovaUser {
 	 * @return bool
 	 */
 	static function LDAPSetNovaInfo( $auth ) {
-		$this->userInfo = $auth->userInfo;
-		if ( !$this->exists() ) {
-			if ( !in_array( 'novauser', $this->userInfo[0]['objectclass'] ) ) {
-				$values['objectclass'] = $this->userInfo[0]['objectclass'];
+		if ( !isset( $auth->userInfo[0]['accesskey'] ) or !isset( $auth->userInfo[0]['secretkey'] ) ) {
+			if ( !in_array( 'novauser', $auth->userInfo[0]['objectclass'] ) ) {
+				$values['objectclass'] = $auth->userInfo[0]['objectclass'];
 				$values['objectclass'][] = 'novauser';
 			}
 			$values['accesskey'] = OpenStackNovaUser::uuid4();
