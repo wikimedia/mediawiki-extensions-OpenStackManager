@@ -109,6 +109,7 @@ $wgAutoloadClasses['SpecialNovaSudoer'] = $dir . 'special/SpecialNovaSudoer.php'
 $wgAutoloadClasses['SpecialNova'] = $dir . 'special/SpecialNova.php';
 $wgAutoloadClasses['OpenStackNovaHostJob'] = $dir . 'OpenStackNovaHostJob.php';
 $wgAutoloadClasses['AmazonEC2'] = $dir . 'aws-sdk/sdk.class.php';
+$wgAutoloadClasses['Spyc'] = $dir . 'Spyc.php';
 $wgSpecialPages['NovaInstance'] = 'SpecialNovaInstance';
 $wgSpecialPageGroups['NovaInstance'] = 'nova';
 $wgSpecialPages['NovaKey'] = 'SpecialNovaKey';

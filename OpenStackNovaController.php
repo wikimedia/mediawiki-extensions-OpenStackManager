@@ -241,8 +241,6 @@ class OpenStackNovaController {
 	function createInstance( $instanceName, $image, $key, $instanceType, $availabilityZone, $groups ) {
 		global $wgOpenStackManagerInstanceUserData;
 
-		# 1, 1 is min and max number of instances to create.
-		# We never want to make more than one at a time.
 		$options = array();
 		if ( $key ) {
 			$options['KeyName'] = $key;
@@ -260,7 +258,7 @@ class OpenStackNovaController {
 			$userdata .= $endl;
 			$userdata .= $boundary;
 			if ( $wgOpenStackManagerInstanceUserData['cloud-config'] ) {
-				$userdata .= $endl . $this->getAttachmentMime( FormatJson::encode( $wgOpenStackManagerInstanceUserData['cloud-config'] ), 'text/cloud-config', 'cloud-config.txt' );
+				$userdata .= $endl . $this->getAttachmentMime( Spyc::YAMLDump( $wgOpenStackManagerInstanceUserData['cloud-config'] ), 'text/cloud-config', 'cloud-config.txt' );
 				$userdata .= $endl . $boundary;
 			}
 			if ( $wgOpenStackManagerInstanceUserData['scripts'] ) {
@@ -268,7 +266,7 @@ class OpenStackNovaController {
 					wfSuppressWarnings();
 					$stat = stat( $script );
 					wfRestoreWarnings();
-					if ( $stat ) {
+					if ( ! $stat ) {
 						continue;
 					}
 					$scripttext = file_get_contents( $script );
@@ -297,6 +295,8 @@ class OpenStackNovaController {
 		} elseif ( count( $groups ) == 1 ) {
 			$options['SecurityGroup'] = $groups[0];
 		}
+		# 1, 1 is min and max number of instances to create.
+		# We never want to make more than one at a time.
 		$response = $this->novaConnection->run_instances( $image, 1, 1, $options );
 		if ( ! $response->isOK() ) {
 			return null;
