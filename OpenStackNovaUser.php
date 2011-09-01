@@ -409,12 +409,15 @@ class OpenStackNovaUser {
 	 * @param  $auth
 	 * @param  $username
 	 * @param  $values
+	 * @param  $writeloc
+	 * @param  $userdn
 	 * @param  $result
 	 * @return bool
 	 */
-	static function LDAPSetCreationValues( $auth, $username, &$values, &$result ) {
+	static function LDAPSetCreationValues( $auth, $username, &$values, $writeloc, &$userdn, &$result ) {
 		global $wgOpenStackManagerLDAPDefaultGid;
 		global $wgOpenStackManagerLDAPDefaultShell;
+		global $wgOpenStackManagerLDAPUseUidAsNamingAttribute;
 		global $wgRequest;
 
 		$values['objectclass'][] = 'person';
@@ -462,10 +465,52 @@ class OpenStackNovaUser {
 		$values['homedirectory'] = '/home/' . $username;
 		$values['loginshell'] = $wgOpenStackManagerLDAPDefaultShell;
 
+		if ( $wgOpenStackManagerLDAPUseUidAsNamingAttribute ) {
+			if ( $writeloc = '' ) {
+				return false;
+				$auth->printDebug( "Trying to set the userdn, but write location isn't set.", NONSENSITIVE );
+			} else {
+				$userdn = 'uid=' . $username . ',' . $writeloc;
+				$auth->printDebug( "Using uid as the naming attribute, dn is: $userdn", NONSENSITIVE );
+			}
+		}
 		$auth->printDebug( "User account's objectclasses: ", NONSENSITIVE, $values['objectclass'] );
 		$auth->printDebug( "User account's attributes: ", HIGHLYSENSITIVE, $values );
 
 		return true;
+	}
+
+	/**
+	 * Hook to add objectclasses and attributes for users that already exist, but have
+	 * missing information.
+	 *
+	 * @static
+	 * @param  $auth
+	 * @return bool
+	 */
+	static function LDAPSetNovaInfo( $auth ) {
+		$this->userInfo = $auth->userInfo;
+		if ( !$this->exists() ) {
+			if ( !in_array( 'novauser', $this->userInfo[0]['objectclass'] ) ) {
+				$values['objectclass'] = $this->userInfo[0]['objectclass'];
+				$values['objectclass'][] = 'novauser';
+			}
+			$values['accesskey'] = OpenStackNovaUser::uuid4();
+			$values['secretkey'] = OpenStackNovaUser::uuid4();
+			$values['isnovaadmin'] = 'FALSE';
+
+			wfSuppressWarnings();
+			$success = ldap_modify( $auth->ldapconn, $auth->userdn, $values );
+			wfRestoreWarnings();
+			if ( $success ) {
+				$auth->printDebug( "Successfully modified the user's nova attributes", NONSENSITIVE );
+				return true;
+			} else {
+				$auth->printDebug( "Failed to modify the user's nova attributes", NONSENSITIVE );
+				# Always return true, other hooks should still run, even if this fails
+				return true;
+			}
+		}
 	}
 
 	/**

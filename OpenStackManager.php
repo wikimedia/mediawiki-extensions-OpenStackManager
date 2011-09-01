@@ -131,5 +131,6 @@ $wgJobClasses['addDNSHostToLDAP'] = 'OpenStackNovaHostJob';
 
 $wgHooks['LDAPSetCreationValues'][] = 'OpenStackNovaUser::LDAPSetCreationValues';
 $wgHooks['LDAPModifyUITemplate'][] = 'OpenStackNovaUser::LDAPModifyUITemplate';
+$wgHooks['LDAPUpdateUser'][] = 'OpenStackNovaUser::LDAPSetNovaInfo';
 
 require_once( "$IP/extensions/OpenStackManager/OpenStackNovaProject.php" );
