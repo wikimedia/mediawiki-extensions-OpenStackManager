@@ -20,8 +20,9 @@ class OpenStackNovaUser {
 	 */
 	function fetchUserInfo() {
 		global $wgAuth, $wgUser;
+		global $wgOpenStackManagerLDAPUseUidAsNamingAttribute;
 
-		if ( $this->username ) {
+		if ( $this->username && !$wgOpenStackManagerLDAPUseUidAsNamingAttribute ) {
 			$this->userDN = $wgAuth->getUserDN( strtolower( $this->username ) );
 		} else {
 			$this->userDN = $wgAuth->getUserDN( strtolower( $wgUser->getName() ) );
