@@ -573,6 +573,7 @@ $messages['be-tarask'] = array(
 	'openstackmanager-neednetadminrole' => 'Неабходная роля сеткавага адміністратара',
 	'openstackmanager-neednetadminrole2' => 'Вы павінны быць удзельнікам у ролі сеткавага адміністратара каб выканаць гэтае дзеяньне.',
 	'openstackmanager-needcloudadminrole' => 'Неабходная роля адміністратара воблака',
+	'openstackmanager-needcloudadminrole2' => 'Вы павінны быць удзельнікам у ролі адміністратара воблака, каб выканаць гэтае дзеяньне.',
 	'openstackmanager-createsecuritygroup' => 'Стварыць групу бясьпекі',
 	'openstackmanager-securitygroupname' => 'Назва групы бясьпекі',
 	'openstackmanager-securitygroupdescription' => 'Апісаньне',
