@@ -489,9 +489,18 @@ class OpenStackNovaUser {
 	 * @return bool
 	 */
 	static function LDAPSetNovaInfo( $auth ) {
+		OpenStackNovaUser::connect();
 		if ( !isset( $auth->userInfo[0]['accesskey'] ) or !isset( $auth->userInfo[0]['secretkey'] ) ) {
-			if ( !in_array( 'novauser', $auth->userInfo[0]['objectclass'] ) ) {
-				$values['objectclass'] = $auth->userInfo[0]['objectclass'];
+			$objectclasses = $auth->userInfo[0]['objectclass'];
+			# First entry is a count
+			array_shift( $objectclasses );
+			if ( !in_array( 'novauser', $objectclasses ) ) {
+				$values['objectclass'] = array();
+				# ldap_modify for objectclasses requires the array indexes be sequential.
+				# It is stupid, yes.
+				foreach ( $objectclasses as $objectclass ) {
+					$values['objectclass'][] = $objectclass;
+				}
 				$values['objectclass'][] = 'novauser';
 			}
 			$values['accesskey'] = OpenStackNovaUser::uuid4();
@@ -505,7 +514,7 @@ class OpenStackNovaUser {
 				$auth->printDebug( "Successfully modified the user's nova attributes", NONSENSITIVE );
 				return true;
 			} else {
-				$auth->printDebug( "Failed to modify the user's nova attributes", NONSENSITIVE );
+				$auth->printDebug( "Failed to modify the user's nova attributes.", NONSENSITIVE );
 				# Always return true, other hooks should still run, even if this fails
 				return true;
 			}
