@@ -2731,6 +2731,7 @@ $messages['lb'] = array(
 	'openstackmanager-novarole-role' => 'Nova-Roll',
 	'openstackmanager-addresslist' => 'Ëffentlech Lëscht vun IP-Adressen',
 	'openstackmanager-address' => 'Ëffentlech IP-Adress',
+	'openstackmanager-allocateaddress' => 'Eng nei ëffentlech IP-Adress zoudeelen',
 	'openstackmanager-backaddresslist' => "Zréck op d'Lëscht vun den Adressen",
 	'openstackmanager-removehost' => 'Host ewechhuelen',
 	'openstackmanager-removedhost' => '$1 gouf ewechgeholl.',
