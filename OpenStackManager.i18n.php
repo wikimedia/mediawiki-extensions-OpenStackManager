@@ -337,6 +337,7 @@ $messages['qqq'] = array(
 	'openstackmanager-keylist' => 'Page title',
 	'openstackmanager-importkey' => 'Page title',
 	'openstackmanager-name' => '{{Identical|Name}}',
+	'openstackmanager-keys' => '{{Identical|Key}}',
 	'openstackmanager-addmember' => 'Page title',
 	'openstackmanager-removemember' => 'Page title',
 	'openstackmanager-createproject' => 'Page title',
