@@ -365,8 +365,14 @@ $messages['ast'] = array(
  */
 $messages['az'] = array(
 	'openstackmanager-delete' => 'sil',
+	'openstackmanager-location' => 'Yerləşməsi',
+	'openstackmanager-novavolume-volume' => 'Cild',
 	'openstackmanager-name' => 'Ad',
+	'openstackmanager-keys' => 'Açar',
+	'openstackmanager-members' => 'Üzvlər',
+	'openstackmanager-member' => 'Üzv',
 	'openstackmanager-novaproject-project' => 'Layihə',
+	'openstackmanager-sudoerusers' => 'İstifadəçilər',
 );
 
 /** Belarusian (Taraškievica orthography) (‪Беларуская (тарашкевіца)‬)
