@@ -26,8 +26,15 @@ $specialPageAliases['mk'] = array(
 	'OpenStackManageInstance' => array( 'РаководиСоПримерок' ),
 );
 
+/** Nedersaksisch (Nedersaksisch) */
+$specialPageAliases['nds-nl'] = array(
+	'OpenStackManager' => array( 'Open_beuntbeheerder' ),
+	'OpenStackManageInstance' => array( 'Instansie_beheren' ),
+);
+
 /** Dutch (Nederlands) */
 $specialPageAliases['nl'] = array(
+	'OpenStackManager' => array( 'OpenStackBeheren' ),
 	'OpenStackManageInstance' => array( 'InstantieBeheren' ),
 );
 
