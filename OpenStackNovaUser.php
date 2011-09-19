@@ -266,6 +266,9 @@ class OpenStackNovaUser {
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPDomain;
 
+		if ( !$wgAuth instanceof LdapAuthenticationPlugin ) {
+			die( 'Install and configure the <a href="http://www.mediawiki.org/wiki/Extension:LDAP_Authentication">LDAP Authentication</a> extension' );
+		}
 		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
 		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 	}
