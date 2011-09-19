@@ -198,7 +198,7 @@ class SpecialNovaKey extends SpecialNova {
 			$keysOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-keys' ) );
 			$keysOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-actions' ) );
 			foreach ( $keypairs as $hash => $key ) {
-				$keyOut = Html::element( 'td', array(), $key );
+				$keyOut = Html::element( 'td', array( 'class' => 'Nova_col' ), $key );
 				$msg = wfMsgHtml( 'openstackmanager-delete' );
 				$link = $sk->link( $this->getTitle(), $msg, array(), array( 'action' => 'delete', 'hash' => $hash ) );
 				$action = Html::rawElement( 'li', array(), $link );
