@@ -143,4 +143,4 @@ $wgResourceModules['ext.openstack'] = array(
 	'styles' => 'ext.openstack.css',
 ) + $commonModuleInfo;
 
-require_once( "$IP/extensions/OpenStackManager/OpenStackNovaProject.php" );
+require_once( $dir . 'OpenStackNovaProject.php' );
