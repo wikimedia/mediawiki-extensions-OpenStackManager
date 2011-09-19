@@ -134,4 +134,13 @@ $wgHooks['LDAPSetCreationValues'][] = 'OpenStackNovaUser::LDAPSetCreationValues'
 $wgHooks['LDAPModifyUITemplate'][] = 'OpenStackNovaUser::LDAPModifyUITemplate';
 $wgHooks['LDAPUpdateUser'][] = 'OpenStackNovaUser::LDAPSetNovaInfo';
 
+$commonModuleInfo = array(
+	'localBasePath' => dirname( __FILE__ ) . '/modules',
+	'remoteExtPath' => 'OpenStackManager/modules',
+);
+
+$wgResourceModules['ext.openstack'] = array(
+	'styles' => 'ext.openstack.css',
+) + $commonModuleInfo;
+
 require_once( "$IP/extensions/OpenStackManager/OpenStackNovaProject.php" );

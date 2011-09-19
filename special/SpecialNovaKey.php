@@ -167,6 +167,7 @@ class SpecialNovaKey extends SpecialNova {
 
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-keylist' ) );
+		$wgOut->addModuleStyles( 'ext.openstack' );
 
 		$out = '';
 		$sk = $wgOut->getSkin();
@@ -184,7 +185,7 @@ class SpecialNovaKey extends SpecialNova {
 				$projectOut = Html::element( 'th', array(), wfMsg( 'openstackmanager-name' ) );
 				$projectOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-fingerprint' ) );
 				foreach ( $keypairs as $keypair ) {
-					$keyOut = Html::element( 'td', array(), $keypair->getKeyName() );
+					$keyOut = Html::element( 'td', array( 'class' => 'Nova_col' ), $keypair->getKeyName() );
 					$keyOut .= Html::element( 'td', array(), $keypair->getKeyFingerprint() );
 					$projectOut .= Html::rawElement( 'tr', array(), $keyOut );
 				}
