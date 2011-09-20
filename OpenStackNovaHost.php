@@ -635,7 +635,7 @@ class OpenStackNovaHost {
 				$hostEntry['puppetclass'][] = $class;
 			}
 			foreach ( $wgOpenStackManagerPuppetOptions['defaultvariables'] as $variable => $value ) {
-				$hostEntry['puppetvar'][] = $variable . '="' . $value . '"';
+				$hostEntry['puppetvar'][] = $variable . '=' . $value;
 			}
 			if ( $puppetinfo ) {
 				if ( isset( $puppetinfo['classes'] ) ) {
@@ -646,7 +646,7 @@ class OpenStackNovaHost {
 				if ( isset( $puppetinfo['variables'] ) ) {
 					foreach ( $puppetinfo['variables'] as $variable => $value ) {
 						if ( $value ) {
-							$hostEntry['puppetvar'][] = $variable . '="' . $value . '"';
+							$hostEntry['puppetvar'][] = $variable . '=' . $value;
 						}
 					}
 				}
