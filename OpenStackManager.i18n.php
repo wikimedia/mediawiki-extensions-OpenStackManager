@@ -313,6 +313,7 @@ $messages['en'] = array(
  * @author Raymond
  * @author Sam Reed <reedy@wikimedia.org>
  * @author Siebrand
+ * @author Umherirrender
  */
 $messages['qqq'] = array(
 	'openstackmanager-desc' => '{{desc}}',
@@ -351,6 +352,7 @@ $messages['qqq'] = array(
 	'openstackmanager-securitygroupdescription' => '{{Identical|Description}}',
 	'openstackmanager-sudoerusers' => '{{Identical|User}}',
 	'openstackmanager-sudoeroptions' => '{{Identical|Options}}',
+	'right-manageproject' => '{{doc-right|manageproject}}',
 );
 
 /** Asturian (Asturianu)
