@@ -303,7 +303,7 @@ $messages['en'] = array(
 	'openstackmanager-nonexistantsudoer' => 'Requested sudo policy does not exist.',
 
 	'openstackmanager-email-subject' => 'Your instance is ready to be logged into.',
-	'openstackmanager-email-body' => 'The following instance has been created, and is ready to be logged into: ',
+	'openstackmanager-email-body' => 'The following instance has been created, and is ready to be logged into:',
 	'right-manageproject' => 'Manage Openstack projects and roles',
 );
 
