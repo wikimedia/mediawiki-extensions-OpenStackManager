@@ -348,6 +348,7 @@ $messages['qqq'] = array(
 	'openstackmanager-projectlist' => 'Page title',
 	'openstackmanager-deleteproject' => 'Page title',
 	'openstackmanager-novaproject-project' => '{{Identical|Project}}',
+	'openstackmanager-roles' => '{{Identical|Role}}',
 	'openstackmanager-rolelist' => 'It is a list of roles that are assigned to all instances (i.e. global).',
 	'openstackmanager-securitygroupdescription' => '{{Identical|Description}}',
 	'openstackmanager-sudoerusers' => '{{Identical|User}}',
