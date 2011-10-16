@@ -165,10 +165,10 @@ class OpenStackNovaController {
 	 * @param  $groupname
 	 * @return OpenStackNovaSecurityGroup
 	 */
-	function getSecurityGroup( $groupname ) {
+	function getSecurityGroup( $groupname, $project ) {
 		$this->getSecurityGroups();
-		if ( isset( $this->securityGroups["$groupname"] ) ) {
-			return $this->securityGroups["$groupname"];
+		if ( isset( $this->securityGroups["$project-$groupname"] ) ) {
+			return $this->securityGroups["$project-$groupname"];
 		} else {
 			return null;
 		}
@@ -183,8 +183,9 @@ class OpenStackNovaController {
 		$securityGroups = $securityGroups->body->securityGroupInfo->item;
 		foreach ( $securityGroups as $securityGroup ) {
 			$securityGroup = new OpenStackNovaSecurityGroup( $securityGroup );
+			$project = $securityGroup->getOwner();
 			$groupname = $securityGroup->getGroupName();
-			$this->securityGroups["$groupname"] = $securityGroup;
+			$this->securityGroups["$project-$groupname"] = $securityGroup;
 		}
 		return $this->securityGroups;
 	}
