@@ -495,8 +495,13 @@ class OpenStackNovaUser {
 	 */
 	static function LDAPSetNovaInfo( $auth ) {
 		OpenStackNovaUser::connect();
-		if ( !isset( $auth->userInfo[0]['accesskey'] ) or !isset( $auth->userInfo[0]['secretkey'] ) ) {
-			$objectclasses = $auth->userInfo[0]['objectclass'];
+		$dn = $auth->userInfo[0]['dn'];
+		wfSuppressWarnings();
+		$result = ldap_read( $auth->ldapconn, $auth->userInfo[0]['dn'], '(objectclass=*)', array( 'secretkey', 'accesskey', 'objectclass' ) );
+		$userInfo = ldap_get_entries( $auth->ldapconn, $result );
+		wfRestoreWarnings();
+		if ( !isset( $userInfo[0]['accesskey'] ) or !isset( $userInfo[0]['secretkey'] ) ) {
+			$objectclasses = $userInfo[0]['objectclass'];
 			# First entry is a count
 			array_shift( $objectclasses );
 			if ( !in_array( 'novauser', $objectclasses ) ) {
@@ -523,6 +528,9 @@ class OpenStackNovaUser {
 				# Always return true, other hooks should still run, even if this fails
 				return true;
 			}
+		} else {
+			$auth->printDebug( "User has accesskey and secretkey set.", NONSENSITIVE );
+			return true;
 		}
 	}
 
