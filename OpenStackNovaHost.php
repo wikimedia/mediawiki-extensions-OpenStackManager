@@ -183,7 +183,7 @@ class OpenStackNovaHost {
 				$hostEntry['puppetclass'][] = $class;
 			}
 			foreach ( $wgOpenStackManagerPuppetOptions['defaultvariables'] as $variable => $value ) {
-				$hostEntry['puppetvar'][] = $variable . ' = ' . $value;
+				$hostEntry['puppetvar'][] = $variable . '=' . $value;
 			}
 			if ( isset( $puppetinfo['classes'] ) ) {
 				foreach ( $puppetinfo['classes'] as $class ) {
@@ -192,7 +192,18 @@ class OpenStackNovaHost {
 			}
 			if ( isset( $puppetinfo['variables'] ) ) {
 				foreach ( $puppetinfo['variables'] as $variable => $value ) {
-					$hostEntry['puppetvar'][] = $variable . ' = ' . $value;
+					$hostEntry['puppetvar'][] = $variable . '=' . $value;
+				}
+			}
+			$oldpuppetinfo = $this->getPuppetConfiguration();
+			if ( isset( $oldpuppetinfo['puppetvar'] ) ) {
+				$wgAuth->printDebug( "Checking for preexisting variables", NONSENSITIVE );
+				foreach ( $oldpuppetinfo['puppetvar'] as $variable => $value ) {
+					$wgAuth->printDebug( "Found $variable", NONSENSITIVE );
+					if ( $variable == "instancecreator_email" || $variable == "instancecreator_username"
+						|| $variable == "instancecreator_lang" || $variable == "instanceproject" ) {
+						$hostEntry['puppetvar'][] = $variable . '=' . $value;
+					}
 				}
 			}
 			if ( $hostEntry ) {
