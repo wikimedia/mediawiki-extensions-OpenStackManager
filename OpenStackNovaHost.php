@@ -55,6 +55,7 @@ class OpenStackNovaHost {
 	function fetchHostInfo() {
 		global $wgAuth;
 
+		$this->searchvalue = $wgAuth->getLdapEscapedString( $this->searchvalue );
 		$fqdn = $this->searchvalue . '.' . $this->domain->getFullyQualifiedDomainName();
 		wfSuppressWarnings();
 		$result = ldap_search( $wgAuth->ldapconn, $this->domain->domainDN, '(|(associateddomain=' . $fqdn . ')(cnamerecord=' . $fqdn . ')(dc=' . $this->searchvalue . '))' );

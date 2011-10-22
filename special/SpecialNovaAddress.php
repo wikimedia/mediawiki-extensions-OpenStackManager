@@ -265,7 +265,7 @@ class SpecialNovaAddress extends SpecialNova {
 		$addressInfo['hostname'] = array(
 			'type' => 'text',
 			'default' => '',
-			'validation-callback' => array( $this, 'validateText' ),
+			'validation-callback' => array( $this, 'validateDomain' ),
 			'label-message' => 'openstackmanager-hostname',
 			'name' => 'hostname',
 		);
@@ -432,7 +432,7 @@ class SpecialNovaAddress extends SpecialNova {
 			$actions .= Html::rawElement( 'li', array(), $link );
 			$actions = Html::rawElement( 'ul', array(), $actions );
 			$addressOut .= Html::rawElement( 'td', array(), $actions );
-			$projectArr["$project"] = Html::rawElement( 'tr', array(), $addressOut );
+			$projectArr["$project"] .= Html::rawElement( 'tr', array(), $addressOut );
 		}
 		foreach ( $userProjects as $project ) {
 			$out .= Html::element( 'h2', array(), $project );
@@ -498,7 +498,7 @@ class SpecialNovaAddress extends SpecialNova {
 		if ( $success ) {
 			$wgOut->addWikiMsg( 'openstackmanager-releasedaddress', $ip );
 		} else {
-			$wgOut->addWikiMsg( 'openstackmanager-releasedaddressfailed', $ip );
+			$wgOut->addWikiMsg( 'openstackmanager-cannotreleaseaddress', $ip );
 		}
 		$sk = $wgOut->getSkin();
 		$out = '<br />';

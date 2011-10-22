@@ -69,4 +69,18 @@ abstract class SpecialNova extends SpecialPage {
 		}
 	}
 
+	/**
+	 * @param  $resourcename
+	 * @param  $error
+	 * @param  $alldata
+	 * @return bool|string
+	 */
+	function validateDomain( $resourcename, $alldata ) {
+		if ( ! preg_match( "/^[a-z\*][a-z0-9\-]*$/", $resourcename ) ) {
+			return Xml::element( 'span', array( 'class' => 'error' ), wfMsg( 'openstackmanager-badresourcename' ) );
+		} else {
+			return true;
+		}
+	}
+
 }
