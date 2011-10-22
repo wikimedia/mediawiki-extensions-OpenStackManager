@@ -109,9 +109,9 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-configuresecuritygroup' ) );
 
 		$securitygroupname = $wgRequest->getText( 'groupname' );
-		$securitygroup = $this->adminNova->getSecurityGroup( $securitygroupname );
-		$description = $securitygroup->getGroupDescription();
 		$project = $wgRequest->getText( 'project' );
+		$securitygroup = $this->adminNova->getSecurityGroup( $securitygroupname, $project );
+		$description = $securitygroup->getGroupDescription();
 		if ( ! $this->userLDAP->inRole( 'netadmin', $project ) ) {
 			$this->notInRole( 'netadmin' );
 			return false;
@@ -512,7 +512,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		$project = $formData['project'];
 		$userCredentials = $this->userLDAP->getCredentials( $project );
 		$this->userNova = new OpenStackNovaController( $userCredentials );
-		$securitygroup = $this->adminNova->getSecurityGroup( $formData['groupname'] );
+		$securitygroup = $this->adminNova->getSecurityGroup( $formData['groupname'], $project );
 		if ( !$securitygroup ) {
 			$wgOut->addWikiMsg( 'openstackmanager-nonexistantsecuritygroup' );
 			return true;
@@ -541,9 +541,10 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	function tryConfigureSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut;
 
+		$project = $formData['project'];
 		$groupname = $formData['groupname'];
 		$description = $formData['description'];
-		$group = $this->adminNova->getSecurityGroup( $groupname );
+		$group = $this->adminNova->getSecurityGroup( $groupname, $project );
 		if ( $group ) {
 			# This isn't a supported function in the API for now. Leave this action out for now
 			$success = $this->userNova->modifySecurityGroup( $groupname, array( 'description' => $description ) );
@@ -587,7 +588,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		}
 		$userCredentials = $this->userLDAP->getCredentials( $project );
 		$this->userNova = new OpenStackNovaController( $userCredentials );
-		$securitygroup = $this->adminNova->getSecurityGroup( $formData['groupname'] );
+		$securitygroup = $this->adminNova->getSecurityGroup( $formData['groupname'], $project );
 		if ( ! $securitygroup ) {
 			$wgOut->addWikiMsg( 'openstackmanager-nonexistantsecuritygroup' );
 			return false;
@@ -635,7 +636,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		}
 		$userCredentials = $this->userLDAP->getCredentials( $project );
 		$this->userNova = new OpenStackNovaController( $userCredentials );
-		$securitygroup = $this->adminNova->getSecurityGroup( $formData['groupname'] );
+		$securitygroup = $this->adminNova->getSecurityGroup( $formData['groupname'], $project );
 		if ( ! $securitygroup ) {
 			$wgOut->addWikiMsg( 'openstackmanager-nonexistantsecuritygroup' );
 			return false;
