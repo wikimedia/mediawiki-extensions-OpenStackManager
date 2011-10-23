@@ -913,6 +913,7 @@ $messages['br'] = array(
 	'openstackmanager-novasudoer-info' => 'Titouroù reolenn Sudo',
 	'openstackmanager-sudoername' => 'Anv reolenn Sudo',
 	'openstackmanager-sudoerusers' => 'Implijerien',
+	'openstackmanager-sudoerhosts' => 'Ostizien',
 	'openstackmanager-sudoeroptions' => 'Dibarzhioù',
 	'openstackmanager-modifiedsudoer' => 'Kemmet eo bet reolenn Sudo ervat.',
 	'openstackmanager-nonexistantsudoer' => "N'eus ket eus ar reolenn Sudo goulennet.",
