@@ -692,7 +692,7 @@ class SpecialNovaInstance extends SpecialNova {
 			$wgOut->addWikiMsg( 'openstackmanager-nonexistanthost' );
 		}
 		$sk = $wgOut->getSkin();
-		$out = '<br /';
+		$out = '<br />';
 		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backinstancelist' ) );
 
 		$wgOut->addHTML( $out );
