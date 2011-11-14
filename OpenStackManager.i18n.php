@@ -3346,6 +3346,13 @@ $messages['no'] = array(
 	'specialpages-group-nova' => 'OpenStack Nova',
 );
 
+/** Deitsch (Deitsch)
+ * @author Xqt
+ */
+$messages['pdc'] = array(
+	'openstackmanager-delete' => 'lesche',
+);
+
 /** Polish (Polski)
  * @author Odder
  * @author Woytecr
