@@ -2,3 +2,6 @@
 max-width: 50em;
 overflow: hidden;
 }
+.Nova_cell{
+vertical-align: top;
+}
