@@ -201,7 +201,7 @@ class OpenStackNovaInstance {
 |Resource Type=instance
 |Instance Name=%s
 |Reservation Id=%s
-|Instance Id={{PAGENAME}}
+|Instance Id=%s
 |Private IP=%s
 |Public IP=%s
 |Instance State=%s
@@ -243,6 +243,7 @@ RESOURCEINFO;
 		$text = sprintf( $format,
 			$this->getInstanceName(),
 			$this->getReservationId(),
+			$this->getInstanceId(),
 			$this->getInstancePrivateIP(),
 			$this->getInstancePublicIP(),
 			// Since instance state is somewhat dynamic, is this useful?

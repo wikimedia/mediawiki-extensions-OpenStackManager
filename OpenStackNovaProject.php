@@ -362,4 +362,31 @@ class OpenStackNovaProject {
 		}
 	}
 
+	function editArticle() {
+		if ( ! OpenStackNovaArticle::canCreatePages() ) {
+			return;
+		}
+
+		$format = <<<RESOURCEINFO
+{{Nova Resource
+|Resource Type=project
+|Project Name=%s
+|Members=%s}}
+RESOURCEINFO;
+		$rawmembers = $this->getMembers();
+		$members = array();
+		foreach ( $rawmembers as $member ) {
+			array_push( $members, 'User:' . $member );
+		}
+		$text = sprintf( $format,
+			$this->getProjectName(),
+			implode( ',', $members )
+		);
+		OpenStackNovaArticle::editArticle( $this->getProjectName(), $text );
+	}
+
+	function deleteArticle() {
+		OpenStackNovaArticle::deleteArticle( $this->getProjectName() );
+	}
+
 }
