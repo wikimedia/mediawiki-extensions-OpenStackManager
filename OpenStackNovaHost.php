@@ -202,7 +202,7 @@ class OpenStackNovaHost {
 				foreach ( $oldpuppetinfo['puppetvar'] as $variable => $value ) {
 					$wgAuth->printDebug( "Found $variable", NONSENSITIVE );
 					if ( $variable == "instancecreator_email" || $variable == "instancecreator_username"
-						|| $variable == "instancecreator_lang" || $variable == "instanceproject" ) {
+						|| $variable == "instancecreator_lang" || $variable == "instanceproject" || $variable == "instancename" ) {
 						$hostEntry['puppetvar'][] = $variable . '=' . $value;
 					}
 				}
@@ -669,6 +669,7 @@ class OpenStackNovaHost {
 			$hostEntry['puppetvar'][] = 'instancecreator_username=' . $wgUser->getName();
 			$hostEntry['puppetvar'][] = 'instancecreator_lang=' . $wgLang->getCode();
 			$hostEntry['puppetvar'][] = 'instanceproject=' . $project;
+			$hostEntry['puppetvar'][] = 'instancename=' . $hostname;
 		}
 		$dn = 'dc=' . $instanceid . ',dc=' . $domain->getDomainName() . ',' . $wgOpenStackManagerLDAPInstanceBaseDN;
 
