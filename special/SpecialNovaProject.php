@@ -227,7 +227,10 @@ class SpecialNovaProject extends SpecialNova {
 		}
 		foreach ( $projects as $project ) {
 			$projectName = $project->getProjectName();
-			$projectOut = Html::element( 'td', array(), $projectName );
+			$projectName = htmlentities( $projectName );
+			$title = Title::newFromText( $projectName, NS_NOVA_RESOURCE );
+			$projectNameLink = $sk->link( $title, $projectName );
+			$projectOut = Html::rawElement( 'td', array(), $projectNameLink );
 			$projectMembers = $project->getMembers();
 			$memberOut = '';
 			foreach ( $projectMembers as $projectMember ) {
@@ -294,6 +297,8 @@ class SpecialNovaProject extends SpecialNova {
 			$wgOut->addWikiMsg( 'openstackmanager-createprojectfailed' );
 			return true;
 		}
+		$project = OpenStackNovaProject::getProjectByName( $formData['projectname'] );
+		$project->editArticle();
 		$wgOut->addWikiMsg( 'openstackmanager-createdproject' );
 		$sk = $wgOut->getSkin();
 		$out = '<br />';
@@ -313,6 +318,8 @@ class SpecialNovaProject extends SpecialNova {
 
 		$success = OpenStackNovaProject::deleteProject( $formData['projectname'] );
 		if ( $success ) {
+			$project = OpenStackNovaProject::getProjectByName( $formData['projectname'] );
+			$project->deleteArticle();
 			$wgOut->addWikiMsg( 'openstackmanager-deletedproject' );
 		} else {
 			$wgOut->addWikiMsg( 'openstackmanager-deleteprojectfailed' );
@@ -336,6 +343,7 @@ class SpecialNovaProject extends SpecialNova {
 		$project = new OpenStackNovaProject( $formData['projectname'] );
 		$success = $project->addMember( $formData['member'] );
 		if ( $success ) {
+			$project->editArticle();
 			$wgOut->addWikiMsg( 'openstackmanager-addedto', $formData['member'], $formData['projectname'] );
 		} else {
 			$wgOut->addWikiMsg( 'openstackmanager-failedtoadd', $formData['member'], $formData['projectname'] );
@@ -364,6 +372,7 @@ class SpecialNovaProject extends SpecialNova {
 		foreach ( $formData['members'] as $member ) {
 			$success = $project->deleteMember( $member );
 			if ( $success ) {
+				$project->editArticle();
 				$wgOut->addWikiMsg( 'openstackmanager-removedfrom', $member, $formData['projectname'] );
 			} else {
 				$wgOut->addWikiMsg( 'openstackmanager-failedtoremove', $member, $formData['projectname'] );
