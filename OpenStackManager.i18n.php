@@ -2686,7 +2686,7 @@ $messages['ksh'] = array(
 	'openstackmanager-sudoeroptions' => 'Ennshtällunge',
 );
 
-/** Kurdish (Latin) (Kurdî (Latin))
+/** Kurdish (Latin script) (‪Kurdî (latînî)‬)
  * @author George Animal
  */
 $messages['ku-latn'] = array(
