@@ -2622,6 +2622,7 @@ $messages['ia'] = array(
 $messages['ja'] = array(
 	'openstackmanager-delete' => '削除',
 	'openstackmanager-modify' => '改変',
+	'openstackmanager-novaproject-project' => 'プロジェクト',
 );
 
 /** Colognian (Ripoarisch)
