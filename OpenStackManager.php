@@ -75,6 +75,7 @@ $wgOpenStackManagerInstanceUserData = array(
 	'scripts' => array(),
 	'upstarts' => array(),
 	);
+$wgOpenStackManagerInstanceDefaultImage = "";
 $wgOpenStackManagerCreateResourcePages = true;
 $wgOpenStackManagerLDAPUseUidAsNamingAttribute = false;
 

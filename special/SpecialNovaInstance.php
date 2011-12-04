@@ -77,6 +77,7 @@ class SpecialNovaInstance extends SpecialNova {
 	function createInstance() {
 		global $wgRequest, $wgOut;
 		global $wgOpenStackManagerPuppetOptions;
+		global $wgOpenStackManagerInstanceDefaultImage;
 
 		$this->setHeaders();
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-createinstance' ) );
@@ -133,6 +134,7 @@ class SpecialNovaInstance extends SpecialNova {
 		# where the name points to itself as a value
 		$images = $this->adminNova->getImages();
 		$image_keys = array();
+		$default = "";
 		foreach ( $images as $image ) {
 			if ( ! $image->imageIsPublic() ) {
 				continue;
@@ -148,12 +150,16 @@ class SpecialNovaInstance extends SpecialNova {
 				continue;
 			}
 			$imageLabel = $imageName . ' (' . $image->getImageArchitecture() . ')';
+			if ( $image->getImageId() == $wgOpenStackManagerInstanceDefaultImage ) {
+				$default = $imageLabel;
+			}
 			$image_keys["$imageLabel"] = $image->getImageId();
 		}
 		$instanceInfo['imageType'] = array(
 			'type' => 'select',
 			'section' => 'instance/info',
 			'options' => $image_keys,
+			'default' => $image_keys["$default"],
 			'label-message' => 'openstackmanager-imagetype',
 			'name' => 'imageType',
 		);
