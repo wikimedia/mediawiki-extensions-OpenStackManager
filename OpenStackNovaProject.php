@@ -363,6 +363,8 @@ class OpenStackNovaProject {
 	}
 
 	function editArticle() {
+		global $wgOpenStackManagerCreateProjectSALPages;
+
 		if ( ! OpenStackNovaArticle::canCreatePages() ) {
 			return;
 		}
@@ -383,6 +385,11 @@ RESOURCEINFO;
 			implode( ',', $members )
 		);
 		OpenStackNovaArticle::editArticle( $this->getProjectName(), $text );
+		if ( $wgOpenStackManagerCreateProjectSALPages ) {
+			$pagename = $this->getProjectName() . "/SAL";
+			$text = "{{SAL|Project Name=" . $this->getProjectName() . "}}";
+			OpenStackNovaArticle::editArticle( $pagename, $text );
+		}
 	}
 
 	function deleteArticle() {

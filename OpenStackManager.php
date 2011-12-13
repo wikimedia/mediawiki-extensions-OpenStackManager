@@ -30,6 +30,7 @@ define( "NS_NOVA_RESOURCE", 498 );
 define( "NS_NOVA_RESOURCE_TALK", 499 );
 $wgExtraNamespaces[NS_NOVA_RESOURCE] = 'Nova_Resource';
 $wgExtraNamespaces[NS_NOVA_RESOURCE_TALK] = 'Nova_Resource_Talk';
+$wgContentNamespaces[] = NS_NOVA_RESOURCE;
 
 $wgGroupPermissions['sysop']['manageproject'] = true;
 $wgAvailableRights[] = 'manageproject';
@@ -77,6 +78,7 @@ $wgOpenStackManagerInstanceUserData = array(
 	);
 $wgOpenStackManagerInstanceDefaultImage = "";
 $wgOpenStackManagerCreateResourcePages = true;
+$wgOpenStackManagerCreateProjectSALPages = true;
 $wgOpenStackManagerLDAPUseUidAsNamingAttribute = false;
 
 $dir = dirname( __FILE__ ) . '/';
