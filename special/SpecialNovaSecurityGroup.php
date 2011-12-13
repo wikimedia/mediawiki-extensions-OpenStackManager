@@ -338,12 +338,14 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 			return false;
 		}
 		$group_keys = array();
+		$info = array();
 		$securityGroups = $this->adminNova->getSecurityGroups();
 		foreach ( $securityGroups as $securityGroup ) {
 			$securityGroupName = $securityGroup->getGroupName();
 			$securityGroupProject = $securityGroup->getOwner();
-			$group_keys["$securityGroupName"] = $securityGroupName . ':' . $securityGroupProject;
+			$info["$securityGroupProject"]["$securityGroupName"] = $securityGroupName . ':' . $securityGroupProject;
 		}
+		$group_keys = $info;
 		$securitygroupname = $wgRequest->getText( 'groupname' );
 		$securityGroupInfo = array();
 		$securityGroupInfo['groupname'] = array(
