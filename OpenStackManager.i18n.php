@@ -185,6 +185,7 @@ $messages['en'] = array(
 	'openstackmanager-failedtoremove' => 'Failed to remove $1 from $2.',
 	'openstackmanager-novaproject-project' => 'Project',
 	'openstackmanager-novaproject-info' => 'Project information',
+	'openstackmanager-novaproject-membership' => 'Project membership',
 
 	'openstackmanager-roles' => 'Roles',
 	'openstackmanager-rolename' => 'Role name',

@@ -58,6 +58,23 @@ class SpecialNovaProject extends SpecialNova {
 			'section' => 'project/info',
 			'name' => 'projectname',
 		);
+		$projectInfo['member'] = array(
+			'type' => 'text',
+			'label-message' => 'openstackmanager-member',
+			'default' => '',
+			'section' => 'project/membership',
+			'name' => 'member',
+		);
+		foreach ( OpenStackNovaProject::$rolenames as $rolename ) {
+			$role_keys["$rolename"] = $rolename;
+		}
+		$projectInfo['roles'] = array(
+			'type' => 'multiselect',
+			'label-message' => 'openstackmanager-roles',
+			'section' => 'project/membership',
+			'options' => $role_keys,
+			'name' => 'roles',
+		);
 
 		$projectInfo['action'] = array(
 			'type' => 'hidden',
@@ -299,7 +316,18 @@ class SpecialNovaProject extends SpecialNova {
 			return true;
 		}
 		$project = OpenStackNovaProject::getProjectByName( $formData['projectname'] );
-		$project->editArticle();
+		$members = explode( ',', $formData['member'] );
+		foreach ( $members as $member ) {
+			$project->addMember( $formData['member'] );
+		}
+		$roles = $project->getRoles();
+		foreach ( $roles as $role ) {
+			if ( in_array( $role->getRoleName(), $formData['roles'] ) ) {
+				foreach ( $members as $member ) {
+					$role->addMember( $member );
+				}
+			}
+		}
 		# Create a default security group for this project, and add configured default rules
 		$groupname = 'default';
 		# Change the connection to reference this project
@@ -343,6 +371,7 @@ class SpecialNovaProject extends SpecialNova {
 		}
 		# Reset connection to default
 		$this->adminNova->configureConnection();
+		$project->editArticle();
 		$wgOut->addWikiMsg( 'openstackmanager-createdproject' );
 		$sk = $wgOut->getSkin();
 		$out = '<br />';
@@ -385,12 +414,15 @@ class SpecialNovaProject extends SpecialNova {
 		global $wgOut;
 
 		$project = new OpenStackNovaProject( $formData['projectname'] );
-		$success = $project->addMember( $formData['member'] );
-		if ( $success ) {
-			$project->editArticle();
-			$wgOut->addWikiMsg( 'openstackmanager-addedto', $formData['member'], $formData['projectname'] );
-		} else {
-			$wgOut->addWikiMsg( 'openstackmanager-failedtoadd', $formData['member'], $formData['projectname'] );
+		$members = explode( ',', $formData['member'] );
+		foreach ( $members as $member ) {
+			$success = $project->addMember( $member );
+			if ( $success ) {
+				$project->editArticle();
+				$wgOut->addWikiMsg( 'openstackmanager-addedto', $formData['member'], $formData['projectname'] );
+			} else {
+				$wgOut->addWikiMsg( 'openstackmanager-failedtoadd', $formData['member'], $formData['projectname'] );
+			}
 		}
 		$sk = $wgOut->getSkin();
 		$out = '<br />';
