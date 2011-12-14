@@ -80,6 +80,7 @@ $wgOpenStackManagerInstanceDefaultImage = "";
 $wgOpenStackManagerCreateResourcePages = true;
 $wgOpenStackManagerCreateProjectSALPages = true;
 $wgOpenStackManagerLDAPUseUidAsNamingAttribute = false;
+$wgOpenStackManagerNovaDefaultProject = "";
 
 $dir = dirname( __FILE__ ) . '/';
 

@@ -29,8 +29,8 @@ class SpecialNovaVolume extends SpecialNova {
 			return true;
 		}
 		$project = $wgRequest->getVal( 'project' );
-		$userCredentials = $this->userLDAP->getCredentials( $project );
-		$this->userNova = new OpenStackNovaController( $userCredentials );
+		$userCredentials = $this->userLDAP->getCredentials();
+		$this->userNova = new OpenStackNovaController( $userCredentials, $project );
 		$adminCredentials = $wgOpenStackManagerNovaAdminKeys;
 		$this->adminNova = new OpenStackNovaController( $adminCredentials );
 

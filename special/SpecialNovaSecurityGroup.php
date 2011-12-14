@@ -487,8 +487,8 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		$project = $formData['project'];
 		$groupname = $formData['groupname'];
 		$description = $formData['description'];
-		$userCredentials = $this->userLDAP->getCredentials( $project );
-		$this->userNova = new OpenStackNovaController( $userCredentials );
+		$userCredentials = $this->userLDAP->getCredentials();
+		$this->userNova = new OpenStackNovaController( $userCredentials, $project );
 		$securitygroup = $this->userNova->createSecurityGroup( $groupname, $description );
 		if ( $securitygroup ) {
 			$wgOut->addWikiMsg( 'openstackmanager-createdsecuritygroup' );
@@ -512,8 +512,8 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		global $wgOut;
 
 		$project = $formData['project'];
-		$userCredentials = $this->userLDAP->getCredentials( $project );
-		$this->userNova = new OpenStackNovaController( $userCredentials );
+		$userCredentials = $this->userLDAP->getCredentials();
+		$this->userNova = new OpenStackNovaController( $userCredentials, $project );
 		$securitygroup = $this->adminNova->getSecurityGroup( $formData['groupname'], $project );
 		if ( !$securitygroup ) {
 			$wgOut->addWikiMsg( 'openstackmanager-nonexistantsecuritygroup' );
@@ -588,8 +588,8 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 			$group = explode( ':', $group );
 			$groups[] = array( 'groupname' => $group[0], 'project' => $group[1] );
 		}
-		$userCredentials = $this->userLDAP->getCredentials( $project );
-		$this->userNova = new OpenStackNovaController( $userCredentials );
+		$userCredentials = $this->userLDAP->getCredentials();
+		$this->userNova = new OpenStackNovaController( $userCredentials, $project );
 		$securitygroup = $this->adminNova->getSecurityGroup( $formData['groupname'], $project );
 		if ( ! $securitygroup ) {
 			$wgOut->addWikiMsg( 'openstackmanager-nonexistantsecuritygroup' );
@@ -636,8 +636,8 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 				$groups[] = array( 'groupname' => $rawgroup[0], 'project' => $rawgroup[1] );
 			}
 		}
-		$userCredentials = $this->userLDAP->getCredentials( $project );
-		$this->userNova = new OpenStackNovaController( $userCredentials );
+		$userCredentials = $this->userLDAP->getCredentials();
+		$this->userNova = new OpenStackNovaController( $userCredentials, $project );
 		$securitygroup = $this->adminNova->getSecurityGroup( $formData['groupname'], $project );
 		if ( ! $securitygroup ) {
 			$wgOut->addWikiMsg( 'openstackmanager-nonexistantsecuritygroup' );

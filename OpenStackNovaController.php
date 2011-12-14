@@ -3,6 +3,7 @@
 # TODO: Make this an abstract class, and make the EC2 API a subclass
 class OpenStackNovaController {
 
+	var $credentials;
 	var $novaConnection;
 	var $instances, $images, $keypairs, $availabilityZones;
 	var $addresses, $securityGroups;
@@ -12,16 +13,29 @@ class OpenStackNovaController {
 	/**
 	 * @param  $credentials
 	 */
-	function __construct( $credentials ) {
-		global $wgOpenStackManagerNovaDisableSSL, $wgOpenStackManagerNovaServerName,
-			$wgOpenStackManagerNovaPort, $wgOpenStackManagerNovaResourcePrefix;
+	function __construct( $credentials, $project='' ) {
+		$this->credentials = $credentials;
+		$this->configureConnection( $project );
+		$this->instances = array();
+	}
 
-		$this->novaConnection = new AmazonEC2( $credentials['accessKey'], $credentials['secretKey'] );
+	/**
+	 * @param  $project
+	 * @return null
+	 */
+	function configureConnection( $project='' ) {
+		global $wgOpenStackManagerNovaDisableSSL, $wgOpenStackManagerNovaServerName,
+			$wgOpenStackManagerNovaPort, $wgOpenStackManagerNovaResourcePrefix,
+			$wgOpenStackManagerNovaDefaultProject;
+
+		if ( $project == '' ) {
+			$project = $wgOpenStackManagerNovaDefaultProject;
+		}
+		$this->novaConnection = new AmazonEC2( $this->credentials['accessKey'] . ':' . $project, $this->credentials['secretKey'] );
 		$this->novaConnection->disable_ssl( $wgOpenStackManagerNovaDisableSSL );
 		$this->novaConnection->set_hostname( $wgOpenStackManagerNovaServerName, $wgOpenStackManagerNovaPort );
 		$this->novaConnection->set_resource_prefix( $wgOpenStackManagerNovaResourcePrefix );
 		$this->novaConnection->allow_hostname_override(false);
-		$this->instances = array();
 	}
 
 	/**

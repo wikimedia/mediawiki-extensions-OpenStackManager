@@ -49,8 +49,8 @@ class SpecialNovaKey extends SpecialNova {
 				$this->notInProject();
 				return true;
 			}
-			$userCredentials = $this->userLDAP->getCredentials( $project );
-			$this->userNova = new OpenStackNovaController( $userCredentials );
+			$userCredentials = $this->userLDAP->getCredentials();
+			$this->userNova = new OpenStackNovaController( $userCredentials, $project );
 		}
 
 		$this->setHeaders();
@@ -175,8 +175,8 @@ class SpecialNovaKey extends SpecialNova {
 			$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-importkey' ), array(), array( 'action' => 'import' ) );
 			$projects = $this->userLDAP->getProjects();
 			foreach ( $projects as $project ) {
-				$userCredentials = $this->userLDAP->getCredentials( $project );
-				$this->userNova = new OpenStackNovaController( $userCredentials );
+				$userCredentials = $this->userLDAP->getCredentials();
+				$this->userNova = new OpenStackNovaController( $userCredentials, $project );
 				$keypairs = $this->userNova->getKeypairs();
 				if ( ! $keypairs ) {
 					continue;

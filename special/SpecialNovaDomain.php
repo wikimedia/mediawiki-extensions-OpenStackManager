@@ -1,7 +1,7 @@
 <?php
 class SpecialNovaDomain extends SpecialNova {
 
-	var $userNova, $adminNova;
+	var $adminNova;
 	var $userLDAP;
 
 	function __construct() {

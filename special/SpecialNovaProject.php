@@ -1,7 +1,7 @@
 <?php
 class SpecialNovaProject extends SpecialNova {
 
-	var $userNova, $adminNova;
+	var $adminNova;
 	var $userLDAP;
 
 	function __construct() {
@@ -291,6 +291,7 @@ class SpecialNovaProject extends SpecialNova {
 	 */
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut;
+		global $wgOpenStackManagerDefaultSecurityGroupRules;
 
 		$success = OpenStackNovaProject::createProject( $formData['projectname'] );
 		if ( ! $success ) {
@@ -299,6 +300,49 @@ class SpecialNovaProject extends SpecialNova {
 		}
 		$project = OpenStackNovaProject::getProjectByName( $formData['projectname'] );
 		$project->editArticle();
+		# Create a default security group for this project, and add configured default rules
+		$groupname = 'default';
+		# Change the connection to reference this project
+		$this->adminNova->configureConnection( $formData['projectname'] );
+		$this->adminNova->createSecurityGroup( $groupname, '' );
+		foreach ( $wgOpenStackManagerDefaultSecurityGroupRules as $rule ) {
+			$fromport = '';
+			$toport = '';
+			$protocol = '';
+			$ranges = array();
+			$groups = array();
+			if ( array_key_exists( 'fromport', $rule ) ) {
+				$fromport = $rule['fromport'];
+			}
+			if ( array_key_exists( 'toport', $rule ) ) {
+				$toport = $rule['toport'];
+			}
+			if ( array_key_exists( 'protocol', $rule ) ) {
+				$protocol = $rule['protocol'];
+			}
+			if ( array_key_exists( 'ranges', $rule ) ) {
+				$ranges = $rule['ranges'];
+			}
+			if ( array_key_exists( 'groups', $rule ) ) {
+				foreach ( $rule['groups'] as $group ) {
+					if ( !array_key_exists( 'groupname', $group ) ) {
+						# TODO: log an error here
+						continue;
+					}
+					if ( array_key_exists( 'project', $group ) ) {
+						$groupproject = $group['project'];
+					} else {
+						# Assume groups with no project defined are
+						# referencing this project's group
+						$groupproject = $formData['projectname'];
+					}
+					$groups[] = array( 'groupname' => $group['groupname'], 'project' => $groupproject );
+				}
+			}
+			$this->adminNova->addSecurityGroupRule( $groupname, $fromport, $toport, $protocol, $ranges, $groups );
+		}
+		# Reset connection to default
+		$this->adminNova->configureConnection();
 		$wgOut->addWikiMsg( 'openstackmanager-createdproject' );
 		$sk = $wgOut->getSkin();
 		$out = '<br />';

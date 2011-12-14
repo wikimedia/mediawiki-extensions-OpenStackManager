@@ -61,8 +61,8 @@ class SpecialNovaAddress extends SpecialNova {
 			$this->notInRole( 'netadmin' );
 			return false;
 		}
-                $userCredentials = $this->userLDAP->getCredentials( $project );
-                $this->userNova = new OpenStackNovaController( $userCredentials );
+                $userCredentials = $this->userLDAP->getCredentials();
+                $this->userNova = new OpenStackNovaController( $userCredentials, $project );
 		if ( ! $wgRequest->wasPosted() ) {
 			$wgOut->addWikiMsg( 'openstackmanager-allocateaddress-confirm', $project );
 		}
@@ -101,8 +101,8 @@ class SpecialNovaAddress extends SpecialNova {
 			$this->notInRole( 'netadmin' );
 			return false;
 		}
-                $userCredentials = $this->userLDAP->getCredentials( $project );
-                $this->userNova = new OpenStackNovaController( $userCredentials );
+                $userCredentials = $this->userLDAP->getCredentials();
+                $this->userNova = new OpenStackNovaController( $userCredentials, $project );
 		$ip = $wgRequest->getText( 'ip' );
 		if ( ! $wgRequest->wasPosted() ) {
 			$wgOut->addWikiMsg( 'openstackmanager-releaseaddress-confirm', $ip );
@@ -148,8 +148,8 @@ class SpecialNovaAddress extends SpecialNova {
 			$this->notInRole( 'netadmin' );
 			return false;
 		}
-                $userCredentials = $this->userLDAP->getCredentials( $project );
-                $this->userNova = new OpenStackNovaController( $userCredentials );
+                $userCredentials = $this->userLDAP->getCredentials();
+                $this->userNova = new OpenStackNovaController( $userCredentials, $project );
 		$instances = $this->userNova->getInstances();
 		$instance_keys = array();
 		foreach ( $instances as $instance ) {
@@ -204,8 +204,8 @@ class SpecialNovaAddress extends SpecialNova {
 			$this->notInRole( 'netadmin' );
 			return false;
 		}
-                $userCredentials = $this->userLDAP->getCredentials( $project );
-                $this->userNova = new OpenStackNovaController( $userCredentials );
+                $userCredentials = $this->userLDAP->getCredentials();
+                $this->userNova = new OpenStackNovaController( $userCredentials, $project );
 		$ip = $wgRequest->getText( 'ip' );
 		if ( ! $wgRequest->wasPosted() ) {
 			$wgOut->addWikiMsg( 'openstackmanager-disassociateaddress-confirm', $ip );
@@ -309,8 +309,8 @@ class SpecialNovaAddress extends SpecialNova {
 			$this->notInRole( 'netadmin' );
 			return false;
 		}
-                $userCredentials = $this->userLDAP->getCredentials( $project );
-                $this->userNova = new OpenStackNovaController( $userCredentials );
+                $userCredentials = $this->userLDAP->getCredentials();
+                $this->userNova = new OpenStackNovaController( $userCredentials, $project );
 		$ip = $wgRequest->getText( 'ip' );
 		$domain = $wgRequest->getText( 'domain' );
 		$hostname = $wgRequest->getText( 'hostname' );

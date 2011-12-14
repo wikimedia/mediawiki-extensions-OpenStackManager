@@ -35,10 +35,9 @@ class OpenStackNovaUser {
 	 * @param string $project
 	 * @return array
 	 */
-	function getCredentials( $project = '' ) {
+	function getCredentials() {
 		if ( isset( $this->userInfo[0]['accesskey'] ) ) {
 			$accessKey = $this->userInfo[0]['accesskey'][0];
-			$accessKey = $accessKey . ':' . $project;
 		} else {
 			$accessKey = '';
 		}
