@@ -1118,6 +1118,7 @@ $messages['de'] = array(
 	'openstackmanager-failedtoremove' => '$1 konnte nicht aus $2 entfernt werden.',
 	'openstackmanager-novaproject-project' => 'Projekt',
 	'openstackmanager-novaproject-info' => 'Projektinformationen',
+	'openstackmanager-novaproject-membership' => 'Projektmitgliedschaft',
 	'openstackmanager-roles' => 'Rollen',
 	'openstackmanager-rolename' => 'Rollenname',
 	'openstackmanager-removerolemember' => 'Rollenmitglied entfernen',
@@ -1233,6 +1234,7 @@ $messages['de'] = array(
  * @author Crochet.david
  * @author Hashar
  * @author IAlex
+ * @author Wyz
  */
 $messages['fr'] = array(
 	'openstackmanager-desc' => 'Permet aux utilisateurs de gérer Nova et Swift',
@@ -1390,6 +1392,7 @@ $messages['fr'] = array(
 	'openstackmanager-failedtoremove' => 'Impossible de supprimer $1 de $2.',
 	'openstackmanager-novaproject-project' => 'Projet',
 	'openstackmanager-novaproject-info' => 'Informations sur le projet',
+	'openstackmanager-novaproject-membership' => 'Adhésion au projet',
 	'openstackmanager-roles' => 'Rôles',
 	'openstackmanager-rolename' => 'Nom du rôle',
 	'openstackmanager-removerolemember' => 'Supprimer un membre du rôle',
@@ -1902,6 +1905,7 @@ $messages['gl'] = array(
 	'openstackmanager-failedtoremove' => 'Erro ao eliminar $1 de $2.',
 	'openstackmanager-novaproject-project' => 'Proxecto',
 	'openstackmanager-novaproject-info' => 'Información do proxecto',
+	'openstackmanager-novaproject-membership' => 'Ingreso ao proxecto',
 	'openstackmanager-roles' => 'Roles',
 	'openstackmanager-rolename' => 'Nome do rol',
 	'openstackmanager-removerolemember' => 'Eliminar un membro do rol',
@@ -2947,6 +2951,7 @@ $messages['mk'] = array(
 	'openstackmanager-failedtoremove' => 'Не успеав да го отстранам $1 од $2.',
 	'openstackmanager-novaproject-project' => 'Проект',
 	'openstackmanager-novaproject-info' => 'Податоци за проектот',
+	'openstackmanager-novaproject-membership' => 'Членство во проектот',
 	'openstackmanager-roles' => 'Улоги',
 	'openstackmanager-rolename' => 'Назив на улогата',
 	'openstackmanager-removerolemember' => 'Отстрани член на улога',
