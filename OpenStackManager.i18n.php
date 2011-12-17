@@ -4041,4 +4041,3 @@ $messages['zh-hans'] = array(
 	'openstackmanager-novaproject-info' => '项目信息',
 	'openstackmanager-securitygroupdescription' => '说明',
 );
-
