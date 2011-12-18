@@ -910,6 +910,7 @@ $messages['br'] = array(
 	'openstackmanager-removedrule' => 'Lamet eo bet ar reolenn ervat.',
 	'openstackmanager-removerulefailed' => "N'eus ket bet gallet lemel ar reolenn.",
 	'openstackmanager-addrule' => 'Ouzhpennañ ar reolenn',
+	'openstackmanager-addedrule' => 'Ouzhpennet eo bet ar reolenn ervat.',
 	'openstackmanager-addrulefailed' => "N'eus ket bet gallet ouzhpennañ ur reolenn.",
 	'openstackmanager-novasudoer-sudoer' => 'Reolenn Sudo',
 	'openstackmanager-novasudoer-info' => 'Titouroù reolenn Sudo',
@@ -2511,6 +2512,7 @@ $messages['ia'] = array(
 	'openstackmanager-failedtoremove' => 'Falleva de remover $1 de $2.',
 	'openstackmanager-novaproject-project' => 'Projecto',
 	'openstackmanager-novaproject-info' => 'Informationes del projecto',
+	'openstackmanager-novaproject-membership' => 'Adhesion al projecto',
 	'openstackmanager-roles' => 'Rolos',
 	'openstackmanager-rolename' => 'Nomine del rolo',
 	'openstackmanager-removerolemember' => 'Remover membro de rolo',
@@ -3079,6 +3081,7 @@ $messages['ms'] = array(
 );
 
 /** Dutch (Nederlands)
+ * @author Saruman
  * @author Siebrand
  */
 $messages['nl'] = array(
@@ -3237,6 +3240,7 @@ $messages['nl'] = array(
 	'openstackmanager-failedtoremove' => 'Het verwijderen van $1 uit $2 is mislukt.',
 	'openstackmanager-novaproject-project' => 'Project',
 	'openstackmanager-novaproject-info' => 'Projectgegevens',
+	'openstackmanager-novaproject-membership' => 'Projectlidmaatschap',
 	'openstackmanager-roles' => 'Rollen',
 	'openstackmanager-rolename' => 'Rolnaam',
 	'openstackmanager-removerolemember' => 'Rollid toevoegen',
@@ -4042,3 +4046,4 @@ $messages['zh-hans'] = array(
 	'openstackmanager-novaproject-info' => '项目信息',
 	'openstackmanager-securitygroupdescription' => '说明',
 );
+
