@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import urllib
-import os
+import subprocess
 
 from xml.dom import minidom
 from optparse import OptionParser
@@ -24,17 +24,16 @@ def main():
 	dom = minidom.parse(urllib.urlopen(subjecturl))
 	subject = dom.getElementsByTagName('expandtemplates')[0].firstChild.data
 	dom = minidom.parse(urllib.urlopen(bodyurl))
+	p = subprocess.Popen("ssh-keygen -lf /etc/ssh/ssh_host_rsa_key.pub", shell=True, stdout=subprocess.PIPE)
+	fingerprint = p.communicate()[0]
+	fingerprint = fingerprint.split(' ')[1]
 	body = dom.getElementsByTagName('expandtemplates')[0].firstChild.data
-	body = body + ' ' + gethostname()
-	sendmail_location = "/usr/sbin/sendmail" # sendmail location
-	p = os.popen("%s -t" % sendmail_location, "w")
-	p.write("From: %s\n" % fromaddress)
-	p.write("To: %s\n" % toaddress)
-	p.write("Subject: %s\n" % subject)
-	p.write("\n") # blank line separating headers from body
-	p.write(body)
-	status = p.close()
-	return status
+	body = body + ' ' + gethostname() + ' (' + fingerprint + ')'
+	message = "From: %s\nTo: %s\nSubject: %s\n\n%s" % (fromaddress, toaddress, subject, body)
+	p = subprocess.Popen("/usr/sbin/sendmail -t", shell=True, stdin=subprocess.PIPE)
+	p.communicate(message)
+	if p.wait() != 0:
+		return 1
 
 if __name__ == "__main__":
 	main()
