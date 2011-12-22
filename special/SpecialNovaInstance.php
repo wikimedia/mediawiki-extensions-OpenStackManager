@@ -500,32 +500,34 @@ class SpecialNovaInstance extends SpecialNova {
 			$instanceOut .= Html::element( 'td', array(), $instance->getAvailabilityZone() );
 			$instanceOut .= Html::element( 'td', array(), $instance->getImageId() );
 			$instanceOut .= Html::element( 'td', array(), $instance->getLaunchTime() );
-			$msg = wfMsgHtml( 'openstackmanager-delete' );
-			$link = $sk->link( $this->getTitle(), $msg, array(),
+			if ( $this->userLDAP->inRole( 'sysadmin', $project ) ) {
+				$msg = wfMsgHtml( 'openstackmanager-delete' );
+				$link = $sk->link( $this->getTitle(), $msg, array(),
 								  array( 'action' => 'delete',
 									   'project' => $project,
 									   'instanceid' => $instance->getInstanceId() ) );
-			$actions = Html::rawElement( 'li', array(), $link );
-			$msg = wfMsgHtml( 'openstackmanager-reboot' );
-			$link = $sk->link( $this->getTitle(), $msg, array(),
+				$actions = Html::rawElement( 'li', array(), $link );
+				$msg = wfMsgHtml( 'openstackmanager-reboot' );
+				$link = $sk->link( $this->getTitle(), $msg, array(),
 								   array( 'action' => 'reboot',
 										'project' => $project,
 										'instanceid' => $instance->getInstanceId() ) );
-			$actions .= Html::rawElement( 'li', array(), $link );
-			$msg = wfMsgHtml( 'openstackmanager-configure' );
-			$link = $sk->link( $this->getTitle(), $msg, array(),
+				$actions .= Html::rawElement( 'li', array(), $link );
+				$msg = wfMsgHtml( 'openstackmanager-configure' );
+				$link = $sk->link( $this->getTitle(), $msg, array(),
 								   array( 'action' => 'configure',
 										'project' => $project,
 										'instanceid' => $instance->getInstanceId() ) );
-			$actions .= Html::rawElement( 'li', array(), $link );
-			$msg = wfMsgHtml( 'openstackmanager-getconsoleoutput' );
-			$link = $sk->link( $this->getTitle(), $msg, array(),
+				$actions .= Html::rawElement( 'li', array(), $link );
+				$msg = wfMsgHtml( 'openstackmanager-getconsoleoutput' );
+				$link = $sk->link( $this->getTitle(), $msg, array(),
 								   array( 'action' => 'consoleoutput',
 										'project' => $project,
 										'instanceid' => $instance->getInstanceId() ) );
-			$actions .= Html::rawElement( 'li', array(), $link );
-			$actions = Html::rawElement( 'ul', array(), $actions );
-			$instanceOut .= Html::rawElement( 'td', array(), $actions );
+				$actions .= Html::rawElement( 'li', array(), $link );
+				$actions = Html::rawElement( 'ul', array(), $actions );
+				$instanceOut .= Html::rawElement( 'td', array(), $actions );
+			}
 			if ( isset( $projectArr["$project"] ) ) {
 				$projectArr["$project"] .= Html::rawElement( 'tr', array(), $instanceOut );
 			} else {
@@ -534,13 +536,13 @@ class SpecialNovaInstance extends SpecialNova {
 		}
 		foreach ( $userProjects as $project ) {
 			$out .= Html::element( 'h2', array(), $project );
-			$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-createinstance' ), array(),
-							   array( 'action' => 'create', 'project' => $project ) );
+			if ( $this->userLDAP->inRole( 'sysadmin', $project ) ) {
+				$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-createinstance' ), array(), array( 'action' => 'create', 'project' => $project ) );
+			}
 			if ( isset( $projectArr["$project"] ) ) {
 				$projectOut = $header;
 				$projectOut .= $projectArr["$project"];
-				$out .= Html::rawElement( 'table',
-										  array( 'id' => 'novainstancelist', 'class' => 'wikitable sortable collapsible' ), $projectOut );
+				$out .= Html::rawElement( 'table', array( 'id' => 'novainstancelist', 'class' => 'wikitable sortable collapsible' ), $projectOut );
 			}
 		}
 
