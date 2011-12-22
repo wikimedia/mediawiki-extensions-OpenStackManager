@@ -27,7 +27,7 @@
  *
  * Visit <a href="http://aws.amazon.com/ec2/">http://aws.amazon.com/ec2/</a> for more information.
  *
- * @version Wed Aug 03 10:10:05 PDT 2011
+ * @version 2011.12.06
  * @license See the included NOTICE.md file for complete information.
  * @copyright See the included NOTICE.md file for complete information.
  * @link http://aws.amazon.com/ec2/Amazon Elastic Compute Cloud
@@ -40,34 +40,44 @@ class AmazonEC2 extends CFRuntime
 	// CLASS CONSTANTS
 
 	/**
-	 * Specify the default queue URL.
+	 * Specify the queue URL for the United States East (Northern Virginia) Region.
 	 */
-	const DEFAULT_URL = 'ec2.amazonaws.com';
+	const REGION_US_E1 = 'ec2.us-east-1.amazonaws.com';
 
 	/**
-	 * Specify the queue URL for the US-East (Northern Virginia) Region.
+	 * Specify the queue URL for the United States West (Northern California) Region.
 	 */
-	const REGION_US_E1 = 'us-east-1';
+	const REGION_US_W1 = 'ec2.us-west-1.amazonaws.com';
 
 	/**
-	 * Specify the queue URL for the US-West (Northern California) Region.
+	 * Specify the queue URL for the United States West (Oregon) Region.
 	 */
-	const REGION_US_W1 = 'us-west-1';
+	const REGION_US_W2 = 'ec2.us-west-2.amazonaws.com';
 
 	/**
-	 * Specify the queue URL for the EU (Ireland) Region.
+	 * Specify the queue URL for the Europe West (Ireland) Region.
 	 */
-	const REGION_EU_W1 = 'eu-west-1';
+	const REGION_EU_W1 = 'ec2.eu-west-1.amazonaws.com';
 
 	/**
-	 * Specify the queue URL for the Asia Pacific (Singapore) Region.
+	 * Specify the queue URL for the Asia Pacific Southeast (Singapore) Region.
 	 */
-	const REGION_APAC_SE1 = 'ap-southeast-1';
+	const REGION_APAC_SE1 = 'ec2.ap-southeast-1.amazonaws.com';
 
 	/**
-	 * Specify the queue URL for the Asia Pacific (Japan) Region.
+	 * Specify the queue URL for the Asia Pacific Northeast (Tokyo) Region.
 	 */
-	const REGION_APAC_NE1 = 'ap-northeast-1';
+	const REGION_APAC_NE1 = 'ec2.ap-northeast-1.amazonaws.com';
+
+	/**
+	 * Specify the queue URL for the United States GovCloud Region.
+	 */
+	const REGION_US_GOV1 = 'ec2.us-gov-west-1.amazonaws.com';
+
+	/**
+	 * Default service endpoint.
+	 */
+	const DEFAULT_URL = self::REGION_US_E1;
 
 	/**
 	 * The "pending" state code of an EC2 instance. Useful for conditionals.
@@ -111,7 +121,7 @@ class AmazonEC2 extends CFRuntime
 	 */
 	public function set_region($region)
 	{
-		$this->set_hostname('http://ec2.'. $region .'.amazonaws.com');
+		$this->set_hostname($region);
 		return $this;
 	}
 
@@ -131,7 +141,7 @@ class AmazonEC2 extends CFRuntime
 	 */
 	public function __construct($key = null, $secret_key = null, $token = null)
 	{
-		$this->api_version = '2011-02-28';
+		$this->api_version = '2011-07-15';
 		$this->hostname = self::DEFAULT_URL;
 
 		if (!$key && !defined('AWS_KEY'))

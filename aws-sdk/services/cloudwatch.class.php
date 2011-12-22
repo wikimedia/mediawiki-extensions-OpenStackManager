@@ -47,7 +47,7 @@
  *
  * </ul>
  *
- * @version Wed Aug 03 10:09:00 PDT 2011
+ * @version Thu Sep 01 21:18:18 PDT 2011
  * @license See the included NOTICE.md file for complete information.
  * @copyright See the included NOTICE.md file for complete information.
  * @link http://aws.amazon.com/cloudwatch/Amazon CloudWatch
@@ -60,34 +60,44 @@ class AmazonCloudWatch extends CFRuntime
 	// CLASS CONSTANTS
 
 	/**
-	 * Specify the default queue URL.
+	 * Specify the queue URL for the United States East (Northern Virginia) Region.
 	 */
-	const DEFAULT_URL = 'monitoring.amazonaws.com';
+	const REGION_US_E1 = 'monitoring.us-east-1.amazonaws.com';
 
 	/**
-	 * Specify the queue URL for the US-East (Northern Virginia) Region.
+	 * Specify the queue URL for the United States West (Northern California) Region.
 	 */
-	const REGION_US_E1 = 'us-east-1';
+	const REGION_US_W1 = 'monitoring.us-west-1.amazonaws.com';
 
 	/**
-	 * Specify the queue URL for the US-West (Northern California) Region.
+	 * Specify the queue URL for the United States West (Oregon) Region.
 	 */
-	const REGION_US_W1 = 'us-west-1';
+	const REGION_US_W2 = 'monitoring.us-west-2.amazonaws.com';
 
 	/**
-	 * Specify the queue URL for the EU (Ireland) Region.
+	 * Specify the queue URL for the Europe West (Ireland) Region.
 	 */
-	const REGION_EU_W1 = 'eu-west-1';
+	const REGION_EU_W1 = 'monitoring.eu-west-1.amazonaws.com';
 
 	/**
-	 * Specify the queue URL for the Asia Pacific (Singapore) Region.
+	 * Specify the queue URL for the Asia Pacific Southeast (Singapore) Region.
 	 */
-	const REGION_APAC_SE1 = 'ap-southeast-1';
+	const REGION_APAC_SE1 = 'monitoring.ap-southeast-1.amazonaws.com';
 
 	/**
-	 * Specify the queue URL for the Asia Pacific (Japan) Region.
+	 * Specify the queue URL for the Asia Pacific Northeast (Tokyo) Region.
 	 */
-	const REGION_APAC_NE1 = 'ap-northeast-1';
+	const REGION_APAC_NE1 = 'monitoring.ap-northeast-1.amazonaws.com';
+
+	/**
+	 * Specify the queue URL for the United States GovCloud Region.
+	 */
+	const REGION_US_GOV1 = 'monitoring.us-gov-west-1.amazonaws.com';
+
+	/**
+	 * Default service endpoint.
+	 */
+	const DEFAULT_URL = self::REGION_US_E1;
 
 
 	/*%******************************************************************************************%*/
