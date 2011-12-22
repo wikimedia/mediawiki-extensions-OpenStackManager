@@ -198,16 +198,21 @@ class SpecialNovaInstance extends SpecialNova {
 
 		$securityGroups = $this->adminNova->getSecurityGroups();
 		$group_keys = array();
+		$defaults = array();
 		foreach ( $securityGroups as $securityGroup ) {
 			if ( $securityGroup->getOwner() == $project ) {
 				$securityGroupName = $securityGroup->getGroupName();
 				$group_keys["$securityGroupName"] = $securityGroupName;
+				if ( $securityGroupName == "default" ) {
+					$defaults["default"] = "default";
+				}
 			}
 		}
 		$instanceInfo['groups'] = array(
 			'type' => 'multiselect',
 			'section' => 'instance/info',
 			'options' => $group_keys,
+			'default' => $defaults,
 			'label-message' => 'openstackmanager-securitygroups',
 			'name' => 'groups',
 		);
