@@ -155,11 +155,14 @@ class SpecialNovaInstance extends SpecialNova {
 			}
 			$image_keys["$imageLabel"] = $image->getImageId();
 		}
+		if ( isset( $image_keys["$default"] ) ) {
+			$default = $image_keys["$default"];
+		}
 		$instanceInfo['imageType'] = array(
 			'type' => 'select',
 			'section' => 'instance/info',
 			'options' => $image_keys,
-			'default' => $image_keys["$default"],
+			'default' => $default,
 			'label-message' => 'openstackmanager-imagetype',
 			'name' => 'imageType',
 		);
@@ -216,30 +219,7 @@ class SpecialNovaInstance extends SpecialNova {
 		);
 
 		if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
-			if ( $wgOpenStackManagerPuppetOptions['availableclasses'] ) {
-				$classes = array();
-				foreach ( $wgOpenStackManagerPuppetOptions['availableclasses'] as $class ) {
-					$classes["$class"] = $class;
-				}
-				$instanceInfo['puppetclasses'] = array(
-					'type' => 'multiselect',
-					'section' => 'instance/puppetinfo',
-					'options' => $classes,
-					'label-message' => 'openstackmanager-puppetclasses',
-					'name' => 'puppetclasses',
-				);
-			}
-
-			if ( $wgOpenStackManagerPuppetOptions['availablevariables'] ) {
-				foreach ( $wgOpenStackManagerPuppetOptions['availablevariables'] as $variable ) {
-					$instanceInfo["$variable"] = array(
-						'type' => 'text',
-						'section' => 'instance/puppetinfo',
-						'label' => $variable,
-						'name' => "$variable",
-					);
-				}
-			}
+			$this->setPuppetInfo( $instanceInfo );
 		}
 
 		$instanceInfo['action'] = array(
@@ -293,40 +273,7 @@ class SpecialNovaInstance extends SpecialNova {
 			}
 			$puppetinfo = $host->getPuppetConfiguration();
 
-			if ( $wgOpenStackManagerPuppetOptions['availableclasses'] ) {
-				$classes = array();
-				$defaults = array();
-				foreach ( $wgOpenStackManagerPuppetOptions['availableclasses'] as $class ) {
-					$classes["$class"] = $class;
-					if ( in_array( $class, $puppetinfo['puppetclass'] ) ) {
-						$defaults["$class"] = $class;
-					}
-				}
-				$instanceInfo['puppetclasses'] = array(
-					'type' => 'multiselect',
-					'section' => 'instance/puppetinfo',
-					'options' => $classes,
-					'default' => $defaults,
-					'label-message' => 'openstackmanager-puppetclasses',
-					'name' => 'puppetclasses',
-				);
-			}
-
-			if ( $wgOpenStackManagerPuppetOptions['availablevariables'] ) {
-				foreach ( $wgOpenStackManagerPuppetOptions['availablevariables'] as $variable ) {
-					$default = '';
-					if ( array_key_exists( $variable, $puppetinfo['puppetvar'] ) ) {
-						$default = $puppetinfo['puppetvar']["$variable"];
-					}
-					$instanceInfo["$variable"] = array(
-						'type' => 'text',
-						'section' => 'instance/puppetinfo',
-						'label' => $variable,
-						'default' => $default,
-						'name' => "$variable",
-					);
-				}
-			}
+			$this->setPuppetInfo( $instanceInfo, $puppetinfo );
 		}
 
 		$instanceInfo['action'] = array(
@@ -342,6 +289,48 @@ class SpecialNovaInstance extends SpecialNova {
 		$instanceForm->show();
 
 		return true;
+	}
+
+	function setPuppetInfo( &$instanceInfo, $puppetinfo=array() ) {
+		$puppetGroups = OpenStackNovaPuppetGroup::getGroupList();
+		foreach ( $puppetGroups as $puppetGroup ) {
+			$classes = array();
+			$defaults = array();
+			$puppetgroupname = $puppetGroup->getName();
+			foreach ( $puppetGroup->getClasses() as $class ) {
+				$classname = $class["name"];
+				$classes["$classname"] = $classname;
+				if ( $puppetinfo && in_array( $classname, $puppetinfo['puppetclass'] ) ) {
+					$defaults["$classname"] = $classname;
+				}
+			}
+			$instanceInfo["${puppetgroupname}"] = array(
+				'type' => 'info',
+				'section' => "instance/puppetinfo",
+				'label' => Html::element( 'h3', array(), "$puppetgroupname:" ),
+			);
+			$instanceInfo["${puppetgroupname}-puppetclasses"] = array(
+				'type' => 'multiselect',
+				'section' => "instance/puppetinfo",
+				'options' => $classes,
+				'default' => $defaults,
+				'name' => "${puppetgroupname}-puppetclasses",
+			);
+			foreach ( $puppetGroup->getVars() as $variable ) {
+				$variablename = $variable["name"];
+				$default = '';
+				if ( $puppetinfo && array_key_exists( $variablename, $puppetinfo['puppetvar'] ) ) {
+					$default = $puppetinfo['puppetvar']["$variablename"];
+				}
+				$instanceInfo["${puppetgroupname}-${variablename}"] = array(
+					'type' => 'text',
+					'section' => "instance/puppetinfo",
+					'label' => $variablename,
+					'default' => $default,
+					'name' => "${puppetgroupname}-${variablename}",
+				);
+			}
+		}
 	}
 
 	/**
@@ -569,20 +558,7 @@ class SpecialNovaInstance extends SpecialNova {
 		}
 		$instance = $this->userNova->createInstance( $formData['instancename'], $formData['imageType'], '', $formData['instanceType'], $formData['availabilityZone'], $formData['groups'] );
 		if ( $instance ) {
-			$puppetinfo = array();
-			if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
-				foreach ( $formData['puppetclasses'] as $class ) {
-					if ( in_array( $class, $wgOpenStackManagerPuppetOptions['availableclasses'] ) ) {
-						$puppetinfo['classes'][] = $class;
-					}
-				}
-				foreach ( $wgOpenStackManagerPuppetOptions['availablevariables'] as $variable ) {
-					if ( isset ( $formData["$variable"] ) ) {
-						$puppetinfo['variables']["$variable"] = $formData["$variable"];
-					}
-				}
-			}
-			$host = OpenStackNovaHost::addHost( $instance, $domain, $puppetinfo );
+			$host = OpenStackNovaHost::addHost( $instance, $domain, $this->getPuppetInfo( $formData ) );
 
 			if ( $host ) {
 				$title = Title::newFromText( $wgOut->getPageTitle() );
@@ -674,20 +650,7 @@ class SpecialNovaInstance extends SpecialNova {
 		$instance = $this->adminNova->getInstance( $formData['instanceid'] );
 		$host = $instance->getHost();
 		if ( $host ) {
-			$puppetinfo = array();
-			if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
-				foreach ( $formData['puppetclasses'] as $class ) {
-					if ( in_array( $class, $wgOpenStackManagerPuppetOptions['availableclasses'] ) ) {
-						$puppetinfo['classes'][] = $class;
-					}
-				}
-				foreach ( $wgOpenStackManagerPuppetOptions['availablevariables'] as $variable ) {
-					if ( isset ( $formData["$variable"] ) ) {
-						$puppetinfo['variables']["$variable"] = $formData["$variable"];
-					}
-				}
-			}
-			$success = $host->modifyPuppetConfiguration( $puppetinfo );
+			$success = $host->modifyPuppetConfiguration( $this->getPuppetInfo( $formData ) );
 			if ( $success ) {
 				$instance->editArticle();
 				$wgOut->addWikiMsg( 'openstackmanager-modifiedinstance' );
@@ -703,6 +666,30 @@ class SpecialNovaInstance extends SpecialNova {
 
 		$wgOut->addHTML( $out );
 		return true;
+	}
+
+	function getPuppetInfo( $formData ) {
+		global $wgOpenStackManagerPuppetOptions;
+
+		$puppetinfo = array();
+		if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
+			$puppetGroups = OpenStackNovaPuppetGroup::getGroupList();
+			foreach ( $puppetGroups as $puppetGroup ) {
+				$puppetgroupname = $puppetGroup->getName();
+				foreach ( $puppetGroup->getClasses() as $class ) {
+					if ( in_array( $class["name"], $formData["$puppetgroupname-puppetclasses"] ) ) {
+						$puppetinfo['classes'][] = $class["name"];
+					}
+				}
+				foreach ( $puppetGroup->getVars() as $variable ) {
+					$variablename = $variable["name"];
+					if ( isset ( $formData["$puppetgroupname-$variablename"] ) && trim( $formData["$puppetgroupname-$variablename"] ) ) {
+						$puppetinfo['variables']["$variablename"] = $formData["$puppetgroupname-$variablename"];
+					}
+				}
+			}
+		}
+		return $puppetinfo;
 	}
 }
 

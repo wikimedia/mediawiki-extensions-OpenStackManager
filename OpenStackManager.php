@@ -101,6 +101,8 @@ $wgAutoloadClasses['OpenStackNovaRole'] = $dir . 'OpenStackNovaRole.php';
 $wgAutoloadClasses['OpenStackNovaVolume'] = $dir . 'OpenStackNovaVolume.php';
 $wgAutoloadClasses['OpenStackNovaSudoer'] = $dir . 'OpenStackNovaSudoer.php';
 $wgAutoloadClasses['OpenStackNovaArticle'] = $dir . 'OpenStackNovaArticle.php';
+$wgAutoloadClasses['OpenStackNovaHostJob'] = $dir . 'OpenStackNovaHostJob.php';
+$wgAutoloadClasses['OpenStackNovaPuppetGroup'] = $dir . 'OpenStackNovaPuppetGroup.php';
 $wgAutoloadClasses['SpecialNovaInstance'] = $dir . 'special/SpecialNovaInstance.php';
 $wgAutoloadClasses['SpecialNovaKey'] = $dir . 'special/SpecialNovaKey.php';
 $wgAutoloadClasses['SpecialNovaProject'] = $dir . 'special/SpecialNovaProject.php';
@@ -110,8 +112,8 @@ $wgAutoloadClasses['SpecialNovaSecurityGroup'] = $dir . 'special/SpecialNovaSecu
 $wgAutoloadClasses['SpecialNovaRole'] = $dir . 'special/SpecialNovaRole.php';
 $wgAutoloadClasses['SpecialNovaVolume'] = $dir . 'special/SpecialNovaVolume.php';
 $wgAutoloadClasses['SpecialNovaSudoer'] = $dir . 'special/SpecialNovaSudoer.php';
+$wgAutoloadClasses['SpecialNovaPuppetGroup'] = $dir . 'special/SpecialNovaPuppetGroup.php';
 $wgAutoloadClasses['SpecialNova'] = $dir . 'special/SpecialNova.php';
-$wgAutoloadClasses['OpenStackNovaHostJob'] = $dir . 'OpenStackNovaHostJob.php';
 $wgAutoloadClasses['AmazonEC2'] = $dir . 'aws-sdk/sdk.class.php';
 $wgAutoloadClasses['Spyc'] = $dir . 'Spyc.php';
 $wgSpecialPages['NovaInstance'] = 'SpecialNovaInstance';
@@ -133,6 +135,8 @@ $wgSpecialPageGroups['NovaVolume'] = 'nova';
 $wgSpecialPages['NovaSudoer'] = 'SpecialNovaSudoer';
 $wgSpecialPageGroups['NovaSudoer'] = 'nova';
 $wgJobClasses['addDNSHostToLDAP'] = 'OpenStackNovaHostJob';
+$wgSpecialPageGroups['NovaPuppetGroup'] = 'nova';
+$wgSpecialPages['NovaPuppetGroup'] = 'SpecialNovaPuppetGroup';
 
 $wgHooks['LDAPSetCreationValues'][] = 'OpenStackNovaUser::LDAPSetCreationValues';
 $wgHooks['LDAPModifyUITemplate'][] = 'OpenStackNovaUser::LDAPModifyUITemplate';
@@ -148,3 +152,22 @@ $wgResourceModules['ext.openstack'] = array(
 ) + $commonModuleInfo;
 
 require_once( $dir . 'OpenStackNovaProject.php' );
+
+# Schema changes
+$wgHooks['LoadExtensionSchemaUpdates'][] = 'efOpenStackSchemaUpdates';
+
+/**
+ * @param $updater DatabaseUpdater
+ * @return bool
+ */
+function efOpenStackSchemaUpdates( $updater ) {
+	$base = dirname( __FILE__ );
+	switch ( $updater->getDB()->getType() ) {
+	case 'mysql':
+		$updater->addExtensionTable( 'openstack_puppet_groups', "$base/openstack.sql" );
+		$updater->addExtensionTable( 'openstack_puppet_vars', "$base/openstack.sql" );
+		$updater->addExtensionTable( 'openstack_puppet_classes', "$base/openstack.sql" );
+		break;
+	}
+	return true;
+}
