@@ -507,7 +507,7 @@ class OpenStackNovaController {
 	 * @return
 	 */
 	function releaseAddress( $ip ) {
-		$response = $this->novaConnection->release_address( $ip );
+		$response = $this->novaConnection->release_address( array( 'PublicIp' => $ip ) );
 
 		return $response->isOK();
 	}
