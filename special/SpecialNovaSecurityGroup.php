@@ -356,24 +356,28 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		$securityGroupInfo['project'] = array(
 			'type' => 'hidden',
 			'default' => $project,
+			'section' => 'rule/singlerule',
 			'name' => 'project',
 		);
 		$securityGroupInfo['fromport'] = array(
 			'type' => 'text',
 			'label-message' => 'openstackmanager-securitygrouprule-fromport',
 			'default' => '',
+			'section' => 'rule/singlerule',
 			'name' => 'fromport',
 		);
 		$securityGroupInfo['toport'] = array(
 			'type' => 'text',
 			'label-message' => 'openstackmanager-securitygrouprule-toport',
 			'default' => '',
+			'section' => 'rule/singlerule',
 			'name' => 'toport',
 		);
 		$securityGroupInfo['protocol'] = array(
 			'type' => 'select',
 			'label-message' => 'openstackmanager-securitygrouprule-protocol',
 			'options' => array( '' => '', 'icmp' => 'icmp', 'tcp' => 'tcp', 'udp' => 'udp' ),
+			'section' => 'rule/singlerule',
 			'name' => 'protocol',
 		);
 		$securityGroupInfo['ranges'] = array(
@@ -381,13 +385,20 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 			'label-message' => 'openstackmanager-securitygrouprule-ranges',
 			'help-message' => 'openstackmanager-securitygrouprule-ranges-help',
 			'default' => '',
+			'section' => 'rule/singlerule',
 			'name' => 'ranges',
+		);
+		$securityGroupInfo['info'] = array(
+			'type' => 'info',
+			'default' => wfMsg( 'openstackmanager-securitygrouprule-group-exclusive' ),
+			'section' => 'rule/group',
 		);
 		$securityGroupInfo['groups'] = array(
 			'type' => 'multiselect',
 			'label-message' => 'openstackmanager-securitygrouprule-groups',
 			'help-message' => 'openstackmanager-securitygrouprule-groups-help',
 			'options' => $group_keys,
+			'section' => 'rule/group',
 			'name' => 'groups',
 		);
 		$securityGroupInfo['action'] = array(

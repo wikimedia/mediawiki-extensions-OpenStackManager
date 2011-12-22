@@ -380,7 +380,7 @@ class OpenStackNovaController {
 	 * @return
 	 */
 	function deleteSecurityGroup( $groupname ) {
-		$response = $this->novaConnection->delete_security_group( array( 'GroupName' => $groupname ) );
+		$response = $this->novaConnection->delete_security_group( $groupname );
 
 		return $response->isOK();
 	}
@@ -507,7 +507,7 @@ class OpenStackNovaController {
 	 * @return
 	 */
 	function releaseAddress( $ip ) {
-		$response = $this->novaConnection->release_address( array( 'PublicIp' => $ip ) );
+		$response = $this->novaConnection->release_address( $ip );
 
 		return $response->isOK();
 	}
