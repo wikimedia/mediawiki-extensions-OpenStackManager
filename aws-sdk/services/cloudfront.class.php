@@ -36,7 +36,7 @@ class CloudFront_Exception extends Exception {}
  * seamlessly with the Amazon Simple Storage Service, which durably stores the original, definitive versions
  * of your files.
  *
- * @version 2011.11.16
+ * @version 2011.03.11
  * @license See the included NOTICE.md file for more information.
  * @copyright See the included NOTICE.md file for more information.
  * @link http://aws.amazon.com/cloudfront/ Amazon CloudFront
@@ -84,38 +84,42 @@ class AmazonCloudFront extends CFRuntime
 	// CONSTRUCTOR
 
 	/**
-	 * Constructs a new instance of <AmazonCloudFront>.
+	 * Constructs a new instance of this class.
 	 *
-	 * @param array $options (Optional) An associative array of parameters that can have the following keys: <ul>
-	 * 	<li><code>certificate_authority</code> - <code>boolean</code> - Optional - Determines which Cerificate Authority file to use. A value of boolean <code>false</code> will use the Certificate Authority file available on the system. A value of boolean <code>true</code> will use the Certificate Authority provided by the SDK. Passing a file system path to a Certificate Authority file (chmodded to <code>0755</code>) will use that. Leave this set to <code>false</code> if you're not sure.</li>
-	 * 	<li><code>credentials</code> - <code>string</code> - Optional - The name of the credential set to use for authentication.</li>
-	 * 	<li><code>default_cache_config</code> - <code>string</code> - Optional - This option allows a preferred storage type to be configured for long-term caching. This can be changed later using the <set_cache_config()> method. Valid values are: <code>apc</code>, <code>xcache</code>, or a file system path such as <code>./cache</code> or <code>/tmp/cache/</code>.</li>
-	 * 	<li><code>key</code> - <code>string</code> - Optional - Your AWS key, or a session key. If blank, the default credential set will be used.</li>
-	 * 	<li><code>secret</code> - <code>string</code> - Optional - Your AWS secret key, or a session secret key. If blank, the default credential set will be used.</li>
-	 * 	<li><code>token</code> - <code>string</code> - Optional - An AWS session token.</li></ul>
-	 * @return void
+	 * @param string $key (Optional) Your Amazon API Key. If blank, it will look for the <AWS_KEY> constant.
+	 * @param string $secret_key (Optional) Your Amazon API Secret Key. If blank, it will look for the <AWS_SECRET_KEY> constant.
+	 * @return boolean A value of <code>false</code> if no valid values are set, otherwise <code>true</code>.
 	 */
-	public function __construct(array $options = array())
+	public function __construct($key = null, $secret_key = null)
 	{
 		$this->api_version = '2010-11-01';
 		$this->hostname = self::DEFAULT_URL;
-		$this->auth_class = 'AuthV2REST';
 
 		$this->base_xml = '<?xml version="1.0" encoding="UTF-8"?><%s xmlns="http://cloudfront.amazonaws.com/doc/' . $this->api_version . '/"></%1$s>';
 
-		// Set a default key pair ID and private key
-		if (isset($options['credentials']))
+		if (!$key && !defined('AWS_KEY'))
 		{
-			$this->key_pair_id = CFCredentials::get($options['credentials'])->cloudfront_keypair;
-			$this->private_key = CFCredentials::get($options['credentials'])->cloudfront_pem;
-		}
-		else
-		{
-			$this->key_pair_id = CFCredentials::get()->cloudfront_keypair;
-			$this->private_key = CFCredentials::get()->cloudfront_pem;
+			throw new CloudFront_Exception('No account key was passed into the constructor, nor was it set in the AWS_KEY constant.');
 		}
 
-		return parent::__construct($options);
+		if (!$secret_key && !defined('AWS_SECRET_KEY'))
+		{
+			throw new CloudFront_Exception('No account secret was passed into the constructor, nor was it set in the AWS_SECRET_KEY constant.');
+		}
+
+		// Set a default key pair ID
+		if (defined('AWS_CLOUDFRONT_KEYPAIR_ID'))
+		{
+			$this->key_pair_id = AWS_CLOUDFRONT_KEYPAIR_ID;
+		}
+
+		// Set a default private key
+		if (defined('AWS_CLOUDFRONT_PRIVATE_KEY_PEM'))
+		{
+			$this->private_key = AWS_CLOUDFRONT_PRIVATE_KEY_PEM;
+		}
+
+		return parent::__construct($key, $secret_key);
 	}
 
 
@@ -187,7 +191,7 @@ class AmazonCloudFront extends CFRuntime
 		$request_url .= ($querystring) ? $querystring : '';
 
 		// Compose the request.
-		$request = new $this->request_class($request_url, $this->proxy, $helpers, $this->credentials);
+		$request = new $this->request_class($request_url, $this->proxy, $helpers);
 
 		// Update RequestCore settings
 		$request->request_class = $this->request_class;
@@ -541,11 +545,11 @@ class AmazonCloudFront extends CFRuntime
 			// origin access identity
 			if (isset($opt['OriginAccessIdentity']))
 			{
-				$origin->addChild('OriginAccessIdentity', 'origin-access-identity/cloudfront/' . $opt['OriginAccessIdentity']);
+				$update->addChild('OriginAccessIdentity', 'origin-access-identity/cloudfront/' . $opt['OriginAccessIdentity']);
 			}
-			elseif (isset($xml->S3Origin->OriginAccessIdentity))
+			elseif (isset($xml->OriginAccessIdentity))
 			{
-				$origin->addChild('OriginAccessIdentity', $xml->OriginAccessIdentity);
+				$update->addChild('OriginAccessIdentity', $xml->OriginAccessIdentity);
 			}
 		}
 		elseif (isset($xml->CustomOrigin))

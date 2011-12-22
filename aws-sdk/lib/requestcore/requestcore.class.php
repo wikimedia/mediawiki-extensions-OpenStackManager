@@ -677,7 +677,7 @@ class RequestCore
 		// Handle the encoding if we can.
 		if (extension_loaded('zlib'))
 		{
-			curl_setopt($curl_handle, CURLOPT_ENCODING, 'gzip, deflate');
+			curl_setopt($curl_handle, CURLOPT_ENCODING, '');
 		}
 
 		// Process custom headers

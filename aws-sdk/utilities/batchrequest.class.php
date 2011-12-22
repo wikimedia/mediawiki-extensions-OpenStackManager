@@ -32,7 +32,7 @@ class CFBatchRequest_Exception extends Exception {}
  * ability to queue up a series of requests and execute them all in parallel. This allows for faster
  * application performance when a lot of requests are involved.
  *
- * @version 2011.12.02
+ * @version 2010.08.09
  * @license See the included NOTICE.md file for more information.
  * @copyright See the included NOTICE.md file for more information.
  * @link http://aws.amazon.com/php/ PHP Developer Center
@@ -49,21 +49,6 @@ class CFBatchRequest extends CFRuntime
 	 */
 	public $limit;
 
-	/**
-	 * The proxy to use for connecting.
-	 */
-	public $proxy = null;
-
-	/**
-	 * The helpers to use when connecting.
-	 */
-	public $helpers = null;
-
-	/**
-	 * The active credential set.
-	 */
-	public $credentials;
-
 
 	/*%******************************************************************************************%*/
 	// CONSTRUCTOR
@@ -78,19 +63,6 @@ class CFBatchRequest extends CFRuntime
 	{
 		$this->queue = array();
 		$this->limit = $limit ? $limit : -1;
-		$this->credentials = new CFCredential(array());
-		return $this;
-	}
-
-	/**
-	 * Sets the AWS credentials to use for the batch request.
-	 *
-	 * @param CFCredential $credentials (Required) The credentials to use for signing and making requests.
-	 * @return $this A reference to the current instance.
-	 */
-	public function use_credentials(CFCredential $credentials)
-	{
-		$this->credentials = $credentials;
 		return $this;
 	}
 
@@ -114,7 +86,7 @@ class CFBatchRequest extends CFRuntime
 	 */
 	public function send($opt = null)
 	{
-		$http = new $this->request_class(null, $this->proxy, null, $this->credentials);
+		$http = new $this->request_class();
 
 		// Make the request
 		$response = $http->send_multi_request($this->queue, array(
