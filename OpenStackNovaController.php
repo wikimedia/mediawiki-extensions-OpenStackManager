@@ -495,7 +495,7 @@ class OpenStackNovaController {
 		if ( ! $response->isOK() ) {
 			return null;
 		} else {
-			$address = new OpenStackNovaAddress( $response->body->addressSet->item );
+			$address = new OpenStackNovaAddress( $response->body );
 			$ip = $address->getPublicIP();
 			$this->addresses["$ip"] = $address;
 			return $address;
