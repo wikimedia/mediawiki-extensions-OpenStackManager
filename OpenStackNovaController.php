@@ -380,7 +380,7 @@ class OpenStackNovaController {
 	 * @return
 	 */
 	function deleteSecurityGroup( $groupname ) {
-		$response = $this->novaConnection->delete_security_group( $groupname );
+		$response = $this->novaConnection->delete_security_group( array( 'GroupName' => $groupname ) );
 
 		return $response->isOK();
 	}
