@@ -100,6 +100,7 @@ $messages['en'] = array(
 
 	'openstackmanager-launchtime' => 'Launch time',
 	'openstackmanager-createinstance' => 'Create a new instance',
+	'openstackmanager-createinstancepuppetwarning' => 'Warning: Adding puppet configuration on instance creation can cause the instance to fail to build. Use this configuration with caution. You will have an opportunity to configure the instance after it is finished building.',
 	'openstackmanager-invaliddomain' => 'Requested domain is invalid.',
 	'openstackmanager-createdinstance' => 'Created instance $1 with image $2 and hostname $3.',
 	'openstackmanager-createfailedldap' => 'Failed to create instance as the host could not be added to LDAP.',

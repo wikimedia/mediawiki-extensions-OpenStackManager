@@ -297,6 +297,13 @@ class SpecialNovaInstance extends SpecialNova {
 	}
 
 	function setPuppetInfo( &$instanceInfo, $puppetinfo=array() ) {
+		if ( !$puppetinfo ) {
+			$instanceInfo["warning"] = array(
+				'type' => 'info',
+				'section' => "instance/puppetinfo",
+				'default' => wfMsg( 'openstackmanager-createinstancepuppetwarning' ),
+			);
+		}
 		$puppetGroups = OpenStackNovaPuppetGroup::getGroupList();
 		foreach ( $puppetGroups as $puppetGroup ) {
 			$classes = array();
