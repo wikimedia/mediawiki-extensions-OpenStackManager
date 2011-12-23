@@ -20,20 +20,8 @@ class OpenStackNovaRole {
 		} else {
 			$this->global = true;
 		}
-		$this->connect();
+		OpenStackNovaLdapConnection::connect();
 		$this->fetchRoleInfo();
-	}
-
-	/**
-	 * @return void
-	 */
-	function connect() {
-		global $wgAuth;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
-		global $wgOpenStackManagerLDAPDomain;
-
-		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
-		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 	}
 
 	/**
@@ -213,12 +201,9 @@ class OpenStackNovaRole {
 	 */
 	static function getAllGlobalRoles() {
 		global $wgAuth;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
-		global $wgOpenStackManagerLDAPDomain;
 		global $wgOpenStackManagerLDAPGlobalRoles;
 
-		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
-		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
+		OpenStackNovaLdapConnection::connect();
 
 		$roles = array();
 		foreach ( array_keys( $wgOpenStackManagerLDAPGlobalRoles ) as $rolename ) {
@@ -237,11 +222,8 @@ class OpenStackNovaRole {
 	 */
 	static function createRole( $rolename, $project ) {
 		global $wgAuth;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
-		global $wgOpenStackManagerLDAPDomain;
 
-		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
-		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
+		OpenStackNovaLdapConnection::connect();
 
 		$role = array();
 		$role['objectclass'][] = 'groupofnames';

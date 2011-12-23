@@ -11,7 +11,7 @@ class OpenStackNovaUser {
 	 */
 	function __construct( $username = '' ) {
 		$this->username = $username;
-		$this->connect();
+		OpenStackNovaLdapConnection::connect();
 		$this->fetchUserInfo();
 	}
 
@@ -103,8 +103,6 @@ class OpenStackNovaUser {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPProjectBaseDN;
 
-		$this->connect();
-
 		# All projects have a owner attribute, project
 		# roles do not
 		$projects = array();
@@ -145,8 +143,6 @@ class OpenStackNovaUser {
 	function inProject( $project ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPProjectBaseDN;
-
-		$this->connect();
 
 		$filter = "(&(cn=$project)(member=$this->userDN)(owner=*))";
 		wfSuppressWarnings();
@@ -254,22 +250,6 @@ class OpenStackNovaUser {
 		} else {
 			return false;
 		}
-	}
-
-
-	/**
-	 * @return void
-	 */
-	function connect() {
-		global $wgAuth;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
-		global $wgOpenStackManagerLDAPDomain;
-
-		if ( !$wgAuth instanceof LdapAuthenticationPlugin ) {
-			die( 'Install and configure the <a href="http://www.mediawiki.org/wiki/Extension:LDAP_Authentication">LDAP Authentication</a> extension' );
-		}
-		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
-		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 	}
 
 	/**
@@ -493,7 +473,7 @@ class OpenStackNovaUser {
 	 * @return bool
 	 */
 	static function LDAPSetNovaInfo( $auth ) {
-		OpenStackNovaUser::connect();
+		OpenStackNovaLdapConnection::connect();
 		$dn = $auth->userInfo[0]['dn'];
 		wfSuppressWarnings();
 		$result = ldap_read( $auth->ldapconn, $auth->userInfo[0]['dn'], '(objectclass=*)', array( 'secretkey', 'accesskey', 'objectclass' ) );

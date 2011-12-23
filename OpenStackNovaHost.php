@@ -29,22 +29,8 @@ class OpenStackNovaHost {
 	function __construct( $hostname, $domain ) {
 		$this->searchvalue = $hostname;
 		$this->domain = $domain;
-		$this->connect();
+		OpenStackNovaLdapConnection::connect();
 		$this->fetchHostInfo();
-	}
-
-	/**
-	 * Connect to LDAP as the open stack manager account using wgAuth
-	 *
-	 * @return void
-	 */
-	function connect() {
-		global $wgAuth;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
-		global $wgOpenStackManagerLDAPDomain;
-
-		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
-		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 	}
 
 	/**
@@ -501,11 +487,8 @@ class OpenStackNovaHost {
 	 */
 	static function getAllHosts( $domain ) {
 		global $wgAuth;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
-		global $wgOpenStackManagerLDAPDomain;
 
-		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
-		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
+		OpenStackNovaLdapConnection::connect();
 
 		$hosts = array();
 		wfSuppressWarnings();
@@ -537,11 +520,8 @@ class OpenStackNovaHost {
 	 */
 	static function deleteHost( $hostname, $domain ) {
 		global $wgAuth;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
-		global $wgOpenStackManagerLDAPDomain;
 
-		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
-		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
+		OpenStackNovaLdapConnection::connect();
 
 		$host = OpenStackNovaHost::getHostByName( $hostname, $domain );
 		if ( ! $host ) {
@@ -572,11 +552,8 @@ class OpenStackNovaHost {
 	 */
 	static function deleteHostByInstanceId( $instanceid ) {
 		global $wgAuth;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
-		global $wgOpenStackManagerLDAPDomain;
 
-		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
-		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
+		OpenStackNovaLdapConnection::connect();
 
 		$host = OpenStackNovaHost::getHostByInstanceId( $instanceid );
 		if ( ! $host ) {
@@ -614,12 +591,9 @@ class OpenStackNovaHost {
 	static function addHost( $instance, $domain, $puppetinfo = array() ) {
 		global $wgUser, $wgLang;
 		global $wgAuth;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPInstanceBaseDN, $wgOpenStackManagerPuppetOptions;
-		global $wgOpenStackManagerLDAPDomain;
 
-		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
-		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
+		OpenStackNovaLdapConnection::connect();
 
 		$hostname = $instance->getInstanceName();
 		$instanceid = $instance->getInstanceId();
@@ -699,12 +673,9 @@ class OpenStackNovaHost {
 	 */
 	static function addPublicHost( $hostname, $ip, $domain ) {
 		global $wgAuth;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
-		global $wgOpenStackManagerLDAPDomain;
 
-		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
-		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
+		OpenStackNovaLdapConnection::connect();
 
 		$domainname = $domain->getFullyQualifiedDomainName();
 		$host = OpenStackNovaHost::getHostByName( $hostname, $domain );

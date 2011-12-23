@@ -14,22 +14,8 @@ class OpenStackNovaProject {
 	 */
 	function __construct( $projectname ) {
 		$this->projectname = $projectname;
-		$this->connect();
+		OpenStackNovaLdapConnection::connect();
 		$this->fetchProjectInfo();
-	}
-
-	/**
-	 * Connect to LDAP as the open stack manager account using wgAuth
-	 *
-	 * @return void
-	 */
-	function connect() {
-		global $wgAuth;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
-		global $wgOpenStackManagerLDAPDomain;
-
-		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
-		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 	}
 
 	/**
@@ -207,12 +193,9 @@ class OpenStackNovaProject {
 	 */
 	static function getAllProjects() {
 		global $wgAuth;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPProjectBaseDN;
-		global $wgOpenStackManagerLDAPDomain;
 
-		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
-		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
+		OpenStackNovaLdapConnection::connect();
 
 		$projects = array();
 		wfSuppressWarnings();
@@ -245,12 +228,10 @@ class OpenStackNovaProject {
 	 */
 	static function createProject( $projectname ) {
 		global $wgAuth;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
+		global $wgOpenStackManagerLDAPUser;
 		global $wgOpenStackManagerLDAPProjectBaseDN;
-		global $wgOpenStackManagerLDAPDomain;
 
-		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
-		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
+		OpenStackNovaLdapConnection::connect();
 
 		$project = array();
 		$project['objectclass'][] = 'groupofnames';
@@ -289,11 +270,8 @@ class OpenStackNovaProject {
 	 */
 	static function deleteProject( $projectname ) {
 		global $wgAuth;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
-		global $wgOpenStackManagerLDAPDomain;
 
-		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
-		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
+		OpenStackNovaLdapConnection::connect();
 
 		$project = new OpenStackNovaProject( $projectname );
 		if ( ! $project ) {
@@ -338,12 +316,9 @@ class OpenStackNovaProject {
 	static function addNamespaces() {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPProjectBaseDN;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgExtraNamespaces;
-		global $wgOpenStackManagerLDAPDomain;
 
-		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
-		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
+		OpenStackNovaLdapConnection::connect();
 
 		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, 'owner=*' );
 		$entries = ldap_get_entries( $wgAuth->ldapconn, $result );

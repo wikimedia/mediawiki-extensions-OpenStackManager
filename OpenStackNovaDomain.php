@@ -12,22 +12,8 @@ class OpenStackNovaDomain {
 	 */
 	function __construct( $domainname ) {
 		$this->domainname = $domainname;
-		$this->connect();
+		OpenStackNovaLdapConnection::connect();
 		$this->fetchDomainInfo();
-	}
-
-	/**
-	 * Connect to LDAP as the open stack manager account using wgAuth
-	 *
-	 * @return void
-	 */
-	function connect() {
-		global $wgAuth;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
-		global $wgOpenStackManagerLDAPDomain;
-
-		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
-		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 	}
 
 	/**
@@ -124,12 +110,9 @@ class OpenStackNovaDomain {
 	 */
 	static function getAllDomains( $type='all' ) {
 		global $wgAuth;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
-		global $wgOpenStackManagerLDAPDomain;
 
-		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
-		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
+		OpenStackNovaLdapConnection::connect();
 
 		$domains = array();
 		if ( $type == 'local' ) {
@@ -186,12 +169,9 @@ class OpenStackNovaDomain {
 	 */
 	static function getDomainByHostIP( $ip ) {
 		global $wgAuth;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
-		global $wgOpenStackManagerLDAPDomain;
 
-		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
-		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
+		OpenStackNovaLdapConnection::connect();
 
 		wfSuppressWarnings();
 		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN,
@@ -222,12 +202,9 @@ class OpenStackNovaDomain {
 	 */
 	static function getDomainByInstanceId( $instanceid ) {
 		global $wgAuth;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
-		global $wgOpenStackManagerLDAPDomain;
 
-		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
-		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
+		OpenStackNovaLdapConnection::connect();
 
 		wfSuppressWarnings();
 		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN,
@@ -263,13 +240,10 @@ class OpenStackNovaDomain {
 	 */
 	static function createDomain( $domainname, $fqdn, $location ) {
 		global $wgAuth;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
 		global $wgOpenStackManagerDNSOptions;
-		global $wgOpenStackManagerLDAPDomain;
 
-		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
-		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
+		OpenStackNovaLdapConnection::connect();
 
 		$soa = OpenStackNovaDomain::generateSOA();
 		$domain = array();
@@ -306,11 +280,8 @@ class OpenStackNovaDomain {
 	 */
 	static function deleteDomain( $domainname ) {
 		global $wgAuth;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
-		global $wgOpenStackManagerLDAPDomain;
 
-		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
-		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
+		OpenStackNovaLdapConnection::connect();
 
 		$domain = new OpenStackNovaDomain( $domainname );
 		if ( ! $domain ) {

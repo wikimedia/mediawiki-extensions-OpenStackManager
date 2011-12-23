@@ -11,22 +11,8 @@ class OpenStackNovaSudoer {
 	 */
 	function __construct( $sudoername ) {
 		$this->sudoername = $sudoername;
-		$this->connect();
+		OpenStackNovaLdapConnection::connect();
 		$this->fetchSudoerInfo();
-	}
-
-	/**
-	 * Connect to LDAP as the open stack manager account using wgAuth
-	 *
-	 * @return void
-	 */
-	function connect() {
-		global $wgAuth;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
-		global $wgOpenStackManagerLDAPDomain;
-
-		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
-		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 	}
 
 	/**
@@ -140,9 +126,6 @@ class OpenStackNovaSudoer {
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPDomain;
 
-		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
-		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
-
 		$sudoer = array();
 		foreach ( $users as $user ) {
 			$sudoer['sudouser'][] = $user;
@@ -180,8 +163,7 @@ class OpenStackNovaSudoer {
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPSudoerBaseDN, $wgOpenStackManagerLDAPDomain;
 
-		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
-		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
+		OpenStackNovaLdapConnection::connect();
 
 		$sudoers = array();
 		wfSuppressWarnings();
@@ -238,8 +220,7 @@ class OpenStackNovaSudoer {
 		global $wgOpenStackManagerLDAPSudoerBaseDN;
 		global $wgOpenStackManagerLDAPDomain;
 
-		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
-		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
+		OpenStackNovaLdapConnection::connect();
 
 		$sudoer = array();
 		$sudoer['objectclass'][] = 'sudorole';
@@ -282,8 +263,7 @@ class OpenStackNovaSudoer {
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPDomain;
 
-		$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
-		$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
+		OpenStackNovaLdapConnection::connect();
 
 		$sudoer = new OpenStackNovaSudoer( $sudoername );
 		if ( ! $sudoer ) {
