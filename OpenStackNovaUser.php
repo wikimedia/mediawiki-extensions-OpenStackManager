@@ -450,7 +450,7 @@ class OpenStackNovaUser {
 		$values['loginshell'] = $wgOpenStackManagerLDAPDefaultShell;
 
 		if ( $wgOpenStackManagerLDAPUseUidAsNamingAttribute ) {
-			if ( $writeloc = '' ) {
+			if ( $writeloc == '' ) {
 				return false;
 				$auth->printDebug( "Trying to set the userdn, but write location isn't set.", NONSENSITIVE );
 			} else {
