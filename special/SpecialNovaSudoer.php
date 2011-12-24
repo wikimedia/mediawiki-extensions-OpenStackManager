@@ -215,8 +215,8 @@ class SpecialNovaSudoer extends SpecialNova {
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-sudoerlist' ) );
 
 		$out = '';
-		$sk = $wgOut->getSkin();
-		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-createsudoer' ), array(), array( 'action' => 'create' ) );
+
+		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-createsudoer' ), array(), array( 'action' => 'create' ) );
 		$sudoersOut = Html::element( 'th', array(), wfMsg( 'openstackmanager-sudoername' ) );
 		$sudoersOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-sudoerusers' ) );
 		$sudoersOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-sudoerhosts' ) );
@@ -256,11 +256,11 @@ class SpecialNovaSudoer extends SpecialNova {
 			$sudoerOptions = Html::rawElement( 'ul', array(), $sudoerOptions );
 			$sudoerOut .= Html::rawElement( 'td', array(), $sudoerOptions );
 			$msg = wfMsgHtml( 'openstackmanager-modify' );
-			$link = $sk->link( $this->getTitle(), $msg, array(),
+			$link = Linker::( $this->getTitle(), $msg, array(),
 							   array( 'action' => 'modify', 'sudoername' => $sudoerName ) );
 			$actions = Html::rawElement( 'li', array(), $link );
 			$msg = wfMsgHtml( 'openstackmanager-delete' );
-			$link = $sk->link( $this->getTitle(), $msg, array(),
+			$link = Linker::( $this->getTitle(), $msg, array(),
 							   array( 'action' => 'delete', 'sudoername' => $sudoerName ) );
 			$actions .= Html::rawElement( 'li', array(), $link );
 			$actions = Html::rawElement( 'ul', array(), $actions );
@@ -308,9 +308,9 @@ class SpecialNovaSudoer extends SpecialNova {
 			return true;
 		}
 		$wgOut->addWikiMsg( 'openstackmanager-createdsudoer' );
-		$sk = $wgOut->getSkin();
+
 		$out = '<br />';
-		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backsudoerlist' ) );
+		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backsudoerlist' ) );
 		$wgOut->addHTML( $out );
 
 		return true;
@@ -330,9 +330,9 @@ class SpecialNovaSudoer extends SpecialNova {
 		} else {
 			$wgOut->addWikiMsg( 'openstackmanager-failedeletedsudoer' );
 		}
-		$sk = $wgOut->getSkin();
+
 		$out = '<br />';
-		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backsudoerlist' ) );
+		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backsudoerlist' ) );
 		$wgOut->addHTML( $out );
 
 		return true;
@@ -377,9 +377,9 @@ class SpecialNovaSudoer extends SpecialNova {
 		} else {
 			$wgOut->addWikiMsg( 'openstackmanager-nonexistantsudoer' );
 		}
-		$sk = $wgOut->getSkin();
+
 		$out = '<br />';
-		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backsudoerlist' ) );
+		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backsudoerlist' ) );
 		$wgOut->addHTML( $out );
 
 		return true;

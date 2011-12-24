@@ -364,7 +364,7 @@ class SpecialNovaAddress extends SpecialNova {
 
 		$userProjects = $this->userLDAP->getProjects();
 		$out = '';
-		$sk = $wgOut->getSkin();
+
 		$header = Html::element( 'th', array(), wfMsg( 'openstackmanager-address' ) );
 		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-instanceid' ) );
 		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-instancename' ) );
@@ -396,7 +396,7 @@ class SpecialNovaAddress extends SpecialNova {
 					foreach ( $fqdns as $fqdn ) {
 						$hostname = explode( '.', $fqdn );
 						$hostname = $hostname[0];
-						$link = $sk->link( $this->getTitle(), $msg, array(),
+						$link = Linker::link( $this->getTitle(), $msg, array(),
 								   array( 'action' => 'removehost', 'ip' => $ip, 'project' => $project, 'domain' => $domain->getDomainName(), 'hostname' => $hostname ) );
 						$hostOut = htmlentities( $fqdn ) . ' ' . $link;
 						$hostsOut .= Html::rawElement( 'li', array(), $hostOut );
@@ -412,22 +412,22 @@ class SpecialNovaAddress extends SpecialNova {
 				$msg = wfMsgHtml( 'openstackmanager-reassociateaddress' );
 			} else {
 				$msg = wfMsgHtml( 'openstackmanager-releaseaddress' );
-				$link = $sk->link( $this->getTitle(), $msg, array(),
+				$link = Linker::link( $this->getTitle(), $msg, array(),
 						   array( 'action' => 'release', 'ip' => $ip, 'project' => $project ) );
 				$actions = Html::rawElement( 'li', array(), $link );
 				$msg = wfMsgHtml( 'openstackmanager-associateaddress' );
 			}
-			$link = $sk->link( $this->getTitle(), $msg, array(),
+			$link = Linker::link( $this->getTitle(), $msg, array(),
 					   array( 'action' => 'associate', 'ip' => $ip, 'project' => $project ) );
 			$actions .= Html::rawElement( 'li', array(), $link );
 			if ( $instanceid ) {
 				$msg = wfMsgHtml( 'openstackmanager-disassociateaddress' );
-				$link = $sk->link( $this->getTitle(), $msg, array(),
+				$link = Linker::link( $this->getTitle(), $msg, array(),
 						   array( 'action' => 'disassociate', 'ip' => $ip, 'project' => $project ) );
 				$actions .= Html::rawElement( 'li', array(), $link );
 			}
 			$msg = wfMsgHtml( 'openstackmanager-addhost' );
-			$link = $sk->link( $this->getTitle(), $msg, array(),
+			$link = Linker::link( $this->getTitle(), $msg, array(),
 					   array( 'action' => 'addhost', 'ip' => $ip, 'project' => $project ) );
 			$actions .= Html::rawElement( 'li', array(), $link );
 			$actions = Html::rawElement( 'ul', array(), $actions );
@@ -440,7 +440,7 @@ class SpecialNovaAddress extends SpecialNova {
 		}
 		foreach ( $userProjects as $project ) {
 			$out .= Html::element( 'h2', array(), $project );
-			$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-allocateaddress' ), array(), array( 'action' => 'allocate', 'project' => $project ) );
+			$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-allocateaddress' ), array(), array( 'action' => 'allocate', 'project' => $project ) );
 			if ( isset( $projectArr["$project"] ) ) {
 				$projectOut = $header;
 				$projectOut .= $projectArr["$project"];
@@ -468,9 +468,8 @@ class SpecialNovaAddress extends SpecialNova {
 		}
 		$ip = $address->getPublicIP();
 		$wgOut->addWikiMsg( 'openstackmanager-allocatedaddress', $ip );
-		$sk = $wgOut->getSkin();
 		$out = '<br />';
-		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backaddresslist' ) );
+		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backaddresslist' ) );
 		$wgOut->addHTML( $out );
 
 		return true;
@@ -504,9 +503,9 @@ class SpecialNovaAddress extends SpecialNova {
 		} else {
 			$wgOut->addWikiMsg( 'openstackmanager-cannotreleaseaddress', $ip );
 		}
-		$sk = $wgOut->getSkin();
+
 		$out = '<br />';
-		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backaddresslist' ) );
+		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backaddresslist' ) );
 		$wgOut->addHTML( $out );
 
 		return true;
@@ -528,9 +527,9 @@ class SpecialNovaAddress extends SpecialNova {
 		} else {
 			$wgOut->addWikiMsg( 'openstackmanager-associatedaddressfailed', $ip, $instanceid );
 		}
-		$sk = $wgOut->getSkin();
+
 		$out = '<br />';
-		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backaddresslist' ) );
+		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backaddresslist' ) );
 		$wgOut->addHTML( $out );
 
 		return true;
@@ -551,9 +550,9 @@ class SpecialNovaAddress extends SpecialNova {
 		} else {
 			$wgOut->addWikiMsg( 'openstackmanager-disassociatedaddressfailed', $ip );
 		}
-		$sk = $wgOut->getSkin();
+
 		$out = '<br />';
-		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backaddresslist' ) );
+		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backaddresslist' ) );
 		$wgOut->addHTML( $out );
 
 		return true;
@@ -609,9 +608,9 @@ class SpecialNovaAddress extends SpecialNova {
 				$wgOut->addWikiMsg( 'openstackmanager-addhostfailed', $ip, $hostname );
 			}
 		}
-		$sk = $wgOut->getSkin();
+
 		$out = '<br />';
-		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backaddresslist' ) );
+		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backaddresslist' ) );
 		$wgOut->addHTML( $out );
 		return true;
 	}

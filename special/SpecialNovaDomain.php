@@ -139,8 +139,8 @@ class SpecialNovaDomain extends SpecialNova {
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-domainlist' ) );
 
 		$out = '';
-		$sk = $wgOut->getSkin();
-		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-createdomain' ), array(), array( 'action' => 'create' ) );
+
+		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-createdomain' ), array(), array( 'action' => 'create' ) );
 		$domainsOut = Html::element( 'th', array(), wfMsg( 'openstackmanager-domainname' ) );
 		$domainsOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-fqdn' ) );
 		$domainsOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-location' ) );
@@ -154,7 +154,7 @@ class SpecialNovaDomain extends SpecialNova {
 			$domainOut .= Html::element( 'td', array(), $fqdn );
 			$domainOut .= Html::element( 'td', array(), $location );
 			$msg = wfMsgHtml( 'openstackmanager-delete' );
-			$link = $sk->link( $this->getTitle(), $msg, array(),
+			$link = Linker::( $this->getTitle(), $msg, array(),
 							   array( 'action' => 'delete', 'domainname' => $domainName ) );
 			$domainOut .= Html::rawElement( 'td', array(), $link );
 			$domainsOut .= Html::rawElement( 'tr', array(), $domainOut );
@@ -180,9 +180,9 @@ class SpecialNovaDomain extends SpecialNova {
 			return true;
 		}
 		$wgOut->addWikiMsg( 'openstackmanager-createddomain' );
-		$sk = $wgOut->getSkin();
+
 		$out = '<br />';
-		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backdomainlist' ) );
+		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backdomainlist' ) );
 		$wgOut->addHTML( $out );
 
 		return true;
@@ -202,9 +202,9 @@ class SpecialNovaDomain extends SpecialNova {
 		} else {
 			$wgOut->addWikiMsg( 'openstackmanager-failedeleteddomain' );
 		}
-		$sk = $wgOut->getSkin();
+
 		$out = '<br />';
-		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backdomainlist' ) );
+		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backdomainlist' ) );
 		$wgOut->addHTML( $out );
 
 		return true;

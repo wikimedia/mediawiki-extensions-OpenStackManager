@@ -170,9 +170,9 @@ class SpecialNovaKey extends SpecialNova {
 		$wgOut->addModuleStyles( 'ext.openstack' );
 
 		$out = '';
-		$sk = $wgOut->getSkin();
+
 		if ( $wgOpenStackManagerNovaKeypairStorage == 'nova' ) {
-			$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-importkey' ), array(), array( 'action' => 'import' ) );
+			$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-importkey' ), array(), array( 'action' => 'import' ) );
 			$projects = $this->userLDAP->getProjects();
 			foreach ( $projects as $project ) {
 				$userCredentials = $this->userLDAP->getCredentials();
@@ -192,7 +192,7 @@ class SpecialNovaKey extends SpecialNova {
 				$out .= Html::rawElement( 'table', array( 'id' => 'novakeylist', 'class' => 'wikitable sortable collapsible' ), $projectOut );
 			}
 		} elseif ( $wgOpenStackManagerNovaKeypairStorage == 'ldap' ) {
-			$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-importkey' ), array(), array( 'action' => 'import' ) );
+			$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-importkey' ), array(), array( 'action' => 'import' ) );
 			$keypairs = $this->userLDAP->getKeypairs();
 			$keysOut = '';
 			$keysOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-keys' ) );
@@ -200,7 +200,7 @@ class SpecialNovaKey extends SpecialNova {
 			foreach ( $keypairs as $hash => $key ) {
 				$keyOut = Html::element( 'td', array( 'class' => 'Nova_col' ), $key );
 				$msg = wfMsgHtml( 'openstackmanager-delete' );
-				$link = $sk->link( $this->getTitle(), $msg, array(), array( 'action' => 'delete', 'hash' => $hash ) );
+				$link = Linker::( $this->getTitle(), $msg, array(), array( 'action' => 'delete', 'hash' => $hash ) );
 				$action = Html::rawElement( 'li', array(), $link );
 				$action = Html::rawElement( 'ul', array(), $action );
 				$keyOut .= Html::rawElement( 'td', array(), $action );
@@ -241,8 +241,8 @@ class SpecialNovaKey extends SpecialNova {
 			$wgOut->addWikiMsg( 'openstackmanager-invalidkeypair' );
 		}
 		$out = '<br />';
-		$sk = $wgOut->getSkin();
-		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backkeylist' ) );
+
+		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backkeylist' ) );
 		$wgOut->addHTML( $out );
 		return true;
 	}
@@ -262,8 +262,8 @@ class SpecialNovaKey extends SpecialNova {
 			$wgOut->addWikiMsg( 'openstackmanager-deletedkeyfailed' );
 		}
 		$out = '<br />';
-		$sk = $wgOut->getSkin();
-		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backkeylist' ) );
+
+		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backkeylist' ) );
 		$wgOut->addHTML( $out );
 		return true;
 	}

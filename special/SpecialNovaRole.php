@@ -205,7 +205,7 @@ class SpecialNovaRole extends SpecialNova {
 		$wgOut->setPagetitle( wfMsg( 'openstackmanager-rolelist' ) );
 
 		$out = '';
-		$sk = $wgOut->getSkin();
+
 		$rolesOut = Html::element( 'th', array(), wfMsg( 'openstackmanager-rolename' ) );
 		$rolesOut .= Html::element( 'th', array(),  wfMsg( 'openstackmanager-members' ) );
 		$rolesOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-actions' ) );
@@ -225,9 +225,9 @@ class SpecialNovaRole extends SpecialNova {
 				$memberOut = Html::rawElement( 'ul', array(), $memberOut );
 			}
 			$roleOut .= Html::rawElement( 'td', array(), $memberOut );
-			$link = $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-addrolemember' ), array(), array( 'action' => 'addmember', 'rolename' => $roleName, 'returnto' => 'Special:NovaRole' ) );
+			$link = Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-addrolemember' ), array(), array( 'action' => 'addmember', 'rolename' => $roleName, 'returnto' => 'Special:NovaRole' ) );
 			$actions = Html::rawElement( 'li', array(), $link );
-			$link = $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-removerolemember' ), array(), array( 'action' => 'deletemember', 'rolename' => $roleName, 'returnto' => 'Special:NovaRole' ) );
+			$link = Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-removerolemember' ), array(), array( 'action' => 'deletemember', 'rolename' => $roleName, 'returnto' => 'Special:NovaRole' ) );
 			$actions .= Html::rawElement( 'li', array(), $link );
 			$actions = Html::rawElement( 'ul', array(), $actions );
 			$roleOut .= Html::rawElement( 'td', array(), $actions );
@@ -273,10 +273,10 @@ class SpecialNovaRole extends SpecialNova {
 				$wgOut->addWikiMsg( 'openstackmanager-failedtoadd', $member, $formData['rolename'] );
 			}
 		}
-		$sk = $wgOut->getSkin();
+
 		$out = '<br />';
 		$returnto = Title::newFromText( $formData['returnto'] );
-		$out .= $sk->link( $returnto, wfMsgHtml( 'openstackmanager-backprojectlist' ) );
+		$out .= Linker::( $returnto, wfMsgHtml( 'openstackmanager-backprojectlist' ) );
 		$wgOut->addHTML( $out );
 
 		return true;
@@ -313,10 +313,10 @@ class SpecialNovaRole extends SpecialNova {
 				$wgOut->addWikiMsg( 'openstackmanager-failedtoremove', $member, $formData['rolename'] );
 			}
 		}
-		$sk = $wgOut->getSkin();
+
 		$out = '<br />';
 		$returnto = Title::newFromText( $formData['returnto'] );
-		$out .= $sk->link( $returnto, wfMsgHtml( 'openstackmanager-backprojectlist' ) );
+		$out .= Linker::( $returnto, wfMsgHtml( 'openstackmanager-backprojectlist' ) );
 		$wgOut->addHTML( $out );
 
 		return true;
