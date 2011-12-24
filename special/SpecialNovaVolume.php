@@ -69,10 +69,10 @@ class SpecialNovaVolume extends SpecialNova {
 	 * @return bool
 	 */
 	function createVolume() {
-		global $wgRequest, $wgOut;
+		global $wgRequest;
 
 		$this->setHeaders();
-		$wgOut->setPagetitle( wfMsg( 'openstackmanager-createvolume' ) );
+		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-createvolume' ) );
 
 		$project = $wgRequest->getText( 'project' );
 		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
@@ -143,10 +143,10 @@ class SpecialNovaVolume extends SpecialNova {
 	 * @return bool
 	 */
 	function deleteVolume() {
-		global $wgOut, $wgRequest;
+		global $wgRequest;
 
 		$this->setHeaders();
-		$wgOut->setPagetitle( wfMsg( 'openstackmanager-deletevolume' ) );
+		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-deletevolume' ) );
 
 		$project = $wgRequest->getText( 'project' );
 		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
@@ -155,7 +155,7 @@ class SpecialNovaVolume extends SpecialNova {
 		}
 		$volumeid = $wgRequest->getText( 'volumeid' );
 		if ( ! $wgRequest->wasPosted() ) {
-			$wgOut->addWikiMsg( 'openstackmanager-deletevolumequestion', $volumeid );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-deletevolumequestion', $volumeid );
 		}
 		$volumeInfo = array();
 		$volumeInfo['volumeid'] = array(
@@ -186,10 +186,10 @@ class SpecialNovaVolume extends SpecialNova {
 	 * @return bool
 	 */
 	function attachVolume() {
-		global $wgRequest, $wgOut;
+		global $wgRequest;
 
 		$this->setHeaders();
-		$wgOut->setPagetitle( wfMsg( 'openstackmanager-attachvolume' ) );
+		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-attachvolume' ) );
 
 		$project = $wgRequest->getText( 'project' );
 		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
@@ -261,10 +261,10 @@ class SpecialNovaVolume extends SpecialNova {
 	 * @return bool
 	 */
 	function detachVolume() {
-		global $wgRequest, $wgOut;
+		global $wgRequest;
 
 		$this->setHeaders();
-		$wgOut->setPagetitle( wfMsg( 'openstackmanager-detachvolume' ) );
+		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-detachvolume' ) );
 
 		$project = $wgRequest->getText( 'project' );
 		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
@@ -313,10 +313,8 @@ class SpecialNovaVolume extends SpecialNova {
 	 * @return void
 	 */
 	function listVolumes() {
-		global $wgOut;
-
 		$this->setHeaders();
-		$wgOut->setPagetitle( wfMsg( 'openstackmanager-volumelist' ) );
+		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-volumelist' ) );
 
 		$userProjects = $this->userLDAP->getProjects();
 
@@ -398,7 +396,7 @@ class SpecialNovaVolume extends SpecialNova {
 			}
 		}
 
-		$wgOut->addHTML( $out );
+		$this->getOutput()->addHTML( $out );
 	}
 
 	/**
@@ -407,19 +405,17 @@ class SpecialNovaVolume extends SpecialNova {
 	 * @return bool
 	 */
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut;
-
 		$volume = $this->userNova->createVolume( $formData['availabilityZone'], $formData['volumeSize'], $formData['volumename'], $formData['volumedescription'] );
 		if ( $volume ) {
-			$wgOut->addWikiMsg( 'openstackmanager-createdvolume', $volume->getVolumeID() );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-createdvolume', $volume->getVolumeID() );
 		} else {
-			$wgOut->addWikiMsg( 'openstackmanager-createevolumefailed' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-createevolumefailed' );
 		}
 
 		$out = '<br />';
 		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backvolumelist' ) );
 
-		$wgOut->addHTML( $out );
+		$this->getOutput()->addHTML( $out );
 		return true;
 	}
 
@@ -429,25 +425,23 @@ class SpecialNovaVolume extends SpecialNova {
 	 * @return bool
 	 */
 	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut;
-
 		$volume = $this->adminNova->getVolume( $formData['volumeid'] );
 		if ( ! $volume ) {
-			$wgOut->addWikiMsg( 'openstackmanager-nonexistantvolume' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistantvolume' );
 			return true;
 		}
 		$volumeid = $volume->getVolumeId();
 		$success = $this->userNova->deleteVolume( $volumeid );
 		if ( $success ) {
-			$wgOut->addWikiMsg( 'openstackmanager-deletedvolume', $volumeid );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-deletedvolume', $volumeid );
 		} else {
-			$wgOut->addWikiMsg( 'openstackmanager-deletevolumefailed' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-deletevolumefailed' );
 		}
 
 		$out = '<br />';
 		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backvolumelist' ) );
 
-		$wgOut->addHTML( $out );
+		$this->getOutput()->addHTML( $out );
 		return true;
 	}
 
@@ -457,19 +451,17 @@ class SpecialNovaVolume extends SpecialNova {
 	 * @return bool
 	 */
 	function tryAttachSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut;
-
 		$success = $this->userNova->attachVolume( $formData['volumeid'], $formData['instanceid'], $formData['device'] );
 		if ( $success ) {
-			$wgOut->addWikiMsg( 'openstackmanager-attachedvolume' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-attachedvolume' );
 		} else {
-			$wgOut->addWikiMsg( 'openstackmanager-attachvolumefailed' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-attachvolumefailed' );
 		}
 
 		$out = '<br />';
 		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backvolumelist' ) );
 
-		$wgOut->addHTML( $out );
+		$this->getOutput()->addHTML( $out );
 		return true;
 	}
 
@@ -479,8 +471,6 @@ class SpecialNovaVolume extends SpecialNova {
 	 * @return bool
 	 */
 	function tryDetachSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut;
-
 		if ( isset( $formData['force'] ) && $formData['force'] ) {
 			$force = true;
 		} else {
@@ -488,15 +478,15 @@ class SpecialNovaVolume extends SpecialNova {
 		}
 		$success = $this->userNova->detachVolume( $formData['volumeid'], $force );
 		if ( $success ) {
-			$wgOut->addWikiMsg( 'openstackmanager-detachedvolume' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-detachedvolume' );
 		} else {
-			$wgOut->addWikiMsg( 'openstackmanager-detachvolumefailed' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-detachvolumefailed' );
 		}
 
 		$out = '<br />';
 		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backvolumelist' ) );
 
-		$wgOut->addHTML( $out );
+		$this->getOutput()->addHTML( $out );
 		return true;
 	}
 

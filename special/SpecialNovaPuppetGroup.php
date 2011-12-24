@@ -40,14 +40,14 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function createPuppetGroup() {
-		global $wgOut, $wgUser;
+		global $wgUser;
 
 		$this->setHeaders();
 		if ( !$this->userCanExecute( $wgUser ) ) {
 			$this->displayRestrictionError();
 			return false;
 		}
-		$wgOut->setPagetitle( wfMsg( 'openstackmanager-createpuppetgroup' ) );
+		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-createpuppetgroup' ) );
 
 		$puppetGroupInfo = array();
 		$puppetGroupInfo['puppetgroupname'] = array(
@@ -83,7 +83,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function addPuppetClass() {
-		global $wgRequest, $wgOut;
+		global $wgRequest;
 		global $wgUser;
 
 		$this->setHeaders();
@@ -91,7 +91,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			$this->displayRestrictionError();
 			return false;
 		}
-		$wgOut->setPagetitle( wfMsg( 'openstackmanager-addpuppetclass' ) );
+		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-addpuppetclass' ) );
 
 		$puppetGroupId = $wgRequest->getInt( 'puppetgroupid' );
 		$puppetGroupInfo = array();
@@ -130,7 +130,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function deletePuppetClass() {
-		global $wgRequest, $wgOut;
+		global $wgRequest;
 		global $wgUser;
 
 		$this->setHeaders();
@@ -138,9 +138,9 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			$this->displayRestrictionError();
 			return false;
 		}
-		$wgOut->setPagetitle( wfMsg( 'openstackmanager-removepuppetclass' ) );
+		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-removepuppetclass' ) );
 		if ( ! $wgRequest->wasPosted() ) {
-			$wgOut->addWikiMsg( 'openstackmanager-removepuppetclassconfirm' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-removepuppetclassconfirm' );
 		}
 		$puppetClassId = $wgRequest->getInt( 'puppetclassid' );
 		$puppetGroupInfo = array();
@@ -168,7 +168,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function addPuppetVar() {
-		global $wgRequest, $wgOut;
+		global $wgRequest;
 		global $wgUser;
 
 		$this->setHeaders();
@@ -176,7 +176,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			$this->displayRestrictionError();
 			return false;
 		}
-		$wgOut->setPagetitle( wfMsg( 'openstackmanager-addpuppetvar' ) );
+		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-addpuppetvar' ) );
 
 		$puppetGroupId = $wgRequest->getInt( 'puppetgroupid' );
 		$puppetGroupInfo = array();
@@ -215,7 +215,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function deletePuppetVar() {
-		global $wgRequest, $wgOut;
+		global $wgRequest;
 		global $wgUser;
 
 		$this->setHeaders();
@@ -223,11 +223,11 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			$this->displayRestrictionError();
 			return false;
 		}
-		$wgOut->setPagetitle( wfMsg( 'openstackmanager-removepuppetvar' ) );
+		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-removepuppetvar' ) );
 
 		$puppetVarId = $wgRequest->getText( 'puppetvarid' );
 		if ( ! $wgRequest->wasPosted() ) {
-			$wgOut->addWikiMsg( 'openstackmanager-removepuppetvarconfirm' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-removepuppetvarconfirm' );
 		}
 		$puppetGroupInfo = array();
 		$puppetGroupInfo['puppetvarid'] = array(
@@ -254,7 +254,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function deletePuppetGroup() {
-		global $wgOut, $wgRequest;
+		global $wgRequest;
 		global $wgUser;
 
 		$this->setHeaders();
@@ -262,11 +262,11 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			$this->displayRestrictionError();
 			return false;
 		}
-		$wgOut->setPagetitle( wfMsg( 'openstackmanager-deletepuppetgroup' ) );
+		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-deletepuppetgroup' ) );
 
 		$puppetGroupId = $wgRequest->getInt( 'puppetgroupid' );
 		if ( ! $wgRequest->wasPosted() ) {
-			$wgOut->addWikiMsg( 'openstackmanager-removepuppetgroupconfirm' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-removepuppetgroupconfirm' );
 		}
 		$puppetGroupInfo = array();
 		$puppetGroupInfo['puppetgroupid'] = array(
@@ -292,7 +292,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function modifyPuppetClass() {
-		global $wgRequest, $wgOut;
+		global $wgRequest;
 		global $wgUser;
 
 		$this->setHeaders();
@@ -300,7 +300,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			$this->displayRestrictionError();
 			return false;
 		}
-		$wgOut->setPagetitle( wfMsg( 'openstackmanager-modifypuppetclass' ) );
+		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-modifypuppetclass' ) );
 
 		$puppetGroupId = $wgRequest->getInt( 'puppetgroupid' );
 		$puppetClassId = $wgRequest->getInt( 'puppetclassid' );
@@ -349,7 +349,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function modifyPuppetVar() {
-		global $wgRequest, $wgOut;
+		global $wgRequest;
 		global $wgUser;
 
 		$this->setHeaders();
@@ -357,7 +357,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			$this->displayRestrictionError();
 			return false;
 		}
-		$wgOut->setPagetitle( wfMsg( 'openstackmanager-modifypuppetvar' ) );
+		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-modifypuppetvar' ) );
 
 		$puppetGroupId = $wgRequest->getInt( 'puppetgroupid' );
 		$puppetVarId = $wgRequest->getInt( 'puppetvarid' );
@@ -406,7 +406,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function modifyPuppetGroup() {
-		global $wgRequest, $wgOut;
+		global $wgRequest;
 		global $wgUser;
 
 		$this->setHeaders();
@@ -414,7 +414,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			$this->displayRestrictionError();
 			return false;
 		}
-		$wgOut->setPagetitle( wfMsg( 'openstackmanager-modifypuppetgroup' ) );
+		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-modifypuppetgroup' ) );
 
 		$puppetGroupId = $wgRequest->getInt( 'puppetgroupid' );
 		$puppetGroupPosition = $wgRequest->getInt( 'puppetgroupposition' );
@@ -449,11 +449,9 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return void
 	 */
 	function listPuppetGroups() {
-		global $wgOut;
-
 		$this->setHeaders();
-		$wgOut->setPagetitle( wfMsg( 'openstackmanager-puppetgrouplist' ) );
-		$wgOut->addModuleStyles( 'ext.openstack' );
+		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-puppetgrouplist' ) );
+		$this->getOutput()->addModuleStyles( 'ext.openstack' );
 
 		$out = '';
 
@@ -496,7 +494,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			}
 		}
 
-		$wgOut->addHTML( $out );
+		$this->getOutput()->addHTML( $out );
 	}
 
 	/**
@@ -505,18 +503,16 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut;
-
 		$success = OpenStackNovaPuppetGroup::addGroup( $formData['puppetgroupname'], $formData['puppetgroupposition'] );
 		if ( $success ) {
-			$wgOut->addWikiMsg( 'openstackmanager-createdpuppetgroup' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-createdpuppetgroup' );
 		} else {
-			$wgOut->addWikiMsg( 'openstackmanager-createpuppetgroupfailed' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-createpuppetgroupfailed' );
 		}
 
 		$out = '<br />';
 		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backpuppetgrouplist' ) );
-		$wgOut->addHTML( $out );
+		$this->getOutput()->addHTML( $out );
 
 		return true;
 	}
@@ -527,18 +523,16 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut;
-
 		$success = OpenStackNovaPuppetGroup::deleteGroup( $formData['puppetgroupid'] );
 		if ( $success ) {
-			$wgOut->addWikiMsg( 'openstackmanager-deletedpuppetgroup' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-deletedpuppetgroup' );
 		} else {
-			$wgOut->addWikiMsg( 'openstackmanager-deletepuppetgroupfailed' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-deletepuppetgroupfailed' );
 		}
 
 		$out = '<br />';
 		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backpuppetgrouplist' ) );
-		$wgOut->addHTML( $out );
+		$this->getOutput()->addHTML( $out );
 
 		return true;
 	}
@@ -549,18 +543,16 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function tryAddClassSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut;
-
 		$success = OpenStackNovaPuppetGroup::addClass( $formData['puppetclassname'], $formData['puppetclassposition'], $formData['puppetgroupid'] );
 		if ( $success ) {
-			$wgOut->addWikiMsg( 'openstackmanager-addedpuppetclass' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-addedpuppetclass' );
 		} else {
-			$wgOut->addWikiMsg( 'openstackmanager-failedtoaddpuppetclass' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoaddpuppetclass' );
 		}
 
 		$out = '<br />';
 		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backpuppetgrouplist' ) );
-		$wgOut->addHTML( $out );
+		$this->getOutput()->addHTML( $out );
 
 		return true;
 	}
@@ -571,18 +563,16 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function tryDeleteClassSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut;
-
 		$success = OpenStackNovaPuppetGroup::deleteClass( $formData['puppetclassid'] );
 		if ( $success ) {
-			$wgOut->addWikiMsg( 'openstackmanager-deletedpuppetclass' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-deletedpuppetclass' );
 		} else {
-			$wgOut->addWikiMsg( 'openstackmanager-failedtodeletepuppetclass' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-failedtodeletepuppetclass' );
 		}
 		$out = '<br />';
 
 		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backpuppetgrouplist' ) );
-		$wgOut->addHTML( $out );
+		$this->getOutput()->addHTML( $out );
 
 		return true;
 	}
@@ -593,18 +583,16 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function tryAddVarSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut;
-
 		$success = OpenStackNovaPuppetGroup::addVar( $formData['puppetvarname'], $formData['puppetvarposition'], $formData['puppetgroupid'] );
 		if ( $success ) {
-			$wgOut->addWikiMsg( 'openstackmanager-addedpuppetvar' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-addedpuppetvar' );
 		} else {
-			$wgOut->addWikiMsg( 'openstackmanager-failedtoaddpuppetvar' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoaddpuppetvar' );
 		}
 
 		$out = '<br />';
 		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backpuppetgrouplist' ) );
-		$wgOut->addHTML( $out );
+		$this->getOutput()->addHTML( $out );
 
 		return true;
 	}
@@ -615,18 +603,16 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function tryDeleteVarSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut;
-
 		$success = OpenStackNovaPuppetGroup::deleteVar( $formData['puppetvarid'] );
 		if ( $success ) {
-			$wgOut->addWikiMsg( 'openstackmanager-deletedpuppetvar' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-deletedpuppetvar' );
 		} else {
-			$wgOut->addWikiMsg( 'openstackmanager-failedtodeletepuppetvar' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-failedtodeletepuppetvar' );
 		}
 		$out = '<br />';
 
 		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backpuppetgrouplist' ) );
-		$wgOut->addHTML( $out );
+		$this->getOutput()->addHTML( $out );
 
 		return true;
 	}
@@ -637,18 +623,16 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function tryModifyClassSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut;
-
 		$success = OpenStackNovaPuppetGroup::updateClass( $formData['puppetclassid'], $formData['puppetgroupid'], $formData['puppetclassposition'] );
 		if ( $success ) {
-			$wgOut->addWikiMsg( 'openstackmanager-modifiedpuppetclass' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-modifiedpuppetclass' );
 		} else {
-			$wgOut->addWikiMsg( 'openstackmanager-failedtomodifypuppetclass' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-failedtomodifypuppetclass' );
 		}
 		$out = '<br />';
 
 		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backpuppetgrouplist' ) );
-		$wgOut->addHTML( $out );
+		$this->getOutput()->addHTML( $out );
 
 		return true;
 	}
@@ -659,18 +643,16 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function tryModifyVarSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut;
-
 		$success = OpenStackNovaPuppetGroup::updateVar( $formData['puppetvarid'], $formData['puppetgroupid'], $formData['puppetvarposition'] );
 		if ( $success ) {
-			$wgOut->addWikiMsg( 'openstackmanager-modifiedpuppetvar' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-modifiedpuppetvar' );
 		} else {
-			$wgOut->addWikiMsg( 'openstackmanager-failedtomodifypuppetvar' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-failedtomodifypuppetvar' );
 		}
 		$out = '<br />';
 
 		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backpuppetgrouplist' ) );
-		$wgOut->addHTML( $out );
+		$this->getOutput()->addHTML( $out );
 
 		return true;
 	}
@@ -681,18 +663,16 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function tryModifyGroupSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut;
-
 		$success = OpenStackNovaPuppetGroup::updateGroupPosition( $formData['puppetgroupid'], $formData['puppetgroupposition'] );
 		if ( $success ) {
-			$wgOut->addWikiMsg( 'openstackmanager-modifiedpuppetgroup' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-modifiedpuppetgroup' );
 		} else {
-			$wgOut->addWikiMsg( 'openstackmanager-failedtomodifypuppetgroup' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-failedtomodifypuppetgroup' );
 		}
 		$out = '<br />';
 
 		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backpuppetgrouplist' ) );
-		$wgOut->addHTML( $out );
+		$this->getOutput()->addHTML( $out );
 
 		return true;
 	}

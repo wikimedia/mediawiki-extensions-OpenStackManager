@@ -37,10 +37,8 @@ class SpecialNovaSudoer extends SpecialNova {
 	 * @return bool
 	 */
 	function createSudoer() {
-		global $wgOut;
-
 		$this->setHeaders();
-		$wgOut->setPagetitle( wfMsg( 'openstackmanager-createsudoer' ) );
+		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-createsudoer' ) );
 
 		$sudoerInfo = array();
 		$sudoerInfo['sudoername'] = array(
@@ -101,14 +99,14 @@ class SpecialNovaSudoer extends SpecialNova {
 	 * @return bool
 	 */
 	function deleteSudoer() {
-		global $wgOut, $wgRequest;
+		global $wgRequest;
 
 		$this->setHeaders();
-		$wgOut->setPagetitle( wfMsg( 'openstackmanager-deletesudoer' ) );
+		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-deletesudoer' ) );
 
 		$sudoername = $wgRequest->getText( 'sudoername' );
 		if ( ! $wgRequest->wasPosted() ) {
-			$wgOut->addWikiMsg( 'openstackmanager-deletesudoer-confirm', $sudoername );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-deletesudoer-confirm', $sudoername );
 		}
 		$sudoerInfo = array();
 		$sudoerInfo['sudoername'] = array(
@@ -134,10 +132,10 @@ class SpecialNovaSudoer extends SpecialNova {
 	 * @return bool
 	 */
 	function modifySudoer() {
-		global $wgRequest, $wgOut;
+		global $wgRequest;
 
 		$this->setHeaders();
-		$wgOut->setPagetitle( wfMsg( 'openstackmanager-modifysudoer' ) );
+		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-modifysudoer' ) );
 
 		$sudoername = $wgRequest->getText( 'sudoername' );
 		$sudoer = OpenStackNovaSudoer::getSudoerByName( $sudoername );
@@ -209,10 +207,8 @@ class SpecialNovaSudoer extends SpecialNova {
 	 * @return void
 	 */
 	function listSudoers() {
-		global $wgOut;
-
 		$this->setHeaders();
-		$wgOut->setPagetitle( wfMsg( 'openstackmanager-sudoerlist' ) );
+		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-sudoerlist' ) );
 
 		$out = '';
 
@@ -271,7 +267,7 @@ class SpecialNovaSudoer extends SpecialNova {
 			$out .= Html::rawElement( 'table', array( 'class' => 'wikitable sortable collapsible' ), $sudoersOut );
 		}
 
-		$wgOut->addHTML( $out );
+		$this->getOutput()->addHTML( $out );
 	}
 
 	/**
@@ -280,8 +276,6 @@ class SpecialNovaSudoer extends SpecialNova {
 	 * @return bool
 	 */
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut;
-
 		if ( $formData['users'] ) {
 			$users = explode( ',', $formData['users'] );
 		} else {
@@ -304,14 +298,14 @@ class SpecialNovaSudoer extends SpecialNova {
 		}
 		$success = OpenStackNovaSudoer::createSudoer( $formData['sudoername'], $users, $hosts, $commands, $options );
 		if ( ! $success ) {
-			$wgOut->addWikiMsg( 'openstackmanager-createsudoerfailed' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-createsudoerfailed' );
 			return true;
 		}
-		$wgOut->addWikiMsg( 'openstackmanager-createdsudoer' );
+		$this->getOutput()->addWikiMsg( 'openstackmanager-createdsudoer' );
 
 		$out = '<br />';
 		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backsudoerlist' ) );
-		$wgOut->addHTML( $out );
+		$this->getOutput()->addHTML( $out );
 
 		return true;
 	}
@@ -322,18 +316,17 @@ class SpecialNovaSudoer extends SpecialNova {
 	 * @return bool
 	 */
 	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut;
 
 		$success = OpenStackNovaSudoer::deleteSudoer( $formData['sudoername'] );
 		if ( $success ) {
-			$wgOut->addWikiMsg( 'openstackmanager-deletedsudoer' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-deletedsudoer' );
 		} else {
-			$wgOut->addWikiMsg( 'openstackmanager-failedeletedsudoer' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-failedeletedsudoer' );
 		}
 
 		$out = '<br />';
 		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backsudoerlist' ) );
-		$wgOut->addHTML( $out );
+		$this->getOutput()->addHTML( $out );
 
 		return true;
 	}
@@ -344,8 +337,6 @@ class SpecialNovaSudoer extends SpecialNova {
 	 * @return bool
 	 */
 	function tryModifySubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut;
-
 		$sudoer = OpenStackNovaSudoer::getSudoerByName( $formData['sudoername'] );
 		if ( $sudoer ) {
 			if ( $formData['users'] ) {
@@ -370,17 +361,17 @@ class SpecialNovaSudoer extends SpecialNova {
 			}
 			$success = $sudoer->modifySudoer( $users, $hosts, $commands, $options );
 			if ( ! $success ) {
-				$wgOut->addWikiMsg( 'openstackmanager-modifysudoerfailed' );
+				$this->getOutput()->addWikiMsg( 'openstackmanager-modifysudoerfailed' );
 				return true;
 			}
-			$wgOut->addWikiMsg( 'openstackmanager-modifiedsudoer' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-modifiedsudoer' );
 		} else {
-			$wgOut->addWikiMsg( 'openstackmanager-nonexistantsudoer' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistantsudoer' );
 		}
 
 		$out = '<br />';
 		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backsudoerlist' ) );
-		$wgOut->addHTML( $out );
+		$this->getOutput()->addHTML( $out );
 
 		return true;
 	}

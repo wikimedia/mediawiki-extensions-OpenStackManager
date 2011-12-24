@@ -36,11 +36,10 @@ class SpecialNovaRole extends SpecialNova {
 	 * @return bool
 	 */
 	function addMember() {
-		global $wgRequest, $wgOut;
-		global $wgUser;
+		global $wgRequest, $wgUser;
 
 		$this->setHeaders();
-		$wgOut->setPagetitle( wfMsg( 'openstackmanager-addmember' ) );
+		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-addmember' ) );
 
 		$roleInfo = array();
 		$rolename = $wgRequest->getText( 'rolename' );
@@ -61,7 +60,7 @@ class SpecialNovaRole extends SpecialNova {
 				}
 			}
 			if ( ! $member_keys ) {
-				$wgOut->addWikiMsg( 'openstackmanager-nomemberstoadd' );
+				$this->getOutput()->addWikiMsg( 'openstackmanager-nomemberstoadd' );
 				return true;
 			}
 			$roleInfo['members'] = array(
@@ -118,11 +117,11 @@ class SpecialNovaRole extends SpecialNova {
 	 * @return bool
 	 */
 	function deleteMember() {
-		global $wgRequest, $wgOut;
+		global $wgRequest;
 		global $wgUser;
 
 		$this->setHeaders();
-		$wgOut->setPagetitle( wfMsg( 'openstackmanager-removerolemember' ) );
+		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-removerolemember' ) );
 
 		$rolename = $wgRequest->getText( 'rolename' );
 		$projectname = $wgRequest->getText( 'projectname' );
@@ -154,7 +153,7 @@ class SpecialNovaRole extends SpecialNova {
 			}
 		}
 		if ( ! $member_keys ) {
-			$wgOut->addWikiMsg( 'openstackmanager-nomemberstoremove' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-nomemberstoremove' );
 			return true;
 		}
 		$roleInfo = array();
@@ -199,10 +198,8 @@ class SpecialNovaRole extends SpecialNova {
 	 * @return void
 	 */
 	function listGlobalRoles() {
-		global $wgOut;
-
 		$this->setHeaders();
-		$wgOut->setPagetitle( wfMsg( 'openstackmanager-rolelist' ) );
+		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-rolelist' ) );
 
 		$out = '';
 
@@ -237,7 +234,7 @@ class SpecialNovaRole extends SpecialNova {
 			$out .= Html::rawElement( 'table', array( 'class' => 'wikitable sortable collapsible' ), $rolesOut );
 		}
 
-		$wgOut->addHTML( $out );
+		$this->getOutput()->addHTML( $out );
 	}
 
 	/**
@@ -246,13 +243,11 @@ class SpecialNovaRole extends SpecialNova {
 	 * @return bool
 	 */
 	function tryAddMemberSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut;
-
 		$projectname = $formData['projectname'];
 		if ( $projectname ) {
 			$project = OpenStackNovaProject::getProjectByName( $projectname );
 			if ( ! $project ) {
-				$wgOut->addWikiMsg( 'openstackmanager-nonexistentproject' );
+				$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistentproject' );
 				return true;
 			}
 			$role = OpenStackNovaRole::getProjectRoleByName( $formData['rolename'], $project );
@@ -262,22 +257,22 @@ class SpecialNovaRole extends SpecialNova {
 			$members = array( $formData['members'] );
 		}
 		if ( ! $role ) {
-			$wgOut->addWikiMsg( 'openstackmanager-nonexistentrole' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistentrole' );
 			return true;
 		}
 		foreach ( $members as $member ) {
 			$success = $role->addMember( $member );
 			if ( $success ) {
-				$wgOut->addWikiMsg( 'openstackmanager-addedto', $member, $formData['rolename'] );
+				$this->getOutput()->addWikiMsg( 'openstackmanager-addedto', $member, $formData['rolename'] );
 			} else {
-				$wgOut->addWikiMsg( 'openstackmanager-failedtoadd', $member, $formData['rolename'] );
+				$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoadd', $member, $formData['rolename'] );
 			}
 		}
 
 		$out = '<br />';
 		$returnto = Title::newFromText( $formData['returnto'] );
 		$out .= Linker::( $returnto, wfMsgHtml( 'openstackmanager-backprojectlist' ) );
-		$wgOut->addHTML( $out );
+		$this->getOutput()->addHTML( $out );
 
 		return true;
 	}
@@ -288,13 +283,11 @@ class SpecialNovaRole extends SpecialNova {
 	 * @return bool
 	 */
 	function tryDeleteMemberSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut;
-
 		$projectname = $formData['projectname'];
 		if ( $projectname ) {
 			$project = OpenStackNovaProject::getProjectByName( $projectname );
 			if ( ! $project ) {
-				$wgOut->addWikiMsg( 'openstackmanager-nonexistentproject' );
+				$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistentproject' );
 				return true;
 			}
 			$role = OpenStackNovaRole::getProjectRoleByName( $formData['rolename'], $project );
@@ -302,22 +295,22 @@ class SpecialNovaRole extends SpecialNova {
 			$role = OpenStackNovaRole::getGlobalRoleByName( $formData['rolename'] );
 		}
 		if ( ! $role ) {
-			$wgOut->addWikiMsg( 'openstackmanager-nonexistentrole' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistentrole' );
 			return true;
 		}
 		foreach ( $formData['members'] as $member ) {
 			$success = $role->deleteMember( $member );
 			if ( $success ) {
-				$wgOut->addWikiMsg( 'openstackmanager-removedfrom', $member, $formData['rolename'] );
+				$this->getOutput()->addWikiMsg( 'openstackmanager-removedfrom', $member, $formData['rolename'] );
 			} else {
-				$wgOut->addWikiMsg( 'openstackmanager-failedtoremove', $member, $formData['rolename'] );
+				$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoremove', $member, $formData['rolename'] );
 			}
 		}
 
 		$out = '<br />';
 		$returnto = Title::newFromText( $formData['returnto'] );
 		$out .= Linker::( $returnto, wfMsgHtml( 'openstackmanager-backprojectlist' ) );
-		$wgOut->addHTML( $out );
+		$this->getOutput()->addHTML( $out );
 
 		return true;
 	}

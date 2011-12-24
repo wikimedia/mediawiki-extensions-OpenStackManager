@@ -40,14 +40,14 @@ class SpecialNovaProject extends SpecialNova {
 	 * @return bool
 	 */
 	function createProject() {
-		global $wgOut, $wgUser;
+		global $wgUser;
 
 		$this->setHeaders();
 		if ( !$this->userCanExecute( $wgUser ) ) {
 			$this->displayRestrictionError();
 			return false;
 		}
-		$wgOut->setPagetitle( wfMsg( 'openstackmanager-createproject' ) );
+		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-createproject' ) );
 
 		$projectInfo = array();
 		$projectInfo['projectname'] = array(
@@ -96,11 +96,11 @@ class SpecialNovaProject extends SpecialNova {
 	 * @return bool
 	 */
 	function addMember() {
-		global $wgRequest, $wgOut;
+		global $wgRequest;
 		global $wgUser;
 
 		$this->setHeaders();
-		$wgOut->setPagetitle( wfMsg( 'openstackmanager-addmember' ) );
+		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-addmember' ) );
 
 		$project = $wgRequest->getText( 'projectname' );
 		if ( !$this->userCanExecute( $wgUser ) && !$this->userLDAP->inProject( $project ) ) {
@@ -139,11 +139,11 @@ class SpecialNovaProject extends SpecialNova {
 	 * @return bool
 	 */
 	function deleteMember() {
-		global $wgRequest, $wgOut;
+		global $wgRequest;
 		global $wgUser;
 
 		$this->setHeaders();
-		$wgOut->setPagetitle( wfMsg( 'openstackmanager-removemember' ) );
+		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-removemember' ) );
 
 		$projectname = $wgRequest->getText( 'projectname' );
 		if ( !$this->userCanExecute( $wgUser ) && !$this->userLDAP->inProject( $projectname ) ) {
@@ -188,7 +188,7 @@ class SpecialNovaProject extends SpecialNova {
 	 * @return bool
 	 */
 	function deleteProject() {
-		global $wgOut, $wgRequest;
+		global $wgRequest;
 		global $wgUser;
 
 		$this->setHeaders();
@@ -196,11 +196,11 @@ class SpecialNovaProject extends SpecialNova {
 			$this->displayRestrictionError();
 			return false;
 		}
-		$wgOut->setPagetitle( wfMsg( 'openstackmanager-deleteproject' ) );
+		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-deleteproject' ) );
 
 		$project = $wgRequest->getText( 'projectname' );
 		if ( ! $wgRequest->wasPosted() ) {
-			$wgOut->addWikiMsg( 'openstackmanager-removeprojectconfirm', $project );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-removeprojectconfirm', $project );
 		}
 		$projectInfo = array();
 		$projectInfo['projectname'] = array(
@@ -226,11 +226,9 @@ class SpecialNovaProject extends SpecialNova {
 	 * @return void
 	 */
 	function listProjects() {
-		global $wgOut;
-
 		$this->setHeaders();
-		$wgOut->setPagetitle( wfMsg( 'openstackmanager-projectlist' ) );
-		$wgOut->addModuleStyles( 'ext.openstack' );
+		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-projectlist' ) );
+		$this->getOutput()->addModuleStyles( 'ext.openstack' );
 
 		$out = '';
 
@@ -299,7 +297,7 @@ class SpecialNovaProject extends SpecialNova {
 			$out .= Html::rawElement( 'table', array( 'class' => 'wikitable sortable collapsible' ), $projectsOut );
 		}
 
-		$wgOut->addHTML( $out );
+		$this->getOutput()->addHTML( $out );
 	}
 
 	/**
@@ -308,12 +306,11 @@ class SpecialNovaProject extends SpecialNova {
 	 * @return bool
 	 */
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut;
 		global $wgOpenStackManagerDefaultSecurityGroupRules;
 
 		$success = OpenStackNovaProject::createProject( $formData['projectname'] );
 		if ( ! $success ) {
-			$wgOut->addWikiMsg( 'openstackmanager-createprojectfailed' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-createprojectfailed' );
 			return true;
 		}
 		$project = OpenStackNovaProject::getProjectByName( $formData['projectname'] );
@@ -373,11 +370,11 @@ class SpecialNovaProject extends SpecialNova {
 		# Reset connection to default
 		$this->adminNova->configureConnection();
 		$project->editArticle();
-		$wgOut->addWikiMsg( 'openstackmanager-createdproject' );
+		$this->getOutput()->addWikiMsg( 'openstackmanager-createdproject' );
 
 		$out = '<br />';
 		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backprojectlist' ) );
-		$wgOut->addHTML( $out );
+		$this->getOutput()->addHTML( $out );
 
 		return true;
 	}
@@ -388,20 +385,18 @@ class SpecialNovaProject extends SpecialNova {
 	 * @return bool
 	 */
 	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut;
-
 		$success = OpenStackNovaProject::deleteProject( $formData['projectname'] );
 		if ( $success ) {
 			$project = OpenStackNovaProject::getProjectByName( $formData['projectname'] );
 			$project->deleteArticle();
-			$wgOut->addWikiMsg( 'openstackmanager-deletedproject' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-deletedproject' );
 		} else {
-			$wgOut->addWikiMsg( 'openstackmanager-deleteprojectfailed' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-deleteprojectfailed' );
 		}
 
 		$out = '<br />';
 		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backprojectlist' ) );
-		$wgOut->addHTML( $out );
+		$this->getOutput()->addHTML( $out );
 
 		return true;
 	}
@@ -412,23 +407,21 @@ class SpecialNovaProject extends SpecialNova {
 	 * @return bool
 	 */
 	function tryAddMemberSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut;
-
 		$project = new OpenStackNovaProject( $formData['projectname'] );
 		$members = explode( ',', $formData['member'] );
 		foreach ( $members as $member ) {
 			$success = $project->addMember( $member );
 			if ( $success ) {
 				$project->editArticle();
-				$wgOut->addWikiMsg( 'openstackmanager-addedto', $formData['member'], $formData['projectname'] );
+				$this->getOutput()->addWikiMsg( 'openstackmanager-addedto', $formData['member'], $formData['projectname'] );
 			} else {
-				$wgOut->addWikiMsg( 'openstackmanager-failedtoadd', $formData['member'], $formData['projectname'] );
+				$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoadd', $formData['member'], $formData['projectname'] );
 			}
 		}
 
 		$out = '<br />';
 		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backprojectlist' ) );
-		$wgOut->addHTML( $out );
+		$this->getOutput()->addHTML( $out );
 
 		return true;
 	}
@@ -439,26 +432,24 @@ class SpecialNovaProject extends SpecialNova {
 	 * @return bool
 	 */
 	function tryDeleteMemberSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut;
-
 		$project = OpenStackNovaProject::getProjectByName( $formData['projectname'] );
 		if ( ! $project ) {
-			$wgOut->addWikiMsg( 'openstackmanager-nonexistentproject' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistentproject' );
 			return true;
 		}
 		foreach ( $formData['members'] as $member ) {
 			$success = $project->deleteMember( $member );
 			if ( $success ) {
 				$project->editArticle();
-				$wgOut->addWikiMsg( 'openstackmanager-removedfrom', $member, $formData['projectname'] );
+				$this->getOutput()->addWikiMsg( 'openstackmanager-removedfrom', $member, $formData['projectname'] );
 			} else {
-				$wgOut->addWikiMsg( 'openstackmanager-failedtoremove', $member, $formData['projectname'] );
+				$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoremove', $member, $formData['projectname'] );
 			}
 		}
 		$out = '<br />';
 
 		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backprojectlist' ) );
-		$wgOut->addHTML( $out );
+		$this->getOutput()->addHTML( $out );
 
 		return true;
 	}
