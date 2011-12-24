@@ -15,14 +15,14 @@ class SpecialNovaProject extends SpecialNova {
 	}
 
 	function execute( $par ) {
-		global $wgRequest;
+
 
 		if ( !$this->getUser()->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return;
 		}
 		$this->userLDAP = new OpenStackNovaUser();
-		$action = $wgRequest->getVal( 'action' );
+		$action = $this->getRequest()->getVal( 'action' );
 		if ( $action == "create" ) {
 			$this->createProject();
 		} elseif ( $action == "delete" ) {
@@ -94,12 +94,12 @@ class SpecialNovaProject extends SpecialNova {
 	 * @return bool
 	 */
 	function addMember() {
-		global $wgRequest;
+
 
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-addmember' ) );
 
-		$project = $wgRequest->getText( 'projectname' );
+		$project = $this->getRequest()->getText( 'projectname' );
 		if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inProject( $project ) ) {
 			$this->notInProject();
 			return false;
@@ -136,12 +136,12 @@ class SpecialNovaProject extends SpecialNova {
 	 * @return bool
 	 */
 	function deleteMember() {
-		global $wgRequest;
+
 
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-removemember' ) );
 
-		$projectname = $wgRequest->getText( 'projectname' );
+		$projectname = $this->getRequest()->getText( 'projectname' );
 		if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inProject( $projectname ) ) {
 			$this->notInProject();
 			return false;
@@ -184,8 +184,6 @@ class SpecialNovaProject extends SpecialNova {
 	 * @return bool
 	 */
 	function deleteProject() {
-		global $wgRequest;
-
 		$this->setHeaders();
 		if ( !$this->userCanExecute( $this->getUser() ) ) {
 			$this->displayRestrictionError();
@@ -193,8 +191,8 @@ class SpecialNovaProject extends SpecialNova {
 		}
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-deleteproject' ) );
 
-		$project = $wgRequest->getText( 'projectname' );
-		if ( ! $wgRequest->wasPosted() ) {
+		$project = $this->getRequest()->getText( 'projectname' );
+		if ( ! $this->getRequest()->wasPosted() ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-removeprojectconfirm', $project );
 		}
 		$projectInfo = array();

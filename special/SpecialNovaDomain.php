@@ -14,7 +14,6 @@ class SpecialNovaDomain extends SpecialNova {
 	}
 
 	function execute( $par ) {
-		global $wgRequest;
 		global $wgOpenStackManagerLDAPRolesIntersect;
 
 		if ( !$this->getUser()->isLoggedIn() ) {
@@ -39,7 +38,7 @@ class SpecialNovaDomain extends SpecialNova {
 			return;
 		}
 
-		$action = $wgRequest->getVal( 'action' );
+		$action = $this->getRequest()->getVal( 'action' );
 		if ( $action == "create" ) {
 			$this->createDomain();
 		} elseif ( $action == "delete" ) {
@@ -98,13 +97,11 @@ class SpecialNovaDomain extends SpecialNova {
 	 * @return bool
 	 */
 	function deleteDomain() {
-		global $wgRequest;
-
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-deletedomain' ) );
 
-		$domainname = $wgRequest->getText( 'domainname' );
-		if ( ! $wgRequest->wasPosted() ) {
+		$domainname = $this->getRequest()->getText( 'domainname' );
+		if ( ! $this->getRequest()->wasPosted() ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-deletedomain-confirm', $domainname );
 		}
 		$domainInfo = array();

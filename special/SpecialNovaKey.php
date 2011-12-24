@@ -13,8 +13,6 @@ class SpecialNovaKey extends SpecialNova {
 	}
 
 	function execute( $par ) {
-		global $wgRequest;
-
 		if ( !$this->getUser()->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return;
@@ -25,7 +23,7 @@ class SpecialNovaKey extends SpecialNova {
 			return;
 		}
 
-		$action = $wgRequest->getVal( 'action' );
+		$action = $this->getRequest()->getVal( 'action' );
 		if ( $action == "import" ) {
 			$this->importKey();
 		} elseif ( $action == "delete" ) {
@@ -39,12 +37,12 @@ class SpecialNovaKey extends SpecialNova {
 	 * @return bool
 	 */
 	function importKey() {
-		global $wgRequest;
+
 		global $wgOpenStackManagerNovaKeypairStorage;
 
 		$project = '';
 		if ( $wgOpenStackManagerNovaKeypairStorage == 'nova' ) {
-			$project = $wgRequest->getVal( 'project' );
+			$project = $this->getRequest()->getVal( 'project' );
 			if ( $project && ! $this->userLDAP->inProject( $project ) ) {
 				$this->notInProject();
 				return;
@@ -100,7 +98,7 @@ class SpecialNovaKey extends SpecialNova {
 	 * @return bool
 	 */
 	function deleteKey() {
-		global $wgRequest;
+
 		global $wgOpenStackManagerNovaKeypairStorage;
 
 		$this->setHeaders();
@@ -111,8 +109,8 @@ class SpecialNovaKey extends SpecialNova {
 		$keypairs = array();
 
 		if ( $wgOpenStackManagerNovaKeypairStorage == 'nova' ) {
-			$keyname = $wgRequest->getVal( 'keyname' );
-			$project = $wgRequest->getVal( 'project' );
+			$keyname = $this->getRequest()->getVal( 'keyname' );
+			$project = $this->getRequest()->getVal( 'project' );
 			if ( $project && ! $this->userLDAP->inProject( $project ) ) {
 				$this->notInProject();
 				return true;
@@ -128,9 +126,9 @@ class SpecialNovaKey extends SpecialNova {
 				'name' => 'project',
 			);
 		} elseif ( $wgOpenStackManagerNovaKeypairStorage == 'ldap' ) {
-			$hash = $wgRequest->getVal( 'hash' );
+			$hash = $this->getRequest()->getVal( 'hash' );
 			$keypairs = $this->userLDAP->getKeypairs();
-			if ( ! $wgRequest->wasPosted() ) {
+			if ( ! $this->getRequest()->wasPosted() ) {
 				$this->getOutput()->addHTML( Html::element( 'pre', array(), $keypairs[$hash] ) );
 				$this->getOutput()->addWikiMsg( 'openstackmanager-deletekeyconfirm' );
 			}

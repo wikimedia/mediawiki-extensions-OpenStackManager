@@ -15,14 +15,14 @@ class SpecialNovaRole extends SpecialNova {
 	}
 
 	function execute( $par ) {
-		global $wgRequest;
+
 
 		if ( !$this->getUser()->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return;
 		}
 		$this->userLDAP = new OpenStackNovaUser();
-		$action = $wgRequest->getVal( 'action' );
+		$action = $this->getRequest()->getVal( 'action' );
 		if ( $action == "addmember" ) {
 			$this->addMember();
 		} elseif ( $action == "deletemember" ) {
@@ -36,14 +36,14 @@ class SpecialNovaRole extends SpecialNova {
 	 * @return bool
 	 */
 	function addMember() {
-		global $wgRequest;
+
 
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-addmember' ) );
 
 		$roleInfo = array();
-		$rolename = $wgRequest->getText( 'rolename' );
-		$projectname = $wgRequest->getText( 'projectname' );
+		$rolename = $this->getRequest()->getText( 'rolename' );
+		$projectname = $this->getRequest()->getText( 'projectname' );
 		if ( $projectname ) {
 			if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( $rolename, $projectname, true ) ) {
 				$this->displayRestrictionError();
@@ -100,7 +100,7 @@ class SpecialNovaRole extends SpecialNova {
 		);
 		$roleInfo['returnto'] = array(
 			'type' => 'hidden',
-			'default' => $wgRequest->getText('returnto'),
+			'default' => $this->getRequest()->getText('returnto'),
 			'name' => 'returnto',
 		);
 
@@ -117,13 +117,11 @@ class SpecialNovaRole extends SpecialNova {
 	 * @return bool
 	 */
 	function deleteMember() {
-		global $wgRequest;
-
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-removerolemember' ) );
 
-		$rolename = $wgRequest->getText( 'rolename' );
-		$projectname = $wgRequest->getText( 'projectname' );
+		$rolename = $this->getRequest()->getText( 'rolename' );
+		$projectname = $this->getRequest()->getText( 'projectname' );
 		if ( $projectname ) {
 			if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( $rolename, $projectname, true ) ) {
 				$this->displayRestrictionError();
@@ -180,7 +178,7 @@ class SpecialNovaRole extends SpecialNova {
 		);
 		$roleInfo['returnto'] = array(
 			'type' => 'hidden',
-			'default' => $wgRequest->getText('returnto'),
+			'default' => $this->getRequest()->getText('returnto'),
 			'name' => 'returnto',
 		);
 

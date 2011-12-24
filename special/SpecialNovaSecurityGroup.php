@@ -16,7 +16,6 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	}
 
 	function execute( $par ) {
-		global $wgRequest;
 		global $wgOpenStackManagerNovaAdminKeys;
 
 		if ( !$this->getUser()->isLoggedIn() ) {
@@ -31,7 +30,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		$adminCredentials = $wgOpenStackManagerNovaAdminKeys;
 		$this->adminNova = new OpenStackNovaController( $adminCredentials );
 
-		$action = $wgRequest->getVal( 'action' );
+		$action = $this->getRequest()->getVal( 'action' );
 
 		if ( $action == "create" ) {
 			$this->createSecurityGroup();
@@ -54,12 +53,12 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function createSecurityGroup() {
-		global $wgRequest;
+
 
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-createsecuritygroup' ) );
 
-		$project = $wgRequest->getText( 'project' );
+		$project = $this->getRequest()->getText( 'project' );
 		if ( ! $this->userLDAP->inRole( 'netadmin', $project ) ) {
 			$this->notInRole( 'netadmin' );
 			return false;
@@ -103,13 +102,13 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function configureSecurityGroup() {
-		global $wgRequest;
+
 
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-configuresecuritygroup' ) );
 
-		$securitygroupname = $wgRequest->getText( 'groupname' );
-		$project = $wgRequest->getText( 'project' );
+		$securitygroupname = $this->getRequest()->getText( 'groupname' );
+		$project = $this->getRequest()->getText( 'project' );
 		$securitygroup = $this->adminNova->getSecurityGroup( $securitygroupname, $project );
 		$description = $securitygroup->getGroupDescription();
 		if ( ! $this->userLDAP->inRole( 'netadmin', $project ) ) {
@@ -154,18 +153,18 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function deleteSecurityGroup() {
-		global $wgRequest;
+
 
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-deletesecuritygroup' ) );
 
-		$project = $wgRequest->getText( 'project' );
+		$project = $this->getRequest()->getText( 'project' );
 		if ( ! $this->userLDAP->inRole( 'netadmin', $project ) ) {
 			$this->notInRole( 'netadmin' );
 			return false;
 		}
-		$securitygroupname = $wgRequest->getText( 'groupname' );
-		if ( ! $wgRequest->wasPosted() ) {
+		$securitygroupname = $this->getRequest()->getText( 'groupname' );
+		if ( ! $this->getRequest()->wasPosted() ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-deletesecuritygroup-confirm', $securitygroupname );
 		}
 		$securityGroupInfo = array();
@@ -325,12 +324,12 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function addRule() {
-		global $wgRequest;
+
 
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-addrule' ) );
 
-		$project = $wgRequest->getText( 'project' );
+		$project = $this->getRequest()->getText( 'project' );
 		if ( ! $this->userLDAP->inRole( 'netadmin', $project ) ) {
 			$this->notInRole( 'netadmin' );
 			return false;
@@ -344,7 +343,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 			$info["$securityGroupProject"]["$securityGroupName"] = $securityGroupName . ':' . $securityGroupProject;
 		}
 		$group_keys = $info;
-		$securitygroupname = $wgRequest->getText( 'groupname' );
+		$securitygroupname = $this->getRequest()->getText( 'groupname' );
 		$securityGroupInfo = array();
 		$securityGroupInfo['groupname'] = array(
 			'type' => 'hidden',
@@ -417,18 +416,18 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function removeRule() {
-		global $wgRequest;
+
 
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-removerule' ) );
 
-		$project = $wgRequest->getText( 'project' );
+		$project = $this->getRequest()->getText( 'project' );
 		if ( ! $this->userLDAP->inRole( 'netadmin', $project ) ) {
 			$this->notInRole( 'netadmin' );
 			return false;
 		}
-		$securitygroupname = $wgRequest->getText( 'groupname' );
-		if ( ! $wgRequest->wasPosted() ) {
+		$securitygroupname = $this->getRequest()->getText( 'groupname' );
+		if ( ! $this->getRequest()->wasPosted() ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-removerule-confirm', $securitygroupname );
 		}
 		$securityGroupInfo = array();
@@ -444,30 +443,30 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		);
 		$securityGroupInfo['fromport'] = array(
 			'type' => 'hidden',
-			'default' => $wgRequest->getText( 'fromport' ),
+			'default' => $this->getRequest()->getText( 'fromport' ),
 			'name' => 'fromport',
 		);
 		$securityGroupInfo['toport'] = array(
 			'type' => 'hidden',
-			'default' => $wgRequest->getText( 'toport' ),
+			'default' => $this->getRequest()->getText( 'toport' ),
 			'name' => 'toport',
 		);
 		$securityGroupInfo['protocol'] = array(
 			'type' => 'hidden',
-			'default' => $wgRequest->getText( 'protocol' ),
+			'default' => $this->getRequest()->getText( 'protocol' ),
 			'name' => 'protocol',
 		);
-		if ( $wgRequest->getText( 'ranges' ) ) {
+		if ( $this->getRequest()->getText( 'ranges' ) ) {
 			$securityGroupInfo['ranges'] = array(
 				'type' => 'hidden',
-				'default' => $wgRequest->getText( 'ranges' ),
+				'default' => $this->getRequest()->getText( 'ranges' ),
 				'name' => 'ranges',
 			);
 		}
-		if ( $wgRequest->getText( 'groups' ) ) {
+		if ( $this->getRequest()->getText( 'groups' ) ) {
 			$securityGroupInfo['groups'] = array(
 				'type' => 'hidden',
-				'default' => $wgRequest->getText( 'groups' ),
+				'default' => $this->getRequest()->getText( 'groups' ),
 				'name' => 'groups',
 			);
 		}

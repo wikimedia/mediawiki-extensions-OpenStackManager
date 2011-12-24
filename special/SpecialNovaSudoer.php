@@ -10,8 +10,6 @@ class SpecialNovaSudoer extends SpecialNova {
 	}
 
 	function execute( $par ) {
-		global $wgRequest;
-
 		if ( !$this->getUser()->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return;
@@ -21,7 +19,7 @@ class SpecialNovaSudoer extends SpecialNova {
 			return;
 		}
 
-		$action = $wgRequest->getVal( 'action' );
+		$action = $this->getRequest()->getVal( 'action' );
 		if ( $action == "create" ) {
 			$this->createSudoer();
 		} elseif ( $action == "delete" ) {
@@ -99,13 +97,13 @@ class SpecialNovaSudoer extends SpecialNova {
 	 * @return bool
 	 */
 	function deleteSudoer() {
-		global $wgRequest;
+
 
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-deletesudoer' ) );
 
-		$sudoername = $wgRequest->getText( 'sudoername' );
-		if ( ! $wgRequest->wasPosted() ) {
+		$sudoername = $this->getRequest()->getText( 'sudoername' );
+		if ( ! $this->getRequest()->wasPosted() ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-deletesudoer-confirm', $sudoername );
 		}
 		$sudoerInfo = array();
@@ -132,12 +130,12 @@ class SpecialNovaSudoer extends SpecialNova {
 	 * @return bool
 	 */
 	function modifySudoer() {
-		global $wgRequest;
+
 
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-modifysudoer' ) );
 
-		$sudoername = $wgRequest->getText( 'sudoername' );
+		$sudoername = $this->getRequest()->getText( 'sudoername' );
 		$sudoer = OpenStackNovaSudoer::getSudoerByName( $sudoername );
 		$users = implode( ',', $sudoer->getSudoerUsers() );
 		$hosts = implode( ',', $sudoer->getSudoerHosts() );

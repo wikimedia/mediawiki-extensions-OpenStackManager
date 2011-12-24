@@ -6,13 +6,13 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	}
 
 	function execute( $par ) {
-		global $wgRequest;
+
 
 		if ( ! $this->getUser()->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return;
 		}
-		$action = $wgRequest->getVal( 'action' );
+		$action = $this->getRequest()->getVal( 'action' );
 		if ( $action == "create" ) {
 			$this->createPuppetGroup();
 		} elseif ( $action == "delete" ) {
@@ -81,7 +81,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function addPuppetClass() {
-		global $wgRequest;
+
 
 		$this->setHeaders();
 		if ( !$this->userCanExecute( $this->getUser() ) ) {
@@ -90,7 +90,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		}
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-addpuppetclass' ) );
 
-		$puppetGroupId = $wgRequest->getInt( 'puppetgroupid' );
+		$puppetGroupId = $this->getRequest()->getInt( 'puppetgroupid' );
 		$puppetGroupInfo = array();
 		$puppetGroupInfo['puppetclassname'] = array(
 			'type' => 'text',
@@ -127,7 +127,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function deletePuppetClass() {
-		global $wgRequest;
+
 
 		$this->setHeaders();
 		if ( !$this->userCanExecute( $this->getUser() ) ) {
@@ -135,10 +135,10 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			return false;
 		}
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-removepuppetclass' ) );
-		if ( ! $wgRequest->wasPosted() ) {
+		if ( ! $this->getRequest()->wasPosted() ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-removepuppetclassconfirm' );
 		}
-		$puppetClassId = $wgRequest->getInt( 'puppetclassid' );
+		$puppetClassId = $this->getRequest()->getInt( 'puppetclassid' );
 		$puppetGroupInfo = array();
 		$puppetGroupInfo['puppetclassid'] = array(
 			'type' => 'hidden',
@@ -164,7 +164,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function addPuppetVar() {
-		global $wgRequest;
+
 
 		$this->setHeaders();
 		if ( !$this->userCanExecute( $this->getUser() ) ) {
@@ -173,7 +173,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		}
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-addpuppetvar' ) );
 
-		$puppetGroupId = $wgRequest->getInt( 'puppetgroupid' );
+		$puppetGroupId = $this->getRequest()->getInt( 'puppetgroupid' );
 		$puppetGroupInfo = array();
 		$puppetGroupInfo['puppetvarname'] = array(
 			'type' => 'text',
@@ -210,7 +210,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function deletePuppetVar() {
-		global $wgRequest;
+
 
 		$this->setHeaders();
 		if ( !$this->userCanExecute( $this->getUser() ) ) {
@@ -219,8 +219,8 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		}
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-removepuppetvar' ) );
 
-		$puppetVarId = $wgRequest->getText( 'puppetvarid' );
-		if ( ! $wgRequest->wasPosted() ) {
+		$puppetVarId = $this->getRequest()->getText( 'puppetvarid' );
+		if ( ! $this->getRequest()->wasPosted() ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-removepuppetvarconfirm' );
 		}
 		$puppetGroupInfo = array();
@@ -248,7 +248,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function deletePuppetGroup() {
-		global $wgRequest;
+
 
 		$this->setHeaders();
 		if ( !$this->userCanExecute( $this->getUser() ) ) {
@@ -257,8 +257,8 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		}
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-deletepuppetgroup' ) );
 
-		$puppetGroupId = $wgRequest->getInt( 'puppetgroupid' );
-		if ( ! $wgRequest->wasPosted() ) {
+		$puppetGroupId = $this->getRequest()->getInt( 'puppetgroupid' );
+		if ( ! $this->getRequest()->wasPosted() ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-removepuppetgroupconfirm' );
 		}
 		$puppetGroupInfo = array();
@@ -285,7 +285,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function modifyPuppetClass() {
-		global $wgRequest;
+
 
 		$this->setHeaders();
 		if ( !$this->userCanExecute( $this->getUser() ) ) {
@@ -294,9 +294,9 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		}
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-modifypuppetclass' ) );
 
-		$puppetGroupId = $wgRequest->getInt( 'puppetgroupid' );
-		$puppetClassId = $wgRequest->getInt( 'puppetclassid' );
-		$puppetClassPosition = $wgRequest->getInt( 'puppetclassposition' );
+		$puppetGroupId = $this->getRequest()->getInt( 'puppetgroupid' );
+		$puppetClassId = $this->getRequest()->getInt( 'puppetclassid' );
+		$puppetClassPosition = $this->getRequest()->getInt( 'puppetclassposition' );
 		$puppetGroupInfo = array();
 		$puppetGroupInfo['puppetclassid'] = array(
 			'type' => 'hidden',
@@ -341,7 +341,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function modifyPuppetVar() {
-		global $wgRequest;
+
 
 		$this->setHeaders();
 		if ( !$this->userCanExecute( $this->getUser() ) ) {
@@ -350,9 +350,9 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		}
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-modifypuppetvar' ) );
 
-		$puppetGroupId = $wgRequest->getInt( 'puppetgroupid' );
-		$puppetVarId = $wgRequest->getInt( 'puppetvarid' );
-		$puppetVarPosition = $wgRequest->getInt( 'puppetvarposition' );
+		$puppetGroupId = $this->getRequest()->getInt( 'puppetgroupid' );
+		$puppetVarId = $this->getRequest()->getInt( 'puppetvarid' );
+		$puppetVarPosition = $this->getRequest()->getInt( 'puppetvarposition' );
 		$puppetGroupInfo = array();
 		$puppetGroupInfo['puppetvarid'] = array(
 			'type' => 'hidden',
@@ -397,8 +397,6 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function modifyPuppetGroup() {
-		global $wgRequest;
-
 		$this->setHeaders();
 		if ( !$this->userCanExecute( $this->getUser() ) ) {
 			$this->displayRestrictionError();
@@ -406,8 +404,8 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		}
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-modifypuppetgroup' ) );
 
-		$puppetGroupId = $wgRequest->getInt( 'puppetgroupid' );
-		$puppetGroupPosition = $wgRequest->getInt( 'puppetgroupposition' );
+		$puppetGroupId = $this->getRequest()->getInt( 'puppetgroupid' );
+		$puppetGroupPosition = $this->getRequest()->getInt( 'puppetgroupposition' );
 		$puppetGroupInfo = array();
 		$puppetGroupInfo['puppetgroupid'] = array(
 			'type' => 'hidden',

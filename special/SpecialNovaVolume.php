@@ -16,7 +16,6 @@ class SpecialNovaVolume extends SpecialNova {
 	}
 
 	function execute( $par ) {
-		global $wgRequest;
 		global $wgOpenStackManagerNovaAdminKeys;
 
 		if ( !$this->getUser()->isLoggedIn() ) {
@@ -28,13 +27,13 @@ class SpecialNovaVolume extends SpecialNova {
 			$this->noCredentials();
 			return;
 		}
-		$project = $wgRequest->getVal( 'project' );
+		$project = $this->getRequest()->getVal( 'project' );
 		$userCredentials = $this->userLDAP->getCredentials();
 		$this->userNova = new OpenStackNovaController( $userCredentials, $project );
 		$adminCredentials = $wgOpenStackManagerNovaAdminKeys;
 		$this->adminNova = new OpenStackNovaController( $adminCredentials );
 
-		$action = $wgRequest->getVal( 'action' );
+		$action = $this->getRequest()->getVal( 'action' );
 
 		if ( $action == "create" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
@@ -69,12 +68,10 @@ class SpecialNovaVolume extends SpecialNova {
 	 * @return bool
 	 */
 	function createVolume() {
-		global $wgRequest;
-
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-createvolume' ) );
 
-		$project = $wgRequest->getText( 'project' );
+		$project = $this->getRequest()->getText( 'project' );
 		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
 			$this->notInRole( 'sysadmin' );
 			return false;
@@ -143,18 +140,18 @@ class SpecialNovaVolume extends SpecialNova {
 	 * @return bool
 	 */
 	function deleteVolume() {
-		global $wgRequest;
+
 
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-deletevolume' ) );
 
-		$project = $wgRequest->getText( 'project' );
+		$project = $this->getRequest()->getText( 'project' );
 		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
 			$this->notInRole( 'sysadmin' );
 			return false;
 		}
-		$volumeid = $wgRequest->getText( 'volumeid' );
-		if ( ! $wgRequest->wasPosted() ) {
+		$volumeid = $this->getRequest()->getText( 'volumeid' );
+		if ( ! $this->getRequest()->wasPosted() ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-deletevolumequestion', $volumeid );
 		}
 		$volumeInfo = array();
@@ -186,12 +183,12 @@ class SpecialNovaVolume extends SpecialNova {
 	 * @return bool
 	 */
 	function attachVolume() {
-		global $wgRequest;
+
 
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-attachvolume' ) );
 
-		$project = $wgRequest->getText( 'project' );
+		$project = $this->getRequest()->getText( 'project' );
 		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
 			$this->notInRole( 'sysadmin' );
 			return false;
@@ -209,13 +206,13 @@ class SpecialNovaVolume extends SpecialNova {
 		$volumeInfo['volumeinfo'] = array(
 			'type' => 'info',
 			'label-message' => 'openstackmanager-volumename',
-			'default' => $wgRequest->getText( 'volumeid' ),
+			'default' => $this->getRequest()->getText( 'volumeid' ),
 			'section' => 'volume/info',
 			'name' => 'volumeinfo',
 		);
 		$volumeInfo['volumeid'] = array(
 			'type' => 'hidden',
-			'default' => $wgRequest->getText( 'volumeid' ),
+			'default' => $this->getRequest()->getText( 'volumeid' ),
 			'name' => 'volumeid',
 		);
 		$volumeInfo['volumedescription'] = array(
@@ -261,12 +258,12 @@ class SpecialNovaVolume extends SpecialNova {
 	 * @return bool
 	 */
 	function detachVolume() {
-		global $wgRequest;
+
 
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-detachvolume' ) );
 
-		$project = $wgRequest->getText( 'project' );
+		$project = $this->getRequest()->getText( 'project' );
 		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
 			$this->notInRole( 'sysadmin' );
 			return false;
@@ -275,7 +272,7 @@ class SpecialNovaVolume extends SpecialNova {
 		$volumeInfo['volumeinfo'] = array(
 			'type' => 'info',
 			'label-message' => 'openstackmanager-volumename',
-			'default' => $wgRequest->getText( 'volumeid' ),
+			'default' => $this->getRequest()->getText( 'volumeid' ),
 			'section' => 'volume/info',
 			'name' => 'volumeinfo',
 		);
@@ -288,7 +285,7 @@ class SpecialNovaVolume extends SpecialNova {
 		);
 		$volumeInfo['volumeid'] = array(
 			'type' => 'hidden',
-			'default' => $wgRequest->getText( 'volumeid' ),
+			'default' => $this->getRequest()->getText( 'volumeid' ),
 			'name' => 'volumeid',
 		);
 		$volumeInfo['project'] = array(

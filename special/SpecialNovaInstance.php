@@ -16,7 +16,6 @@ class SpecialNovaInstance extends SpecialNova {
 	}
 
 	function execute( $par ) {
-		global $wgRequest;
 		global $wgOpenStackManagerNovaAdminKeys;
 
 		if ( !$this->getUser()->isLoggedIn() ) {
@@ -28,13 +27,13 @@ class SpecialNovaInstance extends SpecialNova {
 			$this->noCredentials();
 			return;
 		}
-		$project = $wgRequest->getVal( 'project' );
+		$project = $this->getRequest()->getVal( 'project' );
 		$userCredentials = $this->userLDAP->getCredentials();
 		$this->userNova = new OpenStackNovaController( $userCredentials, $project );
 		$adminCredentials = $wgOpenStackManagerNovaAdminKeys;
 		$this->adminNova = new OpenStackNovaController( $adminCredentials );
 
-		$action = $wgRequest->getVal( 'action' );
+		$action = $this->getRequest()->getVal( 'action' );
 
 		if ( $action == "create" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
@@ -75,14 +74,14 @@ class SpecialNovaInstance extends SpecialNova {
 	 * @return bool
 	 */
 	function createInstance() {
-		global $wgRequest;
+
 		global $wgOpenStackManagerPuppetOptions;
 		global $wgOpenStackManagerInstanceDefaultImage;
 
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-createinstance' ) );
 
-		$project = $wgRequest->getText( 'project' );
+		$project = $this->getRequest()->getText( 'project' );
 		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
 			$this->notInRole( 'sysadmin' );
 			return false;
@@ -246,18 +245,18 @@ class SpecialNovaInstance extends SpecialNova {
 	 * @return bool
 	 */
 	function configureInstance() {
-		global $wgRequest;
+
 		global $wgOpenStackManagerPuppetOptions;
 
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-configureinstance' ) );
 
-		$project = $wgRequest->getText( 'project' );
+		$project = $this->getRequest()->getText( 'project' );
 		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
 			$this->notInRole( 'sysadmin' );
 			return false;
 		}
-		$instanceid = $wgRequest->getText( 'instanceid' );
+		$instanceid = $this->getRequest()->getText( 'instanceid' );
 		$instanceInfo = array();
 		$instanceInfo['instanceid'] = array(
 			'type' => 'hidden',
@@ -349,18 +348,18 @@ class SpecialNovaInstance extends SpecialNova {
 	 * @return bool
 	 */
 	function deleteInstance() {
-		global $wgRequest;
+
 
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-deleteinstance' ) );
 
-		$project = $wgRequest->getText( 'project' );
+		$project = $this->getRequest()->getText( 'project' );
 		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
 			$this->notInRole( 'sysadmin' );
 			return false;
 		}
-		$instanceid = $wgRequest->getText( 'instanceid' );
-		if ( ! $wgRequest->wasPosted() ) {
+		$instanceid = $this->getRequest()->getText( 'instanceid' );
+		if ( ! $this->getRequest()->wasPosted() ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-deleteinstancequestion', $instanceid );
 		}
 		$instanceInfo = array();
@@ -392,18 +391,18 @@ class SpecialNovaInstance extends SpecialNova {
 	 * @return bool
 	 */
 	function rebootInstance() {
-		global $wgRequest;
+
 
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-rebootinstance' ) );
 
-		$project = $wgRequest->getText( 'project' );
+		$project = $this->getRequest()->getText( 'project' );
 		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
 			$this->notInRole( 'sysadmin' );
 			return false;
 		}
-		$instanceid = $wgRequest->getText( 'instanceid' );
-		if ( ! $wgRequest->wasPosted() ) {
+		$instanceid = $this->getRequest()->getText( 'instanceid' );
+		if ( ! $this->getRequest()->wasPosted() ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-rebootinstancequestion', $instanceid );
 		}
 		$instanceInfo = array();
@@ -434,17 +433,17 @@ class SpecialNovaInstance extends SpecialNova {
 	 * @return bool
 	 */
 	function getConsoleOutput() {
-		global $wgRequest;
+
 
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-consoleoutput' ) );
 
-		$project = $wgRequest->getText( 'project' );
+		$project = $this->getRequest()->getText( 'project' );
 		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
 			$this->notInRole( 'sysadmin' );
 			return;
 		}
-		$instanceid = $wgRequest->getText( 'instanceid' );
+		$instanceid = $this->getRequest()->getText( 'instanceid' );
 		$consoleOutput = $this->userNova->getConsoleOutput( $instanceid );
 		$out = Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backinstancelist' ) );
 		$out .= Html::element( 'pre', array(), $consoleOutput );
