@@ -432,7 +432,11 @@ class SpecialNovaAddress extends SpecialNova {
 			$actions .= Html::rawElement( 'li', array(), $link );
 			$actions = Html::rawElement( 'ul', array(), $actions );
 			$addressOut .= Html::rawElement( 'td', array(), $actions );
-			$projectArr["$project"] .= Html::rawElement( 'tr', array(), $addressOut );
+			if ( isset( $projectArr["$project"] ) ) {
+				$projectArr["$project"] .= Html::rawElement( 'tr', array(), $addressOut );
+			} else {
+				$projectArr["$project"] = Html::rawElement( 'tr', array(), $addressOut );
+			}
 		}
 		foreach ( $userProjects as $project ) {
 			$out .= Html::element( 'h2', array(), $project );
