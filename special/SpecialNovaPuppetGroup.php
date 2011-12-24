@@ -506,7 +506,6 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 */
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut;
-		global $wgOpenStackManagerDefaultSecurityGroupRules;
 
 		$success = OpenStackNovaPuppetGroup::addGroup( $formData['puppetgroupname'], $formData['puppetgroupposition'] );
 		if ( $success ) {

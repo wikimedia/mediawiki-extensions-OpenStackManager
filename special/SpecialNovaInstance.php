@@ -563,7 +563,6 @@ class SpecialNovaInstance extends SpecialNova {
 	 */
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOut;
-		global $wgOpenStackManagerPuppetOptions;
 
 		$domain = OpenStackNovaDomain::getDomainByName( $formData['domain'] );
 		if ( !$domain ) {
@@ -659,7 +658,7 @@ class SpecialNovaInstance extends SpecialNova {
 	 * @return bool
 	 */
 	function tryConfigureSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut, $wgOpenStackManagerPuppetOptions;
+		global $wgOut;
 
 		$instance = $this->adminNova->getInstance( $formData['instanceid'] );
 		$host = $instance->getHost();

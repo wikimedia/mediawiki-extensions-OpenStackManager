@@ -451,8 +451,8 @@ class OpenStackNovaUser {
 
 		if ( $wgOpenStackManagerLDAPUseUidAsNamingAttribute ) {
 			if ( $writeloc == '' ) {
-				return false;
 				$auth->printDebug( "Trying to set the userdn, but write location isn't set.", NONSENSITIVE );
+				return false;
 			} else {
 				$userdn = 'uid=' . $username . ',' . $writeloc;
 				$auth->printDebug( "Using uid as the naming attribute, dn is: $userdn", NONSENSITIVE );

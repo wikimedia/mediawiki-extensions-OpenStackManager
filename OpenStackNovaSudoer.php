@@ -123,8 +123,6 @@ class OpenStackNovaSudoer {
 	 */
 	function modifySudoer( $users, $hosts, $commands, $options ) {
 		global $wgAuth;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
-		global $wgOpenStackManagerLDAPDomain;
 
 		$sudoer = array();
 		foreach ( $users as $user ) {

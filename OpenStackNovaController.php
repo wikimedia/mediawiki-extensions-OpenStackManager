@@ -208,6 +208,7 @@ class OpenStackNovaController {
 	 * Get the console output of an instance
 	 *
 	 * @param $instanceid string
+	 * @return string
 	 */
 	function getConsoleOutput( $instanceid ) {
 		$consoleOutput = $this->novaConnection->get_console_output( $instanceid, array() );

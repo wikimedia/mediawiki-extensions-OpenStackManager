@@ -280,7 +280,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	 * @return bool
 	 */
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut, $wgUser;
+		global $wgOut;
 
 		if ( $formData['users'] ) {
 			$users = explode( ',', $formData['users'] );

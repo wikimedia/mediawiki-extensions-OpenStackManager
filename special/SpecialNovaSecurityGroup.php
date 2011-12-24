@@ -337,7 +337,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 			$this->notInRole( 'netadmin' );
 			return false;
 		}
-		$group_keys = array();
+
 		$info = array();
 		$securityGroups = $this->adminNova->getSecurityGroups();
 		foreach ( $securityGroups as $securityGroup ) {
@@ -628,7 +628,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function tryRemoveRuleSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOut, $wgUser;
+		global $wgOut;
 
 		$project = $formData['project'];
 		$fromport = $formData['fromport'];

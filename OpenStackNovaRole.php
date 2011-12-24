@@ -200,7 +200,6 @@ class OpenStackNovaRole {
 	 * @return array
 	 */
 	static function getAllGlobalRoles() {
-		global $wgAuth;
 		global $wgOpenStackManagerLDAPGlobalRoles;
 
 		OpenStackNovaLdapConnection::connect();

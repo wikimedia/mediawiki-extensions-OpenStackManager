@@ -663,8 +663,7 @@ class SpecialNovaAddress extends SpecialNova {
 			$wgOut->addWikiMsg( 'openstackmanager-nonexistenthost' );
 		}
 		$out = '<br />';
-		$sk = $wgOut->getSkin();
-		$out .= $sk->link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backaddresslist' ) );
+		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backaddresslist' ) );
 		$wgOut->addHTML( $out );
 		return true;
 	}
