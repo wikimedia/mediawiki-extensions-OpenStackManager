@@ -6,9 +6,9 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	}
 
 	function execute( $par ) {
-		global $wgRequest, $wgUser;
+		global $wgRequest;
 
-		if ( ! $wgUser->isLoggedIn() ) {
+		if ( ! $this->getUser()->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return;
 		}
@@ -40,10 +40,8 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function createPuppetGroup() {
-		global $wgUser;
-
 		$this->setHeaders();
-		if ( !$this->userCanExecute( $wgUser ) ) {
+		if ( !$this->userCanExecute( $this->getUser() ) ) {
 			$this->displayRestrictionError();
 			return false;
 		}
@@ -84,10 +82,9 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 */
 	function addPuppetClass() {
 		global $wgRequest;
-		global $wgUser;
 
 		$this->setHeaders();
-		if ( !$this->userCanExecute( $wgUser ) ) {
+		if ( !$this->userCanExecute( $this->getUser() ) ) {
 			$this->displayRestrictionError();
 			return false;
 		}
@@ -131,10 +128,9 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 */
 	function deletePuppetClass() {
 		global $wgRequest;
-		global $wgUser;
 
 		$this->setHeaders();
-		if ( !$this->userCanExecute( $wgUser ) ) {
+		if ( !$this->userCanExecute( $this->getUser() ) ) {
 			$this->displayRestrictionError();
 			return false;
 		}
@@ -169,10 +165,9 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 */
 	function addPuppetVar() {
 		global $wgRequest;
-		global $wgUser;
 
 		$this->setHeaders();
-		if ( !$this->userCanExecute( $wgUser ) ) {
+		if ( !$this->userCanExecute( $this->getUser() ) ) {
 			$this->displayRestrictionError();
 			return false;
 		}
@@ -216,10 +211,9 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 */
 	function deletePuppetVar() {
 		global $wgRequest;
-		global $wgUser;
 
 		$this->setHeaders();
-		if ( !$this->userCanExecute( $wgUser ) ) {
+		if ( !$this->userCanExecute( $this->getUser() ) ) {
 			$this->displayRestrictionError();
 			return false;
 		}
@@ -255,10 +249,9 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 */
 	function deletePuppetGroup() {
 		global $wgRequest;
-		global $wgUser;
 
 		$this->setHeaders();
-		if ( !$this->userCanExecute( $wgUser ) ) {
+		if ( !$this->userCanExecute( $this->getUser() ) ) {
 			$this->displayRestrictionError();
 			return false;
 		}
@@ -293,10 +286,9 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 */
 	function modifyPuppetClass() {
 		global $wgRequest;
-		global $wgUser;
 
 		$this->setHeaders();
-		if ( !$this->userCanExecute( $wgUser ) ) {
+		if ( !$this->userCanExecute( $this->getUser() ) ) {
 			$this->displayRestrictionError();
 			return false;
 		}
@@ -350,10 +342,9 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 */
 	function modifyPuppetVar() {
 		global $wgRequest;
-		global $wgUser;
 
 		$this->setHeaders();
-		if ( !$this->userCanExecute( $wgUser ) ) {
+		if ( !$this->userCanExecute( $this->getUser() ) ) {
 			$this->displayRestrictionError();
 			return false;
 		}
@@ -407,10 +398,9 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 */
 	function modifyPuppetGroup() {
 		global $wgRequest;
-		global $wgUser;
 
 		$this->setHeaders();
-		if ( !$this->userCanExecute( $wgUser ) ) {
+		if ( !$this->userCanExecute( $this->getUser() ) ) {
 			$this->displayRestrictionError();
 			return false;
 		}

@@ -15,9 +15,9 @@ class SpecialNovaProject extends SpecialNova {
 	}
 
 	function execute( $par ) {
-		global $wgRequest, $wgUser;
+		global $wgRequest;
 
-		if ( !$wgUser->isLoggedIn() ) {
+		if ( !$this->getUser()->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return;
 		}
@@ -40,10 +40,8 @@ class SpecialNovaProject extends SpecialNova {
 	 * @return bool
 	 */
 	function createProject() {
-		global $wgUser;
-
 		$this->setHeaders();
-		if ( !$this->userCanExecute( $wgUser ) ) {
+		if ( !$this->userCanExecute( $this->getUser() ) ) {
 			$this->displayRestrictionError();
 			return false;
 		}
@@ -97,13 +95,12 @@ class SpecialNovaProject extends SpecialNova {
 	 */
 	function addMember() {
 		global $wgRequest;
-		global $wgUser;
 
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-addmember' ) );
 
 		$project = $wgRequest->getText( 'projectname' );
-		if ( !$this->userCanExecute( $wgUser ) && !$this->userLDAP->inProject( $project ) ) {
+		if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inProject( $project ) ) {
 			$this->notInProject();
 			return false;
 		}
@@ -140,13 +137,12 @@ class SpecialNovaProject extends SpecialNova {
 	 */
 	function deleteMember() {
 		global $wgRequest;
-		global $wgUser;
 
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-removemember' ) );
 
 		$projectname = $wgRequest->getText( 'projectname' );
-		if ( !$this->userCanExecute( $wgUser ) && !$this->userLDAP->inProject( $projectname ) ) {
+		if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inProject( $projectname ) ) {
 			$this->notInProject();
 			return false;
 		}
@@ -189,10 +185,9 @@ class SpecialNovaProject extends SpecialNova {
 	 */
 	function deleteProject() {
 		global $wgRequest;
-		global $wgUser;
 
 		$this->setHeaders();
-		if ( !$this->userCanExecute( $wgUser ) ) {
+		if ( !$this->userCanExecute( $this->getUser() ) ) {
 			$this->displayRestrictionError();
 			return false;
 		}

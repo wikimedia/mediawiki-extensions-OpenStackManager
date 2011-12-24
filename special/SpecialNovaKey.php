@@ -13,9 +13,9 @@ class SpecialNovaKey extends SpecialNova {
 	}
 
 	function execute( $par ) {
-		global $wgRequest, $wgUser;
+		global $wgRequest;
 
-		if ( !$wgUser->isLoggedIn() ) {
+		if ( !$this->getUser()->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return;
 		}

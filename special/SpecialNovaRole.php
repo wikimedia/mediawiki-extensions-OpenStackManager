@@ -15,9 +15,9 @@ class SpecialNovaRole extends SpecialNova {
 	}
 
 	function execute( $par ) {
-		global $wgRequest, $wgUser;
+		global $wgRequest;
 
-		if ( !$wgUser->isLoggedIn() ) {
+		if ( !$this->getUser()->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return;
 		}
@@ -36,7 +36,7 @@ class SpecialNovaRole extends SpecialNova {
 	 * @return bool
 	 */
 	function addMember() {
-		global $wgRequest, $wgUser;
+		global $wgRequest;
 
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-addmember' ) );
@@ -45,7 +45,7 @@ class SpecialNovaRole extends SpecialNova {
 		$rolename = $wgRequest->getText( 'rolename' );
 		$projectname = $wgRequest->getText( 'projectname' );
 		if ( $projectname ) {
-			if ( !$this->userCanExecute( $wgUser ) && !$this->userLDAP->inRole( $rolename, $projectname, true ) ) {
+			if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( $rolename, $projectname, true ) ) {
 				$this->displayRestrictionError();
 				return false;
 			}
@@ -71,7 +71,7 @@ class SpecialNovaRole extends SpecialNova {
 				'name' => 'members',
 			);
 		} else {
-			if ( !$this->userCanExecute( $wgUser ) ) {
+			if ( !$this->userCanExecute( $this->getUser() ) ) {
 				$this->displayRestrictionError();
 				return false;
 			}
@@ -118,7 +118,6 @@ class SpecialNovaRole extends SpecialNova {
 	 */
 	function deleteMember() {
 		global $wgRequest;
-		global $wgUser;
 
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-removerolemember' ) );
@@ -126,7 +125,7 @@ class SpecialNovaRole extends SpecialNova {
 		$rolename = $wgRequest->getText( 'rolename' );
 		$projectname = $wgRequest->getText( 'projectname' );
 		if ( $projectname ) {
-			if ( !$this->userCanExecute( $wgUser ) && !$this->userLDAP->inRole( $rolename, $projectname, true ) ) {
+			if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( $rolename, $projectname, true ) ) {
 				$this->displayRestrictionError();
 				return false;
 			}
@@ -141,7 +140,7 @@ class SpecialNovaRole extends SpecialNova {
 				}
 			}
 		} else {
-			if ( !$this->userCanExecute( $wgUser ) ) {
+			if ( !$this->userCanExecute( $this->getUser() ) ) {
 				$this->displayRestrictionError();
 				return false;
 			}

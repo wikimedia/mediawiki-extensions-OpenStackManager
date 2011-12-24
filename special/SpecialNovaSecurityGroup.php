@@ -16,10 +16,10 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	}
 
 	function execute( $par ) {
-		global $wgRequest, $wgUser;
+		global $wgRequest;
 		global $wgOpenStackManagerNovaAdminKeys;
 
-		if ( !$wgUser->isLoggedIn() ) {
+		if ( !$this->getUser()->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return;
 		}
