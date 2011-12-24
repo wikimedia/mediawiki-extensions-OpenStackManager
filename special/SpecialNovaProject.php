@@ -318,7 +318,7 @@ class SpecialNovaProject extends SpecialNova {
 		$project = OpenStackNovaProject::getProjectByName( $formData['projectname'] );
 		$members = explode( ',', $formData['member'] );
 		foreach ( $members as $member ) {
-			$project->addMember( $formData['member'] );
+			$project->addMember( $member );
 		}
 		$roles = $project->getRoles();
 		foreach ( $roles as $role ) {
