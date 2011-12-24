@@ -17,9 +17,9 @@ class SpecialNovaProject extends SpecialNova {
 	function execute( $par ) {
 		global $wgRequest, $wgUser;
 
-		if ( ! $wgUser->isLoggedIn() ) {
+		if ( !$wgUser->isLoggedIn() ) {
 			$this->notLoggedIn();
-			return false;
+			return;
 		}
 		$this->userLDAP = new OpenStackNovaUser();
 		$action = $wgRequest->getVal( 'action' );
@@ -65,6 +65,7 @@ class SpecialNovaProject extends SpecialNova {
 			'section' => 'project/membership',
 			'name' => 'member',
 		);
+		$role_keys = array();
 		foreach ( OpenStackNovaProject::$rolenames as $rolename ) {
 			$role_keys["$rolename"] = $rolename;
 		}

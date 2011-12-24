@@ -17,28 +17,26 @@ class SpecialNovaDomain extends SpecialNova {
 		global $wgRequest, $wgUser;
 		global $wgOpenStackManagerLDAPRolesIntersect;
 
-		if ( ! $wgUser->isLoggedIn() ) {
+		if ( !$wgUser->isLoggedIn() ) {
 			$this->notLoggedIn();
-			return false;
+			return;
 		}
-		if ( ! $this->userLDAP->exists() ) {
+		if ( !$this->userLDAP->exists() ) {
 			$this->noCredentials();
-			return false;
+			return;
 		}
 		# Must be in the global role
 		if ( $wgOpenStackManagerLDAPRolesIntersect ) {
 			# If roles intersect, we need to require cloudadmins, since
 			# users are required to be in netadmins to manage project
 			# specific netadmin things
-			if ( ! $this->userLDAP->inGlobalRole( 'cloudadmin' ) ) {
+			if ( !$this->userLDAP->inGlobalRole( 'cloudadmin' ) ) {
 				$this->notInRole( 'cloudadmin' );
-				return false;
+				return;
 			}
-		} else {
-			if ( ! $this->userLDAP->inGlobalRole( 'netadmin' ) ) {
-				$this->notInRole( 'netadmin' );
-				return false;
-			}
+		} elseif ( !$this->userLDAP->inGlobalRole( 'netadmin' ) ) {
+			$this->notInRole( 'netadmin' );
+			return;
 		}
 
 		$action = $wgRequest->getVal( 'action' );

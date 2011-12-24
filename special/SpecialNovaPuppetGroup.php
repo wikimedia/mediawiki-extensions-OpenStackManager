@@ -10,7 +10,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 
 		if ( ! $wgUser->isLoggedIn() ) {
 			$this->notLoggedIn();
-			return false;
+			return;
 		}
 		$action = $wgRequest->getVal( 'action' );
 		if ( $action == "create" ) {

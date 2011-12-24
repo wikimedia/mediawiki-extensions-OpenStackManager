@@ -21,12 +21,12 @@ class SpecialNovaInstance extends SpecialNova {
 
 		if ( ! $wgUser->isLoggedIn() ) {
 			$this->notLoggedIn();
-			return true;
+			return;
 		}
 		$this->userLDAP = new OpenStackNovaUser();
 		if ( ! $this->userLDAP->exists() ) {
 			$this->noCredentials();
-			return true;
+			return;
 		}
 		$project = $wgRequest->getVal( 'project' );
 		$userCredentials = $this->userLDAP->getCredentials();
@@ -39,31 +39,31 @@ class SpecialNovaInstance extends SpecialNova {
 		if ( $action == "create" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
 				$this->notInProject();
-				return true;
+				return;
 			}
 			$this->createInstance();
 		} elseif ( $action == "delete" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
 				$this->notInProject();
-				return true;
+				return;
 			}
 			$this->deleteInstance();
 		} elseif ( $action == "configure" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
 				$this->notInProject();
-				return true;
+				return;
 			}
 			$this->configureInstance();
 		} elseif ( $action == "reboot" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
 				$this->notInProject();
-				return true;
+				return;
 			}
 			$this->rebootInstance();
 		} elseif ( $action == "consoleoutput" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
 				$this->notInProject();
-				return true;
+				return;
 			}
 			$this->getConsoleOutput();
 		} else {
@@ -442,7 +442,7 @@ class SpecialNovaInstance extends SpecialNova {
 		$project = $wgRequest->getText( 'project' );
 		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
 			$this->notInRole( 'sysadmin' );
-			return false;
+			return;
 		}
 		$instanceid = $wgRequest->getText( 'instanceid' );
 		$consoleOutput = $this->userNova->getConsoleOutput( $instanceid );

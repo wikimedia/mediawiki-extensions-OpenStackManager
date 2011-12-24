@@ -137,7 +137,7 @@ class OpenStackNovaProject {
 	/**
 	 * Add a member to this project based on username
 	 *
-	 * @param  $username string
+	 * @param $username string
 	 * @return bool
 	 */
 	function addMember( $username ) {
@@ -264,7 +264,6 @@ class OpenStackNovaProject {
 	 * Deletes a project based on project name. This function will also delete all roles
 	 * associated with the project.
 	 *
-	 * @static
 	 * @param  $projectname String
 	 * @return bool
 	 */

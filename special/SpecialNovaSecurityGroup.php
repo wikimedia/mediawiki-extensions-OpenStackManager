@@ -19,14 +19,14 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		global $wgRequest, $wgUser;
 		global $wgOpenStackManagerNovaAdminKeys;
 
-		if ( ! $wgUser->isLoggedIn() ) {
+		if ( !$wgUser->isLoggedIn() ) {
 			$this->notLoggedIn();
-			return true;
+			return;
 		}
 		$this->userLDAP = new OpenStackNovaUser();
 		if ( ! $this->userLDAP->exists() ) {
 			$this->noCredentials();
-			return true;
+			return;
 		}
 		$adminCredentials = $wgOpenStackManagerNovaAdminKeys;
 		$this->adminNova = new OpenStackNovaController( $adminCredentials );

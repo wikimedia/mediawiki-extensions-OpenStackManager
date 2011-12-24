@@ -17,9 +17,9 @@ class SpecialNovaRole extends SpecialNova {
 	function execute( $par ) {
 		global $wgRequest, $wgUser;
 
-		if ( ! $wgUser->isLoggedIn() ) {
+		if ( !$wgUser->isLoggedIn() ) {
 			$this->notLoggedIn();
-			return false;
+			return;
 		}
 		$this->userLDAP = new OpenStackNovaUser();
 		$action = $wgRequest->getVal( 'action' );

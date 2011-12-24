@@ -15,14 +15,14 @@ class SpecialNovaKey extends SpecialNova {
 	function execute( $par ) {
 		global $wgRequest, $wgUser;
 
-		if ( ! $wgUser->isLoggedIn() ) {
+		if ( !$wgUser->isLoggedIn() ) {
 			$this->notLoggedIn();
-			return true;
+			return;
 		}
 		$this->userLDAP = new OpenStackNovaUser();
-		if ( ! $this->userLDAP->exists() ) {
+		if ( !$this->userLDAP->exists() ) {
 			$this->noCredentials();
-			return true;
+			return;
 		}
 
 		$action = $wgRequest->getVal( 'action' );
@@ -47,7 +47,7 @@ class SpecialNovaKey extends SpecialNova {
 			$project = $wgRequest->getVal( 'project' );
 			if ( $project && ! $this->userLDAP->inProject( $project ) ) {
 				$this->notInProject();
-				return true;
+				return;
 			}
 			$userCredentials = $this->userLDAP->getCredentials();
 			$this->userNova = new OpenStackNovaController( $userCredentials, $project );

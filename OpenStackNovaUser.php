@@ -247,9 +247,8 @@ class OpenStackNovaUser {
 				wfRestoreWarnings();
 				return ( (int)$entries['count'] > 0 );
 			}
-		} else {
-			return false;
 		}
+		return false;
 	}
 
 	/**
@@ -474,7 +473,6 @@ class OpenStackNovaUser {
 	 */
 	static function LDAPSetNovaInfo( $auth ) {
 		OpenStackNovaLdapConnection::connect();
-		$dn = $auth->userInfo[0]['dn'];
 		wfSuppressWarnings();
 		$result = ldap_read( $auth->ldapconn, $auth->userInfo[0]['dn'], '(objectclass=*)', array( 'secretkey', 'accesskey', 'objectclass' ) );
 		$userInfo = ldap_get_entries( $auth->ldapconn, $result );

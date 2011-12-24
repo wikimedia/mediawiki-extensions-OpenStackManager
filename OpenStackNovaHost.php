@@ -210,6 +210,7 @@ class OpenStackNovaHost {
 				return false;
 			}
 		}
+		return false;
 	}
 
 	/**

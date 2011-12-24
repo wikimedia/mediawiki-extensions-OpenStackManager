@@ -12,13 +12,13 @@ class SpecialNovaSudoer extends SpecialNova {
 	function execute( $par ) {
 		global $wgRequest, $wgUser;
 
-		if ( ! $wgUser->isLoggedIn() ) {
+		if ( !$wgUser->isLoggedIn() ) {
 			$this->notLoggedIn();
-			return false;
+			return;
 		}
-		if ( ! $this->userLDAP->exists() ) {
+		if ( !$this->userLDAP->exists() ) {
 			$this->noCredentials();
-			return false;
+			return;
 		}
 
 		$action = $wgRequest->getVal( 'action' );
