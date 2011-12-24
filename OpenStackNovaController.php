@@ -95,7 +95,7 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @return array
+	 * @return OpenStackNovaInstanceType
 	 */
 	function getInstanceType( $instanceType ) {
 		$this->getInstanceTypes( false );

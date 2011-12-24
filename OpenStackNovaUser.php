@@ -515,7 +515,7 @@ class OpenStackNovaUser {
 
 	/**
 	 * @static
-	 * @param  $template
+	 * @param $template
 	 * @return bool
 	 */
 	static function LDAPModifyUITemplate( &$template ) {

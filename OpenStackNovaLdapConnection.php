@@ -4,8 +4,6 @@ class OpenStackNovaLdapConnection {
 
 	/**
 	 * Connect to LDAP as the open stack manager account using wgAuth
-	 *
-	 * @return void
 	 */
 	static function connect() {
 		global $wgAuth;

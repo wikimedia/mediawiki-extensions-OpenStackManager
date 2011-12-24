@@ -3,13 +3,9 @@
 class OpenStackNovaArticle {
 
 	public static function canCreatePages() {
-                global $wgOpenStackManagerCreateResourcePages;
+		global $wgOpenStackManagerCreateResourcePages;
 
-                if ( $wgOpenStackManagerCreateResourcePages ) {
-                        return true;
-                } else {
-			return false;
-		}
+		return $wgOpenStackManagerCreateResourcePages;
 	}
 
 	public static function editArticle( $titletext, $text ) {
@@ -22,9 +18,9 @@ class OpenStackNovaArticle {
 		if ( ! OpenStackNovaArticle::canCreatePages() ) {
 			return;
 		}
-                $title = Title::newFromText( $titletext, NS_NOVA_RESOURCE );
-                $article = new Article( $title, 0 );
-                $article->doDeleteArticle( '' );
+		$title = Title::newFromText( $titletext, NS_NOVA_RESOURCE );
+		$article = new Article( $title, 0 );
+		$article->doDeleteArticle( '' );
 	}
 
 }

@@ -7,7 +7,7 @@ class OpenStackNovaSecurityGroup {
 	var $rules;
 
 	/**
-	 * @param  $apiInstanceResponse
+	 * @param $apiInstanceResponse
 	 */
 	function __construct( $apiInstanceResponse ) {
 		$this->group = $apiInstanceResponse;
@@ -18,21 +18,21 @@ class OpenStackNovaSecurityGroup {
 	}
 
 	/**
-	 * @return
+	 * @return string
 	 */
 	function getGroupName() {
 		return (string)$this->group->groupName;
 	}
 
 	/**
-	 * @return
+	 * @return string
 	 */
 	function getGroupDescription() {
 		return (string)$this->group->groupDescription;
 	}
 
 	/**
-	 * @return
+	 * @return string
 	 */
 	function getOwner() {
 		return (string)$this->group->ownerId;

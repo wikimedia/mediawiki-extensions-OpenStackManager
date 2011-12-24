@@ -159,9 +159,7 @@ class OpenStackNovaSudoer {
 	 * @return array of OpenStackNovaSudoer
 	 */
 	static function getAllSudoers() {
-		global $wgAuth;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
-		global $wgOpenStackManagerLDAPSudoerBaseDN, $wgOpenStackManagerLDAPDomain;
+		global $wgAuth, $wgOpenStackManagerLDAPSudoerBaseDN;
 
 		OpenStackNovaLdapConnection::connect();
 
@@ -215,10 +213,7 @@ class OpenStackNovaSudoer {
 	 * @return null|OpenStackNovaSudoer
 	 */
 	static function createSudoer( $sudoername, $users, $hosts, $commands, $options ) {
-		global $wgAuth;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
-		global $wgOpenStackManagerLDAPSudoerBaseDN;
-		global $wgOpenStackManagerLDAPDomain;
+		global $wgAuth, $wgOpenStackManagerLDAPSudoerBaseDN;
 
 		OpenStackNovaLdapConnection::connect();
 
@@ -260,8 +255,6 @@ class OpenStackNovaSudoer {
 	 */
 	static function deleteSudoer( $sudoername ) {
 		global $wgAuth;
-		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
-		global $wgOpenStackManagerLDAPDomain;
 
 		OpenStackNovaLdapConnection::connect();
 
