@@ -339,7 +339,7 @@ class SpecialNovaVolume extends SpecialNova {
 			$volumeId = $volume->getVolumeId();
 			$volumeId = htmlentities( $volumeId );
 			$title = Title::newFromText( $volumeId, NS_NOVA_RESOURCE );
-			$volumeIdLink = Linker::( $title, $volumeId );
+			$volumeIdLink = Linker::link( $title, $volumeId );
 			$volumeOut .= Html::rawElement( 'td', array(), $volumeIdLink );
 			$volumeOut .= Html::element( 'td', array(), $volume->getVolumeDescription() );
 			$volumeOut .= Html::element( 'td', array(), $volume->getVolumeStatus() );
@@ -351,24 +351,24 @@ class SpecialNovaVolume extends SpecialNova {
 			$volumeOut .= Html::element( 'td', array(), $volume->getVolumeAvailabilityZone() );
 			$volumeOut .= Html::element( 'td', array(), $volume->getVolumeCreationTime() );
 			$msg = wfMsgHtml( 'openstackmanager-delete' );
-			$link = Linker::( $this->getTitle(), $msg, array(),
+			$link = Linker::link( $this->getTitle(), $msg, array(),
 								  array( 'action' => 'delete',
 									   'project' => $project,
 									   'volumeid' => $volume->getVolumeId() ) );
 			$actions = Html::rawElement( 'li', array(), $link );
 			#$msg = wfMsgHtml( 'openstackmanager-rename' );
-			#$actions .= Linker::( $this->getTitle(), $msg, array(),
+			#$actions .= Linker::link( $this->getTitle(), $msg, array(),
 			#					   array( 'action' => 'rename',
 			#							'project' => $project,
 			#							'volumeid' => $volume->getVolumeId() ) );
 			$msg = wfMsgHtml( 'openstackmanager-attach' );
-			$link = Linker::( $this->getTitle(), $msg, array(),
+			$link = Linker::link( $this->getTitle(), $msg, array(),
 								   array( 'action' => 'attach',
 										'project' => $project,
 										'volumeid' => $volume->getVolumeId() ) );
 			$actions .= Html::rawElement( 'li', array(), $link );
 			$msg = wfMsgHtml( 'openstackmanager-detach' );
-			$link = Linker::( $this->getTitle(), $msg, array(),
+			$link = Linker::link( $this->getTitle(), $msg, array(),
 								   array( 'action' => 'detach',
 										'project' => $project,
 										'volumeid' => $volume->getVolumeId() ) );
@@ -383,7 +383,7 @@ class SpecialNovaVolume extends SpecialNova {
 		}
 		foreach ( $userProjects as $project ) {
 			$out .= Html::element( 'h2', array(), $project );
-			$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-createvolume' ), array(),
+			$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-createvolume' ), array(),
 							   array( 'action' => 'create', 'project' => $project ) );
 			if ( isset( $projectArr["$project"] ) ) {
 				$projectOut = $header;
@@ -410,7 +410,7 @@ class SpecialNovaVolume extends SpecialNova {
 		}
 
 		$out = '<br />';
-		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backvolumelist' ) );
+		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backvolumelist' ) );
 
 		$this->getOutput()->addHTML( $out );
 		return true;
@@ -436,7 +436,7 @@ class SpecialNovaVolume extends SpecialNova {
 		}
 
 		$out = '<br />';
-		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backvolumelist' ) );
+		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backvolumelist' ) );
 
 		$this->getOutput()->addHTML( $out );
 		return true;
@@ -456,7 +456,7 @@ class SpecialNovaVolume extends SpecialNova {
 		}
 
 		$out = '<br />';
-		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backvolumelist' ) );
+		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backvolumelist' ) );
 
 		$this->getOutput()->addHTML( $out );
 		return true;
@@ -481,7 +481,7 @@ class SpecialNovaVolume extends SpecialNova {
 		}
 
 		$out = '<br />';
-		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backvolumelist' ) );
+		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backvolumelist' ) );
 
 		$this->getOutput()->addHTML( $out );
 		return true;

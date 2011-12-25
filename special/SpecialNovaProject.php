@@ -225,7 +225,7 @@ class SpecialNovaProject extends SpecialNova {
 
 		$out = '';
 
-		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-createproject' ), array(), array( 'action' => 'create' ) );
+		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-createproject' ), array(), array( 'action' => 'create' ) );
 		$projectsOut = Html::element( 'th', array(), wfMsg( 'openstackmanager-projectname' ) );
 		$projectsOut .= Html::element( 'th', array(),  wfMsg( 'openstackmanager-members' ) );
 		$projectsOut .= Html::element( 'th', array(),  wfMsg( 'openstackmanager-roles' ) );
@@ -238,7 +238,7 @@ class SpecialNovaProject extends SpecialNova {
 			$projectName = $project->getProjectName();
 			$projectName = htmlentities( $projectName );
 			$title = Title::newFromText( $projectName, NS_NOVA_RESOURCE );
-			$projectNameLink = Linker::( $title, $projectName );
+			$projectNameLink = Linker::link( $title, $projectName );
 			$projectOut = Html::rawElement( 'td', array(), $projectNameLink );
 			$projectMembers = $project->getMembers();
 			$memberOut = '';
@@ -261,10 +261,10 @@ class SpecialNovaProject extends SpecialNova {
 				}
 				$roleMembers = Html::rawElement( 'ul', array(), $roleMembers );
 				$roleOut .= Html::rawElement( 'td', array(), $roleMembers );
-				$link = Linker::( $specialRoleTitle, wfMsgHtml( 'openstackmanager-addrolemember' ), array(),
+				$link = Linker::link( $specialRoleTitle, wfMsgHtml( 'openstackmanager-addrolemember' ), array(),
 								   array( 'action' => 'addmember', 'projectname' => $projectName, 'rolename' => $role->getRoleName(), 'returnto' => 'Special:NovaProject' ) );
 				$actions = Html::rawElement( 'li', array(), $link );
-				$link = Linker::( $specialRoleTitle, wfMsgHtml( 'openstackmanager-removerolemember' ), array(),
+				$link = Linker::link( $specialRoleTitle, wfMsgHtml( 'openstackmanager-removerolemember' ), array(),
 								   array( 'action' => 'deletemember', 'projectname' => $projectName, 'rolename' => $role->getRoleName(), 'returnto' => 'Special:NovaProject' ) );
 				$actions .= Html::rawElement( 'li', array(), $link );
 				$actions = Html::rawElement( 'ul', array(), $actions );
@@ -273,13 +273,13 @@ class SpecialNovaProject extends SpecialNova {
 			}
 			$rolesOut = Html::rawElement( 'table', array( 'class' => 'wikitable sortable collapsible' ), $rolesOut );
 			$projectOut .= Html::rawElement( 'td', array( 'class' => 'Nova_cell' ), $rolesOut );
-			$link = Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-deleteproject' ), array(),
+			$link = Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-deleteproject' ), array(),
 							   array( 'action' => 'delete', 'projectname' => $projectName ) );
 			$actions = Html::rawElement( 'li', array(), $link );
-			$link = Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-addmember' ), array(),
+			$link = Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-addmember' ), array(),
 									 array( 'action' => 'addmember', 'projectname' => $projectName ) );
 			$actions .= Html::rawElement( 'li', array(), $link );
-			$link = Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-removemember' ), array(),
+			$link = Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-removemember' ), array(),
 							   array( 'action' => 'deletemember', 'projectname' => $projectName ) );
 			$actions .= Html::rawElement( 'li', array(), $link );
 			$actions = Html::rawElement( 'ul', array(), $actions );
@@ -366,7 +366,7 @@ class SpecialNovaProject extends SpecialNova {
 		$this->getOutput()->addWikiMsg( 'openstackmanager-createdproject' );
 
 		$out = '<br />';
-		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backprojectlist' ) );
+		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backprojectlist' ) );
 		$this->getOutput()->addHTML( $out );
 
 		return true;
@@ -388,7 +388,7 @@ class SpecialNovaProject extends SpecialNova {
 		}
 
 		$out = '<br />';
-		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backprojectlist' ) );
+		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backprojectlist' ) );
 		$this->getOutput()->addHTML( $out );
 
 		return true;
@@ -413,7 +413,7 @@ class SpecialNovaProject extends SpecialNova {
 		}
 
 		$out = '<br />';
-		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backprojectlist' ) );
+		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backprojectlist' ) );
 		$this->getOutput()->addHTML( $out );
 
 		return true;
@@ -441,7 +441,7 @@ class SpecialNovaProject extends SpecialNova {
 		}
 		$out = '<br />';
 
-		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backprojectlist' ) );
+		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backprojectlist' ) );
 		$this->getOutput()->addHTML( $out );
 
 		return true;

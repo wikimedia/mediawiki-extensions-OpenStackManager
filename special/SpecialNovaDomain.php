@@ -131,7 +131,7 @@ class SpecialNovaDomain extends SpecialNova {
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-domainlist' ) );
 
-		$out = Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-createdomain' ), array(), array( 'action' => 'create' ) );
+		$out = Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-createdomain' ), array(), array( 'action' => 'create' ) );
 		$domainsOut = Html::element( 'th', array(), wfMsg( 'openstackmanager-domainname' ) );
 		$domainsOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-fqdn' ) );
 		$domainsOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-location' ) );
@@ -145,7 +145,7 @@ class SpecialNovaDomain extends SpecialNova {
 			$domainOut .= Html::element( 'td', array(), $fqdn );
 			$domainOut .= Html::element( 'td', array(), $location );
 			$msg = wfMsgHtml( 'openstackmanager-delete' );
-			$link = Linker::( $this->getTitle(), $msg, array(),
+			$link = Linker::link( $this->getTitle(), $msg, array(),
 							   array( 'action' => 'delete', 'domainname' => $domainName ) );
 			$domainOut .= Html::rawElement( 'td', array(), $link );
 			$domainsOut .= Html::rawElement( 'tr', array(), $domainOut );
@@ -171,7 +171,7 @@ class SpecialNovaDomain extends SpecialNova {
 		$this->getOutput()->addWikiMsg( 'openstackmanager-createddomain' );
 
 		$out = '<br />';
-		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backdomainlist' ) );
+		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backdomainlist' ) );
 		$this->getOutput()->addHTML( $out );
 
 		return true;
@@ -191,7 +191,7 @@ class SpecialNovaDomain extends SpecialNova {
 		}
 
 		$out = '<br />';
-		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backdomainlist' ) );
+		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backdomainlist' ) );
 		$this->getOutput()->addHTML( $out );
 
 		return true;

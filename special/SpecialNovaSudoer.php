@@ -210,7 +210,7 @@ class SpecialNovaSudoer extends SpecialNova {
 
 		$out = '';
 
-		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-createsudoer' ), array(), array( 'action' => 'create' ) );
+		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-createsudoer' ), array(), array( 'action' => 'create' ) );
 		$sudoersOut = Html::element( 'th', array(), wfMsg( 'openstackmanager-sudoername' ) );
 		$sudoersOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-sudoerusers' ) );
 		$sudoersOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-sudoerhosts' ) );
@@ -250,11 +250,11 @@ class SpecialNovaSudoer extends SpecialNova {
 			$sudoerOptions = Html::rawElement( 'ul', array(), $sudoerOptions );
 			$sudoerOut .= Html::rawElement( 'td', array(), $sudoerOptions );
 			$msg = wfMsgHtml( 'openstackmanager-modify' );
-			$link = Linker::( $this->getTitle(), $msg, array(),
+			$link = Linker::link( $this->getTitle(), $msg, array(),
 							   array( 'action' => 'modify', 'sudoername' => $sudoerName ) );
 			$actions = Html::rawElement( 'li', array(), $link );
 			$msg = wfMsgHtml( 'openstackmanager-delete' );
-			$link = Linker::( $this->getTitle(), $msg, array(),
+			$link = Linker::link( $this->getTitle(), $msg, array(),
 							   array( 'action' => 'delete', 'sudoername' => $sudoerName ) );
 			$actions .= Html::rawElement( 'li', array(), $link );
 			$actions = Html::rawElement( 'ul', array(), $actions );
@@ -302,7 +302,7 @@ class SpecialNovaSudoer extends SpecialNova {
 		$this->getOutput()->addWikiMsg( 'openstackmanager-createdsudoer' );
 
 		$out = '<br />';
-		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backsudoerlist' ) );
+		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backsudoerlist' ) );
 		$this->getOutput()->addHTML( $out );
 
 		return true;
@@ -323,7 +323,7 @@ class SpecialNovaSudoer extends SpecialNova {
 		}
 
 		$out = '<br />';
-		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backsudoerlist' ) );
+		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backsudoerlist' ) );
 		$this->getOutput()->addHTML( $out );
 
 		return true;
@@ -368,7 +368,7 @@ class SpecialNovaSudoer extends SpecialNova {
 		}
 
 		$out = '<br />';
-		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-backsudoerlist' ) );
+		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backsudoerlist' ) );
 		$this->getOutput()->addHTML( $out );
 
 		return true;
