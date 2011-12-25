@@ -1942,7 +1942,7 @@ $messages['gl'] = array(
 	'openstackmanager-configureinstance' => 'Configurar a instancia',
 	'openstackmanager-nonexistanthost' => 'O provedor de aloxamento que solicitou non existe.',
 	'openstackmanager-dnsdomain' => 'Dominio DNS',
-	'openstackmanager-puppetclasses' => 'Clases de monicreques',
+	'openstackmanager-puppetclasses' => 'Clases:',
 	'openstackmanager-novainstance-info' => 'Información da instancia',
 	'openstackmanager-novainstance-puppetinfo' => 'Información do monicreque',
 	'openstackmanager-deleteinstance' => 'Borrar a instancia',
@@ -1965,6 +1965,7 @@ $messages['gl'] = array(
 	'openstackmanager-rebootinstancefailed' => 'Erro ao reiniciar a instancia.',
 	'openstackmanager-launchtime' => 'Hora de lanzamento',
 	'openstackmanager-createinstance' => 'Crear unha nova instancia',
+	'openstackmanager-createinstancepuppetwarning' => 'Atención: A adición dunha configuración de monicreque na creación dunha instancia pode causar un erro na construción desta instancia. Use esta configuración con precaución. Terá a oportunidade de configurar a instancia despois da súa construción.',
 	'openstackmanager-invaliddomain' => 'O dominio solicitado non é válido.',
 	'openstackmanager-createdinstance' => 'Creouse a instancia $1 coa imaxe $2 e o nome de servidor de aloxamento $3.',
 	'openstackmanager-createfailedldap' => 'Erro ao crear a instancia debido a que o aloxamento non se puido engadir a LDAP.',
@@ -2106,6 +2107,10 @@ $messages['gl'] = array(
 	'openstackmanager-deletesecuritygroup-confirm' => 'Está seguro de querer borrar $1?',
 	'openstackmanager-securitygrouplist' => 'Lista de grupos de seguridade',
 	'openstackmanager-securitygrouprule' => 'Regras',
+	'openstackmanager-novasecuritygroup-rule' => 'Regra do grupo de seguridade',
+	'openstackmanager-novasecuritygroup-singlerule' => 'Regra individual',
+	'openstackmanager-novasecuritygroup-group' => 'Regra de grupo',
+	'openstackmanager-securitygrouprule-group-exclusive' => 'Nota: As regras de grupo son exclusivas mutuamente coas individuais.',
 	'openstackmanager-securitygrouprule-toport' => 'Ao porto',
 	'openstackmanager-securitygrouprule-fromport' => 'Desde o porto',
 	'openstackmanager-securitygrouprule-protocol' => 'Protocolo',
@@ -2154,6 +2159,47 @@ $messages['gl'] = array(
 	'openstackmanager-modifysudoerfailed' => 'Erro ao modificar a política sudo.',
 	'openstackmanager-modifiedsudoer' => 'A política sudo modificouse correctamente.',
 	'openstackmanager-nonexistantsudoer' => 'A política sudo solicitada non existe.',
+	'openstackmanager-novapuppetgroup' => 'Grupo de monicreque Nova',
+	'openstackmanager-puppetgrouplist' => 'Lista de grupos de monicreques',
+	'openstackmanager-createpuppetgroup' => 'Crear un grupo de monicreque',
+	'openstackmanager-createdpuppetgroup' => 'Creouse o grupo de monicreque.',
+	'openstackmanager-createpuppetgroupfailed' => 'Erro ao crear o grupo de monicreque.',
+	'openstackmanager-backpuppetgrouplist' => 'Volver á lista de grupos de monicreques.',
+	'openstackmanager-addpuppetclass' => 'Engadir unha clase de monicreque',
+	'openstackmanager-addedpuppetclass' => 'Engadiuse a clase de monicreque.',
+	'openstackmanager-failedtoaddpuppetclass' => 'Erro ao engadir a clase de monicreque.',
+	'openstackmanager-puppetclassname' => 'Nome de clase',
+	'openstackmanager-removepuppetgroupconfirm' => 'Está seguro de querer borrar este grupo de monicreque?',
+	'openstackmanager-deletepuppetgroup' => 'Borrar o grupo de monicreque',
+	'openstackmanager-deletedpuppetgroup' => 'Borrouse o grupo de monicreque.',
+	'openstackmanager-deletepuppetgroupfailed' => 'Erro ao borrar o grupo de monicreque.',
+	'openstackmanager-modifypuppetgroup' => 'Modificar o grupo de monicreque',
+	'openstackmanager-modifiedpuppetgroup' => 'Modificouse o grupo de monicreque.',
+	'openstackmanager-failedtomodifypuppetgroup' => 'Erro ao modificar o grupo de monicreque.',
+	'openstackmanager-puppetvars' => 'Variables:',
+	'openstackmanager-addpuppetvar' => 'Engadir unha variable de monicreque',
+	'openstackmanager-puppetvarname' => 'Nome da variable',
+	'openstackmanager-puppetvarposition' => 'Posición da variable',
+	'openstackmanager-addedpuppetvar' => 'Engadiuse a variable de monicreque.',
+	'openstackmanager-failedtoaddpuppetvar' => 'Erro ao engadir a variable de monicreque.',
+	'openstackmanager-modifypuppetvar' => 'Modificar a variable de monicreque',
+	'openstackmanager-modifiedpuppetvar' => 'Modificouse a variable de monicreque.',
+	'openstackmanager-failedtomodifypuppetvar' => 'Erro ao modificar a variable de monicreque.',
+	'openstackmanager-puppetgroupname' => 'Nome do grupo do monicreque',
+	'openstackmanager-puppetgroupposition' => 'Posición do grupo do monicreque',
+	'openstackmanager-modifypuppetclass' => 'Modificar a clase de monicreque',
+	'openstackmanager-failedtomodifypuppetclass' => 'Erro ao modificar a clase de monicreque.',
+	'openstackmanager-puppetclassposition' => 'Posición da clase',
+	'openstackmanager-puppetgroup' => 'Grupo de monicreque',
+	'openstackmanager-modifiedpuppetclass' => 'Modificouse a clase de monicreque.',
+	'openstackmanager-removepuppetclass' => 'Borrar a clase de monicreque',
+	'openstackmanager-removepuppetclassconfirm' => 'Está seguro de querer borrar esta clase de monicreque?',
+	'openstackmanager-deletedpuppetclass' => 'Borrouse a clase de monicreque.',
+	'openstackmanager-failedtodeletepuppetclass' => 'Erro ao borrar a clase de monicreque.',
+	'openstackmanager-removepuppetvar' => 'Borrar a variable de monicreque',
+	'openstackmanager-removepuppetvarconfirm' => 'Está seguro de querer borrar esta variable de monicreque?',
+	'openstackmanager-deletedpuppetvar' => 'Borrouse a variable de monicreque.',
+	'openstackmanager-failedtodeletepuppetvar' => 'Erro ao borrar a variable de monicreque.',
 	'openstackmanager-email-subject' => 'A súa instancia está lista para recibir as conexións.',
 	'openstackmanager-email-body' => 'Creouse a seguinte instancia e xa está lista para recibir conexións:',
 	'right-manageproject' => 'Xestionar os roles e proxectos Openstack',
@@ -3266,6 +3312,13 @@ $messages['ms'] = array(
 	'openstackmanager-sudoeroptions' => 'Pilihan',
 );
 
+/** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
+ * @author Nghtwlkr
+ */
+$messages['nb'] = array(
+	'specialpages-group-nova' => 'OpenStack Nova',
+);
+
 /** Dutch (Nederlands)
  * @author Saruman
  * @author Siebrand
@@ -3582,13 +3635,6 @@ $messages['nl'] = array(
 	'openstackmanager-email-subject' => 'U kunt nu aanmelden op uw instantie.',
 	'openstackmanager-email-body' => 'De volgende instantie is aangemaakt en er kan op aangemeld worden:',
 	'right-manageproject' => 'OpenStack-projecten en -rollen beheren',
-);
-
-/** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
- * @author Nghtwlkr
- */
-$messages['nb'] = array(
-	'specialpages-group-nova' => 'OpenStack Nova',
 );
 
 /** Deitsch (Deitsch)
