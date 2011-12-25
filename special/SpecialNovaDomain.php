@@ -131,9 +131,7 @@ class SpecialNovaDomain extends SpecialNova {
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-domainlist' ) );
 
-		$out = '';
-
-		$out .= Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-createdomain' ), array(), array( 'action' => 'create' ) );
+		$out = Linker::( $this->getTitle(), wfMsgHtml( 'openstackmanager-createdomain' ), array(), array( 'action' => 'create' ) );
 		$domainsOut = Html::element( 'th', array(), wfMsg( 'openstackmanager-domainname' ) );
 		$domainsOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-fqdn' ) );
 		$domainsOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-location' ) );
