@@ -20,6 +20,12 @@ $specialPageAliases['ar'] = array(
 	'OpenStackManageInstance' => array( 'التحكم_بها' ),
 );
 
+/** Interlingua (Interlingua) */
+$specialPageAliases['ia'] = array(
+	'OpenStackManager' => array( 'Gerentia_de_OpenStack' ),
+	'OpenStackManageInstance' => array( 'Gerer_instantia' ),
+);
+
 /** Macedonian (Македонски) */
 $specialPageAliases['mk'] = array(
 	'OpenStackManager' => array( 'РаководителСоOpenStack' ),
@@ -37,8 +43,3 @@ $specialPageAliases['nl'] = array(
 	'OpenStackManager' => array( 'OpenStackBeheren' ),
 	'OpenStackManageInstance' => array( 'InstantieBeheren' ),
 );
-
-/**
- * For backwards compatibility with MediaWiki 1.15 and earlier.
- */
-$aliases =& $specialPageAliases;
