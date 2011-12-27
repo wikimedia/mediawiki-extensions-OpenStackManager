@@ -41,7 +41,7 @@ class OpenStackNovaPuppetGroup {
 		return $this->classes;
 	}
 
-	public funtion getProject() {
+	public function getProject() {
 		return $this->project;
 	}
 
