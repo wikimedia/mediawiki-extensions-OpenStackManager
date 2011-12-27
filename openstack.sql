@@ -9,6 +9,9 @@ CREATE TABLE /*_*/openstack_puppet_groups (
 	-- Position of group when displayed
 	group_position int not null
 
+	-- OpenStack project to which this group belongs, if any
+	group_project varchar(255) binary,
+
 ) /*$wgDBTableOptions*/;
 
 CREATE INDEX /*i*/group_name on /*_*/openstack_puppet_groups (group_name);
@@ -26,6 +29,9 @@ CREATE TABLE /*_*/openstack_puppet_vars (
 	-- Position of variable inside its group
 	var_position int not null
 
+	-- OpenStack project to which this variable belongs, if any
+	var_project varchar(255) binary,
+
 ) /*$wgDBTableOptions*/;
 
 CREATE TABLE /*_*/openstack_puppet_classes (
@@ -40,5 +46,8 @@ CREATE TABLE /*_*/openstack_puppet_classes (
 
 	-- Position of class inside its group
 	class_position int not null
+
+	-- OpenStack project to which this class belongs, if any
+	class_project varchar(255) binary,
 
 ) /*$wgDBTableOptions*/;

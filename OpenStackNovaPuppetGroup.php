@@ -12,10 +12,11 @@ class OpenStackNovaPuppetGroup {
 	 * @param $id Int Database id for the group
 	 * @param $name String User-defined name of the group
 	 */
-	public function __construct( $id, $name, $position ) {
+	public function __construct( $id, $name, $position, $project=null ) {
 		$this->id = $id;
 		$this->name = $name;
 		$this->position = $position;
+		$this->project = $project;
 		$this->loadVars( $id );
 		$this->loadClasses( $id );
 	}
@@ -38,6 +39,10 @@ class OpenStackNovaPuppetGroup {
 
 	public function getClasses() {
 		return $this->classes;
+	}
+
+	public funtion getProject() {
+		return $this->project;
 	}
 
 	/**
@@ -97,10 +102,20 @@ class OpenStackNovaPuppetGroup {
 	}
 
 	/**
+	 * @param $projects array Optionally get list for a set of projects
 	 * @return array
 	 */
-	public static function getGroupList() {
+	public static function getGroupList( $projects = array() ) {
 		$dbr = wfGetDB( DB_SLAVE );
+		$condition = '';
+		if ( $projects ) {
+			$condition .= 'group_project =';
+			foreach ( $projects as $project ) {
+				$condition .= $project . ',';
+			}
+			$condition = $dbr->addQuotes( $condition );
+			$condition = $condition[0,-1];
+		}
 		$rows = $dbr->select(
 			'openstack_puppet_groups',
 			array(
@@ -108,7 +123,7 @@ class OpenStackNovaPuppetGroup {
 				'group_name',
 				'group_position'
 			),
-			'',
+			$condition,
 			__METHOD__,
 			array( 'ORDER BY' => 'group_position ASC' )
 		);

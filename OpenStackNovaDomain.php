@@ -32,11 +32,9 @@ class OpenStackNovaDomain {
 		if ( is_array( $domainInfo ) ) {
 			$this->domainInfo = $domainInfo;
 		} else {
-			wfSuppressWarnings();
-			$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN,
+			$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN,
 									'(dc=' . $this->domainname . ')' );
-			$this->domainInfo = ldap_get_entries( $wgAuth->ldapconn, $result );
-			wfRestoreWarnings();
+			$this->domainInfo = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
 			$wgMemc->set( $key, $this->domainInfo, 3600 * 24 );
 		}
 		if ( $this->domainInfo ) {
@@ -88,9 +86,7 @@ class OpenStackNovaDomain {
 
 		$domain = array();
 		$domain['soarecord'] = OpenStackNovaDomain::generateSOA();
-		wfSuppressWarnings();
-		$success = ldap_modify( $wgAuth->ldapconn, $this->domainDN, $domain );
-		wfRestoreWarnings();
+		$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->domainDN, $domain );
 		if ( $success ) {
 			$wgAuth->printDebug( "Successfully modified soarecord for " . $this->domainDN, NONSENSITIVE );
 			$this->fetchDomainInfo();
@@ -122,13 +118,9 @@ class OpenStackNovaDomain {
 		} else {
 			$query = '(soarecord=*)';
 		}
-		wfSuppressWarnings();
-		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, $query );
-		wfRestoreWarnings();
+		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, $query );
 		if ( $result ) {
-			wfSuppressWarnings();
-			$entries = ldap_get_entries( $wgAuth->ldapconn, $result );
-			wfRestoreWarnings();
+			$entries = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
 			if ( $entries ) {
 				# First entry is always a count
 				array_shift( $entries );
@@ -173,11 +165,9 @@ class OpenStackNovaDomain {
 
 		OpenStackNovaLdapConnection::connect();
 
-		wfSuppressWarnings();
-		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN,
+		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN,
 								'(arecord=' . $ip . ')' );
-		$hostInfo = ldap_get_entries( $wgAuth->ldapconn, $result );
-		wfRestoreWarnings();
+		$hostInfo = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
 		if ( $hostInfo['count'] == "0" ) {
 			return null;
 		}
@@ -206,11 +196,9 @@ class OpenStackNovaDomain {
 
 		OpenStackNovaLdapConnection::connect();
 
-		wfSuppressWarnings();
-		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN,
+		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN,
 								'(associateddomain=' . $instanceid . '.*)' );
-		$hostInfo = ldap_get_entries( $wgAuth->ldapconn, $result );
-		wfRestoreWarnings();
+		$hostInfo = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
 		if ( $hostInfo['count'] == "0" ) {
 			return null;
 		}
@@ -258,9 +246,7 @@ class OpenStackNovaDomain {
 		}
 		$dn = 'dc=' . $domainname . ',' . $wgOpenStackManagerLDAPInstanceBaseDN;
 
-		wfSuppressWarnings();
-		$success = ldap_add( $wgAuth->ldapconn, $dn, $domain );
-		wfRestoreWarnings();
+		$success = LdapAuthenticationPlugin::ldap_add( $wgAuth->ldapconn, $dn, $domain );
 		if ( $success ) {
 			$wgAuth->printDebug( "Successfully added domain $domainname", NONSENSITIVE );
 			return new OpenStackNovaDomain( $domainname );
@@ -291,15 +277,12 @@ class OpenStackNovaDomain {
 		$dn = $domain->domainDN;
 
 		# Domains can have records as sub entries. If sub-entries exist, fail.
-		$result = ldap_list( $wgAuth->ldapconn, $dn, 'objectclass=*' );
-		$hosts = ldap_get_entries( $wgAuth->ldapconn, $result );
+		$result = LdapAuthenticationPlugin::ldap_list( $wgAuth->ldapconn, $dn, 'objectclass=*' );
+		$hosts = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
 		if ( $hosts['count'] != "0" ) {
 			$wgAuth->printDebug( "Failed to delete domain $domainname, since it had sub entries", NONSENSITIVE );
 			return false;
 		}
-		wfSuppressWarnings();
-		$success = ldap_delete( $wgAuth->ldapconn, $dn );
-		wfRestoreWarnings();
 		if ( $success ) {
 			$wgAuth->printDebug( "Successfully deleted domain $domainname", NONSENSITIVE );
 			return true;

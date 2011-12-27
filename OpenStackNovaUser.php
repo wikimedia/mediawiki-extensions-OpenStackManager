@@ -107,13 +107,9 @@ class OpenStackNovaUser {
 		# roles do not
 		$projects = array();
 		$filter = "(&(owner=*)(member=$this->userDN))";
-		wfSuppressWarnings();
-		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, $filter );
-		wfRestoreWarnings();
+		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, $filter );
 		if ( $result ) {
-			wfSuppressWarnings();
-			$entries = ldap_get_entries( $wgAuth->ldapconn, $result );
-			wfRestoreWarnings();
+			$entries = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
 			if ( $entries ) {
 				# First entry is always a count
 				array_shift( $entries );
@@ -145,13 +141,9 @@ class OpenStackNovaUser {
 		global $wgOpenStackManagerLDAPProjectBaseDN;
 
 		$filter = "(&(cn=$project)(member=$this->userDN)(owner=*))";
-		wfSuppressWarnings();
-		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, $filter );
-		wfRestoreWarnings();
+		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, $filter );
 		if ( $result ) {
-			wfSuppressWarnings();
-			$entries = ldap_get_entries( $wgAuth->ldapconn, $result );
-			wfRestoreWarnings();
+			$entries = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
 			if ( $entries ) {
 				if ( $entries['count'] == "0" ) {
 					$wgAuth->printDebug( "Couldn't find the user in project: $project", NONSENSITIVE );
@@ -195,13 +187,9 @@ class OpenStackNovaUser {
 				return false;
 			}
 			$filter = "(&(cn=$role)(member=$this->userDN))";
-			wfSuppressWarnings();
-			$result = ldap_search( $wgAuth->ldapconn, $project->projectDN, $filter );
-			wfRestoreWarnings();
+			$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $project->projectDN, $filter );
 			if ( $result ) {
-				wfSuppressWarnings();
-				$entries = ldap_get_entries( $wgAuth->ldapconn, $result );
-				wfRestoreWarnings();
+				$entries = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
 				if ( $entries ) {
 					if ( $entries['count'] == "0" ) {
 						$wgAuth->printDebug( "Couldn't find the user in role: $role", NONSENSITIVE );
@@ -238,13 +226,9 @@ class OpenStackNovaUser {
 			# Check global role
 			$roledn = $wgOpenStackManagerLDAPGlobalRoles["$role"];
 			$filter = "(member=$this->userDN)";
-			wfSuppressWarnings();
-			$result = ldap_search( $wgAuth->ldapconn, $roledn, $filter );
-			wfRestoreWarnings();
+			$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $roledn, $filter );
 			if ( $result ) {
-				wfSuppressWarnings();
-				$entries = ldap_get_entries( $wgAuth->ldapconn, $result );
-				wfRestoreWarnings();
+				$entries = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
 				return ( (int)$entries['count'] > 0 );
 			}
 		}
@@ -266,9 +250,7 @@ class OpenStackNovaUser {
 		$keypairs[] = $key;
 		$values = array();
 		$values['sshpublickey'] = $keypairs;
-		wfSuppressWarnings();
-		$success = ldap_modify( $wgAuth->ldapconn, $this->userDN, $values );
-		wfRestoreWarnings();
+		$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->userDN, $values );
 		if ( $success ) {
 			$wgAuth->printDebug( "Successfully imported the user's sshpublickey", NONSENSITIVE );
 			$this->fetchUserInfo();
@@ -300,9 +282,7 @@ class OpenStackNovaUser {
 			foreach ( $keypairs as $keypair ) {
 				$values['sshpublickey'][] = $keypair;
 			}
-			wfSuppressWarnings();
-			$success = ldap_modify( $wgAuth->ldapconn, $this->userDN, $values );
-			wfRestoreWarnings();
+			$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->userDN, $values );
 			if ( $success ) {
 				$wgAuth->printDebug( "Successfully deleted the user's sshpublickey", NONSENSITIVE );
 				$this->fetchUserInfo();
@@ -351,13 +331,9 @@ class OpenStackNovaUser {
 			$filter = "(objectclass=posixaccount)";
 			$base = USERDN;
 		}
-		wfSuppressWarnings();
-		$result = ldap_search( $auth->ldapconn, $auth->getBaseDN( $base ), $filter );
-		wfRestoreWarnings();
+		$result = LdapAuthenticationPlugin::ldap_search( $auth->ldapconn, $auth->getBaseDN( $base ), $filter );
 		if ( $result ) {
-			wfSuppressWarnings();
-			$entries = ldap_get_entries( $auth->ldapconn, $result );
-			wfRestoreWarnings();
+			$entries = LdapAuthenticationPlugin::ldap_get_entries( $auth->ldapconn, $result );
 			if ( $entries ) {
 				if ( $entries['count'] == "0" ) {
 					$highest = '500';
@@ -429,13 +405,9 @@ class OpenStackNovaUser {
 		$base = $auth->getBaseDN( USERDN );
 		# Though the LDAP plugin checks to see if the user account exists,
 		# it does not check to see if the uid attribute is already used.
-		wfSuppressWarnings();
-		$result = ldap_search( $auth->ldapconn, $base, "(uid=$username)" );
-		wfRestoreWarnings();
+		$result = LdapAuthenticationPlugin::ldap_search( $auth->ldapconn, $base, "(uid=$username)" );
 		if ( $result ) {
-			wfSuppressWarnings();
-			$entries = ldap_get_entries( $auth->ldapconn, $result );
-			wfRestoreWarnings();
+			$entries = LdapAuthenticationPlugin::ldap_get_entries( $auth->ldapconn, $result );
 			if ( (int)$entries['count'] > 0 ) {
 				$auth->printDebug( "User $username already exists.", NONSENSITIVE );
 				# uid attribute is already in use, fail.
@@ -473,10 +445,8 @@ class OpenStackNovaUser {
 	 */
 	static function LDAPSetNovaInfo( $auth ) {
 		OpenStackNovaLdapConnection::connect();
-		wfSuppressWarnings();
-		$result = ldap_read( $auth->ldapconn, $auth->userInfo[0]['dn'], '(objectclass=*)', array( 'secretkey', 'accesskey', 'objectclass' ) );
-		$userInfo = ldap_get_entries( $auth->ldapconn, $result );
-		wfRestoreWarnings();
+		$result = LdapAuthenticationPlugin::ldap_read( $auth->ldapconn, $auth->userInfo[0]['dn'], '(objectclass=*)', array( 'secretkey', 'accesskey', 'objectclass' ) );
+		$userInfo = LdapAuthenticationPlugin::ldap_get_entries( $auth->ldapconn, $result );
 		if ( !isset( $userInfo[0]['accesskey'] ) or !isset( $userInfo[0]['secretkey'] ) ) {
 			$objectclasses = $userInfo[0]['objectclass'];
 			# First entry is a count
@@ -494,9 +464,7 @@ class OpenStackNovaUser {
 			$values['secretkey'] = OpenStackNovaUser::uuid4();
 			$values['isnovaadmin'] = 'FALSE';
 
-			wfSuppressWarnings();
-			$success = ldap_modify( $auth->ldapconn, $auth->userdn, $values );
-			wfRestoreWarnings();
+			$success = LdapAuthenticationPlugin::ldap_modify( $auth->ldapconn, $auth->userdn, $values );
 			if ( $success ) {
 				$auth->printDebug( "Successfully modified the user's nova attributes", NONSENSITIVE );
 				return true;

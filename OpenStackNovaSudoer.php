@@ -31,11 +31,9 @@ class OpenStackNovaSudoer {
 		if ( is_array( $sudoerInfo ) ) {
 			$this->sudoerInfo = $sudoerInfo;
 		} else {
-			wfSuppressWarnings();
-			$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPSudoerBaseDN,
+			$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPSudoerBaseDN,
 									'(cn=' . $this->sudoername . ')' );
-			$this->sudoerInfo = ldap_get_entries( $wgAuth->ldapconn, $result );
-			wfRestoreWarnings();
+			$this->sudoerInfo = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
 			$wgMemc->set( $key, $this->sudoerInfo, 3600 * 24 );
 		}
 		if ( $this->sudoerInfo ) {
@@ -138,9 +136,7 @@ class OpenStackNovaSudoer {
 			$sudoer['sudooption'][] = $option;
 		}
 
-		wfSuppressWarnings();
-		$success = ldap_modify( $wgAuth->ldapconn, $this->sudoerDN, $sudoer );
-		wfRestoreWarnings();
+		$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->sudoerDN, $sudoer );
 		if ( $success ) {
 			$wgAuth->printDebug( "Successfully modified sudoer $this->sudoerDN", NONSENSITIVE );
 			return true;
@@ -162,13 +158,9 @@ class OpenStackNovaSudoer {
 		OpenStackNovaLdapConnection::connect();
 
 		$sudoers = array();
-		wfSuppressWarnings();
-		$result = ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPSudoerBaseDN, '(&(cn=*)(objectclass=sudorole))' );
-		wfRestoreWarnings();
+		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPSudoerBaseDN, '(&(cn=*)(objectclass=sudorole))' );
 		if ( $result ) {
-			wfSuppressWarnings();
-			$entries = ldap_get_entries( $wgAuth->ldapconn, $result );
-			wfRestoreWarnings();
+			$entries = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
 			if ( $entries ) {
 				# First entry is always a count
 				array_shift( $entries );
@@ -232,9 +224,7 @@ class OpenStackNovaSudoer {
 		$sudoer['cn'] = $sudoername;
 		$dn = 'cn=' . $sudoername . ',' . $wgOpenStackManagerLDAPSudoerBaseDN;
 
-		wfSuppressWarnings();
-		$success = ldap_add( $wgAuth->ldapconn, $dn, $sudoer );
-		wfRestoreWarnings();
+		$success = LdapAuthenticationPlugin::ldap_add( $wgAuth->ldapconn, $dn, $sudoer );
 		if ( $success ) {
 			$wgAuth->printDebug( "Successfully added sudoer $sudoername", NONSENSITIVE );
 			return new OpenStackNovaSudoer( $sudoername );
@@ -263,9 +253,7 @@ class OpenStackNovaSudoer {
 		}
 		$dn = $sudoer->sudoerDN;
 
-		wfSuppressWarnings();
-		$success = ldap_delete( $wgAuth->ldapconn, $dn );
-		wfRestoreWarnings();
+		$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $dn );
 		if ( $success ) {
 			$wgAuth->printDebug( "Successfully deleted sudoer $sudoername", NONSENSITIVE );
 			return true;

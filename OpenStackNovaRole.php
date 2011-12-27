@@ -45,10 +45,8 @@ class OpenStackNovaRole {
 			$dn = $this->project->projectDN;
 			$query = '(cn=' . $this->rolename . ')';
 		}
-		wfSuppressWarnings();
-		$result = ldap_search( $wgAuth->ldapconn, $dn, $query );
-		$this->roleInfo = ldap_get_entries( $wgAuth->ldapconn, $result );
-		wfRestoreWarnings();
+		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $dn, $query );
+		$this->roleInfo = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
 		if ( $this->roleInfo['count'] != "0" ) {
 			$this->roleDN = $this->roleInfo[0]['dn'];
 		}
@@ -117,9 +115,7 @@ class OpenStackNovaRole {
 			foreach ( $members as $member ) {
 				$values['member'][] = $member;
 			}
-			wfSuppressWarnings();
-			$success = ldap_modify( $wgAuth->ldapconn, $this->roleDN, $values );
-			wfRestoreWarnings();
+			$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->roleDN, $values );
 			if ( $success ) {
 				$this->fetchRoleInfo();
 				$wgAuth->printDebug( "Successfully removed $user->userDN from $this->roleDN", NONSENSITIVE );
@@ -153,9 +149,7 @@ class OpenStackNovaRole {
 		$members[] = $user->userDN;
 		$values = array();
 		$values['member'] = $members;
-		wfSuppressWarnings();
-		$success = ldap_modify( $wgAuth->ldapconn, $this->roleDN, $values );
-		wfRestoreWarnings();
+		$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->roleDN, $values );
 		if ( $success ) {
 			$this->fetchRoleInfo();
 			$wgAuth->printDebug( "Successfully added $user->userDN to $this->roleDN", NONSENSITIVE );
@@ -228,9 +222,7 @@ class OpenStackNovaRole {
 		$role['objectclass'][] = 'groupofnames';
 		$role['cn'] = $rolename;
 		$roledn = 'cn=' . $rolename . ',' . $project->projectDN;
-		wfSuppressWarnings();
-		$success = ldap_add( $wgAuth->ldapconn, $roledn, $role );
-		wfRestoreWarnings();
+		$success = LdapAuthenticationPlugin::ldap_add( $wgAuth->ldapconn, $roledn, $role );
 		# TODO: If role addition fails, find a way to fail gracefully
 		# Though, if the project was added successfully, it is unlikely
 		# that role addition will fail.
