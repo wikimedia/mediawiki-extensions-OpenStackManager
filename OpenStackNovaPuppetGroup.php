@@ -110,11 +110,9 @@ class OpenStackNovaPuppetGroup {
 		$condition = '';
 		if ( $projects ) {
 			$condition .= 'group_project =';
-			foreach ( $projects as $project ) {
-				$condition .= $project . ',';
-			}
-			$condition = $dbr->addQuotes( $condition );
-			$condition = $condition[0,-1];
+			$projects = implode( ',', $projects );
+			$projects = $dbr->addQuotes( $projects );
+			$condition .= $projects;
 		}
 		$rows = $dbr->select(
 			'openstack_puppet_groups',
