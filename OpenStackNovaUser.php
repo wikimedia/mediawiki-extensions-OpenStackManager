@@ -469,7 +469,7 @@ class OpenStackNovaUser {
 			$success = LdapAuthenticationPlugin::ldap_modify( $auth->ldapconn, $auth->userdn, $values );
 			if ( $success ) {
 				$key = wfMemcKey( 'ldapauthentication', 'userinfo', $auth->userdn );
-				$wgMemc->delete( $key )
+				$wgMemc->delete( $key );
 				$auth->printDebug( "Successfully modified the user's nova attributes", NONSENSITIVE );
 				return true;
 			} else {
