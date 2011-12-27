@@ -111,7 +111,7 @@ class OpenStackNovaPuppetGroup {
 		if ( $projects ) {
 			$conditions = array();
 			foreach ( $projects as $project) {
-				$conditions[] = 'group_project =' $dbr->addQuotes( $project );
+				$conditions[] = 'group_project =' . $dbr->addQuotes( $project );
 			}
 			$condition = implode( ' || ', $conditions );
 		}
