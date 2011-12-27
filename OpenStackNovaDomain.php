@@ -283,7 +283,8 @@ class OpenStackNovaDomain {
 			$wgAuth->printDebug( "Failed to delete domain $domainname, since it had sub entries", NONSENSITIVE );
 			return false;
 		}
-		// FIXME: $success is undefined
+
+		$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $dn );
 		if ( $success ) {
 			$wgAuth->printDebug( "Successfully deleted domain $domainname", NONSENSITIVE );
 			return true;
