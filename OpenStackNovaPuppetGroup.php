@@ -109,10 +109,11 @@ class OpenStackNovaPuppetGroup {
 		$dbr = wfGetDB( DB_SLAVE );
 		$condition = '';
 		if ( $projects ) {
-			$condition .= 'group_project =';
-			$projects = implode( ',', $projects );
-			$projects = $dbr->addQuotes( $projects );
-			$condition .= $projects;
+			$conditions = array();
+			foreach ( $projects as $project) {
+				$conditions[] = 'group_project =' $dbr->addQuotes( $project );
+			}
+			$condition = implode( ' || ', $conditions );
 		}
 		$rows = $dbr->select(
 			'openstack_puppet_groups',
