@@ -566,7 +566,7 @@ class SpecialNovaAddress extends SpecialNova {
 			if ( $success ) {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-addedhost', $hostname, $ip );
 			} else {
-				$this->getOutput()->addWikiMsg( 'openstackmanager-addhostfailed', $ip, $hostname );
+				$this->getOutput()->addWikiMsg( 'openstackmanager-addhostfailed', $hostname, $ip );
 			}
 		} elseif ( $hostbyip ) {
 			# We need to add an associateddomain, if the associateddomain doesn't already exist
@@ -574,7 +574,7 @@ class SpecialNovaAddress extends SpecialNova {
 			if ( $success ) {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-addedhost', $hostname, $ip );
 			} else {
-				$this->getOutput()->addWikiMsg( 'openstackmanager-addhostfailed', $ip, $hostname );
+				$this->getOutput()->addWikiMsg( 'openstackmanager-addhostfailed', $hostname, $ip );
 			}
 		} else {
 			# This is a new host entry
@@ -582,7 +582,7 @@ class SpecialNovaAddress extends SpecialNova {
 			if ( $host ) {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-addedhost', $hostname, $ip );
 			} else {
-				$this->getOutput()->addWikiMsg( 'openstackmanager-addhostfailed', $ip, $hostname );
+				$this->getOutput()->addWikiMsg( 'openstackmanager-addhostfailed', $hostname, $ip );
 			}
 		}
 $this->getOutput();
