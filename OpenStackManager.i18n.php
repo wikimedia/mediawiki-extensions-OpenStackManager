@@ -148,6 +148,7 @@ $messages['en'] = array(
 	'openstackmanager-detachvolumefailed' => 'Failed to detach volume.',
 
 	'openstackmanager-novapublickey' => 'Public SSH key',
+	'openstackmanager-novakeyname' => 'Key name',
 	'openstackmanager-novakey-key' => 'Public SSH key',
 	'openstackmanager-novakey-info' => 'Public SSH key info',
 	'openstackmanager-deletekey' => 'Delete key',
