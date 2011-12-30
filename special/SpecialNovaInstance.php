@@ -503,6 +503,8 @@ class SpecialNovaInstance extends SpecialNova {
 			$instanceOut .= Html::element( 'td', array(), $instance->getAvailabilityZone() );
 			$instanceOut .= Html::element( 'td', array(), $instance->getImageId() );
 			$instanceOut .= Html::element( 'td', array(), $instance->getLaunchTime() );
+
+			$actions = '';
 			if ( $this->userLDAP->inRole( 'sysadmin', $project ) ) {
 				$msg = wfMsgHtml( 'openstackmanager-delete' );
 				$link = Linker::link( $this->getTitle(), $msg, array(),
@@ -529,8 +531,8 @@ class SpecialNovaInstance extends SpecialNova {
 										'instanceid' => $instance->getInstanceId() ) );
 				$actions .= Html::rawElement( 'li', array(), $link );
 				$actions = Html::rawElement( 'ul', array(), $actions );
-				$instanceOut .= Html::rawElement( 'td', array(), $actions );
 			}
+			$instanceOut .= Html::rawElement( 'td', array(), $actions );
 			if ( isset( $projectArr["$project"] ) ) {
 				$projectArr["$project"] .= Html::rawElement( 'tr', array(), $instanceOut );
 			} else {

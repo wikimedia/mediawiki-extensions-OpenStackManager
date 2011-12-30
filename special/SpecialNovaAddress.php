@@ -503,15 +503,16 @@ class SpecialNovaAddress extends SpecialNova {
 		$instanceid = $formData['instanceid'];
 		$ip = $formData['ip'];
 		$address = $this->userNova->associateAddress( $instanceid, $ip );
+		$outputPage = $this->getOutput();
 		if ( $address ) {
-			$this->getOutput()->addWikiMsg( 'openstackmanager-associatedaddress', $ip, $instanceid );
+			$outputPage->addWikiMsg( 'openstackmanager-associatedaddress', $ip, $instanceid );
 		} else {
-			$this->getOutput()->addWikiMsg( 'openstackmanager-associatedaddressfailed', $ip, $instanceid );
+			$outputPage->addWikiMsg( 'openstackmanager-associatedaddressfailed', $ip, $instanceid );
 		}
 
 		$out = '<br />';
 		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backaddresslist' ) );
-		$this->getOutput()->addHTML( $out );
+		$outputPage->addHTML( $out );
 
 		return true;
 	}
