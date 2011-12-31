@@ -20,77 +20,13 @@ class SpecialNovaSudoer extends SpecialNova {
 		}
 
 		$action = $this->getRequest()->getVal( 'action' );
-		if ( $action == "create" ) {
-			$this->createSudoer();
-		} elseif ( $action == "delete" ) {
+		if ( $action == "delete" ) {
 			$this->deleteSudoer();
 		} elseif ( $action == "modify" ) {
 			$this->modifySudoer();
 		} else {
 			$this->listSudoers();
 		}
-	}
-
-	/**
-	 * @return bool
-	 */
-	function createSudoer() {
-		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-createsudoer' ) );
-
-		$sudoerInfo = array();
-		$sudoerInfo['sudoername'] = array(
-			'type' => 'text',
-			'label-message' => 'openstackmanager-sudoername',
-			'default' => '',
-			'section' => 'sudoer/info',
-			'name' => 'sudoername',
-		);
-		$sudoerInfo['users'] = array(
-			'type' => 'text',
-			'label-message' => 'openstackmanager-sudoerusers',
-			'default' => '',
-			'section' => 'sudoer/info',
-			'help-message' => 'openstackmanager-commadelimiter',
-			'name' => 'users',
-		);
-		$sudoerInfo['hosts'] = array(
-			'type' => 'text',
-			'label-message' => 'openstackmanager-sudoerhosts',
-			'default' => '',
-			'section' => 'sudoer/info',
-			'help-message' => 'openstackmanager-commadelimiter',
-			'name' => 'hosts',
-		);
-		$sudoerInfo['commands'] = array(
-			'type' => 'text',
-			'label-message' => 'openstackmanager-sudoercommands',
-			'default' => '',
-			'section' => 'sudoer/info',
-			'help-message' => 'openstackmanager-commadelimiter',
-			'name' => 'commands',
-		);
-		$sudoerInfo['options'] = array(
-			'type' => 'text',
-			'label-message' => 'openstackmanager-sudoeroptions',
-			'default' => '',
-			'section' => 'sudoer/info',
-			'help-message' => 'openstackmanager-commadelimiter',
-			'name' => 'options',
-		);
-		$sudoerInfo['action'] = array(
-			'type' => 'hidden',
-			'default' => 'create',
-			'name' => 'action',
-		);
-
-		$sudoerForm = new SpecialNovaSudoerForm( $sudoerInfo, 'openstackmanager-novasudoer' );
-		$sudoerForm->setTitle( SpecialPage::getTitleFor( 'NovaSudoer' ) );
-		$sudoerForm->setSubmitID( 'novasudoer-form-createsudoersubmit' );
-		$sudoerForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
-		$sudoerForm->show();
-
-		return true;
 	}
 
 	/**
@@ -146,7 +82,7 @@ class SpecialNovaSudoer extends SpecialNova {
 			'type' => 'info',
 			'label-message' => 'openstackmanager-sudoername',
 			'default' => $sudoername,
-			'section' => 'sudoer/info',
+			'section' => 'sudoer',
 			'name' => 'sudoernameinfo',
 		);
 		$sudoerInfo['sudoername'] = array(
@@ -158,7 +94,7 @@ class SpecialNovaSudoer extends SpecialNova {
 			'type' => 'text',
 			'label-message' => 'openstackmanager-sudoerusers',
 			'default' => $users,
-			'section' => 'sudoer/info',
+			'section' => 'sudoer',
 			'help-message' => 'openstackmanager-commadelimiter',
 			'name' => 'users',
 		);
@@ -166,7 +102,7 @@ class SpecialNovaSudoer extends SpecialNova {
 			'type' => 'text',
 			'label-message' => 'openstackmanager-sudoerhosts',
 			'default' => $hosts,
-			'section' => 'sudoer/info',
+			'section' => 'sudoer',
 			'help-message' => 'openstackmanager-commadelimiter',
 			'name' => 'hosts',
 		);
@@ -174,7 +110,7 @@ class SpecialNovaSudoer extends SpecialNova {
 			'type' => 'text',
 			'label-message' => 'openstackmanager-sudoercommands',
 			'default' => $commands,
-			'section' => 'sudoer/info',
+			'section' => 'sudoer',
 			'help-message' => 'openstackmanager-commadelimiter',
 			'name' => 'commands',
 		);
@@ -182,7 +118,7 @@ class SpecialNovaSudoer extends SpecialNova {
 			'type' => 'text',
 			'label-message' => 'openstackmanager-sudoeroptions',
 			'default' => $options,
-			'section' => 'sudoer/info',
+			'section' => 'sudoer',
 			'help-message' => 'openstackmanager-commadelimiter',
 			'name' => 'options',
 		);
@@ -208,9 +144,55 @@ class SpecialNovaSudoer extends SpecialNova {
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-sudoerlist' ) );
 
-		$out = '';
+		$sudoerInfo = array();
+		$sudoerInfo['sudoername'] = array(
+			'type' => 'text',
+			'label-message' => 'openstackmanager-sudoername',
+			'default' => '',
+			'section' => 'sudoer',
+			'name' => 'sudoername',
+		);
+		$sudoerInfo['users'] = array(
+			'type' => 'text',
+			'label-message' => 'openstackmanager-sudoerusers',
+			'default' => '',
+			'section' => 'sudoer',
+			'name' => 'users',
+		);
+		$sudoerInfo['hosts'] = array(
+			'type' => 'text',
+			'label-message' => 'openstackmanager-sudoerhosts',
+			'default' => '',
+			'section' => 'sudoer',
+			'name' => 'hosts',
+		);
+		$sudoerInfo['commands'] = array(
+			'type' => 'text',
+			'label-message' => 'openstackmanager-sudoercommands',
+			'default' => '',
+			'section' => 'sudoer',
+			'name' => 'commands',
+		);
+		$sudoerInfo['options'] = array(
+			'type' => 'text',
+			'label-message' => 'openstackmanager-sudoeroptions',
+			'default' => '',
+			'section' => 'sudoer',
+			'name' => 'options',
+		);
+		$sudoerInfo['action'] = array(
+			'type' => 'hidden',
+			'default' => 'create',
+			'name' => 'action',
+		);
 
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-createsudoer' ), array(), array( 'action' => 'create' ) );
+		$sudoerForm = new SpecialNovaSudoerForm( $sudoerInfo, 'openstackmanager-novasudoer' );
+		$sudoerForm->setTitle( SpecialPage::getTitleFor( 'NovaSudoer' ) );
+		$sudoerForm->setSubmitID( 'novasudoer-form-createsudoersubmit' );
+		$sudoerForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
+		$sudoerForm->show();
+
+		$out = '';
 		$sudoersOut = Html::element( 'th', array(), wfMsg( 'openstackmanager-sudoername' ) );
 		$sudoersOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-sudoerusers' ) );
 		$sudoersOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-sudoerhosts' ) );
@@ -297,12 +279,12 @@ class SpecialNovaSudoer extends SpecialNova {
 		$success = OpenStackNovaSudoer::createSudoer( $formData['sudoername'], $users, $hosts, $commands, $options );
 		if ( ! $success ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-createsudoerfailed' );
-			return true;
+			return false;
 		}
 		$this->getOutput()->addWikiMsg( 'openstackmanager-createdsudoer' );
 
 		$out = '<br />';
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backsudoerlist' ) );
+		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-addadditionalsudoer' ) );
 		$this->getOutput()->addHTML( $out );
 
 		return true;

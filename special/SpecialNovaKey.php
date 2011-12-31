@@ -36,67 +36,6 @@ class SpecialNovaKey extends SpecialNova {
 	/**
 	 * @return bool
 	 */
-	function importKey() {
-
-		global $wgOpenStackManagerNovaKeypairStorage;
-
-		$project = '';
-		if ( $wgOpenStackManagerNovaKeypairStorage == 'nova' ) {
-			$project = $this->getRequest()->getVal( 'project' );
-			if ( $project && ! $this->userLDAP->inProject( $project ) ) {
-				$this->notInProject();
-				return;
-			}
-			$userCredentials = $this->userLDAP->getCredentials();
-			$this->userNova = new OpenStackNovaController( $userCredentials, $project );
-		}
-
-		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-importkey' ) );
-
-		$keyInfo = array();
-
-		if ( $wgOpenStackManagerNovaKeypairStorage == 'nova' ) {
-			$keyInfo['keyname'] = array(
-				'type' => 'text',
-				'label-message' => 'openstackmanager-novakeyname',
-				'default' => '',
-				'section' => 'key/info',
-				'name' => 'keyname',
-			);
-		}
-
-		$keyInfo['key'] = array(
-			'type' => 'textarea',
-			'section' => 'key/info',
-			'default' => '',
-			'label-message' => 'openstackmanager-novapublickey',
-			'name' => 'key',
-		);
-
-		$keyInfo['action'] = array(
-			'type' => 'hidden',
-			'default' => 'import',
-			'name' => 'action',
-		);
-
-		$keyInfo['project'] = array(
-			'type' => 'hidden',
-			'default' => htmlentities( $project ),
-			'name' => 'project',
-		);
-
-		$keyForm = new SpecialNovaKeyForm( $keyInfo, 'openstackmanager-novakey' );
-		$keyForm->setTitle( SpecialPage::getTitleFor( 'NovaKey' ) );
-		$keyForm->setSubmitID( 'novakey-form-createkeysubmit' );
-		$keyForm->setSubmitCallback( array( $this, 'tryImportSubmit' ) );
-		$keyForm->show();
-
-	}
-
-	/**
-	 * @return bool
-	 */
 	function deleteKey() {
 
 		global $wgOpenStackManagerNovaKeypairStorage;
@@ -166,11 +105,43 @@ class SpecialNovaKey extends SpecialNova {
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-keylist' ) );
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
 
+		$keyInfo = array();
+		if ( $wgOpenStackManagerNovaKeypairStorage == 'nova' ) {
+			$projects = $this->userLDAP->getProjects();
+			$keyInfo['keyname'] = array(
+				'type' => 'text',
+				'label-message' => 'openstackmanager-novakeyname',
+				'default' => '',
+				'section' => 'key',
+				'name' => 'keyname',
+			);
+			$project_keys = array();
+			foreach ( $projects as $project ) {
+				$project_keys["$project"] = $project;
+			}
+			$keyInfo['project'] = array(
+				'type' => 'select',
+				'options' => $project_keys,
+				'label-message' => 'openstackmanager-project',
+				'name' => 'project',
+			);
+		}
+		$keyInfo['key'] = array(
+			'type' => 'textarea',
+			'section' => 'key',
+			'default' => '',
+			'label-message' => 'openstackmanager-novapublickey',
+			'name' => 'key',
+		);
+
+		$keyForm = new SpecialNovaKeyForm( $keyInfo, 'openstackmanager-novakey' );
+		$keyForm->setTitle( SpecialPage::getTitleFor( 'NovaKey' ) );
+		$keyForm->setSubmitID( 'novakey-form-createkeysubmit' );
+		$keyForm->setSubmitCallback( array( $this, 'tryImportSubmit' ) );
+		$keyForm->show();
 		$out = '';
 
 		if ( $wgOpenStackManagerNovaKeypairStorage == 'nova' ) {
-			$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-importkey' ), array(), array( 'action' => 'import' ) );
-			$projects = $this->userLDAP->getProjects();
 			foreach ( $projects as $project ) {
 				$userCredentials = $this->userLDAP->getCredentials();
 				$this->userNova = new OpenStackNovaController( $userCredentials, $project );
@@ -189,7 +160,6 @@ class SpecialNovaKey extends SpecialNova {
 				$out .= Html::rawElement( 'table', array( 'id' => 'novakeylist', 'class' => 'wikitable sortable collapsible' ), $projectOut );
 			}
 		} elseif ( $wgOpenStackManagerNovaKeypairStorage == 'ldap' ) {
-			$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-importkey' ), array(), array( 'action' => 'import' ) );
 			$keypairs = $this->userLDAP->getKeypairs();
 			$keysOut = '';
 			$keysOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-keys' ) );
@@ -223,7 +193,7 @@ class SpecialNovaKey extends SpecialNova {
 			$success = $this->userLDAP->importKeypair( $formData['key'] );
 			if ( ! $success ) {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-keypairimportfailed' );
-				return true;
+				return false;
 			}
 			$this->getOutput()->addWikiMsg( 'openstackmanager-keypairimported' );
 		} elseif ( $wgOpenStackManagerNovaKeypairStorage == 'nova' ) {
@@ -238,7 +208,7 @@ class SpecialNovaKey extends SpecialNova {
 		}
 		$out = '<br />';
 
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backkeylist' ) );
+		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-addadditionalkey' ) );
 		$this->getOutput()->addHTML( $out );
 		return true;
 	}

@@ -70,7 +70,7 @@ class OpenStackNovaProject {
 					// this is expensive, but must be done.
 					// TODO: memcache this
 					$userInfo = $wgAuth->getUserInfoStateless( $memberdn );
-					$members[] = $userInfo[0][$searchattr][0];                                                
+					$members[] = $userInfo[0][$searchattr][0];
 				} else {
 					$member = explode( '=', $memberdn );
 					$member = explode( ',', $member[1] );

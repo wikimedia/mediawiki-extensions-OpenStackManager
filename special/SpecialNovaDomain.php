@@ -39,58 +39,11 @@ class SpecialNovaDomain extends SpecialNova {
 		}
 
 		$action = $this->getRequest()->getVal( 'action' );
-		if ( $action == "create" ) {
-			$this->createDomain();
-		} elseif ( $action == "delete" ) {
+		if ( $action == "delete" ) {
 			$this->deleteDomain();
 		} else {
 			$this->listDomains();
 		}
-	}
-
-	/**
-	 * @return bool
-	 */
-	function createDomain() {
-		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-createdomain' ) );
-
-		$domainInfo = array();
-		$domainInfo['domainname'] = array(
-			'type' => 'text',
-			'label-message' => 'openstackmanager-domainname',
-			'default' => '',
-			'section' => 'domain/info',
-			'name' => 'domainname',
-		);
-		$domainInfo['fqdn'] = array(
-			'type' => 'text',
-			'label-message' => 'openstackmanager-fqdn',
-			'default' => '',
-			'section' => 'domain/info',
-			'name' => 'fqdn',
-		);
-		$domainInfo['location'] = array(
-			'type' => 'text',
-			'label-message' => 'openstackmanager-location',
-			'default' => '',
-			'section' => 'domain/info',
-			'help-message' => 'openstackmanager-location-help',
-			'name' => 'location',
-		);
-		$domainInfo['action'] = array(
-			'type' => 'hidden',
-			'default' => 'create',
-			'name' => 'action',
-		);
-
-		$domainForm = new SpecialNovaDomainForm( $domainInfo, 'openstackmanager-novadomain' );
-		$domainForm->setTitle( SpecialPage::getTitleFor( 'NovaDomain' ) );
-		$domainForm->setSubmitID( 'novadomain-form-createdomainsubmit' );
-		$domainForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
-		$domainForm->show();
-
-		return true;
 	}
 
 	/**
@@ -131,7 +84,43 @@ class SpecialNovaDomain extends SpecialNova {
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-domainlist' ) );
 
-		$out = Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-createdomain' ), array(), array( 'action' => 'create' ) );
+		$domainInfo = array();
+		$domainInfo['domainname'] = array(
+			'type' => 'text',
+			'label-message' => 'openstackmanager-domainname',
+			'default' => '',
+			'section' => 'domain',
+			'name' => 'domainname',
+		);
+		$domainInfo['fqdn'] = array(
+			'type' => 'text',
+			'label-message' => 'openstackmanager-fqdn',
+			'default' => '',
+			'section' => 'domain',
+			'name' => 'fqdn',
+		);
+		$domainInfo['location'] = array(
+			'type' => 'text',
+			'label-message' => 'openstackmanager-location',
+			'default' => '',
+			'section' => 'domain',
+			'help-message' => 'openstackmanager-location-help',
+			'name' => 'location',
+		);
+		$domainInfo['action'] = array(
+			'type' => 'hidden',
+			'default' => 'create',
+			'name' => 'action',
+		);
+
+		$domainForm = new SpecialNovaDomainForm( $domainInfo, 'openstackmanager-novadomain' );
+		$domainForm->setTitle( SpecialPage::getTitleFor( 'NovaDomain' ) );
+		$domainForm->setSubmitID( 'novadomain-form-createdomainsubmit' );
+		$domainForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
+		$domainForm->show();
+
+		$out = '';
+
 		$domainsOut = Html::element( 'th', array(), wfMsg( 'openstackmanager-domainname' ) );
 		$domainsOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-fqdn' ) );
 		$domainsOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-location' ) );
@@ -166,12 +155,12 @@ class SpecialNovaDomain extends SpecialNova {
 		$success = OpenStackNovaDomain::createDomain( $formData['domainname'], $formData['fqdn'], $formData['location'] );
 		if ( ! $success ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-createdomainfailed' );
-			return true;
+			return false;
 		}
 		$this->getOutput()->addWikiMsg( 'openstackmanager-createddomain' );
 
 		$out = '<br />';
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backdomainlist' ) );
+		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-addadditionaldomain' ) );
 		$this->getOutput()->addHTML( $out );
 
 		return true;

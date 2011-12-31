@@ -197,6 +197,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	 */
 	function listSecurityGroups() {
 		$this->setHeaders();
+		$this->getOutput()->addModuleStyles( 'ext.openstack' );
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-securitygrouplist' ) );
 
 		$userProjects = $this->userLDAP->getProjects();
@@ -258,18 +259,21 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 					} else {
 						$ruleOut .= Html::rawElement( 'td', array(), '' );
 					}
-					$msg = wfMsgHtml( 'openstackmanager-removerule-action' );
-					$args = array(  'action' => 'removerule',
-							'project' => $project,
-							'groupname' => $groupname,
-							'fromport' => $fromport,
-							'toport' => $toport,
-							'protocol' => $ipprotocol,
-							'ranges' => implode( ',', $ranges ),
-							'groups' => implode( ',', $groupinfo ) );
-					$link = Linker::link( $this->getTitle(), $msg, array(), $args );
-					$actions = Html::rawElement( 'li', array(), $link );
-					$actions = Html::rawElement( 'ul', array(), $actions );
+					$actions = '';
+					if ( $this->userLDAP->inRole( 'netadmin', $project ) ) {
+						$msg = wfMsgHtml( 'openstackmanager-removerule-action' );
+						$args = array(  'action' => 'removerule',
+								'project' => $project,
+								'groupname' => $groupname,
+								'fromport' => $fromport,
+								'toport' => $toport,
+								'protocol' => $ipprotocol,
+								'ranges' => implode( ',', $ranges ),
+								'groups' => implode( ',', $groupinfo ) );
+						$link = Linker::link( $this->getTitle(), $msg, array(), $args );
+						$actions = Html::rawElement( 'li', array(), $link );
+						$actions = Html::rawElement( 'ul', array(), $actions );
+					}
 					$ruleOut .= Html::rawElement( 'td', array(), $actions );
 					$rulesOut .= Html::rawElement( 'tr', array(), $ruleOut );
 				}
@@ -278,25 +282,28 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 			} else {
 				$groupOut .= Html::rawElement( 'td', array(), '' );
 			}
-			$msg = wfMsgHtml( 'openstackmanager-delete' );
-			$link = Linker::link( $this->getTitle(), $msg, array(),
-								  array( 'action' => 'delete',
-									   'project' => $project,
-									   'groupname' => $group->getGroupName() ) );
-			$actions = Html::rawElement( 'li', array(), $link );
-			#$msg = wfMsgHtml( 'openstackmanager-configure' );
-			#$link = Linker::link( $this->getTitle(), $msg, array(),
-			#					   array( 'action' => 'configure',
-			#							'project' => $project,
-			#							'groupname' => $group->getGroupName() ) );
-			#$actions .= Html::rawElement( 'li', array(), $link );
-			$msg = wfMsgHtml( 'openstackmanager-addrule-action' );
-			$link = Linker::link( $this->getTitle(), $msg, array(),
-								   array( 'action' => 'addrule',
-										'project' => $project,
-										'groupname' => $group->getGroupName() ) );
-			$actions .= Html::rawElement( 'li', array(), $link );
-			$actions = Html::rawElement( 'ul', array(), $actions );
+			$actions = '';
+			if ( $this->userLDAP->inRole( 'netadmin', $project ) ) {
+				$msg = wfMsgHtml( 'openstackmanager-delete' );
+				$link = Linker::link( $this->getTitle(), $msg, array(),
+									  array( 'action' => 'delete',
+										   'project' => $project,
+										   'groupname' => $group->getGroupName() ) );
+				$actions = Html::rawElement( 'li', array(), $link );
+				#$msg = wfMsgHtml( 'openstackmanager-configure' );
+				#$link = Linker::link( $this->getTitle(), $msg, array(),
+				#					   array( 'action' => 'configure',
+				#							'project' => $project,
+				#							'groupname' => $group->getGroupName() ) );
+				#$actions .= Html::rawElement( 'li', array(), $link );
+				$msg = wfMsgHtml( 'openstackmanager-addrule-action' );
+				$link = Linker::link( $this->getTitle(), $msg, array(),
+									   array( 'action' => 'addrule',
+											'project' => $project,
+											'groupname' => $group->getGroupName() ) );
+				$actions .= Html::rawElement( 'li', array(), $link );
+				$actions = Html::rawElement( 'ul', array(), $actions );
+			}
 			$groupOut .= Html::rawElement( 'td', array(), $actions );
 			if ( isset( $projectArr["$project"] ) ) {
 				$projectArr["$project"] .= Html::rawElement( 'tr', array(), $groupOut );
@@ -305,15 +312,19 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 			}
 		}
 		foreach ( $userProjects as $project ) {
-			$out .= Html::element( 'h2', array(), $project );
-			$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-createnewsecuritygroup' ), array(),
-							   array( 'action' => 'create', 'project' => $project ) );
+			$action = '';
+			if ( $this->userLDAP->inRole( 'netadmin', $project ) ) {
+				$action = Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-createnewsecuritygroup' ), array(),
+				array( 'action' => 'create', 'project' => $project ) );
+				$action = Html::rawElement( 'span', array( 'id' => 'novaaction' ), "[$action]" );
+			}
+			$out .= Html::rawElement( 'h2', array( 'class' => 'mw-customtoggle-' . $project, 'id' => 'novaproject' ), "$project $action" );
 			if ( isset( $projectArr["$project"] ) ) {
 				$projectOut = $groupheader;
 				$projectOut .= $projectArr["$project"];
-				$out .= Html::rawElement( 'table',
-										  array( 'id' => 'novainstancelist', 'class' => 'wikitable sortable collapsible' ), $projectOut );
+				$projectOut = Html::rawElement( 'table', array( 'id' => 'novainstancelist', 'class' => 'wikitable sortable' ), $projectOut );
 			}
+			$out .= Html::rawElement( 'div', array( 'class' => 'mw-collapsible', 'id' => 'mw-customcollapsible-' . $project ), $projectOut );
 		}
 
 		$this->getOutput()->addHTML( $out );

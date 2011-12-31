@@ -2,6 +2,9 @@
 max-width: 50em;
 overflow: hidden;
 }
-.Nova_cell{
+.Nova_cell {
 vertical-align: top;
+}
+#novaaction  {
+font-size: 67%;
 }

@@ -168,12 +168,7 @@ function efOpenStackSchemaUpdates( $updater ) {
 		$updater->addExtensionTable( 'openstack_puppet_groups', "$base/openstack.sql" );
 		$updater->addExtensionTable( 'openstack_puppet_vars', "$base/openstack.sql" );
 		$updater->addExtensionTable( 'openstack_puppet_classes', "$base/openstack.sql" );
-		$updater->addExtensionField( 'openstack_puppet_groups', 'group_project',
-			"$base/schema-changes/openstack_project_field.sql" );
-		$updater->addExtensionField( 'openstack_puppet_classes', 'class_project',
-			"$base/schema-changes/openstack_project_field.sql" );
-		$updater->addExtensionField( 'openstack_puppet_vars', 'var_project',
-			"$base/schema-changes/openstack_project_field.sql" );
+		$updater->addExtensionUpdate( array( 'addField', 'openstack_puppet_groups', 'group_project', "$base/schema-changes/openstack_project_field.sql", true ) );
 		break;
 	}
 	return true;
