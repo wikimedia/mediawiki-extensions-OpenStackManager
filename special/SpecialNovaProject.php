@@ -15,8 +15,6 @@ class SpecialNovaProject extends SpecialNova {
 	}
 
 	function execute( $par ) {
-
-
 		if ( !$this->getUser()->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return;
@@ -220,8 +218,9 @@ class SpecialNovaProject extends SpecialNova {
 	 */
 	function listProjects() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-projectlist' ) );
-		$this->getOutput()->addModuleStyles( 'ext.openstack' );
+		$outputPage = $this->getOutput();
+		$outputPage->setPagetitle( wfMsg( 'openstackmanager-projectlist' ) );
+		$outputPage->addModuleStyles( 'ext.openstack' );
 
 		$out = '';
 
@@ -234,6 +233,10 @@ class SpecialNovaProject extends SpecialNova {
 		if ( ! $projects ) {
 			$projectsOut = '';
 		}
+
+		/**
+		 * @var $project OpenStackNovaProject
+		 */
 		foreach ( $projects as $project ) {
 			$projectName = $project->getProjectName();
 			$projectName = htmlentities( $projectName );
@@ -252,6 +255,10 @@ class SpecialNovaProject extends SpecialNova {
 			$rolesOut = Html::element( 'th', array(), wfMsg( 'openstackmanager-rolename' ) );
 			$rolesOut .= Html::element( 'th', array(),  wfMsg( 'openstackmanager-members' ) );
 			$rolesOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-actions' ) );
+
+			/**
+			 * @var $role OpenStackNovaRole
+			 */
 			foreach ( $project->getRoles() as $role ) {
 				$roleOut = Html::element( 'td', array(), $role->getRoleName() );
 				$roleMembers = '';
@@ -290,7 +297,7 @@ class SpecialNovaProject extends SpecialNova {
 			$out .= Html::rawElement( 'table', array( 'class' => 'wikitable sortable collapsible' ), $projectsOut );
 		}
 
-		$this->getOutput()->addHTML( $out );
+		$outputPage->addHTML( $out );
 	}
 
 	/**

@@ -11,6 +11,8 @@ class OpenStackNovaPuppetGroup {
 	 * Constructor. Can't be called directly. Call one of the static NewFrom* methods
 	 * @param $id Int Database id for the group
 	 * @param $name String User-defined name of the group
+	 * @param $position int
+	 * @param $project string|null
 	 */
 	public function __construct( $id, $name, $position, $project=null ) {
 		$this->id = $id;
@@ -21,14 +23,23 @@ class OpenStackNovaPuppetGroup {
 		$this->loadClasses( $id );
 	}
 
+	/**
+	 * @return String
+	 */
 	public function getName() {
 		return $this->name;
 	}
 
+	/**
+	 * @return Int
+	 */
 	public function getId() {
 		return $this->id;
 	}
 
+	/**
+	 * @return int
+	 */
 	public function getPosition() {
 		return $this->position;
 	}
@@ -41,6 +52,9 @@ class OpenStackNovaPuppetGroup {
 		return $this->classes;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getProject() {
 		return $this->project;
 	}
@@ -111,7 +125,7 @@ class OpenStackNovaPuppetGroup {
 		if ( $projects ) {
 			$conditions = array();
 			foreach ( $projects as $project) {
-				$conditions[] = 'group_project =' . $dbr->addQuotes( $project );
+				$conditions[] = 'group_project =' . $dbr->addQuotes( $project ); // FIXME: Unindexed query - No index on group_project
 			}
 			$condition = implode( ' || ', $conditions );
 		}
@@ -124,7 +138,7 @@ class OpenStackNovaPuppetGroup {
 			),
 			$condition,
 			__METHOD__,
-			array( 'ORDER BY' => 'group_position ASC' )
+			array( 'ORDER BY' => 'group_position ASC' ) // FIXME: Unindexed
 		);
 		$groups = array();
 		foreach ( $rows as $row ) {
@@ -134,7 +148,7 @@ class OpenStackNovaPuppetGroup {
 	}
 
 	/**
-	 * @param $group_id Int Group id of puppet variables
+	 * @param $groupid Int Group id of puppet variables
 	 */
 	function loadVars( $groupid ) {
 		$dbr = wfGetDB( DB_SLAVE );
@@ -144,9 +158,9 @@ class OpenStackNovaPuppetGroup {
 				'var_id',
 				'var_name',
 				'var_position' ),
-			array( 'var_group_id' => $groupid ),
+			array( 'var_group_id' => $groupid ), // FIXME: Unindexed query
 			__METHOD__,
-			array( 'ORDER BY' => 'var_position ASC' )
+			array( 'ORDER BY' => 'var_position ASC' ) // FIXME: Unindexed
 	       	);
 
 		$this->vars = array();
@@ -162,7 +176,7 @@ class OpenStackNovaPuppetGroup {
 	}
 
 	/**
-	 * @param $group_id Int Group id of puppet classes
+	 * @param $groupid Int Group id of puppet classes
 	 */
 	function loadClasses( $groupid ) {
 		$dbr = wfGetDB( DB_SLAVE );
@@ -172,9 +186,9 @@ class OpenStackNovaPuppetGroup {
 				'class_id',
 				'class_name',
 				'class_position' ),
-			array( 'class_group_id' => $groupid ),
+			array( 'class_group_id' => $groupid ), // FIXME: Unindexed query
 			__METHOD__,
-			array( 'ORDER BY' => 'class_position ASC' )
+			array( 'ORDER BY' => 'class_position ASC' ) // FIXME: Unindexed
 		);
 
 		$this->classes = array();
@@ -189,6 +203,11 @@ class OpenStackNovaPuppetGroup {
 		}
 	}
 
+	/**
+	 * @param $name string
+	 * @param $position int
+	 * @return bool
+	 */
 	public static function addGroup( $name, $position ) {
 		$dbw = wfGetDB( DB_MASTER );
 		return $dbw->insert(
@@ -224,6 +243,10 @@ class OpenStackNovaPuppetGroup {
 		);
 	}
 
+	/**
+	 * @param $id int
+	 * @return bool
+	 */
 	public static function deleteVar( $id ) {
 		$dbw = wfGetDB( DB_MASTER );
 		return $dbw->delete(
@@ -233,6 +256,10 @@ class OpenStackNovaPuppetGroup {
 		);
 	}
 
+	/**
+	 * @param $id int
+	 * @return bool
+	 */
 	public static function deleteClass( $id ) {
 		$dbw = wfGetDB( DB_MASTER );
 		return $dbw->delete(
@@ -242,6 +269,10 @@ class OpenStackNovaPuppetGroup {
 		);
 	}
 
+	/**
+	 * @param $id int
+	 * @return bool
+	 */
 	public static function deleteGroup( $id ) {
 		$dbw = wfGetDB( DB_MASTER );
 		// TODO: stuff this into a transaction
