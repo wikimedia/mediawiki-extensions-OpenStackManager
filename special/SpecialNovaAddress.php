@@ -429,7 +429,8 @@ class SpecialNovaAddress extends SpecialNova {
 		foreach ( $userProjects as $project ) {
 			$action = Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-allocateaddress' ), array(), array( 'action' => 'allocate', 'project' => $project ) );
 			$action = Html::rawElement( 'span', array( 'id' => 'novaaction' ), "[$action]" );
-			$out .= Html::rawElement( 'h2', array( 'class' => 'mw-customtoggle-' . $project, 'id' => 'novaproject' ), "$project $action" );
+			$projectName = Html::rawElement( 'span', array( 'class' => 'mw-customtoggle-' . $project, 'id' => 'novaproject' ), $project );
+			$out .= Html::rawElement( 'h2', array(), "$projectName $action" );
 			$projectOut = '';
 			if ( isset( $projectArr["$project"] ) ) {
 				$projectOut = $header;

@@ -63,15 +63,16 @@ class OpenStackNovaPuppetGroup {
 	 * @param $name string
 	 * @return OpenStackNovaPuppetGroup|null
 	 */
-	public static function newFromName( $name ) {
+	public static function newFromName( $name, $project=null ) {
 		$dbr = wfGetDB( DB_SLAVE );
 		$row = $dbr->selectRow(
 			'openstack_puppet_groups',
-			array( 
-				'group_id',
+			array(  'group_id',
 				'group_name',
-				'group_position' ),
-			array( 'group_name' => $name ),
+				'group_position',
+		       		'group_project' ),
+			array(  'group_name' => $name,
+	       			'group_project' => $project ),
 			__METHOD__ );
 
 		if ( $row ) {
@@ -92,12 +93,49 @@ class OpenStackNovaPuppetGroup {
 			array( 
 				'group_id',
 				'group_name',
-				'group_position' ),
+				'group_position',
+				'group_project' ),
 			array( 'group_id' => intval( $id ) ),
 			__METHOD__ );
 
 		if ( $row ) {
 			return self::newFromRow( $row );
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * @param $id int
+	 * @return OpenStackNovaPuppetGroup|null
+	 */
+	public static function newFromClassId( $id ) {
+		$dbr = wfGetDB( DB_SLAVE );
+		$row = $dbr->selectRow(
+			'openstack_puppet_classes',
+			array( 'class_group_id' ),
+			array( 'class_id' => intval( $id ) ),
+			__METHOD__ );
+		if ( $row ) {
+			return self::newFromId( $row->class_group_id );
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * @param $id int
+	 * @return OpenStackNovaPuppetGroup|null
+	 */
+	public static function newFromVarId( $id ) {
+		$dbr = wfGetDB( DB_SLAVE );
+		$row = $dbr->selectRow(
+			'openstack_puppet_vars',
+			array( 'var_group_id' ),
+			array( 'var_id' => intval( $id ) ),
+			__METHOD__ );
+		if ( $row ) {
+			return self::newFromId( $row->var_group_id );
 		} else {
 			return null;
 		}
@@ -111,7 +149,8 @@ class OpenStackNovaPuppetGroup {
 		return new OpenStackNovaPuppetGroup(
 			intval( $row->group_id ),
 			$row->group_name,
-			$row->group_position
+			$row->group_position,
+			$row->group_project
 		);
 	}
 
@@ -119,23 +158,19 @@ class OpenStackNovaPuppetGroup {
 	 * @param $projects array Optionally get list for a set of projects
 	 * @return array
 	 */
-	public static function getGroupList( $projects = array() ) {
+	public static function getGroupList( $project='' ) {
 		$dbr = wfGetDB( DB_SLAVE );
-		$condition = '';
-		if ( $projects ) {
-			$conditions = array();
-			foreach ( $projects as $project) {
-				$conditions[] = 'group_project =' . $dbr->addQuotes( $project ); // FIXME: Unindexed query - No index on group_project
-			}
-			$condition = implode( ' || ', $conditions );
+		if ( $project ) {
+			$condition = 'group_project = ' . $dbr->addQuotes( $project );
+		} else {
+			$condition = 'group_project is NULL';
 		}
 		$rows = $dbr->select(
 			'openstack_puppet_groups',
-			array(
-				'group_id',
+			array(  'group_id',
 				'group_name',
-				'group_position'
-			),
+				'group_position',
+				'group_project', ),
 			$condition,
 			__METHOD__,
 			array( 'ORDER BY' => 'group_position ASC' ) // FIXME: Unindexed
@@ -154,8 +189,7 @@ class OpenStackNovaPuppetGroup {
 		$dbr = wfGetDB( DB_SLAVE );
 		$rows = $dbr->select(
 			'openstack_puppet_vars',
-			array( 
-				'var_id',
+			array(  'var_id',
 				'var_name',
 				'var_position' ),
 			array( 'var_group_id' => $groupid ), // FIXME: Unindexed query
@@ -182,8 +216,7 @@ class OpenStackNovaPuppetGroup {
 		$dbr = wfGetDB( DB_SLAVE );
 		$rows = $dbr->select(
 			'openstack_puppet_classes',
-			array( 
-				'class_id',
+			array(  'class_id',
 				'class_name',
 				'class_position' ),
 			array( 'class_group_id' => $groupid ), // FIXME: Unindexed query
@@ -208,12 +241,13 @@ class OpenStackNovaPuppetGroup {
 	 * @param $position int
 	 * @return bool
 	 */
-	public static function addGroup( $name, $position ) {
+	public static function addGroup( $name, $position, $project=null ) {
 		$dbw = wfGetDB( DB_MASTER );
 		return $dbw->insert(
 			'openstack_puppet_groups',
 			array(  'group_name' => $name,
-				'group_position' => $position
+				'group_position' => $position,
+				'group_project' => $project,
 			),
 			__METHOD__
 		);

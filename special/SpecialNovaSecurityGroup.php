@@ -318,7 +318,8 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 				array( 'action' => 'create', 'project' => $project ) );
 				$action = Html::rawElement( 'span', array( 'id' => 'novaaction' ), "[$action]" );
 			}
-			$out .= Html::rawElement( 'h2', array( 'class' => 'mw-customtoggle-' . $project, 'id' => 'novaproject' ), "$project $action" );
+			$projectName = Html::rawElement( 'span', array( 'class' => 'mw-customtoggle-' . $project, 'id' => 'novaproject' ), $project );
+			$out .= Html::rawElement( 'h2', array(), "$projectName $action" );
 			if ( isset( $projectArr["$project"] ) ) {
 				$projectOut = $groupheader;
 				$projectOut .= $projectArr["$project"];

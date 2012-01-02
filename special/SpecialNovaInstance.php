@@ -303,11 +303,24 @@ class SpecialNovaInstance extends SpecialNova {
 				'default' => wfMsg( 'openstackmanager-createinstancepuppetwarning' ),
 			);
 		}
-		$puppetGroups = OpenStackNovaPuppetGroup::getGroupList();
+		$project = $instanceInfo['project']['default'];
+		$projectGroups = OpenStackNovaPuppetGroup::getGroupList( $project );
+		$this->setPuppetInfoByGroups( $instanceInfo, $puppetinfo, $projectGroups );
+		$globalGroups = OpenStackNovaPuppetGroup::getGroupList();
+		$this->setPuppetInfoByGroups( $instanceInfo, $puppetinfo, $globalGroups );
+	}
+
+	function setPuppetInfoByGroups( &$instanceInfo, $puppetinfo, $puppetGroups ) {
 		foreach ( $puppetGroups as $puppetGroup ) {
 			$classes = array();
 			$defaults = array();
 			$puppetgroupname = $puppetGroup->getName();
+			$puppetgroupproject = $puppetGroup->getProject();
+			if ( $puppetgroupproject ) {
+				$section = 'instance/puppetinfo/project';
+			} else {
+				$section = 'instance/puppetinfo/global';
+			}
 			foreach ( $puppetGroup->getClasses() as $class ) {
 				$classname = $class["name"];
 				$classes["$classname"] = $classname;
@@ -317,12 +330,12 @@ class SpecialNovaInstance extends SpecialNova {
 			}
 			$instanceInfo["${puppetgroupname}"] = array(
 				'type' => 'info',
-				'section' => "instance/puppetinfo",
+				'section' => $section,
 				'label' => Html::element( 'h3', array(), "$puppetgroupname:" ),
 			);
 			$instanceInfo["${puppetgroupname}-puppetclasses"] = array(
 				'type' => 'multiselect',
-				'section' => "instance/puppetinfo",
+				'section' => $section,
 				'options' => $classes,
 				'default' => $defaults,
 				'name' => "${puppetgroupname}-puppetclasses",
@@ -335,7 +348,7 @@ class SpecialNovaInstance extends SpecialNova {
 				}
 				$instanceInfo["${puppetgroupname}-${variablename}"] = array(
 					'type' => 'text',
-					'section' => "instance/puppetinfo",
+					'section' => $section,
 					'label' => $variablename,
 					'default' => $default,
 					'name' => "${puppetgroupname}-${variablename}",
@@ -455,6 +468,7 @@ class SpecialNovaInstance extends SpecialNova {
 	 */
 	function listInstances() {
 		$this->setHeaders();
+		$this->getOutput()->addModuleStyles( 'ext.openstack' );
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-instancelist' ) );
 
 		$userProjects = $this->userLDAP->getProjects();
@@ -503,7 +517,6 @@ class SpecialNovaInstance extends SpecialNova {
 			$instanceOut .= Html::element( 'td', array(), $instance->getAvailabilityZone() );
 			$instanceOut .= Html::element( 'td', array(), $instance->getImageId() );
 			$instanceOut .= Html::element( 'td', array(), $instance->getLaunchTime() );
-
 			$actions = '';
 			if ( $this->userLDAP->inRole( 'sysadmin', $project ) ) {
 				$msg = wfMsgHtml( 'openstackmanager-delete' );
@@ -540,15 +553,20 @@ class SpecialNovaInstance extends SpecialNova {
 			}
 		}
 		foreach ( $userProjects as $project ) {
-			$out .= Html::element( 'h2', array(), $project );
+			$action = '';
 			if ( $this->userLDAP->inRole( 'sysadmin', $project ) ) {
-				$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-createinstance' ), array(), array( 'action' => 'create', 'project' => $project ) );
+				$action = Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-createinstance' ), array(), array( 'action' => 'create', 'project' => $project ) );
+				$action = Html::rawElement( 'span', array( 'id' => 'novaaction' ), "[$action]" );
 			}
+			$projectName = Html::rawElement( 'span', array( 'class' => 'mw-customtoggle-' . $project, 'id' => 'novaproject' ), $project );
+			$out .= Html::rawElement( 'h2', array(), "$projectName $action" );
+			$projectOut = '';
 			if ( isset( $projectArr["$project"] ) ) {
-				$projectOut = $header;
+				$projectOut .= $header;
 				$projectOut .= $projectArr["$project"];
-				$out .= Html::rawElement( 'table', array( 'id' => 'novainstancelist', 'class' => 'wikitable sortable collapsible' ), $projectOut );
+				$projectOut = Html::rawElement( 'table', array( 'id' => 'novainstancelist', 'class' => 'wikitable sortable' ), $projectOut );
 			}
+			$out .= Html::rawElement( 'div', array( 'class' => 'mw-collapsible', 'id' => 'mw-customcollapsible-' . $project ), $projectOut );
 		}
 
 		$this->getOutput()->addHTML( $out );
@@ -676,24 +694,34 @@ class SpecialNovaInstance extends SpecialNova {
 
 		$puppetinfo = array();
 		if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
+			$puppetGroups = OpenStackNovaPuppetGroup::getGroupList( $formData['project'] );
+			$this->getPuppetInfoByGroup( $puppetinfo, $puppetGroups, $formData );
 			$puppetGroups = OpenStackNovaPuppetGroup::getGroupList();
-			foreach ( $puppetGroups as $puppetGroup ) {
-				$puppetgroupname = $puppetGroup->getName();
-				foreach ( $puppetGroup->getClasses() as $class ) {
-					if ( in_array( $class["name"], $formData["$puppetgroupname-puppetclasses"] ) ) {
-						$puppetinfo['classes'][] = $class["name"];
-					}
-				}
-				foreach ( $puppetGroup->getVars() as $variable ) {
-					$variablename = $variable["name"];
-					if ( isset ( $formData["$puppetgroupname-$variablename"] ) && trim( $formData["$puppetgroupname-$variablename"] ) ) {
-						$puppetinfo['variables']["$variablename"] = $formData["$puppetgroupname-$variablename"];
-					}
-				}
-			}
+			$this->getPuppetInfoByGroup( $puppetinfo, $puppetGroups, $formData );
 		}
 		return $puppetinfo;
 	}
+
+	function getPuppetInfoByGroup( &$puppetinfo, $puppetGroups, $formData ) {
+		foreach ( $puppetGroups as $puppetGroup ) {
+			$puppetgroupname = $puppetGroup->getName();
+			foreach ( $puppetGroup->getClasses() as $class ) {
+				if ( in_array( $class["name"], $formData["$puppetgroupname-puppetclasses"] ) ) {
+					$classname = $class["name"];
+					if ( !in_array( $classname, $puppetinfo['classes'] ) ) {
+						$puppetinfo['classes'][] = $classname;
+					}
+				}
+			}
+			foreach ( $puppetGroup->getVars() as $variable ) {
+				$variablename = $variable["name"];
+				if ( isset ( $formData["$puppetgroupname-$variablename"] ) && trim( $formData["$puppetgroupname-$variablename"] ) ) {
+					$puppetinfo['variables']["$variablename"] = $formData["$puppetgroupname-$variablename"];
+				}
+			}
+		}
+	}
+
 }
 
 class SpecialNovaInstanceForm extends HTMLForm {
