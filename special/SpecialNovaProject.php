@@ -161,45 +161,47 @@ class SpecialNovaProject extends SpecialNova {
 		$this->getOutput()->setPageTitle( wfMsg( 'openstackmanager-projectlist' ) );
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
 
-		$projectInfo = array();
-		$projectInfo['projectname'] = array(
-			'type' => 'text',
-			'label-message' => 'openstackmanager-projectname',
-			'validation-callback' => array( $this, 'validateText' ),
-			'default' => '',
-			'section' => 'project',
-			'name' => 'projectname',
-		);
-		$projectInfo['member'] = array(
-			'type' => 'text',
-			'label-message' => 'openstackmanager-member',
-			'default' => '',
-			'section' => 'project',
-			'name' => 'member',
-		);
-		$role_keys = array();
-		foreach ( OpenStackNovaProject::$rolenames as $rolename ) {
-			$role_keys["$rolename"] = $rolename;
+		if ( $this->userLDAP->inGlobalRole( 'cloudadmin' ) ) {
+			$projectInfo = array();
+			$projectInfo['projectname'] = array(
+				'type' => 'text',
+				'label-message' => 'openstackmanager-projectname',
+				'validation-callback' => array( $this, 'validateText' ),
+				'default' => '',
+				'section' => 'project',
+				'name' => 'projectname',
+			);
+			$projectInfo['member'] = array(
+				'type' => 'text',
+				'label-message' => 'openstackmanager-member',
+				'default' => '',
+				'section' => 'project',
+				'name' => 'member',
+			);
+			$role_keys = array();
+			foreach ( OpenStackNovaProject::$rolenames as $rolename ) {
+				$role_keys["$rolename"] = $rolename;
+			}
+			$projectInfo['roles'] = array(
+				'type' => 'multiselect',
+				'label-message' => 'openstackmanager-roles',
+				'section' => 'project',
+				'options' => $role_keys,
+				'name' => 'roles',
+			);
+
+			$projectInfo['action'] = array(
+				'type' => 'hidden',
+				'default' => 'create',
+				'name' => 'action',
+			);
+
+			$projectForm = new SpecialNovaProjectForm( $projectInfo, 'openstackmanager-novaproject' );
+			$projectForm->setTitle( SpecialPage::getTitleFor( 'NovaProject' ) );
+			$projectForm->setSubmitID( 'novaproject-form-createprojectsubmit' );
+			$projectForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
+			$projectForm->show();
 		}
-		$projectInfo['roles'] = array(
-			'type' => 'multiselect',
-			'label-message' => 'openstackmanager-roles',
-			'section' => 'project',
-			'options' => $role_keys,
-			'name' => 'roles',
-		);
-
-		$projectInfo['action'] = array(
-			'type' => 'hidden',
-			'default' => 'create',
-			'name' => 'action',
-		);
-
-		$projectForm = new SpecialNovaProjectForm( $projectInfo, 'openstackmanager-novaproject' );
-		$projectForm->setTitle( SpecialPage::getTitleFor( 'NovaProject' ) );
-		$projectForm->setSubmitID( 'novaproject-form-createprojectsubmit' );
-		$projectForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
-		$projectForm->show();
 
 		$out = '';
 
