@@ -410,6 +410,7 @@ $messages['qqq'] = array(
 
 /** Afrikaans (Afrikaans)
  * @author Ansumang
+ * @author Naudefj
  * @author පසිඳු කාවින්ද
  */
 $messages['af'] = array(
@@ -497,7 +498,7 @@ $messages['af'] = array(
 	'openstackmanager-attachvolume' => 'heg Deel',
 	'openstackmanager-device' => 'apparaat',
 	'openstackmanager-attachedvolume' => 'Suksesvol aangeheg volume.',
-	'openstackmanager-detachvolume' => 'Maak Deel',
+	'openstackmanager-detachvolume' => 'Ontkoppel volume',
 	'openstackmanager-forcedetachment' => 'Werking losmaking van die volume',
 	'openstackmanager-forcedetachmenthelp' => 'Gedwonge losmaking word slegs aanbeveel indien die volume kan nie normaalweg losgemaak. Dit kan lei tot volume korrupsie en die verlies van data.',
 	'openstackmanager-detachedvolume' => 'Suksesvol losgemaak volume.',
