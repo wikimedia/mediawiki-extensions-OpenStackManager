@@ -487,6 +487,10 @@ class SpecialNovaInstance extends SpecialNova {
 		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-launchtime' ) );
 		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-actions' ) );
 		$projectArr = array();
+
+		/**
+		 * @var $instance OpenStackNovaInstance
+		 */
 		foreach ( $instances as $instance ) {
 			$project = $instance->getOwner();
 			if ( ! in_array( $project, $userProjects ) ) {
@@ -591,7 +595,8 @@ class SpecialNovaInstance extends SpecialNova {
 				$title = Title::newFromText( $this->getOutput()->getPageTitle() );
 				$job = new OpenStackNovaHostJob( $title, array( 'instanceid' => $instance->getInstanceId() ) );
 				$job->insert();
-				$this->getOutput()->addWikiMsg( 'openstackmanager-createdinstance', $instance->getInstanceID(), $instance->getImageId(), $host->getFullyQualifiedHostName() );
+				$this->getOutput()->addWikiMsg( 'openstackmanager-createdinstance', $instance->getInstanceID(),
+					$instance->getImageId(), $host->getFullyQualifiedHostName() );
 			} else {
 				$this->userNova->terminateInstance( $instance->getInstanceId() );
 				$this->getOutput()->addWikiMsg( 'openstackmanager-createfailedldap' );
