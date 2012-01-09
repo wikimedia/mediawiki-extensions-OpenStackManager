@@ -360,6 +360,7 @@ $messages['en'] = array(
 
 /** Message documentation (Message documentation)
  * @author EugeneZelenko
+ * @author Platonides
  * @author Purodha
  * @author Raymond
  * @author Sam Reed <reedy@wikimedia.org>
@@ -381,13 +382,17 @@ $messages['qqq'] = array(
 	'openstackmanager-configureinstance' => 'Page title',
 	'openstackmanager-instancelist' => 'Page title',
 	'openstackmanager-createinstance' => 'Header shown in Special:NovaInstance for its create action',
+	'openstackmanager-createdinstance' => 'Parameters:
+* $1 - Instance (string) identifier. e.g. i-000000b4
+* $2 - Identifier (string) for machine image used
+* $3 - The hostname of the instance created',
 	'openstackmanager-deletedinstance-faileddns' => 'Tells the user an instance was deleted, but the [[wikipedia:Domain Name System|DNS]] entry was not. $1 is the specific DNS name.',
+	'openstackmanager-volumedeleteonvolumedelete' => 'Do you want this volume to be deleted when its associated instance is deleted?',
 	'openstackmanager-attach' => 'Verb.
 {{Identical|Attach}}',
 	'openstackmanager-detach' => 'Verb.',
 	'openstackmanager-deletekey' => 'Page title',
 	'openstackmanager-keylist' => 'Page title',
-	'openstackmanager-importkey' => 'Page title',
 	'openstackmanager-name' => '{{Identical|Name}}',
 	'openstackmanager-keys' => '{{Identical|Key}}',
 	'openstackmanager-addmember' => 'Page title',
@@ -398,10 +403,14 @@ $messages['qqq'] = array(
 	'openstackmanager-action' => '{{Identical|Action}}',
 	'openstackmanager-projectlist' => 'Page title',
 	'openstackmanager-deleteproject' => 'Page title',
+	'openstackmanager-addedto' => '$1: member
+
+$2: projectname',
 	'openstackmanager-novaproject-project' => '{{Identical|Project}}',
-	'openstackmanager-novaproject-membership' => 'The members in a project',
 	'openstackmanager-roles' => '{{Identical|Role}}',
 	'openstackmanager-rolelist' => 'It is a list of roles that are assigned to all instances (i.e. global).',
+	'openstackmanager-addedhost' => '* $1: Hostname
+* $2: IP',
 	'openstackmanager-securitygroupdescription' => '{{Identical|Description}}',
 	'openstackmanager-sudoerusers' => '{{Identical|User}}',
 	'openstackmanager-sudoeroptions' => '{{Identical|Options}}',
@@ -1081,13 +1090,15 @@ $messages['br'] = array(
 	'openstackmanager-notloggedin' => 'Ret eo kevreañ',
 	'openstackmanager-mustbeloggedin' => "Ret deoc'h bezañ kevreet evit kas da benn an oberiadenn-mañ.",
 	'openstackmanager-noaccount' => "N'emañ ket ho kont er raktres goulennet.",
+	'openstackmanager-nonexistentresource' => "N'eus ket eus ar vammenn meneget.",
 	'openstackmanager-createdomain' => 'Krouiñ an domani',
 	'openstackmanager-deletedomain' => 'Dilemel an domani',
-	'openstackmanager-novadomain-domain' => 'Domani',
+	'openstackmanager-novadomain-domain' => 'Ouzhpennañ un domani',
 	'openstackmanager-createdomainfailed' => "C'hwitet krouiñ an domani.",
 	'openstackmanager-createddomain' => 'Domani krouet.',
 	'openstackmanager-domainlist' => 'Roll an domanioù',
 	'openstackmanager-backdomainlist' => 'Distreiñ da roll an domanioù',
+	'openstackmanager-addadditionaldomain' => 'Ouzhpennañ un domani all.',
 	'openstackmanager-deleteddomain' => 'Diverket eo bet an domani ervat.',
 	'openstackmanager-failedeletedomain' => "N'eus ket bet gallet diverkañ an domani.",
 	'openstackmanager-domainname' => 'Anv domani',
@@ -1096,7 +1107,8 @@ $messages['br'] = array(
 	'openstackmanager-location-help' => "Evit an takadoù DNS prevez eo ar vaezienn lec'hiañ. Lezel goullo evit an takadoù foran.",
 	'openstackmanager-nonexistanthost' => "N'eus ket eus an herberc'hier goulennet.",
 	'openstackmanager-dnsdomain' => 'Domani DNS',
-	'openstackmanager-puppetclasses' => 'Seurtoù margodennoù',
+	'openstackmanager-puppetclasses' => 'Seurtoù',
+	'openstackmanager-novainstance-global' => 'Strolladoù hollek',
 	'openstackmanager-securitygroups' => 'Strolladoù surentez',
 	'openstackmanager-availabilityzone' => 'Takad hegerz',
 	'openstackmanager-imageid' => 'ID ar skeudenn',
@@ -4616,7 +4628,11 @@ $messages['mk'] = array(
  * @author Praveenp
  */
 $messages['ml'] = array(
+	'openstackmanager-configure' => 'ക്രമീകരിക്കുക',
 	'openstackmanager-rename' => 'പുനഃർനാമകരണം ചെയ്യുക',
+	'openstackmanager-location' => 'സ്ഥലം',
+	'openstackmanager-imageid' => 'ചിത്രത്തിന്റെ ഐ.ഡി.',
+	'openstackmanager-imagetype' => 'ചിത്രത്തിന്റെ തരം',
 	'openstackmanager-removemember' => 'അംഗത്തെ ഒഴിവാക്കുക',
 	'openstackmanager-members' => 'അംഗങ്ങൾ',
 	'openstackmanager-member' => 'അംഗം',
