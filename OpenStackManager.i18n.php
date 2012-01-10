@@ -3125,6 +3125,7 @@ $messages['gsw'] = array(
 
 /** Hebrew (עברית)
  * @author Amire80
+ * @author ערן
  */
 $messages['he'] = array(
 	'openstackmanager-desc' => 'ניהול Nova ו־Swift',
@@ -3179,6 +3180,8 @@ $messages['he'] = array(
 	'openstackmanager-puppetclasses' => 'מחלקות',
 	'openstackmanager-novainstance-info' => 'מידע על מופע',
 	'openstackmanager-novainstance-puppetinfo' => 'מידע על בובה',
+	'openstackmanager-novainstance-project' => 'קבוצות במיזם',
+	'openstackmanager-novainstance-global' => 'קבוצות גלובליות',
 	'openstackmanager-deleteinstance' => 'מחיקת מופע',
 	'openstackmanager-deleteinstancequestion' => 'האם אתה באמת רוצה למחוק את המופע "$1"?',
 	'openstackmanager-instancelist' => 'רשימת מופעים',
