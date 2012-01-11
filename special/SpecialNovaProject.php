@@ -49,7 +49,6 @@ class SpecialNovaProject extends SpecialNova {
 			'type' => 'text',
 			'label-message' => 'openstackmanager-member',
 			'default' => '',
-			'section' => 'project/info',
 			'name' => 'member',
 		);
 		$projectInfo['action'] = array(
@@ -94,7 +93,6 @@ class SpecialNovaProject extends SpecialNova {
 		$projectInfo['members'] = array(
 			'type' => 'multiselect',
 			'label-message' => 'openstackmanager-member',
-			'section' => 'project/info',
 			'options' => $member_keys,
 			'name' => 'members',
 		);
