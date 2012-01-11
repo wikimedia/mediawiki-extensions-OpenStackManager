@@ -6261,6 +6261,7 @@ $messages['roa-tara'] = array(
 
 /** Russian (Русский)
  * @author Haffman
+ * @author Александр Сигачёв
  * @author Тест
  */
 $messages['ru'] = array(
@@ -6269,6 +6270,7 @@ $messages['ru'] = array(
 	'openstackmanager-actions' => 'Действия',
 	'openstackmanager-notloggedin' => 'Требуется авторизация',
 	'openstackmanager-novadomain-domain' => 'Добавить домен',
+	'openstackmanager-instancetypelabel' => '{{PLURAL:$1|$1 процессор|$1 процессора|$1 процессоров}}, $2 Мб оперативной памяти, хранилище $3 Гб',
 	'openstackmanager-attach' => 'прикрепить',
 	'openstackmanager-detach' => 'открепить',
 	'openstackmanager-novaproject-project' => 'Добавить проект',
