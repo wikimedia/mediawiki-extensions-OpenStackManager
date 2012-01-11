@@ -397,11 +397,6 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 			'section' => 'rule/singlerule',
 			'name' => 'ranges',
 		);
-		$securityGroupInfo['info'] = array(
-			'type' => 'info',
-			'default' => wfMsg( 'openstackmanager-securitygrouprule-group-exclusive' ),
-			'section' => 'rule/group',
-		);
 		$securityGroupInfo['groups'] = array(
 			'type' => 'multiselect',
 			'label-message' => 'openstackmanager-securitygrouprule-groups',
@@ -417,6 +412,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		);
 		$securityGroupForm = new SpecialNovaSecurityGroupForm( $securityGroupInfo, 'openstackmanager-novasecuritygroup' );
 		$securityGroupForm->setTitle( SpecialPage::getTitleFor( 'NovaSecurityGroup' ) );
+		$securityGroupForm->addHeaderText( wfMsg( 'openstackmanager-securitygrouprule-group-exclusive' ), 'rule' );
 		$securityGroupForm->setSubmitID( 'novainstance-form-removerulesubmit' );
 		$securityGroupForm->setSubmitCallback( array( $this, 'tryAddRuleSubmit' ) );
 		$securityGroupForm->show();

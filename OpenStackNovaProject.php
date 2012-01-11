@@ -332,6 +332,7 @@ class OpenStackNovaProject {
 |Resource Type=project
 |Project Name=%s
 |Members=%s}}
+__NOEDITSECTION__
 RESOURCEINFO;
 		$rawmembers = $this->getMembers();
 		$members = array();
