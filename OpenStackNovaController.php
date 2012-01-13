@@ -168,8 +168,8 @@ class OpenStackNovaController {
 		$zones = $this->novaConnection->describe_availability_zones();
 		$zones = $zones->body->availabilityZoneInfo->item;
 		foreach ( $zones as $zone ) {
-			if ( $zones->zoneState == "available" ) {
-				$this->availabilityZones["$zones->zoneName"] = $zone;
+			if ( $zone->zoneState == "available" ) {
+				$this->availabilityZones["$zone->zoneName"] = $zone;
 			}
 		}
 		return $this->availabilityZones;
