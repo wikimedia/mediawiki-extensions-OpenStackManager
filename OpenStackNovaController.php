@@ -165,11 +165,11 @@ class OpenStackNovaController {
 	 */
 	function getAvailabilityZones() {
 		$this->availabilityZones = array();
-		$availabilityZones = $this->novaConnection->describe_availability_zones();
-		$availabilityZones = $availabilityZones->body->availabilityZoneInfo->item;
-		foreach ( $availabilityZones as $availabilityZone ) {
-			if ( $availabilityZones->zoneState == "available" ) {
-				$this->availabilityZones["$availabilityZones->zoneName"] = $availabilityZone;
+		$zones = $this->novaConnection->describe_availability_zones();
+		$zones = $zones->body->availabilityZoneInfo->item;
+		foreach ( $zones as $zone ) {
+			if ( $zones->zoneState == "available" ) {
+				$this->availabilityZones["$zones->zoneName"] = $zone;
 			}
 		}
 		return $this->availabilityZones;
