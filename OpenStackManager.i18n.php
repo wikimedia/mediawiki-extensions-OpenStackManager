@@ -5321,7 +5321,7 @@ $messages['or'] = array(
 	'openstackmanager-rename' => 'ନାମବଦଳ',
 	'openstackmanager-reboot' => 'ପୁନରାରମ୍ଭ',
 	'openstackmanager-createdomain' => 'ଡ଼ୋମେନ ତିଆରି କରିବେ',
-	'openstackmanager-novadomain-domain' => 'ଡୋମେନ',
+	'openstackmanager-novadomain-domain' => 'ଡ଼ୋମେନ ଯୋଡ଼ନ୍ତୁ',
 	'openstackmanager-createddomain' => 'ତିଆରି ହୋଇଥିବା ଡ଼ୋମେନ।',
 	'openstackmanager-domainlist' => 'ଡ଼ୋମେନ ତାଲିକା',
 	'openstackmanager-domainname' => 'ଡ଼ୋମେନ ନାମ',
@@ -5357,7 +5357,7 @@ $messages['or'] = array(
 	'openstackmanager-createdvolume' => '$1 ପରିମାଣ ତିଆରିବେ ।',
 	'openstackmanager-createevolumefailed' => 'ପରିମାଣ ତିଆରିବାରେ ବିଫଳ ହେଲୁ ।',
 	'openstackmanager-deletedvolume' => 'ଲିଭାଯାଇଥିବା ପରିମାଣ',
-	'openstackmanager-addmember' => 'ପ୍ରକଳ୍ପ ସଭ୍ୟ ଯୋଡନ୍ତୁ',
+	'openstackmanager-addmember' => 'ସଦସ୍ୟ ଯୋଡ଼ନ୍ତୁ',
 	'openstackmanager-removemember' => 'ପ୍ରକଳ୍ପ ସଭ୍ୟ ହଟାଇବେ',
 	'openstackmanager-createproject' => 'ଗୋଟିଏ ନୂଆ ପ୍ରକଳ୍ପ ତିଆରି କରିବେ',
 	'openstackmanager-projectname' => 'ପ୍ରକଳ୍ପ ନାମ',
@@ -5375,7 +5375,7 @@ $messages['or'] = array(
 	'openstackmanager-failedtoadd' => '$1କୁ $2 ସହ ଯୋଡା ଯାଇପାରିଲାନାହିଁ ।',
 	'openstackmanager-removedfrom' => '$2ରୁ $1କୁ ସଫଳଭାବେ ହଟାଗଲା ।',
 	'openstackmanager-failedtoremove' => '$2ରୁ $1କୁ ହଟା ଯାଇପାରିଲାନାହିଁ ।',
-	'openstackmanager-novaproject-project' => 'ପ୍ରକଳ୍ପ',
+	'openstackmanager-novaproject-project' => 'ପ୍ରକଳ୍ପ ଯୋଡ଼ନ୍ତୁ',
 	'openstackmanager-rolename' => 'ଭୂମିକା ନାମ',
 	'openstackmanager-hostname' => 'ହୋଷ୍ଟ ନାମ',
 	'openstackmanager-hostnames' => 'ହୋଷ୍ଟ ନାମସବୁ',
@@ -6261,6 +6261,7 @@ $messages['roa-tara'] = array(
 );
 
 /** Russian (Русский)
+ * @author Eleferen
  * @author Haffman
  * @author Александр Сигачёв
  * @author Тест
@@ -6275,6 +6276,8 @@ $messages['ru'] = array(
 	'openstackmanager-attach' => 'прикрепить',
 	'openstackmanager-detach' => 'открепить',
 	'openstackmanager-novaproject-project' => 'Добавить проект',
+	'openstackmanager-addresslist' => 'Список публичных IP-адресов',
+	'openstackmanager-address' => 'Публичный IP-адрес',
 );
 
 /** Sanskrit (संस्कृतम्)
