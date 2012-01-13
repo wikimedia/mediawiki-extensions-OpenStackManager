@@ -77,7 +77,6 @@ $messages['en'] = array(
 	'openstackmanager-dnsdomain' => 'DNS domain',
 	'openstackmanager-puppetclasses' => 'Classes',
 	'openstackmanager-novainstance-info' => 'Instance information',
-	'openstackmanager-novainstance-puppetinfo' => 'Puppet information',
 	'openstackmanager-novainstance-project' => 'Project specific groups',
 	'openstackmanager-novainstance-global' => 'Global groups',
 

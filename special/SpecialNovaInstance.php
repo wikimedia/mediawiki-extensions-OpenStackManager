@@ -92,7 +92,7 @@ class SpecialNovaInstance extends SpecialNova {
 			'label-message' => 'openstackmanager-instancename',
 			'validation-callback' => array( $this, 'validateText' ),
 			'default' => '',
-			'section' => 'instance/info',
+			'section' => 'info',
 			'name' => 'instancename',
 		);
 
@@ -109,7 +109,7 @@ class SpecialNovaInstance extends SpecialNova {
 		$instanceInfo['instanceType'] = array(
 			'type' => 'select',
 			'label-message' => 'openstackmanager-instancetype',
-			'section' => 'instance/info',
+			'section' => 'info',
 			'options' => $instanceType_keys,
 			'name' => 'instanceType',
 		);
@@ -123,7 +123,7 @@ class SpecialNovaInstance extends SpecialNova {
 		}
 		$instanceInfo['availabilityZone'] = array(
 			'type' => 'select',
-			'section' => 'instance/info',
+			'section' => 'info',
 			'options' => $availabilityZone_keys,
 			'label-message' => 'openstackmanager-availabilityzone',
 			'name' => 'availabilityZone',
@@ -159,7 +159,7 @@ class SpecialNovaInstance extends SpecialNova {
 		}
 		$instanceInfo['imageType'] = array(
 			'type' => 'select',
-			'section' => 'instance/info',
+			'section' => 'info',
 			'options' => $image_keys,
 			'default' => $default,
 			'label-message' => 'openstackmanager-imagetype',
@@ -176,7 +176,7 @@ class SpecialNovaInstance extends SpecialNova {
 		# }
 		# $instanceInfo['keypair'] = array(
 		#	'type' => 'select',
-		#	'section' => 'instance/info',
+		#	'section' => 'info',
 		#	'options' => $keypair_keys,
 		#	'label-message' => 'keypair',
 		# );
@@ -189,7 +189,7 @@ class SpecialNovaInstance extends SpecialNova {
 		}
 		$instanceInfo['domain'] = array(
 			'type' => 'select',
-			'section' => 'instance/info',
+			'section' => 'info',
 			'options' => $domain_keys,
 			'label-message' => 'openstackmanager-dnsdomain',
 			'name' => 'domain',
@@ -209,7 +209,7 @@ class SpecialNovaInstance extends SpecialNova {
 		}
 		$instanceInfo['groups'] = array(
 			'type' => 'multiselect',
-			'section' => 'instance/info',
+			'section' => 'info',
 			'options' => $group_keys,
 			'default' => $defaults,
 			'label-message' => 'openstackmanager-securitygroups',
@@ -299,7 +299,7 @@ class SpecialNovaInstance extends SpecialNova {
 		if ( !$puppetinfo ) {
 			$instanceInfo["warning"] = array(
 				'type' => 'info',
-				'section' => "instance/puppetinfo",
+				'section' => "puppetinfo",
 				'default' => wfMsg( 'openstackmanager-createinstancepuppetwarning' ),
 			);
 		}
@@ -317,9 +317,9 @@ class SpecialNovaInstance extends SpecialNova {
 			$puppetgroupname = $puppetGroup->getName();
 			$puppetgroupproject = $puppetGroup->getProject();
 			if ( $puppetgroupproject ) {
-				$section = 'instance/puppetinfo/project';
+				$section = 'puppetinfo/project';
 			} else {
-				$section = 'instance/puppetinfo/global';
+				$section = 'puppetinfo/global';
 			}
 			foreach ( $puppetGroup->getClasses() as $class ) {
 				$classname = $class["name"];
