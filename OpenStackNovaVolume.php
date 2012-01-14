@@ -1,5 +1,17 @@
 <?php
 
+/**
+ * todo comment me
+ *
+ * @file
+ * @ingroup Extensions
+ */
+
+if ( !defined( 'MEDIAWIKI' ) ) {
+	echo( "This file is a part of the OpenStackManager extension and cannot be used standalone.\n" );
+	die( 1 );
+}
+
 # TODO: Make this an abstract class, and make the EC2 API a subclass
 class OpenStackNovaVolume {
 

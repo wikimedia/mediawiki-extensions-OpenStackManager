@@ -1,5 +1,17 @@
 <?php
 
+/**
+ * class for nova sudoers
+ *
+ * @file
+ * @ingroup Extensions
+ */
+
+if ( !defined( 'MEDIAWIKI' ) ) {
+	echo( "This file is a part of the OpenStackManager extension and cannot be used standalone.\n" );
+	die( 1 );
+}
+
 class OpenStackNovaSudoer {
 
 	var $sudoername;

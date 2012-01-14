@@ -1,4 +1,17 @@
 <?php
+
+/**
+ * Special page from nova address
+ *
+ * @file
+ * @ingroup Extensions
+ */
+
+if ( !defined( 'MEDIAWIKI' ) ) {
+	echo( "This file is a part of the OpenStackManager extension and cannot be used standalone.\n" );
+	die( 1 );
+}
+
 class SpecialNovaAddress extends SpecialNova {
 
 	var $adminNova;
