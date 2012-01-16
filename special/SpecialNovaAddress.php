@@ -521,7 +521,17 @@ class SpecialNovaAddress extends SpecialNova {
 	function tryAssociateSubmit( $formData, $entryPoint = 'internal' ) {
 		$instanceid = $formData['instanceid'];
 		$ip = $formData['ip'];
-		$address = $this->userNova->associateAddress( $instanceid, $ip );
+		$address = $this->adminNova->getAddress( $ip );
+		if ( $address ) {
+			if ( $address->getInstanceId() ) {
+				$address = $this->userNova->disassociateAddress( $ip );
+				if ( $address ) {
+					$address = $this->userNova->associateAddress( $instanceid, $ip );
+				}
+			} else {
+				$address = $this->userNova->associateAddress( $instanceid, $ip );
+			}
+		}
 		$outputPage = $this->getOutput();
 		if ( $address ) {
 			$outputPage->addWikiMsg( 'openstackmanager-associatedaddress', $ip, $instanceid );
