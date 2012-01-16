@@ -3158,6 +3158,7 @@ $messages['gsw'] = array(
 
 /** Hebrew (עברית)
  * @author Amire80
+ * @author Ofekalef
  * @author ערן
  */
 $messages['he'] = array(
@@ -3292,6 +3293,7 @@ $messages['he'] = array(
 	'openstackmanager-keypairimported' => 'זוג המפתחות יובא.',
 	'openstackmanager-keypairimportedfingerprint' => 'יובא זוג המפתחות $1 עם טביעת האצבע $2.',
 	'openstackmanager-backkeylist' => 'חזרה לרשימת מפתחות.',
+	'openstackmanager-addadditionalkey' => 'הוספת כפתור נוסף',
 	'openstackmanager-deletedkey' => 'המפתח נמחק בהצלחה.',
 	'openstackmanager-deletedkeyfailed' => 'כשל במחיקת מפתח.',
 	'openstackmanager-addmember' => 'הוספת חבר פרויקט',
@@ -3317,12 +3319,14 @@ $messages['he'] = array(
 	'openstackmanager-removerolemember' => 'הסרת חבר',
 	'openstackmanager-addrolemember' => 'הוספת חבר',
 	'openstackmanager-rolelist' => 'רשימת תפקידים כללית',
+	'openstackmanager-backaddresslist' => 'חזרה אל רשימת הכתובות',
 	'openstackmanager-hostname' => 'שם השרת',
 	'openstackmanager-hostnames' => 'שמות השרתים',
 	'openstackmanager-addhost' => 'הוספת שם שרת',
 	'openstackmanager-removehost' => 'הסרת שרת',
 	'openstackmanager-removehost-action' => '(להסיר את שם השרת)',
 	'openstackmanager-securitygroupdescription' => 'תיאור',
+	'openstackmanager-deletesecuritygroup-confirm' => 'האם אתם בטוחים שברצונכם למחוק את $1?',
 	'openstackmanager-securitygrouprule' => 'חוקים',
 	'openstackmanager-securitygrouprule-toport' => 'אל הפתחה',
 	'openstackmanager-securitygrouprule-fromport' => 'מהפתחה',
@@ -3369,6 +3373,7 @@ $messages['he'] = array(
 	'openstackmanager-modifysudoerfailed' => 'כשל בשינוי מדיניות sudo',
 	'openstackmanager-modifiedsudoer' => 'שינוי מדיניות sudo הצליח.',
 	'openstackmanager-nonexistantsudoer' => 'מדיניות ה־sudo המבוקשת אינה קיימת.',
+	'openstackmanager-createpuppetgroup' => 'הוספת קבוצה',
 	'openstackmanager-email-subject' => 'המופע שלך מוכן לכניסה לחשבון.',
 	'openstackmanager-email-body' => 'המופע הבא נוצר ואפשר להיכנס בו לחשבון:',
 	'right-manageproject' => 'ניהול פרויקטים ותפקידים של Openstack',
@@ -3470,6 +3475,7 @@ $messages['hi'] = array(
 /** Hungarian (Magyar)
  * @author Dani
  * @author Dj
+ * @author Misibacsi
  */
 $messages['hu'] = array(
 	'openstackmanager-desc' => 'Lehetővé teszi, hogy a felhasználók kezeljék a Novát és Swiftet',
@@ -3625,14 +3631,16 @@ $messages['hu'] = array(
 	'openstackmanager-novarole-info' => 'Nova szerepkör információ',
 	'openstackmanager-addresslist' => 'Publikus IP-címek listája',
 	'openstackmanager-address' => 'Publikus IP-címek',
-	'openstackmanager-allocateaddress' => 'Új publikus IP-cím kiosztása',
-	'openstackmanager-releaseaddress' => 'IP-cím feloldása',
+	'openstackmanager-allocateaddress' => 'IP-cím kiosztása',
+	'openstackmanager-releaseaddress' => 'IP-cím felszabadítása',
 	'openstackmanager-associateaddress' => 'IP-cím hozzárendelése',
 	'openstackmanager-reassociateaddress' => 'IP-cím újratársítása',
 	'openstackmanager-disassociateaddress' => 'IP-cím társításának eltávolítása',
 	'openstackmanager-allocateaddressfailed' => 'Nem sikerült kiosztani az új, nyilvános IP-címet.',
 	'openstackmanager-allocatedaddress' => 'A következő új, nyilvános IP-cím kiosztva: $1',
 	'openstackmanager-backaddresslist' => 'Vissza a címlistára',
+	'openstackmanager-releasedaddress' => 'A rendszer sikeresen felszabadította a címet:$1',
+	'openstackmanager-releaseaddressfailed' => 'Nem sikerült felszabadítani a címet: $1',
 	'openstackmanager-hostname' => 'Hosztnév',
 	'openstackmanager-hostnames' => 'Hosztnevek',
 	'openstackmanager-addhost' => 'Hosztnév hozzáadása',
