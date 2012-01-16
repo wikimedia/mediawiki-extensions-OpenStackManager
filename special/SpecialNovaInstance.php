@@ -247,6 +247,8 @@ class SpecialNovaInstance extends SpecialNova {
 
 		$instanceForm = new SpecialNovaInstanceForm( $instanceInfo, 'openstackmanager-novainstance' );
 		$instanceForm->setTitle( SpecialPage::getTitleFor( 'NovaInstance' ) );
+		$instanceForm->addHeaderText( wfMsg( 'openstackmanager-createinstancepuppetwarning' ) . '<div class="mw-collapsible mw-collapsed">', 'puppetinfo' );
+		$instanceForm->addFooterText( '</div>', 'puppetinfo' );
 		$instanceForm->setSubmitID( 'openstackmanager-novainstance-createinstancesubmit' );
 		$instanceForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
 		$instanceForm->show();
@@ -309,13 +311,6 @@ class SpecialNovaInstance extends SpecialNova {
 	}
 
 	function setPuppetInfo( &$instanceInfo, $puppetinfo=array() ) {
-		if ( !$puppetinfo ) {
-			$instanceInfo["warning"] = array(
-				'type' => 'info',
-				'section' => "puppetinfo",
-				'default' => wfMsg( 'openstackmanager-createinstancepuppetwarning' ),
-			);
-		}
 		$project = $instanceInfo['project']['default'];
 		$projectGroups = OpenStackNovaPuppetGroup::getGroupList( $project );
 		$this->setPuppetInfoByGroups( $instanceInfo, $puppetinfo, $projectGroups );
