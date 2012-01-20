@@ -4690,6 +4690,11 @@ $messages['ml'] = array(
 	'openstackmanager-members' => 'അംഗങ്ങൾ',
 	'openstackmanager-member' => 'അംഗം',
 	'openstackmanager-deleteproject' => 'മായ്ക്കുക',
+	'openstackmanager-removedhost' => '$1 വിജയകരമായി നീക്കംചെയ്തു.',
+	'openstackmanager-removehostfailed' => '$1 നീക്കംചെയ്യൽ പരാജയപ്പെട്ടു.',
+	'openstackmanager-securitygroupdescription' => 'വിവരണം',
+	'openstackmanager-securitygrouprule-protocol' => 'പ്രോട്ടോകോൾ',
+	'openstackmanager-sudoerusers' => 'ഉപയോക്താക്കൾ',
 );
 
 /** Malay (Bahasa Melayu)
