@@ -237,11 +237,11 @@ class OpenStackNovaUser {
 		if ( $wgOpenStackManagerLDAPGlobalRoles["$role"] ) {
 			# Check global role
 			$roledn = $wgOpenStackManagerLDAPGlobalRoles["$role"];
-			$filter = "(member=$this->userDN)";
-			$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $roledn, $filter );
+			$filter = "(objectclass=*)";
+			$result = LdapAuthenticationPlugin::ldap_read( $wgAuth->ldapconn, $roledn, $filter );
 			if ( $result ) {
 				$entries = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
-				return ( (int)$entries['count'] > 0 );
+				return ( in_array( $this->userDN, $entries[0]['member'] ) );
 			}
 		}
 		return false;
