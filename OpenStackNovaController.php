@@ -1,17 +1,5 @@
 <?php
 
-/**
- * todo comment me
- *
- * @file
- * @ingroup Extensions
- */
-
-if ( !defined( 'MEDIAWIKI' ) ) {
-	echo( "This file is a part of the OpenStackManager extension and cannot be used standalone.\n" );
-	die( 1 );
-}
-
 # TODO: Make this an abstract class, and make the EC2 API a subclass
 class OpenStackNovaController {
 
@@ -107,7 +95,6 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @param $instanceType
 	 * @return OpenStackNovaInstanceType
 	 */
 	function getInstanceType( $instanceType ) {
@@ -189,7 +176,6 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @param  $project
 	 * @param  $groupname
 	 * @return OpenStackNovaSecurityGroup
 	 */
@@ -518,8 +504,6 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * Release ip address
-	 *
 	 * @param  $ip
 	 * @return
 	 */
@@ -530,8 +514,6 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * Attach new ip address to instance
-	 *
 	 * @param  $instanceid
 	 * @param  $ip
 	 * @return null|OpenStackNovaAddress
@@ -548,8 +530,6 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * Disassociate address from an instance
-	 *
 	 * @param  $ip
 	 * @return
 	 */

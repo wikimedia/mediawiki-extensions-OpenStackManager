@@ -1,17 +1,5 @@
 <?php
 
-/**
- * class for NovaInstance 
- *
- * @file
- * @ingroup Extensions
- */
-
-if ( !defined( 'MEDIAWIKI' ) ) {
-	echo( "This file is a part of the OpenStackManager extension and cannot be used standalone.\n" );
-	die( 1 );
-}
-
 # TODO: Make this an abstract class, and make the EC2 API a subclass
 class OpenStackNovaInstance {
 
@@ -24,7 +12,7 @@ class OpenStackNovaInstance {
 
 	/**
 	 * @param  $apiInstanceResponse
-	 * @param bool $loadhost, optional
+	 * @param bool $loadhost
 	 */
 	function __construct( $apiInstanceResponse, $loadhost = false ) {
 		$this->instance = $apiInstanceResponse;

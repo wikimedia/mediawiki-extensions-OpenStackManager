@@ -1,17 +1,5 @@
 <?php
 
-/**
- * todo comment me
- *
- * @file
- * @ingroup Extensions
- */
-
-if ( !defined( 'MEDIAWIKI' ) ) {
-	echo( "This file is a part of the OpenStackManager extension and cannot be used standalone.\n" );
-	die( 1 );
-}
-
 class OpenStackNovaRole {
 
 	var $rolename;
@@ -22,7 +10,7 @@ class OpenStackNovaRole {
 
 	/**
 	 * @param  $rolename
-	 * @param null $project, optional
+	 * @param null $project
 	 */
 	function __construct( $rolename, $project=null ) {
 		$this->rolename = $rolename;

@@ -1,17 +1,5 @@
 <?php
 
-/**
- * Special page for nova
- *
- * @file
- * @ingroup Extensions
- */
-
-if ( !defined( 'MEDIAWIKI' ) ) {
-	echo( "This file is a part of the OpenStackManager extension and cannot be used standalone.\n" );
-	die( 1 );
-}
-
 abstract class SpecialNova extends SpecialPage {
 
 	/**

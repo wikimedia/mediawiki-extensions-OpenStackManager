@@ -1,18 +1,5 @@
 <?php
 
-/**
- * todo comment me
- *
- * @file
- * @ingroup Extensions
- */
-
-if ( !defined( 'MEDIAWIKI' ) ) {
-	echo( "This file is a part of the OpenStackManager extension and cannot be used standalone.\n" );
-	die( 1 );
-}
-
-
 class OpenStackNovaProject {
 
 	var $projectname;
@@ -20,7 +7,6 @@ class OpenStackNovaProject {
 	var $projectInfo;
 	var $roles;
 
-	// list of roles
 	static $rolenames = array( 'sysadmin', 'netadmin' );
 
 	/**
