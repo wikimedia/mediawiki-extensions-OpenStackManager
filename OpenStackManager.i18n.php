@@ -5161,6 +5161,7 @@ $messages['nb'] = array(
 );
 
 /** Dutch (Nederlands)
+ * @author Romaine
  * @author Saruman
  * @author Siebrand
  */
@@ -5241,7 +5242,7 @@ $messages['nl'] = array(
 	'openstackmanager-rebootinstancefailed' => 'Het herstarten van de instantie is mislukt.',
 	'openstackmanager-launchtime' => 'Starttijd',
 	'openstackmanager-createinstance' => 'Instantie toevoegen',
-	'openstackmanager-createinstancepuppetwarning' => 'Waarschiwing: door puppetinstellingen toe te voegen tijdens het aanmaken van de instantie, is het mogelijk dat het opbouwen mislukt. Gebruik deze instelling met mate. U kunt de instantie configureren nadat deze is gebouwd.',
+	'openstackmanager-createinstancepuppetwarning' => 'Waarschuwing: door puppetinstellingen toe te voegen tijdens het aanmaken van de instantie, is het mogelijk dat het opbouwen mislukt. Gebruik deze instelling met mate. U kunt de instantie configureren nadat deze is gebouwd.',
 	'openstackmanager-invaliddomain' => 'Het opgegeven domein is ongeldig.',
 	'openstackmanager-createdinstance' => 'De instantie $1 met het image $2 en hostnaam $3 is aangemaakt.',
 	'openstackmanager-createfailedldap' => 'Het aanmaken van de instantie is mislukt omdat de host niet toegevoegd kon worden aan LDAP.',
