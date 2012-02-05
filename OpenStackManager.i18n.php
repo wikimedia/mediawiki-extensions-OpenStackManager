@@ -5621,7 +5621,7 @@ $messages['or'] = array(
  * @author Xqt
  */
 $messages['pdc'] = array(
-	'openstackmanager-delete' => 'lesche',
+	'openstackmanager-delete' => 'verwische',
 );
 
 /** Polish (Polski)
