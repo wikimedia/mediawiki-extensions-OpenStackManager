@@ -2059,15 +2059,23 @@ $messages['es'] = array(
 	'openstackmanager-modifysudoerfailed' => 'Error al modificar la regla "sudo"',
 	'openstackmanager-modifiedsudoer' => 'La regla "sudo" se ha modificado correctamente.',
 	'openstackmanager-nonexistantsudoer' => "La regla ''sudo'' solicitada no existe.",
+	'openstackmanager-puppetgrouplist' => 'Lista del grupo de títeres (puppet)',
 	'openstackmanager-puppetallprojects' => 'Todos los proyectos',
 	'openstackmanager-createpuppetgroup' => 'Añadir grupo',
+	'openstackmanager-createdpuppetgroup' => 'Creado el grupo de títeres (puppet).',
+	'openstackmanager-createpuppetgroupfailed' => 'Error al crear el grupo de títeres (puppet).',
+	'openstackmanager-backpuppetgrouplist' => 'Volver a la lista del grupo de títeres.',
 	'openstackmanager-addpuppetclass' => 'Agregar clase',
+	'openstackmanager-addedpuppetclass' => 'Clase de títere (puppet) añadida.',
 	'openstackmanager-puppetclassname' => 'Nombre de la clase',
 	'openstackmanager-puppetvars' => 'Variables',
 	'openstackmanager-addpuppetvar' => 'Añadir variable',
 	'openstackmanager-puppetvarname' => 'Nombre de la variable',
 	'openstackmanager-puppetvarposition' => 'Posición de la variable',
 	'openstackmanager-puppetclassposition' => 'Posición de la clase',
+	'openstackmanager-email-subject' => 'La instancia está lista para ser conectada.',
+	'openstackmanager-email-body' => 'La siguiente instancia ha sido creada y está lista para ser conectada:',
+	'right-manageproject' => 'Gestionar proyectos y funciones de OpenStack',
 );
 
 /** Persian (فارسی)
