@@ -7874,6 +7874,7 @@ $messages['zh-hans'] = array(
 
 /** Traditional Chinese (‪中文(繁體)‬)
  * @author Anakmalaysia
+ * @author Oapbtommy
  */
 $messages['zh-hant'] = array(
 	'openstackmanager-desc' => '允許用戶管理 Nova 及 Swift',
@@ -8016,7 +8017,7 @@ $messages['zh-hant'] = array(
 	'openstackmanager-addmember' => '增加成員',
 	'openstackmanager-removemember' => '刪除成員',
 	'openstackmanager-removeprojectconfirm' => '您確定要刪除「$1」項目嗎？此操作對所有的虛擬機有帶來反響，切勿輕率執行！',
-	'openstackmanager-createproject' => '增加項目',
+	'openstackmanager-createproject' => '新增項目',
 	'openstackmanager-projectname' => '項目名',
 	'openstackmanager-members' => '成員們',
 	'openstackmanager-member' => '成員',
@@ -8033,7 +8034,7 @@ $messages['zh-hant'] = array(
 	'openstackmanager-failedtoadd' => '$1加入$2失敗。',
 	'openstackmanager-removedfrom' => '從$2中刪除$1成功。',
 	'openstackmanager-failedtoremove' => '從$2中刪除$1失敗。',
-	'openstackmanager-novaproject-project' => '增加項目',
+	'openstackmanager-novaproject-project' => '新增項目',
 	'openstackmanager-roles' => '職務',
 	'openstackmanager-rolename' => '作用名稱',
 	'openstackmanager-removerolemember' => '刪除成員',
