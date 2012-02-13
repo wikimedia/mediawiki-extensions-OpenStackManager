@@ -1263,6 +1263,10 @@ $messages['br'] = array(
 	'openstackmanager-nonexistantsudoer' => "N'eus ket eus ar reolenn Sudo goulennet.",
 	'openstackmanager-puppetallprojects' => 'An holl raktresoù',
 	'openstackmanager-createpuppetgroup' => 'Ouzhpennañ ur strollad',
+	'openstackmanager-puppetvars' => 'Argemmennoù',
+	'openstackmanager-addpuppetvar' => 'Ouzhpennaén un argemenn',
+	'openstackmanager-puppetvarname' => 'Anv an argemenn',
+	'openstackmanager-puppetvarposition' => "Lec'hiadur an argemenn",
 	'right-manageproject' => 'Merañ raktresoù ha rolloù Openstack',
 );
 
@@ -4356,6 +4360,7 @@ $messages['lb'] = array(
 	'openstackmanager-createdproject' => 'De Projet gouf ugeluecht.',
 	'openstackmanager-projectlist' => 'Lëscht vun de Projeten',
 	'openstackmanager-backprojectlist' => "Zréck op d'Lëscht vun de Projeten",
+	'openstackmanager-addadditionalproject' => 'En anere Projet derbäisetzen.',
 	'openstackmanager-deleteproject' => 'Läschen',
 	'openstackmanager-deletedproject' => 'De Projet gouf geläscht.',
 	'openstackmanager-deleteprojectfailed' => 'De Projet konnt net geläscht ginn.',
