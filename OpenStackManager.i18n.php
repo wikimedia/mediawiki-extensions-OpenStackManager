@@ -4341,6 +4341,7 @@ $messages['lb'] = array(
 	'openstackmanager-configureinstance' => 'Instanz astellen',
 	'openstackmanager-dnsdomain' => 'DNS-Domain',
 	'openstackmanager-novainstance-info' => "Informatioun iwwert d'Instanz",
+	'openstackmanager-novainstance-global' => 'Global Gruppen',
 	'openstackmanager-instancename' => 'Numm vun der Instanz',
 	'openstackmanager-imageid' => 'Bild ID',
 	'openstackmanager-imagetype' => 'Bildtyp',
