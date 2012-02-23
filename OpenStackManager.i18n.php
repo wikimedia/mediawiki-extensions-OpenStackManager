@@ -4424,6 +4424,7 @@ $messages['lb'] = array(
 	'openstackmanager-novainstance-info' => "Informatioun iwwert d'Instanz",
 	'openstackmanager-novainstance-global' => 'Global Gruppen',
 	'openstackmanager-instancename' => 'Numm vun der Instanz',
+	'openstackmanager-securitygroups' => 'Sécherheetsgruppen',
 	'openstackmanager-imageid' => 'Bild ID',
 	'openstackmanager-imagetype' => 'Bildtyp',
 	'openstackmanager-backinstancelist' => "Zréck op d'Lëscht vun den Instanzen",
