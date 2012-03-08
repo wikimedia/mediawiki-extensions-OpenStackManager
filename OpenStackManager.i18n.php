@@ -4413,6 +4413,47 @@ $messages['ja'] = array(
 	'openstackmanager-novaproject-project' => 'プロジェクト',
 );
 
+/** Georgian (ქართული)
+ * @author David1010
+ */
+$messages['ka'] = array(
+	'openstackmanager-delete' => 'წაშლა',
+	'openstackmanager-modify' => 'შეცვლა',
+	'openstackmanager-rename' => 'სახელის შეცვლა',
+	'openstackmanager-actions' => 'მოქმედებები',
+	'openstackmanager-createdomain' => 'დომენის შექმნა',
+	'openstackmanager-domainname' => 'დომენის სახელი',
+	'openstackmanager-location' => 'მდებარეობა',
+	'openstackmanager-dnsdomain' => 'DNS დომენი',
+	'openstackmanager-puppetclasses' => 'კლასები',
+	'openstackmanager-novainstance-global' => 'გლობალური ჯგუფები',
+	'openstackmanager-imageid' => 'სურათის ID',
+	'openstackmanager-imagetype' => 'სურათის ტიპი',
+	'openstackmanager-launchtime' => 'გაშვების დრო',
+	'openstackmanager-attach' => 'მიმაგრება',
+	'openstackmanager-detach' => 'მოხსნა',
+	'openstackmanager-device' => 'მოწყობილობა',
+	'openstackmanager-deletekey' => 'გასარების წაშლა',
+	'openstackmanager-keylist' => 'გასაღებების სია',
+	'openstackmanager-name' => 'სახელი',
+	'openstackmanager-keys' => 'გასაღებები',
+	'openstackmanager-addmember' => 'წევრის დამატება',
+	'openstackmanager-removemember' => 'წევრის წაშლა',
+	'openstackmanager-createproject' => 'პროექტის დამატება',
+	'openstackmanager-projectname' => 'პროექტის სახელი',
+	'openstackmanager-members' => 'წევრები',
+	'openstackmanager-addresslist' => 'საჯარო IP მისამართების სია',
+	'openstackmanager-address' => 'საჯარო IP მისამართები',
+	'openstackmanager-securitygroupdescription' => 'აღწერა',
+	'openstackmanager-securitygrouprule' => 'წესები',
+	'openstackmanager-sudoerusers' => 'მომხმარებლები',
+	'openstackmanager-sudoeroptions' => 'პარამეტრები',
+	'openstackmanager-puppetallprojects' => 'ყველა პროექტი',
+	'openstackmanager-createpuppetgroup' => 'ჯგუფის დამატება',
+	'openstackmanager-addpuppetclass' => 'კლასის დამატება',
+	'openstackmanager-puppetclassname' => 'კლასის სახელი',
+);
+
 /** Colognian (Ripoarisch)
  * @author Purodha
  */
