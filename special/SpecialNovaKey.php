@@ -259,6 +259,11 @@ class SpecialNovaKey extends SpecialNova {
 		if ( wfIsWindows() || !$wgSshKeygen )
 			return false;
 		
+		if ( substr_compare( $keydata, 'PuTTY-User-Key-File-2:', 0, 22 ) == 0 ) {
+			$keydata = explode( "\nPrivate-Lines:", $keydata, 2 );
+			$keydata = $keydata[0] . "\n";
+		}
+		
 		$descriptorspec = array(
 		   0 => array("pipe", "r"),	
 		   1 => array("pipe", "w"),
