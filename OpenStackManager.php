@@ -82,6 +82,11 @@ $wgOpenStackManagerCreateProjectSALPages = true;
 $wgOpenStackManagerLDAPUseUidAsNamingAttribute = false;
 $wgOpenStackManagerNovaDefaultProject = "";
 
+/**
+ * Path to the puttygen utility. Used for converting ssh key formats. False to disable its use.
+ */
+$wgPuttygen = 'puttygen';
+
 $dir = dirname( __FILE__ ) . '/';
 
 $wgExtensionMessagesFiles['OpenStackManager'] = $dir . 'OpenStackManager.i18n.php';

@@ -180,7 +180,90 @@ class SpecialNovaKey extends SpecialNova {
 
 		$this->getOutput()->addHTML( $out );
 	}
+	
+	/**
+	 * Converts a public ssh key to openssh format, using puttygen.
+	 * @param $keydata SSH public/private key in some format
+	 * @return mixed Public key in openssh format or false
+	 */
+	static function opensshFormatKey($keydata) {
+		global $wgPuttygen;
+		if ( wfIsWindows() || !$wgPuttygen )
+			return false;
+		
+		// We need to store the key in a file, as puttygen opens it several times.
+		$tmpfile = tmpfile();
+		if (!$tmpfile)
+			return false;
+		
+		fwrite( $tmpfile, $keydata );
+		
+		$descriptorspec = array(
+		   0 => $tmpfile,	
+		   1 => array("pipe", "w"),
+		   2 => array("file", wfGetNull(), "a")
+		);
+		
+		$process = proc_open( escapeshellcmd( $wgPuttygen ) . ' -O public-openssh -o /dev/stdout /dev/stdin', $descriptorspec, $pipes );
+		if ( $process === false )
+			return false;
+		
+		$data = stream_get_contents( $pipes[1] );
+		fclose( $pipes[1] );
+		proc_close( $process );
+		
+		/* Overwrite the file with nulls, padded to the next 4KB boundary.
+		 * This shouldn't be needed, as it is a public key material, and
+		 * it's going to be stored in a place from which it's probably 
+		 * easier to retrieve than a deleted file.
+		 * However, there's no reason to have it innecesary copies, in 
+		 * some cases (certain DSA keys) the private key can be extracted
+		 * from public one, and there could be worse attacks in the future.
+		 * Moreover, if someone provided the private key to Special:NovaKey,
+		 * this function would strip it to the public part, but we'd still 
+		 * need not to keep such information we should have never been given.
+		 */
+		rewind( $tmpfile );
+		fwrite( $tmpfile, str_repeat( "\0", strlen( $keydata ) + 4096 - strlen( $keydata ) % 4096 ) );
+		fclose( $tmpfile );
+		
+		if ( $data === false || !preg_match( '/(^| )ssh-(rsa|dss) /', $data ) )
+			return false;
+		
+		return $data;
+	}
 
+	/*
+	// This alternative function uses only pipes, but doesn't work due to puttygen opening the input file several times.
+	static function opensshFormatKey($keydata) {
+		global $wgPuttygen;
+		if ( wfIsWindows() || !$wgPuttygen )
+			return false;
+		
+		$descriptorspec = array(
+		   0 => array("pipe", "r"),	
+		   1 => array("pipe", "w"),
+		   2 => array("file", wfGetNull(), "a")
+		);
+		
+		$process = proc_open( escapeshellcmd( $wgPuttygen ) . ' -O public-openssh -o /dev/stdout /dev/stdin', $descriptorspec, $pipes );
+		if ( $process === false )
+			return false;
+		
+		fwrite( $pipes[0], $keydata );
+		fclose( $pipes[0] );
+		$data = stream_get_contents( $pipes[1] );
+		var_dump($data);
+		fclose( $pipes[1] );
+		proc_close( $process );
+		
+		if ( $data === false || !preg_match( '/(^| )ssh-(rsa|dss) /', $data ) )
+			return false;
+		
+		return $data;
+	}
+	*/
+	
 	/**
 	 * @param  $formData
 	 * @param string $entryPoint
@@ -189,8 +272,20 @@ class SpecialNovaKey extends SpecialNova {
 	function tryImportSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOpenStackManagerNovaKeypairStorage;
 
+		$key = $formData['key'];
+		if ( !preg_match( '/(^| )ssh-(rsa|dss) /', $key ) ) {
+			# This doesn't look like openssh format, it's probably a
+			# Windows user providing it in PuTTY format.
+			$key = self::opensshFormatKey( $key );
+			if ( $key === false ) {
+				$this->getOutput()->addWikiMsg( 'openstackmanager-keypairwrongformat' );
+				return false;
+			}
+			$this->getOutput()->addWikiMsg( 'openstackmanager-keypairformatconverted' );
+		}
+
 		if ( $wgOpenStackManagerNovaKeypairStorage == 'ldap' ) {
-			$success = $this->userLDAP->importKeypair( $formData['key'] );
+			$success = $this->userLDAP->importKeypair( $key );
 			if ( ! $success ) {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-keypairimportfailed' );
 				return false;
