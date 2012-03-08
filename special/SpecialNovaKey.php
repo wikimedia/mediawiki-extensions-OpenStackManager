@@ -182,11 +182,27 @@ class SpecialNovaKey extends SpecialNova {
 	}
 	
 	/**
-	 * Converts a public ssh key to openssh format, using puttygen.
+	 * Converts a public ssh key to openssh format.
 	 * @param $keydata SSH public/private key in some format
 	 * @return mixed Public key in openssh format or false
 	 */
 	static function opensshFormatKey($keydata) {
+		global $wgSshKeygen, $wgPuttygen;
+		
+		$public = self::opensshFormatKeySshKeygen( $keydata );
+		
+		if ( !$public )
+			$public = self::opensshFormatKeyPuttygen( $keydata );
+
+		return $public;
+	}
+	
+	/**
+	 * Converts a public ssh key to openssh format, using puttygen.
+	 * @param $keydata SSH public/private key in some format
+	 * @return mixed Public key in openssh format or false
+	 */
+	static function opensshFormatKeyPuttygen($keydata) {
 		global $wgPuttygen;
 		if ( wfIsWindows() || !$wgPuttygen )
 			return false;
@@ -233,11 +249,14 @@ class SpecialNovaKey extends SpecialNova {
 		return $data;
 	}
 
-	/*
-	// This alternative function uses only pipes, but doesn't work due to puttygen opening the input file several times.
-	static function opensshFormatKey($keydata) {
-		global $wgPuttygen;
-		if ( wfIsWindows() || !$wgPuttygen )
+	/**
+	 * Converts a public ssh key to openssh format, using ssh-keygen.
+	 * @param $keydata SSH public/private key in some format
+	 * @return mixed Public key in openssh format or false
+	 */
+	static function opensshFormatKeySshKeygen($keydata) {
+		global $wgSshKeygen;
+		if ( wfIsWindows() || !$wgSshKeygen )
 			return false;
 		
 		$descriptorspec = array(
@@ -246,14 +265,14 @@ class SpecialNovaKey extends SpecialNova {
 		   2 => array("file", wfGetNull(), "a")
 		);
 		
-		$process = proc_open( escapeshellcmd( $wgPuttygen ) . ' -O public-openssh -o /dev/stdout /dev/stdin', $descriptorspec, $pipes );
+		$process = proc_open( escapeshellcmd( $wgSshKeygen ) . ' -i -f /dev/stdin', $descriptorspec, $pipes );
 		if ( $process === false )
 			return false;
 		
 		fwrite( $pipes[0], $keydata );
 		fclose( $pipes[0] );
 		$data = stream_get_contents( $pipes[1] );
-		var_dump($data);
+		
 		fclose( $pipes[1] );
 		proc_close( $process );
 		
@@ -262,7 +281,7 @@ class SpecialNovaKey extends SpecialNova {
 		
 		return $data;
 	}
-	*/
+	
 	
 	/**
 	 * @param  $formData
