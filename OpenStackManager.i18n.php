@@ -1501,6 +1501,8 @@ $messages['de'] = array(
 	'openstackmanager-keypairimportfailed' => 'Das SSH-Schlüsselpaar konnte nicht importiert werden.',
 	'openstackmanager-keypairimported' => 'Das SSH-Schlüsselpaar wurde erfolgreich importiert.',
 	'openstackmanager-keypairimportedfingerprint' => 'Das SSH-Schlüsselpaar $1 wurde mit Fingerabdruck $2 importiert.',
+	'openstackmanager-keypairformatwrong' => 'Der angegebenen SSH-Schlüssel ist fehlerhaft oder hat ein unbekanntes Format.',
+	'openstackmanager-keypairformatconverted' => 'Das Format des SSH-Schlüssels wurde automatisch konvertiert.',
 	'openstackmanager-backkeylist' => 'Zurück zur SSH-Schlüsselliste',
 	'openstackmanager-addadditionalkey' => 'Weiteren Schlüssel hinzufügen',
 	'openstackmanager-deletedkey' => 'Der SSH-Schlüssel wurde erfolgreich gelöscht.',
@@ -2345,6 +2347,7 @@ $messages['fi'] = array(
 
 /** French (Français)
  * @author Crochet.david
+ * @author Gomoko
  * @author Hashar
  * @author IAlex
  * @author Verdy p
@@ -2484,6 +2487,8 @@ $messages['fr'] = array(
 	'openstackmanager-keypairimportfailed' => 'Impossible d’importer la paire de clés.',
 	'openstackmanager-keypairimported' => 'Paire de clés importée.',
 	'openstackmanager-keypairimportedfingerprint' => 'Paire de clés $1 importée avec l’empreinte $2.',
+	'openstackmanager-keypairformatwrong' => 'La clé SSH fournie était erronée ou dans un format inconnu.',
+	'openstackmanager-keypairformatconverted' => 'Le format de la clé SSH a été converti automatiquement.',
 	'openstackmanager-backkeylist' => 'Revenir à la liste des clés',
 	'openstackmanager-addadditionalkey' => 'Ajouter une autre clé',
 	'openstackmanager-deletedkey' => 'Clé supprimée avec succès.',
@@ -3769,6 +3774,8 @@ $messages['hsb'] = array(
 	'openstackmanager-backinstancelist' => 'Wróćo k lisćinje instancow',
 	'openstackmanager-deletedinstance' => 'Instanca $1 je so zhašała.',
 	'openstackmanager-device' => 'Grat',
+	'openstackmanager-novapublickey' => 'Zjawny SSH-kluč',
+	'openstackmanager-novakey-key' => 'SSH-kluč přidać',
 	'openstackmanager-deletekey' => 'Kluč zhašeć',
 	'openstackmanager-keylist' => 'Lisćina klučow',
 	'openstackmanager-name' => 'Mjeno',
@@ -4179,6 +4186,8 @@ $messages['ia'] = array(
 	'openstackmanager-keypairimportfailed' => 'Falleva de importar par de claves.',
 	'openstackmanager-keypairimported' => 'Par de claves importate.',
 	'openstackmanager-keypairimportedfingerprint' => 'Par de claves $1 importate con impression digital $2.',
+	'openstackmanager-keypairformatwrong' => 'Le clave SSH fornite esseva incorrecte o in un formato incognite.',
+	'openstackmanager-keypairformatconverted' => 'Le formato del clave SSH ha essite convertite automaticamente.',
 	'openstackmanager-backkeylist' => 'Retornar al lista de claves',
 	'openstackmanager-addadditionalkey' => 'Adder un altere clave.',
 	'openstackmanager-deletedkey' => 'Clave delite con successo.',
@@ -4878,6 +4887,8 @@ $messages['mk'] = array(
 	'openstackmanager-keypairimportfailed' => 'Не успеав да го увезам парот клучеви.',
 	'openstackmanager-keypairimported' => 'Парот клучеви е увезен.',
 	'openstackmanager-keypairimportedfingerprint' => 'Увезен е парот клучеви $1 со отпечаток $2.',
+	'openstackmanager-keypairformatwrong' => 'Наведениот SSH-клуч е погрешен или во непознат формат.',
+	'openstackmanager-keypairformatconverted' => 'Форматот на SSH-клучот е автоматски претворен.',
 	'openstackmanager-backkeylist' => 'Назад на списокот на клучеви',
 	'openstackmanager-addadditionalkey' => 'Додај друг клуч.',
 	'openstackmanager-deletedkey' => 'Клучот е избришан успешно.',
