@@ -346,7 +346,7 @@ RESOURCEINFO;
 		OpenStackNovaArticle::editArticle( $this->getProjectName(), $text );
 		if ( $wgOpenStackManagerCreateProjectSALPages ) {
 			$pagename = $this->getProjectName() . "/SAL";
-			$id = Title::newFromText( $pagename, NS_NOVA_RESOURCE )->getArticleId();
+			$id = Title::newFromText( $pagename, NS_NOVA_RESOURCE )->getArticleID();
 			$article = Article::newFromId( $id );
 			$content = '';
 			if ( $article ) {
