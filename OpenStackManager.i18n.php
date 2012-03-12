@@ -3113,6 +3113,8 @@ $messages['gl'] = array(
 	'openstackmanager-keypairimportfailed' => 'Erro ao importar o par de claves.',
 	'openstackmanager-keypairimported' => 'Par de claves importadas.',
 	'openstackmanager-keypairimportedfingerprint' => 'Par de claves $1 importadas coa impresión dixital $2.',
+	'openstackmanager-keypairformatwrong' => 'A clave SSH proporcionada era incorrecta ou tiña un formato descoñecido.',
+	'openstackmanager-keypairformatconverted' => 'O formato da clave SSH converteuse automaticamente.',
 	'openstackmanager-backkeylist' => 'Volver á lista de claves',
 	'openstackmanager-addadditionalkey' => 'Engadir outra clase.',
 	'openstackmanager-deletedkey' => 'A clave borrouse correctamente.',
@@ -5234,6 +5236,8 @@ $messages['ms'] = array(
 	'openstackmanager-keypairimportfailed' => 'Pasangan kunci gagal diimport.',
 	'openstackmanager-keypairimported' => 'Pasangan kunci diimport.',
 	'openstackmanager-keypairimportedfingerprint' => 'Pasangan kunci $1 diimport dengan cap jari $2.',
+	'openstackmanager-keypairformatwrong' => 'Kunci SSH yang diberikan itu salah atau tidak dikenali formatnya.',
+	'openstackmanager-keypairformatconverted' => 'Kunci SSH yang diberikan itu telah diubah secara automatik.',
 	'openstackmanager-backkeylist' => 'Kembali ke senarai kunci',
 	'openstackmanager-addadditionalkey' => 'Tambahkan satu lagi kunci.',
 	'openstackmanager-deletedkey' => 'Kunci berjaya dihapuskan.',
@@ -5426,6 +5430,7 @@ $messages['nb'] = array(
 
 /** Dutch (Nederlands)
  * @author Romaine
+ * @author SPQRobin
  * @author Saruman
  * @author Siebrand
  */
@@ -5563,6 +5568,8 @@ $messages['nl'] = array(
 	'openstackmanager-keypairimportfailed' => 'Het importeren van het sleutelpaar is mislukt.',
 	'openstackmanager-keypairimported' => 'Het sleutelpaar is geïmporteerd.',
 	'openstackmanager-keypairimportedfingerprint' => 'Het sleutelpaar $1 met de vingerafdruk $2 is geïmporteerd.',
+	'openstackmanager-keypairformatwrong' => 'De opgegeven SSH-sleutel was verkeerd of in een onbekende indeling.',
+	'openstackmanager-keypairformatconverted' => 'De indeling van de SSH-sleutel is automatisch geconverteerd.',
 	'openstackmanager-backkeylist' => 'Terug naar de sleutellijst',
 	'openstackmanager-addadditionalkey' => 'Nog een sleutel toevoegen.',
 	'openstackmanager-deletedkey' => 'De sleutel is verwijderd.',
