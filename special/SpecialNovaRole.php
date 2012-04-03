@@ -1,4 +1,12 @@
 <?php
+
+/**
+ * todo comment me
+ *
+ * @file
+ * @ingroup Extensions
+ */
+
 class SpecialNovaRole extends SpecialNova {
 
 	var $adminNova;
@@ -198,37 +206,24 @@ class SpecialNovaRole extends SpecialNova {
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-rolelist' ) );
 
-		$out = '';
-
-		$rolesOut = Html::element( 'th', array(), wfMsg( 'openstackmanager-rolename' ) );
-		$rolesOut .= Html::element( 'th', array(),  wfMsg( 'openstackmanager-members' ) );
-		$rolesOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-actions' ) );
+		$headers = Array( 'openstackmanager-rolename', 'openstackmanager-members', 'openstackmanager-actions' );
 		$roles = OpenStackNovaRole::getAllGlobalRoles();
-		if ( ! $roles ) {
-			$rolesOut = '';
-		}
+		$roleRows = Array();
 		foreach ( $roles as $role ) {
+			$roleRow = Array();
 			$roleName = $role->getRoleName();
-			$roleOut = Html::element( 'td', array(), $roleName );
-			$roleMembers = $role->getMembers();
-			$memberOut = '';
-			foreach ( $roleMembers as $roleMember ) {
-				$memberOut .= Html::element( 'li', array(), $roleMember );
-			}
-			if ( $memberOut ) {
-				$memberOut = Html::rawElement( 'ul', array(), $memberOut );
-			}
-			$roleOut .= Html::rawElement( 'td', array(), $memberOut );
-			$link = Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-addrolemember' ), array(), array( 'action' => 'addmember', 'rolename' => $roleName, 'returnto' => 'Special:NovaRole' ) );
-			$actions = Html::rawElement( 'li', array(), $link );
-			$link = Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-removerolemember' ), array(), array( 'action' => 'deletemember', 'rolename' => $roleName, 'returnto' => 'Special:NovaRole' ) );
-			$actions .= Html::rawElement( 'li', array(), $link );
-			$actions = Html::rawElement( 'ul', array(), $actions );
-			$roleOut .= Html::rawElement( 'td', array(), $actions );
-			$rolesOut .= Html::rawElement( 'tr', array(), $roleOut );
+			$this->pushResourceColumn( $roleRow, $roleName );
+			$this->pushRawResourceColumn( $roleRow, $this->createResourceList( $role->getMembers() ) );
+			$actions = Array();
+			array_push( $actions, $this->createActionLink( 'openstackmanager-addrolemember', array( 'action' => 'addmember', 'rolename' => $roleName, 'returnto' => 'Special:NovaRole' ) ) );
+			array_push( $actions,  $this->createActionLink( 'openstackmanager-removerolemember', array( 'action' => 'deletemember', 'rolename' => $roleName, 'returnto' => 'Special:NovaRole' ) ) );
+			$this->pushRawResourceColumn( $roleRow, $this->createResourceList( $actions ) );
+			array_push( $roleRows, $roleRow );
 		}
-		if ( $rolesOut ) {
-			$out .= Html::rawElement( 'table', array( 'class' => 'wikitable sortable collapsible' ), $rolesOut );
+		if ( $roleRows ) {
+			$out = $this->createResourceTable( $headers, $roleRows );
+		} else {
+			$out = '';
 		}
 
 		$this->getOutput()->addHTML( $out );

@@ -1,4 +1,12 @@
 <?php
+
+/**
+ * todo comment me
+ *
+ * @file
+ * @ingroup Extensions
+ */
+
 class OpenStackNovaHostJob extends Job {
 
 	/**

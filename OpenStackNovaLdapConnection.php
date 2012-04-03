@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * class for nova ldap
+ *
+ * @file
+ * @ingroup Extensions
+ */
+
 class OpenStackNovaLdapConnection {
 
 	/**

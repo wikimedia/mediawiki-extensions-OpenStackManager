@@ -81,12 +81,10 @@ $wgOpenStackManagerCreateResourcePages = true;
 $wgOpenStackManagerCreateProjectSALPages = true;
 $wgOpenStackManagerLDAPUseUidAsNamingAttribute = false;
 $wgOpenStackManagerNovaDefaultProject = "";
-
 /**
  * Path to the ssh-keygen utility. Used for converting ssh key formats. False to disable its use.
  */
 $wgSshKeygen = 'ssh-keygen';
-
 /**
  * Path to the puttygen utility. Used for converting ssh key formats. False to disable its use.
  */

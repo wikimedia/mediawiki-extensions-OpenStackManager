@@ -1,4 +1,12 @@
 <?php
+
+/**
+ * special page for nova key
+ *
+ * @file
+ * @ingroup Extensions
+ */
+
 class SpecialNovaKey extends SpecialNova {
 
 	var $userNova;
@@ -142,6 +150,7 @@ class SpecialNovaKey extends SpecialNova {
 		$out = '';
 
 		if ( $wgOpenStackManagerNovaKeypairStorage == 'nova' ) {
+			# TODO: add project filter
 			foreach ( $projects as $project ) {
 				$userCredentials = $this->userLDAP->getCredentials();
 				$this->userNova = new OpenStackNovaController( $userCredentials, $project );
@@ -150,50 +159,50 @@ class SpecialNovaKey extends SpecialNova {
 					continue;
 				}
 				$out .= Html::element( 'h2', array(), $project );
-				$projectOut = Html::element( 'th', array(), wfMsg( 'openstackmanager-name' ) );
-				$projectOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-fingerprint' ) );
+				$headers = Array( 'openstackmanager-name', 'openstackmanager-fingerprint' );
+				$keyRows = Array();
 				foreach ( $keypairs as $keypair ) {
-					$keyOut = Html::element( 'td', array( 'class' => 'Nova_col' ), $keypair->getKeyName() );
-					$keyOut .= Html::element( 'td', array(), $keypair->getKeyFingerprint() );
-					$projectOut .= Html::rawElement( 'tr', array(), $keyOut );
+					$keyRow = Array();
+					$this->pushResourceColumn( $keyRow, $keypair->getKeyName() );
+					$this->pushResourceColumn( $keyRow, $keypair->getKeyFingerprint() );
+					array_push( $keyRows, $keyRow );
 				}
-				$out .= Html::rawElement( 'table', array( 'id' => 'novakeylist', 'class' => 'wikitable sortable collapsible' ), $projectOut );
+				$out .= $this->createResourceTable( $headers, $keyRows );
 			}
 		} elseif ( $wgOpenStackManagerNovaKeypairStorage == 'ldap' ) {
+			$headers = Array( 'openstackmanager-keys', 'openstackmanager-actions' );
 			$keypairs = $this->userLDAP->getKeypairs();
-			$keysOut = '';
-			$keysOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-keys' ) );
-			$keysOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-actions' ) );
+			$keyRows = Array();
 			foreach ( $keypairs as $hash => $key ) {
-				$keyOut = Html::element( 'td', array( 'class' => 'Nova_col' ), $key );
-				$msg = wfMsgHtml( 'openstackmanager-delete' );
-				$link = Linker::link( $this->getTitle(), $msg, array(), array( 'action' => 'delete', 'hash' => $hash ) );
-				$action = Html::rawElement( 'li', array(), $link );
-				$action = Html::rawElement( 'ul', array(), $action );
-				$keyOut .= Html::rawElement( 'td', array(), $action );
-				$keysOut .= Html::rawElement( 'tr', array(), $keyOut );
+				$keyRow = Array();
+				# TODO: add Nova_col class back to this column
+				$this->pushResourceColumn( $keyRow, $key );
+				$actions = Array();
+				array_push( $actions, $this->createActionLink( 'openstackmanager-delete', array( 'action' => 'delete', 'hash' => $hash ) ) );
+				$this->pushResourceColumn( $keyRow, $this->createResourceList( $actions) );
+				array_push( $keyRows, $keyRow );
 			}
-			$out .= Html::rawElement( 'table', array( 'id' => 'novakeylist', 'class' => 'wikitable' ), $keysOut );
+			$out .= $this->createResourceTable( $headers, $keyRows );
 		} else {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-invalidkeypair' );
 		}
 
 		$this->getOutput()->addHTML( $out );
 	}
-	
+
 	/**
 	 * Converts a public ssh key to openssh format.
 	 * @param $keydata SSH public/private key in some format
 	 * @return mixed Public key in openssh format or false
 	 */
-	static function opensshFormatKey($keydata) {
+	static function opensshFormatKey( $keydata ) {
 		global $wgSshKeygen, $wgPuttygen;
 		
 		$public = self::opensshFormatKeySshKeygen( $keydata );
 		
 		if ( !$public )
 			$public = self::opensshFormatKeyPuttygen( $keydata );
-
+ 
 		return $public;
 	}
 	
@@ -202,8 +211,9 @@ class SpecialNovaKey extends SpecialNova {
 	 * @param $keydata SSH public/private key in some format
 	 * @return mixed Public key in openssh format or false
 	 */
-	static function opensshFormatKeyPuttygen($keydata) {
+	static function opensshFormatKeyPuttygen( $keydata ) {
 		global $wgPuttygen;
+
 		if ( wfIsWindows() || !$wgPuttygen )
 			return false;
 		
@@ -215,7 +225,7 @@ class SpecialNovaKey extends SpecialNova {
 		fwrite( $tmpfile, $keydata );
 		
 		$descriptorspec = array(
-		   0 => $tmpfile,	
+		   0 => $tmpfile,       
 		   1 => array("pipe", "w"),
 		   2 => array("file", wfGetNull(), "a")
 		);
@@ -248,14 +258,14 @@ class SpecialNovaKey extends SpecialNova {
 		
 		return $data;
 	}
-
-	/**
+	 /**
 	 * Converts a public ssh key to openssh format, using ssh-keygen.
 	 * @param $keydata SSH public/private key in some format
 	 * @return mixed Public key in openssh format or false
 	 */
-	static function opensshFormatKeySshKeygen($keydata) {
+	static function opensshFormatKeySshKeygen( $keydata ) {
 		global $wgSshKeygen;
+
 		if ( wfIsWindows() || !$wgSshKeygen )
 			return false;
 		
@@ -265,7 +275,7 @@ class SpecialNovaKey extends SpecialNova {
 		}
 		
 		$descriptorspec = array(
-		   0 => array("pipe", "r"),	
+		   0 => array("pipe", "r"),     
 		   1 => array("pipe", "w"),
 		   2 => array("file", wfGetNull(), "a")
 		);
@@ -287,7 +297,6 @@ class SpecialNovaKey extends SpecialNova {
 		return $data;
 	}
 	
-	
 	/**
 	 * @param  $formData
 	 * @param string $entryPoint
@@ -307,9 +316,9 @@ class SpecialNovaKey extends SpecialNova {
 			}
 			$this->getOutput()->addWikiMsg( 'openstackmanager-keypairformatconverted' );
 		}
-
+ 
 		if ( $wgOpenStackManagerNovaKeypairStorage == 'ldap' ) {
-			$success = $this->userLDAP->importKeypair( $key );
+			$success = $this->userLDAP->importKeypair( $formData['key'] );
 			if ( ! $success ) {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-keypairimportfailed' );
 				return false;

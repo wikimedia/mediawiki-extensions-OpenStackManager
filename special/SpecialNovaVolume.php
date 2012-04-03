@@ -1,4 +1,12 @@
 <?php
+
+/**
+ * todo comment me
+ *
+ * @file
+ * @ingroup Extensions
+ */
+
 class SpecialNovaVolume extends SpecialNova {
 
 	/**
@@ -196,7 +204,7 @@ class SpecialNovaVolume extends SpecialNova {
 		$instances = $this->userNova->getInstances();
 		$instance_keys = array();
 		foreach ( $instances as $instance ) {
-			if ( $instance->getOwner() == $project ) {
+			if ( $instance->getProject() == $project ) {
 				$instancename = $instance->getInstanceName();
 				$instanceid = $instance->getInstanceId();
 				$instance_keys["$instancename"] = $instanceid;
@@ -311,89 +319,75 @@ class SpecialNovaVolume extends SpecialNova {
 	 */
 	function listVolumes() {
 		$this->setHeaders();
+		$this->getOutput()->addModuleStyles( 'ext.openstack' );
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-volumelist' ) );
 
-		$userProjects = $this->userLDAP->getProjects();
+		if ( $this->userLDAP->inGlobalRole( 'cloudadmin' ) ) {
+			$projects = OpenStackNovaProject::getAllProjects();
+		} else {
+			$projects = OpenStackNovaProject::getProjectsByName( $this->userLDAP->getProjects() );
+		}
+		$projectfilter = $this->getProjectFilter();
+		if ( !$projectfilter ) {
+			$this->getOutput()->addWikiMsg( 'openstackmanager-setprojectfilter' );
+			$this->showProjectFilter( $projects, true );
+			return null;
+		}
+		$this->showProjectFilter( $projects );
 
 		$out = '';
-		$volumes = $this->adminNova->getVolumes();
-		$header = Html::element( 'th', array(), wfMsg( 'openstackmanager-volumename' ) );
-		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-volumeid' ) );
-		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-volumedescription' ) );
-		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-volumestate' ) );
-		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-volumeattachmentinstance' ) );
-		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-volumeattachmentdevice' ) );
-		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-volumeattachmentstatus' ) );
-		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-volumesize' ) );
-		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-volumedeleteonvolumedelete' ) );
-		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-availabilityzone' ) );
-		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-volumecreationtime' ) );
-		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-actions' ) );
-		$projectArr = array();
-		foreach ( $volumes as $volume ) {
-			$project = $volume->getOwner();
-			if ( ! in_array( $project, $userProjects ) ) {
+
+		$volumes = $this->getResourcesGroupedByProject( $this->adminNova->getVolumes() );
+		foreach ( $projects as $project ) {
+			$projectName = $project->getProjectName();
+			if ( !in_array( $projectName, $projectfilter ) ) {
 				continue;
 			}
-			$volumeOut = Html::element( 'td', array(), $volume->getVolumeName() );
-			$volumeId = $volume->getVolumeId();
-			$volumeId = htmlentities( $volumeId );
-			$title = Title::newFromText( $volumeId, NS_NOVA_RESOURCE );
-			$volumeIdLink = Linker::link( $title, $volumeId );
-			$volumeOut .= Html::rawElement( 'td', array(), $volumeIdLink );
-			$volumeOut .= Html::element( 'td', array(), $volume->getVolumeDescription() );
-			$volumeOut .= Html::element( 'td', array(), $volume->getVolumeStatus() );
-			$volumeOut .= Html::element( 'td', array(), $volume->getAttachedInstanceId() );
-			$volumeOut .= Html::element( 'td', array(), $volume->getAttachedDevice() );
-			$volumeOut .= Html::element( 'td', array(), $volume->getAttachmentStatus() );
-			$volumeOut .= Html::element( 'td', array(), $volume->getVolumeSize() );
-			$volumeOut .= Html::element( 'td', array(), $volume->deleteOnInstanceDeletion() );
-			$volumeOut .= Html::element( 'td', array(), $volume->getVolumeAvailabilityZone() );
-			$volumeOut .= Html::element( 'td', array(), $volume->getVolumeCreationTime() );
-			$msg = wfMsgHtml( 'openstackmanager-delete' );
-			$link = Linker::link( $this->getTitle(), $msg, array(),
-								  array( 'action' => 'delete',
-									   'project' => $project,
-									   'volumeid' => $volume->getVolumeId() ) );
-			$actions = Html::rawElement( 'li', array(), $link );
-			#$msg = wfMsgHtml( 'openstackmanager-rename' );
-			#$actions .= Linker::link( $this->getTitle(), $msg, array(),
-			#					   array( 'action' => 'rename',
-			#							'project' => $project,
-			#							'volumeid' => $volume->getVolumeId() ) );
-			$msg = wfMsgHtml( 'openstackmanager-attach' );
-			$link = Linker::link( $this->getTitle(), $msg, array(),
-								   array( 'action' => 'attach',
-										'project' => $project,
-										'volumeid' => $volume->getVolumeId() ) );
-			$actions .= Html::rawElement( 'li', array(), $link );
-			$msg = wfMsgHtml( 'openstackmanager-detach' );
-			$link = Linker::link( $this->getTitle(), $msg, array(),
-								   array( 'action' => 'detach',
-										'project' => $project,
-										'volumeid' => $volume->getVolumeId() ) );
-			$actions .= Html::rawElement( 'li', array(), $link );
-			$actions = Html::rawElement( 'ul', array(), $actions );
-			$volumeOut .= Html::rawElement( 'td', array(), $actions );
-			if ( isset( $projectArr["$project"] ) ) {
-				$projectArr["$project"] .= Html::rawElement( 'tr', array(), $volumeOut );
-			} else {
-				$projectArr["$project"] = Html::rawElement( 'tr', array(), $volumeOut );
+			if ( !array_key_exists( $projectName, $volumes ) ) {
+				continue;
 			}
-		}
-		foreach ( $userProjects as $project ) {
-			$out .= Html::element( 'h2', array(), $project );
-			$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-createvolume' ), array(),
-							   array( 'action' => 'create', 'project' => $project ) );
-			if ( isset( $projectArr["$project"] ) ) {
-				$projectOut = $header;
-				$projectOut .= $projectArr["$project"];
-				$out .= Html::rawElement( 'table',
-										  array( 'id' => 'novavolumelist', 'class' => 'wikitable sortable collapsible' ), $projectOut );
-			}
+			$actions = Array( 'sysadmin' => Array() );
+			$actions['sysadmin'][] = $this->createActionLink( 'openstackmanager-createvolume', array( 'action' => 'create', 'project' => $projectName ) );
+			$out .= $this->createProjectSection( $projectName, $actions, $this->getVolumes( $projectName, $this->getResourceByProject( $volumes, $projectName ) ) );
 		}
 
 		$this->getOutput()->addHTML( $out );
+	}
+
+	function getVolumes( $projectName, $volumes ) {
+		$headers = Array( 'openstackmanager-volumename', 'openstackmanager-volumeid', 'openstackmanager-volumedescription',
+				'openstackmanager-volumestate', 'openstackmanager-volumeattachmentinstance',
+				'openstackmanager-volumeattachmentdevice', 'openstackmanager-volumeattachmentstatus',
+				'openstackmanager-volumesize', 'openstackmanager-volumedeleteonvolumedelete',
+				'openstackmanager-availabilityzone', 'openstackmanager-volumecreationtime', 'openstackmanager-actions' );
+		$volumeRows = Array();
+		foreach ( $volumes as $volume ) {
+			$volumeRow = Array();
+			$this->pushResourceColumn( $volumeRow, $volume->getVolumeName() ); 
+			$volumeId = $volume->getVolumeId();
+			$this->pushRawResourceColumn( $volumeRow, $this->createResourceLink( $volumeId ) );
+			$this->pushResourceColumn( $volumeRow, $volume->getVolumeDescription() );
+			$this->pushResourceColumn( $volumeRow, $volume->getVolumeStatus() );
+			$this->pushResourceColumn( $volumeRow, $volume->getAttachedInstanceId() );
+			$this->pushResourceColumn( $volumeRow, $volume->getAttachedDevice() );
+			$this->pushResourceColumn( $volumeRow, $volume->getAttachmentStatus() );
+			$this->pushResourceColumn( $volumeRow, $volume->getVolumeSize() );
+			$this->pushResourceColumn( $volumeRow, $volume->deleteOnInstanceDeletion() );
+			$this->pushResourceColumn( $volumeRow, $volume->getVolumeAvailabilityZone() );
+			$this->pushResourceColumn( $volumeRow, $volume->getVolumeCreationTime() );
+			$actions = Array();
+			array_push( $actions, $this->createActionLink( 'openstackmanager-delete', array( 'action' => 'delete', 'project' => $projectName, 'volumeid' => $volumeId ) ) );
+			#array_push( $actions, $this->createActionLink( 'openstackmanager-rename', array( 'action' => 'rename', 'project' => $projectName, 'volumeid' => $volumeId ) ) );
+			array_push( $actions, $this->createActionLink( 'openstackmanager-attach', array( 'action' => 'attach', 'project' => $projectName, 'volumeid' => $volumeId ) ) );
+			array_push( $actions, $this->createActionLink( 'openstackmanager-detach', array( 'action' => 'detach', 'project' => $projectName, 'volumeid' => $volumeId ) ) );
+			$this->pushRawResourceColumn( $volumeRow, $this->createResourceList( $actions ) );
+			array_push( $volumeRows, $volumeRow );
+		}
+		if ( $volumeRows ) {
+			return $this->createResourceTable( $headers, $volumeRows );
+		} else {
+			return '';
+		}
 	}
 
 	/**

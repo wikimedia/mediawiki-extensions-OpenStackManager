@@ -1,4 +1,12 @@
 <?php
+
+/**
+ * Special page from nova address
+ *
+ * @file
+ * @ingroup Extensions
+ */
+
 class SpecialNovaAddress extends SpecialNova {
 
 	var $adminNova;
@@ -147,7 +155,7 @@ class SpecialNovaAddress extends SpecialNova {
 		$instances = $this->userNova->getInstances();
 		$instance_keys = array();
 		foreach ( $instances as $instance ) {
-			if ( $instance->getOwner() == $project ) {
+			if ( $instance->getProject() == $project ) {
 				$instancename = $instance->getInstanceName();
 				$instanceid = $instance->getInstanceId();
 				$instance_keys["$instancename"] = $instanceid;
@@ -350,99 +358,95 @@ class SpecialNovaAddress extends SpecialNova {
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-addresslist' ) );
 
-		$userProjects = $this->userLDAP->getProjects();
+		if ( $this->userLDAP->inGlobalRole( 'cloudadmin' ) ) {
+			$projects = OpenStackNovaProject::getAllProjects();
+		} else {
+			$projects = OpenStackNovaProject::getProjectsByName( $this->userLDAP->getProjects() );
+		}
+		$projectfilter = $this->getProjectFilter();
+		if ( !$projectfilter ) {
+			$this->getOutput()->addWikiMsg( 'openstackmanager-setprojectfilter' );
+			$this->showProjectFilter( $projects, true );
+			return null;
+		}
+		$this->showProjectFilter( $projects );
+
 		$out = '';
 
-		$header = Html::element( 'th', array(), wfMsg( 'openstackmanager-address' ) );
-		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-instanceid' ) );
-		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-instancename' ) );
-		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-hostnames' ) );
-		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-actions' ) );
-		$addresses = $this->adminNova->getAddresses();
+		$addresses = $this->getResourcesGroupedByProject( $this->adminNova->getAddresses() );
+		$instances = $this->adminNova->getInstances();
 		$projectArr = array();
+		$projectRows = Array();
+		foreach ( $projects as $project ) {
+			$projectName = $project->getProjectName();
+			if ( !in_array( $projectName, $projectfilter ) ) {
+				continue;
+			}
+			$actions = Array( 'netadmin' => Array() );
+			$actions['netadmin'][] = $this->createActionLink( 'openstackmanager-allocateaddress', array( 'action' => 'allocate', 'project' => $projectName ) );
+			$out .= $this->createProjectSection( $projectName, $actions, $this->getAddresses( $projectName, $this->getResourceByProject( $addresses, $projectName ), $instances ) );
+		}
+		$this->getOutput()->addHTML( $out );
+
+		return true;
+	}
+
+	function getAddresses( $projectName, $addresses, $instances ) {
+		$headers = Array( 'openstackmanager-address', 'openstackmanager-instanceid', 'openstackmanager-instancename',
+			'openstackmanager-hostnames', 'openstackmanager-actions' );
+		$addressRows = Array();
+		/**
+		 * @var $address OpenStackNovaAddress
+		 */
 		foreach ( $addresses as $address ) {
+			$addressRow = array();
 			$ip = $address->getPublicIP();
 			$instanceid = $address->getInstanceId();
 			$project = $address->getProject();
-			$addressOut = Html::element( 'td', array(), $ip );
+			$this->pushResourceColumn( $addressRow, $ip );
 			if ( $instanceid ) {
-				$addressOut .= Html::element( 'td', array(), $instanceid );
-				$instance = $this->adminNova->getInstance( $instanceid );
-				$instancename = $instance->getInstanceName();
-				$addressOut .= Html::element( 'td', array(), $instancename );
+				$this->pushResourceColumn( $addressRow, $instanceid );
+				$instancename = $instances["$instanceid"]->getInstanceName();
+				$this->pushResourceColumn( $addressRow, $instancename );
 			} else {
-				$addressOut .= Html::element( 'td', array(), '' );
-				$addressOut .= Html::element( 'td', array(), '' );
+				$this->pushResourceColumn( $addressRow, '' );
+				$this->pushResourceColumn( $addressRow, '' );
 			}
 			$hosts = OpenStackNovaHost::getHostsByIP( $ip );
 			if ( $hosts ) {
-				$hostsOut = '';
 				$msg = wfMsgHtml( 'openstackmanager-removehost-action' );
+				$hostArr = Array();
 				foreach ( $hosts as $host ) {
 					$domain = $host->getDomain();
 					$fqdns = $host->getAssociatedDomains();
 					foreach ( $fqdns as $fqdn ) {
 						$hostname = explode( '.', $fqdn );
 						$hostname = $hostname[0];
-						$link = Linker::link( $this->getTitle(), $msg, array(),
-								   array( 'action' => 'removehost', 'ip' => $ip, 'project' => $project, 'domain' => $domain->getDomainName(), 'hostname' => $hostname ) );
-						$hostOut = htmlentities( $fqdn ) . ' ' . $link;
-						$hostsOut .= Html::rawElement( 'li', array(), $hostOut );
+						$link = $this->createActionLink( 'openstackmanager-removehost-action', array( 'action' => 'removehost', 'ip' => $ip, 'project' => $project, 'domain' => $domain->getDomainName(), 'hostname' => $hostname ) );
+						array_push( $hostArr, htmlentities( $fqdn ) . ' ' . $link );
 					}
 				}
-				$hostsOut = Html::rawElement( 'ul', array(), $hostsOut );
-				$addressOut .= Html::rawElement( 'td', array(), $hostsOut );
+				$this->pushRawResourceColumn( $addressRow, $this->createResourceList( $hostArr ) );
 			} else {
-				$addressOut .= Html::element( 'td', array(), '' );
+				$this->pushResourceColumn( $addressRow, '' );
 			}
-			$actions = '';
+			$actions = Array();
 			if ( $instanceid ) {
-				$msg = wfMsgHtml( 'openstackmanager-reassociateaddress' );
+				array_push( $actions, $this->createActionLink( 'openstackmanager-reassociateaddress', array( 'action' => 'associate', 'ip' => $ip, 'project' => $project ) ) );
+				array_push( $actions, $this->createActionLink( 'openstackmanager-disassociateaddress', array( 'action' => 'disassociate', 'ip' => $ip, 'project' => $project ) ) );
 			} else {
-				$msg = wfMsgHtml( 'openstackmanager-releaseaddress' );
-				$link = Linker::link( $this->getTitle(), $msg, array(),
-						   array( 'action' => 'release', 'ip' => $ip, 'project' => $project ) );
-				$actions = Html::rawElement( 'li', array(), $link );
-				$msg = wfMsgHtml( 'openstackmanager-associateaddress' );
+				array_push( $actions, $this->createActionLink( 'openstackmanager-releaseaddress', array( 'action' => 'release', 'ip' => $ip, 'project' => $project ) ) );
+				array_push( $actions, $this->createActionLink( 'openstackmanager-associateaddress', array( 'action' => 'associate', 'ip' => $ip, 'project' => $project ) ) );
 			}
-			$link = Linker::link( $this->getTitle(), $msg, array(),
-					   array( 'action' => 'associate', 'ip' => $ip, 'project' => $project ) );
-			$actions .= Html::rawElement( 'li', array(), $link );
-			if ( $instanceid ) {
-				$msg = wfMsgHtml( 'openstackmanager-disassociateaddress' );
-				$link = Linker::link( $this->getTitle(), $msg, array(),
-						   array( 'action' => 'disassociate', 'ip' => $ip, 'project' => $project ) );
-				$actions .= Html::rawElement( 'li', array(), $link );
-			}
-			$msg = wfMsgHtml( 'openstackmanager-addhost' );
-			$link = Linker::link( $this->getTitle(), $msg, array(),
-					   array( 'action' => 'addhost', 'ip' => $ip, 'project' => $project ) );
-			$actions .= Html::rawElement( 'li', array(), $link );
-			$actions = Html::rawElement( 'ul', array(), $actions );
-			$addressOut .= Html::rawElement( 'td', array(), $actions );
-			if ( isset( $projectArr["$project"] ) ) {
-				$projectArr["$project"] .= Html::rawElement( 'tr', array(), $addressOut );
-			} else {
-				$projectArr["$project"] = Html::rawElement( 'tr', array(), $addressOut );
-			}
+			array_push( $actions, $this->createActionLink( 'openstackmanager-addhost', array( 'action' => 'addhost', 'ip' => $ip, 'project' => $project ) ) );
+			$this->pushRawResourceColumn( $addressRow, $this->createResourceList( $actions ) );
+			array_push( $addressRows, $addressRow );
 		}
-		foreach ( $userProjects as $project ) {
-			$action = Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-allocateaddress' ), array(), array( 'action' => 'allocate', 'project' => $project ) );
-			$action = Html::rawElement( 'span', array( 'id' => 'novaaction' ), "[$action]" );
-			$projectName = Html::rawElement( 'span', array( 'class' => 'mw-customtoggle-' . $project, 'id' => 'novaproject' ), $project );
-			$out .= Html::rawElement( 'h2', array(), "$projectName $action" );
-			$projectOut = '';
-			if ( isset( $projectArr["$project"] ) ) {
-				$projectOut = $header;
-				$projectOut .= $projectArr["$project"];
-				$projectOut = Html::rawElement( 'table',
-							  array( 'id' => 'novainstancelist', 'class' => 'wikitable sortable collapsible' ), $projectOut );
-			}
-			$out .= Html::rawElement( 'div', array( 'class' => 'mw-collapsible', 'id' => 'mw-customcollapsible-' . $project ), $projectOut );
+		if ( $addressRows ) {
+			return $this->createResourceTable( $headers, $addressRows );
+		} else {
+			return '';
 		}
-		$this->getOutput()->addHTML( $out );
-
-		return true;
 	}
 
 	/**

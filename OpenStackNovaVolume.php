@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * todo comment me
+ *
+ * @file
+ * @ingroup Extensions
+ */
+
 # TODO: Make this an abstract class, and make the EC2 API a subclass
 class OpenStackNovaVolume {
 
@@ -129,7 +136,7 @@ class OpenStackNovaVolume {
 	 *
 	 * @return string
 	 */
-	function getOwner() {
+	function getProject() {
 		$status = (string)$this->volume->status;
 		$status = explode( ' ', $status );
 		

@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * todo comment me
+ *
+ * @file
+ * @ingroup Extensions
+ */
+
 class OpenStackNovaHost {
 
 	/**
@@ -572,7 +579,7 @@ class OpenStackNovaHost {
 
 		$hostname = $instance->getInstanceName();
 		$instanceid = $instance->getInstanceId();
-		$project = $instance->getOwner();
+		$project = $instance->getProject();
 		$ip = $instance->getInstancePrivateIP();
 		$domainname = $domain->getFullyQualifiedDomainName();
 		$host = OpenStackNovaHost::getHostByName( $hostname, $domain );

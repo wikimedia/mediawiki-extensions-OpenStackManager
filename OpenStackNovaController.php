@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * todo comment me
+ *
+ * @file
+ * @ingroup Extensions
+ */
+
 # TODO: Make this an abstract class, and make the EC2 API a subclass
 class OpenStackNovaController {
 
@@ -71,30 +78,40 @@ class OpenStackNovaController {
 	 * @return null|OpenStackNovaInstance
 	 */
 	function getInstance( $instanceId ) {
-		$this->getInstances();
-		if ( isset( $this->instances["$instanceId"] ) ) {
-			return $this->instances["$instanceId"];
+		$instances = $this->getInstances( $instanceId );
+		if ( isset( $instances["$instanceId"] ) ) {
+			return $instances["$instanceId"];
 		} else {
 			return null;
 		}
 	}
 
 	/**
+	 * @param $instanceId string
+	 * @param $project string|array
 	 * @return array
 	 */
-	function getInstances() {
+	function getInstances( $instanceId = null, $project = array() ) {
 		$this->instances = array();
-		$response = $this->novaConnection->describe_instances();
+		$opt = array();
+		if ( $instanceId ) {
+			$opt['InstanceId'] = $instanceId;
+		}
+		if ( $project ) {
+			$opt = array( 'Filter' => array( array( 'Name' => 'project_id', 'Value' => $project ) ) );
+		}
+		$response = $this->novaConnection->describe_instances( $opt );
 		$instances = $response->body->reservationSet->item;
 		foreach ( $instances as $instance ) {
 			$instance = new OpenStackNovaInstance( $instance, true );
-			$instanceId = $instance->getInstanceId();
-			$this->instances["$instanceId"] = $instance;
+			$id = $instance->getInstanceId();
+			$this->instances["$id"] = $instance;
 		}
 		return $this->instances;
 	}
 
 	/**
+	 * @param $instanceType
 	 * @return OpenStackNovaInstanceType
 	 */
 	function getInstanceType( $instanceType ) {
@@ -176,6 +193,7 @@ class OpenStackNovaController {
 	}
 
 	/**
+	 * @param  $project
 	 * @param  $groupname
 	 * @return OpenStackNovaSecurityGroup
 	 */
@@ -197,7 +215,7 @@ class OpenStackNovaController {
 		$securityGroups = $securityGroups->body->securityGroupInfo->item;
 		foreach ( $securityGroups as $securityGroup ) {
 			$securityGroup = new OpenStackNovaSecurityGroup( $securityGroup );
-			$project = $securityGroup->getOwner();
+			$project = $securityGroup->getProject();
 			$groupname = $securityGroup->getGroupName();
 			$this->securityGroups["$project-$groupname"] = $securityGroup;
 		}
@@ -381,7 +399,7 @@ class OpenStackNovaController {
 	 * @return
 	 */
 	function deleteSecurityGroup( $groupname ) {
-		$response = $this->novaConnection->delete_security_group( $groupname );
+		$response = $this->novaConnection->delete_security_group( Array( "GroupName" => $groupname ) );
 
 		return $response->isOK();
 	}
@@ -504,6 +522,8 @@ class OpenStackNovaController {
 	}
 
 	/**
+	 * Release ip address
+	 *
 	 * @param  $ip
 	 * @return
 	 */
@@ -514,6 +534,8 @@ class OpenStackNovaController {
 	}
 
 	/**
+	 * Attach new ip address to instance
+	 *
 	 * @param  $instanceid
 	 * @param  $ip
 	 * @return null|OpenStackNovaAddress
@@ -530,6 +552,8 @@ class OpenStackNovaController {
 	}
 
 	/**
+	 * Disassociate address from an instance
+	 *
 	 * @param  $ip
 	 * @return
 	 */

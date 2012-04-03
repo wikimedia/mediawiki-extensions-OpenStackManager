@@ -1,4 +1,12 @@
 <?php
+
+/**
+ * Special page from nova domain
+ *
+ * @file
+ * @ingroup Extensions
+ */
+
 class SpecialNovaDomain extends SpecialNova {
 
 	var $adminNova;
@@ -119,28 +127,22 @@ class SpecialNovaDomain extends SpecialNova {
 		$domainForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
 		$domainForm->show();
 
-		$out = '';
-
-		$domainsOut = Html::element( 'th', array(), wfMsg( 'openstackmanager-domainname' ) );
-		$domainsOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-fqdn' ) );
-		$domainsOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-location' ) );
-		$domainsOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-actions' ) );
+		$headers = Array( 'openstackmanager-domainname', 'openstackmanager-fqdn', 'openstackmanager-location', 'openstackmanager-actions' );
 		$domains = OpenStackNovaDomain::getAllDomains();
+		$domainRows = Array();
 		foreach ( $domains as $domain ) {
+			$domainRow = Array();
 			$domainName = $domain->getDomainName();
-			$fqdn = $domain->getFullyQualifiedDomainName();
-			$location = $domain->getLocation();
-			$domainOut = Html::element( 'td', array(), $domainName );
-			$domainOut .= Html::element( 'td', array(), $fqdn );
-			$domainOut .= Html::element( 'td', array(), $location );
-			$msg = wfMsgHtml( 'openstackmanager-delete' );
-			$link = Linker::link( $this->getTitle(), $msg, array(),
-							   array( 'action' => 'delete', 'domainname' => $domainName ) );
-			$domainOut .= Html::rawElement( 'td', array(), $link );
-			$domainsOut .= Html::rawElement( 'tr', array(), $domainOut );
+			$this->pushResourceColumn( $domainRow, $domainName );
+			$this->pushResourceColumn( $domainRow, $domain->getFullyQualifiedDomainName() );
+			$this->pushResourceColumn( $domainRow, $domain->getLocation() );
+			$this->pushRawResourceColumn( $domainRow, $this->createActionLink( 'openstackmanager-delete', array( 'action' => 'delete', 'domainname' => $domainName ) ) );
+			array_push( $domainRows, $domainRow );
 		}
-		if ( $domains ) {
-			$out .= Html::rawElement( 'table', array( 'class' => 'wikitable sortable collapsible' ), $domainsOut );
+		if ( $domainRows ) {
+			$out = createResourceTable( $headers, $domainRows );
+		} else {
+			$out = '';
 		}
 
 		$this->getOutput()->addHTML( $out );

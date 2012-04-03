@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * todo comment me
+ *
+ * @file
+ * @ingroup Extensions
+ */
+
 class OpenStackNovaProject {
 
 	var $projectname;
@@ -7,6 +14,7 @@ class OpenStackNovaProject {
 	var $projectInfo;
 	var $roles;
 
+	// list of roles
 	static $rolenames = array( 'sysadmin', 'netadmin' );
 
 	/**
@@ -179,6 +187,17 @@ class OpenStackNovaProject {
 		}
 	}
 
+	static function getProjectsByName( $projectnames ) {
+		$projects = array();
+		foreach ( $projectnames as $projectname ) {
+			$project = new OpenStackNovaProject( $projectname );
+			if ( $project->projectInfo ) {
+				array_push( $projects, $project );
+			}
+		}
+		return $projects;
+	}
+
 	/**
 	 * Return all existing projects. Returns an empty array if no projects exist.
 	 *
@@ -346,7 +365,7 @@ RESOURCEINFO;
 		OpenStackNovaArticle::editArticle( $this->getProjectName(), $text );
 		if ( $wgOpenStackManagerCreateProjectSALPages ) {
 			$pagename = $this->getProjectName() . "/SAL";
-			$id = Title::newFromText( $pagename, NS_NOVA_RESOURCE )->getArticleID();
+			$id = Title::newFromText( $pagename, NS_NOVA_RESOURCE )->getArticleId();
 			$article = Article::newFromId( $id );
 			$content = '';
 			if ( $article ) {

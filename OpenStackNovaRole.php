@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * todo comment me
+ *
+ * @file
+ * @ingroup Extensions
+ */
+
 class OpenStackNovaRole {
 
 	var $rolename;
@@ -10,7 +17,7 @@ class OpenStackNovaRole {
 
 	/**
 	 * @param  $rolename
-	 * @param null $project
+	 * @param null $project, optional
 	 */
 	function __construct( $rolename, $project=null ) {
 		$this->rolename = $rolename;
@@ -117,6 +124,8 @@ class OpenStackNovaRole {
 			}
 			$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->roleDN, $values );
 			if ( $success ) {
+				$key = $this->getMemcKey( $user );
+				$wgMemc->delete( $key );
 				$this->fetchRoleInfo();
 				$wgAuth->printDebug( "Successfully removed $user->userDN from $this->roleDN", NONSENSITIVE );
 				return true;
@@ -135,6 +144,7 @@ class OpenStackNovaRole {
 	 */
 	function addMember( $username ) {
 		global $wgAuth;
+		global $wgMemc;
 
 		$members = array();
 		if ( isset( $this->roleInfo[0]['member'] ) ) {
@@ -153,10 +163,23 @@ class OpenStackNovaRole {
 		if ( $success ) {
 			$this->fetchRoleInfo();
 			$wgAuth->printDebug( "Successfully added $user->userDN to $this->roleDN", NONSENSITIVE );
+			$key = $this->getMemcKey( $user );
+			$wgMemc->delete( $key );
 			return true;
 		} else {
 			$wgAuth->printDebug( "Failed to add $user->userDN to $this->roleDN", NONSENSITIVE );
 			return false;
+		}
+	}
+
+	function getMemcKey( $user ) {
+		if ( $this->global ) {
+			$role = $this->getRoleName();
+			$key = wfMemcKey( 'openstackmanager', "globalrole-$role", $user->userDN );
+		} else {
+			$projectname = $this->project->getProjectName();
+			$role = $this->getRoleName();
+			$key = wfMemcKey( 'openstackmanager', "projectrole-$projectname-$role", $user->userDN );
 		}
 	}
 

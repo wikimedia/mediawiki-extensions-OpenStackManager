@@ -1,4 +1,12 @@
 <?php
+
+/**
+ *  To do: comment me
+ *
+ * @file
+ * @ingroup Extensions
+ */
+
 class SpecialNovaProject extends SpecialNova {
 
 	var $adminNova;
@@ -155,116 +163,115 @@ class SpecialNovaProject extends SpecialNova {
 	 * @return void
 	 */
 	function listProjects() {
+		global $wgRequest;
+
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( wfMsg( 'openstackmanager-projectlist' ) );
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
 
 		if ( $this->userLDAP->inGlobalRole( 'cloudadmin' ) ) {
-			$projectInfo = array();
-			$projectInfo['projectname'] = array(
-				'type' => 'text',
-				'label-message' => 'openstackmanager-projectname',
-				'validation-callback' => array( $this, 'validateText' ),
-				'default' => '',
-				'section' => 'project',
-				'name' => 'projectname',
-			);
-			$projectInfo['member'] = array(
-				'type' => 'text',
-				'label-message' => 'openstackmanager-member',
-				'default' => '',
-				'section' => 'project',
-				'name' => 'member',
-			);
-			$role_keys = array();
-			foreach ( OpenStackNovaProject::$rolenames as $rolename ) {
-				$role_keys["$rolename"] = $rolename;
-			}
-			$projectInfo['roles'] = array(
-				'type' => 'multiselect',
-				'label-message' => 'openstackmanager-roles',
-				'section' => 'project',
-				'options' => $role_keys,
-				'name' => 'roles',
-			);
-
-			$projectInfo['action'] = array(
-				'type' => 'hidden',
-				'default' => 'create',
-				'name' => 'action',
-			);
-
-			$projectForm = new SpecialNovaProjectForm( $projectInfo, 'openstackmanager-novaproject' );
-			$projectForm->setTitle( SpecialPage::getTitleFor( 'NovaProject' ) );
-			$projectForm->setSubmitID( 'novaproject-form-createprojectsubmit' );
-			$projectForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
-			$projectForm->show();
+			$projects = OpenStackNovaProject::getAllProjects();
+			$this->showCreateProject();
+		} else {
+			$projects = OpenStackNovaProject::getProjectsByName( $this->userLDAP->getProjects() );
 		}
+		$projectfilter = $this->getProjectFilter();
+		if ( !$projectfilter ) {
+			$this->getOutput()->addWikiMsg( 'openstackmanager-setprojectfilter' );
+			$this->showProjectFilter( $projects, true );
+			return null;
+		}
+		$this->showProjectFilter( $projects );
 
 		$out = '';
 
-		$header = Html::element( 'th', array(),  wfMsg( 'openstackmanager-members' ) );
-		$header .= Html::element( 'th', array(),  wfMsg( 'openstackmanager-roles' ) );
-		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-actions' ) );
-		$projects = OpenStackNovaProject::getAllProjects();
-		if ( ! $projects ) {
-			$projectsOut = '';
-		}
 		foreach ( $projects as $project ) {
 			$projectName = $project->getProjectName();
-			$projectName = htmlentities( $projectName );
-			$out .= Html::rawElement( 'h2', array( 'class' => 'mw-customtoggle-' . $projectName, 'id' => 'novaproject' ), $projectName );
-			$projectMembers = $project->getMembers();
-			$memberOut = '';
-			foreach ( $projectMembers as $projectMember ) {
-				$memberOut .= Html::element( 'li', array(), $projectMember );
+			if ( !in_array( $projectName, $projectfilter ) ) {
+				continue;
 			}
-			if ( $memberOut ) {
-				$memberOut = Html::rawElement( 'ul', array(), $memberOut );
-			}
-			$projectOut = Html::rawElement( 'td', array(), $memberOut );
-			$rolesOut = Html::element( 'th', array(), wfMsg( 'openstackmanager-rolename' ) );
-			$rolesOut .= Html::element( 'th', array(),  wfMsg( 'openstackmanager-members' ) );
-			$rolesOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-actions' ) );
-			foreach ( $project->getRoles() as $role ) {
-				$roleOut = Html::element( 'td', array(), $role->getRoleName() );
-				$roleMembers = '';
-				$specialRoleTitle = Title::newFromText( 'Special:NovaRole' );
-				foreach ( $role->getMembers() as $member ) {
-					$roleMembers .= Html::element( 'li', array(), $member );
-				}
-				$roleMembers = Html::rawElement( 'ul', array(), $roleMembers );
-				$roleOut .= Html::rawElement( 'td', array(), $roleMembers );
-				$link = Linker::link( $specialRoleTitle, wfMsgHtml( 'openstackmanager-addrolemember' ), array(),
-								   array( 'action' => 'addmember', 'projectname' => $projectName, 'rolename' => $role->getRoleName(), 'returnto' => 'Special:NovaProject' ) );
-				$actions = Html::rawElement( 'li', array(), $link );
-				$link = Linker::link( $specialRoleTitle, wfMsgHtml( 'openstackmanager-removerolemember' ), array(),
-								   array( 'action' => 'deletemember', 'projectname' => $projectName, 'rolename' => $role->getRoleName(), 'returnto' => 'Special:NovaProject' ) );
-				$actions .= Html::rawElement( 'li', array(), $link );
-				$actions = Html::rawElement( 'ul', array(), $actions );
-				$roleOut .= Html::rawElement( 'td', array(), $actions );
-				$rolesOut .= Html::rawElement( 'tr', array(), $roleOut );
-			}
-			$rolesOut = Html::rawElement( 'table', array( 'class' => 'wikitable sortable collapsible' ), $rolesOut );
-			$projectOut .= Html::rawElement( 'td', array( 'class' => 'Nova_cell' ), $rolesOut );
-			$link = Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-deleteproject' ), array(),
-							   array( 'action' => 'delete', 'projectname' => $projectName ) );
-			$actions = Html::rawElement( 'li', array(), $link );
-			$link = Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-addmember' ), array(),
-									 array( 'action' => 'addmember', 'projectname' => $projectName ) );
-			$actions .= Html::rawElement( 'li', array(), $link );
-			$link = Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-removemember' ), array(),
-							   array( 'action' => 'deletemember', 'projectname' => $projectName ) );
-			$actions .= Html::rawElement( 'li', array(), $link );
-			$actions = Html::rawElement( 'ul', array(), $actions );
-			$projectOut .= Html::rawElement( 'td', array(), $actions );
-			$projectOut = Html::rawElement( 'tr', array(), $projectOut );
-			$projectOut = $header . $projectOut;
-			$projectOut = Html::rawElement( 'table', array( 'class' => 'wikitable sortable collapsible' ), $projectOut );
-			$out .= Html::rawElement( 'div', array( 'class' => 'mw-collapsible', 'id' => 'mw-customcollapsible-' . $projectName ), $projectOut );
+			$actions = Array();
+			$out .= $this->createProjectSection( $projectName, $actions, $this->getProject( $project ) );
 		}
 
 		$this->getOutput()->addHTML( $out );
+	}
+
+	function getProject( $project ) {
+		$headers = Array( 'openstackmanager-rolename', 'openstackmanager-members', 'openstackmanager-actions' );
+		$projectRows = Array();
+		$projectRow = Array();
+		$this->pushRawResourceColumn( $projectRow, $this->createResourceList( $project->getMembers() ) );
+		$roleRows = Array();
+		$projectName = $project->getProjectName();
+		foreach ( $project->getRoles() as $role ) {
+			$roleRow = Array();
+			$roleName = $role->getRoleName();
+			$this->pushResourceColumn( $roleRow, $roleName );
+			$this->pushRawResourceColumn( $roleRow, $this->createResourceList( $role->getMembers() ) );
+			$actions= Array();
+			$specialRoleTitle = Title::newFromText( 'Special:NovaRole' );
+			array_push( $actions, $this->createActionLink( 'openstackmanager-addrolemember', array( 'action' => 'addmember', 'projectname' => $projectName, 'rolename' => $roleName, 'returnto' => 'Special:NovaProject' ), $specialRoleTitle ) );
+			array_push( $actions, $this->createActionLink( 'openstackmanager-removerolemember', array( 'action' => 'deletemember', 'projectname' => $projectName, 'rolename' => $roleName, 'returnto' => 'Special:NovaProject' ), $specialRoleTitle ) );
+			$this->pushRawResourceColumn( $roleRow,  $this->createResourceList( $actions ) );
+			array_push( $roleRows, $roleRow );
+		}
+		// TODO: add back in Nova_cell class to this column
+		$this->pushRawResourceColumn( $projectRow, $this->createResourceTable( $headers, $roleRows ) );
+		$actions = Array();
+		array_push( $actions, $this->createActionLink( 'openstackmanager-deleteproject', array( 'action' => 'delete', 'projectname' => $projectName ) ) );
+		array_push( $actions, $this->createActionLink( 'openstackmanager-addmember', array( 'action' => 'addmember', 'projectname' => $projectName ) ) );
+		array_push( $actions, $this->createActionLink( 'openstackmanager-removemember', array( 'action' => 'deletemember', 'projectname' => $projectName ) ) );
+		$this->pushRawResourceColumn( $projectRow,  $this->createResourceList( $actions ) );
+		array_push( $projectRows, $projectRow );
+		return $this->createResourceTable( $headers, $projectRows );
+	}
+
+	function showCreateProject() {
+		global $wgRequest;
+
+		if ( $wgRequest->wasPosted() && $wgRequest->getVal( 'action' ) != 'create' ) {
+			return null;
+		}
+		$projectInfo = array();
+		$projectInfo['projectname'] = array(
+			'type' => 'text',
+			'label-message' => 'openstackmanager-projectname',
+			'validation-callback' => array( $this, 'validateText' ),
+			'default' => '',
+			'section' => 'project',
+			'name' => 'projectname',
+		);
+		$projectInfo['member'] = array(
+			'type' => 'text',
+			'label-message' => 'openstackmanager-member',
+			'default' => '',
+			'section' => 'project',
+			'name' => 'member',
+		);
+		$role_keys = array();
+		foreach ( OpenStackNovaProject::$rolenames as $rolename ) {
+			$role_keys["$rolename"] = $rolename;
+		}
+		$projectInfo['roles'] = array(
+			'type' => 'multiselect',
+			'label-message' => 'openstackmanager-roles',
+			'section' => 'project',
+			'options' => $role_keys,
+			'name' => 'roles',
+		);
+
+		$projectInfo['action'] = array(
+			'type' => 'hidden',
+			'default' => 'create',
+			'name' => 'action',
+		);
+
+		$projectForm = new SpecialNovaProjectForm( $projectInfo, 'openstackmanager-novaproject' );
+		$projectForm->setTitle( SpecialPage::getTitleFor( 'NovaProject' ) );
+		$projectForm->setSubmitID( 'novaproject-form-createprojectsubmit' );
+		$projectForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
+		$projectForm->show();
 	}
 
 	/**

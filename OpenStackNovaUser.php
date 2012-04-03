@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * todo comment me
+ *
+ * @file
+ * @ingroup Extensions
+ */
+
 class OpenStackNovaUser {
 
 	var $username;
@@ -20,7 +27,17 @@ class OpenStackNovaUser {
 	 */
 	function fetchUserInfo() {
 		global $wgAuth, $wgUser;
+		global $wgMemc;
 
+		$key = wfMemcKey( 'ldapauthentication', "userinfo", $this->userDN );
+		$cacheLength = 3600;
+		$memcUserInfo = $wgMemc->get( $key );
+		if ( is_array( $memcUserInfo ) ) {
+			$this->userInfo = $memcUserInfo;
+			$this->userDN = $this->userInfo[0]["dn"];
+			$wgAuth->printDebug( "Fetched userdn from memcache: $this->userDN ", NONSENSITIVE );
+			return;
+		}
 		if ( $this->username ) {
 			$this->userDN = $wgAuth->getUserDN( strtolower( $this->username ) );
 			$wgAuth->printDebug( "Fetching userdn using username: $this->userDN ", NONSENSITIVE );
@@ -29,6 +46,7 @@ class OpenStackNovaUser {
 			$wgAuth->printDebug( "Fetching userdn using wiki name: " . $wgUser->getName(), NONSENSITIVE );
 		}
 		$this->userInfo = $wgAuth->userInfo;
+		$wgMemc->set( $key, $this->userInfo, $cacheLength );
 	}
 
 	/**
@@ -139,24 +157,30 @@ class OpenStackNovaUser {
 	function inProject( $project ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPProjectBaseDN;
+		global $wgMemc;
+
+		$key = wfMemcKey( 'openstackmanager', "project-$projectname", $this->userDN );
+		$cacheLength = 3600;
+		$inProject = $wgMemc->get( $key );
+		if ( is_int( $inProject ) ) {
+			return (bool)$inRole;
+		}
 
 		$filter = "(&(cn=$project)(member=$this->userDN)(owner=*))";
 		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, $filter );
+		$ret = false;
 		if ( $result ) {
 			$entries = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
 			if ( $entries ) {
 				if ( $entries['count'] == "0" ) {
 					$wgAuth->printDebug( "Couldn't find the user in project: $project", NONSENSITIVE );
-					return false;
 				} else {
-					return true;
+					$ret = true;
 				}
-			} else {
-				return false;
 			}
-		} else {
-			return false;
 		}
+		$wgMemc->set( $key, (int)$ret, $cacheLength );
+		return $ret;
 	}
 
 	/**
@@ -167,23 +191,39 @@ class OpenStackNovaUser {
 	function inRole( $role, $projectname='', $strict=false ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPRolesIntersect;
+		global $wgMemc;
+
+		if ( $projectname ) {
+			$key = wfMemcKey( 'openstackmanager', "projectrole-$projectname-$role", $this->userDN );
+		} else {
+			$key = wfMemcKey( 'openstackmanager', "globalrole-$role", $this->userDN );
+		}
+		$cacheLength = 3600;
+		$inRole = $wgMemc->get( $key );
+		if ( is_int( $inRole ) ) {
+			return (bool)$inRole;
+		}
 
 		if ( $this->inGlobalRole( $role ) ) {
 			# If roles intersect, or we wish to explicitly check
 			# project role, we can't return here.
 			if ( !$wgOpenStackManagerLDAPRolesIntersect && !$strict ) {
+				$wgMemc->set( $key, 1, $cacheLength );
 				return true;
 			}
 		} else {
 			if ( $wgOpenStackManagerLDAPRolesIntersect ) {
+				$wgMemc->set( $key, 0, $cacheLength );
 				return false;
 			}
 		}
 
+		$ret = false;
 		if ( $projectname ) {
 			# Check project specific role
 			$project = OpenStackNovaProject::getProjectByName( $projectname );
 			if ( ! $project ) {
+				$wgMemc->set( $key, 0, $cacheLength );
 				return false;
 			}
 			$filter = "(&(cn=$role)(member=$this->userDN))";
@@ -193,18 +233,14 @@ class OpenStackNovaUser {
 				if ( $entries ) {
 					if ( $entries['count'] == "0" ) {
 						$wgAuth->printDebug( "Couldn't find the user in role: $role", NONSENSITIVE );
-						return false;
 					} else {
-						return true;
+						$ret = true;
 					}
-				} else {
-					return false;
 				}
-			} else {
-				return false;
 			}
 		}
-		return false;
+		$wgMemc->set( $key, (int)$ret, $cacheLength );
+		return $ret;
 	}
 
 	/**
@@ -225,11 +261,11 @@ class OpenStackNovaUser {
 		if ( $wgOpenStackManagerLDAPGlobalRoles["$role"] ) {
 			# Check global role
 			$roledn = $wgOpenStackManagerLDAPGlobalRoles["$role"];
-			$filter = "(objectclass=*)";
-			$result = LdapAuthenticationPlugin::ldap_read( $wgAuth->ldapconn, $roledn, $filter );
+			$filter = "(member=$this->userDN)";
+			$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $roledn, $filter );
 			if ( $result ) {
 				$entries = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
-				return ( in_array( $this->userDN, $entries[0]['member'] ) );
+				return ( (int)$entries['count'] > 0 );
 			}
 		}
 		return false;
@@ -241,6 +277,7 @@ class OpenStackNovaUser {
 	 */
 	function importKeypair( $key ) {
 		global $wgAuth;
+		global $wgMemc;
 
 		$keypairs = array();
 		if ( isset( $this->userInfo[0]['sshpublickey'] ) ) {
@@ -253,6 +290,9 @@ class OpenStackNovaUser {
 		$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->userDN, $values );
 		if ( $success ) {
 			$wgAuth->printDebug( "Successfully imported the user's sshpublickey", NONSENSITIVE );
+			$key = wfMemcKey( 'ldapauthentication', "userinfo", $this->userDN );
+			$this->printDebug( "Deleting memcache key: $key.", NONSENSITIVE );
+			$wgMemc->delete( $key );
 			$this->fetchUserInfo();
 			return true;
 		} else {
@@ -267,6 +307,7 @@ class OpenStackNovaUser {
 	 */
 	function deleteKeypair( $key ) {
 		global $wgAuth;
+		global $wgMemc;
 
 		if ( isset( $this->userInfo[0]['sshpublickey'] ) ) {
 			$keypairs = $this->userInfo[0]['sshpublickey'];
@@ -285,6 +326,9 @@ class OpenStackNovaUser {
 			$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->userDN, $values );
 			if ( $success ) {
 				$wgAuth->printDebug( "Successfully deleted the user's sshpublickey", NONSENSITIVE );
+				$key = wfMemcKey( 'ldapauthentication', "userinfo", $this->userDN );
+				$this->printDebug( "Deleting memcache key: $key.", NONSENSITIVE );
+				$wgMemc->delete( $key );
 				$this->fetchUserInfo();
 				return true;
 			} else {

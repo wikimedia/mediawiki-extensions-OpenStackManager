@@ -1,4 +1,12 @@
 <?php
+
+/**
+ * special for nova instance
+ *
+ * @file
+ * @ingroup Extensions
+ */
+
 class SpecialNovaInstance extends SpecialNova {
 
 	/**
@@ -199,7 +207,7 @@ class SpecialNovaInstance extends SpecialNova {
 		$group_keys = array();
 		$defaults = array();
 		foreach ( $securityGroups as $securityGroup ) {
-			if ( $securityGroup->getOwner() == $project ) {
+			if ( $securityGroup->getProject() == $project ) {
 				$securityGroupName = $securityGroup->getGroupName();
 				$group_keys["$securityGroupName"] = $securityGroupName;
 				if ( $securityGroupName == "default" ) {
@@ -466,109 +474,79 @@ class SpecialNovaInstance extends SpecialNova {
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-instancelist' ) );
 
-		$userProjects = $this->userLDAP->getProjects();
+		if ( $this->userLDAP->inGlobalRole( 'cloudadmin' ) ) {
+			$projects = OpenStackNovaProject::getAllProjects();
+		} else {
+			$projects = OpenStackNovaProject::getProjectsByName( $this->userLDAP->getProjects() );
+		}
+		$projectfilter = $this->getProjectFilter();
+		if ( !$projectfilter ) {
+			$this->getOutput()->addWikiMsg( 'openstackmanager-setprojectfilter' );
+			$this->showProjectFilter( $projects, true );
+			return null;
+		}
+		$this->showProjectFilter( $projects );
 
 		$out = '';
-		$instances = $this->adminNova->getInstances();
-		$header = Html::element( 'th', array(), wfMsg( 'openstackmanager-instancename' ) );
-		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-instanceid' ) );
-		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-instancestate' ) );
-		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-instancetype' ) );
-		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-instanceip' ) );
-		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-instancepublicip' ) );
-		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-securitygroups' ) );
-		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-availabilityzone' ) );
-		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-imageid' ) );
-		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-launchtime' ) );
-		$header .= Html::element( 'th', array(), wfMsg( 'openstackmanager-actions' ) );
-		$projectArr = array();
 
+		# Ideally we could filter the stupid instance list, but alas, openstack doesn't
+		# currently support this. We can filter the search when this is supported.
+		$instances = $this->getResourcesGroupedByProject( $this->adminNova->getInstances() );
+		foreach ( $projects as $project ) {
+			$projectName = $project->getProjectName();
+			if ( !in_array( $projectName, $projectfilter ) ) {
+				continue;
+			}
+			$actions = Array( 'sysadmin' => Array() );
+			$actions['sysadmin'][] = $this->createActionLink( 'openstackmanager-createinstance', array( 'action' => 'create', 'project' => $projectName ) );
+			$out .= $this->createProjectSection( $projectName, $actions, $this->getInstances( $projectName, $this->getResourceByProject( $instances, $projectName ) ) );
+		}
+
+		$this->getOutput()->addHTML( $out );
+	}
+
+	function getInstances( $projectName, $instances ) {
+		$headers = Array( 'openstackmanager-instancename', 'openstackmanager-instanceid', 'openstackmanager-instancestate',
+			'openstackmanager-instancetype', 'openstackmanager-instanceip', 'openstackmanager-instancepublicip',
+			'openstackmanager-securitygroups', 'openstackmanager-availabilityzone', 'openstackmanager-imageid',
+			'openstackmanager-launchtime', 'openstackmanager-actions' );
+		$instanceRows = Array();
 		/**
 		 * @var $instance OpenStackNovaInstance
 		 */
 		foreach ( $instances as $instance ) {
-			$project = $instance->getOwner();
-			if ( ! in_array( $project, $userProjects ) ) {
-				continue;
-			}
-			$instanceOut = Html::element( 'td', array(), $instance->getInstanceName() );
-			$instanceId = $instance->getInstanceId();
-			$instanceId = htmlentities( $instanceId );
-			$title = Title::newFromText( $instanceId, NS_NOVA_RESOURCE );
-			$instanceIdLink = Linker::link( $title, $instanceId );
-			$instanceOut .= Html::rawElement( 'td', array(), $instanceIdLink );
-			$instanceOut .= Html::element( 'td', array(), $instance->getInstanceState() );
-			$instanceOut .= Html::element( 'td', array(), $instance->getInstanceType() );
+			$instanceRow = array();
+			$this->pushResourceColumn( $instanceRow, $instance->getInstanceName() );
+			$this->pushRawResourceColumn( $instanceRow, $this->createResourceLink( $instance->getInstanceId() ) );
+			$this->pushResourceColumn( $instanceRow, $instance->getInstanceState() );
+			$this->pushResourceColumn( $instanceRow, $instance->getInstanceType() );
 			$privateip = $instance->getInstancePrivateIP();
 			$publicip = $instance->getInstancePublicIP();
-			$instanceOut .= Html::element( 'td', array(), $privateip );
+			$this->pushResourceColumn( $instanceRow, $privateip );
 			if ( $privateip != $publicip ) {
-				$instanceOut .= Html::element( 'td', array(), $publicip );
+				$this->pushResourceColumn( $instanceRow, $publicip );
 			} else {
-				$instanceOut .= Html::element( 'td', array(), '' );
+				$this->pushResourceColumn( $instanceRow, '' );
 			}
-			$groupsOut = '';
-			foreach ( $instance->getSecurityGroups() as $group ) {
-				$groupsOut .= Html::element( 'li', array(), $group );
+			$this->pushRawResourceColumn( $instanceRow, $this->createResourceList( $instance->getSecurityGroups() ) );
+			$this->pushResourceColumn( $instanceRow, $instance->getAvailabilityZone() );
+			$this->pushResourceColumn( $instanceRow, $instance->getImageId() );
+			$this->pushResourceColumn( $instanceRow, $instance->getLaunchTime() );
+			$actions = Array();
+			if ( $this->userLDAP->inRole( 'sysadmin', $projectName ) ) {
+				array_push( $actions, $this->createActionLink( 'openstackmanager-delete', array( 'action' => 'delete', 'project' => $projectName, 'instanceid' => $instance->getInstanceId() ) ) );
+				array_push( $actions, $this->createActionLink( 'openstackmanager-reboot', array( 'action' => 'reboot', 'project' => $projectName, 'instanceid' => $instance->getInstanceId() ) ) );
+				array_push( $actions, $this->createActionLink( 'openstackmanager-configure', array( 'action' => 'configure', 'project' => $projectName, 'instanceid' => $instance->getInstanceId() ) ) );
+				array_push( $actions, $this->createActionLink( 'openstackmanager-getconsoleoutput', array( 'action' => 'consoleoutput', 'project' => $projectName, 'instanceid' => $instance->getInstanceId() ) ) );
 			}
-			$groupsOut = Html::rawElement( 'ul', array(), $groupsOut );
-			$instanceOut .= Html::rawElement( 'td', array(), $groupsOut );
-			$instanceOut .= Html::element( 'td', array(), $instance->getAvailabilityZone() );
-			$instanceOut .= Html::element( 'td', array(), $instance->getImageId() );
-			$instanceOut .= Html::element( 'td', array(), $instance->getLaunchTime() );
-			$actions = '';
-			if ( $this->userLDAP->inRole( 'sysadmin', $project ) ) {
-				$msg = wfMsgHtml( 'openstackmanager-delete' );
-				$link = Linker::link( $this->getTitle(), $msg, array(),
-								  array( 'action' => 'delete',
-									   'project' => $project,
-									   'instanceid' => $instance->getInstanceId() ) );
-				$actions = Html::rawElement( 'li', array(), $link );
-				$msg = wfMsgHtml( 'openstackmanager-reboot' );
-				$link = Linker::link( $this->getTitle(), $msg, array(),
-								   array( 'action' => 'reboot',
-										'project' => $project,
-										'instanceid' => $instance->getInstanceId() ) );
-				$actions .= Html::rawElement( 'li', array(), $link );
-				$msg = wfMsgHtml( 'openstackmanager-configure' );
-				$link = Linker::link( $this->getTitle(), $msg, array(),
-								   array( 'action' => 'configure',
-										'project' => $project,
-										'instanceid' => $instance->getInstanceId() ) );
-				$actions .= Html::rawElement( 'li', array(), $link );
-				$msg = wfMsgHtml( 'openstackmanager-getconsoleoutput' );
-				$link = Linker::link( $this->getTitle(), $msg, array(),
-								   array( 'action' => 'consoleoutput',
-										'project' => $project,
-										'instanceid' => $instance->getInstanceId() ) );
-				$actions .= Html::rawElement( 'li', array(), $link );
-				$actions = Html::rawElement( 'ul', array(), $actions );
-			}
-			$instanceOut .= Html::rawElement( 'td', array(), $actions );
-			if ( isset( $projectArr["$project"] ) ) {
-				$projectArr["$project"] .= Html::rawElement( 'tr', array(), $instanceOut );
-			} else {
-				$projectArr["$project"] = Html::rawElement( 'tr', array(), $instanceOut );
-			}
+			$this->pushRawResourceColumn( $instanceRow, $this->createResourceList( $actions ) );
+			array_push( $instanceRows, $instanceRow );
 		}
-		foreach ( $userProjects as $project ) {
-			$action = '';
-			if ( $this->userLDAP->inRole( 'sysadmin', $project ) ) {
-				$action = Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-createinstance' ), array(), array( 'action' => 'create', 'project' => $project ) );
-				$action = Html::rawElement( 'span', array( 'id' => 'novaaction' ), "[$action]" );
-			}
-			$projectName = Html::rawElement( 'span', array( 'class' => 'mw-customtoggle-' . $project, 'id' => 'novaproject' ), $project );
-			$out .= Html::rawElement( 'h2', array(), "$projectName $action" );
-			$projectOut = '';
-			if ( isset( $projectArr["$project"] ) ) {
-				$projectOut .= $header;
-				$projectOut .= $projectArr["$project"];
-				$projectOut = Html::rawElement( 'table', array( 'id' => 'novainstancelist', 'class' => 'wikitable sortable' ), $projectOut );
-			}
-			$out .= Html::rawElement( 'div', array( 'class' => 'mw-collapsible', 'id' => 'mw-customcollapsible-' . $project ), $projectOut );
+		if ( $instanceRows ) {
+			return $this->createResourceTable( $headers, $instanceRows );
+		} else {
+			return '';
 		}
-
-		$this->getOutput()->addHTML( $out );
 	}
 
 	/**

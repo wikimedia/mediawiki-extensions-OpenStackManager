@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * class for NovaInstance 
+ *
+ * @file
+ * @ingroup Extensions
+ */
+
 # TODO: Make this an abstract class, and make the EC2 API a subclass
 class OpenStackNovaInstance {
 
@@ -12,7 +19,7 @@ class OpenStackNovaInstance {
 
 	/**
 	 * @param  $apiInstanceResponse
-	 * @param bool $loadhost
+	 * @param bool $loadhost, optional
 	 */
 	function __construct( $apiInstanceResponse, $loadhost = false ) {
 		$this->instance = $apiInstanceResponse;
@@ -131,7 +138,7 @@ class OpenStackNovaInstance {
 	 *
 	 * @return string
 	 */
-	function getOwner() {
+	function getProject() {
 		return (string)$this->instance->ownerId;
 	}
 
@@ -254,7 +261,7 @@ RESOURCEINFO;
 			$instanceType->getNumberOfCPUs(),
 			$instanceType->getStorageSize(),
 			$this->getImageId(),
-			$this->getOwner(),
+			$this->getProject(),
 			$this->getAvailabilityZone(),
 			$this->getRegion(),
 			implode( ',', $this->getSecurityGroups() ),

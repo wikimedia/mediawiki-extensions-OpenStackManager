@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * class for nova sudoers
+ *
+ * @file
+ * @ingroup Extensions
+ */
+
 class OpenStackNovaSudoer {
 
 	var $sudoername;

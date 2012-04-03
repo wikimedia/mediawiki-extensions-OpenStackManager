@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Special page for nova
+ *
+ * @file
+ * @ingroup Extensions
+ */
+
 abstract class SpecialNova extends SpecialPage {
 
 	/**
@@ -73,6 +80,165 @@ abstract class SpecialNova extends SpecialPage {
 		} else {
 			return true;
 		}
+	}
+
+	function getProjectFilter() {
+		global $wgRequest;
+
+		if ( $wgRequest->getCookie( 'projectfilter' ) ) {
+			return explode( ',', urldecode( $wgRequest->getCookie( 'projectfilter' ) ) );
+		}
+		return array();
+	}
+
+	function showProjectFilter( $projects, $showbydefault=false ) {
+		global $wgRequest;
+
+		if ( $this->getRequest()->wasPosted() && $this->getRequest()->getVal( 'action' ) != 'setprojectfilter' ) {
+			return null;
+		}
+		$showmsg = $this->getRequest()->getText( 'showmsg' );
+		if ( $showmsg == "setfilter" ) {
+			$this->getOutput()->addWikiMsg( 'openstackmanager-setprojects' );
+		}
+		$currentProjects = $this->getProjectFilter();
+		$project_keys = array();
+		$defaults = array();
+		foreach ( $projects as $project ) {
+			$projectName = $project->getProjectName();
+			$project_keys["$projectName"] = $projectName;
+			if ( in_array( $projectName, $currentProjects ) ) {
+				$defaults["$projectName"] = $projectName;
+			}
+		}
+		$projectFilter = array();
+		$projectFilter['projects'] = array(
+			'type' => 'multiselect',
+			'label-message' => 'openstackmanager-projects',
+			'section' => 'projectfilter',
+			'options' => $project_keys,
+			'default' => $defaults,
+			'name' => 'projects',
+		);
+		$projectFilter['action'] = array(
+			'type' => 'hidden',
+			'default' => 'setprojectfilter',
+			'name' => 'action',
+		);
+		$projectFilterForm = new HTMLForm( $projectFilter, 'openstackmanager-novaprojectfilter' );
+		$projectFilterForm->setTitle( $this->getTitle() );
+		if ( $showbydefault ) {
+			$classes = "mw-collapsible";
+		} else {
+			$classes = "mw-collapsible mw-collapsed";
+		}
+		$projectFilterForm->addHeaderText( '<div class="' . $classes .'" data-expandtext="Show project filter" data-collapsetext="Hide project filter">' );
+		$projectFilterForm->addFooterText( '</div>' );
+		$projectFilterForm->setSubmitID( 'novaproject-form-setprojectfiltersubmit' );
+		$projectFilterForm->setSubmitCallback( array( $this, 'trySetProjectFilter' ) );
+		$projectFilterForm->show();
+	}
+
+	function getResourcesGroupedByProject( $resources ) {
+		$groupResources = Array();
+		foreach ( $resources as $resource ) {
+			$project = $resource->getProject();
+			if ( array_key_exists( $project, $groupResources ) ) {
+				$groupResources["$project"][] = $resource;
+			} else {
+				$groupResources["$project"] = Array( $resource );
+			}
+		}
+		return $groupResources;
+	}
+
+	function getResourceByProject( $resources, $projectName ) {
+		if ( in_array( $projectName, array_keys( $resources ) ) ) {
+			return $resources["$projectName"];
+		} else {
+			return Array();
+		}
+	}
+			
+	function createResourceLink( $resource ) {
+		$resource = htmlentities( $resource );
+		$title = Title::newFromText( $resource, NS_NOVA_RESOURCE );
+		return Linker::link( $title, $resource );
+	}
+
+	function createActionLink( $msg, $params, $title = Null ) {
+		if ( !$title ) {
+			$title = $this->getTitle();
+		}
+		return Linker::link( $title, wfMsgHtml( $msg ), array(), $params );
+	}
+
+	function createResourceList( $resources ) {
+		$resourceList = '';
+		foreach ( $resources as $resource ) {
+			$resourceList .= Html::rawElement( 'li', array(), $resource );
+		}
+		return Html::rawElement( 'ul', array(), $resourceList );
+	}
+
+	function pushResourceColumn( &$row, $value ) {
+		array_push( $row, Html::element( 'td', array(), $value ) );
+	}
+
+	function pushRawResourceColumn( &$row, $value ) {
+		array_push( $row, Html::rawElement( 'td', array(), $value ) );
+	}
+
+	function createResourceTable( $headers, $rows ) {
+		$table = '';
+		foreach ( $headers as $header ) {
+			$table .= Html::element( 'th', array(), wfMsg( $header ) );
+		}
+		foreach ( $rows as $row ) {
+			$rowOut = '';
+			foreach ( $row as $column ) {
+				$rowOut .= $column;
+			}
+			$table .= Html::rawElement( 'tr', array(), $rowOut );
+		}
+		return Html::rawElement( 'table', array( 'class' => 'wikitable sortable collapsible' ), $table );
+	}
+
+	function createProjectSection( $projectName, $actionsByRole, $data ) {
+		$actions = Array();
+		foreach ( $actionsByRole as $role => $roleActions ) {
+			foreach ( $roleActions as $action ) {
+				if ( $this->userLDAP->inRole( $role, $projectName ) ) {
+					array_push( $actions, $action );
+				}
+			}
+		}
+		if ( $actions ) {
+			$actions = implode( ',', $actions );
+			$actionOut = Html::rawElement( 'span', array( 'id' => 'novaaction' ), "[$actions]" );
+		} else {
+			$actionOut = '';
+		}
+		$projectNameOut = Html::rawElement( 'span', array( 'class' => 'mw-customtoggle-' . $projectName, 'id' => 'novaproject' ), $projectName );
+		$out = Html::rawElement( 'h2', array(), "$projectNameOut $actionOut" );
+		$out .= Html::rawElement( 'div', array( 'class' => 'mw-collapsible', 'id' => 'mw-customcollapsible-' . $projectName ), $data );
+
+		return $out;
+	}
+
+	function trySetProjectFilter( $formData, $entryPoint = 'internal' ) {
+		global $wgRequest;
+
+		if ( !$formData['projects'] ) {
+			$wgRequest->response()->setCookie( 'projectfilter', '', time() - 86400 );
+			$this->getOutput()->redirect( $this->getTitle()->getFullUrl() );
+		} else {
+			$projects = implode( ',', $formData['projects'] );
+			$wgRequest->response()->setCookie( 'projectfilter', $projects );
+			$this->getOutput()->redirect( $this->getTitle()->getFullUrl( 'showmsg=setfilter' ) );
+		}
+
+		return true;
 	}
 
 }

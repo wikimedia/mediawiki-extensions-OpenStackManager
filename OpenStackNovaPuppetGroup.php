@@ -2,7 +2,11 @@
 
 /**
  * Class for interacting with puppet groups, variables and classes
+ *
+ * @file
+ * @ingroup Extensions
  */
+
 class OpenStackNovaPuppetGroup {
 
 	private $id, $name, $position, $vars, $classes;

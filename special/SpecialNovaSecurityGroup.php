@@ -1,4 +1,12 @@
 <?php
+
+/**
+ * todo comment me
+ *
+ * @file
+ * @ingroup Extensions
+ */
+
 class SpecialNovaSecurityGroup extends SpecialNova {
 
 	/**
@@ -200,64 +208,78 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-securitygrouplist' ) );
 
-		$userProjects = $this->userLDAP->getProjects();
+		if ( $this->userLDAP->inGlobalRole( 'cloudadmin' ) ) {
+			$projects = OpenStackNovaProject::getAllProjects();
+		} else {
+			$projects = OpenStackNovaProject::getProjectsByName( $this->userLDAP->getProjects() );
+		}
+		$projectfilter = $this->getProjectFilter();
+		if ( !$projectfilter ) {
+			$this->getOutput()->addWikiMsg( 'openstackmanager-setprojectfilter' );
+			$this->showProjectFilter( $projects, true );
+			return null;
+		}
+		$this->showProjectFilter( $projects );
 
 		$out = '';
-		$groupheader = Html::element( 'th', array(), wfMsg( 'openstackmanager-securitygroupname' ) );
-		$groupheader .= Html::element( 'th', array(), wfMsg( 'openstackmanager-securitygroupdescription' ) );
-		$groupheader .= Html::element( 'th', array(), wfMsg( 'openstackmanager-securitygrouprule' ) );
-		$groupheader .= Html::element( 'th', array(), wfMsg( 'openstackmanager-actions' ) );
-		$ruleheader = Html::element( 'th', array(), wfMsg( 'openstackmanager-securitygrouprule-fromport' ) );
-		$ruleheader .= Html::element( 'th', array(), wfMsg( 'openstackmanager-securitygrouprule-toport' ) );
-		$ruleheader .= Html::element( 'th', array(), wfMsg( 'openstackmanager-securitygrouprule-protocol' ) );
-		$ruleheader .= Html::element( 'th', array(), wfMsg( 'openstackmanager-securitygrouprule-ipranges' ) );
-		$ruleheader .= Html::element( 'th', array(), wfMsg( 'openstackmanager-securitygrouprule-groups' ) );
-		$ruleheader .= Html::element( 'th', array(), wfMsg( 'openstackmanager-actions' ) );
-		$projectArr = array();
-		$securityGroups = $this->adminNova->getSecurityGroups();
-		foreach ( $securityGroups as $group ) {
-			$project = $group->getOwner();
-			if ( ! in_array( $project, $userProjects ) ) {
+		$securityGroups = $this->getResourcesGroupedByProject( $this->adminNova->getSecurityGroups() );
+		foreach ( $projects as $project ) {
+			$projectName = $project->getProjectName();
+			if ( !in_array( $projectName, $projectfilter ) ) {
 				continue;
 			}
+			$actions = Array( 'netadmin' => Array() );
+			$actions['netadmin'][] = $this->createActionLink( 'openstackmanager-createnewsecuritygroup', array( 'action' => 'create', 'project' => $projectName ) );
+			$out .= $this->createProjectSection( $projectName, $actions, $this->getSecurityGroups( $projectName, $this->getResourceByProject( $securityGroups, $projectName ) ) );
+		}
+
+		$this->getOutput()->addHTML( $out );
+		return true;
+	}
+
+	function getSecurityGroups( $projectName, $securityGroups ) {
+		$groupHeaders = Array( 'openstackmanager-securitygroupname', 'openstackmanager-securitygroupdescription',
+			'openstackmanager-securitygrouprule', 'openstackmanager-actions' );
+		$ruleHeaders = Array( 'openstackmanager-securitygrouprule-fromport', 'openstackmanager-securitygrouprule-toport',
+			'openstackmanager-securitygrouprule-protocol', 'openstackmanager-securitygrouprule-ipranges',
+			'openstackmanager-securitygrouprule-groups', 'openstackmanager-actions' );
+		$groupRows = Array();
+		foreach ( $securityGroups as $group ) {
+			$groupRow = Array();
+			$project = $group->getProject();
 			$groupname = $group->getGroupName();
-			$groupOut = Html::element( 'td', array(), $groupname );
-			$groupOut .= Html::element( 'td', array(), $group->getGroupDescription() );
+			$this->pushResourceColumn( $groupRow, $groupname );
+			$this->pushResourceColumn( $groupRow, $group->getGroupDescription() );
 			# Add rules
 			$rules = $group->getRules();
 			if ( $rules ) {
-				$rulesOut = $ruleheader;
+				$ruleRows = Array();
 				foreach ( $rules as $rule ) {
+					$ruleRow = Array();
 					$fromport = $rule->getFromPort();
 					$toport = $rule->getToPort();
 					$ipprotocol = $rule->getIPProtocol();
-					$ruleOut = Html::element( 'td', array(), $fromport );
-					$ruleOut .= Html::element( 'td', array(), $toport );
-					$ruleOut .= Html::element( 'td', array(), $ipprotocol );
+					$this->pushResourceColumn( $ruleRow, $fromport );
+					$this->pushResourceColumn( $ruleRow, $toport );
+					$this->pushResourceColumn( $ruleRow, $ipprotocol );
 					$ranges = $rule->getIPRanges();
 					if ( $ranges ) {
-						$rangesOut = '';
-						foreach ( $ranges as $range ) {
-							$rangesOut .= Html::element( 'li', array(), $range );
-						}
-						$rangesOut = Html::rawElement( 'ul', array(), $rangesOut );
-						$ruleOut .= Html::rawElement( 'td', array(), $rangesOut );
+						$this->pushRawResourceColumn( $ruleRow, $this->createResourceList( $ranges ) );
 					} else {
-						$ruleOut .= Html::rawElement( 'td', array(), '' );
+						$this->pushRawResourceColumn( $ruleRow, '' );
 					}
 					$sourcegroups = $rule->getGroups();
 					$groupinfo = array();
 					if ( $sourcegroups ) {
-						$sourcegroupsOut = '';
+						$sourcegroupsArr = Array();
 						foreach ( $sourcegroups as $sourcegroup ) {
 							$groupinfo[] = $sourcegroup['groupname'] . ':' . $sourcegroup['project'];
 							$sourcegroupinfo = $sourcegroup['groupname'] . ' (' . $sourcegroup['project'] . ')';
-							$sourcegroupsOut .= Html::element( 'li', array(), $sourcegroupinfo );
+							array_push($sourcegroupsArr, $sourcegroupinfo );
 						}
-						$sourcegroupsOut = Html::rawElement( 'ul', array(), $sourcegroupsOut );
-						$ruleOut .= Html::rawElement( 'td', array(), $sourcegroupsOut );
+						$this->pushRawResourceColumn( $ruleRow, $this->createResourceList( $sourcegroupsArr ) );
 					} else {
-						$ruleOut .= Html::rawElement( 'td', array(), '' );
+						$this->pushRawResourceColumn( $ruleRow, '' );
 					}
 					$actions = '';
 					if ( $this->userLDAP->inRole( 'netadmin', $project ) ) {
@@ -270,66 +292,30 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 								'protocol' => $ipprotocol,
 								'ranges' => implode( ',', $ranges ),
 								'groups' => implode( ',', $groupinfo ) );
-						$link = Linker::link( $this->getTitle(), $msg, array(), $args );
-						$actions = Html::rawElement( 'li', array(), $link );
-						$actions = Html::rawElement( 'ul', array(), $actions );
+						$link = $this->createActionLink( 'openstackmanager-removerule-action', $args );
+						$actions = $this->createResourceList( array( $link ) );
 					}
-					$ruleOut .= Html::rawElement( 'td', array(), $actions );
-					$rulesOut .= Html::rawElement( 'tr', array(), $ruleOut );
+					$this->pushRawResourceColumn( $ruleRow, $actions );
+					array_push( $ruleRows, $ruleRow );
 				}
-				$rulesOut = Html::rawElement( 'table', array( 'id' => 'novasecuritygrouplist', 'class' => 'wikitable sortable collapsible' ), $rulesOut );
-				$groupOut .= Html::rawElement( 'td', array(), $rulesOut );
+				$this->pushRawResourceColumn( $groupRow, $this->createResourceTable( $ruleHeaders, $ruleRows ) );
 			} else {
-				$groupOut .= Html::rawElement( 'td', array(), '' );
+				$this->pushRawResourceColumn( $groupRow, '' );
 			}
-			$actions = '';
+			$actions = Array();
 			if ( $this->userLDAP->inRole( 'netadmin', $project ) ) {
-				$msg = wfMsgHtml( 'openstackmanager-delete' );
-				$link = Linker::link( $this->getTitle(), $msg, array(),
-									  array( 'action' => 'delete',
-										   'project' => $project,
-										   'groupname' => $group->getGroupName() ) );
-				$actions = Html::rawElement( 'li', array(), $link );
-				#$msg = wfMsgHtml( 'openstackmanager-configure' );
-				#$link = Linker::link( $this->getTitle(), $msg, array(),
-				#					   array( 'action' => 'configure',
-				#							'project' => $project,
-				#							'groupname' => $group->getGroupName() ) );
-				#$actions .= Html::rawElement( 'li', array(), $link );
-				$msg = wfMsgHtml( 'openstackmanager-addrule-action' );
-				$link = Linker::link( $this->getTitle(), $msg, array(),
-									   array( 'action' => 'addrule',
-											'project' => $project,
-											'groupname' => $group->getGroupName() ) );
-				$actions .= Html::rawElement( 'li', array(), $link );
-				$actions = Html::rawElement( 'ul', array(), $actions );
+				array_push( $actions, $this->createActionLink( 'openstackmanager-delete', array( 'action' => 'delete', 'project' => $project, 'groupname' => $group->getGroupName() ) ) );
+				#array_push( $actions, $this->createActionLink( 'openstackmanager-configure', array( 'action' => 'configure', 'project' => $project, 'groupname' => $group->getGroupName() ) ) );
+				array_push( $actions, $this->createActionLink( 'openstackmanager-addrule-action', array( 'action' => 'addrule', 'project' => $project, 'groupname' => $group->getGroupName() ) ) );
 			}
-			$groupOut .= Html::rawElement( 'td', array(), $actions );
-			if ( isset( $projectArr["$project"] ) ) {
-				$projectArr["$project"] .= Html::rawElement( 'tr', array(), $groupOut );
-			} else {
-				$projectArr["$project"] = Html::rawElement( 'tr', array(), $groupOut );
-			}
+			$this->pushRawResourceColumn( $groupRow, $this->createResourceList( $actions ) );
+			array_push( $groupRows, $groupRow );
 		}
-		foreach ( $userProjects as $project ) {
-			$action = '';
-			if ( $this->userLDAP->inRole( 'netadmin', $project ) ) {
-				$action = Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-createnewsecuritygroup' ), array(),
-				array( 'action' => 'create', 'project' => $project ) );
-				$action = Html::rawElement( 'span', array( 'id' => 'novaaction' ), "[$action]" );
-			}
-			$projectName = Html::rawElement( 'span', array( 'class' => 'mw-customtoggle-' . $project, 'id' => 'novaproject' ), $project );
-			$out .= Html::rawElement( 'h2', array(), "$projectName $action" );
-			if ( isset( $projectArr["$project"] ) ) {
-				$projectOut = $groupheader;
-				$projectOut .= $projectArr["$project"];
-				$projectOut = Html::rawElement( 'table', array( 'id' => 'novainstancelist', 'class' => 'wikitable sortable' ), $projectOut );
-			}
-			$out .= Html::rawElement( 'div', array( 'class' => 'mw-collapsible', 'id' => 'mw-customcollapsible-' . $project ), $projectOut );
+		if ( $groupRows ) {
+			return $this->createResourceTable( $groupHeaders, $groupRows );
+		} else {
+			return '';
 		}
-
-		$this->getOutput()->addHTML( $out );
-		return true;
 	}
 
 	/**
@@ -351,7 +337,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		$securityGroups = $this->adminNova->getSecurityGroups();
 		foreach ( $securityGroups as $securityGroup ) {
 			$securityGroupName = $securityGroup->getGroupName();
-			$securityGroupProject = $securityGroup->getOwner();
+			$securityGroupProject = $securityGroup->getProject();
 			$info["$securityGroupProject"]["$securityGroupName"] = $securityGroupName . ':' . $securityGroupProject;
 		}
 		$group_keys = $info;

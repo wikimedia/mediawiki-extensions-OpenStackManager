@@ -1,11 +1,18 @@
 <?php
 
+/**
+ * Class for Nova Domain 
+ *
+ * @file
+ * @ingroup Extensions
+ */
+
 class OpenStackNovaDomain {
 
 	var $domainname;
 	var $domainDN;
 	var $domainInfo;
-	var $fqdn;
+	var $fqdn; // fq domain name
 
 	/**
 	 * @param  $domainname

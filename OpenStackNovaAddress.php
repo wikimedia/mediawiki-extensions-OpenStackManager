@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Class for Nova Address
+ *
+ * @file
+ * @ingroup Extensions
+ */
+
 # TODO: Make this an abstract class, and make the EC2 API a subclass
 class OpenStackNovaAddress {
 

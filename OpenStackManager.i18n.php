@@ -190,6 +190,10 @@ $messages['en'] = array(
 	'openstackmanager-removedfrom' => 'Successfully removed $1 from $2.',
 	'openstackmanager-failedtoremove' => 'Failed to remove $1 from $2.',
 	'openstackmanager-novaproject-project' => 'Add project',
+	'openstackmanager-novaprojectfilter-projectfilter' => 'Project filter',
+	'openstackmanager-projects' => 'Projects',
+	'openstackmanager-setprojects' => 'Successfully set the project filter.',
+	'openstackmanager-setprojectfilter' => 'Please select projects to display using the project filter.',
 
 	'openstackmanager-roles' => 'Roles',
 	'openstackmanager-rolename' => 'Role name',
@@ -419,6 +423,10 @@ $2: projectname',
 	'openstackmanager-sudoerusers' => '{{Identical|User}}',
 	'openstackmanager-sudoeroptions' => '{{Identical|Options}}',
 	'right-manageproject' => '{{doc-right|manageproject}}',
+	'openstackmanager-novaprojectfilter-projectfilter' => 'It is a filter than can be used to selectively show a set of projects in all management interfaces.',
+	'openstackmanager-projects' => 'A set of projects',
+	'openstackmanager-setprojects' => 'A message informing the user that a project filter has been successfully assigned',
+	'openstackmanager-setprojectfilter' => ' A message telling the user that a project filter should be applied to see any resources.',
 );
 
 /** Afrikaans (Afrikaans)

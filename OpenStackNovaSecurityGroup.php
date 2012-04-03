@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * todo comment me
+ *
+ * @file
+ * @ingroup Extensions
+ */
+
 # TODO: Make this an abstract class, and make the EC2 API a subclass
 class OpenStackNovaSecurityGroup {
 
@@ -34,7 +41,7 @@ class OpenStackNovaSecurityGroup {
 	/**
 	 * @return string
 	 */
-	function getOwner() {
+	function getProject() {
 		return (string)$this->group->ownerId;
 	}
 

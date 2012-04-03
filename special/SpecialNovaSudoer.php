@@ -1,4 +1,12 @@
 <?php
+
+/**
+ * todo comment me
+ *
+ * @file
+ * @ingroup Extensions
+ */
+
 class SpecialNovaSudoer extends SpecialNova {
 
 	var $userLDAP;
@@ -16,6 +24,10 @@ class SpecialNovaSudoer extends SpecialNova {
 		}
 		if ( !$this->userLDAP->exists() ) {
 			$this->noCredentials();
+			return;
+		}
+		if ( !$this->userLDAP->inGlobalRole( 'cloudadmin' ) ) {
+			$this->notInRole( 'cloudadmin' );
 			return;
 		}
 
@@ -192,59 +204,28 @@ class SpecialNovaSudoer extends SpecialNova {
 		$sudoerForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
 		$sudoerForm->show();
 
-		$out = '';
-		$sudoersOut = Html::element( 'th', array(), wfMsg( 'openstackmanager-sudoername' ) );
-		$sudoersOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-sudoerusers' ) );
-		$sudoersOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-sudoerhosts' ) );
-		$sudoersOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-sudoercommands' ) );
-		$sudoersOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-sudoeroptions' ) );
-		$sudoersOut .= Html::element( 'th', array(), wfMsg( 'openstackmanager-actions' ) );
+		$headers = Array( 'openstackmanager-sudoername', 'openstackmanager-sudoerusers', 'openstackmanager-sudoerhosts',
+				'openstackmanager-sudoercommands', 'openstackmanager-sudoeroptions', 'openstackmanager-actions' );
 		$sudoers = OpenStackNovaSudoer::getAllSudoers();
+		$sudoerRows = Array();
 		foreach ( $sudoers as $sudoer ) {
+			$sudoerRow = Array();
 			$sudoerName = $sudoer->getSudoerName();
-			$sudoerOut = Html::element( 'td', array(), $sudoerName );
-			$users = $sudoer->getSudoerUsers();
-			$sudoerUsers = '';
-			foreach ( $users as $user ) {
-				$sudoerUsers .= Html::element( 'li', array(), $user );
-			}
-			$sudoerUsers = Html::rawElement( 'ul', array(), $sudoerUsers );
-			$sudoerOut .= Html::rawElement( 'td', array(), $sudoerUsers );
-			$hosts = $sudoer->getSudoerHosts();
-			$sudoerHosts = '';
-			foreach ( $hosts as $host ) {
-				$sudoerHosts .= Html::element( 'li', array(), $host );
-			}
-			$sudoerHosts = Html::rawElement( 'ul', array(), $sudoerHosts );
-			$sudoerOut .= Html::rawElement( 'td', array(), $sudoerHosts );
-			$commands = $sudoer->getSudoerCommands();
-			$sudoerCommands = '';
-			foreach ( $commands as $command ) {
-				$sudoerCommands .= Html::element( 'li', array(), $command );
-			}
-			$sudoerCommands = Html::rawElement( 'ul', array(), $sudoerCommands );
-			$sudoerOut .= Html::rawElement( 'td', array(), $sudoerCommands );
-			$options = $sudoer->getSudoerOptions();
-			$sudoerOptions = '';
-			foreach ( $options as $option ) {
-				$sudoerOptions .= Html::element( 'li', array(), $option );
-			}
-			$sudoerOptions = Html::rawElement( 'ul', array(), $sudoerOptions );
-			$sudoerOut .= Html::rawElement( 'td', array(), $sudoerOptions );
-			$msg = wfMsgHtml( 'openstackmanager-modify' );
-			$link = Linker::link( $this->getTitle(), $msg, array(),
-							   array( 'action' => 'modify', 'sudoername' => $sudoerName ) );
-			$actions = Html::rawElement( 'li', array(), $link );
-			$msg = wfMsgHtml( 'openstackmanager-delete' );
-			$link = Linker::link( $this->getTitle(), $msg, array(),
-							   array( 'action' => 'delete', 'sudoername' => $sudoerName ) );
-			$actions .= Html::rawElement( 'li', array(), $link );
-			$actions = Html::rawElement( 'ul', array(), $actions );
-			$sudoerOut .= Html::rawElement( 'td', array(), $actions );
-			$sudoersOut .= Html::rawElement( 'tr', array(), $sudoerOut );
+			$this->pushResourceColumn( $sudoerRow, $sudoerName );
+			$this->pushRawResourceColumn( $sudoerRow, $this->createResourceList( $sudoer->getSudoerUsers() ) );
+			$this->pushRawResourceColumn( $sudoerRow, $this->createResourceList( $sudoer->getSudoerHosts() ) );
+			$this->pushRawResourceColumn( $sudoerRow, $this->createResourceList( $sudoer->getSudoerCommands() ) );
+			$this->pushRawResourceColumn( $sudoerRow, $this->createResourceList( $sudoer->getSudoerOptions() ) );
+			$actions = Array();
+			array_push( $actions, $this->createActionLink( 'openstackmanager-modify', array( 'action' => 'modify', 'sudoername' => $sudoerName ) ) );
+			array_push( $actions, $this->createActionLink( 'openstackmanager-delete', array( 'action' => 'delete', 'sudoername' => $sudoerName ) ) );
+			$this->pushRawResourceColumn( $sudoerRow, $this->createResourceList( $actions ) );
+			array_push( $sudoerRows, $sudoerRow );
 		}
-		if ( $sudoers ) {
-			$out .= Html::rawElement( 'table', array( 'class' => 'wikitable sortable collapsible' ), $sudoersOut );
+		if ( $sudoerRows ) {
+			$out = $this->createResourceTable( $headers, $sudoerRows );
+		} else {
+			$out = '';
 		}
 
 		$this->getOutput()->addHTML( $out );
