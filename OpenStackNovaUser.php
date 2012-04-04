@@ -27,17 +27,7 @@ class OpenStackNovaUser {
 	 */
 	function fetchUserInfo() {
 		global $wgAuth, $wgUser;
-		global $wgMemc;
 
-		$key = wfMemcKey( 'ldapauthentication', "userinfo", $this->userDN );
-		$cacheLength = 3600;
-		$memcUserInfo = $wgMemc->get( $key );
-		if ( is_array( $memcUserInfo ) ) {
-			$this->userInfo = $memcUserInfo;
-			$this->userDN = $this->userInfo[0]["dn"];
-			$wgAuth->printDebug( "Fetched userdn from memcache: $this->userDN ", NONSENSITIVE );
-			return;
-		}
 		if ( $this->username ) {
 			$this->userDN = $wgAuth->getUserDN( strtolower( $this->username ) );
 			$wgAuth->printDebug( "Fetching userdn using username: $this->userDN ", NONSENSITIVE );
@@ -46,7 +36,6 @@ class OpenStackNovaUser {
 			$wgAuth->printDebug( "Fetching userdn using wiki name: " . $wgUser->getName(), NONSENSITIVE );
 		}
 		$this->userInfo = $wgAuth->userInfo;
-		$wgMemc->set( $key, $this->userInfo, $cacheLength );
 	}
 
 	/**
