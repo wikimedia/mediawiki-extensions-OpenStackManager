@@ -216,7 +216,6 @@ class SpecialNovaProject extends SpecialNova {
 			$this->pushRawResourceColumn( $roleRow,  $this->createResourceList( $actions ) );
 			array_push( $roleRows, $roleRow );
 		}
-		// TODO: add back in Nova_cell class to this column
 		$this->pushRawResourceColumn( $projectRow, $this->createResourceTable( $headers, $roleRows ) );
 		$actions = Array();
 		array_push( $actions, $this->createActionLink( 'openstackmanager-deleteproject', array( 'action' => 'delete', 'projectname' => $projectName ) ) );

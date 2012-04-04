@@ -175,8 +175,7 @@ class SpecialNovaKey extends SpecialNova {
 			$keyRows = Array();
 			foreach ( $keypairs as $hash => $key ) {
 				$keyRow = Array();
-				# TODO: add Nova_col class back to this column
-				$this->pushResourceColumn( $keyRow, $key );
+				$this->pushResourceColumn( $keyRow, $key, array( 'class' => 'Nova_col' ) );
 				$actions = Array();
 				array_push( $actions, $this->createActionLink( 'openstackmanager-delete', array( 'action' => 'delete', 'hash' => $hash ) ) );
 				$this->pushRawResourceColumn( $keyRow, $this->createResourceList( $actions) );

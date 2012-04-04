@@ -181,12 +181,22 @@ abstract class SpecialNova extends SpecialPage {
 		return Html::rawElement( 'ul', array(), $resourceList );
 	}
 
-	function pushResourceColumn( &$row, $value ) {
-		array_push( $row, Html::element( 'td', array(), $value ) );
+	function pushResourceColumn( &$row, $value, $attribs=array() ) {
+		if ( array_key_exists( 'class', $attribs ) ) {
+			$attribs['class'] = $attribs['class'] . ' Nova_cell';
+		} else {
+			$attribs['class'] = 'Nova_cell';
+		}
+		array_push( $row, Html::element( 'td', $attribs, $value ) );
 	}
 
-	function pushRawResourceColumn( &$row, $value ) {
-		array_push( $row, Html::rawElement( 'td', array(), $value ) );
+	function pushRawResourceColumn( &$row, $value, $attribs=array() ) {
+		if ( array_key_exists( 'class', $attribs ) ) {
+			$attribs['class'] = $attribs['class'] . ' Nova_cell';
+		} else {
+			$attribs['class'] = 'Nova_cell';
+		}
+		array_push( $row, Html::rawElement( 'td', $attribs, $value ) );
 	}
 
 	function createResourceTable( $headers, $rows ) {
@@ -215,11 +225,12 @@ abstract class SpecialNova extends SpecialPage {
 		}
 		if ( $actions ) {
 			$actions = implode( ',', $actions );
+			$actions = '<a class="mw-customtoggle-' . $projectName . ' osm-remotetoggle">' . wfMsgHtml( 'openstackmanager-toggleproject' ) . '</a>,' . $actions;
 			$actionOut = Html::rawElement( 'span', array( 'id' => 'novaaction' ), "[$actions]" );
 		} else {
 			$actionOut = '';
 		}
-		$projectNameOut = Html::rawElement( 'span', array( 'class' => 'mw-customtoggle-' . $projectName, 'id' => 'novaproject' ), $projectName );
+		$projectNameOut = $this->createResourceLink( $projectName );
 		$out = Html::rawElement( 'h2', array(), "$projectNameOut $actionOut" );
 		$out .= Html::rawElement( 'div', array( 'class' => 'mw-collapsible', 'id' => 'mw-customcollapsible-' . $projectName ), $data );
 

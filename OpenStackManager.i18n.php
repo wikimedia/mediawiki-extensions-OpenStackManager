@@ -427,6 +427,7 @@ $2: projectname',
 	'openstackmanager-projects' => 'A set of projects',
 	'openstackmanager-setprojects' => 'A message informing the user that a project filter has been successfully assigned',
 	'openstackmanager-setprojectfilter' => ' A message telling the user that a project filter should be applied to see any resources.',
+	'openstackmanager-toggleproject' => 'A message to tell the user they can toggle the collapsing and expanding of project sections.',
 );
 
 /** Afrikaans (Afrikaans)
