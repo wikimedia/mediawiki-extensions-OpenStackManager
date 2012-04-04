@@ -179,7 +179,7 @@ class SpecialNovaKey extends SpecialNova {
 				$this->pushResourceColumn( $keyRow, $key );
 				$actions = Array();
 				array_push( $actions, $this->createActionLink( 'openstackmanager-delete', array( 'action' => 'delete', 'hash' => $hash ) ) );
-				$this->pushResourceColumn( $keyRow, $this->createResourceList( $actions) );
+				$this->pushRawResourceColumn( $keyRow, $this->createResourceList( $actions) );
 				array_push( $keyRows, $keyRow );
 			}
 			$out .= $this->createResourceTable( $headers, $keyRows );
@@ -311,14 +311,14 @@ class SpecialNovaKey extends SpecialNova {
 			# Windows user providing it in PuTTY format.
 			$key = self::opensshFormatKey( $key );
 			if ( $key === false ) {
-				$this->getOutput()->addWikiMsg( 'openstackmanager-keypairwrongformat' );
+				$this->getOutput()->addWikiMsg( 'openstackmanager-keypairformatwrong' );
 				return false;
 			}
 			$this->getOutput()->addWikiMsg( 'openstackmanager-keypairformatconverted' );
 		}
  
 		if ( $wgOpenStackManagerNovaKeypairStorage == 'ldap' ) {
-			$success = $this->userLDAP->importKeypair( $formData['key'] );
+			$success = $this->userLDAP->importKeypair( $key );
 			if ( ! $success ) {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-keypairimportfailed' );
 				return false;
@@ -328,7 +328,7 @@ class SpecialNovaKey extends SpecialNova {
 			# wgOpenStackManagerNovaKeypairStorage == 'nova'
 			# OpenStack's EC2 API doesn't yet support importing keys, use
 			# of this option isn't currently recommended
-			$keypair = $this->userNova->importKeypair( $formData['keyname'], $formData['key'] );
+			$keypair = $this->userNova->importKeypair( $formData['keyname'], $key );
 
 			$this->getOutput()->addWikiMsg( 'openstackmanager-keypairimportedfingerprint', $keypair->getKeyName(), $keypair->getKeyFingerprint() );
 		} else {

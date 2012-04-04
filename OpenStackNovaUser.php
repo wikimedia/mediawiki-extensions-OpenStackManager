@@ -280,7 +280,7 @@ class OpenStackNovaUser {
 		if ( $success ) {
 			$wgAuth->printDebug( "Successfully imported the user's sshpublickey", NONSENSITIVE );
 			$key = wfMemcKey( 'ldapauthentication', "userinfo", $this->userDN );
-			$this->printDebug( "Deleting memcache key: $key.", NONSENSITIVE );
+			$wgAuth->printDebug( "Deleting memcache key: $key.", NONSENSITIVE );
 			$wgMemc->delete( $key );
 			$this->fetchUserInfo();
 			return true;
@@ -316,7 +316,7 @@ class OpenStackNovaUser {
 			if ( $success ) {
 				$wgAuth->printDebug( "Successfully deleted the user's sshpublickey", NONSENSITIVE );
 				$key = wfMemcKey( 'ldapauthentication', "userinfo", $this->userDN );
-				$this->printDebug( "Deleting memcache key: $key.", NONSENSITIVE );
+				$wgAuth->printDebug( "Deleting memcache key: $key.", NONSENSITIVE );
 				$wgMemc->delete( $key );
 				$this->fetchUserInfo();
 				return true;
