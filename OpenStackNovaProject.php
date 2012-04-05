@@ -224,6 +224,7 @@ class OpenStackNovaProject {
 			}
 		}
 
+		sort( $projects );
 		return $projects;
 	}
 
