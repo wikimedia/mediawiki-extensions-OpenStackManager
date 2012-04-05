@@ -140,7 +140,7 @@ class SpecialNovaDomain extends SpecialNova {
 			array_push( $domainRows, $domainRow );
 		}
 		if ( $domainRows ) {
-			$out = createResourceTable( $headers, $domainRows );
+			$out = $this->createResourceTable( $headers, $domainRows );
 		} else {
 			$out = '';
 		}
