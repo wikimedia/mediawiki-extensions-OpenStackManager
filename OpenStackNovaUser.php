@@ -148,7 +148,7 @@ class OpenStackNovaUser {
 		global $wgOpenStackManagerLDAPProjectBaseDN;
 		global $wgMemc;
 
-		$key = wfMemcKey( 'openstackmanager', "project-$projectname", $this->userDN );
+		$key = wfMemcKey( 'openstackmanager', "project-$project", $this->userDN );
 		$cacheLength = 3600;
 		$inProject = $wgMemc->get( $key );
 		if ( is_int( $inProject ) ) {

@@ -94,12 +94,13 @@ class OpenStackNovaController {
 	function getInstances( $instanceId = null, $project = array() ) {
 		$this->instances = array();
 		$opt = array();
-		if ( $instanceId ) {
-			$opt['InstanceId'] = $instanceId;
-		}
-		if ( $project ) {
-			$opt = array( 'Filter' => array( array( 'Name' => 'project_id', 'Value' => $project ) ) );
-		}
+		## Filtering support is currently missing in nova, pull all instances
+		#if ( $instanceId ) {
+		#	$opt['InstanceId'] = $instanceId;
+		#}
+		#if ( $project ) {
+		#	$opt = array( 'Filter' => array( array( 'Name' => 'project_id', 'Value' => $project ) ) );
+		#}
 		$response = $this->novaConnection->describe_instances( $opt );
 		$instances = $response->body->reservationSet->item;
 		foreach ( $instances as $instance ) {
