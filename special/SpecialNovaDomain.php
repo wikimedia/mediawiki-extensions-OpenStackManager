@@ -91,6 +91,7 @@ class SpecialNovaDomain extends SpecialNova {
 	function listDomains() {
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-domainlist' ) );
+		$this->getOutput()->addModuleStyles( 'ext.openstack' );
 
 		$domainInfo = array();
 		$domainInfo['domainname'] = array(

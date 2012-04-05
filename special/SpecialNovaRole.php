@@ -205,6 +205,7 @@ class SpecialNovaRole extends SpecialNova {
 	function listGlobalRoles() {
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-rolelist' ) );
+		$this->getOutput()->addModuleStyles( 'ext.openstack' );
 
 		$headers = Array( 'openstackmanager-rolename', 'openstackmanager-members', 'openstackmanager-actions' );
 		$roles = OpenStackNovaRole::getAllGlobalRoles();

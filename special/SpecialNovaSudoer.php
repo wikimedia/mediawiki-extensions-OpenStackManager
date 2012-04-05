@@ -155,6 +155,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	function listSudoers() {
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-sudoerlist' ) );
+		$this->getOutput()->addModuleStyles( 'ext.openstack' );
 
 		$sudoerInfo = array();
 		$sudoerInfo['sudoername'] = array(
