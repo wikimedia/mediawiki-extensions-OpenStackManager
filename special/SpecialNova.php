@@ -111,6 +111,7 @@ abstract class SpecialNova extends SpecialPage {
 				$defaults["$projectName"] = $projectName;
 			}
 		}
+		ksort( $project_keys );
 		$projectFilter = array();
 		$projectFilter['projects'] = array(
 			'type' => 'multiselect',
