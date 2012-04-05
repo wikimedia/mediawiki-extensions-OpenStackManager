@@ -194,6 +194,7 @@ $messages['en'] = array(
 	'openstackmanager-projects' => 'Projects',
 	'openstackmanager-setprojects' => 'Successfully set the project filter.',
 	'openstackmanager-setprojectfilter' => 'Please select projects to display using the project filter.',
+	'openstackmanager-toggleproject' => 'Toggle',
 
 	'openstackmanager-roles' => 'Roles',
 	'openstackmanager-rolename' => 'Role name',
