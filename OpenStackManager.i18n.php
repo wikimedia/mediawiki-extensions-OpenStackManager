@@ -34,6 +34,7 @@ $messages['en'] = array(
 	'novarole' => 'Manage global roles',
 	'novavolume' => 'Manage Storage Volumes',
 	'novasudoer' => 'Manage Sudo policies',
+	'novapuppetgroup' => 'Manage Puppet groups',
 
 	'openstackmanager-novadomain' => 'Nova domain',
 	'openstackmanager-novainstance' => 'Nova instance',
