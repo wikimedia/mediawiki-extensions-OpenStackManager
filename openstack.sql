@@ -7,10 +7,13 @@ CREATE TABLE /*_*/openstack_puppet_groups (
 	group_name varchar(255) binary not null,
 
 	-- Position of group when displayed
-	group_position int not null
+	group_position int not null,
 
 	-- OpenStack project to which this group belongs, if any
 	group_project varchar(255) binary,
+
+	-- OpenStack project to which this group belongs, if any
+	group_is_global boolean not null,
 
 ) /*$wgDBTableOptions*/;
 

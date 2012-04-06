@@ -177,6 +177,7 @@ function efOpenStackSchemaUpdates( $updater ) {
 		$updater->addExtensionTable( 'openstack_puppet_vars', "$base/openstack.sql" );
 		$updater->addExtensionTable( 'openstack_puppet_classes', "$base/openstack.sql" );
 		$updater->addExtensionUpdate( array( 'addField', 'openstack_puppet_groups', 'group_project', "$base/schema-changes/openstack_project_field.sql", true ) );
+		$updater->addExtensionUpdate( array( 'addField', 'openstack_puppet_groups', 'group_is_global', "$base/schema-changes/openstack_group_is_global_field.sql", true ) );
 		break;
 	}
 	return true;

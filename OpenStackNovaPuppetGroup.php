@@ -74,7 +74,8 @@ class OpenStackNovaPuppetGroup {
 			array(  'group_id',
 				'group_name',
 				'group_position',
-		       		'group_project' ),
+				'group_project',
+		       		'group_is_global' ),
 			array(  'group_name' => $name,
 	       			'group_project' => $project ),
 			__METHOD__ );
@@ -98,7 +99,8 @@ class OpenStackNovaPuppetGroup {
 				'group_id',
 				'group_name',
 				'group_position',
-				'group_project' ),
+				'group_project',
+		       		'group_is_global' ),
 			array( 'group_id' => intval( $id ) ),
 			__METHOD__ );
 
@@ -167,14 +169,15 @@ class OpenStackNovaPuppetGroup {
 		if ( $project ) {
 			$condition = 'group_project = ' . $dbr->addQuotes( $project );
 		} else {
-			$condition = 'group_project is NULL';
+			$condition = 'group_is_global = true';
 		}
 		$rows = $dbr->select(
 			'openstack_puppet_groups',
 			array(  'group_id',
 				'group_name',
 				'group_position',
-				'group_project', ),
+				'group_project',
+		       		'group_is_global' ),
 			$condition,
 			__METHOD__,
 			array( 'ORDER BY' => 'group_position ASC' ) // FIXME: Unindexed
@@ -245,13 +248,19 @@ class OpenStackNovaPuppetGroup {
 	 * @param $position int
 	 * @return bool
 	 */
-	public static function addGroup( $name, $position, $project=null ) {
+	public static function addGroup( $name, $position, $project='' ) {
+		if ( $project ) {
+			$group_is_global = true;
+		} else {
+			$group_is_global = false;
+		}
 		$dbw = wfGetDB( DB_MASTER );
 		return $dbw->insert(
 			'openstack_puppet_groups',
 			array(  'group_name' => $name,
 				'group_position' => $position,
 				'group_project' => $project,
+				'group_is_global' => $group_is_global,
 			),
 			__METHOD__
 		);
