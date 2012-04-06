@@ -40,8 +40,8 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			$this->modifyPuppetClass();
 		} elseif ( $action == "modifyvar" ) {
 			$this->modifyPuppetVar();
-		} elseif ( $action == "modify" ) {
-			$this->modifyPuppetGroup();
+		//} elseif ( $action == "modify" ) {
+		//	$this->modifyPuppetGroup();
 		} else {
 			$this->listPuppetGroups();
 		}
@@ -75,12 +75,6 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			'validation-callback' => array( $this, 'validateText' ),
 			'default' => '',
 			'name' => 'puppetgroupname',
-		);
-		$puppetGroupInfo['puppetgroupposition'] = array(
-			'type' => 'int',
-			'label-message' => 'openstackmanager-puppetgroupposition',
-			'default' => '',
-			'name' => 'puppetgroupposition',
 		);
 		$puppetGroupInfo['project'] = array(
 			'type' => 'hidden',
@@ -135,11 +129,6 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			'label-message' => 'openstackmanager-puppetclassname',
 			'default' => '',
 			'name' => 'puppetclassname',
-		);
-		$puppetGroupInfo['puppetclassposition'] = array(
-			'type' => 'int',
-			'label-message' => 'openstackmanager-puppetclassposition',
-			'name' => 'puppetclassposition',
 		);
 		$puppetGroupInfo['project'] = array(
 			'type' => 'hidden',
@@ -250,11 +239,6 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			'label-message' => 'openstackmanager-puppetvarname',
 			'default' => '',
 			'name' => 'puppetvarname',
-		);
-		$puppetGroupInfo['puppetvarposition'] = array(
-			'type' => 'int',
-			'label-message' => 'openstackmanager-puppetvarposition',
-			'name' => 'puppetvarposition',
 		);
 		$puppetGroupInfo['puppetgroupid'] = array(
 			'type' => 'hidden',
@@ -425,18 +409,11 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			}
 		}
 
-		$puppetClassPosition = $this->getRequest()->getInt( 'puppetclassposition' );
 		$puppetGroupInfo = array();
 		$puppetGroupInfo['puppetclassid'] = array(
 			'type' => 'hidden',
 			'default' => $puppetClassId,
 			'name' => 'puppetclassid',
-		);
-		$puppetGroupInfo['puppetclassposition'] = array(
-			'type' => 'int',
-			'label-message' => 'openstackmanager-puppetclassposition',
-			'default' => $puppetClassPosition,
-			'name' => 'puppetclassposition',
 		);
 		$groups = OpenStackNovaPuppetGroup::getGroupList();
 		$groupKeys = array();
@@ -509,18 +486,11 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			}
 		}
 
-		$puppetVarPosition = $this->getRequest()->getInt( 'puppetvarposition' );
 		$puppetGroupInfo = array();
 		$puppetGroupInfo['puppetvarid'] = array(
 			'type' => 'hidden',
 			'default' => $puppetVarId,
 			'name' => 'puppetvarid',
-		);
-		$puppetGroupInfo['puppetvarposition'] = array(
-			'type' => 'int',
-			'label-message' => 'openstackmanager-puppetvarposition',
-			'default' => $puppetVarPosition,
-			'name' => 'puppetvarposition',
 		);
 		$groups = OpenStackNovaPuppetGroup::getGroupList();
 		$groupKeys = array();
@@ -562,6 +532,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistentresource' );
 			return false;
 		}
+		$puppetGroupName = $group->getName();
 		$project = $group->getProject();
 		if ( $project ) {
 			// Project specific
@@ -577,18 +548,16 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			}
 		}
 
-		$puppetGroupPosition = $this->getRequest()->getInt( 'puppetgroupposition' );
 		$puppetGroupInfo = array();
 		$puppetGroupInfo['puppetgroupid'] = array(
 			'type' => 'hidden',
 			'default' => $puppetGroupId,
 			'name' => 'puppetgroupid',
 		);
-		$puppetGroupInfo['puppetgroupposition'] = array(
-			'type' => 'int',
-			'label-message' => 'openstackmanager-puppetgroupposition',
-			'default' => $puppetGroupPosition,
-			'name' => 'puppetgroupposition',
+		$puppetGroupInfo['puppetgroupname'] = array(
+			'type' => 'hidden',
+			'default' => $puppetGroupName,
+			'name' => 'puppetgroupname',
 		);
 		$puppetGroupInfo['action'] = array(
 			'type' => 'hidden',
@@ -662,14 +631,14 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 				$puppetGroupProject = '';
 			}
 			$puppetGroupId = $puppetGroup->getId();
-			$puppetGroupPosition = $puppetGroup->getPosition();
 			$puppetGroupName = $puppetGroup->getName();
-			$puppetGroupName = "[$puppetGroupPosition] " . htmlentities( $puppetGroupName );
+			$puppetGroupName = htmlentities( $puppetGroupName );
 			$specialPuppetGroupTitle = Title::newFromText( 'Special:NovaPuppetGroup' );
 			if ( $showlinks ) {
-				$modify = $this->createActionLink( 'openstackmanager-modify', array( 'action' => 'modify', 'puppetgroupid' => $puppetGroupId, 'puppetgroupposition' => $puppetGroupPosition, 'returnto' => 'Special:NovaPuppetGroup' ) );
+				//$modify = $this->createActionLink( 'openstackmanager-modify', array( 'action' => 'modify', 'puppetgroupid' => $puppetGroupId, 'returnto' => 'Special:NovaPuppetGroup' ) );
 				$delete = $this->createActionLink( 'openstackmanager-delete', array( 'action' => 'delete', 'puppetgroupid' => $puppetGroupId, 'returnto' => 'Special:NovaPuppetGroup' ) );
-				$action = Html::rawElement( 'span', array( 'id' => 'novaaction' ), "[$modify, $delete]" ); 
+				//$action = Html::rawElement( 'span', array( 'id' => 'novaaction' ), "[$modify, $delete]" ); 
+				$action = Html::rawElement( 'span', array( 'id' => 'novaaction' ), "[$delete]" ); 
 				$out .= Html::rawElement( 'h3', array(), "$puppetGroupName $action" );
 			}
 			$action = '';
@@ -684,9 +653,9 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			if ( $puppetGroupClasses ) {
 				$classes = Array();
 				foreach ( $puppetGroupClasses as $puppetGroupClass ) {
-					$classname = '[' . $puppetGroupClass["position"] . '] ' . htmlentities( $puppetGroupClass["name"] );
+					$classname = htmlentities( $puppetGroupClass["name"] );
 					if ( $showlinks ) {
-						$modify = $this->createActionLink( 'openstackmanager-modify', array( 'action' => 'modifyclass', 'puppetclassid' => $puppetGroupClass["id"], 'puppetclassposition' => $puppetGroupClass["position"], 'puppetgroupid' => $puppetGroupId, 'returnto' => 'Special:NovaPuppetGroup' ) );
+						$modify = $this->createActionLink( 'openstackmanager-modify', array( 'action' => 'modifyclass', 'puppetclassid' => $puppetGroupClass["id"], 'puppetgroupid' => $puppetGroupId, 'returnto' => 'Special:NovaPuppetGroup' ) );
 						$delete = $this->createActionLink( 'openstackmanager-delete', array( 'action' => 'deleteclass', 'puppetclassid' => $puppetGroupClass["id"], 'returnto' => 'Special:NovaPuppetGroup' ) );
 						$classname  .= Html::rawElement( 'span', array( 'id' => 'novaaction' ), " [$modify, $delete]" ); 
 					}
@@ -705,9 +674,9 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			if ( $puppetGroupVars ) {
 				$vars = Array();
 				foreach ( $puppetGroupVars as $puppetGroupVar ) {
-					$varname = '[' . $puppetGroupVar["position"] . '] ' . htmlentities( $puppetGroupVar["name"] );
+					$varname = htmlentities( $puppetGroupVar["name"] );
 					if ( $showlinks ) {
-						$modify = $this->createActionLink( 'openstackmanager-modify', array( 'action' => 'modifyvar', 'puppetvarid' => $puppetGroupVar["id"], 'puppetvarposition' => $puppetGroupVar["position"], 'puppetgroupid' => $puppetGroupId, 'returnto' => 'Special:NovaPuppetGroup' ) );
+						$modify = $this->createActionLink( 'openstackmanager-modify', array( 'action' => 'modifyvar', 'puppetvarid' => $puppetGroupVar["id"], 'puppetgroupid' => $puppetGroupId, 'returnto' => 'Special:NovaPuppetGroup' ) );
 						$delete = $this->createActionLink( 'openstackmanager-delete', array( 'action' => 'deletevar', 'puppetvarid' => $puppetGroupVar["id"], 'returnto' => 'Special:NovaPuppetGroup' ) );
 						$varname  .= Html::rawElement( 'span', array( 'id' => 'novaaction' ), " [$modify, $delete]" );
 					}
@@ -725,7 +694,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
-		$success = OpenStackNovaPuppetGroup::addGroup( $formData['puppetgroupname'], $formData['puppetgroupposition'], $formData['project'] );
+		$success = OpenStackNovaPuppetGroup::addGroup( $formData['puppetgroupname'], $formData['project'] );
 		if ( $success ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-createdpuppetgroup' );
 		} else {
@@ -765,7 +734,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function tryAddClassSubmit( $formData, $entryPoint = 'internal' ) {
-		$success = OpenStackNovaPuppetGroup::addClass( $formData['puppetclassname'], $formData['puppetclassposition'], $formData['puppetgroupid'], $formData['project'] );
+		$success = OpenStackNovaPuppetGroup::addClass( $formData['puppetclassname'], $formData['puppetgroupid'], $formData['project'] );
 		if ( $success ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-addedpuppetclass' );
 		} else {
@@ -805,7 +774,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function tryAddVarSubmit( $formData, $entryPoint = 'internal' ) {
-		$success = OpenStackNovaPuppetGroup::addVar( $formData['puppetvarname'], $formData['puppetvarposition'], $formData['puppetgroupid'], $formData['project'] );
+		$success = OpenStackNovaPuppetGroup::addVar( $formData['puppetvarname'], $formData['puppetgroupid'], $formData['project'] );
 		if ( $success ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-addedpuppetvar' );
 		} else {
@@ -845,7 +814,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function tryModifyClassSubmit( $formData, $entryPoint = 'internal' ) {
-		$success = OpenStackNovaPuppetGroup::updateClass( $formData['puppetclassid'], $formData['puppetgroupid'], $formData['puppetclassposition'] );
+		$success = OpenStackNovaPuppetGroup::updateClass( $formData['puppetclassid'], $formData['puppetgroupid'] );
 		if ( $success ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-modifiedpuppetclass' );
 		} else {
@@ -865,7 +834,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function tryModifyVarSubmit( $formData, $entryPoint = 'internal' ) {
-		$success = OpenStackNovaPuppetGroup::updateVar( $formData['puppetvarid'], $formData['puppetgroupid'], $formData['puppetvarposition'] );
+		$success = OpenStackNovaPuppetGroup::updateVar( $formData['puppetvarid'], $formData['puppetgroupid'] );
 		if ( $success ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-modifiedpuppetvar' );
 		} else {
@@ -885,7 +854,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function tryModifyGroupSubmit( $formData, $entryPoint = 'internal' ) {
-		$success = OpenStackNovaPuppetGroup::updateGroupPosition( $formData['puppetgroupid'], $formData['puppetgroupposition'] );
+		$success = OpenStackNovaPuppetGroup::updateGroupName( $formData['puppetgroupid'], $formData['puppetgroupname'] );
 		if ( $success ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-modifiedpuppetgroup' );
 		} else {

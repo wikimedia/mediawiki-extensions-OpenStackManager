@@ -9,7 +9,7 @@
 
 class OpenStackNovaPuppetGroup {
 
-	private $id, $name, $position, $vars, $classes;
+	private $id, $name, $is_global, $vars, $classes;
 
 	/**
 	 * Constructor. Can't be called directly. Call one of the static NewFrom* methods
@@ -18,10 +18,10 @@ class OpenStackNovaPuppetGroup {
 	 * @param $position int
 	 * @param $project string|null
 	 */
-	public function __construct( $id, $name, $position, $project=null ) {
+	public function __construct( $id, $name, $is_global, $project=null ) {
 		$this->id = $id;
 		$this->name = $name;
-		$this->position = $position;
+		$this->is_global = $is_global;
 		$this->project = $project;
 		$this->loadVars( $id );
 		$this->loadClasses( $id );
@@ -35,17 +35,17 @@ class OpenStackNovaPuppetGroup {
 	}
 
 	/**
+	 * @return Boolean
+	 */
+	public function getIsGlobal() {
+		return $this->is_global;
+	}
+
+	/**
 	 * @return Int
 	 */
 	public function getId() {
 		return $this->id;
-	}
-
-	/**
-	 * @return int
-	 */
-	public function getPosition() {
-		return $this->position;
 	}
 
 	public function getVars() {
@@ -73,7 +73,6 @@ class OpenStackNovaPuppetGroup {
 			'openstack_puppet_groups',
 			array(  'group_id',
 				'group_name',
-				'group_position',
 				'group_project',
 		       		'group_is_global' ),
 			array(  'group_name' => $name,
@@ -98,8 +97,6 @@ class OpenStackNovaPuppetGroup {
 			array( 
 				'group_id',
 				'group_name',
-				'group_position',
-				'group_project',
 		       		'group_is_global' ),
 			array( 'group_id' => intval( $id ) ),
 			__METHOD__ );
@@ -155,7 +152,7 @@ class OpenStackNovaPuppetGroup {
 		return new OpenStackNovaPuppetGroup(
 			intval( $row->group_id ),
 			$row->group_name,
-			$row->group_position,
+			$row->group_is_global,
 			$row->group_project
 		);
 	}
@@ -175,12 +172,11 @@ class OpenStackNovaPuppetGroup {
 			'openstack_puppet_groups',
 			array(  'group_id',
 				'group_name',
-				'group_position',
 				'group_project',
 		       		'group_is_global' ),
 			$condition,
 			__METHOD__,
-			array( 'ORDER BY' => 'group_position ASC' ) // FIXME: Unindexed
+			array( 'ORDER BY' => 'group_name ASC' )
 		);
 		$groups = array();
 		foreach ( $rows as $row ) {
@@ -197,11 +193,10 @@ class OpenStackNovaPuppetGroup {
 		$rows = $dbr->select(
 			'openstack_puppet_vars',
 			array(  'var_id',
-				'var_name',
-				'var_position' ),
-			array( 'var_group_id' => $groupid ), // FIXME: Unindexed query
+				'var_name' ),
+			array( 'var_group_id' => $groupid ),
 			__METHOD__,
-			array( 'ORDER BY' => 'var_position ASC' ) // FIXME: Unindexed
+			array( 'ORDER BY' => 'var_name ASC' )
 	       	);
 
 		$this->vars = array();
@@ -210,7 +205,6 @@ class OpenStackNovaPuppetGroup {
 				$this->vars[] = array(
 					"name" => $row->var_name,
 					"id" => intval( $row->var_id ),
-					"position" => intval( $row->var_position )
 				);
 			}
 		}
@@ -224,11 +218,10 @@ class OpenStackNovaPuppetGroup {
 		$rows = $dbr->select(
 			'openstack_puppet_classes',
 			array(  'class_id',
-				'class_name',
-				'class_position' ),
-			array( 'class_group_id' => $groupid ), // FIXME: Unindexed query
+				'class_name' ),
+			array( 'class_group_id' => $groupid ),
 			__METHOD__,
-			array( 'ORDER BY' => 'class_position ASC' ) // FIXME: Unindexed
+			array( 'ORDER BY' => 'class_name ASC' )
 		);
 
 		$this->classes = array();
@@ -237,7 +230,6 @@ class OpenStackNovaPuppetGroup {
 				$this->classes[] = array(
 					"name" => $row->class_name,
 					"id" => intval( $row->class_id ),
-					"position" => intval( $row->class_position )
 				);
 			}
 		}
@@ -245,20 +237,18 @@ class OpenStackNovaPuppetGroup {
 
 	/**
 	 * @param $name string
-	 * @param $position int
 	 * @return bool
 	 */
-	public static function addGroup( $name, $position, $project='' ) {
+	public static function addGroup( $name, $project='' ) {
 		if ( $project ) {
-			$group_is_global = true;
-		} else {
 			$group_is_global = false;
+		} else {
+			$group_is_global = true;
 		}
 		$dbw = wfGetDB( DB_MASTER );
 		return $dbw->insert(
 			'openstack_puppet_groups',
 			array(  'group_name' => $name,
-				'group_position' => $position,
 				'group_project' => $project,
 				'group_is_global' => $group_is_global,
 			),
@@ -266,24 +256,22 @@ class OpenStackNovaPuppetGroup {
 		);
 	}
 
-	public static function addVar( $name, $position, $groupid ) {
+	public static function addVar( $name, $groupid ) {
 		$dbw = wfGetDB( DB_MASTER );
 		return $dbw->insert(
 			'openstack_puppet_vars',
 			array(  'var_name' => $name,
-				'var_position' => $position,
 				'var_group_id' => $groupid
 			),
 			__METHOD__
 		);
 	}
 
-	public static function addClass( $name, $position, $groupid ) {
+	public static function addClass( $name, $groupid ) {
 		$dbw = wfGetDB( DB_MASTER );
 		return $dbw->insert(
 			'openstack_puppet_classes',
 			array(  'class_name' => $name,
-				'class_position' => $position,
 				'class_group_id' => $groupid
 			),
 			__METHOD__
@@ -340,12 +328,12 @@ class OpenStackNovaPuppetGroup {
 		);
 	}
 
-	public static function updateVar( $id, $groupid, $position ) {
+	# TODO: add ability to update name
+	public static function updateVar( $id, $groupid ) {
 		$dbw = wfGetDB( DB_MASTER );
 		return $dbw->update(
 			'openstack_puppet_vars',
 			array(
-				'var_position' => $position,
 				'var_group_id' => $groupid
 			),
 			array( 'var_id' => $id ),
@@ -353,29 +341,15 @@ class OpenStackNovaPuppetGroup {
 		);
 	}
 
-	public static function updateClass( $id, $groupid, $position ) {
+	# TODO: add ability to update name
+	public static function updateClass( $id, $groupid ) {
 		$dbw = wfGetDB( DB_MASTER );
 		return $dbw->update(
 			'openstack_puppet_classes',
 			array(
-				'class_position' => $position,
 				'class_group_id' => $groupid
 			),
 			array( 'class_id' => $id ),
-			__METHOD__
-		);
-	}
-
-	public static function updateGroupPosition( $id, $position ) {
-		$dbw = wfGetDB( DB_MASTER );
-		return $dbw->update(
-			'openstack_puppet_groups',
-			array(
-				'group_position' => $position,
-			),
-			array(
-				'group_id' => $id,
-			),
 			__METHOD__
 		);
 	}
