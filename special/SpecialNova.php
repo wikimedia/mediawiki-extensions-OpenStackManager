@@ -224,8 +224,8 @@ abstract class SpecialNova extends SpecialPage {
 			}
 		}
 		if ( $actions ) {
-			$actions = implode( ',', $actions );
-			$actions = '<a class="mw-customtoggle-' . $projectName . ' osm-remotetoggle">' . wfMsgHtml( 'openstackmanager-toggleproject' ) . '</a>,' . $actions;
+			$actions = implode( ', ', $actions );
+			$actions = '<a class="mw-customtoggle-' . $projectName . ' osm-remotetoggle">' . wfMsgHtml( 'openstackmanager-toggleproject' ) . '</a>, ' . $actions;
 			$actionOut = Html::rawElement( 'span', array( 'id' => 'novaaction' ), "[$actions]" );
 		} else {
 			$actionOut = '';
