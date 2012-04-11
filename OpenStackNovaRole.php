@@ -102,6 +102,7 @@ class OpenStackNovaRole {
 	 */
 	function deleteMember( $username ) {
 		global $wgAuth;
+		global $wgMemc;
 
 		if ( isset( $this->roleInfo[0]['member'] ) ) {
 			$members = $this->roleInfo[0]['member'];
