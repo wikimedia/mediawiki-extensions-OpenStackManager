@@ -91,6 +91,12 @@ class OpenStackNovaProject {
 		return $members;
 	}
 
+	function getProjectGroupDN() {
+		global $wgOpenStackManagerLDAPProjectGroupBaseDN;
+
+		return 'cn=project-' . $this->getProjectName() . ',' . $wgOpenStackManagerLDAPProjectGroupBaseDN;
+	}
+
 	/**
 	 * Remove a member from the project based on username
 	 *
@@ -171,6 +177,16 @@ class OpenStackNovaProject {
 		}
 	}
 
+	static function useProjectGroup() {
+		global $wgOpenStackManagerLDAPProjectBaseDN;
+
+		if ( $wgOpenStackManagerLDAPProjectBaseDN ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	/**
 	 * Return a project by its project name. Returns null if the project does not exist.
 	 *
@@ -240,16 +256,31 @@ class OpenStackNovaProject {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser;
 		global $wgOpenStackManagerLDAPProjectBaseDN;
+		global $wgOpenStackManagerLDAPProjectGroupBaseDN;
 
 		OpenStackNovaLdapConnection::connect();
 
 		$project = array();
 		$project['objectclass'][] = 'groupofnames';
-		$project['objectclass'][] = 'posixgroup';
 		$project['cn'] = $projectname;
 		$project['owner'] = $wgOpenStackManagerLDAPUser;
-		$project['gidnumber'] = OpenStackNovaUser::getNextIdNumber( $wgAuth, 'gidnumber' );
 		$projectdn = 'cn=' . $projectname . ',' . $wgOpenStackManagerLDAPProjectBaseDN;
+
+		$projectGroup = array();
+		if ( OpenStackNovaProject::useProjectGroup() ) {
+			// Split posix group away from project name, prefixed by project
+			$projectGroupName = 'project-' . $projectname;
+			$projectGroup['objectclass'][] = 'posixgroup';
+			$projectGroup['objectclass'][] = 'groupofnames';
+			$projectGroup['objectclass'][] = 'ds-virtual-static-group';
+			$projectGroup['cn'] = $projectGroupName;
+			$projectGroup['gidnumber'] = OpenStackNovaUser::getNextIdNumber( $wgAuth, 'gidnumber' );
+			$projectGroup['ds-target-group-dn'] = $projectdn;
+			$projectGroupdn = 'cn=' . $projectGroupName . ',' . $wgOpenStackManagerLDAPProjectGroupBaseDN;
+		} else {
+			$project['gidnumber'] = OpenStackNovaUser::getNextIdNumber( $wgAuth, 'gidnumber' );
+			$project['objectclass'][] = 'posixgroup';
+		}
 
 		$success = LdapAuthenticationPlugin::ldap_add( $wgAuth->ldapconn, $projectdn, $project );
 		$project = new OpenStackNovaProject( $projectname );
@@ -261,6 +292,10 @@ class OpenStackNovaProject {
 				# that role addition will fail.
 			}
 			$wgAuth->printDebug( "Successfully added project $projectname", NONSENSITIVE );
+			if ( $projectGroup ) {
+				$success = LdapAuthenticationPlugin::ldap_add( $wgAuth->ldapconn, $projectGroupdn, $projectGroup );
+				# TODO: If project group creation fails we need to be able to fail gracefully
+			}
 			return true;
 		} else {
 			$wgAuth->printDebug( "Failed to add project $projectname", NONSENSITIVE );
@@ -285,7 +320,6 @@ class OpenStackNovaProject {
 			return false;
 		}
 		$dn = $project->projectDN;
-
 		# Projects can have roles as sub-entries, we need to delete them first
 		$result = LdapAuthenticationPlugin::ldap_list( $wgAuth->ldapconn, $dn, 'objectclass=*' );
 		$roles = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
@@ -295,8 +329,19 @@ class OpenStackNovaProject {
 			$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $roledn );
 			if ( $success ){
 				$wgAuth->printDebug( "Successfully deleted role $roledn", NONSENSITIVE );
+
 			} else {
 				$wgAuth->printDebug( "Failed to delete role $roledn", NONSENSITIVE );
+			}
+		}
+		if ( OpenStackNovaProject::useProjectGroup() ) {
+			$groupdn = $project->getProjectGroupDN();
+			$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $groupdn );
+			if ( $success ){
+				$wgAuth->printDebug( "Successfully deleted group $groupdn", NONSENSITIVE );
+
+			} else {
+				$wgAuth->printDebug( "Failed to delete group $groupdn", NONSENSITIVE );
 			}
 		}
 		$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $dn );
