@@ -38,6 +38,10 @@ class OpenStackNovaUser {
 		$this->userInfo = $wgAuth->userInfo;
 	}
 
+	function getUid() {
+		return $this->userInfo[0]['uid'][0];
+	}
+
 	/**
 	 * @param string $project
 	 * @return array

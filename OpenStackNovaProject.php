@@ -91,10 +91,20 @@ class OpenStackNovaProject {
 		return $members;
 	}
 
+	function getProjectDN() {
+		return $this->projectDN;
+	}
+
 	function getProjectGroupDN() {
 		global $wgOpenStackManagerLDAPProjectGroupBaseDN;
 
 		return 'cn=project-' . $this->getProjectName() . ',' . $wgOpenStackManagerLDAPProjectGroupBaseDN;
+	}
+
+	function getSudoersDN() {
+		global $wgOpenStackManagerLDAPProjectGroupBaseDN;
+
+		return 'ou=sudoers,' . $this->projectDN;
 	}
 
 	/**
@@ -131,6 +141,15 @@ class OpenStackNovaProject {
 					$success = $role->deleteMember( $username );
 					#TODO: Find a way to fail gracefully if role member
 					# deletion fails
+				}
+				$sudoers = OpenStackNovaSudoer::getAllSudoersByProject( $this->getProjectName() );
+				foreach ( $sudoers as $sudoer ) {
+					$success = $sudoer->deleteUser( $username );
+					if ( $success ) {
+						$wgAuth->printDebug( "Successfully removed $username from " . $sudoer->getSudoerName(), NONSENSITIVE );
+					} else {
+						$wgAuth->printDebug( "Failed to remove $username from " . $sudoer->getSudoerName(), NONSENSITIVE );
+					}
 				}
 				$this->fetchProjectInfo();
 				$wgAuth->printDebug( "Successfully removed $user->userDN from $this->projectDN", NONSENSITIVE );
@@ -291,6 +310,12 @@ class OpenStackNovaProject {
 				# Though, if the project was added successfully, it is unlikely
 				# that role addition will fail.
 			}
+			$sudoerOU = array();
+			$sudoerOU['objectclass'][] = 'organizationalunit';
+			$sudoerOU['ou'] = 'sudooers';
+			$sudoerOUdn = 'ou=sudoers,' . $projectdn;
+			$success = LdapAuthenticationPlugin::ldap_add( $wgAuth->ldapconn, $sudoerOUdn, $sudoerOU );
+			# TODO: If sudoerOU creation fails we need to be able to fail gracefully
 			$wgAuth->printDebug( "Successfully added project $projectname", NONSENSITIVE );
 			if ( $projectGroup ) {
 				$success = LdapAuthenticationPlugin::ldap_add( $wgAuth->ldapconn, $projectGroupdn, $projectGroup );
@@ -329,20 +354,35 @@ class OpenStackNovaProject {
 			$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $roledn );
 			if ( $success ){
 				$wgAuth->printDebug( "Successfully deleted role $roledn", NONSENSITIVE );
-
 			} else {
 				$wgAuth->printDebug( "Failed to delete role $roledn", NONSENSITIVE );
 			}
 		}
+		# Projects can have a separate group entry
 		if ( OpenStackNovaProject::useProjectGroup() ) {
 			$groupdn = $project->getProjectGroupDN();
 			$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $groupdn );
 			if ( $success ){
 				$wgAuth->printDebug( "Successfully deleted group $groupdn", NONSENSITIVE );
-
 			} else {
 				$wgAuth->printDebug( "Failed to delete group $groupdn", NONSENSITIVE );
 			}
+		}
+		# Projects have a sudo OU and sudoers entries below that OU, we must delete them first
+		$sudoers = OpenStackNovaSudoer::getAllSudoersByProject( $project->getProjectName() );
+		foreach ( $sudoers as $sudoer ) {
+			$success = OpenStackNovaSudoer::deleteSudoer( $sudoer->getSudoerName(), $project->getProjectName() );
+			if ( $success ){
+				$wgAuth->printDebug( "Successfully deleted sudoer " . $sudoer->getSudoerName(), NONSENSITIVE );
+			} else {
+				$wgAuth->printDebug( "Failed to delete sudoer " . $sudoer->getSudoerName(), NONSENSITIVE );
+			}
+		}
+		$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $project->getSudoersDN() );
+		if ( $success ) {
+			$wgAuth->printDebug( "Successfully deleted sudoers OU " .  $project->getSudoersDN(), NONSENSITIVE );
+		} else {
+			$wgAuth->printDebug( "Failed to delete sudoers OU " .  $project->getSudoersDN(), NONSENSITIVE );
 		}
 		$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $dn );
 		if ( $success ) {
