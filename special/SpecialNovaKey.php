@@ -191,7 +191,7 @@ class SpecialNovaKey extends SpecialNova {
 
 	/**
 	 * Converts a public ssh key to openssh format.
-	 * @param $keydata SSH public/private key in some format
+	 * @param $keydata string SSH public/private key in some format
 	 * @return mixed Public key in openssh format or false
 	 */
 	static function opensshFormatKey( $keydata ) {
@@ -207,7 +207,7 @@ class SpecialNovaKey extends SpecialNova {
 	
 	/**
 	 * Converts a public ssh key to openssh format, using puttygen.
-	 * @param $keydata SSH public/private key in some format
+	 * @param $keydata string SSH public/private key in some format
 	 * @return mixed Public key in openssh format or false
 	 */
 	static function opensshFormatKeyPuttygen( $keydata ) {
@@ -259,7 +259,7 @@ class SpecialNovaKey extends SpecialNova {
 	}
 	 /**
 	 * Converts a public ssh key to openssh format, using ssh-keygen.
-	 * @param $keydata SSH public/private key in some format
+	 * @param $keydata string SSH public/private key in some format
 	 * @return mixed Public key in openssh format or false
 	 */
 	static function opensshFormatKeySshKeygen( $keydata ) {
