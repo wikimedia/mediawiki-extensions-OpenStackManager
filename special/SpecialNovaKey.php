@@ -195,10 +195,9 @@ class SpecialNovaKey extends SpecialNova {
 	 * @return mixed Public key in openssh format or false
 	 */
 	static function opensshFormatKey( $keydata ) {
-		global $wgSshKeygen, $wgPuttygen;
-		
+
 		$public = self::opensshFormatKeySshKeygen( $keydata );
-		
+
 		if ( !$public )
 			$public = self::opensshFormatKeyPuttygen( $keydata );
  
