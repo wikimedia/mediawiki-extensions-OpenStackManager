@@ -375,8 +375,7 @@ class SpecialNovaAddress extends SpecialNova {
 
 		$addresses = $this->getResourcesGroupedByProject( $this->adminNova->getAddresses() );
 		$instances = $this->adminNova->getInstances();
-		$projectArr = array();
-		$projectRows = Array();
+
 		foreach ( $projects as $project ) {
 			$projectName = $project->getProjectName();
 			if ( !in_array( $projectName, $projectfilter ) ) {
@@ -414,7 +413,6 @@ class SpecialNovaAddress extends SpecialNova {
 			}
 			$hosts = OpenStackNovaHost::getHostsByIP( $ip );
 			if ( $hosts ) {
-				$msg = wfMsgHtml( 'openstackmanager-removehost-action' );
 				$hostArr = Array();
 				foreach ( $hosts as $host ) {
 					$domain = $host->getDomain();

@@ -102,8 +102,6 @@ class OpenStackNovaProject {
 	}
 
 	function getSudoersDN() {
-		global $wgOpenStackManagerLDAPProjectGroupBaseDN;
-
 		return 'ou=sudoers,' . $this->projectDN;
 	}
 

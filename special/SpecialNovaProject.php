@@ -163,8 +163,6 @@ class SpecialNovaProject extends SpecialNova {
 	 * @return void
 	 */
 	function listProjects() {
-		global $wgRequest;
-
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( wfMsg( 'openstackmanager-projectlist' ) );
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );

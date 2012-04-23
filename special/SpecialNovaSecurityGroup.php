@@ -283,7 +283,6 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 					}
 					$actions = '';
 					if ( $this->userLDAP->inRole( 'netadmin', $project ) ) {
-						$msg = wfMsgHtml( 'openstackmanager-removerule-action' );
 						$args = array(  'action' => 'removerule',
 								'project' => $project,
 								'groupname' => $groupname,

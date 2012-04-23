@@ -92,8 +92,6 @@ abstract class SpecialNova extends SpecialPage {
 	}
 
 	function showProjectFilter( $projects, $showbydefault=false ) {
-		global $wgRequest;
-
 		if ( $this->getRequest()->wasPosted() && $this->getRequest()->getVal( 'action' ) != 'setprojectfilter' ) {
 			return null;
 		}
