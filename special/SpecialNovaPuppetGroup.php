@@ -415,7 +415,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			'default' => $puppetClassId,
 			'name' => 'puppetclassid',
 		);
-		$groups = OpenStackNovaPuppetGroup::getGroupList();
+		$groups = OpenStackNovaPuppetGroup::getGroupList( $project );
 		$groupKeys = array();
 		foreach ( $groups as $group ) {
 			$groupname = htmlentities( $group->getName() );
@@ -492,7 +492,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			'default' => $puppetVarId,
 			'name' => 'puppetvarid',
 		);
-		$groups = OpenStackNovaPuppetGroup::getGroupList();
+		$groups = OpenStackNovaPuppetGroup::getGroupList( $project );
 		$groupKeys = array();
 		foreach ( $groups as $group ) {
 			$groupname = htmlentities( $group->getName() );
