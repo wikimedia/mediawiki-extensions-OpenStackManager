@@ -97,6 +97,7 @@ class OpenStackNovaPuppetGroup {
 			array( 
 				'group_id',
 				'group_name',
+				'group_project',
 		       		'group_is_global' ),
 			array( 'group_id' => intval( $id ) ),
 			__METHOD__ );
