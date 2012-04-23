@@ -9,6 +9,11 @@
 
 class SpecialNovaPuppetGroup extends SpecialNova {
 
+	/**
+	 * @var OpenStackNovaUser
+	 */
+	protected $userLDAP;
+
 	function __construct() {
 		parent::__construct( 'NovaPuppetGroup', 'manageproject' );
 	}
