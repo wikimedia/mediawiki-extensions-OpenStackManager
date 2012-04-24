@@ -156,7 +156,7 @@ class OpenStackNovaUser {
 		$cacheLength = 3600;
 		$inProject = $wgMemc->get( $key );
 		if ( is_int( $inProject ) ) {
-			return (bool)$inRole;
+			return (bool)$inProject;
 		}
 
 		$filter = "(&(cn=$project)(member=$this->userDN)(owner=*))";
