@@ -173,15 +173,19 @@ class OpenStackNovaRole {
 		}
 	}
 
+	/**
+	 * @param $user
+	 * @return String string
+	 */
 	function getMemcKey( $user ) {
 		if ( $this->global ) {
 			$role = $this->getRoleName();
-			$key = wfMemcKey( 'openstackmanager', "globalrole-$role", $user->userDN );
-		} else {
-			$projectname = $this->project->getProjectName();
-			$role = $this->getRoleName();
-			$key = wfMemcKey( 'openstackmanager', "projectrole-$projectname-$role", $user->userDN );
+			return wfMemcKey( 'openstackmanager', "globalrole-$role", $user->userDN );
 		}
+
+		$projectname = $this->project->getProjectName();
+		$role = $this->getRoleName();
+		return wfMemcKey( 'openstackmanager', "projectrole-$projectname-$role", $user->userDN );
 	}
 
 	/**
