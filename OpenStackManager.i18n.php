@@ -4525,11 +4525,19 @@ $messages['it'] = array(
 
 /** Japanese (日本語)
  * @author Fryed-peach
+ * @author Shirayuki
  */
 $messages['ja'] = array(
 	'openstackmanager-delete' => '削除',
 	'openstackmanager-modify' => '改変',
-	'openstackmanager-novaproject-project' => 'プロジェクト',
+	'openstackmanager-rename' => '改名',
+	'openstackmanager-reboot' => '再起動',
+	'openstackmanager-createdomain' => 'ドメインを作成',
+	'openstackmanager-deletedomain' => 'ドメインを削除',
+	'openstackmanager-novadomain-domain' => 'ドメインを追加',
+	'openstackmanager-domainlist' => 'ドメイン一覧',
+	'openstackmanager-domainname' => 'ドメイン名',
+	'openstackmanager-novaproject-project' => 'プロジェクトを追加',
 );
 
 /** Georgian (ქართული)
@@ -6498,17 +6506,23 @@ $messages['pms'] = array(
 $messages['ps'] = array(
 	'openstackmanager-delete' => 'ړنګول',
 	'openstackmanager-rename' => 'نوم بدلول',
-	'openstackmanager-novadomain-domain' => 'شپول',
+	'openstackmanager-novadomain-domain' => 'شپول ورګډول',
 	'openstackmanager-domainlist' => 'د شپول لړليک',
 	'openstackmanager-location' => 'ځای',
 	'openstackmanager-name' => 'نوم',
+	'openstackmanager-addmember' => 'غړی ورګډول',
+	'openstackmanager-createproject' => 'پروژه ورګډول',
 	'openstackmanager-projectname' => 'د پروژې نوم',
 	'openstackmanager-members' => 'غړي',
 	'openstackmanager-member' => 'غړی',
 	'openstackmanager-deleteproject' => 'پروژه ړنګول',
-	'openstackmanager-novaproject-project' => 'پروژه',
+	'openstackmanager-novaproject-project' => 'پروژه ورګډول',
+	'openstackmanager-projects' => 'پروژې',
+	'openstackmanager-createnewsecuritygroup' => 'ډله ورګډول',
 	'openstackmanager-sudoerusers' => 'کارنان',
 	'openstackmanager-sudoeroptions' => 'خوښنې',
+	'openstackmanager-puppetallprojects' => 'ټولې پروژې',
+	'openstackmanager-createpuppetgroup' => 'ډله ورګډول',
 );
 
 /** Portuguese (Português)
