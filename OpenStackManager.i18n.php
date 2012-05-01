@@ -1222,6 +1222,7 @@ $messages['br'] = array(
 	'openstackmanager-removedfrom' => 'Diverket eo bet $1 da $2 ervat.',
 	'openstackmanager-failedtoremove' => "N'eus ket bet gallet diverkañ $1 diwar $2.",
 	'openstackmanager-novaproject-project' => 'Ouzhpennañ ar raktres',
+	'openstackmanager-projects' => 'Raktresoù',
 	'openstackmanager-roles' => 'Roloù',
 	'openstackmanager-rolename' => 'Anv ar rol',
 	'openstackmanager-removerolemember' => 'Diverkañ an ezel',
