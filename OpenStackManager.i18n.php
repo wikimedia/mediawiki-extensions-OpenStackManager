@@ -4539,6 +4539,7 @@ $messages['ja'] = array(
 	'openstackmanager-domainlist' => 'ドメイン一覧',
 	'openstackmanager-domainname' => 'ドメイン名',
 	'openstackmanager-novaproject-project' => 'プロジェクトを追加',
+	'right-manageproject' => 'OpenStack プロジェクトと権限を管理',
 );
 
 /** Georgian (ქართული)
