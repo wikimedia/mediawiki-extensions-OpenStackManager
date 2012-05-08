@@ -1706,6 +1706,13 @@ $messages['de'] = array(
 	'right-manageproject' => 'OpenStack-Projekte und Rollen verwalten',
 );
 
+/** Zazaki (Zazaki)
+ * @author Mirzali
+ */
+$messages['diq'] = array(
+	'openstackmanager-name' => 'Name',
+);
+
 /** Esperanto (Esperanto)
  * @author Blahma
  * @author Yekrats
