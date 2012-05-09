@@ -175,7 +175,7 @@ class SpecialNovaAddress extends SpecialNova {
 		$addressInfo['instanceid'] = array(
 			'type' => 'select',
 			'label-message' => 'openstackmanager-instancename',
-			'options' => $instance_keys,
+			'options' => ksort( $instance_keys ),
 			'name' => 'instanceid',
 		);
 		$addressInfo['action'] = array(
