@@ -161,6 +161,9 @@ class SpecialNovaAddress extends SpecialNova {
 				$instance_keys["$instancename"] = $instanceid;
 			}
 		}
+		# Have it nicely sorted:
+		ksort( $instance_keys );
+
 		$addressInfo = array();
 		$addressInfo['project'] = array(
 			'type' => 'hidden',
@@ -175,7 +178,7 @@ class SpecialNovaAddress extends SpecialNova {
 		$addressInfo['instanceid'] = array(
 			'type' => 'select',
 			'label-message' => 'openstackmanager-instancename',
-			'options' => ksort( $instance_keys ),
+			'options' => $instance_keys,
 			'name' => 'instanceid',
 		);
 		$addressInfo['action'] = array(
