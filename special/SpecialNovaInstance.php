@@ -652,7 +652,7 @@ class SpecialNovaInstance extends SpecialNova {
 			$success = $host->modifyPuppetConfiguration( $this->getPuppetInfo( $formData ) );
 			if ( $success ) {
 				$instance->editArticle();
-				$this->getOutput()->addWikiMsg( 'openstackmanager-modifiedinstance' );
+				$this->getOutput()->addWikiMsg( 'openstackmanager-modifiedinstance', $instance->getInstanceId(), $instance->getInstanceName() );
 			} else {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-modifyinstancefailed' );
 			}
