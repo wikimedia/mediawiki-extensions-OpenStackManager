@@ -125,4 +125,3 @@ class LDAPSupportLib:
 			sys.stderr.write("Password incorrect.\n")
 			#traceback.print_exc(file=sys.stderr)
 			sys.exit(1)
-

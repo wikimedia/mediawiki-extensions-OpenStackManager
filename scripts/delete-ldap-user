@@ -2,15 +2,15 @@
 import sys, pwd, traceback, getpass, ldapsupportlib, homedirectorymanager
 from optparse import OptionParser
 
-try:    
-        import ldap
+try:
+	import ldap
 	import ldap.modlist
 except ImportError:
-        sys.stderr.write("Unable to import LDAP library.\n")
-        sys.exit(1)
+	sys.stderr.write("Unable to import LDAP library.\n")
+	sys.exit(1)
 
 def main():
-        parser = OptionParser(conflict_handler="resolve")
+	parser = OptionParser(conflict_handler="resolve")
 	parser.set_usage('delete-ldap-user [options] <username>')
 
 	ldapSupportLib = ldapsupportlib.LDAPSupportLib()
@@ -29,8 +29,8 @@ def main():
 
 	ds = ldapSupportLib.connect()
 
-        # w00t We're in!
-        try:
+	# w00t We're in!
+	try:
 		username = args[0]
 		dn = 'uid=' + username + ',ou=people,' + base
 		ds.delete_s(dn)
@@ -39,11 +39,11 @@ def main():
 			hdm = homedirectorymanager.HomeDirectoryManager()
 			hdm.deleteUser(username)
 	except ldap.UNWILLING_TO_PERFORM, msg:
-                sys.stderr.write("LDAP was unwilling to delete the user. Error was: %s\n" % msg[0]["info"])
+		sys.stderr.write("LDAP was unwilling to delete the user. Error was: %s\n" % msg[0]["info"])
 		ds.unbind()
 		sys.exit(1)
 	except ldap.NO_SUCH_OBJECT:
-                sys.stderr.write("The user you are trying to delete does not exists.\n")
+		sys.stderr.write("The user you are trying to delete does not exists.\n")
 		ds.unbind()
 		sys.exit(1)
 	except ldap.PROTOCOL_ERROR:
@@ -51,17 +51,17 @@ def main():
 		traceback.print_exc(file=sys.stderr)
 		ds.unbind()
 		sys.exit(1)
-        except Exception:
+	except Exception:
 		try:
-                	sys.stderr.write("There was a general error, this is unexpected; see traceback.\n")
+			sys.stderr.write("There was a general error, this is unexpected; see traceback.\n")
 			traceback.print_exc(file=sys.stderr)
 			ds.unbind()
 		except Exception:
-                	sys.stderr.write("Also failed to unbind.\n")
+			sys.stderr.write("Also failed to unbind.\n")
 			traceback.print_exc(file=sys.stderr)
 		sys.exit(1)
 
-        ds.unbind()
+	ds.unbind()
 	sys.exit(0)
 
 if __name__ == "__main__":

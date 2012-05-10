@@ -2,15 +2,15 @@
 import sys, os, getpass, socket, copy, string, ldapsupportlib, traceback
 from optparse import OptionParser
 
-try:    
-        import ldap
+try:
+	import ldap
 	import ldap.modlist
 except ImportError:
-        sys.stderr.write("Unable to import LDAP library.\n")
-        sys.exit(1)
+	sys.stderr.write("Unable to import LDAP library.\n")
+	sys.exit(1)
 
 def main():
-        parser = OptionParser(conflict_handler="resolve")
+	parser = OptionParser(conflict_handler="resolve")
 	parser.set_usage('netgroup-mod [options] netgroup-name [host|-u user] [-f|--file filename]\n\nexample: netgroup-mod "test-ng" "fenari.wikimedia.org"\nexample: netgroup-mod "test-ng" -f test.file')
 
 	ldapSupportLib = ldapsupportlib.LDAPSupportLib()
@@ -35,8 +35,8 @@ def main():
 
 	ds = ldapSupportLib.connect()
 
-        # w00t We're in!
-        try:
+	# w00t We're in!
+	try:
 		if options.hosts:
 			PosixData = ds.search_s("ou=hosts," + base,ldap.SCOPE_SUBTREE,"(&(objectclass=iphost)(cn=*))")
 		elif options.netgroups:
@@ -152,48 +152,48 @@ def main():
 				ds.unbind()
 				sys.exit(1)
 	except ldap.UNWILLING_TO_PERFORM, msg:
-                sys.stderr.write("The search returned an error. Error was: %s\n" % msg[0]["info"])
+		sys.stderr.write("The search returned an error. Error was: %s\n" % msg[0]["info"])
 		ds.unbind()
 		sys.exit(1)
-        except ldap.NO_SUCH_OBJECT:
-                sys.stderr.write("The netgroup provided cannot be found, please try again.\n")
+	except ldap.NO_SUCH_OBJECT:
+		sys.stderr.write("The netgroup provided cannot be found, please try again.\n")
 		ds.unbind()
 		sys.exit(1)
 	except ldap.TYPE_OR_VALUE_EXISTS:
-                sys.stderr.write("The host/user you are trying to add is already in the netgroup you provided.\n")
+		sys.stderr.write("The host/user you are trying to add is already in the netgroup you provided.\n")
 		ds.unbind()
 		sys.exit(1)
 	except ldap.PROTOCOL_ERROR:
 		if options.delete:
-	                sys.stderr.write("The host/user you are trying to remove is not in the netgroup you provided.\n")
+			sys.stderr.write("The host/user you are trying to remove is not in the netgroup you provided.\n")
 		else:
 			sys.stderr.write("There was an LDAP protocol error, please contact an administrator via the helpdesk.\n")
 		ds.unbind()
 		sys.exit(1)
-        #except Exception:
+	#except Exception:
 	#	try:
 	#		ds.unbind()
-        #        	sys.stderr.write("There was a general error, please contact an administrator via the helpdesk.\n")
+	#		sys.stderr.write("There was a general error, please contact an administrator via the helpdesk.\n")
 	#	except Exception:
 	#		pass
 	#	sys.exit(1)
 
-        # /End of stolen stuff
+	# /End of stolen stuff
 
-        # PosixData is a list of lists where:
-        # index 0 of PosixData[N]: contains the distinquished name
-        # index 1 of PosixData[N]: contains a dictionary of lists hashed by the following keys:
-        #               telephoneNumber, departmentNumber, uid, objectClass, loginShell,
-        #               uidNumber, gidNumber, sn, homeDirectory, givenName, cn
+	# PosixData is a list of lists where:
+	# index 0 of PosixData[N]: contains the distinquished name
+	# index 1 of PosixData[N]: contains a dictionary of lists hashed by the following keys:
+	#               telephoneNumber, departmentNumber, uid, objectClass, loginShell,
+	#               uidNumber, gidNumber, sn, homeDirectory, givenName, cn
 
 	if options.hosts or options.netgroups:
-	        for i in range(len(PosixData)):
-                	if options.hosts:
-	                        print "hostname: " + PosixData[i][1]["cn"][0]
-        	                print "	IP: " + PosixData[i][1]["ipHostNumber"][0]
-                	elif options.netgroups:
+		for i in range(len(PosixData)):
+			if options.hosts:
+				print "hostname: " + PosixData[i][1]["cn"][0]
+				print "	IP: " + PosixData[i][1]["ipHostNumber"][0]
+			elif options.netgroups:
 				if not (options.showhost or options.showshares or options.showuser):
-		                        print "Netgroup Name: " + PosixData[i][1]["cn"][0]
+					print "Netgroup Name: " + PosixData[i][1]["cn"][0]
 				else:
 					if options.showhost:
 						if "ou=host" in PosixData[i][0]:
@@ -214,15 +214,15 @@ def main():
 		else:
 			print "The " + netgrouptype + "(s) were successfully added."
 
-        ds.unbind()
+	ds.unbind()
 	sys.exit(0)
 
 def checkargs(options, args):
 	if (len(args) < 2 or len(args) > 2):
 		if options.file and len(args) == 1:
 			return
-                sys.stderr.write("Invalid syntax, please see \"netgroup-mod --help\"\n")
-                sys.exit(1)
+		sys.stderr.write("Invalid syntax, please see \"netgroup-mod --help\"\n")
+		sys.exit(1)
 
 def infofromfile(list, changetype, file, netgrouptype, PosixCheckData):
 	f = open(file)

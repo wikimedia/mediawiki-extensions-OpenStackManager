@@ -2,11 +2,11 @@
 import sys, traceback, re, ldapsupportlib
 from optparse import OptionParser
 
-try:    
-        import ldap
+try:
+	import ldap
 except ImportError:
-        sys.stderr.write("Unable to import LDAP library.\n")
-        sys.exit(1)
+	sys.stderr.write("Unable to import LDAP library.\n")
+	sys.exit(1)
 
 def main():
 	"An application that implements the functionality of Solaris's ldaplist."
@@ -37,7 +37,7 @@ def main():
 	if options.showdatabase:
 		showdatabase(objectbasedns, args)
 		sys.exit()
-	
+
 	if options.helpme:
 		print ""
 		print 'database'.ljust(17) + 'default type'.ljust(20) + 'objectclass'
@@ -105,23 +105,23 @@ def main():
 					attributes = options.showattributes
 				print "+++ database=" + database
 				print "+++ filter=(&(objectclass=" + objectclass + ")(" + attribute + searchoperator + searchkey + ")) " + attributes
-		        PosixData = ds.search_s(base,ldap.SCOPE_SUBTREE,"(&(objectclass=" + objectclass + ")(" + attribute + searchoperator + searchkey + "))",attrlist)
+			PosixData = ds.search_s(base,ldap.SCOPE_SUBTREE,"(&(objectclass=" + objectclass + ")(" + attribute + searchoperator + searchkey + "))",attrlist)
 		else:
 			if options.verbose:
 				print "(objectclass=" + objectclass + ")"
-		        PosixData = ds.search_s(base,ldap.SCOPE_SUBTREE,"(objectclass=" + objectclass + ")")
+			PosixData = ds.search_s(base,ldap.SCOPE_SUBTREE,"(objectclass=" + objectclass + ")")
 	except ldap.NO_SUCH_OBJECT:
-	        sys.stderr.write("Object not found. If you are trying to use * in your search, make sure that you wrap your string in single quotes to avoid shell expansion.\n")
-	        ds.unbind()
-	        sys.exit(1)
+			sys.stderr.write("Object not found. If you are trying to use * in your search, make sure that you wrap your string in single quotes to avoid shell expansion.\n")
+			ds.unbind()
+			sys.exit(1)
 	except ldap.PROTOCOL_ERROR:
-	        sys.stderr.write("The search returned a protocol error, this shouldn't ever happen, please submit a trouble ticket.\n")
-	        ds.unbind()
-	        sys.exit(1)
-	except Exception: 
-	        sys.stderr.write("The search returned an error.\n")
-	        ds.unbind()
-	        sys.exit(1)
+			sys.stderr.write("The search returned a protocol error, this shouldn't ever happen, please submit a trouble ticket.\n")
+			ds.unbind()
+			sys.exit(1)
+	except Exception:
+			sys.stderr.write("The search returned an error.\n")
+			ds.unbind()
+			sys.exit(1)
 
 	PosixData.sort()
 	# /End of stolen stuff
@@ -152,13 +152,13 @@ def main():
 		# clean up
 		ds.unbind()
 		sys.exit(0)
-	
+
 	for i in range(len(PosixData)):
 		print ""
 		if not options.longlisting:
-		        print "dn: " + PosixData[i][0]
+			print "dn: " + PosixData[i][0]
 		else:
-		        print "dn: " + PosixData[i][0]
+			print "dn: " + PosixData[i][0]
 			for (k,v) in PosixData[i][1].items():
 				if len(v) > 1:
 					for v2 in v:

@@ -3,25 +3,25 @@ import sys, traceback, os, datetime, ldapsupportlib, shutil, pwd, re, pycurl
 from optparse import OptionParser
 from cStringIO import StringIO
 
-try:    
-        import ldap
+try:
+	import ldap
 	import ldap.modlist
 except ImportError:
-        sys.stderr.write("Unable to import LDAP library.\n")
-        sys.exit(1)
+	sys.stderr.write("Unable to import LDAP library.\n")
+	sys.exit(1)
 
 class HomeDirectoryManager:
 
-        def __init__(self):
+	def __init__(self):
 		###################################################
 		# Configuration options                           #
 		###################################################
 
 		# Change this if we change the home directory location!
-                self.basedir = '/home/'
+		self.basedir = '/home/'
 
 		# Directory to move deleted user's home directories
-                self.savedir = self.basedir + 'SAVE/'
+		self.savedir = self.basedir + 'SAVE/'
 
 		# Add to this array if we add LDAP accounts that shouldn't
 		# have NFS mounted home directories.
@@ -63,8 +63,8 @@ class HomeDirectoryManager:
 		ds = ldapSupportLib.connect()
 		self.logDebug("Connected")
 
-	        # w00t We're in!
-	        try:
+		# w00t We're in!
+		try:
 			# get all user's uids
 			UsersData = ldapSupportLib.getUsers(ds, '*')
 			self.logDebug("Pulled the user information")
@@ -97,21 +97,21 @@ class HomeDirectoryManager:
 			self.changeUid(AllUsers)
 			self.moveUsers(AllUsers)
 			self.createHomeDir(AllUsers)
-			
+
 		except ldap.UNWILLING_TO_PERFORM, msg:
-	                sys.stderr.write("The search returned an error. Error was: %s\n" % msg[0]["info"])
+			sys.stderr.write("The search returned an error. Error was: %s\n" % msg[0]["info"])
 			ds.unbind()
 			sys.exit(1)
-	        except Exception:
+		except Exception:
 			try:
-	                	sys.stderr.write("There was a general error, please contact an administrator via the helpdesk. Please include the following stack trace with your report:\n")
+				sys.stderr.write("There was a general error, please contact an administrator via the helpdesk. Please include the following stack trace with your report:\n")
 				traceback.print_exc(file=sys.stderr)
 				ds.unbind()
 			except Exception:
 				pass
 			sys.exit(1)
 
-	        ds.unbind()
+		ds.unbind()
 		sys.exit(0)
 
 	# Creates home directories for new users. Will not create home directories
@@ -169,7 +169,7 @@ class HomeDirectoryManager:
 
 	def uniqueKeys(self, keys):
 		uniqueKeys = []
-	        [uniqueKeys.append(i) for i in keys if not uniqueKeys.count(i)]
+		[uniqueKeys.append(i) for i in keys if not uniqueKeys.count(i)]
 
 		return uniqueKeys
 

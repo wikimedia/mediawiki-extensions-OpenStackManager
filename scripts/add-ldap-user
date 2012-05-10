@@ -3,15 +3,15 @@ import sys, pwd, traceback, getpass, re, ldapsupportlib, pycurl, homedirectoryma
 from optparse import OptionParser
 from cStringIO import StringIO
 
-try:    
-        import ldap
+try:
+	import ldap
 	import ldap.modlist
 except ImportError:
-        sys.stderr.write("Unable to import LDAP library.\n")
-        sys.exit(1)
+	sys.stderr.write("Unable to import LDAP library.\n")
+	sys.exit(1)
 
 def main():
-        parser = OptionParser(conflict_handler="resolve")
+	parser = OptionParser(conflict_handler="resolve")
 	parser.set_usage('add-ldap-user [options] <username> <key(s)>\nexample: add-ldap-user laner http://ryandlane.com/static/pubkey.key')
 
 	ldapSupportLib = ldapsupportlib.LDAPSupportLib()
@@ -36,8 +36,8 @@ def main():
 
 	ds = ldapSupportLib.connect()
 
-        # w00t We're in!
-        try:
+	# w00t We're in!
+	try:
 		username = args[0]
 
 		keyLocation = args[1]
@@ -61,7 +61,7 @@ def main():
 
 		# We need to ensure the keys are unique to avoid an exception
 		uniqueKeys = []
-	        [uniqueKeys.append(i) for i in keys if not uniqueKeys.count(i)]
+		[uniqueKeys.append(i) for i in keys if not uniqueKeys.count(i)]
 		keys = uniqueKeys
 
 		dn = 'uid=' + username + ',ou=people,' + base
@@ -119,11 +119,11 @@ def main():
 		hdm = homedirectorymanager.HomeDirectoryManager()
 		hdm.createHomeDir(userdict)
 	except ldap.UNWILLING_TO_PERFORM, msg:
-                sys.stderr.write("LDAP was unwilling to create the user. Error was: %s\n" % msg[0]["info"])
+		sys.stderr.write("LDAP was unwilling to create the user. Error was: %s\n" % msg[0]["info"])
 		ds.unbind()
 		sys.exit(1)
 	except ldap.TYPE_OR_VALUE_EXISTS:
-                sys.stderr.write("The user you are trying to add already exists.\n")
+		sys.stderr.write("The user you are trying to add already exists.\n")
 		traceback.print_exc(file=sys.stderr)
 		ds.unbind()
 		sys.exit(1)
@@ -132,17 +132,17 @@ def main():
 		traceback.print_exc(file=sys.stderr)
 		ds.unbind()
 		sys.exit(1)
-        except Exception:
+	except Exception:
 		try:
-                	sys.stderr.write("There was a general error, this is unexpected; see traceback.\n")
+			sys.stderr.write("There was a general error, this is unexpected; see traceback.\n")
 			traceback.print_exc(file=sys.stderr)
 			ds.unbind()
 		except Exception:
-                	sys.stderr.write("Also failed to unbind.\n")
+			sys.stderr.write("Also failed to unbind.\n")
 			traceback.print_exc(file=sys.stderr)
 		sys.exit(1)
 
-        ds.unbind()
+	ds.unbind()
 	sys.exit(0)
 
 if __name__ == "__main__":

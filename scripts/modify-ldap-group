@@ -2,15 +2,15 @@
 import sys, pwd, grp, traceback, getpass, ldapsupportlib, copy
 from optparse import OptionParser
 
-try:    
-        import ldap
+try:
+	import ldap
 	import ldap.modlist
 except ImportError:
-        sys.stderr.write("Unable to import LDAP library.\n")
-        sys.exit(1)
+	sys.stderr.write("Unable to import LDAP library.\n")
+	sys.exit(1)
 
 def main():
-        parser = OptionParser(conflict_handler="resolve")
+	parser = OptionParser(conflict_handler="resolve")
 	parser.set_usage('modify-ldap-group [options] <groupname> [--rename <newusergroup>]\nexample: modify-ldap-group --gid=501 wikidev')
 
 	ldapSupportLib = ldapsupportlib.LDAPSupportLib()
@@ -35,8 +35,8 @@ def main():
 
 	ds = ldapSupportLib.connect()
 
-        # w00t We're in!
-        try:
+	# w00t We're in!
+	try:
 		groupname = args[0]
 		PosixData = ds.search_s("ou=group," + base,ldap.SCOPE_SUBTREE,"(&(objectclass=posixGroup)(cn=" + groupname + "))")
 		if not PosixData:
@@ -70,13 +70,13 @@ def main():
 						# uniqueMember expects DNs
 						if 'uniqueMember' in NewPosixData.keys():
 							if membertoadd in NewPosixData['uniqueMember']:
-                						sys.stderr.write(raw_member + " is already a member of the group, skipping.\n")
+								sys.stderr.write(raw_member + " is already a member of the group, skipping.\n")
 							else:
 								NewPosixData['uniqueMember'].append(membertoadd)
 						else:
 							NewPosixData['uniqueMember'] = [ membertoadd ]
 					except KeyError:
-                				sys.stderr.write(raw_member + " doesn't exist, and won't be added to the group.\n")
+						sys.stderr.write(raw_member + " doesn't exist, and won't be added to the group.\n")
 			elif options.deleteMembers:
 				raw_members = options.deleteMembers.split(',')
 				for raw_member in raw_members:
@@ -85,21 +85,21 @@ def main():
 						if membertoremove in NewPosixData['uniqueMember']:
 							NewPosixData['uniqueMember'].remove(membertoremove)
 						else:
-       		         				sys.stderr.write(raw_member + " isn't a member of the group, skipping.\n")
+							sys.stderr.write(raw_member + " isn't a member of the group, skipping.\n")
 					else:
-       		         				sys.stderr.write("This group contains no members.\n")
+						sys.stderr.write("This group contains no members.\n")
 
 			if PosixData == NewPosixData:
-                		sys.stderr.write("No changes to make; exiting.\n")
+				sys.stderr.write("No changes to make; exiting.\n")
 			else:
 				modlist = ldap.modlist.modifyModlist(PosixData,NewPosixData)
 				ds.modify_s(dn, modlist)
 	except ldap.UNWILLING_TO_PERFORM, msg:
-                sys.stderr.write("LDAP was unwilling to modify the group. Error was: %s\n" % msg[0]["info"])
+		sys.stderr.write("LDAP was unwilling to modify the group. Error was: %s\n" % msg[0]["info"])
 		ds.unbind()
 		sys.exit(1)
 	except ldap.NO_SUCH_OBJECT:
-                sys.stderr.write("The group you are trying to modify doesn't exist.\n")
+		sys.stderr.write("The group you are trying to modify doesn't exist.\n")
 		ds.unbind()
 		sys.exit(1)
 	except ldap.TYPE_OR_VALUE_EXISTS:
@@ -111,17 +111,17 @@ def main():
 		traceback.print_exc(file=sys.stderr)
 		ds.unbind()
 		sys.exit(1)
-        except Exception:
+	except Exception:
 		try:
-                	sys.stderr.write("There was a general error, this is unexpected; see traceback.\n")
+			sys.stderr.write("There was a general error, this is unexpected; see traceback.\n")
 			traceback.print_exc(file=sys.stderr)
 			ds.unbind()
 		except Exception:
-                	sys.stderr.write("Also failed to unbind.\n")
+			sys.stderr.write("Also failed to unbind.\n")
 			traceback.print_exc(file=sys.stderr)
 		sys.exit(1)
 
-        ds.unbind()
+	ds.unbind()
 	sys.exit(0)
 
 if __name__ == "__main__":
