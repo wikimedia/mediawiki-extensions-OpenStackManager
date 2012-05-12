@@ -1606,11 +1606,11 @@ $messages['de'] = array(
 	'openstackmanager-novasecuritygroup-singlerule' => 'Individuelle Regel',
 	'openstackmanager-novasecuritygroup-group' => 'Gruppenregel',
 	'openstackmanager-securitygrouprule-group-exclusive' => 'Hinweis: Gruppenregeln und individuelle Regeln werden jeweils exklusiv angewandt.',
-	'openstackmanager-securitygrouprule-toport' => 'Zu Port',
-	'openstackmanager-securitygrouprule-fromport' => 'Von Port',
+	'openstackmanager-securitygrouprule-toport' => 'Ende des Portbereichs',
+	'openstackmanager-securitygrouprule-fromport' => 'Beginn des Portbereichs',
 	'openstackmanager-securitygrouprule-protocol' => 'Protokoll',
 	'openstackmanager-securitygrouprule-ipranges' => 'CIDR-Bereiche',
-	'openstackmanager-securitygrouprule-groups' => 'Sicherheitsgruppen',
+	'openstackmanager-securitygrouprule-groups' => 'Quellgruppe',
 	'openstackmanager-createnewsecuritygroup' => 'Gruppe hinzufügen',
 	'openstackmanager-addrule-action' => 'Regel hinzufügen',
 	'openstackmanager-removerule-action' => 'Regel entfernen',
@@ -3602,11 +3602,11 @@ $messages['he'] = array(
 	'openstackmanager-novasecuritygroup-singlerule' => 'חוק בודד',
 	'openstackmanager-novasecuritygroup-group' => 'חוק קבוצתי',
 	'openstackmanager-securitygrouprule-group-exclusive' => 'לתשומת לבך: חוקים בודדים וחוקים קבוצתיים סותרים זה את זה. יש לבחור אחד מהם ולא את שניהם.',
-	'openstackmanager-securitygrouprule-toport' => 'אל הפתחה',
-	'openstackmanager-securitygrouprule-fromport' => 'מהפתחה',
+	'openstackmanager-securitygrouprule-toport' => 'סוף טווח הפורטים',
+	'openstackmanager-securitygrouprule-fromport' => 'תחילת טווח הפורטים',
 	'openstackmanager-securitygrouprule-protocol' => 'פרוטוקול',
 	'openstackmanager-securitygrouprule-ipranges' => 'טווחי CIDR',
-	'openstackmanager-securitygrouprule-groups' => 'קבוצות אבטחה',
+	'openstackmanager-securitygrouprule-groups' => 'קבוצת מקור',
 	'openstackmanager-createnewsecuritygroup' => 'הוספת קבוצה',
 	'openstackmanager-addrule-action' => 'הוספת חוק',
 	'openstackmanager-removerule-action' => 'מחיקת חוק',
@@ -5807,11 +5807,11 @@ $messages['nl'] = array(
 	'openstackmanager-novasecuritygroup-singlerule' => 'Afzonderlijke regel',
 	'openstackmanager-novasecuritygroup-group' => 'Groepsregel',
 	'openstackmanager-securitygrouprule-group-exclusive' => 'Let op: groepsregels en afzonderlijke regels sluiten elkaar uit.',
-	'openstackmanager-securitygrouprule-toport' => 'Naar poort',
-	'openstackmanager-securitygrouprule-fromport' => 'Van poort',
+	'openstackmanager-securitygrouprule-toport' => 'Einde van poortbereik',
+	'openstackmanager-securitygrouprule-fromport' => 'Begin van poortbereik',
 	'openstackmanager-securitygrouprule-protocol' => 'Protocol',
 	'openstackmanager-securitygrouprule-ipranges' => 'CIDR-reeksen',
-	'openstackmanager-securitygrouprule-groups' => 'Beveiigingsgroepen',
+	'openstackmanager-securitygrouprule-groups' => 'Brongroep',
 	'openstackmanager-createnewsecuritygroup' => 'Groep toevoegen',
 	'openstackmanager-addrule-action' => 'regel toevoegen',
 	'openstackmanager-removerule-action' => 'regel verwijderen',
@@ -6094,10 +6094,10 @@ $messages['pl'] = array(
 	'openstackmanager-actions' => 'Akcje',
 	'openstackmanager-notloggedin' => 'Wymagane logowanie',
 	'openstackmanager-mustbeloggedin' => 'Użytkownik musi być zalogowany do wykonania tej operacji.',
-	'openstackmanager-nonovacred' => 'No Nova credentials found for your account.',
-	'openstackmanager-nonovacred-admincreate' => 'There were no Nova credentials found for your user account. Please ask a Nova administrator to create credentials for you.',
-	'openstackmanager-noaccount' => 'Your account is not in the project requested.',
-	'openstackmanager-noaccount2' => 'You can not complete the action requested as your user account is not in the project requested.',
+	'openstackmanager-nonovacred' => 'Brak uprawnień Nova dla twojego konta.',
+	'openstackmanager-nonovacred-admincreate' => 'Dla twojego konta użytkownika nie znaleziono uprawnień Nova. Poproś administratora Nova o nadanie ci uprawnień.',
+	'openstackmanager-noaccount' => 'Twojego konta nie ma w żądanym projekcie.',
+	'openstackmanager-noaccount2' => 'Nie możesz zakończyć wykonywania żądanej akcji, ponieważ nie ma twojego konta w tym projekcie.',
 	'openstackmanager-createdomain' => 'Utwórz domenę',
 	'openstackmanager-deletedomain' => 'Usuń domenę',
 	'openstackmanager-deletedomain-confirm' => 'Czy jesteś {{GENDER:|pewien|pewna}}, że chcesz skasować domenę "$1"? Ta akcja spowoduje usunięcie domeny ze wszystkich maszyn wirtualnych. Nie podejmuj tej akcji zbyt pochopnie.',
@@ -7250,6 +7250,35 @@ $messages['si'] = array(
 	'right-manageproject' => 'විවෘතරාක්ක ව්‍යපෘති සහ කාර්ය සංකේත කළමනාකරණය කරන්න',
 );
 
+/** Slovenian (Slovenščina)
+ * @author Irena Plahuta
+ */
+$messages['sl'] = array(
+	'openstackmanager-novaproject' => 'Projekt Nova',
+	'openstackmanager-delete' => 'Izbriši',
+	'openstackmanager-configure' => 'Konfiguriraj',
+	'openstackmanager-modify' => 'Spremeni',
+	'openstackmanager-rename' => 'preimenuj',
+	'openstackmanager-reboot' => 'ponovno zaženi',
+	'openstackmanager-actions' => 'Dejanja',
+	'openstackmanager-notloggedin' => 'Zahteva se prijava.',
+	'openstackmanager-mustbeloggedin' => 'Za izvedbo tega dejanja se morate prijaviti.',
+	'openstackmanager-nonovacred-admincreate' => 'Za Vaš račun nismo našli nobene poverilnice. Prosimo, zaprosite administratorja Nove, da ustvari poverilnice za Vas.',
+	'openstackmanager-noaccount' => 'Na želenem projektu ni Vašega računa.',
+	'openstackmanager-noaccount2' => 'Dejanja ne morete dokončati, saj na želenem projektu ni Vašega računa.',
+	'openstackmanager-nonexistentresource' => 'Ta vir ne obstaja.',
+	'openstackmanager-createdomain' => 'Ustvarite domeno',
+	'openstackmanager-deletedomain' => 'Brisanje domene',
+	'openstackmanager-deletedomain-confirm' => 'Ste prepričani, da želite izbrisati domeno $1? To dejanje vpiva na vse VM. Ne počnite tega brez razmisleka!',
+	'openstackmanager-novadomain-domain' => 'Dodajte domeno',
+	'openstackmanager-createdomainfailed' => 'Ustvarjanje domene ni uspelo.',
+	'openstackmanager-createddomain' => 'Domena je ustvarjena.',
+	'openstackmanager-domainlist' => 'Seznam domen',
+	'openstackmanager-backdomainlist' => 'Nazaj na seznam domen.',
+	'openstackmanager-addadditionaldomain' => 'Dodajte drugo domeno.',
+	'openstackmanager-deleteddomain' => 'Domena je uspešno izbrisana.',
+);
+
 /** Swedish (Svenska)
  * @author WikiPhoenix
  */
@@ -7693,6 +7722,27 @@ $messages['tl'] = array(
 	'openstackmanager-email-subject' => 'Ang pagkakataon mo ay nakahanda na upang malagdaang papasok.',
 	'openstackmanager-email-body' => 'Nalikha na ang sumusunod na pagkakataon, at nakahanda na upang malagdaang papasok:',
 	'right-manageproject' => 'Pamahalaan ang mga proyekto ng Openstack at mga gampanin',
+);
+
+/** Turkish (Türkçe)
+ * @author Suelnur
+ */
+$messages['tr'] = array(
+	'openstackmanager-delete' => 'sil',
+	'openstackmanager-name' => 'Ad',
+	'openstackmanager-addmember' => 'Üye ekle',
+	'openstackmanager-createproject' => 'Proje ekle',
+	'openstackmanager-members' => 'Üyeler',
+	'openstackmanager-projectlist' => 'Proje listesi',
+	'openstackmanager-deleteproject' => 'Sil',
+	'openstackmanager-novaproject-project' => 'Proje ekle',
+	'openstackmanager-addrolemember' => 'Üye ekle',
+	'openstackmanager-addrule-action' => 'kural ekle',
+	'openstackmanager-sudoerusers' => 'Kullanıcılar',
+	'openstackmanager-puppetallprojects' => 'Tüm projeler',
+	'openstackmanager-deletepuppetgroup' => 'Kukla grubunu sil',
+	'openstackmanager-deletedpuppetgroup' => 'Silinen kukla grubu.',
+	'openstackmanager-puppetgroupname' => 'Kukla grubu adı',
 );
 
 /** Ukrainian (Українська)
