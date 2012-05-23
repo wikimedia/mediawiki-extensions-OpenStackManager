@@ -20,6 +20,12 @@ $specialPageAliases['ar'] = array(
 	'OpenStackManageInstance' => array( 'التحكم_بها' ),
 );
 
+/** German (Deutsch) */
+$specialPageAliases['de'] = array(
+	'OpenStackManager' => array( 'OpenStack-Verwaltung' ),
+	'OpenStackManageInstance' => array( 'Instanz_verwalten' ),
+);
+
 /** Interlingua (Interlingua) */
 $specialPageAliases['ia'] = array(
 	'OpenStackManager' => array( 'Gerentia_de_OpenStack' ),
