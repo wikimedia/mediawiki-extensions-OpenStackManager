@@ -4943,6 +4943,7 @@ $messages['ja'] = array(
 );
 
 /** Georgian (ქართული)
+ * @author BRUTE
  * @author David1010
  */
 $messages['ka'] = array(
@@ -4971,6 +4972,14 @@ $messages['ka'] = array(
 	'openstackmanager-createproject' => 'პროექტის დამატება',
 	'openstackmanager-projectname' => 'პროექტის სახელი',
 	'openstackmanager-members' => 'წევრები',
+	'openstackmanager-member' => 'წევრი',
+	'openstackmanager-createdproject' => 'პროექტი შექმნილია.',
+	'openstackmanager-projectlist' => 'პროექტების სია',
+	'openstackmanager-backprojectlist' => 'პროექტის სიაში დაბრუნება',
+	'openstackmanager-addadditionalproject' => 'სხვა პროექტის დამატება.',
+	'openstackmanager-deleteproject' => 'წაშლა',
+	'openstackmanager-removerolemember' => 'წევრის წაშლა',
+	'openstackmanager-addrolemember' => 'წევრის დამატება',
 	'openstackmanager-addresslist' => 'საჯარო IP მისამართების სია',
 	'openstackmanager-address' => 'საჯარო IP მისამართები',
 	'openstackmanager-securitygroupdescription' => 'აღწერა',
