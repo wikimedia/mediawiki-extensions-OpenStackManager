@@ -1276,11 +1276,11 @@ $messages['br'] = array(
 	'openstackmanager-novasecuritygroup-singlerule' => 'Reolenn bersonel',
 	'openstackmanager-novasecuritygroup-group' => 'Reolenn strollad',
 	'openstackmanager-securitygrouprule-group-exclusive' => "Notenn : N'eo ket kenglotus ar reolennoù personel hag ar reolennoù strollad. Dibab an eil pe eben, ket an div.",
-	'openstackmanager-securitygrouprule-toport' => "D'ar porzh",
-	'openstackmanager-securitygrouprule-fromport' => 'Adalek ar porzh',
+	'openstackmanager-securitygrouprule-toport' => 'Dibenn an heuliad porzhioù',
+	'openstackmanager-securitygrouprule-fromport' => 'Deroù an heuliad porzhioù',
 	'openstackmanager-securitygrouprule-protocol' => 'Protokol',
 	'openstackmanager-securitygrouprule-ipranges' => 'Renkoù CIDR',
-	'openstackmanager-securitygrouprule-groups' => 'Strolladoù surentez',
+	'openstackmanager-securitygrouprule-groups' => 'Strollad orin',
 	'openstackmanager-createnewsecuritygroup' => 'Ouzhpennañ ur strollad',
 	'openstackmanager-addrule-action' => 'ouzhpennañ ar reolenn',
 	'openstackmanager-removerule-action' => 'diverkañ ar reolenn',
@@ -7338,21 +7338,34 @@ $messages['roa-tara'] = array(
 /** Russian (Русский)
  * @author Eleferen
  * @author Haffman
+ * @author Kaganer
  * @author Александр Сигачёв
  * @author Тест
  */
 $messages['ru'] = array(
 	'openstackmanager-delete' => 'удалить',
+	'openstackmanager-configure' => 'настроить',
+	'openstackmanager-modify' => 'изменить',
 	'openstackmanager-rename' => 'переименовать',
+	'openstackmanager-reboot' => 'перезагрузить',
 	'openstackmanager-actions' => 'Действия',
 	'openstackmanager-notloggedin' => 'Требуется авторизация',
+	'openstackmanager-mustbeloggedin' => 'Для выполнения этого действия вы должны быть авторизованы.',
+	'openstackmanager-createdomain' => 'Создать домен',
+	'openstackmanager-deletedomain' => 'Удалить домен',
 	'openstackmanager-novadomain-domain' => 'Добавить домен',
 	'openstackmanager-instancetypelabel' => '{{PLURAL:$1|$1 процессор|$1 процессора|$1 процессоров}}, $2 Мб оперативной памяти, хранилище $3 Гб',
 	'openstackmanager-attach' => 'прикрепить',
 	'openstackmanager-detach' => 'открепить',
 	'openstackmanager-novaproject-project' => 'Добавить проект',
+	'openstackmanager-projects' => 'Проекты',
 	'openstackmanager-addresslist' => 'Список публичных IP-адресов',
 	'openstackmanager-address' => 'Публичный IP-адрес',
+	'openstackmanager-allocateaddress' => 'Назначить IP',
+	'openstackmanager-releaseaddress' => 'Удалить IP',
+	'openstackmanager-associateaddress' => 'Связать IP',
+	'openstackmanager-reassociateaddress' => 'Повторно связать IP',
+	'openstackmanager-disassociateaddress' => 'Отвязать IP',
 );
 
 /** Sanskrit (संस्कृतम्)
