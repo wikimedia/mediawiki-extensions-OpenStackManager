@@ -1078,7 +1078,7 @@ $messages['bn'] = array(
 	'openstackmanager-deletesudoer' => 'সুডো নীতি অপসারণ',
 );
 
-/** Breton (Brezhoneg)
+/** Breton (brezhoneg)
  * @author Fulup
  * @author Y-M D
  */
@@ -7335,7 +7335,7 @@ $messages['roa-tara'] = array(
 	'openstackmanager-puppetclassposition' => "Posizione d'a classe",
 );
 
-/** Russian (Русский)
+/** Russian (русский)
  * @author Eleferen
  * @author Haffman
  * @author Kaganer
