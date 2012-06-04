@@ -4984,6 +4984,7 @@ $messages['ka'] = array(
 	'openstackmanager-address' => 'საჯარო IP მისამართები',
 	'openstackmanager-securitygroupdescription' => 'აღწერა',
 	'openstackmanager-securitygrouprule' => 'წესები',
+	'openstackmanager-createnewsecuritygroup' => 'ჯგუფის დამატება',
 	'openstackmanager-sudoerusers' => 'მომხმარებლები',
 	'openstackmanager-sudoeroptions' => 'პარამეტრები',
 	'openstackmanager-puppetallprojects' => 'ყველა პროექტი',
