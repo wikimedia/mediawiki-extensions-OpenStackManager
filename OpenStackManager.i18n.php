@@ -4483,7 +4483,7 @@ $messages['ia'] = array(
 	'right-manageproject' => 'Gerer projectos e rolos de OpenStack',
 );
 
-/** Italian (Italiano)
+/** Italian (italiano)
  * @author Beta16
  * @author F. Cosoleto
  */
@@ -4739,6 +4739,8 @@ $messages['it'] = array(
 	'openstackmanager-removerulefailed' => 'Errore durante la rimozione della regola.',
 	'openstackmanager-addrule' => 'Aggiungi regola',
 	'openstackmanager-securitygrouprule-ranges' => 'Intervalli CIDR',
+	'openstackmanager-securitygrouprule-ranges-help' => 'Gli intervalli CIDR sono un elenco separato da virgole di intervalli.',
+	'openstackmanager-securitygrouprule-groups-help' => 'Per le istanze nei gruppi di sicurezza aggiunti saranno consentiti gli ingressi da tutte le porte e protocolli.',
 	'openstackmanager-addedrule' => 'Aggiunta regola riuscita.',
 	'openstackmanager-addrulefailed' => "Errore durante l'aggiunta della regola.",
 	'openstackmanager-createsudoer' => 'Crea politica Sudo',
