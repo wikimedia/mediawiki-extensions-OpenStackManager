@@ -4817,8 +4817,10 @@ $messages['it'] = array(
  * @author Shirayuki
  */
 $messages['ja'] = array(
+	'openstackmanager-desc' => '利用者が Nova と Swift を管理できるようにする',
 	'openstackmanager' => 'OpenStackManager',
 	'openstackmanager-title' => 'OpenStackManager',
+	'specialpages-group-nova' => 'OpenStack Nova',
 	'novaaddress' => '公開 IP アドレスを管理',
 	'novadomain' => 'DNS ドメインを管理',
 	'novaproject' => 'OpenStack プロジェクトを管理',
@@ -4845,6 +4847,7 @@ $messages['ja'] = array(
 	'openstackmanager-dnsdomain' => 'DNS ドメイン',
 	'openstackmanager-securitygroups' => 'セキュリティグループ',
 	'openstackmanager-consoleoutput' => 'コンソール出力',
+	'openstackmanager-getconsoleoutput' => 'コンソール出力を取得',
 	'openstackmanager-createvolume' => 'ボリュームを作成',
 	'openstackmanager-volumename' => 'ボリューム名',
 	'openstackmanager-volumeid' => 'ボリューム ID',
