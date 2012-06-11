@@ -455,7 +455,9 @@ $2: projectname',
 	'openstackmanager-sudoeroptions' => '{{Identical|Options}}',
 	'openstackmanager-email-subject' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-email-body' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
-	'right-manageproject' => '{{doc-right|manageproject}}',
+	'right-manageproject' => '{{doc-right|manageproject}}
+
+This is about OpernStack roles.',
 );
 
 /** Afrikaans (Afrikaans)
