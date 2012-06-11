@@ -26,13 +26,19 @@ $specialPageAliases['de'] = array(
 	'OpenStackManageInstance' => array( 'Instanz_verwalten' ),
 );
 
-/** Interlingua (Interlingua) */
+/** Interlingua (interlingua) */
 $specialPageAliases['ia'] = array(
 	'OpenStackManager' => array( 'Gerentia_de_OpenStack' ),
 	'OpenStackManageInstance' => array( 'Gerer_instantia' ),
 );
 
-/** Macedonian (Македонски) */
+/** Korean (한국어) */
+$specialPageAliases['ko'] = array(
+	'OpenStackManager' => array( '오픈스택관리자' ),
+	'OpenStackManageInstance' => array( '경우관리' ),
+);
+
+/** Macedonian (македонски) */
 $specialPageAliases['mk'] = array(
 	'OpenStackManager' => array( 'РаководителСоOpenStack' ),
 	'OpenStackManageInstance' => array( 'РаководиСоПримерок' ),
