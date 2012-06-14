@@ -720,14 +720,14 @@ $messages['af'] = array(
 	'right-manageproject' => 'Bestuur OpenStack projekte en rolle',
 );
 
-/** Asturian (Asturianu)
+/** Asturian (asturianu)
  * @author Xuacu
  */
 $messages['ast'] = array(
 	'openstackmanager-modify' => 'camudar',
 );
 
-/** Azerbaijani (Azərbaycanca)
+/** Azerbaijani (azərbaycanca)
  * @author Cekli829
  */
 $messages['az'] = array(
@@ -1009,7 +1009,7 @@ $messages['be-tarask'] = array(
 	'right-manageproject' => 'кіраваньне праектамі і ролямі Openstack',
 );
 
-/** Bulgarian (Български)
+/** Bulgarian (български)
  * @author DCLXVI
  */
 $messages['bg'] = array(
@@ -1370,7 +1370,7 @@ $messages['br'] = array(
 	'right-manageproject' => 'Merañ raktresoù ha rolloù Openstack',
 );
 
-/** Bosnian (Bosanski)
+/** Bosnian (bosanski)
  * @author CERminator
  */
 $messages['bs'] = array(
@@ -1903,7 +1903,7 @@ $messages['eo'] = array(
 	'openstackmanager-puppetvarposition' => 'Loko de variablo',
 );
 
-/** Spanish (Español)
+/** Spanish (español)
  * @author Armando-Martin
  * @author Imre
  * @author Platonides
@@ -2318,7 +2318,7 @@ $messages['fa'] = array(
 	'openstackmanager-puppetvarposition' => 'موقعیت متغیر',
 );
 
-/** Finnish (Suomi)
+/** Finnish (suomi)
  * @author Crt
  * @author Nedergard
  * @author Nike
@@ -2416,7 +2416,7 @@ $messages['fi'] = array(
 	'right-manageproject' => 'Hallita OpenStack-projekteja ja rooleja',
 );
 
-/** French (Français)
+/** French (français)
  * @author Crochet.david
  * @author Dereckson
  * @author Gomoko
@@ -2750,7 +2750,7 @@ $messages['fr'] = array(
 	'right-manageproject' => 'Gérer les rôles et projets Openstack',
 );
 
-/** Franco-Provençal (Arpetan)
+/** Franco-Provençal (arpetan)
  * @author ChrisPtDe
  */
 $messages['frp'] = array(
@@ -3963,7 +3963,7 @@ $messages['hsb'] = array(
 	'openstackmanager-puppetclassposition' => 'Pozicija klasy',
 );
 
-/** Hungarian (Magyar)
+/** Hungarian (magyar)
  * @author Dani
  * @author Dj
  * @author Misibacsi
@@ -4189,7 +4189,7 @@ $messages['hu'] = array(
 	'openstackmanager-puppetvars' => 'Változók',
 );
 
-/** Interlingua (Interlingua)
+/** Interlingua (interlingua)
  * @author McDutchie
  */
 $messages['ia'] = array(
@@ -5197,7 +5197,7 @@ $messages['lb'] = array(
 	'right-manageproject' => 'OpenStack Projeten a Rolle geréieren',
 );
 
-/** Lithuanian (Lietuvių)
+/** Lithuanian (lietuvių)
  * @author Eitvys200
  */
 $messages['lt'] = array(
@@ -5307,7 +5307,7 @@ $messages['lt'] = array(
 	'openstackmanager-sudoeroptions' => 'Pasirinktys',
 );
 
-/** Latvian (Latviešu)
+/** Latvian (latviešu)
  * @author GreenZeb
  */
 $messages['lv'] = array(
@@ -5319,7 +5319,7 @@ $messages['lv'] = array(
 	'openstackmanager-actions' => 'Darbības',
 );
 
-/** Macedonian (Македонски)
+/** Macedonian (македонски)
  * @author Bjankuloski06
  */
 $messages['mk'] = array(
@@ -6505,7 +6505,7 @@ $messages['pfl'] = array(
 	'openstackmanager-securitygrouprule' => 'Reschle',
 );
 
-/** Polish (Polski)
+/** Polish (polski)
  * @author Beau
  * @author BeginaFelicysym
  * @author Odder
@@ -6991,7 +6991,7 @@ $messages['ps'] = array(
 	'openstackmanager-createpuppetgroup' => 'ډله ورګډول',
 );
 
-/** Portuguese (Português)
+/** Portuguese (português)
  * @author Hamilton Abreu
  * @author SandroHc
  * @author Waldir
@@ -7259,7 +7259,7 @@ $messages['pt'] = array(
 	'right-manageproject' => 'Gerir os projectos e funções Openstack',
 );
 
-/** Tarandíne (Tarandíne)
+/** tarandíne (tarandíne)
  * @author Joetaras
  * @author Reder
  */
@@ -7710,7 +7710,7 @@ $messages['si'] = array(
 	'right-manageproject' => 'විවෘතරාක්ක ව්‍යපෘති සහ කාර්ය සංකේත කළමනාකරණය කරන්න',
 );
 
-/** Slovenian (Slovenščina)
+/** Slovenian (slovenščina)
  * @author Irena Plahuta
  */
 $messages['sl'] = array(
@@ -7739,7 +7739,7 @@ $messages['sl'] = array(
 	'openstackmanager-deleteddomain' => 'Domena je uspešno izbrisana.',
 );
 
-/** Swedish (Svenska)
+/** Swedish (svenska)
  * @author WikiPhoenix
  */
 $messages['sv'] = array(
@@ -7911,7 +7911,7 @@ $messages['te'] = array(
 	'openstackmanager-sudoeroptions' => 'ఎంపికలు',
 );
 
-/** Tetum (Tetun)
+/** Tetum (tetun)
  * @author MF-Warburg
  */
 $messages['tet'] = array(
@@ -8205,7 +8205,7 @@ $messages['tr'] = array(
 	'openstackmanager-puppetgroupname' => 'Kukla grubu adı',
 );
 
-/** Ukrainian (Українська)
+/** Ukrainian (українська)
  * @author Тест
  */
 $messages['uk'] = array(
@@ -8495,7 +8495,7 @@ $messages['yi'] = array(
 	'openstackmanager-sudoerusers' => 'באַניצער',
 );
 
-/** Simplified Chinese (‪中文(简体)‬)
+/** Simplified Chinese (‪中文（简体）‬)
  * @author Anakmalaysia
  * @author Hydra
  * @author Xiaomingyan
@@ -8825,7 +8825,7 @@ $messages['zh-hans'] = array(
 	'right-manageproject' => '管理OpenStack项目及作用',
 );
 
-/** Traditional Chinese (‪中文(繁體)‬)
+/** Traditional Chinese (‪中文（繁體）‬)
  * @author Anakmalaysia
  * @author Oapbtommy
  */
