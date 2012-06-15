@@ -246,7 +246,7 @@ class OpenStackNovaDomain {
 		$domain['objectclass'][] = 'dnsdomain';
 		$domain['objectclass'][] = 'domainrelatedobject';
 		$domain['dc'] = $domainname;
-		$domain['soarecord'] = $wgOpenStackManagerDNSOptions['servers']['primary'] . ' ' . $soa;
+		$domain['soarecord'] = $soa;
 		$domain['associateddomain'] = $fqdn;
 		if ( $location ) {
 			$domain['l'] = $location;
@@ -310,8 +310,9 @@ class OpenStackNovaDomain {
 	static function generateSOA() {
 		global $wgOpenStackManagerDNSOptions;
 
-		$serial = date( 'YmdHis' );
-		$soa = $wgOpenStackManagerDNSOptions['soa']['hostmaster'] . ' ' . $serial . ' ' .
+		$serial = date( 'U' );
+		$soa = $wgOpenStackManagerDNSOptions['servers']['primary'] . '. ' .
+			   $wgOpenStackManagerDNSOptions['soa']['hostmaster'] . '. ' . $serial . ' ' .
 			   $wgOpenStackManagerDNSOptions['soa']['refresh'] . ' ' .
 			   $wgOpenStackManagerDNSOptions['soa']['retry'] . ' ' .
 			   $wgOpenStackManagerDNSOptions['soa']['expiry'] . ' ' .
