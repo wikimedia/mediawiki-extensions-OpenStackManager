@@ -3052,7 +3052,7 @@ $messages['frp'] = array(
 	'right-manageproject' => 'Administrar los projèts OpenStack et los rolos',
 );
 
-/** Galician (Galego)
+/** Galician (galego)
  * @author Toliño
  */
 $messages['gl'] = array(
@@ -4278,7 +4278,7 @@ $messages['ia'] = array(
 	'openstackmanager-backinstancelist' => 'Retornar al lista de instantias',
 	'openstackmanager-deletedinstance' => 'Instantia $1 delite',
 	'openstackmanager-deletedinstance-faileddns' => 'Le instantia ha essite delite con successo, ma le remotion del entrata DNS $1 ha fallite.',
-	'openstackmanager-modifiedinstance' => 'Instantia modificate con successo.',
+	'openstackmanager-modifiedinstance' => 'Instantia $1 modificate con successo ($2).',
 	'openstackmanager-modifyinstancefailed' => 'Falleva de modificar instantia.',
 	'openstackmanager-deleteinstancefailed' => 'Falleva de deler instantia.',
 	'openstackmanager-consoleoutput' => 'Output del console',
