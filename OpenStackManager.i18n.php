@@ -742,7 +742,7 @@ $messages['az'] = array(
 	'openstackmanager-sudoerusers' => 'İstifadəçilər',
 );
 
-/** Belarusian (Taraškievica orthography) (‪Беларуская (тарашкевіца)‬)
+/** Belarusian (Taraškievica orthography) (‪беларуская (тарашкевіца)‬)
  * @author EugeneZelenko
  * @author Jim-by
  * @author Wizardist
@@ -3493,7 +3493,7 @@ $messages['he'] = array(
 	'openstackmanager-backinstancelist' => 'חזרה לרשימת מופעים',
 	'openstackmanager-deletedinstance' => 'מופע $1 נמחק.',
 	'openstackmanager-deletedinstance-faileddns' => 'מחיקת המופע הצליחה, אבל מחיקת ערך ה־DNS&rlm; $1 נכשלה.',
-	'openstackmanager-modifiedinstance' => 'המופע שונה בהצלחה.',
+	'openstackmanager-modifiedinstance' => 'המופע $1&rlm; ($2) שונה בהצלחה.',
 	'openstackmanager-modifyinstancefailed' => 'שינוי המופע נכשל.',
 	'openstackmanager-deleteinstancefailed' => 'מחיקת המופע נכשלה.',
 	'openstackmanager-consoleoutput' => 'פלט למסוף.',
@@ -3825,7 +3825,7 @@ $messages['hi'] = array(
 	'openstackmanager-removepuppetclass' => 'पपेट कक्ष हटाया गया',
 );
 
-/** Upper Sorbian (Hornjoserbsce)
+/** Upper Sorbian (hornjoserbsce)
  * @author Michawiki
  */
 $messages['hsb'] = array(
