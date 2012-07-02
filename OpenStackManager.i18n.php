@@ -2422,6 +2422,7 @@ $messages['fi'] = array(
  * @author Gomoko
  * @author Hashar
  * @author IAlex
+ * @author Tititou36
  * @author Verdy p
  * @author Wyz
  */
@@ -2511,7 +2512,7 @@ $messages['fr'] = array(
 	'openstackmanager-backinstancelist' => 'Retour à la liste des instances',
 	'openstackmanager-deletedinstance' => 'Instance $1 supprimée',
 	'openstackmanager-deletedinstance-faileddns' => 'Instance supprimée avec succès, mais l’entrée DNS $1 n’a pas pu être supprimée.',
-	'openstackmanager-modifiedinstance' => 'Instance modifiée avec succès.',
+	'openstackmanager-modifiedinstance' => 'Instance modifiée avec succès $1 ($2).',
 	'openstackmanager-modifyinstancefailed' => 'Impossible de modifier l’instance.',
 	'openstackmanager-deleteinstancefailed' => 'Impossible de supprimer l’instance.',
 	'openstackmanager-consoleoutput' => 'Sortie de la console',
@@ -7956,7 +7957,7 @@ $messages['tl'] = array(
 	'openstackmanager-createdomain' => 'Likhain ang nasasakupan',
 	'openstackmanager-deletedomain' => 'Burahin ang nasasakupan',
 	'openstackmanager-deletedomain-confirm' => 'Nakatitiyak ka bang nais mong burahin ang nasasakupang "$1"?  May mga kahihinatnan ang galaw na ito sa lahat ng mga VM.  Huwag isaalang-alang nang magaan ang galaw na ito!',
-	'openstackmanager-novadomain-domain' => 'Nasasakupan',
+	'openstackmanager-novadomain-domain' => 'Idagdag ang nasasakupan',
 	'openstackmanager-createdomainfailed' => 'Nabigo sa paglikha ng nasasakupan.',
 	'openstackmanager-createddomain' => 'Nalikha ang nasasakupan.',
 	'openstackmanager-domainlist' => 'Tala ng nasasakupan',
