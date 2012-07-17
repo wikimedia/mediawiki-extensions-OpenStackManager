@@ -98,6 +98,18 @@ class OpenStackNovaInstance {
 	}
 
 	/**
+	 * Get a human friendly name + id of this instance
+	 *
+	 * @return string
+	 */
+	function getInstanceForDisplay() {
+		return wfMessage( 'openstackmanager-modifiedinstance' )
+			->inContentLanguage()
+			->params( $this->getInstanceId(), $this->getInstanceName() )
+			->text();
+	}
+
+	/**
 	 * Return the state in which this instance currently exists
 	 *
 	 * @return string
