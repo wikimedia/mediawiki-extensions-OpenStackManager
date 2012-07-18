@@ -1,12 +1,19 @@
 <?php
 
 /**
- * special for nova instance
+ * Special page to interact with a Nova instance.
  *
  * @file
  * @ingroup Extensions
  */
 
+/**
+ * Class to handle [[Special:NovaInstance]].
+ *
+ * By default, the special page will list all instances.
+ *
+ * The page can be passed a (project,instance,action) see execute()
+ */
 class SpecialNovaInstance extends SpecialNova {
 
 	/**
@@ -41,6 +48,7 @@ class SpecialNovaInstance extends SpecialNova {
 		$adminCredentials = $wgOpenStackManagerNovaAdminKeys;
 		$this->adminNova = new OpenStackNovaController( $adminCredentials );
 
+		# ?action=
 		$action = $this->getRequest()->getVal( 'action' );
 
 		if ( $action == "create" ) {
@@ -74,11 +82,13 @@ class SpecialNovaInstance extends SpecialNova {
 			}
 			$this->getConsoleOutput();
 		} else {
+			# Fall back to listing all instances
 			$this->listInstances();
 		}
 	}
 
 	/**
+	 * Handle ?action=create
 	 * @return bool
 	 */
 	function createInstance() {
@@ -252,6 +262,7 @@ class SpecialNovaInstance extends SpecialNova {
 	}
 
 	/**
+	 * Handle ?action=configure
 	 * @return bool
 	 */
 	function configureInstance() {
@@ -361,6 +372,7 @@ class SpecialNovaInstance extends SpecialNova {
 	}
 
 	/**
+	 * Handle ?action=delete
 	 * @return bool
 	 */
 	function deleteInstance() {
@@ -404,6 +416,7 @@ class SpecialNovaInstance extends SpecialNova {
 	}
 
 	/**
+	 * Handle ?action=reboot
 	 * @return bool
 	 */
 	function rebootInstance() {
@@ -445,7 +458,9 @@ class SpecialNovaInstance extends SpecialNova {
 
 		return true;
 	}
+
 	/**
+	 * Handle ?action=console
 	 * @return bool
 	 */
 	function getConsoleOutput() {
@@ -467,6 +482,7 @@ class SpecialNovaInstance extends SpecialNova {
 	}
 
 	/**
+	 * Default action
 	 * @return void
 	 */
 	function listInstances() {
