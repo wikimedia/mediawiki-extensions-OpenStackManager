@@ -316,61 +316,6 @@ class SpecialNovaInstance extends SpecialNova {
 		return true;
 	}
 
-	function setPuppetInfo( &$instanceInfo, $puppetinfo=array() ) {
-		$project = $instanceInfo['project']['default'];
-		$projectGroups = OpenStackNovaPuppetGroup::getGroupList( $project );
-		$this->setPuppetInfoByGroups( $instanceInfo, $puppetinfo, $projectGroups );
-		$globalGroups = OpenStackNovaPuppetGroup::getGroupList();
-		$this->setPuppetInfoByGroups( $instanceInfo, $puppetinfo, $globalGroups );
-	}
-
-	function setPuppetInfoByGroups( &$instanceInfo, $puppetinfo, $puppetGroups ) {
-		foreach ( $puppetGroups as $puppetGroup ) {
-			$classes = array();
-			$defaults = array();
-			$puppetgroupname = $puppetGroup->getName();
-			$puppetgroupproject = $puppetGroup->getProject();
-			if ( $puppetgroupproject ) {
-				$section = 'puppetinfo/project';
-			} else {
-				$section = 'puppetinfo/global';
-			}
-			foreach ( $puppetGroup->getClasses() as $class ) {
-				$classname = $class["name"];
-				$classes["$classname"] = $classname;
-				if ( $puppetinfo && in_array( $classname, $puppetinfo['puppetclass'] ) ) {
-					$defaults["$classname"] = $classname;
-				}
-			}
-			$instanceInfo["${puppetgroupname}"] = array(
-				'type' => 'info',
-				'section' => $section,
-				'label' => Html::element( 'h3', array(), "$puppetgroupname:" ),
-			);
-			$instanceInfo["${puppetgroupname}-puppetclasses"] = array(
-				'type' => 'multiselect',
-				'section' => $section,
-				'options' => $classes,
-				'default' => $defaults,
-				'name' => "${puppetgroupname}-puppetclasses",
-			);
-			foreach ( $puppetGroup->getVars() as $variable ) {
-				$variablename = $variable["name"];
-				$default = '';
-				if ( $puppetinfo && array_key_exists( $variablename, $puppetinfo['puppetvar'] ) ) {
-					$default = $puppetinfo['puppetvar']["$variablename"];
-				}
-				$instanceInfo["${puppetgroupname}-${variablename}"] = array(
-					'type' => 'text',
-					'section' => $section,
-					'label' => $variablename,
-					'default' => $default,
-					'name' => "${puppetgroupname}-${variablename}",
-				);
-			}
-		}
-	}
-
 	/**
 	 * Handle ?action=delete
 	 * @return bool
@@ -683,6 +628,8 @@ class SpecialNovaInstance extends SpecialNova {
 		return true;
 	}
 
+	#### Puppet related methods #######################################
+
 	function getPuppetInfo( $formData ) {
 		global $wgOpenStackManagerPuppetOptions;
 
@@ -694,6 +641,14 @@ class SpecialNovaInstance extends SpecialNova {
 			$this->getPuppetInfoByGroup( $puppetinfo, $puppetGroups, $formData );
 		}
 		return $puppetinfo;
+	}
+
+	function setPuppetInfo( &$instanceInfo, $puppetinfo=array() ) {
+		$project = $instanceInfo['project']['default'];
+		$projectGroups = OpenStackNovaPuppetGroup::getGroupList( $project );
+		$this->setPuppetInfoByGroups( $instanceInfo, $puppetinfo, $projectGroups );
+		$globalGroups = OpenStackNovaPuppetGroup::getGroupList();
+		$this->setPuppetInfoByGroups( $instanceInfo, $puppetinfo, $globalGroups );
 	}
 
 	function getPuppetInfoByGroup( &$puppetinfo, $puppetGroups, $formData ) {
@@ -715,6 +670,55 @@ class SpecialNovaInstance extends SpecialNova {
 			}
 		}
 	}
+
+	function setPuppetInfoByGroups( &$instanceInfo, $puppetinfo, $puppetGroups ) {
+		foreach ( $puppetGroups as $puppetGroup ) {
+			$classes = array();
+			$defaults = array();
+			$puppetgroupname = $puppetGroup->getName();
+			$puppetgroupproject = $puppetGroup->getProject();
+			if ( $puppetgroupproject ) {
+				$section = 'puppetinfo/project';
+			} else {
+				$section = 'puppetinfo/global';
+			}
+			foreach ( $puppetGroup->getClasses() as $class ) {
+				$classname = $class["name"];
+				$classes["$classname"] = $classname;
+				if ( $puppetinfo && in_array( $classname, $puppetinfo['puppetclass'] ) ) {
+					$defaults["$classname"] = $classname;
+				}
+			}
+			$instanceInfo["${puppetgroupname}"] = array(
+				'type' => 'info',
+				'section' => $section,
+				'label' => Html::element( 'h3', array(), "$puppetgroupname:" ),
+			);
+			$instanceInfo["${puppetgroupname}-puppetclasses"] = array(
+				'type' => 'multiselect',
+				'section' => $section,
+				'options' => $classes,
+				'default' => $defaults,
+				'name' => "${puppetgroupname}-puppetclasses",
+			);
+			foreach ( $puppetGroup->getVars() as $variable ) {
+				$variablename = $variable["name"];
+				$default = '';
+				if ( $puppetinfo && array_key_exists( $variablename, $puppetinfo['puppetvar'] ) ) {
+					$default = $puppetinfo['puppetvar']["$variablename"];
+				}
+				$instanceInfo["${puppetgroupname}-${variablename}"] = array(
+					'type' => 'text',
+					'section' => $section,
+					'label' => $variablename,
+					'default' => $default,
+					'name' => "${puppetgroupname}-${variablename}",
+				);
+			}
+		}
+	}
+
+	#### End of Puppet related methods ################################
 
 }
 
