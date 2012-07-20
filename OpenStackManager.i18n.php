@@ -359,7 +359,9 @@ $messages['en'] = array(
 
 	'openstackmanager-email-subject' => 'Your instance is ready to be logged into.',
 	'openstackmanager-email-body' => 'The following instance has been created, and is ready to be logged into:',
+
 	'right-manageproject' => 'Manage OpenStack projects and roles',
+	'action-manageproject' => 'manage OpenStack projects and roles',
 );
 
 /** Message documentation (Message documentation)
@@ -455,9 +457,14 @@ $2: projectname',
 	'openstackmanager-sudoeroptions' => '{{Identical|Options}}',
 	'openstackmanager-email-subject' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-email-body' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
+
 	'right-manageproject' => '{{doc-right|manageproject}}
 
-This is about OpernStack roles.',
+This is about OpenStack roles.',
+
+	'action-manageproject' => '{{doc-action|manageproject}}
+
+This is about OpenStack roles.',
 );
 
 /** Afrikaans (Afrikaans)
