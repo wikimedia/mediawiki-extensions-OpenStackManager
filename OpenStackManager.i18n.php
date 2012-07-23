@@ -457,11 +457,9 @@ $2: projectname',
 	'openstackmanager-sudoeroptions' => '{{Identical|Options}}',
 	'openstackmanager-email-subject' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-email-body' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
-
 	'right-manageproject' => '{{doc-right|manageproject}}
 
 This is about OpenStack roles.',
-
 	'action-manageproject' => '{{doc-action|manageproject}}
 
 This is about OpenStack roles.',
@@ -725,6 +723,22 @@ $messages['af'] = array(
 	'openstackmanager-email-subject' => 'Jou geval is gereed ingeteken wees in.',
 	'openstackmanager-email-body' => 'Die volgende plek is geskep, en is gereed om te ingeteken wees in:',
 	'right-manageproject' => 'Bestuur OpenStack projekte en rolle',
+);
+
+/** Assamese (অসমীয়া)
+ * @author Bishnu Saikia
+ */
+$messages['as'] = array(
+	'openstackmanager-delete' => 'বিলোপ কৰক',
+	'openstackmanager-location' => 'অৱস্থান',
+	'openstackmanager-name' => 'নাম',
+	'openstackmanager-members' => 'সদস্যবৃন্দ',
+	'openstackmanager-member' => 'সদস্য',
+	'openstackmanager-securitygroupdescription' => 'বিৱৰণ',
+	'openstackmanager-sudoerusers' => 'সদস্যসকল',
+	'openstackmanager-sudoerhosts' => 'অতিথিবৃন্দ',
+	'openstackmanager-sudoercommands' => 'নিৰ্দেশসমূহ',
+	'openstackmanager-sudoeroptions' => 'বিকল্পসমূহ',
 );
 
 /** Asturian (asturianu)
@@ -1741,6 +1755,7 @@ $messages['de'] = array(
 	'openstackmanager-email-subject' => 'Die Instanz ist zum Anmelden bereit.',
 	'openstackmanager-email-body' => 'Die folgende Instanz wurde erstellt und ist ist zum Anmelden bereit.',
 	'right-manageproject' => 'OpenStack-Projekte und Rollen verwalten',
+	'action-manageproject' => 'OpenStack-Projekte und Rollen zu verwalten',
 );
 
 /** Zazaki (Zazaki)
@@ -5056,9 +5071,12 @@ $messages['ksh'] = array(
 	'openstackmanager-notloggedin' => 'Enlogge es nüdich',
 	'openstackmanager-mustbeloggedin' => 'Do moß ald enjelogg sin, öm dat maache ze dörve.',
 	'openstackmanager-nonexistanthost' => 'Dä nohjefroochte Rääschner jidd_et nit.',
+	'openstackmanager-dnsdomain' => 'de <i lang="en">domain</i> em <i lang="en">DNS</i>',
 	'openstackmanager-deletedinstance-faileddns' => 'Dat Denge es jäz fott, ävver dä Endraach „$1“ em <i lang="en">Domain Name System</i> es övverisch jeblevve.',
+	'openstackmanager-attach' => 'aanhange',
+	'openstackmanager-detach' => 'afhange',
 	'openstackmanager-novapublickey' => 'Ene öffentlesche SSH-Schlößel',
-	'openstackmanager-novakey-key' => 'Ene öffentlesche SSH-Schlößel',
+	'openstackmanager-novakey-key' => 'Ene SSH-Schlößel derbeidonn',
 	'openstackmanager-deletekey' => 'Ene Schlößel fott schmiiße',
 	'openstackmanager-deletekeyconfirm' => 'Wells De bovve dä Schlößel verhaftesch fott schmiiße?',
 	'openstackmanager-keylist' => 'Leß met Schlößele',
@@ -5067,6 +5085,10 @@ $messages['ksh'] = array(
 	'openstackmanager-backkeylist' => 'Jangk retuur op de Leß met de Schlößele',
 	'openstackmanager-deletedkey' => 'Dä Schlößel es fottjeschmeße.',
 	'openstackmanager-deletedkeyfailed' => 'Mer kunnte dä Schlößel nit fott schmiiße.',
+	'openstackmanager-addadditionalproject' => 'Donn noch e Projäk derbei',
+	'openstackmanager-deleteproject' => 'Fottschmiiße',
+	'openstackmanager-novaproject-project' => 'Donn e Projäk derbei',
+	'openstackmanager-toggleproject' => 'Ömschallde',
 	'openstackmanager-backaddresslist' => 'Jangk retuur op de Leß met de Adräße',
 	'openstackmanager-hostname' => 'Däm Rääschner singe Name',
 	'openstackmanager-hostnames' => 'Dä Rääschner iehre Name',
@@ -5083,6 +5105,7 @@ $messages['ksh'] = array(
 	'openstackmanager-needcloudadminrole' => 'Öm dat ze dörve, moß mer ene Adminstrator vun dä Wolk sin.',
 	'openstackmanager-needcloudadminrole2' => 'Öm dat ze dörve, moß mer ene Adminstrator vun dä Wolk sin.',
 	'openstackmanager-securitygrouprule' => 'Rääjelle',
+	'openstackmanager-createnewsecuritygroup' => 'En Jropp derbei donn',
 	'openstackmanager-addrule-action' => 'Rääjel dobei donn',
 	'openstackmanager-removerule-action' => 'Rääjel fott nämme',
 	'openstackmanager-removerule' => 'En Rääjel fott nämme',
