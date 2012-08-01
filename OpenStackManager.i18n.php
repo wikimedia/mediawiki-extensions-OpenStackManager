@@ -2771,6 +2771,7 @@ $messages['fr'] = array(
 	'openstackmanager-email-subject' => 'Votre instance est prête à recevoir des connexions.',
 	'openstackmanager-email-body' => 'L’instance suivante a été créée et est prête à recevoir des connexions :',
 	'right-manageproject' => 'Gérer les rôles et projets Openstack',
+	'action-manageproject' => 'gérer les projets et les rôles OpenStack',
 );
 
 /** Franco-Provençal (arpetan)
@@ -4538,6 +4539,7 @@ $messages['ia'] = array(
 	'openstackmanager-email-subject' => 'Le instantia es preste pro apertura de session.',
 	'openstackmanager-email-body' => 'Le sequente instantia ha essite create, e es preste pro apertura de session:',
 	'right-manageproject' => 'Gerer projectos e rolos de OpenStack',
+	'action-manageproject' => 'gerer projectos e rolos OpenStack',
 );
 
 /** Italian (italiano)
@@ -5114,6 +5116,8 @@ $messages['ksh'] = array(
 	'openstackmanager-removedrule' => 'Die Rääjel es jäz fott.',
 	'openstackmanager-removerulefailed' => 'Met kunnte di Rääjel nit fott nämme.',
 	'openstackmanager-addrule' => 'En Rääjel dobei donn',
+	'openstackmanager-securitygrouprule-ranges' => '<i lang="en">CIDR</i>-Berette',
+	'openstackmanager-securitygrouprule-ranges-help' => '<i lang="en">CIDR</i>-Berette wääde als en Leß vun einzel Berette aanjejovve, met Kommas derzwesche',
 	'openstackmanager-addedrule' => 'Di Rääjel es jäz dobei jekumme.',
 	'openstackmanager-addrulefailed' => 'Di Rääjel dobeizedonn es donävve jejange.',
 	'openstackmanager-commadelimiter' => 'Met Kommas dozwesche',
@@ -5121,6 +5125,7 @@ $messages['ksh'] = array(
 	'openstackmanager-sudoerhosts' => 'Rääschner',
 	'openstackmanager-sudoercommands' => 'Kommandos',
 	'openstackmanager-sudoeroptions' => 'Ennshtällunge',
+	'openstackmanager-createpuppetgroup' => 'En Jropp derbei donn',
 );
 
 /** Kurdish (Latin script) (‪Kurdî (latînî)‬)
