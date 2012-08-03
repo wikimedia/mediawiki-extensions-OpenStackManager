@@ -3754,6 +3754,7 @@ $messages['he'] = array(
 	'openstackmanager-email-subject' => 'המופע שלך מוכן לכניסה לחשבון.',
 	'openstackmanager-email-body' => 'המופע הבא נוצר ואפשר להיכנס בו לחשבון:',
 	'right-manageproject' => 'ניהול פרויקטים ותפקידים של OpenStack',
+	'action-manageproject' => 'ניהול פרויקטים ותפקידים של OpenStack',
 );
 
 /** Hindi (हिन्दी)
