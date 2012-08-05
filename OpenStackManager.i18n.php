@@ -1759,10 +1759,12 @@ $messages['de'] = array(
 );
 
 /** Zazaki (Zazaki)
+ * @author Erdemaslancan
  * @author Mirzali
  */
 $messages['diq'] = array(
 	'openstackmanager-name' => 'Name',
+	'openstackmanager-sudoeroptions' => 'Weçinegi',
 );
 
 /** Esperanto (Esperanto)
@@ -6415,6 +6417,7 @@ $messages['nl'] = array(
 	'openstackmanager-email-subject' => 'U kunt nu aanmelden op uw instantie.',
 	'openstackmanager-email-body' => 'De volgende instantie is aangemaakt en er kan op aangemeld worden:',
 	'right-manageproject' => 'OpenStack-projecten en -rollen beheren',
+	'action-manageproject' => 'OpenStackprojecten en -rollen te beheren',
 );
 
 /** Oriya (ଓଡ଼ିଆ)
@@ -8250,6 +8253,13 @@ $messages['tl'] = array(
 	'openstackmanager-email-subject' => 'Ang pagkakataon mo ay nakahanda na upang malagdaang papasok.',
 	'openstackmanager-email-body' => 'Nalikha na ang sumusunod na pagkakataon, at nakahanda na upang malagdaang papasok:',
 	'right-manageproject' => 'Pamahalaan ang mga proyekto ng Openstack at mga gampanin',
+);
+
+/** толышә зывон (толышә зывон)
+ * @author Erdemaslancan
+ */
+$messages['tly'] = array(
+	'openstackmanager-sudoeroptions' => 'Кукон',
 );
 
 /** Turkish (Türkçe)
