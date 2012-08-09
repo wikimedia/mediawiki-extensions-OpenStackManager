@@ -763,6 +763,13 @@ $messages['az'] = array(
 	'openstackmanager-sudoerusers' => 'İstifadəçilər',
 );
 
+/** Bashkir (башҡортса)
+ * @author Haqmar
+ */
+$messages['ba'] = array(
+	'openstackmanager-location' => 'Урын',
+);
+
 /** Belarusian (Taraškievica orthography) (‪беларуская (тарашкевіца)‬)
  * @author EugeneZelenko
  * @author Jim-by
@@ -1426,6 +1433,33 @@ $messages['bs'] = array(
 	'openstackmanager-member' => 'Član',
 );
 
+/** Czech (česky)
+ * @author Chmee2
+ */
+$messages['cs'] = array(
+	'openstackmanager-delete' => 'smazat',
+	'openstackmanager-configure' => 'nastavit',
+	'openstackmanager-modify' => 'upravit',
+	'openstackmanager-rename' => 'přejmenovat',
+	'openstackmanager-reboot' => 'restartovat',
+	'openstackmanager-notloggedin' => 'Vyžadováno přihlášení',
+	'openstackmanager-mustbeloggedin' => 'Pro tuto činnost musíte být přihlášeni.',
+	'openstackmanager-createdomain' => 'Vytvořit doménu',
+	'openstackmanager-deletedomain' => 'Smazat doménu',
+	'openstackmanager-deletedomain-confirm' => 'Skutečně chcete smazat doménu "$1"? Tato akce má dopad na všechny virtuální stroje. Neberte rozhodnutí na lehkou váhu!',
+	'openstackmanager-novadomain-domain' => 'Přidat doménu',
+	'openstackmanager-createdomainfailed' => 'Chyba při vytváření domény',
+	'openstackmanager-createddomain' => 'Doména vytvořena.',
+	'openstackmanager-domainlist' => 'List domén',
+	'openstackmanager-backdomainlist' => 'Zpět k seznamu domén',
+	'openstackmanager-addadditionaldomain' => 'Přidat další doménu.',
+	'openstackmanager-deleteddomain' => 'Doména úspěšně odstraněna.',
+	'openstackmanager-failedeletedomain' => 'Chyba při mazání domény.',
+	'openstackmanager-domainname' => 'Název domény',
+	'openstackmanager-fqdn' => 'Celý název domény',
+	'openstackmanager-puppetallprojects' => 'Všechny projekty',
+);
+
 /** German (Deutsch)
  * @author Fujnky
  * @author Kghbln
@@ -1765,6 +1799,45 @@ $messages['de'] = array(
 $messages['diq'] = array(
 	'openstackmanager-name' => 'Name',
 	'openstackmanager-sudoeroptions' => 'Weçinegi',
+);
+
+/** Greek (Ελληνικά)
+ * @author Glavkos
+ */
+$messages['el'] = array(
+	'openstackmanager-delete' => 'διαγραφή',
+	'openstackmanager-modify' => 'τροποποίηση',
+	'openstackmanager-rename' => 'μετονομασία',
+	'openstackmanager-reboot' => 'επανεκκίνηση',
+	'openstackmanager-name' => 'Όνομα',
+	'openstackmanager-keys' => 'Κλειδιά',
+	'openstackmanager-deletedkeyfailed' => 'Απέτυχε να διαγράψει κλειδί.',
+	'openstackmanager-addmember' => 'Προσθήκη μέλους',
+	'openstackmanager-removemember' => 'Μετακίνηση μέλους',
+	'openstackmanager-action' => 'Ενέργεια',
+	'openstackmanager-projects' => 'Έργα',
+	'openstackmanager-roles' => 'Ρόλοι',
+	'openstackmanager-rolename' => 'Όνομα ρόλου',
+	'openstackmanager-removerolemember' => 'Απομάκρυνση μέλους',
+	'openstackmanager-addrolemember' => 'Προσθήκη μέλους',
+	'openstackmanager-securitygroupdescription' => 'Περιγραφή',
+	'openstackmanager-securitygrouprule' => 'Κανόνες',
+	'openstackmanager-novasecuritygroup-rule' => 'Κανόνας ασφάλειας ομάδας',
+	'openstackmanager-novasecuritygroup-singlerule' => 'Ανεξάρτητος κανόνας',
+	'openstackmanager-novasecuritygroup-group' => 'Κανόνας ομάδας',
+	'openstackmanager-addrule-action' => 'προσθήκη κανόνα',
+	'openstackmanager-removerule-action' => 'απομάκρυνση κανόνα',
+	'openstackmanager-removerule' => 'απομάκρυνση κανόνα',
+	'openstackmanager-removedrule' => 'Ο κανόνας απομακρύνθηκε επιτυχώς.',
+	'openstackmanager-removerulefailed' => 'Απέτυχε η απομάκρυνση κανόνα.',
+	'openstackmanager-addrule' => 'προσθήκη κανόνα',
+	'openstackmanager-novasudoer-sudoer' => 'Προσθήκη πολιτικής sudo',
+	'openstackmanager-sudoerusers' => 'Χρήστες',
+	'openstackmanager-sudoercommands' => 'Εντολές',
+	'openstackmanager-sudoeroptions' => 'Επιλογές',
+	'openstackmanager-deletesudoer' => 'Διαγραφή Πολιτικής Sudo',
+	'openstackmanager-puppetallprojects' => 'Όλα τα Εγχειρήματα',
+	'openstackmanager-createpuppetgroup' => 'Προσθήκη ομάδας',
 );
 
 /** Esperanto (Esperanto)
@@ -2259,6 +2332,7 @@ $messages['es'] = array(
 
 /** Persian (فارسی)
  * @author Huji
+ * @author Mjbmr
  * @author ZxxZxxZ
  */
 $messages['fa'] = array(
@@ -2300,13 +2374,16 @@ $messages['fa'] = array(
 	'openstackmanager-projectname' => 'نام پروژه',
 	'openstackmanager-members' => 'اعضا',
 	'openstackmanager-member' => 'عضو',
+	'openstackmanager-action' => 'عمل',
 	'openstackmanager-addadditionalproject' => 'پروژهٔ دیگری بیفزایید.',
 	'openstackmanager-deleteproject' => 'حذف',
 	'openstackmanager-addedto' => '$1 را با موفقیت به $2 افزود.',
 	'openstackmanager-novaproject-project' => 'افزودن پروژه',
+	'openstackmanager-projects' => 'پروژه‌ها',
 	'openstackmanager-removerolemember' => 'حذف عضو',
 	'openstackmanager-addrolemember' => 'افزودن عضو',
 	'openstackmanager-backaddresslist' => 'بازگشت به فهرست نشانی‌ها',
+	'openstackmanager-hostname' => 'نام میزبان',
 	'openstackmanager-addhost' => 'افزودن نام میزبان',
 	'openstackmanager-removehost' => 'حذف میزبان',
 	'openstackmanager-removehost-action' => '(حذف نام میزبان)',
@@ -2319,6 +2396,7 @@ $messages['fa'] = array(
 	'openstackmanager-securitygroupdescription' => 'توضیحات',
 	'openstackmanager-deletesecuritygroup' => 'حذف گروه امنیتی',
 	'openstackmanager-securitygrouprule' => 'قوانین',
+	'openstackmanager-novasecuritygroup-group' => 'قانون گروه',
 	'openstackmanager-securitygrouprule-toport' => 'به درگاه',
 	'openstackmanager-securitygrouprule-fromport' => 'از درگاه',
 	'openstackmanager-securitygrouprule-protocol' => 'پروتکل',
@@ -5045,10 +5123,13 @@ $messages['ka'] = array(
 	'openstackmanager-backprojectlist' => 'პროექტის სიაში დაბრუნება',
 	'openstackmanager-addadditionalproject' => 'სხვა პროექტის დამატება.',
 	'openstackmanager-deleteproject' => 'წაშლა',
+	'openstackmanager-novaproject-project' => 'პროექტის დამატება',
+	'openstackmanager-projects' => 'პროექტები',
 	'openstackmanager-removerolemember' => 'წევრის წაშლა',
 	'openstackmanager-addrolemember' => 'წევრის დამატება',
 	'openstackmanager-addresslist' => 'საჯარო IP მისამართების სია',
 	'openstackmanager-address' => 'საჯარო IP მისამართები',
+	'openstackmanager-backaddresslist' => 'მისამართების სიაში დაბრუნება',
 	'openstackmanager-securitygroupdescription' => 'აღწერა',
 	'openstackmanager-securitygrouprule' => 'წესები',
 	'openstackmanager-createnewsecuritygroup' => 'ჯგუფის დამატება',
@@ -6581,6 +6662,7 @@ $messages['pfl'] = array(
  * @author BeginaFelicysym
  * @author Odder
  * @author Olgak85
+ * @author Przemub
  * @author Woytecr
  */
 $messages['pl'] = array(
@@ -6708,12 +6790,39 @@ $messages['pl'] = array(
 	'openstackmanager-releaseaddressfailed' => 'Nie udało się zwolnić adresu: $1',
 	'openstackmanager-associatedaddress' => 'Pomyślnie przypisano $1 z Identyfikatorem instancji  $2 .',
 	'openstackmanager-securitygroupdescription' => 'Opis',
+	'openstackmanager-novasudoer-sudoer' => 'Dodaj regułę sudo',
+	'openstackmanager-novasudoer-info' => 'Informacje o regułach sudo',
+	'openstackmanager-sudoername' => 'Nazwa reguły sudo',
+	'openstackmanager-commadelimiter' => 'Rozdzielone przecinkami',
 	'openstackmanager-sudoerusers' => 'Użytkownicy',
+	'openstackmanager-sudoerhosts' => 'Hosty',
 	'openstackmanager-sudoercommands' => 'Polecenia',
 	'openstackmanager-sudoeroptions' => 'Opcje',
+	'openstackmanager-deletesudoer' => 'Usuń regułę sudo',
+	'openstackmanager-deletesudoer-confirm' => 'Czy na pewno chcesz usunąć regułę sudo $1?',
+	'openstackmanager-createsudoerfailed' => 'Nie udało się utworzyć reguły sudo.',
+	'openstackmanager-createdsudoer' => 'Pomyślnie utworzono regułę sudo.',
+	'openstackmanager-backsudoerlist' => 'Wróć do listy sudo.',
+	'openstackmanager-addadditionalsudoer' => 'Dodaj inną regułę sudo.',
+	'openstackmanager-deletedsudoer' => 'Pomyślnie usunięto regułę sudo.',
+	'openstackmanager-failedeletedsudoer' => 'Nie udało się usunąć reguły sudo.',
+	'openstackmanager-sudoerlist' => 'Lista zasad sudo',
+	'openstackmanager-modifysudoer' => 'Modyfikuj zasady sudo',
+	'openstackmanager-modifysudoerfailed' => 'Nie udało się zmodyfikować reguły sudo.',
+	'openstackmanager-modifiedsudoer' => 'Pomyślnie zmodyfikowano regułę sudo.',
+	'openstackmanager-nonexistantsudoer' => 'Żądana reguła sudo nie istnieje.',
+	'openstackmanager-novapuppetgroup' => 'Grupa Nova Puppet',
+	'openstackmanager-puppetallprojects' => 'Wszystkie projekty',
+	'openstackmanager-createpuppetgroup' => 'Dodaj grupę',
+	'openstackmanager-puppetclassname' => 'Nazwa klasy',
+	'openstackmanager-puppetvars' => 'Zmienne',
 	'openstackmanager-addpuppetvar' => 'Dodaj zmienną',
 	'openstackmanager-puppetvarname' => 'Nazwa zmiennej',
 	'openstackmanager-puppetvarposition' => 'Pozycja zmiennej',
+	'openstackmanager-email-subject' => 'Twoja maszyna jest gotowa do zalogowania.',
+	'openstackmanager-email-body' => 'Ta maszyna została utworzona i jest gotowa do zalogowania:',
+	'right-manageproject' => 'Zarządzaj projektami i uprawnieniami',
+	'action-manageproject' => 'zarządzanie projektami i uprawnieniami OpenStock',
 );
 
 /** Piedmontese (Piemontèis)
@@ -7043,20 +7152,34 @@ $messages['pms'] = array(
 $messages['ps'] = array(
 	'openstackmanager-delete' => 'ړنګول',
 	'openstackmanager-rename' => 'نوم بدلول',
+	'openstackmanager-actions' => 'چارې',
+	'openstackmanager-createdomain' => 'شپول جوړول',
+	'openstackmanager-deletedomain' => 'شپول ړنګول',
 	'openstackmanager-novadomain-domain' => 'شپول ورګډول',
 	'openstackmanager-domainlist' => 'د شپول لړليک',
+	'openstackmanager-domainname' => 'شپول نوم',
 	'openstackmanager-location' => 'ځای',
+	'openstackmanager-dnsdomain' => 'DNS شپول',
+	'openstackmanager-puppetclasses' => 'ټولګي',
 	'openstackmanager-name' => 'نوم',
 	'openstackmanager-addmember' => 'غړی ورګډول',
 	'openstackmanager-createproject' => 'پروژه ورګډول',
 	'openstackmanager-projectname' => 'د پروژې نوم',
 	'openstackmanager-members' => 'غړي',
 	'openstackmanager-member' => 'غړی',
-	'openstackmanager-deleteproject' => 'پروژه ړنګول',
+	'openstackmanager-deleteproject' => 'ړنګول',
 	'openstackmanager-novaproject-project' => 'پروژه ورګډول',
 	'openstackmanager-projects' => 'پروژې',
+	'openstackmanager-addrolemember' => 'غړی ورګډول',
+	'openstackmanager-hostname' => 'کوربه نوم',
+	'openstackmanager-hostnames' => 'کوربه نومونه',
+	'openstackmanager-addhost' => 'کوربه نوم ورګډول',
+	'openstackmanager-removehost' => 'کوربه غورځول',
+	'openstackmanager-securitygroupdescription' => 'څرګندونه',
+	'openstackmanager-securitygrouprule' => 'قوانين',
 	'openstackmanager-createnewsecuritygroup' => 'ډله ورګډول',
 	'openstackmanager-sudoerusers' => 'کارنان',
+	'openstackmanager-sudoerhosts' => 'کوربانه',
 	'openstackmanager-sudoeroptions' => 'خوښنې',
 	'openstackmanager-puppetallprojects' => 'ټولې پروژې',
 	'openstackmanager-createpuppetgroup' => 'ډله ورګډول',
@@ -7328,6 +7451,74 @@ $messages['pt'] = array(
 	'openstackmanager-email-subject' => 'A sua instância está pronta para receber ligações.',
 	'openstackmanager-email-body' => 'A seguinte instância foi criada e está pronta para receber ligações:',
 	'right-manageproject' => 'Gerir os projectos e funções Openstack',
+);
+
+/** Romanian (română)
+ * @author Firilacroco
+ * @author Stelistcristi
+ */
+$messages['ro'] = array(
+	'novaaddress' => 'Gestionează adresele IP publice',
+	'novadomain' => 'Gestionează domeniile DNS',
+	'novasecuritygroup' => 'Gestionează grupurile de securitate ale paravanului de protecție',
+	'openstackmanager-delete' => 'ștergere',
+	'openstackmanager-configure' => 'configurare',
+	'openstackmanager-modify' => 'modificare',
+	'openstackmanager-rename' => 'redenumire',
+	'openstackmanager-reboot' => 'repornire',
+	'openstackmanager-actions' => 'Acțiuni',
+	'openstackmanager-notloggedin' => 'Autentificare necesară',
+	'openstackmanager-createdomain' => 'Crează domeniu',
+	'openstackmanager-deletedomain' => 'Șterge domeniu',
+	'openstackmanager-novadomain-domain' => 'Adaugă domeniu',
+	'openstackmanager-domainlist' => 'Lista domeniilor',
+	'openstackmanager-location' => 'Loc',
+	'openstackmanager-dnsdomain' => 'Domeniu DNS',
+	'openstackmanager-createinstance' => 'Adăugare instanță',
+	'openstackmanager-attach' => 'atașați',
+	'openstackmanager-novapublickey' => 'Cheie SSH publică',
+	'openstackmanager-novakey-key' => 'Adăugați cheie SSH',
+	'openstackmanager-deletekey' => 'Ștergeți cheia',
+	'openstackmanager-deletekeyconfirm' => 'Sunteți sigur că doriți să ștergeți cheia de mai sus?',
+	'openstackmanager-keylist' => 'Lista cheilor',
+	'openstackmanager-name' => 'Nume',
+	'openstackmanager-fingerprint' => 'Amprentă',
+	'openstackmanager-keys' => 'Chei',
+	'openstackmanager-addmember' => 'Adăugați membru',
+	'openstackmanager-removemember' => 'Eliminați membru',
+	'openstackmanager-createproject' => 'Adaugă proiect',
+	'openstackmanager-projectname' => 'Numele proiectului',
+	'openstackmanager-members' => 'Membrii',
+	'openstackmanager-member' => 'Membru',
+	'openstackmanager-action' => 'Acțiune',
+	'openstackmanager-createprojectfailed' => 'Nu s-a putut crea proiectul.',
+	'openstackmanager-createdproject' => 'Proiect creat.',
+	'openstackmanager-projectlist' => 'Lista proiectelor',
+	'openstackmanager-backprojectlist' => 'Înapoi la lista proiectelor',
+	'openstackmanager-addadditionalproject' => 'Adaugă un alt proiect.',
+	'openstackmanager-deleteproject' => 'Șterge',
+	'openstackmanager-novaproject-project' => 'Adaugă proiect',
+	'openstackmanager-allocateaddress' => 'Alocați IP',
+	'openstackmanager-releaseaddress' => 'Eliberați IP',
+	'openstackmanager-associateaddress' => 'Asociați IP',
+	'openstackmanager-reassociateaddress' => 'Reasociați IP',
+	'openstackmanager-disassociateaddress' => 'Disociați IP',
+	'openstackmanager-securitygrouprule' => 'Reguli',
+	'openstackmanager-removerule' => 'Eliminați regula',
+	'openstackmanager-removedrule' => 'Regula a fost eliminată cu succes.',
+	'openstackmanager-removerulefailed' => 'Imposibil de eliminat regula.',
+	'openstackmanager-addrule' => 'Adăugați regulă',
+	'openstackmanager-sudoerusers' => 'Utilizator:',
+	'openstackmanager-sudoeroptions' => 'Opțiuni',
+	'openstackmanager-puppetallprojects' => 'Toate proiectele',
+	'openstackmanager-createpuppetgroup' => 'Adăugați grup',
+	'openstackmanager-addpuppetclass' => 'Adăugați clasă',
+	'openstackmanager-puppetclassname' => 'Numele clasei',
+	'openstackmanager-puppetvars' => 'Variabile',
+	'openstackmanager-addpuppetvar' => 'Adăugați variabilă',
+	'openstackmanager-puppetvarname' => 'Numele variabilei',
+	'openstackmanager-puppetvarposition' => 'Poziția variabilei',
+	'openstackmanager-puppetclassposition' => 'Poziția clasei',
 );
 
 /** tarandíne (tarandíne)
@@ -7633,6 +7824,7 @@ $messages['si'] = array(
 	'openstackmanager-removedfrom' => '$1 සාර්ථකව $2 ගෙන් ඉවත් කරන ලදී.',
 	'openstackmanager-failedtoremove' => '$1 $2 ගෙන් ඉවත් කිරීමට අපොහොසත් වුණි.',
 	'openstackmanager-novaproject-project' => 'ව්‍යාපෘතිය එක් කරන්න',
+	'openstackmanager-projects' => 'ව්‍යාපෘති',
 	'openstackmanager-roles' => 'කාර්ය සංකේත',
 	'openstackmanager-rolename' => 'කාර්ය සංකේත නාමය',
 	'openstackmanager-removerolemember' => 'සාමාජිකයා ඉවත් කරන්න',
@@ -8576,6 +8768,7 @@ $messages['yi'] = array(
 /** Simplified Chinese (‪中文（简体）‬)
  * @author Anakmalaysia
  * @author Hydra
+ * @author Simon Shek
  * @author Xiaomingyan
  * @author Yanmiao liu
  * @author Yfdyh000
@@ -8606,7 +8799,7 @@ $messages['zh-hans'] = array(
 	'openstackmanager-rename' => '改名',
 	'openstackmanager-reboot' => '重新引导',
 	'openstackmanager-actions' => '动作',
-	'openstackmanager-notloggedin' => '必须登入',
+	'openstackmanager-notloggedin' => '需要登录',
 	'openstackmanager-mustbeloggedin' => '您必须登录才能执行此操作。',
 	'openstackmanager-nonovacred' => '未找到您账号的 Nova 凭证。',
 	'openstackmanager-nonovacred-admincreate' => '未找到您账号的 Nova 凭证。请向 Nova 管理员申请为您创建凭证。',
@@ -8906,6 +9099,7 @@ $messages['zh-hans'] = array(
 /** Traditional Chinese (‪中文（繁體）‬)
  * @author Anakmalaysia
  * @author Oapbtommy
+ * @author Simon Shek
  */
 $messages['zh-hant'] = array(
 	'openstackmanager-desc' => '允許用戶管理 Nova 及 Swift',
@@ -8933,7 +9127,7 @@ $messages['zh-hant'] = array(
 	'openstackmanager-rename' => '改名',
 	'openstackmanager-reboot' => '重新引導',
 	'openstackmanager-actions' => '動作',
-	'openstackmanager-notloggedin' => '必須登入',
+	'openstackmanager-notloggedin' => '需要登入',
 	'openstackmanager-mustbeloggedin' => '您必須登錄才能執行此操作。',
 	'openstackmanager-nonovacred' => '未找到您賬號的 Nova 憑證。',
 	'openstackmanager-nonovacred-admincreate' => '未找到您賬號的 Nova 憑證。請向 Nova 管理員申請為您創建憑證。',
