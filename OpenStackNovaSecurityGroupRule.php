@@ -1,6 +1,5 @@
 <?php
 
-# TODO: Make this an abstract class, and make the EC2 API a subclass
 class OpenStackNovaSecurityGroupRule {
 
 	var $rule;
@@ -16,47 +15,52 @@ class OpenStackNovaSecurityGroupRule {
 	 * @return
 	 *
 	 */
+	function getId() {
+		return OpenStackNovaController::_get_property( $this->rule, 'id' );
+	}
+
+	/**
+	 * @return
+	 *
+	 */
 	function getToPort() {
-		return (string)$this->rule->toPort;
+		return OpenStackNovaController::_get_property( $this->rule, 'to_port' );
 	}
 
 	/**
 	 * @return
 	 */
 	function getFromPort() {
-		return (string)$this->rule->fromPort;
+		return OpenStackNovaController::_get_property( $this->rule, 'from_port' );
 	}
 
 	/**
 	 * @return
 	 */
 	function getIPProtocol() {
-		return (string)$this->rule->ipProtocol;
+		return OpenStackNovaController::_get_property( $this->rule, 'ip_protocol' );
+	}
+
+	/**
+	 * @return string
+	 */
+	function getIPRange() {
+		return OpenStackNovaController::_get_property( $this->rule->ip_range, 'cidr' );
 	}
 
 	/**
 	 * @return array
 	 */
-	function getIPRanges() {
-		$ranges = array();
-		foreach ( $this->rule->ipRanges->item as $iprange ) {
-			$ranges[] = (string)$iprange->cidrIp;
-		}
-		return $ranges;
-	}
+	function getGroup() {
+		$properties = array();
+		$properties['groupname'] = OpenStackNovaController::_get_property( $this->rule->group, 'name' );
+		$properties['project'] = OpenStackNovaController::_get_property( $this->rule->group, 'tenant_id' );
 
-	/**
-	 * @return array
-	 */
-	function getGroups() {
-		$groups = array();
-		foreach ( $this->rule->groups->item as $group ) {
-			$properties = array();
-			$properties['groupname'] = (string)$group->groupName;
-			$properties['project'] = (string)$group->userId;
-			$groups[] = $properties;
+		if ( $properties['groupname'] && $properties['project'] ) {
+			return $properties;
+		} else {
+			return array();
 		}
-		return $groups;
 	}
 
 }

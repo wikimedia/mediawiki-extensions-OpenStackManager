@@ -24,6 +24,11 @@ $messages['en'] = array(
 
 	'openstackmanager-badresourcename' => 'Bad resource name provided. Resource names start with a-z, and can only contain a-z, 0-9, -, and _ characters.',
 
+	'action-listall' => 'display all resource information',
+	'action-manageproject' => 'manage projects',
+	'action-managednsdomain' => 'manage dns domains',
+	'action-manageglobalpuppet' => 'manage global puppet information',
+
 	'specialpages-group-nova' => 'OpenStack Nova',
 	'novaaddress' => 'Manage public IP addresses',
 	'novadomain' => 'Manage DNS domains',
@@ -195,7 +200,7 @@ $messages['en'] = array(
 	'openstackmanager-projects' => 'Projects',
 	'openstackmanager-setprojects' => 'Successfully set the project filter.',
 	'openstackmanager-setprojectfilter' => 'Please select projects to display using the project filter.',
-	'openstackmanager-toggleproject' => 'Toggle',
+	'openstackmanager-toggle' => 'Toggle',
 
 	'openstackmanager-roles' => 'Roles',
 	'openstackmanager-rolename' => 'Role name',

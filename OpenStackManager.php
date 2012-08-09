@@ -21,7 +21,7 @@ $wgExtensionCredits['other'][] = array(
 	'path' => __FILE__,
 	'name' => 'OpenStackManager',
 	'author' => 'Ryan Lane',
-	'version' => '1.4',
+	'version' => '2.0',
 	'url' => 'http://mediawiki.org/wiki/Extension:OpenStackManager',
 	'descriptionmsg' => 'openstackmanager-desc',
 );
@@ -32,30 +32,40 @@ $wgExtraNamespaces[NS_NOVA_RESOURCE] = 'Nova_Resource';
 $wgExtraNamespaces[NS_NOVA_RESOURCE_TALK] = 'Nova_Resource_Talk';
 $wgContentNamespaces[] = NS_NOVA_RESOURCE;
 
-$wgGroupPermissions['sysop']['manageproject'] = true;
+$wgAvailableRights[] = 'listall';
 $wgAvailableRights[] = 'manageproject';
+$wgAvailableRights[] = 'managednsdomain';
+$wgAvailableRights[] = 'manageglobalpuppet';
 
-$wgOpenStackManagerNovaDisableSSL = true;
-$wgOpenStackManagerNovaServerName = 'localhost';
-$wgOpenStackManagerNovaPort = 8773;
-$wgOpenStackManagerNovaResourcePrefix = '/services/Cloud/';
-$wgOpenStackManagerNovaAdminResourcePrefix = '/services/Admin/';
-$wgOpenStackManagerNovaAdminKeys = array( 'accessKey' => '', 'secretKey' => '' );
+// Keystone identity URI
+$wgOpenStackManagerNovaIdentityURI = 'http://localhost:5000/v2.0';
+
+// SSH key storage location, ldap or nova
 $wgOpenStackManagerNovaKeypairStorage = 'ldap';
+// LDAP Auth domain used for OSM
 $wgOpenStackManagerLDAPDomain = '';
+// UserDN used for reading and writing on the LDAP database
 $wgOpenStackManagerLDAPUser = '';
+// Actual username of the LDAP user
+$wgOpenStackManagerLDAPUsername = '';
+// Password used to bind
 $wgOpenStackManagerLDAPUserPassword = '';
+// DN location of projects
 $wgOpenStackManagerLDAPProjectBaseDN = '';
-$wgOpenStackManagerLDAPGlobalRoles = array(
-	'sysadmin' => '',
-	'netadmin' => '',
-	'cloudadmin' => '',
-	);
-$wgOpenStackManagerLDAPRolesIntersect = false;
+// DN location of hosts/instances
 $wgOpenStackManagerLDAPInstanceBaseDN = '';
+// gid used when creating users
+//TODO: change this ridiculous option to a configurable naming attribute
+// Whether to use uid, rather than cn as a naming attribute for user objects
+$wgOpenStackManagerLDAPUseUidAsNamingAttribute = false;
+// DN location for posix groups based on projects
+$wgOpenStackManagerLDAPProjectGroupBaseDN = "";
 $wgOpenStackManagerLDAPDefaultGid = '500';
+// Shell used when creating users
 $wgOpenStackManagerLDAPDefaultShell = '/bin/bash';
+// DNS servers, used in SOA record
 $wgOpenStackManagerDNSServers = array( 'primary' => 'localhost', 'secondary' => 'localhost' );
+// SOA attributes
 $wgOpenStackManagerDNSSOA = array(
 	'hostmaster' => 'hostmaster@localhost.localdomain',
 	'refresh' => '1800',
@@ -63,24 +73,26 @@ $wgOpenStackManagerDNSSOA = array(
 	'expiry' => '86400',
 	'minimum' => '7200'
 	);
+// Default classes and variables to apply to instances when created
 $wgOpenStackManagerPuppetOptions = array(
 	'enabled' => false,
 	'defaultclasses' => array(),
-	'defaultvariables' => array(),
-	'availableclasses' => array(),
-	'availablevariables' => array(),
+	'defaultvariables' => array()
 	);
+// User data to inject into instances when created
 $wgOpenStackManagerInstanceUserData = array(
 	'cloud-config' => array(),
 	'scripts' => array(),
 	'upstarts' => array(),
 	);
+// Default security rules to add to a project when created
+$wgOpenStackManagerDefaultSecurityGroupRules = array();
+// Image ID to default to in the instance creation interface
 $wgOpenStackManagerInstanceDefaultImage = "";
+// Whether resource pages should be managed on instance/project creation/deletion
 $wgOpenStackManagerCreateResourcePages = true;
+// Whether a Server Admin Log page should be created with project pages
 $wgOpenStackManagerCreateProjectSALPages = true;
-$wgOpenStackManagerLDAPUseUidAsNamingAttribute = false;
-$wgOpenStackManagerNovaDefaultProject = "";
-$wgOpenStackManagerLDAPProjectGroupBaseDN = "";
 /**
  * Path to the ssh-keygen utility. Used for converting ssh key formats. False to disable its use.
  */
@@ -112,6 +124,7 @@ $wgAutoloadClasses['OpenStackNovaArticle'] = $dir . 'OpenStackNovaArticle.php';
 $wgAutoloadClasses['OpenStackNovaHostJob'] = $dir . 'OpenStackNovaHostJob.php';
 $wgAutoloadClasses['OpenStackNovaPuppetGroup'] = $dir . 'OpenStackNovaPuppetGroup.php';
 $wgAutoloadClasses['OpenStackNovaLdapConnection'] = $dir . 'OpenStackNovaLdapConnection.php';
+$wgAutoloadClasses['OpenStackNovaProject'] = $dir . 'OpenStackNovaProject.php';
 $wgAutoloadClasses['SpecialNovaInstance'] = $dir . 'special/SpecialNovaInstance.php';
 $wgAutoloadClasses['SpecialNovaKey'] = $dir . 'special/SpecialNovaKey.php';
 $wgAutoloadClasses['SpecialNovaProject'] = $dir . 'special/SpecialNovaProject.php';
@@ -123,7 +136,6 @@ $wgAutoloadClasses['SpecialNovaVolume'] = $dir . 'special/SpecialNovaVolume.php'
 $wgAutoloadClasses['SpecialNovaSudoer'] = $dir . 'special/SpecialNovaSudoer.php';
 $wgAutoloadClasses['SpecialNovaPuppetGroup'] = $dir . 'special/SpecialNovaPuppetGroup.php';
 $wgAutoloadClasses['SpecialNova'] = $dir . 'special/SpecialNova.php';
-$wgAutoloadClasses['AmazonEC2'] = $dir . 'aws-sdk/sdk.class.php';
 $wgAutoloadClasses['Spyc'] = $dir . 'Spyc.php';
 $wgSpecialPages['NovaInstance'] = 'SpecialNovaInstance';
 $wgSpecialPageGroups['NovaInstance'] = 'nova';
@@ -149,7 +161,7 @@ $wgSpecialPages['NovaPuppetGroup'] = 'SpecialNovaPuppetGroup';
 
 $wgHooks['LDAPSetCreationValues'][] = 'OpenStackNovaUser::LDAPSetCreationValues';
 $wgHooks['LDAPModifyUITemplate'][] = 'OpenStackNovaUser::LDAPModifyUITemplate';
-$wgHooks['LDAPUpdateUser'][] = 'OpenStackNovaUser::LDAPSetNovaInfo';
+$wgHooks['ChainAuth'][] = 'OpenStackNovaUser::ChainAuth';
 
 $commonModuleInfo = array(
 	'localBasePath' => dirname( __FILE__ ) . '/modules',

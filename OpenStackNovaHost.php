@@ -105,7 +105,7 @@ class OpenStackNovaHost {
 				$vararr = explode( '=', $variable );
 				$varname = trim( $vararr[0] );
 				$var = trim( $vararr[1] );
-				$puppetinfo['puppetvar']["$varname"] = $var;
+				$puppetinfo['puppetvar'][$varname] = $var;
 			}
 		}
 		return $puppetinfo;
@@ -192,8 +192,8 @@ class OpenStackNovaHost {
 				$wgAuth->printDebug( "Checking for preexisting variables", NONSENSITIVE );
 				foreach ( $oldpuppetinfo['puppetvar'] as $variable => $value ) {
 					$wgAuth->printDebug( "Found $variable", NONSENSITIVE );
-					if ( $variable == "instancecreator_email" || $variable == "instancecreator_username"
-						|| $variable == "instancecreator_lang" || $variable == "instanceproject" || $variable == "instancename" ) {
+					if ( $variable === "instancecreator_email" || $variable === "instancecreator_username"
+						|| $variable === "instancecreator_lang" || $variable === "instanceproject" || $variable === "instancename" ) {
 						$hostEntry['puppetvar'][] = $variable . '=' . $value;
 					}
 				}
@@ -580,7 +580,8 @@ class OpenStackNovaHost {
 		$hostname = $instance->getInstanceName();
 		$instanceid = $instance->getInstanceId();
 		$project = $instance->getProject();
-		$ip = $instance->getInstancePrivateIP();
+		$ip = $instance->getInstancePrivateIPs();
+		$ip = $ip[0];
 		$domainname = $domain->getFullyQualifiedDomainName();
 		$host = OpenStackNovaHost::getHostByName( $hostname, $domain );
 		if ( $host ) {

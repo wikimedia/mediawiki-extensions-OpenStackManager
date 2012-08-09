@@ -10,43 +10,37 @@
 class SpecialNovaSudoer extends SpecialNova {
 
 	var $userLDAP;
-	var $adminNova;
 
 	function __construct() {
-		parent::__construct( 'NovaSudoer', 'manageproject' );
-
-		$this->userLDAP = new OpenStackNovaUser();
+		parent::__construct( 'NovaSudoer' );
 	}
 
 	function execute( $par ) {
-		global $wgOpenStackManagerNovaAdminKeys;
-
 		if ( !$this->getUser()->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return;
 		}
+		$this->userLDAP = new OpenStackNovaUser();
 		if ( !$this->userLDAP->exists() ) {
 			$this->noCredentials();
 			return;
 		}
-
-		$adminCredentials = $wgOpenStackManagerNovaAdminKeys;
-		$this->adminNova = new OpenStackNovaController( $adminCredentials );
+		$this->userNova = OpenStackNovaController::newFromUser( $this->userLDAP );
 		$action = $this->getRequest()->getVal( 'action' );
 		$project = $this->getRequest()->getText( 'project' );
-		if ( $action == "create" ) {
+		if ( $action === "create" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
 				$this->notInProject();
 				return;
 			}
 			$this->createSudoer();
-		} elseif ( $action == "delete" ) {
+		} elseif ( $action === "delete" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
 				$this->notInProject();
 				return;
 			}
 			$this->deleteSudoer();
-		} elseif ( $action == "modify" ) {
+		} elseif ( $action === "modify" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
 				$this->notInProject();
 				return;
@@ -96,14 +90,14 @@ class SpecialNovaSudoer extends SpecialNova {
 			'name' => 'hosts',
 		);
 		$sudoerInfo['commands'] = array(
-			'type' => 'text',
+			'type' => 'textarea',
 			'label-message' => 'openstackmanager-sudoercommands',
 			'default' => '',
 			'section' => 'sudoer',
 			'name' => 'commands',
 		);
 		$sudoerInfo['options'] = array(
-			'type' => 'text',
+			'type' => 'textarea',
 			'label-message' => 'openstackmanager-sudoeroptions',
 			'default' => '',
 			'section' => 'sudoer',
@@ -120,7 +114,7 @@ class SpecialNovaSudoer extends SpecialNova {
 			'name' => 'action',
 		);
 
-		$sudoerForm = new SpecialNovaSudoerForm( $sudoerInfo, 'openstackmanager-novasudoer' );
+		$sudoerForm = new HTMLForm( $sudoerInfo, 'openstackmanager-novasudoer' );
 		$sudoerForm->setTitle( SpecialPage::getTitleFor( 'NovaSudoer' ) );
 		$sudoerForm->setSubmitID( 'novasudoer-form-createsudoersubmit' );
 		$sudoerForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
@@ -160,7 +154,7 @@ class SpecialNovaSudoer extends SpecialNova {
 			'default' => 'delete',
 			'name' => 'action',
 		);
-		$sudoerForm = new SpecialNovaSudoerForm( $sudoerInfo, 'openstackmanager-novasudoer' );
+		$sudoerForm = new HTMLForm( $sudoerInfo, 'openstackmanager-novasudoer' );
 		$sudoerForm->setTitle( SpecialPage::getTitleFor( 'NovaSudoer' ) );
 		$sudoerForm->setSubmitID( 'novasudoer-form-deletesudoersubmit' );
 		$sudoerForm->setSubmitCallback( array( $this, 'tryDeleteSubmit' ) );
@@ -188,8 +182,8 @@ class SpecialNovaSudoer extends SpecialNova {
 		$hostArr = $this->getSudoHosts( $projectName, $sudoer );
 		$host_keys = $hostArr["keys"];
 		$host_defaults = $hostArr["defaults"];
-		$commands = implode( ',', $sudoer->getSudoerCommands() );
-		$options = implode( ',', $sudoer->getSudoerOptions() );
+		$commands = implode( "\n", $sudoer->getSudoerCommands() );
+		$options = implode( "\n", $sudoer->getSudoerOptions() );
 		$sudoerInfo = array();
 		$sudoerInfo['sudoernameinfo'] = array(
 			'type' => 'info',
@@ -227,11 +221,10 @@ class SpecialNovaSudoer extends SpecialNova {
 			'name' => 'commands',
 		);
 		$sudoerInfo['options'] = array(
-			'type' => 'text',
+			'type' => 'textarea',
 			'label-message' => 'openstackmanager-sudoeroptions',
 			'default' => $options,
 			'section' => 'sudoer',
-			'help-message' => 'openstackmanager-commadelimiter',
 			'name' => 'options',
 		);
 		$sudoerInfo['project'] = array(
@@ -245,7 +238,7 @@ class SpecialNovaSudoer extends SpecialNova {
 			'name' => 'action',
 		);
 
-		$sudoerForm = new SpecialNovaSudoerForm( $sudoerInfo, 'openstackmanager-novasudoer' );
+		$sudoerForm = new HTMLForm( $sudoerInfo, 'openstackmanager-novasudoer' );
 		$sudoerForm->setTitle( SpecialPage::getTitleFor( 'NovaSudoer' ) );
 		$sudoerForm->setSubmitID( 'novasudoer-form-createsudoersubmit' );
 		$sudoerForm->setSubmitCallback( array( $this, 'tryModifySubmit' ) );
@@ -265,15 +258,15 @@ class SpecialNovaSudoer extends SpecialNova {
 		$user_keys = array();
 		$user_defaults = array();
 		foreach ( $projectmembers as $projectmember ) {
-			if ( $projectmember != 'ALL' ) {
+			if ( $projectmember !== 'ALL' ) {
 				$user = new OpenStackNovaUser( $projectmember );
 				$userUid = $user->getUid();
 			} else {
 				$userUid = 'ALL';
 			}
-			$user_keys["$projectmember"] = $userUid;
+			$user_keys[$projectmember] = $userUid;
 			if ( in_array( $userUid, $sudomembers ) ) {
-				$user_defaults["$projectmember"] = $userUid;
+				$user_defaults[$projectmember] = $userUid;
 			}
 		}
 		return array( 'keys' => $user_keys, 'defaults' => $user_defaults );
@@ -286,16 +279,21 @@ class SpecialNovaSudoer extends SpecialNova {
 		}
 		$host_keys = array( 'ALL' => 'ALL' );
 		$host_defaults = array();
-		$instances = $this->adminNova->getInstances();
-		$instances = $this->getResourcesGroupedByProject( $instances );
-		$projectinstances = $this->getResourceByProject( $instances, $projectName );
-		foreach ( $projectinstances as $projectinstance ) {
-			$instanceName = $projectinstance->getInstanceName();
-			$instanceHost = $projectinstance->getHost();
-			$instanceHostname = $instanceHost->getFullyQualifiedHostName();
-			$host_keys["$instanceName"] = $instanceHostname;
-			if ( in_array( $instanceHostname, $sudohosts ) ) {
-				$host_defaults["$instanceName"] = $instanceHostname;
+		$this->userNova->setProject( $projectName );
+		$regions = $this->userNova->getRegions( 'compute' );
+		foreach ( $regions as $region ) {
+			$this->userNova->setRegion( $region );
+			$instances = $this->userNova->getInstances();
+			foreach ( $instances as $instance ) {
+				$instanceName = $instance->getInstanceName();
+				// instanceName will be output later, without a change to escape.
+				$instanceName = htmlentities( $instanceName . ' (' . $region . ')' );
+				$instanceHost = $instance->getHost();
+				$instanceHostname = $instanceHost->getFullyQualifiedHostName();
+				$host_keys[$instanceName] = $instanceHostname;
+				if ( in_array( $instanceHostname, $sudohosts ) ) {
+					$host_defaults[$instanceName] = $instanceHostname;
+				}
 			}
 		}
 		if ( in_array( "ALL", $sudohosts ) ) {
@@ -312,7 +310,7 @@ class SpecialNovaSudoer extends SpecialNova {
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-sudoerlist' ) );
 
-		if ( $this->userLDAP->inGlobalRole( 'cloudadmin' ) ) {
+		if ( $this->getUser()->isAllowed( 'listall' ) ) {
 			$projects = OpenStackNovaProject::getAllProjects();
 		} else {
 			$projects = OpenStackNovaProject::getProjectsByName( $this->userLDAP->getProjects() );
@@ -327,8 +325,6 @@ class SpecialNovaSudoer extends SpecialNova {
 
 		$out = '';
 
-		$instances = $this->adminNova->getInstances();
-		$instances = $this->getResourcesGroupedByProject( $instances );
 		foreach ( $projects as $project ) {
 			$projectName = $project->getProjectName();
 			if ( !in_array( $projectName, $projectfilter ) ) {
@@ -336,19 +332,25 @@ class SpecialNovaSudoer extends SpecialNova {
 			}
 			$actions = Array( 'sysadmin' => Array() );
 			$actions['sysadmin'][] = $this->createActionLink( 'openstackmanager-createsudoer', array( 'action' => 'create', 'project' => $projectName ) );
-			$out .= $this->createProjectSection( $projectName, $actions, $this->getSudoers( $project, $instances ) );
+			$out .= $this->createProjectSection( $projectName, $actions, $this->getSudoers( $project ) );
 		}
 
 		$this->getOutput()->addHTML( $out );
 	}
 
-	function getSudoers( $project, $instances ) {
+	function getSudoers( $project ) {
 		$projectName = $project->getProjectName();
-		$projectinstances = $this->getResourceByProject( $instances, $projectName );
+		$this->userNova->setProject( $projectName );
+		$regions = $this->userNova->getRegions( 'compute' );
 		$instanceNames = array();
-		foreach ( $projectinstances as $instance ) {
-			$fqdn = $instance->getHost()->getFullyQualifiedHostName();
-			$instanceNames["$fqdn"] = $instance->getInstanceName();
+		foreach ( $regions as $region ) {
+			$this->userNova->setRegion( $region );
+			$instances = $this->userNova->getInstances();
+			foreach ( $instances as $instance ) {
+				$fqdn = $instance->getHost()->getFullyQualifiedHostName();
+				// $instanceNames will be output later with no change of escaping
+				$instanceNames[$fqdn] = htmlentities( $instance->getInstanceName() . ' (' . $region . ')' );
+			}
 		}
 		$headers = Array( 'openstackmanager-sudoername', 'openstackmanager-sudoerusers', 'openstackmanager-sudoerhosts',
 				'openstackmanager-sudoercommands', 'openstackmanager-sudoeroptions', 'openstackmanager-actions' );
@@ -374,7 +376,7 @@ class SpecialNovaSudoer extends SpecialNova {
 			$sudoHostNames = array();
 			foreach ( $sudoHosts as $sudoHost ) {
 				if ( array_key_exists( $sudoHost, $instanceNames ) ) {
-					array_push( $sudoHostNames, $instanceNames["$sudoHost"] );
+					array_push( $sudoHostNames, $instanceNames[$sudoHost] );
 				}
 			}
 			if ( in_array( 'ALL', $sudoHosts ) ) {
@@ -406,12 +408,12 @@ class SpecialNovaSudoer extends SpecialNova {
 	 */
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
 		if ( $formData['commands'] ) {
-			$commands = explode( ',', $formData['commands'] );
+			$commands = explode( "\n", $formData['commands'] );
 		} else {
 			$commands = array();
 		}
 		if ( $formData['options'] ) {
-			$options = explode( ',', $formData['options'] );
+			$options = explode( "\n", $formData['options'] );
 		} else {
 			$options = array();
 		}
@@ -464,7 +466,7 @@ class SpecialNovaSudoer extends SpecialNova {
 				$commands = array();
 			}
 			if ( $formData['options'] ) {
-				$options = explode( ',', $formData['options'] );
+				$options = explode( "\n", $formData['options'] );
 			} else {
 				$options = array();
 			}
@@ -485,7 +487,4 @@ class SpecialNovaSudoer extends SpecialNova {
 		return true;
 	}
 
-}
-
-class SpecialNovaSudoerForm extends HTMLForm {
 }

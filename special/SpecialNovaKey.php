@@ -32,9 +32,9 @@ class SpecialNovaKey extends SpecialNova {
 		}
 
 		$action = $this->getRequest()->getVal( 'action' );
-		if ( $action == "import" ) {
+		if ( $action === "import" ) {
 			$this->importKey();
-		} elseif ( $action == "delete" ) {
+		} elseif ( $action === "delete" ) {
 			$this->deleteKey();
 		} else {
 			$this->listKeys();
@@ -55,7 +55,7 @@ class SpecialNovaKey extends SpecialNova {
 		$hash = '';
 		$keypairs = array();
 
-		if ( $wgOpenStackManagerNovaKeypairStorage == 'nova' ) {
+		if ( $wgOpenStackManagerNovaKeypairStorage === 'nova' ) {
 			$keyname = $this->getRequest()->getVal( 'keyname' );
 			$project = $this->getRequest()->getVal( 'project' );
 			if ( $project && ! $this->userLDAP->inProject( $project ) ) {
@@ -72,7 +72,7 @@ class SpecialNovaKey extends SpecialNova {
 				'default' => $keyname,
 				'name' => 'project',
 			);
-		} elseif ( $wgOpenStackManagerNovaKeypairStorage == 'ldap' ) {
+		} elseif ( $wgOpenStackManagerNovaKeypairStorage === 'ldap' ) {
 			$hash = $this->getRequest()->getVal( 'hash' );
 			$keypairs = $this->userLDAP->getKeypairs();
 			if ( ! $this->getRequest()->wasPosted() ) {
@@ -95,7 +95,7 @@ class SpecialNovaKey extends SpecialNova {
 			'default' => 'delete',
 			'name' => 'action',
 		);
-		$keyForm = new SpecialNovaKeyForm( $keyInfo, 'openstackmanager-novakey' );
+		$keyForm = new HTMLForm( $keyInfo, 'openstackmanager-novakey' );
 		$keyForm->setTitle( SpecialPage::getTitleFor( 'NovaKey' ) );
 		$keyForm->setSubmitID( 'novakey-form-deletekeysubmit' );
 		$keyForm->setSubmitCallback( array( $this, 'tryDeleteSubmit' ) );
@@ -114,7 +114,7 @@ class SpecialNovaKey extends SpecialNova {
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
 
 		$keyInfo = array();
-		if ( $wgOpenStackManagerNovaKeypairStorage == 'nova' ) {
+		if ( $wgOpenStackManagerNovaKeypairStorage === 'nova' ) {
 			$projects = $this->userLDAP->getProjects();
 			$keyInfo['keyname'] = array(
 				'type' => 'text',
@@ -125,7 +125,7 @@ class SpecialNovaKey extends SpecialNova {
 			);
 			$project_keys = array();
 			foreach ( $projects as $project ) {
-				$project_keys["$project"] = $project;
+				$project_keys[$project] = $project;
 			}
 			$keyInfo['project'] = array(
 				'type' => 'select',
@@ -142,14 +142,14 @@ class SpecialNovaKey extends SpecialNova {
 			'name' => 'key',
 		);
 
-		$keyForm = new SpecialNovaKeyForm( $keyInfo, 'openstackmanager-novakey' );
+		$keyForm = new HTMLForm( $keyInfo, 'openstackmanager-novakey' );
 		$keyForm->setTitle( SpecialPage::getTitleFor( 'NovaKey' ) );
 		$keyForm->setSubmitID( 'novakey-form-createkeysubmit' );
 		$keyForm->setSubmitCallback( array( $this, 'tryImportSubmit' ) );
 		$keyForm->show();
 		$out = '';
 
-		if ( $wgOpenStackManagerNovaKeypairStorage == 'nova' ) {
+		if ( $wgOpenStackManagerNovaKeypairStorage === 'nova' ) {
 			# TODO: add project filter
 			foreach ( $projects as $project ) {
 				$userCredentials = $this->userLDAP->getCredentials();
@@ -169,7 +169,7 @@ class SpecialNovaKey extends SpecialNova {
 				}
 				$out .= $this->createResourceTable( $headers, $keyRows );
 			}
-		} elseif ( $wgOpenStackManagerNovaKeypairStorage == 'ldap' ) {
+		} elseif ( $wgOpenStackManagerNovaKeypairStorage === 'ldap' ) {
 			$headers = Array( 'openstackmanager-keys', 'openstackmanager-actions' );
 			$keypairs = $this->userLDAP->getKeypairs();
 			$keyRows = Array();
@@ -315,15 +315,15 @@ class SpecialNovaKey extends SpecialNova {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-keypairformatconverted' );
 		}
  
-		if ( $wgOpenStackManagerNovaKeypairStorage == 'ldap' ) {
+		if ( $wgOpenStackManagerNovaKeypairStorage === 'ldap' ) {
 			$success = $this->userLDAP->importKeypair( $key );
 			if ( ! $success ) {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-keypairimportfailed' );
 				return false;
 			}
 			$this->getOutput()->addWikiMsg( 'openstackmanager-keypairimported' );
-		} elseif ( $wgOpenStackManagerNovaKeypairStorage == 'nova' ) {
-			# wgOpenStackManagerNovaKeypairStorage == 'nova'
+		} elseif ( $wgOpenStackManagerNovaKeypairStorage === 'nova' ) {
+			# wgOpenStackManagerNovaKeypairStorage === 'nova'
 			# OpenStack's EC2 API doesn't yet support importing keys, use
 			# of this option isn't currently recommended
 			$keypair = $this->userNova->importKeypair( $formData['keyname'], $key );
@@ -357,7 +357,4 @@ class SpecialNovaKey extends SpecialNova {
 		$this->getOutput()->addHTML( $out );
 		return true;
 	}
-}
-
-class SpecialNovaKeyForm extends HTMLForm {
 }

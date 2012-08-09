@@ -9,17 +9,11 @@
 
 class SpecialNovaProject extends SpecialNova {
 
-	var $adminNova;
 	var $userLDAP;
+	var $userNova;
 
 	function __construct() {
 		parent::__construct( 'NovaProject', 'manageproject' );
-
-		global $wgOpenStackManagerNovaAdminKeys;
-
-		$this->userLDAP = new OpenStackNovaUser();
-		$adminCredentials = $wgOpenStackManagerNovaAdminKeys;
-		$this->adminNova = new OpenStackNovaController( $adminCredentials );
 	}
 
 	function execute( $par ) {
@@ -28,12 +22,17 @@ class SpecialNovaProject extends SpecialNova {
 			return;
 		}
 		$this->userLDAP = new OpenStackNovaUser();
+		if ( ! $this->userLDAP->exists() ) {
+			$this->noCredentials();
+			return;
+		}
+		$this->userNova = OpenStackNovaController::newFromUser( $this->userLDAP );
 		$action = $this->getRequest()->getVal( 'action' );
-		if ( $action == "delete" ) {
+		if ( $action === "delete" ) {
 			$this->deleteProject();
-		} elseif ( $action == "addmember" ) {
+		} elseif ( $action === "addmember" ) {
 			$this->addMember();
-		} elseif ( $action == "deletemember" ) {
+		} elseif ( $action === "deletemember" ) {
 			$this->deleteMember();
 		} else {
 			$this->listProjects();
@@ -70,7 +69,7 @@ class SpecialNovaProject extends SpecialNova {
 			'name' => 'projectname',
 		);
 
-		$projectForm = new SpecialNovaProjectForm( $projectInfo, 'openstackmanager-novaproject' );
+		$projectForm = new HTMLForm( $projectInfo, 'openstackmanager-novaproject' );
 		$projectForm->setTitle( SpecialPage::getTitleFor( 'NovaProject' ) );
 		$projectForm->setSubmitID( 'novaproject-form-addmembersubmit' );
 		$projectForm->setSubmitCallback( array( $this, 'tryAddMemberSubmit' ) );
@@ -95,7 +94,7 @@ class SpecialNovaProject extends SpecialNova {
 		$projectmembers = $project->getMembers();
 		$member_keys = array();
 		foreach ( $projectmembers as $projectmember ) {
-			$member_keys["$projectmember"] = $projectmember;
+			$member_keys[$projectmember] = $projectmember;
 		}
 		$projectInfo = array();
 		$projectInfo['members'] = array(
@@ -115,7 +114,7 @@ class SpecialNovaProject extends SpecialNova {
 			'name' => 'projectname',
 		);
 
-		$projectForm = new SpecialNovaProjectForm( $projectInfo, 'openstackmanager-novaproject' );
+		$projectForm = new HTMLForm( $projectInfo, 'openstackmanager-novaproject' );
 		$projectForm->setTitle( SpecialPage::getTitleFor( 'NovaProject' ) );
 		$projectForm->setSubmitID( 'novaproject-form-deletemembersubmit' );
 		$projectForm->setSubmitCallback( array( $this, 'tryDeleteMemberSubmit' ) );
@@ -150,7 +149,7 @@ class SpecialNovaProject extends SpecialNova {
 			'default' => 'delete',
 			'name' => 'action',
 		);
-		$projectForm = new SpecialNovaProjectForm( $projectInfo, 'openstackmanager-novaproject' );
+		$projectForm = new HTMLForm( $projectInfo, 'openstackmanager-novaproject' );
 		$projectForm->setTitle( SpecialPage::getTitleFor( 'NovaProject' ) );
 		$projectForm->setSubmitID( 'novaproject-form-deleteprojectsubmit' );
 		$projectForm->setSubmitCallback( array( $this, 'tryDeleteSubmit' ) );
@@ -167,7 +166,7 @@ class SpecialNovaProject extends SpecialNova {
 		$this->getOutput()->setPageTitle( wfMsg( 'openstackmanager-projectlist' ) );
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
 
-		if ( $this->userLDAP->inGlobalRole( 'cloudadmin' ) ) {
+		if ( $this->getUser()->isAllowed( 'listall' ) ) {
 			$projects = OpenStackNovaProject::getAllProjects();
 			$this->showCreateProject();
 		} else {
@@ -227,7 +226,7 @@ class SpecialNovaProject extends SpecialNova {
 	function showCreateProject() {
 		global $wgRequest;
 
-		if ( $wgRequest->wasPosted() && $wgRequest->getVal( 'action' ) != 'create' ) {
+		if ( $wgRequest->wasPosted() && $wgRequest->getVal( 'action' ) !== 'create' ) {
 			return null;
 		}
 		$projectInfo = array();
@@ -248,7 +247,7 @@ class SpecialNovaProject extends SpecialNova {
 		);
 		$role_keys = array();
 		foreach ( OpenStackNovaProject::$rolenames as $rolename ) {
-			$role_keys["$rolename"] = $rolename;
+			$role_keys[$rolename] = $rolename;
 		}
 		$projectInfo['roles'] = array(
 			'type' => 'multiselect',
@@ -264,7 +263,7 @@ class SpecialNovaProject extends SpecialNova {
 			'name' => 'action',
 		);
 
-		$projectForm = new SpecialNovaProjectForm( $projectInfo, 'openstackmanager-novaproject' );
+		$projectForm = new HTMLForm( $projectInfo, 'openstackmanager-novaproject' );
 		$projectForm->setTitle( SpecialPage::getTitleFor( 'NovaProject' ) );
 		$projectForm->setSubmitID( 'novaproject-form-createprojectsubmit' );
 		$projectForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
@@ -285,6 +284,8 @@ class SpecialNovaProject extends SpecialNova {
 			return false;
 		}
 		$project = OpenStackNovaProject::getProjectByName( $formData['projectname'] );
+		$username = $this->userLDAP->getUsername();
+		$project->addMember( $username );
 		$members = explode( ',', $formData['member'] );
 		foreach ( $members as $member ) {
 			$project->addMember( $member );
@@ -296,55 +297,59 @@ class SpecialNovaProject extends SpecialNova {
 					$role->addMember( $member );
 				}
 			}
+			// We also need to ensure the project creator is in all roles
+			$role->addMember( $username );
 		}
 		# Create a default security group for this project, and add configured default rules
 		$groupname = 'default';
 		# Change the connection to reference this project
-		$this->adminNova->configureConnection( $formData['projectname'] );
-		$this->adminNova->createSecurityGroup( $groupname, '' );
-		foreach ( $wgOpenStackManagerDefaultSecurityGroupRules as $rule ) {
-			$fromport = '';
-			$toport = '';
-			$protocol = '';
-			$ranges = array();
-			$groups = array();
-			if ( array_key_exists( 'fromport', $rule ) ) {
-				$fromport = $rule['fromport'];
-			}
-			if ( array_key_exists( 'toport', $rule ) ) {
-				$toport = $rule['toport'];
-			}
-			if ( array_key_exists( 'protocol', $rule ) ) {
-				$protocol = $rule['protocol'];
-			}
-			if ( array_key_exists( 'ranges', $rule ) ) {
-				$ranges = $rule['ranges'];
-			}
-			if ( array_key_exists( 'groups', $rule ) ) {
-				foreach ( $rule['groups'] as $group ) {
-					if ( !array_key_exists( 'groupname', $group ) ) {
-						# TODO: log an error here
-						continue;
-					}
-					if ( array_key_exists( 'project', $group ) ) {
-						$groupproject = $group['project'];
-					} else {
-						# Assume groups with no project defined are
-						# referencing this project's group
-						$groupproject = $formData['projectname'];
-					}
-					$groups[] = array( 'groupname' => $group['groupname'], 'project' => $groupproject );
+		$this->userNova->setProject( $formData['projectname'] );
+		$regions = $this->userNova->getRegions( 'compute' );
+		foreach ( $regions as $region ) {
+			$this->userNova->setRegion( $region );
+			$securityGroups = $this->userNova->getSecurityGroups();
+			$groupid = '';
+			foreach ( $securityGroups as $securityGroup ) {
+				if ( $securityGroup->getGroupName() === 'default' ) {
+					$groupid = $securityGroup->getGroupId();
 				}
 			}
-			$this->adminNova->addSecurityGroupRule( $groupname, $fromport, $toport, $protocol, $ranges, $groups );
+			if ( !$groupid ) {
+				continue;
+			}
+			foreach ( $wgOpenStackManagerDefaultSecurityGroupRules as $rule ) {
+				$fromport = '';
+				$toport = '';
+				$protocol = '';
+				$range = '';
+				$sourcegroupid = '';
+				if ( array_key_exists( 'fromport', $rule ) ) {
+					$fromport = $rule['fromport'];
+				}
+				if ( array_key_exists( 'toport', $rule ) ) {
+					$toport = $rule['toport'];
+				}
+				if ( array_key_exists( 'protocol', $rule ) ) {
+					$protocol = $rule['protocol'];
+				}
+				if ( array_key_exists( 'range', $rule ) ) {
+					$range = $rule['range'];
+				}
+				if ( array_key_exists( 'group', $rule ) ) {
+					foreach ( $securityGroups as $securityGroup ) {
+						if ( $rule['group'] === $securityGroup->getGroupName() ) {
+							$sourcegroupid = $securityGroup->getGroupId();
+						}
+					}
+				}
+				$this->userNova->addSecurityGroupRule( $groupid, $fromport, $toport, $protocol, $range, $sourcegroupid );
+			}
 		}
-		# Reset connection to default
-		$this->adminNova->configureConnection();
 		$project->editArticle();
 		$this->getOutput()->addWikiMsg( 'openstackmanager-createdproject' );
 
 		$out = '<br />';
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-addadditionaldomain' ) );
+		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-addadditionalproject' ) );
 		$this->getOutput()->addHTML( $out );
 
 		return true;
@@ -425,7 +430,4 @@ class SpecialNovaProject extends SpecialNova {
 		return true;
 	}
 
-}
-
-class SpecialNovaProjectForm extends HTMLForm {
 }

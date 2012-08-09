@@ -12,7 +12,7 @@ class SpecialNovaVolume extends SpecialNova {
 	/**
 	 * @var OpenStackNovaController
 	 */
-	var $adminNova, $userNova;
+	var $userNova;
 
 	/**
 	 * @var OpenStackNovaUser
@@ -24,8 +24,6 @@ class SpecialNovaVolume extends SpecialNova {
 	}
 
 	function execute( $par ) {
-		global $wgOpenStackManagerNovaAdminKeys;
-
 		if ( !$this->getUser()->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return;
@@ -36,32 +34,32 @@ class SpecialNovaVolume extends SpecialNova {
 			return;
 		}
 		$project = $this->getRequest()->getVal( 'project' );
-		$userCredentials = $this->userLDAP->getCredentials();
-		$this->userNova = new OpenStackNovaController( $userCredentials, $project );
-		$adminCredentials = $wgOpenStackManagerNovaAdminKeys;
-		$this->adminNova = new OpenStackNovaController( $adminCredentials );
+		$region = $this->getRequest()->getVal( 'region' );
+		$this->userNova = OpenStackNovaController::newFromUser( $this->userLDAP );
+		$this->userNova->setProject( $project );
+		$this->userNova->setRegion( $region );
 
 		$action = $this->getRequest()->getVal( 'action' );
 
-		if ( $action == "create" ) {
+		if ( $action === "create" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
 				$this->notInProject();
 				return;
 			}
 			$this->createVolume();
-		} elseif ( $action == "delete" ) {
+		} elseif ( $action === "delete" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
 				$this->notInProject();
 				return;
 			}
 			$this->deleteVolume();
-		} elseif ( $action == "attach" ) {
+		} elseif ( $action === "attach" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
 				$this->notInProject();
 				return;
 			}
 			$this->attachVolume();
-		} elseif ( $action == "detach" ) {
+		} elseif ( $action === "detach" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
 				$this->notInProject();
 				return;
@@ -80,6 +78,7 @@ class SpecialNovaVolume extends SpecialNova {
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-createvolume' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
+		$region = $this->getRequest()->getText( 'region' );
 		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
 			$this->notInRole( 'sysadmin' );
 			return false;
@@ -100,34 +99,21 @@ class SpecialNovaVolume extends SpecialNova {
 			'section' => 'volume/info',
 			'name' => 'volumedescription',
 		);
-
-
-		# Availability zone names can't be translated. Get the keys, and make an array
-		# where the name points to itself as a value
-		$availabilityZones = $this->adminNova->getAvailabilityZones();
-		$availabilityZone_keys = array();
-		foreach ( array_keys( $availabilityZones ) as $availabilityZone_key ) {
-			$availabilityZone_keys["$availabilityZone_key"] = $availabilityZone_key;
-		}
-		$volumeInfo['availabilityZone'] = array(
-			'type' => 'select',
-			'section' => 'volume/info',
-			'options' => $availabilityZone_keys,
-			'label-message' => 'openstackmanager-availabilityzone',
-			'name' => 'availabilityZone',
-		);
-
 		$volumeInfo['volumeSize'] = array(
 			'type' => 'int',
 			'section' => 'volume/info',
 			'label-message' => 'openstackmanager-volumesize',
 			'name' => 'volumeSize',
 		);
-
 		$volumeInfo['project'] = array(
 			'type' => 'hidden',
 			'default' => $project,
 			'name' => 'project',
+		);
+		$volumeInfo['region'] = array(
+			'type' => 'hidden',
+			'default' => $region,
+			'name' => 'region',
 		);
 		$volumeInfo['action'] = array(
 			'type' => 'hidden',
@@ -135,7 +121,7 @@ class SpecialNovaVolume extends SpecialNova {
 			'name' => 'action',
 		);
 
-		$volumeForm = new SpecialNovaVolumeForm( $volumeInfo, 'openstackmanager-novavolume' );
+		$volumeForm = new HTMLForm( $volumeInfo, 'openstackmanager-novavolume' );
 		$volumeForm->setTitle( SpecialPage::getTitleFor( 'NovaVolume' ) );
 		$volumeForm->setSubmitID( 'openstackmanager-novavolume-createvolumesubmit' );
 		$volumeForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
@@ -148,12 +134,11 @@ class SpecialNovaVolume extends SpecialNova {
 	 * @return bool
 	 */
 	function deleteVolume() {
-
-
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-deletevolume' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
+		$region = $this->getRequest()->getText( 'region' );
 		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
 			$this->notInRole( 'sysadmin' );
 			return false;
@@ -173,12 +158,17 @@ class SpecialNovaVolume extends SpecialNova {
 			'default' => $project,
 			'name' => 'project',
 		);
+		$volumeInfo['region'] = array(
+			'type' => 'hidden',
+			'default' => $region,
+			'name' => 'region',
+		);
 		$volumeInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'delete',
 			'name' => 'action',
 		);
-		$volumeForm = new SpecialNovaVolumeForm( $volumeInfo, 'openstackmanager-novavolume' );
+		$volumeForm = new HTMLForm( $volumeInfo, 'openstackmanager-novavolume' );
 		$volumeForm->setTitle( SpecialPage::getTitleFor( 'NovaVolume' ) );
 		$volumeForm->setSubmitID( 'novavolume-form-deletevolumesubmit' );
 		$volumeForm->setSubmitCallback( array( $this, 'tryDeleteSubmit' ) );
@@ -191,12 +181,11 @@ class SpecialNovaVolume extends SpecialNova {
 	 * @return bool
 	 */
 	function attachVolume() {
-
-
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-attachvolume' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
+		$region = $this->getRequest()->getText( 'region' );
 		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
 			$this->notInRole( 'sysadmin' );
 			return false;
@@ -204,10 +193,10 @@ class SpecialNovaVolume extends SpecialNova {
 		$instances = $this->userNova->getInstances();
 		$instance_keys = array();
 		foreach ( $instances as $instance ) {
-			if ( $instance->getProject() == $project ) {
+			if ( $instance->getProject() === $project ) {
 				$instancename = $instance->getInstanceName();
 				$instanceid = $instance->getInstanceId();
-				$instance_keys["$instancename"] = $instanceid;
+				$instance_keys[$instancename] = $instanceid;
 			}
 		}
 		$volumeInfo = array();
@@ -248,12 +237,17 @@ class SpecialNovaVolume extends SpecialNova {
 			'default' => $project,
 			'name' => 'project',
 		);
+		$volumeInfo['region'] = array(
+			'type' => 'hidden',
+			'default' => $region,
+			'name' => 'region',
+		);
 		$volumeInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'attach',
 			'name' => 'action',
 		);
-		$volumeForm = new SpecialNovaVolumeForm( $volumeInfo, 'openstackmanager-novavolume' );
+		$volumeForm = new HTMLForm( $volumeInfo, 'openstackmanager-novavolume' );
 		$volumeForm->setTitle( SpecialPage::getTitleFor( 'NovaVolume' ) );
 		$volumeForm->setSubmitID( 'novavolume-form-attachvolumesubmit' );
 		$volumeForm->setSubmitCallback( array( $this, 'tryAttachSubmit' ) );
@@ -266,12 +260,11 @@ class SpecialNovaVolume extends SpecialNova {
 	 * @return bool
 	 */
 	function detachVolume() {
-
-
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-detachvolume' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
+		$region = $this->getRequest()->getText( 'region' );
 		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
 			$this->notInRole( 'sysadmin' );
 			return false;
@@ -301,12 +294,17 @@ class SpecialNovaVolume extends SpecialNova {
 			'default' => $project,
 			'name' => 'project',
 		);
+		$volumeInfo['region'] = array(
+			'type' => 'hidden',
+			'default' => $region,
+			'name' => 'region',
+		);
 		$volumeInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'detach',
 			'name' => 'action',
 		);
-		$volumeForm = new SpecialNovaVolumeForm( $volumeInfo, 'openstackmanager-novavolume' );
+		$volumeForm = new HTMLForm( $volumeInfo, 'openstackmanager-novavolume' );
 		$volumeForm->setTitle( SpecialPage::getTitleFor( 'NovaVolume' ) );
 		$volumeForm->setSubmitID( 'novavolume-form-detachvolumesubmit' );
 		$volumeForm->setSubmitCallback( array( $this, 'tryDetachSubmit' ) );
@@ -322,7 +320,7 @@ class SpecialNovaVolume extends SpecialNova {
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-volumelist' ) );
 
-		if ( $this->userLDAP->inGlobalRole( 'cloudadmin' ) ) {
+		if ( $this->getUser()->isAllowed( 'listall' ) ) {
 			$projects = OpenStackNovaProject::getAllProjects();
 		} else {
 			$projects = OpenStackNovaProject::getProjectsByName( $this->userLDAP->getProjects() );
@@ -336,30 +334,33 @@ class SpecialNovaVolume extends SpecialNova {
 		$this->showProjectFilter( $projects );
 
 		$out = '';
-
-		$volumes = $this->getResourcesGroupedByProject( $this->adminNova->getVolumes() );
 		foreach ( $projects as $project ) {
 			$projectName = $project->getProjectName();
 			if ( !in_array( $projectName, $projectfilter ) ) {
 				continue;
 			}
-			if ( !array_key_exists( $projectName, $volumes ) ) {
-				continue;
+			$projectactions = Array( 'sysadmin' => Array() );
+			$regions = '';
+			$this->userNova->setProject( $projectName );
+			foreach ( $this->userNova->getRegions( 'compute' ) as $region ) {
+				$regionactions = Array( 'sysadmin' => Array( $this->createActionLink( 'openstackmanager-createvolume', array( 'action' => 'create', 'project' => $projectName, 'region' => $region ) ) ) );
+				$volumes = $this->getVolumes( $projectName, $region );
+				$regions .= $this->createRegionSection( $region, $projectName, $regionactions, $volumes );
 			}
-			$actions = Array( 'sysadmin' => Array() );
-			$actions['sysadmin'][] = $this->createActionLink( 'openstackmanager-createvolume', array( 'action' => 'create', 'project' => $projectName ) );
-			$out .= $this->createProjectSection( $projectName, $actions, $this->getVolumes( $projectName, $this->getResourceByProject( $volumes, $projectName ) ) );
+			$out .= $this->createProjectSection( $projectName, $projectactions, $regions );
 		}
 
 		$this->getOutput()->addHTML( $out );
 	}
 
-	function getVolumes( $projectName, $volumes ) {
+	function getVolumes( $projectName, $region ) {
 		$headers = Array( 'openstackmanager-volumename', 'openstackmanager-volumeid', 'openstackmanager-volumedescription',
-				'openstackmanager-volumestate', 'openstackmanager-volumeattachmentinstance',
+				'openstackmanager-volumeattachmentinstance',
 				'openstackmanager-volumeattachmentdevice', 'openstackmanager-volumeattachmentstatus',
-				'openstackmanager-volumesize', 'openstackmanager-volumedeleteonvolumedelete',
-				'openstackmanager-availabilityzone', 'openstackmanager-volumecreationtime', 'openstackmanager-actions' );
+				'openstackmanager-volumesize',
+				'openstackmanager-volumecreationtime', 'openstackmanager-actions' );
+		$this->userNova->setRegion( $region );
+		$volumes = $this->userNova->getVolumes();
 		$volumeRows = Array();
 		foreach ( $volumes as $volume ) {
 			$volumeRow = Array();
@@ -367,19 +368,15 @@ class SpecialNovaVolume extends SpecialNova {
 			$volumeId = $volume->getVolumeId();
 			$this->pushRawResourceColumn( $volumeRow, $this->createResourceLink( $volumeId ) );
 			$this->pushResourceColumn( $volumeRow, $volume->getVolumeDescription() );
-			$this->pushResourceColumn( $volumeRow, $volume->getVolumeStatus() );
 			$this->pushResourceColumn( $volumeRow, $volume->getAttachedInstanceId() );
 			$this->pushResourceColumn( $volumeRow, $volume->getAttachedDevice() );
 			$this->pushResourceColumn( $volumeRow, $volume->getAttachmentStatus() );
 			$this->pushResourceColumn( $volumeRow, $volume->getVolumeSize() );
-			$this->pushResourceColumn( $volumeRow, $volume->deleteOnInstanceDeletion() );
-			$this->pushResourceColumn( $volumeRow, $volume->getVolumeAvailabilityZone() );
 			$this->pushResourceColumn( $volumeRow, $volume->getVolumeCreationTime() );
 			$actions = Array();
-			array_push( $actions, $this->createActionLink( 'openstackmanager-delete', array( 'action' => 'delete', 'project' => $projectName, 'volumeid' => $volumeId ) ) );
-			#array_push( $actions, $this->createActionLink( 'openstackmanager-rename', array( 'action' => 'rename', 'project' => $projectName, 'volumeid' => $volumeId ) ) );
-			array_push( $actions, $this->createActionLink( 'openstackmanager-attach', array( 'action' => 'attach', 'project' => $projectName, 'volumeid' => $volumeId ) ) );
-			array_push( $actions, $this->createActionLink( 'openstackmanager-detach', array( 'action' => 'detach', 'project' => $projectName, 'volumeid' => $volumeId ) ) );
+			array_push( $actions, $this->createActionLink( 'openstackmanager-delete', array( 'action' => 'delete', 'project' => $projectName, 'region' => $region, 'volumeid' => $volumeId ) ) );
+			array_push( $actions, $this->createActionLink( 'openstackmanager-attach', array( 'action' => 'attach', 'project' => $projectName, 'region' => $region, 'volumeid' => $volumeId ) ) );
+			array_push( $actions, $this->createActionLink( 'openstackmanager-detach', array( 'action' => 'detach', 'project' => $projectName, 'region' => $region, 'volumeid' => $volumeId ) ) );
 			$this->pushRawResourceColumn( $volumeRow, $this->createResourceList( $actions ) );
 			array_push( $volumeRows, $volumeRow );
 		}
@@ -396,7 +393,7 @@ class SpecialNovaVolume extends SpecialNova {
 	 * @return bool
 	 */
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
-		$volume = $this->userNova->createVolume( $formData['availabilityZone'], $formData['volumeSize'], $formData['volumename'], $formData['volumedescription'] );
+		$volume = $this->userNova->createVolume( '', $formData['volumeSize'], $formData['volumename'], $formData['volumedescription'] );
 		if ( $volume ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-createdvolume', $volume->getVolumeID() );
 		} else {
@@ -416,7 +413,7 @@ class SpecialNovaVolume extends SpecialNova {
 	 * @return bool
 	 */
 	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
-		$volume = $this->adminNova->getVolume( $formData['volumeid'] );
+		$volume = $this->userNova->getVolume( $formData['volumeid'] );
 		if ( ! $volume ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistantvolume' );
 			return true;
@@ -490,16 +487,13 @@ class SpecialNovaVolume extends SpecialNova {
 		$drives = array();
 		foreach ( range('a', 'z') as $letter ) {
 			$drive = '/dev/vd' . $letter;
-			$drives["$drive"] = $drive;
+			$drives[$drive] = $drive;
 		}
 		foreach ( range('a', 'z') as $letter ) {
 			$drive = '/dev/vda' . $letter;
-			$drives["$drive"] = $drive;
+			$drives[$drive] = $drive;
 		}
 
 		return $drives;
 	}
-}
-
-class SpecialNovaVolumeForm extends HTMLForm {
 }

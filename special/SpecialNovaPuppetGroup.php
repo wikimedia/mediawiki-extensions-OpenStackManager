@@ -15,7 +15,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 	protected $userLDAP;
 
 	function __construct() {
-		parent::__construct( 'NovaPuppetGroup', 'manageproject' );
+		parent::__construct( 'NovaPuppetGroup', 'manageglobalpuppet' );
 	}
 
 	function execute( $par ) {
@@ -29,23 +29,23 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			return;
 		}
 		$action = $this->getRequest()->getVal( 'action' );
-		if ( $action == "create" ) {
+		if ( $action === "create" ) {
 			$this->createPuppetGroup();
-		} elseif ( $action == "delete" ) {
+		} elseif ( $action === "delete" ) {
 			$this->deletePuppetGroup();
-		} elseif ( $action == "addvar" ) {
+		} elseif ( $action === "addvar" ) {
 			$this->addPuppetVar();
-		} elseif ( $action == "deletevar" ) {
+		} elseif ( $action === "deletevar" ) {
 			$this->deletePuppetVar();
-		} elseif ( $action == "addclass" ) {
+		} elseif ( $action === "addclass" ) {
 			$this->addPuppetClass();
-		} elseif ( $action == "deleteclass" ) {
+		} elseif ( $action === "deleteclass" ) {
 			$this->deletePuppetClass();
-		} elseif ( $action == "modifyclass" ) {
+		} elseif ( $action === "modifyclass" ) {
 			$this->modifyPuppetClass();
-		} elseif ( $action == "modifyvar" ) {
+		} elseif ( $action === "modifyvar" ) {
 			$this->modifyPuppetVar();
-		//} elseif ( $action == "modify" ) {
+		//} elseif ( $action === "modify" ) {
 		//	$this->modifyPuppetGroup();
 		} else {
 			$this->listPuppetGroups();
@@ -66,7 +66,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 				return false;
 			}
 		} else {
-			// Global project - requires manageproject
+			// Global project - requires manageglobalpuppet
 			if ( !$this->userCanExecute( $this->getUser() ) ) {
 				$this->displayRestrictionError();
 				return false;
@@ -92,7 +92,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			'name' => 'action',
 		);
 
-		$puppetGroupForm = new SpecialNovaPuppetGroupForm( $puppetGroupInfo, 'openstackmanager-novapuppetgroup' );
+		$puppetGroupForm = new HTMLForm( $puppetGroupInfo, 'openstackmanager-novapuppetgroup' );
 		$puppetGroupForm->setTitle( SpecialPage::getTitleFor( 'NovaPuppetGroup' ) );
 		$puppetGroupForm->setSubmitID( 'novapuppetgroup-form-createpuppetgroupsubmit' );
 		$puppetGroupForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
@@ -121,7 +121,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 				return false;
 			}
 		} else {
-			// Global project - requires manageproject
+			// Global project - requires manageglobalpuppet
 			if ( !$this->userCanExecute( $this->getUser() ) ) {
 				$this->displayRestrictionError();
 				return false;
@@ -151,7 +151,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			'name' => 'puppetgroupid',
 		);
 
-		$puppetGroupForm = new SpecialNovaPuppetGroupForm( $puppetGroupInfo, 'openstackmanager-novapuppetgroup' );
+		$puppetGroupForm = new HTMLForm( $puppetGroupInfo, 'openstackmanager-novapuppetgroup' );
 		$puppetGroupForm->setTitle( SpecialPage::getTitleFor( 'NovaPuppetGroup' ) );
 		$puppetGroupForm->setSubmitID( 'novapuppetgroup-form-addclasssubmit' );
 		$puppetGroupForm->setSubmitCallback( array( $this, 'tryAddClassSubmit' ) );
@@ -180,7 +180,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 				return false;
 			}
 		} else {
-			// Global project - requires manageproject
+			// Global project - requires manageglobalpuppet
 			if ( !$this->userCanExecute( $this->getUser() ) ) {
 				$this->displayRestrictionError();
 				return false;
@@ -201,7 +201,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			'name' => 'action',
 		);
 
-		$puppetGroupForm = new SpecialNovaPuppetGroupForm( $puppetGroupInfo, 'openstackmanager-novapuppetgroup' );
+		$puppetGroupForm = new HTMLForm( $puppetGroupInfo, 'openstackmanager-novapuppetgroup' );
 		$puppetGroupForm->setTitle( SpecialPage::getTitleFor( 'NovaPuppetGroup' ) );
 		$puppetGroupForm->setSubmitID( 'novapuppetgroup-form-deletepuppetclasssubmit' );
 		$puppetGroupForm->setSubmitCallback( array( $this, 'tryDeleteClassSubmit' ) );
@@ -230,7 +230,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 				return false;
 			}
 		} else {
-			// Global project - requires manageproject
+			// Global project - requires manageglobalpuppet
 			if ( !$this->userCanExecute( $this->getUser() ) ) {
 				$this->displayRestrictionError();
 				return false;
@@ -261,7 +261,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			'name' => 'action',
 		);
 
-		$puppetGroupForm = new SpecialNovaPuppetGroupForm( $puppetGroupInfo, 'openstackmanager-novapuppetgroup' );
+		$puppetGroupForm = new HTMLForm( $puppetGroupInfo, 'openstackmanager-novapuppetgroup' );
 		$puppetGroupForm->setTitle( SpecialPage::getTitleFor( 'NovaPuppetGroup' ) );
 		$puppetGroupForm->setSubmitID( 'novapuppetGroup-form-addvarsubmit' );
 		$puppetGroupForm->setSubmitCallback( array( $this, 'tryAddVarSubmit' ) );
@@ -290,7 +290,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 				return false;
 			}
 		} else {
-			// Global project - requires manageproject
+			// Global project - requires manageglobalpuppet
 			if ( !$this->userCanExecute( $this->getUser() ) ) {
 				$this->displayRestrictionError();
 				return false;
@@ -313,7 +313,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			'name' => 'action',
 		);
 
-		$puppetGroupForm = new SpecialNovaPuppetGroupForm( $puppetGroupInfo, 'openstackmanager-novapuppetgroup' );
+		$puppetGroupForm = new HTMLForm( $puppetGroupInfo, 'openstackmanager-novapuppetgroup' );
 		$puppetGroupForm->setTitle( SpecialPage::getTitleFor( 'NovaPuppetGroup' ) );
 		$puppetGroupForm->setSubmitID( 'novapuppetgroup-form-deletepuppetvarsubmit' );
 		$puppetGroupForm->setSubmitCallback( array( $this, 'tryDeleteVarSubmit' ) );
@@ -342,7 +342,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 				return false;
 			}
 		} else {
-			// Global project - requires manageproject
+			// Global project - requires manageglobalpuppet
 			if ( !$this->userCanExecute( $this->getUser() ) ) {
 				$this->displayRestrictionError();
 				return false;
@@ -363,7 +363,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			'default' => 'delete',
 			'name' => 'action',
 		);
-		$puppetGroupForm = new SpecialNovaPuppetGroupForm( $puppetGroupInfo, 'openstackmanager-novapuppetgroup' );
+		$puppetGroupForm = new HTMLForm( $puppetGroupInfo, 'openstackmanager-novapuppetgroup' );
 		$puppetGroupForm->setTitle( SpecialPage::getTitleFor( 'NovaPuppetGroup' ) );
 		$puppetGroupForm->setSubmitID( 'novapuppetGroup-form-deletepuppetgroupsubmit' );
 		$puppetGroupForm->setSubmitCallback( array( $this, 'tryDeleteSubmit' ) );
@@ -383,7 +383,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		$puppetGroupId = $this->getRequest()->getInt( 'puppetgroupid' );
 		// Check to ensure a user is a sysadmin in both the from and to
 		// groups.
-		if ( $puppetGroupId != $group->getId() ) {
+		if ( $puppetGroupId !== $group->getId() ) {
 			$newgroup = OpenStackNovaPuppetGroup::newFromId( $puppetGroupId );
 			if ( !$newgroup ) {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistentresource' );
@@ -407,7 +407,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 				return false;
 			}
 		} else {
-			// Global project - requires manageproject
+			// Global project - requires manageglobalpuppet
 			if ( !$this->userCanExecute( $this->getUser() ) ) {
 				$this->displayRestrictionError();
 				return false;
@@ -424,7 +424,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		$groupKeys = array();
 		foreach ( $groups as $group ) {
 			$groupname = htmlentities( $group->getName() );
-			$groupKeys["$groupname"] = $group->getId();
+			$groupKeys[$groupname] = $group->getId();
 		}
 		$puppetGroupInfo['puppetgroupid'] = array(
 			'type' => 'select',
@@ -439,7 +439,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			'name' => 'action',
 		);
 
-		$puppetGroupForm = new SpecialNovaPuppetGroupForm( $puppetGroupInfo, 'openstackmanager-novapuppetgroup' );
+		$puppetGroupForm = new HTMLForm( $puppetGroupInfo, 'openstackmanager-novapuppetgroup' );
 		$puppetGroupForm->setTitle( SpecialPage::getTitleFor( 'NovaPuppetGroup' ) );
 		$puppetGroupForm->setSubmitID( 'novapuppetgroup-form-modifypuppetclasssubmit' );
 		$puppetGroupForm->setSubmitCallback( array( $this, 'tryModifyClassSubmit' ) );
@@ -459,7 +459,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		$puppetGroupId = $this->getRequest()->getInt( 'puppetgroupid' );
 		// Check to ensure a user is a sysadmin in both the from and to
 		// groups.
-		if ( $puppetGroupId != $group->getId() ) {
+		if ( $puppetGroupId !== $group->getId() ) {
 			$newgroup = OpenStackNovaPuppetGroup::newFromId( $puppetGroupId );
 			if ( !$newgroup ) {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistentresource' );
@@ -484,7 +484,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 				return false;
 			}
 		} else {
-			// Global project - requires manageproject
+			// Global project - requires manageglobalpuppet
 			if ( !$this->userCanExecute( $this->getUser() ) ) {
 				$this->displayRestrictionError();
 				return false;
@@ -501,7 +501,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		$groupKeys = array();
 		foreach ( $groups as $group ) {
 			$groupname = htmlentities( $group->getName() );
-			$groupKeys["$groupname"] = $group->getId();
+			$groupKeys[$groupname] = $group->getId();
 		}
 		$puppetGroupInfo['puppetgroupid'] = array(
 			'type' => 'select',
@@ -516,7 +516,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			'name' => 'action',
 		);
 
-		$puppetGroupForm = new SpecialNovaPuppetGroupForm( $puppetGroupInfo, 'openstackmanager-novapuppetgroup' );
+		$puppetGroupForm = new HTMLForm( $puppetGroupInfo, 'openstackmanager-novapuppetgroup' );
 		$puppetGroupForm->setTitle( SpecialPage::getTitleFor( 'NovaPuppetGroup' ) );
 		$puppetGroupForm->setSubmitID( 'novapuppetgroup-form-modifypuppetvarsubmit' );
 		$puppetGroupForm->setSubmitCallback( array( $this, 'tryModifyVarSubmit' ) );
@@ -546,7 +546,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 				return false;
 			}
 		} else {
-			// Global project - requires manageproject
+			// Global project - requires manageglobalpuppet
 			if ( !$this->userCanExecute( $this->getUser() ) ) {
 				$this->displayRestrictionError();
 				return false;
@@ -570,7 +570,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			'name' => 'action',
 		);
 
-		$puppetGroupForm = new SpecialNovaPuppetGroupForm( $puppetGroupInfo, 'openstackmanager-novapuppetgroup' );
+		$puppetGroupForm = new HTMLForm( $puppetGroupInfo, 'openstackmanager-novapuppetgroup' );
 		$puppetGroupForm->setTitle( SpecialPage::getTitleFor( 'NovaPuppetGroup' ) );
 		$puppetGroupForm->setSubmitID( 'novapuppetgroup-form-modifypuppetgroupsubmit' );
 		$puppetGroupForm->setSubmitCallback( array( $this, 'tryModifyGroupSubmit' ) );
@@ -587,7 +587,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-puppetgrouplist' ) );
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
 
-		if ( $this->userLDAP->inGlobalRole( 'cloudadmin' ) ) {
+		if ( $this->getUser()->isAllowed( 'listall' ) ) {
 			$projects = OpenStackNovaProject::getAllProjects();
 		} else {
 			$projects =  OpenStackNovaProject::getProjectsByName( $this->userLDAP->getProjects() );
@@ -873,7 +873,4 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		return true;
 	}
 
-}
-
-class SpecialNovaPuppetGroupForm extends HTMLForm {
 }

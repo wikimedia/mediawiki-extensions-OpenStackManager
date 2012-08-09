@@ -18,7 +18,7 @@ class OpenStackNovaLdapConnection {
 		global $wgOpenStackManagerLDAPDomain;
 
 		// Only reconnect/rebind if we aren't alredy bound
-		if ( $wgAuth->boundAs != $wgOpenStackManagerLDAPUser ) {
+		if ( $wgAuth->boundAs !== $wgOpenStackManagerLDAPUser ) {
 			$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
 			$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 		}

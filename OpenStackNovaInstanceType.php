@@ -7,7 +7,6 @@
  * @ingroup Extensions
  */
 
-# TODO: Make this an abstract class, and make the EC2 API a subclass
 class OpenStackNovaInstanceType {
 
 	var $instanceType;
@@ -25,7 +24,7 @@ class OpenStackNovaInstanceType {
 	 * @return string
 	 */
 	function getMemorySize() {
-		return (string)$this->instanceType->memoryMb;
+		return $this->instanceType->ram;
 	}
 
 	/**
@@ -34,7 +33,7 @@ class OpenStackNovaInstanceType {
 	 * @return string
 	 */
 	function getNumberOfCPUs() {
-		return (string)$this->instanceType->vcpus;
+		return $this->instanceType->vcpus;
 	}
 
 	/**
@@ -43,7 +42,7 @@ class OpenStackNovaInstanceType {
 	 * @return string
 	 */
 	function getInstanceTypeName() {
-		return (string)$this->instanceType->name;
+		return $this->instanceType->name;
 	}
 
 	/**
@@ -52,7 +51,7 @@ class OpenStackNovaInstanceType {
 	 * @return string
 	 */
 	function getStorageSize() {
-		return (string)$this->instanceType->diskGb;
+		return $this->instanceType->disk;
 	}
 
 	/**
@@ -61,7 +60,7 @@ class OpenStackNovaInstanceType {
 	 * @return int
 	 */
 	function getInstanceTypeId() {
-		return (int)$this->instanceType->flavorId;
+		return $this->instanceType->id;
 	}
 
 	/**

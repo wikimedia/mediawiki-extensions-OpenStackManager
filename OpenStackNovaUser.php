@@ -42,22 +42,19 @@ class OpenStackNovaUser {
 		return $this->userInfo[0]['uid'][0];
 	}
 
+	function getUsername() {
+		return $this->username;
+	}
+
 	/**
 	 * @param string $project
 	 * @return array
 	 */
-	function getCredentials() {
-		if ( isset( $this->userInfo[0]['accesskey'] ) ) {
-			$accessKey = $this->userInfo[0]['accesskey'][0];
-		} else {
-			$accessKey = '';
-		}
-		if ( isset( $this->userInfo[0]['secretkey'] ) ) {
-			$secretKey = $this->userInfo[0]['secretkey'][0];
-		} else {
-			$secretKey = '';
-		}
-		return array( 'accessKey' => $accessKey, 'secretKey' => $secretKey );
+	function getCredentials( $project='' ) {
+		$userNova = OpenStackNovaController::newFromUser( $this );
+		$token = $userNova->getProjectToken( $project );
+
+		return array( 'token' => $token );
 	}
 
 	/**
@@ -73,7 +70,7 @@ class OpenStackNovaUser {
 			array_shift( $keys );
 			foreach ( $keys as $key ) {
 				$hash = md5( $key );
-				$keypairs["$hash"] = $key;
+				$keypairs[$hash] = $key;
 			}
 			return $keypairs;
 		} else {
@@ -85,22 +82,9 @@ class OpenStackNovaUser {
 	/**
 	 * @return bool
 	 */
-	function isAdmin() {
-		if ( isset( $this->userInfo[0]['isnovaadmin'] ) ) {
-			$isAdmin = $this->userInfo[0]['isnovaadmin'][0];
-			if ( strtolower( $isAdmin ) == "true" ) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * @return bool
-	 */
 	function exists() {
 		$credentials = $this->getCredentials();
-		if ( $credentials['accessKey'] && $credentials['secretKey'] ) {
+		if ( $credentials['token'] ) {
 			return true;
 		} else {
 			return false;
@@ -117,7 +101,7 @@ class OpenStackNovaUser {
 		# All projects have a owner attribute, project
 		# roles do not
 		$projects = array();
-		$filter = "(&(owner=*)(member=$this->userDN))";
+		$filter = "(&(objectclass=groupofnames)(member=$this->userDN))";
 		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, $filter );
 		if ( $result ) {
 			$entries = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
@@ -159,7 +143,7 @@ class OpenStackNovaUser {
 			return (bool)$inProject;
 		}
 
-		$filter = "(&(cn=$project)(member=$this->userDN)(owner=*))";
+		$filter = "(&(cn=$project)(member=$this->userDN)(objectclass=groupofnames))";
 		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, $filter );
 		$ret = false;
 		if ( $result ) {
@@ -181,87 +165,38 @@ class OpenStackNovaUser {
 	 * @param string $projectname
 	 * @return bool
 	 */
-	function inRole( $role, $projectname='', $strict=false ) {
+	function inRole( $role, $projectname, $strict=false ) {
 		global $wgAuth;
-		global $wgOpenStackManagerLDAPRolesIntersect;
 		global $wgMemc;
 
-		if ( $projectname ) {
-			$key = wfMemcKey( 'openstackmanager', "projectrole-$projectname-$role", $this->userDN );
-		} else {
-			$key = wfMemcKey( 'openstackmanager', "globalrole-$role", $this->userDN );
-		}
+		$key = wfMemcKey( 'openstackmanager', "projectrole-$projectname-$role", $this->userDN );
 		$cacheLength = 3600;
 		$inRole = $wgMemc->get( $key );
 		if ( is_int( $inRole ) ) {
 			return (bool)$inRole;
 		}
 
-		if ( $this->inGlobalRole( $role ) ) {
-			# If roles intersect, or we wish to explicitly check
-			# project role, we can't return here.
-			if ( !$wgOpenStackManagerLDAPRolesIntersect && !$strict ) {
-				$wgMemc->set( $key, 1, $cacheLength );
-				return true;
-			}
-		} else {
-			if ( $wgOpenStackManagerLDAPRolesIntersect ) {
-				$wgMemc->set( $key, 0, $cacheLength );
-				return false;
-			}
-		}
-
 		$ret = false;
-		if ( $projectname ) {
-			# Check project specific role
-			$project = OpenStackNovaProject::getProjectByName( $projectname );
-			if ( ! $project ) {
-				$wgMemc->set( $key, 0, $cacheLength );
-				return false;
-			}
-			$filter = "(&(cn=$role)(member=$this->userDN))";
-			$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $project->projectDN, $filter );
-			if ( $result ) {
-				$entries = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
-				if ( $entries ) {
-					if ( $entries['count'] == "0" ) {
-						$wgAuth->printDebug( "Couldn't find the user in role: $role", NONSENSITIVE );
-					} else {
-						$ret = true;
-					}
+		# Check project specific role
+		$project = OpenStackNovaProject::getProjectByName( $projectname );
+		if ( ! $project ) {
+			$wgMemc->set( $key, 0, $cacheLength );
+			return false;
+		}
+		$filter = "(&(cn=$role)(roleoccupant=$this->userDN))";
+		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $project->projectDN, $filter );
+		if ( $result ) {
+			$entries = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
+			if ( $entries ) {
+				if ( $entries['count'] == "0" ) {
+					$wgAuth->printDebug( "Couldn't find the user in role: $role", NONSENSITIVE );
+				} else {
+					$ret = true;
 				}
 			}
 		}
 		$wgMemc->set( $key, (int)$ret, $cacheLength );
 		return $ret;
-	}
-
-	/**
-	 * Check if user is in global role
-	 *
-	 * @param  $role
-	 * @return bool
-	 */
-	function inGlobalRole( $role ) {
-		global $wgAuth;
-		global $wgOpenStackManagerLDAPGlobalRoles;
-
-		if ( ! array_key_exists( $role, $wgOpenStackManagerLDAPGlobalRoles ) ) {
-			$wgAuth->printDebug( "Requested global role does not exist: $role", NONSENSITIVE );
-			return false;
-		}
-
-		if ( $wgOpenStackManagerLDAPGlobalRoles["$role"] ) {
-			# Check global role
-			$roledn = $wgOpenStackManagerLDAPGlobalRoles["$role"];
-			$filter = "(objectclass=*)";
-			$result = LdapAuthenticationPlugin::ldap_read( $wgAuth->ldapconn, $roledn, $filter );
-			if ( $result ) {
-				$entries = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
-				return ( in_array( $this->userDN, $entries[0]['member'] ) );
-			}
-		}
-		return false;
 	}
 
 	/**
@@ -361,7 +296,7 @@ class OpenStackNovaUser {
 	 */
 	static function getNextIdNumber( $auth, $attr ) {
 		$highest = '';
-		if ( $attr == 'gidnumber' ) {
+		if ( $attr === 'gidnumber' ) {
 			$filter = "(objectclass=posixgroup)";
 			$base = GROUPDN;
 		} else {
@@ -382,7 +317,7 @@ class OpenStackNovaUser {
 					}
 					sort( $uids, SORT_NUMERIC );
 					$highest = array_pop( $uids ) + 1;
-					if ( $attr == 'gidnumber' && $highest % 2 ) {
+					if ( $attr === 'gidnumber' && $highest % 2 ) {
 						# Ensure groups are always even, since they'll
 						# be used for namespaces as well.
 						$highest = $highest + 1;
@@ -430,23 +365,29 @@ class OpenStackNovaUser {
 			return false;
 		}
 		$values['cn'] = $username;
-		if ( '' != $auth->realname ) {
+		if ( '' !== $auth->realname ) {
 			$values['displayname'] = $auth->realname;
 		}
-		$username = $wgRequest->getText( 'shellaccountname' );
-		if ( ! preg_match( "/^[a-z][a-z0-9\-_]*$/", $username ) ) {
+		$shellaccountname = $wgRequest->getText( 'shellaccountname' );
+		if ( ! preg_match( "/^[a-z][a-z0-9\-_]*$/", $shellaccountname ) ) {
 			$result = false;
 			return false;
 		}
-		$values['uid'] = $username;
+		$check = ucfirst( $shellaccountname );
+		if ( ! User::isCreatableName( $check ) ) {
+			$auth->printDebug( "$shellaccountname is not a creatable name.", NONSENSITIVE );
+			$result = false;
+			return false;
+		}
+		$values['uid'] = $shellaccountname;
 		$base = $auth->getBaseDN( USERDN );
 		# Though the LDAP plugin checks to see if the user account exists,
 		# it does not check to see if the uid attribute is already used.
-		$result = LdapAuthenticationPlugin::ldap_search( $auth->ldapconn, $base, "(uid=$username)" );
+		$result = LdapAuthenticationPlugin::ldap_search( $auth->ldapconn, $base, "(uid=$shellaccountname)" );
 		if ( $result ) {
 			$entries = LdapAuthenticationPlugin::ldap_get_entries( $auth->ldapconn, $result );
 			if ( (int)$entries['count'] > 0 ) {
-				$auth->printDebug( "User $username already exists.", NONSENSITIVE );
+				$auth->printDebug( "User $shellaccountname already exists.", NONSENSITIVE );
 				# uid attribute is already in use, fail.
 				$result = false;
 				return false;
@@ -454,15 +395,15 @@ class OpenStackNovaUser {
 		}
 		$values['uidnumber'] = $uidnumber;
 		$values['gidnumber'] = $wgOpenStackManagerLDAPDefaultGid;
-		$values['homedirectory'] = '/home/' . $username;
+		$values['homedirectory'] = '/home/' . $shellaccountname;
 		$values['loginshell'] = $wgOpenStackManagerLDAPDefaultShell;
 
 		if ( $wgOpenStackManagerLDAPUseUidAsNamingAttribute ) {
-			if ( $writeloc == '' ) {
+			if ( $writeloc === '' ) {
 				$auth->printDebug( "Trying to set the userdn, but write location isn't set.", NONSENSITIVE );
 				return false;
 			} else {
-				$userdn = 'uid=' . $username . ',' . $writeloc;
+				$userdn = 'uid=' . $shellaccountname . ',' . $writeloc;
 				$auth->printDebug( "Using uid as the naming attribute, dn is: $userdn", NONSENSITIVE );
 			}
 		}
@@ -470,54 +411,6 @@ class OpenStackNovaUser {
 		$auth->printDebug( "User account's attributes: ", HIGHLYSENSITIVE, $values );
 
 		return true;
-	}
-
-	/**
-	 * Hook to add objectclasses and attributes for users that already exist, but have
-	 * missing information.
-	 *
-	 * @static
-	 * @param  $auth
-	 * @return bool
-	 */
-	static function LDAPSetNovaInfo( $auth ) {
-		global $wgMemc;
-
-		OpenStackNovaLdapConnection::connect();
-		$result = LdapAuthenticationPlugin::ldap_read( $auth->ldapconn, $auth->userInfo[0]['dn'], '(objectclass=*)', array( 'secretkey', 'accesskey', 'objectclass' ) );
-		$userInfo = LdapAuthenticationPlugin::ldap_get_entries( $auth->ldapconn, $result );
-		if ( !isset( $userInfo[0]['accesskey'] ) or !isset( $userInfo[0]['secretkey'] ) ) {
-			$objectclasses = $userInfo[0]['objectclass'];
-			# First entry is a count
-			array_shift( $objectclasses );
-			if ( !in_array( 'novauser', $objectclasses ) ) {
-				$values['objectclass'] = array();
-				# ldap_modify for objectclasses requires the array indexes be sequential.
-				# It is stupid, yes.
-				foreach ( $objectclasses as $objectclass ) {
-					$values['objectclass'][] = $objectclass;
-				}
-				$values['objectclass'][] = 'novauser';
-			}
-			$values['accesskey'] = OpenStackNovaUser::uuid4();
-			$values['secretkey'] = OpenStackNovaUser::uuid4();
-			$values['isnovaadmin'] = 'FALSE';
-
-			$success = LdapAuthenticationPlugin::ldap_modify( $auth->ldapconn, $auth->userdn, $values );
-			if ( $success ) {
-				$key = wfMemcKey( 'ldapauthentication', 'userinfo', $auth->userdn );
-				$wgMemc->delete( $key );
-				$auth->printDebug( "Successfully modified the user's nova attributes", NONSENSITIVE );
-				return true;
-			} else {
-				$auth->printDebug( "Failed to modify the user's nova attributes.", NONSENSITIVE );
-				# Always return true, other hooks should still run, even if this fails
-				return true;
-			}
-		} else {
-			$auth->printDebug( "User has accesskey and secretkey set.", NONSENSITIVE );
-			return true;
-		}
 	}
 
 	/**
@@ -530,6 +423,29 @@ class OpenStackNovaUser {
 		$template->set( 'extraInput', array( $input ) );
 
 		return true;
+	}
+
+	/**
+	 * @param $username string
+	 * @param $password string
+	 * @param $result bool
+	 * @return bool
+	 */
+	static function ChainAuth( $username, $password, &$result ) {
+		global $wgOpenStackManagerLDAPUseUidAsNamingAttribute;
+
+		$user = new OpenStackNovaUser( $username );
+		$userNova = OpenStackNovaController::newFromUser( $user );
+		if ( $wgOpenStackManagerLDAPUseUidAsNamingAttribute ) {
+			$username = $user->getUid();
+		}
+		if ( $userNova->authenticate( $username, $password ) ) {
+			$result = true;
+		} else {
+			$result = false;
+		}
+
+		return $result;
 	}
 
 }
