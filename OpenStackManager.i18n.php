@@ -767,6 +767,13 @@ $messages['az'] = array(
  * @author Haqmar
  */
 $messages['ba'] = array(
+	'openstackmanager-delete' => 'юйырға',
+	'openstackmanager-configure' => 'көйләргә',
+	'openstackmanager-modify' => 'үҙгәртергә',
+	'openstackmanager-rename' => 'яңы исем бирергә',
+	'openstackmanager-reboot' => 'яңынан башлатырға',
+	'openstackmanager-actions' => 'Ғәмәлдәр',
+	'openstackmanager-notloggedin' => 'Танылыу кәрәк',
 	'openstackmanager-location' => 'Урын',
 );
 
@@ -1797,7 +1804,9 @@ $messages['de'] = array(
  * @author Mirzali
  */
 $messages['diq'] = array(
+	'openstackmanager-actions' => 'Kerdeni',
 	'openstackmanager-name' => 'Name',
+	'openstackmanager-action' => 'Kerden',
 	'openstackmanager-sudoeroptions' => 'Weçinegi',
 );
 
@@ -2330,6 +2339,33 @@ $messages['es'] = array(
 	'right-manageproject' => 'Gestionar proyectos y funciones de OpenStack',
 );
 
+/** Estonian (eesti)
+ * @author Avjoska
+ * @author Pikne
+ */
+$messages['et'] = array(
+	'openstackmanager-delete' => 'kustuta',
+	'openstackmanager-modify' => 'muuda',
+	'openstackmanager-rename' => 'nimeta ümber',
+	'openstackmanager-notloggedin' => 'Vajalik on sisselogimine',
+	'openstackmanager-name' => 'Nimi',
+	'openstackmanager-fingerprint' => 'Sõrmejälg',
+	'openstackmanager-keys' => 'Võtmed',
+	'openstackmanager-keypairimported' => 'Imporditud võtmepaar.',
+	'openstackmanager-addmember' => 'Liikme lisamine',
+	'openstackmanager-removemember' => 'Liikme eemaldamine',
+	'openstackmanager-createproject' => 'Projekti lisamine',
+	'openstackmanager-projectname' => 'Projekti nimi',
+	'openstackmanager-members' => 'Liikmed',
+	'openstackmanager-member' => 'Liige',
+	'openstackmanager-deleteproject' => 'Kustutamine',
+	'openstackmanager-novaproject-project' => 'Lisa projekt',
+	'openstackmanager-removerolemember' => 'Eemalda liige',
+	'openstackmanager-addrolemember' => 'Lisa liige',
+	'openstackmanager-sudoerusers' => 'Kasutajad',
+	'openstackmanager-sudoercommands' => 'Käsud',
+);
+
 /** Persian (فارسی)
  * @author Huji
  * @author Mjbmr
@@ -2363,14 +2399,25 @@ $messages['fa'] = array(
 	'openstackmanager-domainname' => 'نام دامنه',
 	'openstackmanager-location' => 'مکان',
 	'openstackmanager-novainstance-global' => 'گروه‌های سراسری',
+	'openstackmanager-instancelist' => 'فهرست نمونه',
+	'openstackmanager-instancename' => 'نام نمونه',
+	'openstackmanager-instanceid' => 'شناسه نمونه',
+	'openstackmanager-instancestate' => 'ایالت نمونه',
+	'openstackmanager-instancetype' => 'نوع نمونه',
+	'openstackmanager-instanceip' => 'نشانی آی‌پی نمونه',
+	'openstackmanager-instancepublicip' => 'نشانی آی‌پی شناور نمونه',
 	'openstackmanager-securitygroups' => 'گروه‌های امنیتی',
 	'openstackmanager-imageid' => 'شناسهٔ تصویر',
 	'openstackmanager-imagetype' => 'نوع تصویر',
+	'openstackmanager-instancetypelabel' => '{{PLURAL:$1|تک پردازنده|$1 پردازنده}}، $2 مگابایت رم، $3 گیگابایت هارددیسک',
 	'openstackmanager-createinstance' => 'افزودن نمونه',
 	'openstackmanager-attach' => 'پیوست',
 	'openstackmanager-device' => 'دستگاه',
 	'openstackmanager-name' => 'نام',
 	'openstackmanager-fingerprint' => 'اثرانگشت',
+	'openstackmanager-addmember' => 'افزودن عضو',
+	'openstackmanager-removemember' => 'حذف عضو',
+	'openstackmanager-createproject' => 'افزودن پروژه',
 	'openstackmanager-projectname' => 'نام پروژه',
 	'openstackmanager-members' => 'اعضا',
 	'openstackmanager-member' => 'عضو',
@@ -2379,6 +2426,7 @@ $messages['fa'] = array(
 	'openstackmanager-deleteproject' => 'حذف',
 	'openstackmanager-addedto' => '$1 را با موفقیت به $2 افزود.',
 	'openstackmanager-novaproject-project' => 'افزودن پروژه',
+	'openstackmanager-novaprojectfilter-projectfilter' => 'پالایش پروژه',
 	'openstackmanager-projects' => 'پروژه‌ها',
 	'openstackmanager-removerolemember' => 'حذف عضو',
 	'openstackmanager-addrolemember' => 'افزودن عضو',
@@ -4246,6 +4294,7 @@ $messages['hu'] = array(
 	'openstackmanager-removedhost' => '$1 sikeresen eltávolítva.',
 	'openstackmanager-removehostfailed' => '$1 eltávolítása nem sikerült.',
 	'openstackmanager-nonexistenthost' => 'A kért hoszt nem létezik.',
+	'openstackmanager-createsecuritygroup' => 'Biztonsági csoport létrehozása',
 	'openstackmanager-securitygroupname' => 'Biztonsági csoport neve',
 	'openstackmanager-securitygroupdescription' => 'Leírás',
 	'openstackmanager-configuresecuritygroup' => 'Biztonsági csoport konfigurálása',
@@ -4256,10 +4305,12 @@ $messages['hu'] = array(
 	'openstackmanager-novasecuritygroup-rule' => 'Biztonsági csoport szabály',
 	'openstackmanager-novasecuritygroup-singlerule' => 'Egyedi szabály',
 	'openstackmanager-novasecuritygroup-group' => 'Csoport szabály',
+	'openstackmanager-securitygrouprule-group-exclusive' => 'Megjegyzés: Az egyedi szabályok és a csoport szabályok egymást kölcsönösen kizárják. Válaszd az egyiket vagy a másikat, de ne mindkettőt!',
 	'openstackmanager-securitygrouprule-toport' => 'Célport',
-	'openstackmanager-securitygrouprule-fromport' => 'Forrásport',
+	'openstackmanager-securitygrouprule-fromport' => 'Porttartomány eleje',
 	'openstackmanager-securitygrouprule-protocol' => 'Protokoll',
-	'openstackmanager-securitygrouprule-groups' => 'Biztonsági csoportok',
+	'openstackmanager-securitygrouprule-ipranges' => 'CIDR-tartományok',
+	'openstackmanager-securitygrouprule-groups' => 'Forrás csoport',
 	'openstackmanager-createnewsecuritygroup' => 'Csoport hozzáadása',
 	'openstackmanager-addrule-action' => 'szabály hozzáadása',
 	'openstackmanager-removerule-action' => 'szabály eltávolítása',
@@ -6129,6 +6180,7 @@ $messages['ms'] = array(
 	'openstackmanager-email-subject' => 'Tika anda sedia untuk dimasuki.',
 	'openstackmanager-email-body' => 'Tika yang berikut telah diwujudkan dan sedia dimasuki:',
 	'right-manageproject' => 'Menguruskan projek-projek dan peranan-peranan Openstack',
+	'action-manageproject' => 'menguruskan projek dan peranan OpenStack',
 );
 
 /** Norwegian Bokmål (‪norsk (bokmål)‬)
@@ -8002,6 +8054,68 @@ $messages['sl'] = array(
 	'openstackmanager-deleteddomain' => 'Domena je uspešno izbrisana.',
 );
 
+/** Serbian (Cyrillic script) (‪српски (ћирилица)‬)
+ * @author Rancher
+ * @author Михајло Анђелковић
+ */
+$messages['sr-ec'] = array(
+	'openstackmanager-hostname' => 'Име домаћина',
+	'openstackmanager-hostnames' => 'Имена домаћина',
+	'openstackmanager-addhost' => 'Додај име домаћина',
+	'openstackmanager-removehost' => 'Уклони домаћина',
+	'openstackmanager-removehost-action' => '(Уклони име домаћина)',
+	'openstackmanager-removehost-confirm' => 'Желите ли да обришете домаћина $1 из $2?',
+	'openstackmanager-removedhost' => '$1 је обрисан.',
+	'openstackmanager-removehostfailed' => 'Не могу да обришем $1.',
+	'openstackmanager-nonexistenthost' => 'Захтевани домаћин не постоји.',
+	'openstackmanager-needsysadminrole' => 'Морате бити системски администратор',
+	'openstackmanager-needsysadminrole2' => 'Морате да имате улогу системског администратора да бисте могли да извршите ову радњу.',
+	'openstackmanager-neednetadminrole' => 'Морате бити мрежни администратор',
+	'openstackmanager-neednetadminrole2' => 'Морате да имате улогу мрежног администратора да бисте могли да извршите ову радњу.',
+	'openstackmanager-createsecuritygroup' => 'Направи безбедносну групу',
+	'openstackmanager-securitygroupname' => 'Назив безбедносне групе',
+	'openstackmanager-securitygroupdescription' => 'Опис',
+	'openstackmanager-configuresecuritygroup' => 'Подеси безбедносну групу',
+	'openstackmanager-deletesecuritygroup' => 'Обриши безбедносну групу',
+	'openstackmanager-deletesecuritygroup-confirm' => 'Јесте ли сигурни да желите да обришете $1?',
+	'openstackmanager-securitygrouplist' => 'Списак безбедносних група',
+	'openstackmanager-securitygrouprule' => 'Правила',
+	'openstackmanager-novasecuritygroup-rule' => 'Правило безбедносне групе',
+	'openstackmanager-novasecuritygroup-singlerule' => 'Појединачно правило',
+	'openstackmanager-novasecuritygroup-group' => 'Правило групе',
+	'openstackmanager-securitygrouprule-group-exclusive' => 'Напомена: групна правила поништавају појединачна.',
+	'openstackmanager-securitygrouprule-toport' => 'Крај опсега портова',
+	'openstackmanager-securitygrouprule-fromport' => 'Почетак опсега портова',
+	'openstackmanager-securitygrouprule-protocol' => 'Протокол',
+	'openstackmanager-securitygrouprule-ipranges' => 'CIDR опсези',
+	'openstackmanager-createnewsecuritygroup' => 'Додај групу',
+	'openstackmanager-addrule-action' => 'додај правило',
+	'openstackmanager-removerule-action' => 'уклони правило',
+	'openstackmanager-modifiedgroup' => 'Безбедносна група је измењена.',
+	'openstackmanager-modifygroupfailed' => 'Не могу да изменим безбедносну групу.',
+	'openstackmanager-backsecuritygrouplist' => 'Назад на списак безбедносних група',
+	'openstackmanager-createdsecuritygroup' => 'Безбедносна група је направљена.',
+	'openstackmanager-createsecuritygroupfailed' => 'Не могу да направим безбедносну групу.',
+	'openstackmanager-nonexistantsecuritygroup' => 'Безбедносна група коју желите да обришете не постоји.',
+	'openstackmanager-deletedsecuritygroup' => 'Безбедносна група је обрисана.',
+	'openstackmanager-deletesecuritygroupfailed' => 'Не могу да обришем безбедносну групу.',
+	'openstackmanager-removerule' => 'Уклони правило',
+	'openstackmanager-removerule-confirm' => 'Желите ли да обришете ово правило из $1?',
+	'openstackmanager-removedrule' => 'Правило је обрисано.',
+	'openstackmanager-removerulefailed' => 'Не могу да обришем правило.',
+	'openstackmanager-addrule' => 'Додај правило',
+	'openstackmanager-securitygrouprule-ranges' => 'CIDR опсези',
+	'openstackmanager-securitygrouprule-ranges-help' => 'CIDR опсези се наводе као опсези раздвојени запетама.',
+	'openstackmanager-securitygrouprule-groups-help' => 'Примерцима у додатим безбедносним групама ће бити дозвољен приступ свим портовима и протоколима.',
+	'openstackmanager-addedrule' => 'Правило је успешно додато.',
+	'openstackmanager-addrulefailed' => 'Не могу да додам правило.',
+	'openstackmanager-commadelimiter' => 'Раздвојено запетама',
+	'openstackmanager-sudoerusers' => 'Корисници',
+	'openstackmanager-sudoerhosts' => 'Домаћини',
+	'openstackmanager-sudoercommands' => 'Наредбе',
+	'openstackmanager-sudoeroptions' => 'Поставке',
+);
+
 /** Swedish (svenska)
  * @author WikiPhoenix
  */
@@ -8117,6 +8231,64 @@ $messages['sv'] = array(
 	'openstackmanager-puppetvarname' => 'Variabelnamn',
 	'openstackmanager-puppetvarposition' => 'Variabelposition',
 	'openstackmanager-puppetclassposition' => 'Klassposition',
+);
+
+/** Tamil (தமிழ்)
+ * @author Shanmugamp7
+ */
+$messages['ta'] = array(
+	'openstackmanager-addmember' => 'உறுப்பினரைச் சேர்',
+	'openstackmanager-removemember' => 'உறுப்பினரை நீக்கு',
+	'openstackmanager-createproject' => 'திட்டத்தைச் சேர்',
+	'openstackmanager-projectname' => 'திட்டத்தின் பெயர்',
+	'openstackmanager-members' => 'உறுப்பினர்கள்',
+	'openstackmanager-member' => 'உறுப்பினர்',
+	'openstackmanager-action' => 'செயல்',
+	'openstackmanager-createprojectfailed' => 'திட்டத்தை உருவாக்குவது தோல்வியடைந்தது.',
+	'openstackmanager-createdproject' => 'திட்டம் உருவாக்கப்பட்டது.',
+	'openstackmanager-projectlist' => 'திட்டங்களின் பட்டியல்',
+	'openstackmanager-backprojectlist' => 'திட்டங்களின் பட்டியலுக்கு திரும்பவும்',
+	'openstackmanager-addadditionalproject' => 'மற்றொரு திட்டத்தை சேர்க்கவும்',
+	'openstackmanager-deleteproject' => 'நீக்குக',
+	'openstackmanager-deletedproject' => 'திட்டம் வெற்றிகரமாக நீக்கப்பட்டது.',
+	'openstackmanager-deleteprojectfailed' => 'திட்டத்தை நீக்கவது தோல்வியடைந்தது.',
+	'openstackmanager-addedto' => '$1, $2ல் வெற்றிகரமாக சேர்க்கப்பட்டது.',
+	'openstackmanager-failedtoadd' => '$1, $2ல் சேர்ப்பது தோல்வியடைந்தது.',
+	'openstackmanager-removedfrom' => '$1, $2லிருந்து வெற்றிகரமாக நீக்கப்பட்டது.',
+	'openstackmanager-failedtoremove' => '$1, $2லிருந்து நீக்குவது தோல்வியடைந்தது.',
+	'openstackmanager-novaproject-project' => 'திட்டத்தைச் சேர்',
+	'openstackmanager-novaprojectfilter-projectfilter' => 'திட்ட வடிகட்டி',
+	'openstackmanager-projects' => 'திட்டங்கள்',
+	'openstackmanager-createsecuritygroup' => 'பாதுகாப்பு குழுவை உருவாக்கு',
+	'openstackmanager-securitygroupname' => 'பாதுகாப்புக் குழுப் பெயர்',
+	'openstackmanager-securitygroupdescription' => 'விளக்கம்:',
+	'openstackmanager-configuresecuritygroup' => 'பாதுகாப்பு குழுவை அமைக்கவும்',
+	'openstackmanager-deletesecuritygroup' => 'பாதுகாப்பு குழுவை நீக்குக',
+	'openstackmanager-deletesecuritygroup-confirm' => 'நீங்கள் உறுதியாக $1 ஐ நீக்க விழைகிறீர்களா?',
+	'openstackmanager-securitygrouplist' => 'பாதுகாப்புக் குழுப் பட்டியல்',
+	'openstackmanager-securitygrouprule' => 'விதிமுறைகள்',
+	'openstackmanager-novasecuritygroup-rule' => 'பாதுகாப்புக் குழு விதி',
+	'openstackmanager-novasecuritygroup-singlerule' => 'தனி விதி',
+	'openstackmanager-novasecuritygroup-group' => 'குழு விதி',
+	'openstackmanager-securitygrouprule-groups' => 'மூல குழு',
+	'openstackmanager-createnewsecuritygroup' => 'குழுவைச் சேர்',
+	'openstackmanager-addrule-action' => 'விதியைச் சேர்',
+	'openstackmanager-removerule-action' => 'விதியை நீக்கு',
+	'openstackmanager-modifiedgroup' => 'பாதுகாப்புக்குழு வெற்றிகரமாக திருத்தப்பட்டது.',
+	'openstackmanager-modifygroupfailed' => 'பாதுகாப்புக் குழுவை திருத்துவது தோல்வியடைந்தது.',
+	'openstackmanager-nonexistantgroup' => 'கோரிய பாதுகாப்புக் குழு இல்லை.',
+	'openstackmanager-backsecuritygrouplist' => 'பாதுகாப்புக் குழுப் பட்டியலுக்குத் திரும்பவும்',
+	'openstackmanager-createdsecuritygroup' => 'பாதுகாப்புக்குழு வெற்றிகரமாக உருவாக்கப்பட்டது.',
+	'openstackmanager-createsecuritygroupfailed' => 'பாதுகாப்புக் குழுவை உருவாக்குவது தோல்வியடைந்தது.',
+	'openstackmanager-nonexistantsecuritygroup' => 'நீங்கள் நீக்க முயற்சிக்கும் பாதுகாப்புக் குழு இல்லை.',
+	'openstackmanager-deletedsecuritygroup' => 'பாதுகாப்புக்குழு வெற்றிகரமாக நீக்கப்பட்டது.',
+	'openstackmanager-deletesecuritygroupfailed' => 'பாதுகாப்புக் குழுவை நீக்குவது தோல்வியடைந்தது.',
+	'openstackmanager-removerule' => 'விதியை நீக்கு',
+	'openstackmanager-removerule-confirm' => 'நீங்கள் உறுதியாக $1லிருந்து இந்த விதியை நீக்க விழைகிறீர்களா?',
+	'openstackmanager-removedrule' => 'விதி வெற்றிகரமாக நீக்கப்பட்டது.',
+	'openstackmanager-removerulefailed' => 'விதியை நீக்குவதில் தோல்வியடைந்தது.',
+	'openstackmanager-addrule' => 'விதியைச் சேர்',
+	'openstackmanager-sudoerusers' => 'பயனர்கள்',
 );
 
 /** Telugu (తెలుగు)
