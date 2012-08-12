@@ -7908,7 +7908,9 @@ $messages['si'] = array(
 	'openstackmanager-removedfrom' => '$1 සාර්ථකව $2 ගෙන් ඉවත් කරන ලදී.',
 	'openstackmanager-failedtoremove' => '$1 $2 ගෙන් ඉවත් කිරීමට අපොහොසත් වුණි.',
 	'openstackmanager-novaproject-project' => 'ව්‍යාපෘතිය එක් කරන්න',
+	'openstackmanager-novaprojectfilter-projectfilter' => 'ව්‍යපෘති පෙරහන',
 	'openstackmanager-projects' => 'ව්‍යාපෘති',
+	'openstackmanager-setprojects' => 'ව්‍යපෘති පෙරහන සාර්ථකව සකසන ලදී.',
 	'openstackmanager-roles' => 'කාර්ය සංකේත',
 	'openstackmanager-rolename' => 'කාර්ය සංකේත නාමය',
 	'openstackmanager-removerolemember' => 'සාමාජිකයා ඉවත් කරන්න',
@@ -8266,9 +8268,29 @@ $messages['sv'] = array(
 );
 
 /** Tamil (தமிழ்)
+ * @author Karthi.dr
  * @author Shanmugamp7
  */
 $messages['ta'] = array(
+	'openstackmanager-delete' => 'நீக்கவும்',
+	'openstackmanager-modify' => 'திருத்தம் செய்',
+	'openstackmanager-rename' => 'பெயரை மாற்று',
+	'openstackmanager-actions' => 'செயல்கள்',
+	'openstackmanager-notloggedin' => 'புகுபதிகை செய்யப்பட வேண்டும்',
+	'openstackmanager-createdomain' => 'ஆள்களம் உருவாக்கு',
+	'openstackmanager-deletedomain' => 'ஆள்களத்தை நீக்கு',
+	'openstackmanager-novadomain-domain' => 'ஆள்களம் சேர்',
+	'openstackmanager-domainlist' => 'ஆள்களப் பட்டியல்',
+	'openstackmanager-backdomainlist' => 'ஆள்களப் பட்டியலுக்குச் செல்',
+	'openstackmanager-addadditionaldomain' => 'மற்றுமோர் ஆள்களத்தைச் சேர்க்கவும்',
+	'openstackmanager-deleteddomain' => 'ஆள்களம் வெற்றிகரமாக நீக்கப்பட்டது.',
+	'openstackmanager-failedeletedomain' => 'ஆள்களத்தை நீக்குவது தோல்வியடைந்தது.',
+	'openstackmanager-domainname' => 'ஆள்களப் பெயர்',
+	'openstackmanager-location' => 'இருப்பிடம்',
+	'openstackmanager-attach' => 'இணை',
+	'openstackmanager-deletekeyconfirm' => 'மேற்கண்ட விசையை அழிக்க விரும்புவது உறுதியா ?',
+	'openstackmanager-keylist' => 'விசைப் பட்டியல்',
+	'openstackmanager-name' => 'பெயர்',
 	'openstackmanager-addmember' => 'உறுப்பினரைச் சேர்',
 	'openstackmanager-removemember' => 'உறுப்பினரை நீக்கு',
 	'openstackmanager-createproject' => 'திட்டத்தைச் சேர்',
@@ -8291,6 +8313,8 @@ $messages['ta'] = array(
 	'openstackmanager-novaproject-project' => 'திட்டத்தைச் சேர்',
 	'openstackmanager-novaprojectfilter-projectfilter' => 'திட்ட வடிகட்டி',
 	'openstackmanager-projects' => 'திட்டங்கள்',
+	'openstackmanager-removerolemember' => 'உறுப்பினரை நீக்கு',
+	'openstackmanager-addrolemember' => 'உறுப்பினரைச் சேர்',
 	'openstackmanager-createsecuritygroup' => 'பாதுகாப்பு குழுவை உருவாக்கு',
 	'openstackmanager-securitygroupname' => 'பாதுகாப்புக் குழுப் பெயர்',
 	'openstackmanager-securitygroupdescription' => 'விளக்கம்:',
@@ -8321,6 +8345,9 @@ $messages['ta'] = array(
 	'openstackmanager-removerulefailed' => 'விதியை நீக்குவதில் தோல்வியடைந்தது.',
 	'openstackmanager-addrule' => 'விதியைச் சேர்',
 	'openstackmanager-sudoerusers' => 'பயனர்கள்',
+	'openstackmanager-sudoercommands' => 'கட்டளைகள்',
+	'openstackmanager-sudoeroptions' => 'விருப்பத் தேர்வுகள்',
+	'openstackmanager-puppetvars' => 'மாறிகள்',
 );
 
 /** Telugu (తెలుగు)
