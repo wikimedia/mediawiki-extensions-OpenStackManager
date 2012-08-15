@@ -2401,6 +2401,17 @@ $messages['et'] = array(
 	'openstackmanager-createpuppetgroup' => 'Lisa rühm',
 );
 
+/** Basque (euskara)
+ * @author පසිඳු කාවින්ද
+ */
+$messages['eu'] = array(
+	'openstackmanager-delete' => 'ezabatu',
+	'openstackmanager-location' => 'Kokapena',
+	'openstackmanager-device' => 'Gailua',
+	'openstackmanager-name' => 'Izena',
+	'openstackmanager-deleteproject' => 'Ezabatu',
+);
+
 /** Persian (فارسی)
  * @author Huji
  * @author Mjbmr
@@ -3081,6 +3092,8 @@ $messages['frp'] = array(
 	'openstackmanager-removedfrom' => '$1 enlevâ de $2 avouéc reusséta.',
 	'openstackmanager-failedtoremove' => 'Empossiblo d’enlevar $1 de $2.',
 	'openstackmanager-novaproject-project' => 'Apondre un projèt',
+	'openstackmanager-novaprojectfilter-projectfilter' => 'Filtro de projèt',
+	'openstackmanager-projects' => 'Projèts',
 	'openstackmanager-roles' => 'Rolos',
 	'openstackmanager-rolename' => 'Nom u rolo',
 	'openstackmanager-removerolemember' => 'Enlevar un membro',
@@ -3237,6 +3250,17 @@ $messages['frp'] = array(
 	'openstackmanager-email-subject' => 'Voutra enstance est prèsta a recêvre des branchements.',
 	'openstackmanager-email-body' => 'Ceta enstance at étâ fêta et pués est prèsta a recêvre des branchements :',
 	'right-manageproject' => 'Administrar los projèts OpenStack et los rolos',
+);
+
+/** Irish (Gaeilge)
+ * @author පසිඳු කාවින්ද
+ */
+$messages['ga'] = array(
+	'openstackmanager-delete' => 'Scrios',
+	'openstackmanager-name' => 'Ainm',
+	'openstackmanager-action' => 'Gníomh',
+	'openstackmanager-deleteproject' => 'Scrios',
+	'openstackmanager-sudoerusers' => 'Úsáideoirí',
 );
 
 /** Galician (galego)
@@ -5182,45 +5206,85 @@ $messages['ja'] = array(
  */
 $messages['ka'] = array(
 	'openstackmanager-delete' => 'წაშლა',
+	'openstackmanager-configure' => 'კონფიგურირება',
 	'openstackmanager-modify' => 'შეცვლა',
 	'openstackmanager-rename' => 'სახელის შეცვლა',
+	'openstackmanager-reboot' => 'გადატვირთვა',
 	'openstackmanager-actions' => 'მოქმედებები',
+	'openstackmanager-notloggedin' => 'შესვლა აუცილებელია',
 	'openstackmanager-createdomain' => 'დომენის შექმნა',
+	'openstackmanager-deletedomain' => 'დომენის წაშლა',
+	'openstackmanager-novadomain-domain' => 'დომენის დამატება',
+	'openstackmanager-createdomainfailed' => 'დომენის შექმნა ჩაიშალა.',
+	'openstackmanager-createddomain' => 'დომენი შექმნილია',
+	'openstackmanager-domainlist' => 'დომენების სია',
+	'openstackmanager-backdomainlist' => 'დომენების სიაზე დაბრუნება',
+	'openstackmanager-deleteddomain' => 'დომენი წარმატებით წაიშალა.',
 	'openstackmanager-domainname' => 'დომენის სახელი',
 	'openstackmanager-location' => 'მდებარეობა',
 	'openstackmanager-dnsdomain' => 'DNS დომენი',
 	'openstackmanager-puppetclasses' => 'კლასები',
 	'openstackmanager-novainstance-global' => 'გლობალური ჯგუფები',
+	'openstackmanager-securitygroups' => 'უსაფრთხოების ჯგუფები',
+	'openstackmanager-availabilityzone' => 'ხელმისაწვდომი ზონა',
 	'openstackmanager-imageid' => 'სურათის ID',
 	'openstackmanager-imagetype' => 'სურათის ტიპი',
+	'openstackmanager-instancetypelabel' => '{{PLURAL:$1|$1 პროცესორი|$1 პროცესორი}}, $2 მბ ოპერატიული მეხსიერება, $3 გბ საცავი',
 	'openstackmanager-launchtime' => 'გაშვების დრო',
 	'openstackmanager-attach' => 'მიმაგრება',
 	'openstackmanager-detach' => 'მოხსნა',
 	'openstackmanager-device' => 'მოწყობილობა',
+	'openstackmanager-novapublickey' => 'საჯარო SSH გასაღები',
+	'openstackmanager-novakey-key' => 'SSH გასაღების დამატება',
 	'openstackmanager-deletekey' => 'გასარების წაშლა',
 	'openstackmanager-keylist' => 'გასაღებების სია',
 	'openstackmanager-name' => 'სახელი',
 	'openstackmanager-keys' => 'გასაღებები',
+	'openstackmanager-backkeylist' => 'გასაღებების სიასთან დაბრუნება',
+	'openstackmanager-addadditionalkey' => 'კიდევ გასაღების დამატება.',
+	'openstackmanager-deletedkey' => 'გასაღები წარმატებით წაიშალა.',
 	'openstackmanager-addmember' => 'წევრის დამატება',
 	'openstackmanager-removemember' => 'წევრის წაშლა',
 	'openstackmanager-createproject' => 'პროექტის დამატება',
 	'openstackmanager-projectname' => 'პროექტის სახელი',
 	'openstackmanager-members' => 'წევრები',
 	'openstackmanager-member' => 'წევრი',
+	'openstackmanager-action' => 'მოქმედება',
+	'openstackmanager-createprojectfailed' => 'პროექტის შექმნა ჩაიშალა.',
 	'openstackmanager-createdproject' => 'პროექტი შექმნილია.',
 	'openstackmanager-projectlist' => 'პროექტების სია',
 	'openstackmanager-backprojectlist' => 'პროექტის სიაში დაბრუნება',
 	'openstackmanager-addadditionalproject' => 'სხვა პროექტის დამატება.',
 	'openstackmanager-deleteproject' => 'წაშლა',
+	'openstackmanager-deletedproject' => 'პროექტი წარმატებით წაიშალა.',
+	'openstackmanager-deleteprojectfailed' => 'პროექტის წაშლა ჩაიშალა.',
 	'openstackmanager-novaproject-project' => 'პროექტის დამატება',
+	'openstackmanager-novaprojectfilter-projectfilter' => 'პროექტის ფილტრი',
 	'openstackmanager-projects' => 'პროექტები',
+	'openstackmanager-setprojects' => 'პროექტის ფილტრი წარმატებით დაყენდა.',
+	'openstackmanager-roles' => 'როლები',
+	'openstackmanager-rolename' => 'როლის სახელი',
 	'openstackmanager-removerolemember' => 'წევრის წაშლა',
 	'openstackmanager-addrolemember' => 'წევრის დამატება',
+	'openstackmanager-rolelist' => 'გლობალური როლის სია',
 	'openstackmanager-addresslist' => 'საჯარო IP მისამართების სია',
 	'openstackmanager-address' => 'საჯარო IP მისამართები',
+	'openstackmanager-allocateaddress' => 'IP-ის დანიშვნა',
+	'openstackmanager-releaseaddress' => 'IP-ის წაშლა',
+	'openstackmanager-associateaddress' => 'IP-ის დაკავშირება',
+	'openstackmanager-reassociateaddress' => 'IP-ის განმეორებით დაკავშირება',
+	'openstackmanager-disassociateaddress' => 'IP-ის მოშორება',
 	'openstackmanager-backaddresslist' => 'მისამართების სიაში დაბრუნება',
+	'openstackmanager-createsecuritygroup' => 'უსაფრთხოების ჯგუფის შექმნა',
+	'openstackmanager-securitygroupname' => 'უსაფრთხოების ჯგუფის სახელი',
 	'openstackmanager-securitygroupdescription' => 'აღწერა',
+	'openstackmanager-configuresecuritygroup' => 'უსაფრთხოების ჯგუფის კონფიგურაცია',
+	'openstackmanager-deletesecuritygroup' => 'უსაფრთხოების ჯგუფის წაშლა',
+	'openstackmanager-securitygrouplist' => 'უსაფრთხოების ჯგუფის სია',
 	'openstackmanager-securitygrouprule' => 'წესები',
+	'openstackmanager-novasecuritygroup-rule' => 'უსაფრთხოების ჯგუფის წესები',
+	'openstackmanager-novasecuritygroup-singlerule' => 'ინდივიდუალური წესები',
+	'openstackmanager-securitygrouprule-groups' => 'წყაროს ჯგუფი',
 	'openstackmanager-createnewsecuritygroup' => 'ჯგუფის დამატება',
 	'openstackmanager-sudoerusers' => 'მომხმარებლები',
 	'openstackmanager-sudoeroptions' => 'პარამეტრები',
@@ -5228,6 +5292,7 @@ $messages['ka'] = array(
 	'openstackmanager-createpuppetgroup' => 'ჯგუფის დამატება',
 	'openstackmanager-addpuppetclass' => 'კლასის დამატება',
 	'openstackmanager-puppetclassname' => 'კლასის სახელი',
+	'openstackmanager-puppetvars' => 'ცვალებადი',
 );
 
 /** Colognian (Ripoarisch)
@@ -7710,7 +7775,9 @@ $messages['roa-tara'] = array(
 	'openstackmanager-volumelist' => "Liste d'u volume",
 	'openstackmanager-novavolume-volume' => 'Volume',
 	'openstackmanager-novavolume-info' => "'Mbormazione sus a 'u volume",
+	'openstackmanager-attachvolume' => "Attacche 'u Volume",
 	'openstackmanager-device' => 'Despositive',
+	'openstackmanager-detachvolume' => "Stacche 'u Volume",
 	'openstackmanager-novapublickey' => 'Chièje pubbleche SSH',
 	'openstackmanager-novakey-key' => "Aggiunge 'na chiave pubbleche SSH",
 	'openstackmanager-deletekey' => "Scangelle 'a chièje",
@@ -7757,12 +7824,15 @@ $messages['roa-tara'] = array(
 	'openstackmanager-sudoercommands' => 'Comande',
 	'openstackmanager-sudoeroptions' => 'Opziune',
 	'openstackmanager-addpuppetclass' => "Aggiunge 'na classe",
+	'openstackmanager-puppetclassname' => "Nome d'a classe",
 	'openstackmanager-puppetvars' => 'Variabbele',
+	'openstackmanager-addpuppetvar' => "Aggiunge 'na variabbile",
 	'openstackmanager-puppetvarname' => "Nome d'a variabile",
 	'openstackmanager-puppetclassposition' => "Posizione d'a classe",
 );
 
 /** Russian (русский)
+ * @author David1010
  * @author Eleferen
  * @author Haffman
  * @author Kaganer
@@ -7781,11 +7851,44 @@ $messages['ru'] = array(
 	'openstackmanager-createdomain' => 'Создать домен',
 	'openstackmanager-deletedomain' => 'Удалить домен',
 	'openstackmanager-novadomain-domain' => 'Добавить домен',
+	'openstackmanager-createddomain' => 'Созданный домен.',
+	'openstackmanager-domainlist' => 'Список доменов',
+	'openstackmanager-backdomainlist' => 'Вернуться к списку доменов',
+	'openstackmanager-addadditionaldomain' => 'Добавьте другой домен.',
+	'openstackmanager-location' => 'Местоположение',
+	'openstackmanager-puppetclasses' => 'Классы',
+	'openstackmanager-imageid' => 'ID фотографии',
+	'openstackmanager-imagetype' => 'Тип изображения',
 	'openstackmanager-instancetypelabel' => '{{PLURAL:$1|$1 процессор|$1 процессора|$1 процессоров}}, $2 Мб оперативной памяти, хранилище $3 Гб',
+	'openstackmanager-launchtime' => 'Время запуска',
+	'openstackmanager-volumesize' => 'Размер тома (в ГБ)',
+	'openstackmanager-volumeattachmentstatus' => 'Статус вложений',
 	'openstackmanager-attach' => 'прикрепить',
 	'openstackmanager-detach' => 'открепить',
+	'openstackmanager-deletevolume' => 'Удаление тома',
+	'openstackmanager-volumelist' => 'Список томов',
+	'openstackmanager-novavolume-volume' => 'Том',
+	'openstackmanager-novavolume-info' => 'Информация тома',
+	'openstackmanager-deletedvolume' => 'Удаление тома.',
+	'openstackmanager-device' => 'Устройство',
+	'openstackmanager-deletekey' => 'Удалить ключ',
+	'openstackmanager-keylist' => 'Список ключей',
+	'openstackmanager-name' => 'Имя',
+	'openstackmanager-keys' => 'Ключи',
+	'openstackmanager-addmember' => 'Добавить участника',
+	'openstackmanager-removemember' => 'Удалить участника',
+	'openstackmanager-createproject' => 'Добавить проект',
+	'openstackmanager-projectname' => 'Название проекта',
+	'openstackmanager-members' => 'Участники',
+	'openstackmanager-member' => 'Участник',
+	'openstackmanager-action' => 'Действия',
+	'openstackmanager-projectlist' => 'Список проектов',
+	'openstackmanager-deleteproject' => 'Удалить',
 	'openstackmanager-novaproject-project' => 'Добавить проект',
 	'openstackmanager-projects' => 'Проекты',
+	'openstackmanager-rolename' => 'Имя роли',
+	'openstackmanager-removerolemember' => 'Удалить участника',
+	'openstackmanager-addrolemember' => 'Добавить участника',
 	'openstackmanager-addresslist' => 'Список публичных IP-адресов',
 	'openstackmanager-address' => 'Публичный IP-адрес',
 	'openstackmanager-allocateaddress' => 'Назначить IP',
@@ -7793,6 +7896,8 @@ $messages['ru'] = array(
 	'openstackmanager-associateaddress' => 'Связать IP',
 	'openstackmanager-reassociateaddress' => 'Повторно связать IP',
 	'openstackmanager-disassociateaddress' => 'Отвязать IP',
+	'openstackmanager-hostname' => 'Имя хоста',
+	'openstackmanager-addhost' => 'Добавить имя хоста',
 );
 
 /** Sanskrit (संस्कृतम्)
