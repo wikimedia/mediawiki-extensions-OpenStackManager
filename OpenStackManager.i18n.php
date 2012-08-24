@@ -5235,6 +5235,7 @@ $messages['ja'] = array(
 	'openstackmanager-addpuppetvar' => '変数を追加',
 	'openstackmanager-puppetvarname' => '変数名',
 	'right-manageproject' => 'OpenStack プロジェクトと権限を管理',
+	'action-manageproject' => 'OpenStack プロジェクトと権限の管理',
 );
 
 /** Javanese (Basa Jawa)
