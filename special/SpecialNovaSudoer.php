@@ -339,6 +339,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	}
 
 	function getSudoers( $project ) {
+		$project->fetchProjectInfo();
 		$projectName = $project->getProjectName();
 		$this->userNova->setProject( $projectName );
 		$regions = $this->userNova->getRegions( 'compute' );

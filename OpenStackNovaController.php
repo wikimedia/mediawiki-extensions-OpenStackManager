@@ -167,7 +167,7 @@ class OpenStackNovaController {
 		}
 		foreach ( $instances as $instance ) {
 			$instance = new OpenStackNovaInstance( $instance, true );
-			$id = $instance->getInstanceId();
+			$id = $instance->getInstanceOSId();
 			$instancesarr[$id] = $instance;
 		}
 		return $instancesarr;
@@ -540,32 +540,30 @@ class OpenStackNovaController {
 	 *
 	 * @param  $instanceid
 	 * @param  $ip
-	 * @return null|OpenStackNovaAddress
+	 * @return bool
 	 */
 	function associateAddress( $instanceid, $ip ) {
 		$instanceid = urlencode( $instanceid );
-		$data = array( 'removeFloatingIp' => array( 'address' => $ip ) );
+		$data = array( 'addFloatingIp' => array( 'address' => $ip ) );
 		$ret = $this->restCall( 'compute', '/servers/' . $instanceid . '/action', 'POST', $data );
-		if ( $ret['code'] !== 202 ) {
-			return null;
+
+		if ( $ret['code'] === 202 ) {
+			return true;
+		} else {
+			return false;
 		}
-		$floating_ip = self::_get_property( $ret['body'], 'floating_ip' );
-		if ( !$floating_ip ) {
-			return null;
-		}
-		return new OpenStackNovaAddress( $floating_ip );
 	}
 
 	/**
 	 * Disassociate address from an instance
 	 *
 	 * @param  $ip
-	 * @return
+	 * @return bool
 	 */
 	function disassociateAddress( $instanceid, $ip ) {
 		$instanceid = urlencode( $instanceid );
 		$data = array( 'removeFloatingIp' => array ( 'address' => $ip ) );
-		$ret = $this->restCall( 'compute', '/servers/' . $instanceid, 'POST', $data );
+		$ret = $this->restCall( 'compute', '/servers/' . $instanceid . '/action', 'POST', $data );
 
 		if ( $ret['code'] === 202 ) {
 			return true;

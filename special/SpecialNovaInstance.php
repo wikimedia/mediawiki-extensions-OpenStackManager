@@ -183,19 +183,19 @@ class SpecialNovaInstance extends SpecialNova {
 		#	'label-message' => 'keypair',
 		# );
 
-		$domains = OpenStackNovaDomain::getAllDomains( 'local' );
-		$domain_keys = array();
-		foreach ( $domains as $domain ) {
-			$domainname = $domain->getDomainName();
-			$domain_keys[$domainname] = $domainname;
-		}
-		$instanceInfo['domain'] = array(
-			'type' => 'select',
-			'section' => 'info',
-			'options' => $domain_keys,
-			'label-message' => 'openstackmanager-dnsdomain',
-			'name' => 'domain',
-		);
+		#$domains = OpenStackNovaDomain::getAllDomains( 'local' );
+		#$domain_keys = array();
+		#foreach ( $domains as $domain ) {
+		#	$domainname = $domain->getDomainName();
+		#	$domain_keys[$domainname] = $domainname;
+		#}
+		#$instanceInfo['domain'] = array(
+		#	'type' => 'select',
+		#	'section' => 'info',
+		#	'options' => $domain_keys,
+		#	'label-message' => 'openstackmanager-dnsdomain',
+		#	'name' => 'domain',
+		#);
 
 		$securityGroups = $this->userNova->getSecurityGroups();
 		$group_keys = array();
@@ -517,7 +517,7 @@ class SpecialNovaInstance extends SpecialNova {
 	 * @return bool
 	 */
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
-		$domain = OpenStackNovaDomain::getDomainByName( $formData['domain'] );
+		$domain = OpenStackNovaDomain::getDomainByName( $formData['region'] );
 		$project = $formData['project'];
 		$region = $formData['region'];
 		if ( !$domain ) {

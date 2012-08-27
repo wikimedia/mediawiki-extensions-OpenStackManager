@@ -13,6 +13,7 @@ class OpenStackNovaProject {
 	var $projectDN;
 	var $projectInfo;
 	var $roles;
+	var $loaded;
 
 	// list of roles
 	static $rolenames = array( 'sysadmin', 'netadmin' );
@@ -20,10 +21,14 @@ class OpenStackNovaProject {
 	/**
 	 * @param  $projectname
 	 */
-	function __construct( $projectname ) {
+	function __construct( $projectname, $load=true ) {
 		$this->projectname = $projectname;
-		OpenStackNovaLdapConnection::connect();
-		$this->fetchProjectInfo();
+		if ( $load ) {
+			OpenStackNovaLdapConnection::connect();
+			$this->fetchProjectInfo();
+		} else {
+			$this->loaded = false;
+		}
 	}
 
 	/**
@@ -34,6 +39,9 @@ class OpenStackNovaProject {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPProjectBaseDN;
 
+		if ( $this->loaded ) {
+			return;
+		}
 		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN,
 								'(&(cn=' . $this->projectname . ')(objectclass=groupofnames))' );
 		$this->projectInfo = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
@@ -42,6 +50,7 @@ class OpenStackNovaProject {
 		foreach ( self::$rolenames as $rolename ) {
 			$this->roles[] = OpenStackNovaRole::getProjectRoleByName( $rolename, $this );
 		}
+		$this->loaded = true;
 	}
 
 	/**
@@ -232,7 +241,9 @@ class OpenStackNovaProject {
 	}
 
 	/**
-	 * Return all existing projects. Returns an empty array if no projects exist.
+	 * Return all existing projects. Returns an empty array if no projects exist. This function
+	 * lazy loads the projects. Objects will be returned unloaded. If you wish to receive more
+	 * than just the project's name, you'll need to call the project's fetchProjectInfo() function.
 	 *
 	 * @static
 	 * @return array
@@ -251,7 +262,7 @@ class OpenStackNovaProject {
 				# First entry is always a count
 				array_shift( $entries );
 				foreach ( $entries as $entry ) {
-					$project = new OpenStackNovaProject( $entry['cn'][0] );
+					$project = new OpenStackNovaProject( $entry['cn'][0], false );
 					array_push( $projects, $project );
 				}
 			}

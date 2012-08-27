@@ -85,7 +85,6 @@ class OpenStackNovaRole {
 	 */
 	function deleteMember( $username ) {
 		global $wgAuth;
-		global $wgMemc;
 
 		if ( isset( $this->roleInfo[0]['roleoccupant'] ) ) {
 			$members = $this->roleInfo[0]['roleoccupant'];
@@ -108,8 +107,7 @@ class OpenStackNovaRole {
 			}
 			$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->roleDN, $values );
 			if ( $success ) {
-				$key = $this->getMemcKey( $user );
-				$wgMemc->delete( $key );
+				$key = $this->deleteMemcKeys( $user );
 				$this->fetchRoleInfo();
 				$wgAuth->printDebug( "Successfully removed $user->userDN from $this->roleDN", NONSENSITIVE );
 				return true;
@@ -128,7 +126,6 @@ class OpenStackNovaRole {
 	 */
 	function addMember( $username ) {
 		global $wgAuth;
-		global $wgMemc;
 
 		$members = array();
 		if ( isset( $this->roleInfo[0]['roleoccupant'] ) ) {
@@ -147,8 +144,7 @@ class OpenStackNovaRole {
 		if ( $success ) {
 			$this->fetchRoleInfo();
 			$wgAuth->printDebug( "Successfully added $user->userDN to $this->roleDN", NONSENSITIVE );
-			$key = $this->getMemcKey( $user );
-			$wgMemc->delete( $key );
+			$key = $this->deleteMemcKeys( $user );
 			return true;
 		} else {
 			$wgAuth->printDebug( "Failed to add $user->userDN to $this->roleDN", NONSENSITIVE );
@@ -160,10 +156,21 @@ class OpenStackNovaRole {
 	 * @param $user
 	 * @return String string
 	 */
-	function getMemcKey( $user ) {
+	function deleteMemcKeys( $user ) {
+		global $wgMemc;
+		global $wgOpenStackManagerLDAPUseUidAsNamingAttribute;
+
 		$projectname = $this->project->getProjectName();
 		$role = $this->getRoleName();
-		return wfMemcKey( 'openstackmanager', "projectrole-$projectname-$role", $user->userDN );
+		$key = wfMemcKey( 'openstackmanager', "projectrole-$projectname-$role", $user->userDN );
+		$wgMemc->delete( $key );
+		if ( $wgOpenStackManagerLDAPUseUidAsNamingAttribute ) {
+			$username = $user->getUid();
+		} else {
+			$username = $user->getUsername();
+		}
+		$key = wfMemcKey( 'openstackmanager', "fulltoken-$projectname", $username );
+		$wgMemc->delete( $key );
 	}
 
 	/**

@@ -239,11 +239,6 @@ class SpecialNovaAddress extends SpecialNova {
 			'default' => $region,
 			'name' => 'region',
 		);
-		$addressInfo['ip'] = array(
-			'type' => 'hidden',
-			'default' => $ip,
-			'name' => 'ip',
-		);
 		$addressInfo['id'] = array(
 			'type' => 'hidden',
 			'default' => $id,
@@ -447,11 +442,12 @@ class SpecialNovaAddress extends SpecialNova {
 			$addressRow = array();
 			$ip = $address->getPublicIP();
 			$id = $address->getAddressId();
-			$instanceid = $address->getInstanceId();
+			$instanceosid = $address->getInstanceId();
 			$this->pushResourceColumn( $addressRow, $ip );
-			if ( $instanceid ) {
+			if ( $instanceosid ) {
+				$instancename = $instances[$instanceosid]->getInstanceName();
+				$instanceid = $instances[$instanceosid]->getInstanceId();
 				$this->pushResourceColumn( $addressRow, $instanceid );
-				$instancename = $instances[$instanceid]->getInstanceName();
 				$this->pushResourceColumn( $addressRow, $instancename );
 			} else {
 				$this->pushResourceColumn( $addressRow, '' );
@@ -475,7 +471,7 @@ class SpecialNovaAddress extends SpecialNova {
 				$this->pushResourceColumn( $addressRow, '' );
 			}
 			$actions = Array();
-			if ( $instanceid ) {
+			if ( $instanceosid ) {
 				array_push( $actions, $this->createActionLink( 'openstackmanager-reassociateaddress', array( 'action' => 'associate', 'id' => $id, 'project' => $projectName, 'region' => $region ) ) );
 				array_push( $actions, $this->createActionLink( 'openstackmanager-disassociateaddress', array( 'action' => 'disassociate', 'id' => $id, 'project' => $projectName, 'region' => $region ) ) );
 			} else {
@@ -561,7 +557,7 @@ class SpecialNovaAddress extends SpecialNova {
 		$ip = $address->getPublicIp();
 		if ( $address ) {
 			if ( $address->getInstanceId() ) {
-				$address = $this->userNova->disassociateAddress( $ip );
+				$address = $this->userNova->disassociateAddress( $address->getInstanceId(), $ip );
 				if ( $address ) {
 					$address = $this->userNova->associateAddress( $instanceid, $ip );
 				}
@@ -589,14 +585,17 @@ class SpecialNovaAddress extends SpecialNova {
 	 * @return bool
 	 */
 	function tryDisassociateSubmit( $formData, $entryPoint = 'internal' ) {
+		$instanceid = $formData['instanceid'];
 		$id = $formData['id'];
-		$ip = $formData['ip'];
-		$address = $this->userNova->disassociateAddress( $id, $ip );
+		$address = $this->userNova->getAddress( $id );
+		$ip = $address->getPublicIp();
+		$instanceid = $address->getInstanceId();
+		$address = $this->userNova->disassociateAddress( $instanceid, $ip );
 		$outputPage = $this->getOutput();
 		if ( $address ) {
 			$outputPage->addWikiMsg( 'openstackmanager-disassociatedaddress', $ip );
 		} else {
-			$outputPage->addWikiMsg( 'openstackmanager-disassociatedaddressfailed', $ip );
+			$outputPage->addWikiMsg( 'openstackmanager-disassociateaddressfailed', $ip );
 		}
 
 		$out = '<br />';

@@ -73,10 +73,15 @@ class OpenStackNovaInstance {
 	 */
 	function getInstancePrivateIPs() {
 		$addrs = array();
-		$fixedaddrs = OpenStackNovaController::_get_property( $this->instance->addresses, 'fixed' );
-		if ( $fixedaddrs ) {
-			foreach ( $fixedaddrs as $fixed ) {
-				array_push( $addrs, OpenStackNovaController::_get_property( $fixed, 'addr' ) );
+		$addresses = OpenStackNovaController::_get_property( $this->instance, 'addresses' );
+		if ( $addresses ) {
+			foreach ( $addresses as $addresslist ) {
+				foreach ( $addresslist as $address ) {
+					$addr = OpenStackNovaController::_get_property( $address, 'addr' );
+					if ( $addr && !filter_var( $addr, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE ) ) {
+						array_push( $addrs, $addr );
+					}
+				}
 			}
 		}
 		return $addrs;
@@ -90,10 +95,15 @@ class OpenStackNovaInstance {
 	 */
 	function getInstancePublicIPs() {
 		$addrs = array();
-		$floatings = OpenStackNovaController::_get_property( $this->instance->addresses, 'floating' );
-		if ( $floatings ) {
-			foreach ( $floatings as $floating ) {
-				array_push( $addrs, OpenStackNovaController::_get_property( $floating, 'addr' ) );
+		$addresses = OpenStackNovaController::_get_property( $this->instance, 'addresses' );
+		if ( $addresses ) {
+			foreach ( $addresses as $addresslist ) {
+				foreach ( $addresslist as $address ) {
+					$addr = OpenStackNovaController::_get_property( $address, 'addr' );
+					if ( $addr && filter_var( $addr, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE ) ) {
+						array_push( $addrs, $addr );
+					}
+				}
 			}
 		}
 		return $addrs;
