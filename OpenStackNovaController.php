@@ -58,22 +58,12 @@ class OpenStackNovaController {
 		}
 	}
 
-	function handleRequestError( $msg, $request ) {
-		if ( isset( $request->body->Errors->Error[0]->Message ) ) {
-			$msg .= ': ' . $request->body->Errors->Error[0]->Message;
-		}
-		throw new MWException( $msg );
-	}
-
 	/**
 	 * @return
 	 */
 	function getAddresses() {
 		$this->addresses = array();
 		$response = $this->novaConnection->describe_addresses();
-		if ( !$response->isOK() ) {
-			$this->handleRequestError( 'Error getting address list from Nova', $response );
-		}
 		$addresses = $response->body->addressesSet->item;
 		foreach ( $addresses as $address ) {
 			$address = new OpenStackNovaAddress( $address );
@@ -112,9 +102,6 @@ class OpenStackNovaController {
 		#	$opt = array( 'Filter' => array( array( 'Name' => 'project_id', 'Value' => $project ) ) );
 		#}
 		$response = $this->novaConnection->describe_instances( $opt );
-		if ( !$response->isOK() ) {
-			$this->handleRequestError( 'Error getting instance list from Nova', $response );
-		}
 		$instances = $response->body->reservationSet->item;
 		foreach ( $instances as $instance ) {
 			$instance = new OpenStackNovaInstance( $instance, true );
@@ -147,9 +134,6 @@ class OpenStackNovaController {
 
 		$this->novaConnection->set_resource_prefix( $wgOpenStackManagerNovaAdminResourcePrefix );
 		$response = $this->novaConnection->authenticate( 'DescribeInstanceTypes', array(), $this->novaConnection->hostname );
-		if ( !$response->isOK() ) {
-			$this->handleRequestError( 'Error getting instance type list from Nova', $response );
-		}
 		$instanceTypes = $response->body->instanceTypeSet->item;
 		foreach ( $instanceTypes as $instanceType ) {
 			$instanceType = new OpenStackNovaInstanceType( $instanceType );
@@ -169,9 +153,6 @@ class OpenStackNovaController {
 	function getImages() {
 		$this->images = array();
 		$images = $this->novaConnection->describe_images();
-		if ( !$images->isOK() ) {
-			$this->handleRequestError( 'Error image list from Nova', $images );
-		}
 		$images = $images->body->imagesSet->item;
 		foreach ( $images as $image ) {
 			$image = new OpenStackNovaImage( $image );
@@ -188,9 +169,6 @@ class OpenStackNovaController {
 	function getKeypairs() {
 		$this->keypairs = array();
 		$response = $this->novaConnection->describe_key_pairs();
-		if ( !$response->isOK() ) {
-			$this->handleRequestError( 'Error getting key pair list from Nova', $response );
-		}
 		$keypairs = $response->body->keypairsSet->item;
 		foreach ( $keypairs as $keypair ) {
 			$keypair = new OpenStackNovaKeypair( $keypair );
@@ -206,9 +184,6 @@ class OpenStackNovaController {
 	function getAvailabilityZones() {
 		$this->availabilityZones = array();
 		$zones = $this->novaConnection->describe_availability_zones();
-		if ( !$zones->isOK() ) {
-			$this->handleRequestError( 'Error getting availability zones from Nova', $zones );
-		}
 		$zones = $zones->body->availabilityZoneInfo->item;
 		foreach ( $zones as $zone ) {
 			if ( $zone->zoneState == "available" ) {
@@ -238,9 +213,6 @@ class OpenStackNovaController {
 	function getSecurityGroups() {
 		$this->securityGroups = array();
 		$securityGroups = $this->novaConnection->describe_security_groups();
-		if ( !$securityGroups->isOK() ) {
-			$this->handleRequestError( 'Error getting security groups from Nova', $securityGroups );
-		}
 		$securityGroups = $securityGroups->body->securityGroupInfo->item;
 		foreach ( $securityGroups as $securityGroup ) {
 			$securityGroup = new OpenStackNovaSecurityGroup( $securityGroup );
@@ -259,9 +231,6 @@ class OpenStackNovaController {
 	 */
 	function getConsoleOutput( $instanceid ) {
 		$consoleOutput = $this->novaConnection->get_console_output( $instanceid, array() );
-		if ( !$consoleOutput->isOK() ) {
-			$this->handleRequestError( 'Error getting console output from Nova', $consoleOutput );
-		}
 		return (string)$consoleOutput->body->output;
 	}
 
@@ -286,9 +255,6 @@ class OpenStackNovaController {
 	function getVolumes() {
 		$this->volumes = array();
 		$volumes = $this->novaConnection->describe_volumes();
-		if ( !$volumes->isOK() ) {
-			$this->handleRequestError( 'Error getting volume list from Nova', $volumes );
-		}
 		$volumes = $volumes->body->volumeSet->item;
 		foreach ( $volumes as $volume ) {
 			$volume = new OpenStackNovaVolume( $volume );
