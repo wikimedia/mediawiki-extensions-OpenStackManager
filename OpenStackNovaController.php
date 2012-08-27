@@ -7,52 +7,114 @@
  * @ingroup Extensions
  */
 
-# TODO: Make this an abstract class, and make the EC2 API a subclass
 class OpenStackNovaController {
 
-	var $credentials;
-	var $novaConnection;
-	var $instances, $images, $keypairs, $availabilityZones;
-	var $addresses, $securityGroups;
-	var $instanceTypes;
-	var $volumes;
+	var $username;
+	var $project;
+	var $region;
+	var $token;
 
 	/**
-	 * @param  $credentials
+	 * @param  $username
 	 */
-	function __construct( $credentials, $project='' ) {
-		$this->credentials = $credentials;
-		$this->configureConnection( $project );
-		$this->instances = array();
+	function __construct( $username ) {
+		$this->username = $username;
+		$this->project = '';
+		$this->token = '';
+	}
+
+	static function newFromUser( $user ) {
+		global $wgOpenStackManagerLDAPUseUidAsNamingAttribute;
+
+		if ( $wgOpenStackManagerLDAPUseUidAsNamingAttribute ) {
+			$username = $user->getUid();
+		} else {
+			$username = $user->getUsername();
+		}
+		return new OpenStackNovaController( $username );
+	}
+
+	static function newFromUsername( $username ) {
+		return new OpenStackNovaController( $username );
 	}
 
 	/**
-	 * @param  $project
-	 * @return null
+	 * Get a mime representation of a file with the specified attachmenttext.
+	 * No parameters are escaped in this function. This function should never be
+	 * called when dealing with end-user provided data.
+	 *
+	 * @param $attachmenttext
+	 * @param $mimetype
+	 * @param $filename
+	 *
+	 * @return string
 	 */
-	function configureConnection( $project='' ) {
-		global $wgOpenStackManagerNovaDisableSSL, $wgOpenStackManagerNovaServerName,
-			$wgOpenStackManagerNovaPort, $wgOpenStackManagerNovaResourcePrefix,
-			$wgOpenStackManagerNovaDefaultProject;
+	function getAttachmentMime( $attachmenttext, $mimetype, $filename ) {
+		$endl = $this->getLineEnding();
+		$attachment = 'Content-Type: ' . $mimetype . '; charset="us-ascii"'. $endl;
+		$attachment .= 'MIME-Version: 1.0' . $endl;
+		$attachment .= 'Content-Transfer-Encoding: 7bit' . $endl;
+		$attachment .= 'Content-Disposition: attachment; filename="' . $filename . '"' . $endl;
+		$attachment .= $endl;
+		$attachment .= $attachmenttext;
+		return $attachment;
+	}
 
-		if ( $project == '' ) {
-			$project = $wgOpenStackManagerNovaDefaultProject;
+	function getLineEnding() {
+		if ( wfIsWindows() ) {
+			return "\r\n";
+		} else {
+			return "\n";
 		}
-		$this->novaConnection = new AmazonEC2( $this->credentials['accessKey'] . ':' . $project, $this->credentials['secretKey'] );
-		$this->novaConnection->disable_ssl( $wgOpenStackManagerNovaDisableSSL );
-		$this->novaConnection->set_hostname( $wgOpenStackManagerNovaServerName, $wgOpenStackManagerNovaPort );
-		$this->novaConnection->set_resource_prefix( $wgOpenStackManagerNovaResourcePrefix );
-		$this->novaConnection->allow_hostname_override(false);
+	}
+
+	function getProject() {
+		return $this->project;
+	}
+
+	function setProject( $project ) {
+		$this->project = $project;
+	}
+
+	function getRegion() {
+		return $this->region;
+	}
+
+	function getRegions( $service ) {
+		global $wgMemc;
+
+		// We need to ensure the project token has been
+		// fetched before we can get the regions.
+		$this->getProjectToken( $this->project );
+		$key = wfMemcKey( 'openstackmanager', 'serviceCatalog-' . $this->project, $this->username );
+		$serviceCatalog = json_decode( $wgMemc->get( $key ) );
+		$regions = array();
+		if ( $serviceCatalog ) {
+			foreach ( $serviceCatalog as $entry ) {
+				if ( $entry->type === "compute" ) {
+					foreach ( $entry->endpoints as $endpoint ) {
+						array_push( $regions, $endpoint->region );
+					}
+				}
+			}
+		}
+		return array_unique( $regions );
+	}
+
+	function setRegion( $region ) {
+		$this->region = $region;
 	}
 
 	/**
 	 * @param  $ip
 	 * @return null
 	 */
-	function getAddress( $ip ) {
-		$this->getAddresses();
-		if ( isset( $this->addresses["$ip"] ) ) {
-			return $this->addresses["$ip"];
+	function getAddress( $id ) {
+		$id = urlencode( $id );
+		$ret = $this->restCall( 'compute', '/os-floating-ips/' . $id, 'GET' );
+		$address = self::_get_property( $ret['body'], 'floating_ip' );
+		if ( $address ) {
+			return new OpenStackNovaAddress( $address );
 		} else {
 			return null;
 		}
@@ -62,15 +124,18 @@ class OpenStackNovaController {
 	 * @return
 	 */
 	function getAddresses() {
-		$this->addresses = array();
-		$response = $this->novaConnection->describe_addresses();
-		$addresses = $response->body->addressesSet->item;
+		$addressesarr = array();
+		$ret = $this->restCall( 'compute', '/os-floating-ips', 'GET' );
+		$addresses = self::_get_property( $ret['body'], 'floating_ips' );
+		if ( !$addresses ) {
+			return $addressesarr;
+		}
 		foreach ( $addresses as $address ) {
 			$address = new OpenStackNovaAddress( $address );
 			$ip = $address->getPublicIp();
-			$this->addresses["$ip"] = $address;
+			$addressesarr[$ip] = $address;
 		}
-		return $this->addresses;
+		return $addressesarr;
 	}
 
 	/**
@@ -78,119 +143,107 @@ class OpenStackNovaController {
 	 * @return null|OpenStackNovaInstance
 	 */
 	function getInstance( $instanceId ) {
-		$instances = $this->getInstances( $instanceId );
-		if ( isset( $instances["$instanceId"] ) ) {
-			return $instances["$instanceId"];
-		} else {
-			return null;
+		$instanceId = urlencode( $instanceId );
+		$ret = $this->restCall( 'compute', '/servers/' . $instanceId, 'GET' );
+		if ( $ret['code'] === 200 ) {
+			$server = self::_get_property( $ret['body'], 'server' );
+			if ( $server ) {
+				return new OpenStackNovaInstance( $server, true );
+			}
 		}
+		return null;
 	}
 
 	/**
-	 * @param $instanceId string
-	 * @param $project string|array
 	 * @return array
 	 */
-	function getInstances( $instanceId = null, $project = array() ) {
-		$this->instances = array();
+	function getInstances() {
+		$instancesarr = array();
 		$opt = array();
-		## Filtering support is currently missing in nova, pull all instances
-		#if ( $instanceId ) {
-		#	$opt['InstanceId'] = $instanceId;
-		#}
-		#if ( $project ) {
-		#	$opt = array( 'Filter' => array( array( 'Name' => 'project_id', 'Value' => $project ) ) );
-		#}
-		$response = $this->novaConnection->describe_instances( $opt );
-		$instances = $response->body->reservationSet->item;
+		$ret = $this->restCall( 'compute', '/servers/detail', 'GET' );
+		$instances = self::_get_property( $ret['body'], 'servers' );
+		if ( !$instances ) {
+			return $instancesarr;
+		}
 		foreach ( $instances as $instance ) {
 			$instance = new OpenStackNovaInstance( $instance, true );
 			$id = $instance->getInstanceId();
-			$this->instances["$id"] = $instance;
+			$instancesarr[$id] = $instance;
 		}
-		return $this->instances;
+		return $instancesarr;
 	}
 
 	/**
-	 * @param $instanceType
+	 * @param $instancetypeid
 	 * @return OpenStackNovaInstanceType
 	 */
-	function getInstanceType( $instanceType ) {
-		$this->getInstanceTypes( false );
-		if ( isset( $this->instanceTypes["$instanceType"] ) ) {
-			return $this->instanceTypes["$instanceType"];
-		} else {
-			return null;
+	function getInstanceType( $instancetypeid ) {
+		$instancetypeid = urlencode( $instancetypeid );
+		$ret = $this->restCall( 'compute', '/flavors/' . $instancetypeid, 'GET' );
+		$flavor = self::_get_property( $ret['body'], 'flavor' );
+		if ( $flavor ) {
+			return new OpenStackNovaInstanceType( $flavor );
 		}
+		return null;
 	}
 
 	/**
 	 * @param  $sort
 	 * @return array
 	 */
-	function getInstanceTypes( $sort = true ) {
-		global $wgOpenStackManagerNovaResourcePrefix;
-		global $wgOpenStackManagerNovaAdminResourcePrefix;
-
-		$this->novaConnection->set_resource_prefix( $wgOpenStackManagerNovaAdminResourcePrefix );
-		$response = $this->novaConnection->authenticate( 'DescribeInstanceTypes', array(), $this->novaConnection->hostname );
-		$instanceTypes = $response->body->instanceTypeSet->item;
+	function getInstanceTypes() {
+		$ret = $this->restCall( 'compute', '/flavors/detail', 'GET' );
+		$instanceTypesarr = array();
+		$instanceTypes = self::_get_property( $ret['body'], 'flavors' );
+		if ( !$instanceTypes ) {
+			return $instanceTypesarr;
+		}
 		foreach ( $instanceTypes as $instanceType ) {
 			$instanceType = new OpenStackNovaInstanceType( $instanceType );
 			$instanceTypeName = $instanceType->getInstanceTypeName();
-			$this->instanceTypes["$instanceTypeName"] = $instanceType;
+			$instanceTypesarr[$instanceTypeName] = $instanceType;
 		}
-		$this->novaConnection->set_resource_prefix( $wgOpenStackManagerNovaResourcePrefix );
-		if ( $sort ) {
-			OpenStackNovaInstanceType::sort( $this->instanceTypes );
+		OpenStackNovaInstanceType::sort( $instanceTypesarr );
+		return $instanceTypesarr;
+	}
+
+	/**
+	 * @return
+	 */
+	function getImage( $imageid ) {
+		$imageid = urlencode( $imageid );
+		$ret = $this->restCall( 'compute', '/images/' . $imageid, 'GET' );
+		$image = self::_get_property( $ret['body'], 'image' );
+		if ( $image ) {
+			return new OpenStackNovaImage( $image );
 		}
-		return $this->instanceTypes;
+		return null;
 	}
 
 	/**
 	 * @return
 	 */
 	function getImages() {
-		$this->images = array();
-		$images = $this->novaConnection->describe_images();
-		$images = $images->body->imagesSet->item;
+		$ret = $this->restCall( 'compute', '/images/detail', 'GET' );
+		$imagesarr = array();
+		$images = self::_get_property( $ret['body'], 'images' );
+		if ( !$images ) {
+			return $imagesarr;
+		}
 		foreach ( $images as $image ) {
 			$image = new OpenStackNovaImage( $image );
 			$imageId = $image->getImageId();
-			$this->images["$imageId"] = $image;
+			$imagesarr[$imageId] = $image;
 		}
-		return $this->images;
+		return $imagesarr;
 	}
 
-	# TODO: make this user specific
 	/**
 	 * @return
 	 */
 	function getKeypairs() {
-		$this->keypairs = array();
-		$response = $this->novaConnection->describe_key_pairs();
-		$keypairs = $response->body->keypairsSet->item;
-		foreach ( $keypairs as $keypair ) {
-			$keypair = new OpenStackNovaKeypair( $keypair );
-			$keyname = $keypair->getKeyName();
-			$this->keypairs["$keyname"] = $keypair;
-		}
-		return $this->keypairs;
-	}
-
-	/**
-	 * @return
-	 */
-	function getAvailabilityZones() {
-		$this->availabilityZones = array();
-		$zones = $this->novaConnection->describe_availability_zones();
-		$zones = $zones->body->availabilityZoneInfo->item;
-		foreach ( $zones as $zone ) {
-			if ( $zone->zoneState == "available" ) {
-				$this->availabilityZones["$zone->zoneName"] = $zone;
-			}
-		}
-		return $this->availabilityZones;
+		// Currently unimplemented
+		return;
 	}
 
 	/**
@@ -198,10 +251,12 @@ class OpenStackNovaController {
 	 * @param  $groupname
 	 * @return OpenStackNovaSecurityGroup
 	 */
-	function getSecurityGroup( $groupname, $project ) {
-		$this->getSecurityGroups();
-		if ( isset( $this->securityGroups["$project-$groupname"] ) ) {
-			return $this->securityGroups["$project-$groupname"];
+	function getSecurityGroup( $groupid ) {
+		// The API annoyingly doesn't allow you to pull a single group
+		// pull them all, then return a single entry.
+		$groups = $this->getSecurityGroups();
+		if ( isset( $groups[$groupid] ) ) {
+			return $groups[$groupid];
 		} else {
 			return null;
 		}
@@ -211,16 +266,18 @@ class OpenStackNovaController {
 	 * @return
 	 */
 	function getSecurityGroups() {
-		$this->securityGroups = array();
-		$securityGroups = $this->novaConnection->describe_security_groups();
-		$securityGroups = $securityGroups->body->securityGroupInfo->item;
-		foreach ( $securityGroups as $securityGroup ) {
-			$securityGroup = new OpenStackNovaSecurityGroup( $securityGroup );
-			$project = $securityGroup->getProject();
-			$groupname = $securityGroup->getGroupName();
-			$this->securityGroups["$project-$groupname"] = $securityGroup;
+		$ret = $this->restCall( 'compute', '/os-security-groups', 'GET' );
+		$groups = array();
+		$securityGroups = self::_get_property( $ret['body'], 'security_groups' );
+		if ( !$securityGroups ) {
+			return $groups;
 		}
-		return $this->securityGroups;
+		foreach ( $securityGroups as $securityGroup ) {
+			$securityGroupObj = new OpenStackNovaSecurityGroup( $securityGroup );
+			$groupid = $securityGroupObj->getGroupId();
+			$groups[$groupid] = $securityGroupObj;
+		}
+		return $groups;
 	}
 
 	/**
@@ -230,8 +287,13 @@ class OpenStackNovaController {
 	 * @return string
 	 */
 	function getConsoleOutput( $instanceid ) {
-		$consoleOutput = $this->novaConnection->get_console_output( $instanceid, array() );
-		return (string)$consoleOutput->body->output;
+		$instanceid = urlencode( $instanceid );
+		$data = array( 'os-getConsoleOutput' => array( 'length' => null ) );
+		$ret = $this->restCall( 'compute', '/servers/' . $instanceid . '/action', 'POST', $data );
+		if ( $ret['code'] !== 200 ) {
+			return '';
+		}
+		return self::_get_property( $ret['body'], 'output' );
 	}
 
 	/**
@@ -239,12 +301,8 @@ class OpenStackNovaController {
 	 * @return null|OpenStackNovaVolume
 	 */
 	function getVolume( $volumeId ) {
-		$this->getVolumes();
-		if ( isset( $this->volumes["$volumeId"] ) ) {
-			return $this->volumes["$volumeId"];
-		} else {
-			return null;
-		}
+		# unimplemented
+		return null;
 	}
 
 	/**
@@ -253,15 +311,8 @@ class OpenStackNovaController {
 	 * @return array
 	 */
 	function getVolumes() {
-		$this->volumes = array();
-		$volumes = $this->novaConnection->describe_volumes();
-		$volumes = $volumes->body->volumeSet->item;
-		foreach ( $volumes as $volume ) {
-			$volume = new OpenStackNovaVolume( $volume );
-			$volumeId = $volume->getVolumeId();
-			$this->volumes["$volumeId"] = $volume;
-		}
-		return $this->volumes;
+		# unimplemented
+		return array();
 	}
 
 	/**
@@ -269,23 +320,22 @@ class OpenStackNovaController {
 	 * @param  $image
 	 * @param  $key
 	 * @param  $instanceType
-	 * @param  $availabilityZone
 	 * @param  $groups
 	 * @return null|OpenStackNovaInstance
 	 */
-	function createInstance( $instanceName, $image, $key, $instanceType, $availabilityZone, $groups ) {
+	function createInstance( $instanceName, $image, $key, $instanceType, $groups ) {
 		global $wgOpenStackManagerInstanceUserData;
 
-		$options = array();
+		$data = array( 'server' => array() );
 		if ( $key ) {
-			$options['KeyName'] = $key;
+			$data['key_name'] = $key;
 		}
-		$options['InstanceType'] = $instanceType;
-		$options['Placement.AvailabilityZone'] = $availabilityZone;
-		$options['DisplayName'] = $instanceName;
+		$data['server']['flavorRef'] = $instanceType;
+		$data['server']['imageRef'] = $image;
+		$data['server']['name'] = $instanceName;
 		if ( $wgOpenStackManagerInstanceUserData ) {
 			$random_hash = md5(date('r', time()));
-			$endl = $this->getLineEnding();
+			$endl = OpenStackNovaController::getLineEnding();
 			$boundary = '===============' . $random_hash .'==';
 			$userdata = 'Content-Type: multipart/mixed; boundary="' . $boundary .'"' . $endl;
 			$userdata .= 'MIME-Version: 1.0' . $endl;
@@ -323,59 +373,41 @@ class OpenStackNovaController {
 				}
 			}
 			$userdata .= '--';
-			$options['UserData'] = base64_encode( $userdata );
+			$data['server']['user_data'] = base64_encode( $userdata );
 		}
-		if ( count( $groups ) > 1 ) {
-			$options['SecurityGroup'] = $groups;
-		} elseif ( count( $groups ) == 1 ) {
-			$options['SecurityGroup'] = $groups[0];
+		$data['server']['security_groups'] = array();
+		foreach ( $groups as $group ) {
+			$data['server']['security_groups'][] = array( 'name' => $group );
 		}
-		# 1, 1 is min and max number of instances to create.
-		# We never want to make more than one at a time.
-		$response = $this->novaConnection->run_instances( $image, 1, 1, $options );
-		if ( ! $response->isOK() ) {
+		$ret = $this->restCall( 'compute', '/servers', 'POST', $data );
+		if ( $ret['code'] !== 202 ) {
 			return null;
 		}
-		$instance = new OpenStackNovaInstance( $response->body );
+		$instance = new OpenStackNovaInstance( $ret['body']->server );
 		$instanceId = $instance->getInstanceId();
-		$this->instances["$instanceId"] = $instance;
 
 		return $instance;
-	}
-
-	function getAttachmentMime( $attachmenttext, $mimetype, $filename ) {
-			$endl = $this->getLineEnding();
-			$attachment = 'Content-Type: ' . $mimetype . '; charset="us-ascii"'. $endl;
-			$attachment .= 'MIME-Version: 1.0' . $endl;
-			$attachment .= 'Content-Transfer-Encoding: 7bit' . $endl;
-			$attachment .= 'Content-Disposition: attachment; filename="' . $filename . '"' . $endl;
-			$attachment .= $endl;
-			$attachment .= $attachmenttext;
-			return $attachment;
-	}
-
-	function getLineEnding() {
-		if ( wfIsWindows() ) {
-			return "\r\n";
-		} else {
-			return "\n";
-		}
 	}
 
 	/**
 	 * @param  $instanceId
 	 * @return
 	 */
-	function terminateInstance( $instanceId ) {
-		$this->getAddresses();
-		foreach ( $this->addresses as $address ) {
-			if ( $address->getInstanceId() == $instanceId ) {
-				$this->disassociateAddress( $address->getPublicIP() );
+	function terminateInstance( $instanceid ) {
+		$addresses = $this->getAddresses();
+		foreach ( $addresses as $address ) {
+			if ( $address->getInstanceId() === $instanceid ) {
+				$this->disassociateAddress( $instanceid, $address->getPublicIP() );
 			}
 		}
-		$response = $this->novaConnection->terminate_instances( $instanceId );
+		$instanceid = urlencode( $instanceid );
+		$ret = $this->restCall( 'compute', '/servers/' . $instanceid, 'DELETE' );
 
-		return $response->isOK();
+		if ( $ret['code'] === 204 ) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -384,13 +416,17 @@ class OpenStackNovaController {
 	 * @return null|OpenStackNovaSecurityGroup
 	 */
 	function createSecurityGroup( $groupname, $description ) {
-		$response = $this->novaConnection->create_security_group( $groupname, $description );
-		if ( ! $response->isOK() ) {
+		$data = array( 'security_group' => array( 'name' => $groupname, 'description' => $description ) );
+		$ret = $this->restCall( 'compute', '/os-security-groups', 'POST', $data );
+		if ( $ret['code'] !== 200 ) {
 			return null;
 		}
-		$securityGroup = new OpenStackNovaSecurityGroup( $response->body->securityGroupSet->item );
+		$attr = self::_get_property( $ret['body'], 'security_group' );
+		if ( !$attr ) {
+			return null;
+		}
+		$securityGroup = new OpenStackNovaSecurityGroup( $attr );
 		$groupname = $securityGroup->getGroupName();
-		$this->securityGroups["$groupname"] = $securityGroup;
 
 		return $securityGroup;
 	}
@@ -399,10 +435,15 @@ class OpenStackNovaController {
 	 * @param  $groupname
 	 * @return
 	 */
-	function deleteSecurityGroup( $groupname ) {
-		$response = $this->novaConnection->delete_security_group( Array( "GroupName" => $groupname ) );
+	function deleteSecurityGroup( $groupid ) {
+		$groupid = urlencode( $groupid );
+		$ret = $this->restCall( 'compute', '/os-security-groups/' . $groupid, 'DELETE' );
 
-		return $response->isOK();
+		if ( $ret['code'] === 202 ) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -414,39 +455,30 @@ class OpenStackNovaController {
 	 * @param array $groups
 	 * @return
 	 */
-	function addSecurityGroupRule( $groupname, $fromport='', $toport='', $protocol='', $ranges=array(), $groups=array() ) {
-		# TODO: Currently this method had commented out sections that use the AWS SDK
-		# recommended method of adding security group rules. When lp704645 is fixed, switch
-		# to using this method.
-		$rule = array();
-		$rule['GroupName'] = $groupname;
-		if ( $fromport ) {
-			$rule['FromPort'] = $fromport;
+	function addSecurityGroupRule( $groupid, $fromport='', $toport='', $protocol='', $range='', $group='' ) {
+		if ( $group && $range ) {
+			return false;
+		} else if ( $range ) {
+			$data = array( 'security_group_rule' => array (
+				'parent_group_id' => (int)$groupid,
+				'from_port' => $fromport,
+				'to_port' => $toport,
+				'ip_protocol' => $protocol,
+				'cidr' => $range )
+			);
+		} else if ( $group ) {
+			$data = array( 'security_group_rule' => array (
+				'parent_group_id' => (int)$groupid,
+				'group_id' => (int)$group )
+			);
 		}
-		if ( $toport ) {
-			$rule['ToPort'] = $toport;
-		}
-		if ( $protocol ) {
-			$rule['IpProtocol'] = $protocol;
-		}
-		if ( $ranges ) {
-			foreach ( $ranges as $range ) {
-				#$rule['IpRanges'][] = array( 'CidrIp' => $range );
-				$rule['CidrIp'] = $range;
-			}
-		}
-		if ( $groups ) {
-			foreach ( $groups as $group ) {
-				#$rule['Groups'][] = array( 'GroupName' => $group['groupname'], 'UserId' => $group['project'] );
-				$rule['SourceSecurityGroupName'] = $group['groupname'];
-				$rule['SourceSecurityGroupOwnerId'] = $group['project'];
-			}
-		}
-		#$permissions = array( 'IpPermissions' => array( $rule ) );
-		#$response = $this->novaConnection->authorize_security_group_ingress( $permissions );
-		$response = $this->novaConnection->authorize_security_group_ingress( $rule );
+		$ret = $this->restCall( 'compute', '/os-security-group-rules', 'POST', $data );
 
-		return $response->isOK();
+		if ( $ret['code'] === 200 ) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -458,68 +490,32 @@ class OpenStackNovaController {
 	 * @param array $groups
 	 * @return
 	 */
-	function removeSecurityGroupRule( $groupname, $fromport='', $toport='', $protocol='', $ranges=array(), $groups=array() ) {
-		# TODO: Currently this method had commented out sections that use the AWS SDK
-		# recommended method of removing security group rules. When lp704645 is fixed, switch
-		# to using this method.
-		$rule = array();
-		$rule['GroupName'] = $groupname;
-		if ( $fromport ) {
-			$rule['FromPort'] = $fromport;
-		}
-		if ( $toport ) {
-			$rule['ToPort'] = $toport;
-		}
-		if ( $protocol ) {
-			$rule['IpProtocol'] = $protocol;
-		}
-		if ( $ranges ) {
-			foreach ( $ranges as $range ) {
-				#$rule['IpRanges'][] = array( 'CidrIp' => $range );
-				$rule['CidrIp'] = $range;
-			}
-		}
-		if ( $groups ) {
-			foreach ( $groups as $group ) {
-				#$rule['Groups'][] = array( 'GroupName' => $group['groupname'], 'UserId' => $group['project'] );
-				$rule['SourceSecurityGroupName'] = $group['groupname'];
-				$rule['SourceSecurityGroupOwnerId'] = $group['project'];
-			}
-		}
-		#$permissions = array( 'IpPermissions' => array( $rule ) );
-		#$response = $this->novaConnection->revoke_security_group_ingress( $permissions );
-		$response = $this->novaConnection->revoke_security_group_ingress( $rule );
-		return $response->isOK();
-	}
+	function removeSecurityGroupRule( $ruleid ) {
+		$ruleid = urlencode( $ruleid );
+		$ret = $this->restCall( 'compute', '/os-security-group-rules/' . $ruleid, 'DELETE' );
 
-	/**
-	 * @param  $keyName
-	 * @param  $key
-	 * @return OpenStackNovaKeypair
-	 */
-	function importKeyPair( $keyName, $key ) {
-		$response = $this->novaConnection->import_key_pair( $keyName, $key );
-
-		$keypair = new OpenStackNovaKeypair( $response->body );
-		$keyName = $keypair->getKeyName();
-		$this->keypairs["$keyName"] = $keypair;
-
-		return $keypair;
+		if ( $ret['code'] === 202 ) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
 	 * @return null|OpenStackNovaAddress
 	 */
 	function allocateAddress() {
-		$response = $this->novaConnection->allocate_address();
-		if ( ! $response->isOK() ) {
+		$ret = $this->restCall( 'compute', '/os-floating-ips', 'POST', array() );
+		if ( $ret['code'] !== 200 ) {
 			return null;
-		} else {
-			$address = new OpenStackNovaAddress( $response->body );
-			$ip = $address->getPublicIP();
-			$this->addresses["$ip"] = $address;
-			return $address;
 		}
+		$floating_ip = self::_get_property( $ret['body'], 'floating_ip' );
+		if ( !$floating_ip ) {
+			return null;
+		}
+		$address = new OpenStackNovaAddress( $floating_ip );
+		$ip = $address->getPublicIP();
+		return $address;
 	}
 
 	/**
@@ -528,10 +524,15 @@ class OpenStackNovaController {
 	 * @param  $ip
 	 * @return
 	 */
-	function releaseAddress( $ip ) {
-		$response = $this->novaConnection->release_address( array( 'PublicIp' => $ip ) );
+	function releaseAddress( $id ) {
+		$id = urlencode( $id );
+		$ret = $this->restCall( 'compute', '/os-floating-ips/' . $id, 'DELETE' );
 
-		return $response->isOK();
+		if ( $ret['code'] === 202 ) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -542,14 +543,17 @@ class OpenStackNovaController {
 	 * @return null|OpenStackNovaAddress
 	 */
 	function associateAddress( $instanceid, $ip ) {
-		$response = $this->novaConnection->associate_address( $instanceid, $ip );
-		if ( ! $response->isOK() ) {
+		$instanceid = urlencode( $instanceid );
+		$data = array( 'removeFloatingIp' => array( 'address' => $ip ) );
+		$ret = $this->restCall( 'compute', '/servers/' . $instanceid . '/action', 'POST', $data );
+		if ( $ret['code'] !== 202 ) {
 			return null;
-		} else {
-			$address = new OpenStackNovaAddress( $response->body->addressSet->item );
-			$this->addresses["$ip"] = $address;
-			return $address;
 		}
+		$floating_ip = self::_get_property( $ret['body'], 'floating_ip' );
+		if ( !$floating_ip ) {
+			return null;
+		}
+		return new OpenStackNovaAddress( $floating_ip );
 	}
 
 	/**
@@ -558,10 +562,16 @@ class OpenStackNovaController {
 	 * @param  $ip
 	 * @return
 	 */
-	function disassociateAddress( $ip ) {
-		$response = $this->novaConnection->disassociate_address( $ip );
+	function disassociateAddress( $instanceid, $ip ) {
+		$instanceid = urlencode( $instanceid );
+		$data = array( 'removeFloatingIp' => array ( 'address' => $ip ) );
+		$ret = $this->restCall( 'compute', '/servers/' . $instanceid, 'POST', $data );
 
-		return $response->isOK();
+		if ( $ret['code'] === 202 ) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -574,19 +584,8 @@ class OpenStackNovaController {
 	 * @return OpenStackNovaVolume
 	 */
 	function createVolume( $zone, $size, $name, $description ) {
-		$response = $this->novaConnection->createVolume( $zone, array(
-			'Size' => (int)$size,
-			'DisplayName' => $name,
-			'DisplayDescription' => $description,
-		));
-		if ( ! $response->isOK() ) {
-			return null;
-		} else {
-			$volume = new OpenStackNovaVolume( $response->body->volumeSet->item );
-			$id = $volume->getVolumeId();
-			$this->volumes["$id"] = $volume;
-			return $volume;
-		}
+		# Unimplemented
+		return null;
 	}
 
 	/**
@@ -596,9 +595,8 @@ class OpenStackNovaController {
 	 * @return boolean
 	 */
 	function deleteVolume( $volumeid ) {
-		$response = $this->novaConnection->deleteVolume( $volumeid );
-
-		return $response->isOK();
+		# unimplemented
+		return false;
 	}
 
 	/**
@@ -610,9 +608,8 @@ class OpenStackNovaController {
 	 * @return boolean
 	 */
 	function attachVolume( $volumeid, $instanceid, $device ) {
-		$response = $this->novaConnection->attachVolume( $volumeid, $instanceid, $device );
-
-		return $response->isOK();
+		# unimplemented
+		return false;
 	}
 
 	/**
@@ -623,25 +620,204 @@ class OpenStackNovaController {
 	 * @return boolean
 	 */
 	function detachVolume( $volumeid, $force ) {
-		$opt = Array();
-		if ( $force ) {
-			$opt["Force"] = $force;
-		}
-		$response = $this->novaConnection->detachVolume( $volumeid, $opt );
-
-		return $response->isOK();
+		# unimplemented
+		return false;
 	}
 
 	/**
 	 * Reboots an instance
 	 *
 	 * @param instanceid
+	 * @param type
 	 * @return boolean
 	 */
-	function rebootInstance( $instanceid ) {
-		$response = $this->novaConnection->rebootInstances( $instanceid );
+	function rebootInstance( $instanceid, $type='SOFT' ) {
+		$instanceid = urlencode( $instanceid );
+		$data = array( 'reboot' => array( 'type' => $type ) );
+		$ret = $this->restCall( 'compute', '/servers/' . $instanceid . '/action', 'POST', $data );
+		if ( $ret['code'] === 202 ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-		return $response->isOK();
+	function authenticate( $username, $password ) {
+		global $wgAuth;
+		global $wgMemc;
+
+		$wgAuth->printDebug( "Entering OpenStackNovaController::authenticate", NONSENSITIVE );
+		$headers = array(
+			'Accept: application/json',
+			'Content-Type: application/json',
+		);
+		$data = array( 'auth' => array( 'passwordCredentials' => array( 'username' => $username, 'password' => $password ) ) );
+		$ret = $this->restCall( 'identity', '/tokens', 'POST', $data, $headers );
+		if ( $ret['code'] !== 200 ) {
+			$wgAuth->printDebug( "OpenStackNovaController::authenticate return code: " . $ret['code'], NONSENSITIVE );
+			return '';
+		}
+		$user = $ret['body'];
+		$this->token = $this->_get_property( $user->access->token, 'id' );
+		$wgAuth->printDebug( "token: $this->token", NONSENSITIVE );
+		$expires = $this->_get_property( $user->access->token, 'expires' );
+		// TODO: make this memcache key expire on the token's expiration date
+		$key = wfMemcKey( 'openstackmanager', 'fulltoken', $username );
+		$wgMemc->set( $key, array( 'id' => $this->token, 'expires' => $expires ) );
+
+		return $this->token;
+	}
+
+	function getProjectToken( $project ) {
+		global $wgAuth;
+		global $wgMemc;
+
+		// Try to fetch the project token
+		$projectkey = wfMemcKey( 'openstackmanager', "fulltoken-$project", $this->username );
+		$projecttoken = $wgMemc->get( $projectkey );
+		if ( is_array( $projecttoken ) && !$this->isExpired( $projecttoken ) ) {
+			return $projecttoken['id'];
+		}
+		// Try to fetch the non-project token
+		$key = wfMemcKey( 'openstackmanager', "fulltoken", $this->username );
+		$fulltoken = $wgMemc->get( $key );
+		if ( is_array( $fulltoken ) && !$this->isExpired( $fulltoken ) ) {
+			$token = $fulltoken['id'];
+		} else {
+			if ( !$this->token ) {
+				// If there's no non-project token, there's nothing to do, the
+				// user will need to re-authenticate.
+				return '';
+			} else {
+				$token = $this->token;
+			}
+		}
+		$headers = array(
+			'Accept: application/json',
+			'Content-Type: application/json',
+		);
+		$data = array( 'auth' => array( 'token' => array( 'id' => $token ), 'tenantName' => $project ) );
+		$path = '/tokens';
+		$ret = $this->restCall( 'identity', $path, 'POST', $data, $headers );
+		if ( $ret['code'] !== 200 ) {
+			return '';
+		}
+		$user = $ret['body'];
+		$token = $this->_get_property( $user->access->token, 'id' );
+		$expires = $this->_get_property( $user->access->token, 'expires' );
+		// TODO: make this memcache key expire on the token's expiration date
+		$wgMemc->set( $projectkey, array( 'id' => $token, 'expires' => $expires ) );
+		// TODO: make this memcache key expire on the token's expiration date
+		$key = wfMemcKey( 'openstackmanager', 'serviceCatalog-' . $project, $this->username );
+		$wgMemc->set( $key, json_encode( $user->access->serviceCatalog ) );
+
+		return $token;
+	}
+
+	function getEndpoints( $service ) {
+		global $wgMemc;
+
+		$key = wfMemcKey( 'openstackmanager', 'serviceCatalog-' . $this->project, $this->username );
+		$serviceCatalog = json_decode( $wgMemc->get( $key ) );
+		$endpoints = array();
+		if ( $serviceCatalog ) {
+			foreach ( $serviceCatalog as $entry ) {
+				if ( $entry->type === $service ) {
+					array_push( $endpoints, $entry->endpoints );
+				}
+			}
+		}
+		return $endpoints;
+	}
+
+	function isExpired( $fulltoken ) {
+		$expiration_date = strtotime( $fulltoken['expires'] );
+		$now = strtotime('now');
+		if ( $expiration_date < $now ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	function getTokenHeaders( $token, $project ) {
+		// Project names can only contain a-z0-9-, strip everything else.
+		$headers = array(
+			'Accept: application/json',
+			'Content-Type: application/json',
+			'X-Auth-Project-Id: ' . preg_replace("/[^a-z0-9-]/", "", $project ),
+			'X-Auth-Token: ' . $token,
+		);
+		return $headers;
+	}
+
+	function restCall( $service, $path, $method, $data = array(), $authHeaders='' ) {
+		global $wgAuth;
+		global $wgOpenStackManagerNovaIdentityURI;
+
+		if ( $authHeaders ) {
+			$headers = $authHeaders;
+		} else {
+			// This isn't an authentication call, we need to get the
+			// tokens and the headers.
+			$token = $this->getProjectToken( $this->getProject() );
+			$headers = $this->getTokenHeaders( $token, $this->getProject() );
+		}
+
+		if ( $service === 'identity' ) {
+			$endpointURL = $wgOpenStackManagerNovaIdentityURI;
+		} else {
+			$endpoints = $this->getEndpoints( $service );
+			foreach ( $endpoints as $endpoint ) {
+				if ( $endpoint[0]->region === $this->getRegion() ) {
+					$endpointURL = $endpoint[0]->publicURL;
+				}
+			}
+		}
+		$fullurl = $endpointURL . $path;
+		$wgAuth->printDebug( "OpenStackNovaController::restCall fullurl: " . $fullurl, NONSENSITIVE );
+		$handle = curl_init();
+		switch( $method ) {
+		case 'GET':
+			if ( $data ) {
+				$fullurl .= '?' . wfArrayToCgi( $data );
+			}
+			break;
+		case 'POST':
+			curl_setopt( $handle, CURLOPT_POST, true );
+			curl_setopt( $handle, CURLOPT_POSTFIELDS, json_encode( $data ) );
+			$wgAuth->printDebug( "OpenStackNovaController::restCall data: " . json_encode( $data ), NONSENSITIVE );
+			break;
+		case 'PUT':
+			curl_setopt( $handle, CURLOPT_CUSTOMREQUEST, 'PUT' );
+			curl_setopt( $handle, CURLOPT_POSTFIELDS, json_encode( $data ) );
+			break;
+		case 'DELETE':
+			curl_setopt( $handle, CURLOPT_CUSTOMREQUEST, 'DELETE' );
+			break;
+		}
+
+		curl_setopt( $handle, CURLOPT_URL, $fullurl );
+		curl_setopt( $handle, CURLOPT_HTTPHEADER, $headers );
+		curl_setopt( $handle, CURLOPT_RETURNTRANSFER, true );
+		curl_setopt( $handle, CURLOPT_HEADER, 1 );
+		$response = curl_exec( $handle );
+		$code = curl_getinfo( $handle, CURLINFO_HTTP_CODE );
+		$header_size = curl_getinfo( $handle, CURLINFO_HEADER_SIZE );
+		$response_headers = substr( $response, 0, $header_size );
+		$body = substr( $response, $header_size );
+		$body = json_decode( $body );
+
+		return array( 'code' => $code, 'body' => $body, 'response_headers' => $response_headers );
+	}
+
+	static function _get_property( $object, $id ) {
+		if ( isset( $object ) && is_object( $object ) ) {
+			if ( property_exists( $object, $id ) ) {
+				return $object->$id;
+			}
+		}
+		return null;
 	}
 
 }

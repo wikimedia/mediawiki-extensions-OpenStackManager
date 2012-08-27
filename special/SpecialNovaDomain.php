@@ -9,45 +9,29 @@
 
 class SpecialNovaDomain extends SpecialNova {
 
-	var $adminNova;
 	var $userLDAP;
 
 	function __construct() {
-		parent::__construct( 'NovaDomain' );
-
-		global $wgOpenStackManagerNovaAdminKeys;
-
-		$this->userLDAP = new OpenStackNovaUser();
-		$this->adminNova = new OpenStackNovaController( $wgOpenStackManagerNovaAdminKeys );
+		parent::__construct( 'NovaDomain', 'managednsdomain' );
 	}
 
 	function execute( $par ) {
-		global $wgOpenStackManagerLDAPRolesIntersect;
-
 		if ( !$this->getUser()->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return;
 		}
+		$this->userLDAP = new OpenStackNovaUser();
 		if ( !$this->userLDAP->exists() ) {
 			$this->noCredentials();
 			return;
 		}
-		# Must be in the global role
-		if ( $wgOpenStackManagerLDAPRolesIntersect ) {
-			# If roles intersect, we need to require cloudadmins, since
-			# users are required to be in netadmins to manage project
-			# specific netadmin things
-			if ( !$this->userLDAP->inGlobalRole( 'cloudadmin' ) ) {
-				$this->notInRole( 'cloudadmin' );
-				return;
-			}
-		} elseif ( !$this->userLDAP->inGlobalRole( 'netadmin' ) ) {
-			$this->notInRole( 'netadmin' );
+		if ( !$this->userCanExecute( $this->getUser() ) ) {
+			$this->displayRestrictionError();
 			return;
 		}
 
 		$action = $this->getRequest()->getVal( 'action' );
-		if ( $action == "delete" ) {
+		if ( $action === "delete" ) {
 			$this->deleteDomain();
 		} else {
 			$this->listDomains();
@@ -76,7 +60,7 @@ class SpecialNovaDomain extends SpecialNova {
 			'default' => 'delete',
 			'name' => 'action',
 		);
-		$domainForm = new SpecialNovaDomainForm( $domainInfo, 'openstackmanager-novadomain' );
+		$domainForm = new HTMLForm( $domainInfo, 'openstackmanager-novadomain' );
 		$domainForm->setTitle( SpecialPage::getTitleFor( 'NovaDomain' ) );
 		$domainForm->setSubmitID( 'novadomain-form-deletedomainsubmit' );
 		$domainForm->setSubmitCallback( array( $this, 'tryDeleteSubmit' ) );
@@ -122,7 +106,7 @@ class SpecialNovaDomain extends SpecialNova {
 			'name' => 'action',
 		);
 
-		$domainForm = new SpecialNovaDomainForm( $domainInfo, 'openstackmanager-novadomain' );
+		$domainForm = new HTMLForm( $domainInfo, 'openstackmanager-novadomain' );
 		$domainForm->setTitle( SpecialPage::getTitleFor( 'NovaDomain' ) );
 		$domainForm->setSubmitID( 'novadomain-form-createdomainsubmit' );
 		$domainForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
@@ -179,7 +163,7 @@ class SpecialNovaDomain extends SpecialNova {
 		if ( $success ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-deleteddomain' );
 		} else {
-			$this->getOutput()->addWikiMsg( 'openstackmanager-failedeleteddomain' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-failedeletedomain' );
 		}
 
 		$out = '<br />';
@@ -189,7 +173,4 @@ class SpecialNovaDomain extends SpecialNova {
 		return true;
 	}
 
-}
-
-class SpecialNovaDomainForm extends HTMLForm {
 }

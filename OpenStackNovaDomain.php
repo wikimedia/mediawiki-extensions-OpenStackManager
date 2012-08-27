@@ -118,9 +118,9 @@ class OpenStackNovaDomain {
 		OpenStackNovaLdapConnection::connect();
 
 		$domains = array();
-		if ( $type == 'local' ) {
+		if ( $type === 'local' ) {
 			$query = '(&(soarecord=*)(l=*))';
-		} elseif ( $type == 'public' ) {
+		} elseif ( $type === 'public' ) {
 			$query = '(&(soarecord=*)(!(l=*)))';
 		} else {
 			$query = '(soarecord=*)';

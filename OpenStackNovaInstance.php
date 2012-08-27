@@ -7,7 +7,6 @@
  * @ingroup Extensions
  */
 
-# TODO: Make this an abstract class, and make the EC2 API a subclass
 class OpenStackNovaInstance {
 
 	var $instance;
@@ -50,12 +49,12 @@ class OpenStackNovaInstance {
 	}
 
 	/**
-	 * Get the EC2 reservation ID associated with this instance.
+	 * Return the EC2 instance ID assigned to this instance
 	 *
 	 * @return string
 	 */
-	function getReservationId() {
-		return (string)$this->instance->reservationId;
+	function getInstanceId() {
+		return OpenStackNovaController::_get_property( $this->instance, 'OS-EXT-SRV-ATTR:instance_name' );
 	}
 
 	/**
@@ -63,8 +62,8 @@ class OpenStackNovaInstance {
 	 *
 	 * @return string
 	 */
-	function getInstanceId() {
-		return (string)$this->instance->instancesSet->item->instanceId;
+	function getInstanceOSId() {
+		return OpenStackNovaController::_get_property( $this->instance, 'id' );
 	}
 
 	/**
@@ -72,20 +71,32 @@ class OpenStackNovaInstance {
 	 *
 	 * @return string
 	 */
-	function getInstancePrivateIP() {
-		# Though this is unintuitive, privateDnsName is the private IP
-		return (string)$this->instance->instancesSet->item->privateDnsName;
+	function getInstancePrivateIPs() {
+		$addrs = array();
+		$fixedaddrs = OpenStackNovaController::_get_property( $this->instance->addresses, 'fixed' );
+		if ( $fixedaddrs ) {
+			foreach ( $fixedaddrs as $fixed ) {
+				array_push( $addrs, OpenStackNovaController::_get_property( $fixed, 'addr' ) );
+			}
+		}
+		return $addrs;
 	}
 
 	/**
 	 * Return the public IP address associated with this object. If there is no
-	 * public IP associated, this will return the same as getInstancePrivateIP().
+	 * public IP associated, this will return the same as getInstancePrivateIPs().
 	 *
 	 * @return string
 	 */
-	function getInstancePublicIP() {
-		# Though this is unintuitive, privateDnsName is the private IP
-		return (string)$this->instance->instancesSet->item->dnsName;
+	function getInstancePublicIPs() {
+		$addrs = array();
+		$floatings = OpenStackNovaController::_get_property( $this->instance->addresses, 'floating' );
+		if ( $floatings ) {
+			foreach ( $floatings as $floating ) {
+				array_push( $addrs, OpenStackNovaController::_get_property( $floating, 'addr' ) );
+			}
+		}
+		return $addrs;
 	}
 
 	/**
@@ -94,7 +105,7 @@ class OpenStackNovaInstance {
 	 * @return string
 	 */
 	function getInstanceName() {
-		return (string)$this->instance->instancesSet->item->displayName;
+		return OpenStackNovaController::_get_property( $this->instance, 'name' );
 	}
 
 	/**
@@ -115,7 +126,7 @@ class OpenStackNovaInstance {
 	 * @return string
 	 */
 	function getInstanceState() {
-		return (string)$this->instance->instancesSet->item->instanceState->name;
+		return OpenStackNovaController::_get_property( $this->instance, 'OS-EXT-STS:vm_state' );
 	}
 
 	/**
@@ -124,7 +135,7 @@ class OpenStackNovaInstance {
 	 * @return string
 	 */
 	function getInstanceType() {
-		return (string)$this->instance->instancesSet->item->instanceType;
+		return OpenStackNovaController::_get_property( $this->instance->flavor, 'id' );
 	}
 
 	/**
@@ -133,7 +144,7 @@ class OpenStackNovaInstance {
 	 * @return string
 	 */
 	function getImageId() {
-		return (string)$this->instance->instancesSet->item->imageId;
+		return OpenStackNovaController::_get_property( $this->instance->image, 'id' );
 	}
 
 	/**
@@ -142,7 +153,7 @@ class OpenStackNovaInstance {
 	 * @return string
 	 */
 	function getKeyName() {
-		return (string)$this->instance->instancesSet->item->keyName;
+		return OpenStackNovaController::_get_property( $this->instance, 'key_name' );
 	}
 
 	/**
@@ -151,7 +162,7 @@ class OpenStackNovaInstance {
 	 * @return string
 	 */
 	function getProject() {
-		return (string)$this->instance->ownerId;
+		return OpenStackNovaController::_get_property( $this->instance, 'tenant_id' );
 	}
 
 	/**
@@ -160,8 +171,7 @@ class OpenStackNovaInstance {
 	 * @return string
 	 */
 	function getInstanceHost() {
-		$info = explode( ' ', (string)$this->instance->instancesSet->item->keyName );
-		return str_replace( array(',',')'), '', $info[2] );
+		return OpenStackNovaController::_get_property( $this->instance, 'OS-EXT-SRV-ATTR:host' );
 	}
 
 	/**
@@ -169,7 +179,7 @@ class OpenStackNovaInstance {
 	 * @return string
 	 */
 	function getAvailabilityZone() {
-		return (string)$this->instance->instancesSet->item->placement->availabilityZone;
+		return 'Unimplemented';
 	}
 
 	/**
@@ -178,8 +188,7 @@ class OpenStackNovaInstance {
 	 * @return string
 	 */
 	function getRegion() {
-		# NOTE: This is non-existant in openstack for now
-		return (string)$this->instance->instancesSet->item->region;
+		return 'Unimplemented';
 	}
 
 	/**
@@ -187,9 +196,12 @@ class OpenStackNovaInstance {
 	 * @return array
 	 */
 	function getSecurityGroups() {
+		// Currently not implemented in the OpenStack API, so we're
+		// implementing it as metadata for now
+		$secgroup = OpenStackNovaController::_get_property( $this->instance->metadata, 'secgroup' );
 		$groups = array();
-		foreach ( $this->instance->groupSet->item as $group ) {
-			$groups[] = (string)$group->groupId;
+		if ( $secgroup ) {
+			$groups = explode( ',', $secgroup );
 		}
 		return $groups;
 	}
@@ -200,7 +212,7 @@ class OpenStackNovaInstance {
 	 * @return string
 	 */
 	function getLaunchTime() {
-		return (string)$this->instance->instancesSet->item->launchTime;
+		return OpenStackNovaController::_get_property( $this->instance, 'created' );
 	}
 
 	/**
@@ -208,9 +220,7 @@ class OpenStackNovaInstance {
 	 *
 	 * @return void
 	 */
-	function editArticle() {
-		global $wgOpenStackManagerNovaAdminKeys;
-
+	function editArticle( $userNova ) {
 		if ( ! OpenStackNovaArticle::canCreatePages() ) {
 			return;
 		}
@@ -219,8 +229,9 @@ class OpenStackNovaInstance {
 {{Nova Resource
 |Resource Type=instance
 |Instance Name=%s
-|Reservation Id=%s
+|Reservation Id=
 |Instance Id=%s
+|Instance OS Id=%s
 |Private IP=%s
 |Public IP=%s
 |Instance State=%s
@@ -251,28 +262,28 @@ RESOURCEINFO;
 			foreach ( $puppetinfo['puppetvar'] as $key => $val ) {
 				# Let's not leak user's email addresses; we know this
 				# will be set, since we are setting it.
-				if ( $key == 'instancecreator_email' ) {
+				if ( $key === 'instancecreator_email' ) {
 					continue;
 				}
 				$puppetvars .= $key . '=' . $val . ',';
 			}
 		}
-		$adminNova = new OpenStackNovaController( $wgOpenStackManagerNovaAdminKeys );
-		$instanceType = $adminNova->getInstanceType( $this->getInstanceType() );
+		$instanceType = $userNova->getInstanceType( $this->getInstanceType() );
+		$image = $userNova->getImage( $this->getImageId() );
 		$text = sprintf( $format,
 			$this->getInstanceName(),
-			$this->getReservationId(),
 			$this->getInstanceId(),
-			$this->getInstancePrivateIP(),
-			$this->getInstancePublicIP(),
+			$this->getInstanceOSId(),
+			implode( ',', $this->getInstancePrivateIPs() ),
+			implode( ',', $this->getInstancePublicIPs() ),
 			// Since instance state is somewhat dynamic, is this useful?
 			$this->getInstanceState(),
 			$this->getInstanceHost(),
-			$this->getInstanceType(),
+			$instanceType->getInstanceTypeName(),
 			$instanceType->getMemorySize(),
 			$instanceType->getNumberOfCPUs(),
 			$instanceType->getStorageSize(),
-			$this->getImageId(),
+			$image->getImageName(),
 			$this->getProject(),
 			$this->getAvailabilityZone(),
 			$this->getRegion(),

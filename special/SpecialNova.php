@@ -42,15 +42,12 @@ abstract class SpecialNova extends SpecialPage {
 	 */
 	function notInRole( $role ) {
 		$this->setHeaders();
-		if ( $role == 'sysadmin' ) {
+		if ( $role === 'sysadmin' ) {
 			$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-needsysadminrole' ) );
 			$this->getOutput()->addWikiMsg( 'openstackmanager-needsysadminrole2' );
-		} elseif ( $role == 'netadmin' ) {
+		} elseif ( $role === 'netadmin' ) {
 			$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-neednetadminrole' ) );
 			$this->getOutput()->addWikiMsg( 'openstackmanager-neednetadminrole2' );
-		} elseif ( $role == 'cloudadmin' ) {
-			$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-needcloudadminrole' ) );
-			$this->getOutput()->addWikiMsg( 'openstackmanager-needcloudadminrole2' );
 		}
 	}
 
@@ -92,11 +89,11 @@ abstract class SpecialNova extends SpecialPage {
 	}
 
 	function showProjectFilter( $projects, $showbydefault=false ) {
-		if ( $this->getRequest()->wasPosted() && $this->getRequest()->getVal( 'action' ) != 'setprojectfilter' ) {
+		if ( $this->getRequest()->wasPosted() && $this->getRequest()->getVal( 'action' ) !== 'setprojectfilter' ) {
 			return null;
 		}
 		$showmsg = $this->getRequest()->getText( 'showmsg' );
-		if ( $showmsg == "setfilter" ) {
+		if ( $showmsg === "setfilter" ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-setprojects' );
 		}
 		$currentProjects = $this->getProjectFilter();
@@ -104,9 +101,9 @@ abstract class SpecialNova extends SpecialPage {
 		$defaults = array();
 		foreach ( $projects as $project ) {
 			$projectName = $project->getProjectName();
-			$project_keys["$projectName"] = $projectName;
+			$project_keys[$projectName] = $projectName;
 			if ( in_array( $projectName, $currentProjects ) ) {
-				$defaults["$projectName"] = $projectName;
+				$defaults[$projectName] = $projectName;
 			}
 		}
 		$projectFilter = array();
@@ -137,27 +134,6 @@ abstract class SpecialNova extends SpecialPage {
 		$projectFilterForm->show();
 	}
 
-	function getResourcesGroupedByProject( $resources ) {
-		$groupResources = Array();
-		foreach ( $resources as $resource ) {
-			$project = $resource->getProject();
-			if ( array_key_exists( $project, $groupResources ) ) {
-				$groupResources["$project"][] = $resource;
-			} else {
-				$groupResources["$project"] = Array( $resource );
-			}
-		}
-		return $groupResources;
-	}
-
-	function getResourceByProject( $resources, $projectName ) {
-		if ( in_array( $projectName, array_keys( $resources ) ) ) {
-			return $resources["$projectName"];
-		} else {
-			return Array();
-		}
-	}
-			
 	function createResourceLink( $resource ) {
 		$resource = htmlentities( $resource );
 		$title = Title::newFromText( $resource, NS_NOVA_RESOURCE );
@@ -197,6 +173,15 @@ abstract class SpecialNova extends SpecialPage {
 		array_push( $row, Html::rawElement( 'td', $attribs, $value ) );
 	}
 
+	/**
+	 * Create a table of resources based on headers and rows. Warning: $rows is not
+	 * escaped in this function and must be escaped prior to this call.
+	 *
+	 * @param $headers
+	 * @param $rows
+	 *
+	 * @return string
+	 */
 	function createResourceTable( $headers, $rows ) {
 		$table = '';
 		foreach ( $headers as $header ) {
@@ -212,6 +197,16 @@ abstract class SpecialNova extends SpecialPage {
 		return Html::rawElement( 'table', array( 'class' => 'wikitable sortable collapsible' ), $table );
 	}
 
+	/**
+	 * Create a project section to be displayed in a list page. Warning: neither $actionsByRole nor
+	 * $data escaped in this function and must be escaped prior to this call.
+	 *
+	 * @param $projectName
+	 * @param $actionsByRole
+	 * @param $data
+	 *
+	 * @return string
+	 */
 	function createProjectSection( $projectName, $actionsByRole, $data ) {
 		$actions = Array();
 		foreach ( $actionsByRole as $role => $roleActions ) {
@@ -223,14 +218,48 @@ abstract class SpecialNova extends SpecialPage {
 		}
 		if ( $actions ) {
 			$actions = implode( ', ', $actions );
-			$actions = '<a class="mw-customtoggle-' . $projectName . ' osm-remotetoggle">' . wfMsgHtml( 'openstackmanager-toggleproject' ) . '</a>, ' . $actions;
+			$actions = '<a class="mw-customtoggle-' . htmlentities( $projectName ) . ' osm-remotetoggle">' . wfMsgHtml( 'openstackmanager-toggle' ) . '</a>, ' . $actions;
 			$actionOut = Html::rawElement( 'span', array( 'id' => 'novaaction' ), "[$actions]" );
 		} else {
-			$actionOut = '';
+			$actions = '<a class="mw-customtoggle-' . htmlentities( $projectName ) . ' osm-remotetoggle">' . wfMsgHtml( 'openstackmanager-toggle' ) . '</a>';
+			$actionOut = Html::rawElement( 'span', array( 'id' => 'novaaction' ), "[$actions]" );
 		}
 		$projectNameOut = $this->createResourceLink( $projectName );
 		$out = Html::rawElement( 'h2', array(), "$projectNameOut $actionOut" );
 		$out .= Html::rawElement( 'div', array( 'class' => 'mw-collapsible', 'id' => 'mw-customcollapsible-' . $projectName ), $data );
+
+		return $out;
+	}
+
+	/**
+	 * Create a region section to be displayed in a list page. Warning: neither $actionsByRole nor
+	 * $data are escaped in this function and must be escaped prior to this call.
+	 *
+	 * @param $projectName
+	 * @param $actionsByRole
+	 * @param $data
+	 *
+	 * @return string
+	 */
+	function createRegionSection( $region, $projectName, $actionsByRole, $data ) {
+		$actions = Array();
+		foreach ( $actionsByRole as $role => $roleActions ) {
+			foreach ( $roleActions as $action ) {
+				if ( $this->userLDAP->inRole( $role, $projectName ) ) {
+					array_push( $actions, $action );
+				}
+			}
+		}
+		$escapedregion = htmlentities( $region );
+		if ( $actions ) {
+			$actions = implode( ', ', $actions );
+			$actions = '<a class="mw-customtoggle-' . $escapedregion . ' osm-remotetoggle">' . wfMsgHtml( 'openstackmanager-toggle' ) . '</a>, ' . $actions;
+			$actionOut = Html::rawElement( 'span', array( 'id' => 'novaaction' ), "[$actions]" );
+		} else {
+			$actionOut = '';
+		}
+		$out = Html::rawElement( 'h3', array(), "$escapedregion $actionOut" );
+		$out .= Html::rawElement( 'div', array( 'class' => 'mw-collapsible', 'id' => 'mw-customcollapsible-' . $region ), $data );
 
 		return $out;
 	}

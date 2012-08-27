@@ -9,7 +9,6 @@
 
 class SpecialNovaAddress extends SpecialNova {
 
-	var $adminNova;
 	var $userNova;
 
 	/**
@@ -22,8 +21,6 @@ class SpecialNovaAddress extends SpecialNova {
 	}
 
 	function execute( $par ) {
-		global $wgOpenStackManagerNovaAdminKeys;
-
 		if ( !$this->getUser()->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return;
@@ -33,21 +30,24 @@ class SpecialNovaAddress extends SpecialNova {
 			$this->noCredentials();
 			return;
 		}
-		$adminCredentials = $wgOpenStackManagerNovaAdminKeys;
-		$this->adminNova = new OpenStackNovaController( $adminCredentials );
+		$project = $this->getRequest()->getText( 'project' );
+		$region = $this->getRequest()->getText( 'region' );
+		$this->userNova = OpenStackNovaController::newFromUser( $this->userLDAP );
+		$this->userNova->setProject( $project );
+		$this->userNova->setRegion( $region );
 
 		$action = $this->getRequest()->getVal( 'action' );
-		if ( $action == "allocate" ) {
+		if ( $action === "allocate" ) {
 			$this->allocateAddress();
-		} elseif ( $action == "release" ) {
+		} elseif ( $action === "release" ) {
 			$this->releaseAddress();
-		} elseif ( $action == "associate" ) {
+		} elseif ( $action === "associate" ) {
 			$this->associateAddress();
-		} elseif ( $action == "disassociate" ) {
+		} elseif ( $action === "disassociate" ) {
 			$this->disassociateAddress();
-		} elseif ( $action == "addhost" ) {
+		} elseif ( $action === "addhost" ) {
 			$this->addHost();
-		} elseif ( $action == "removehost" ) {
+		} elseif ( $action === "removehost" ) {
 			$this->removehost();
 		} else {
 			$this->listAddresses();
@@ -62,12 +62,11 @@ class SpecialNovaAddress extends SpecialNova {
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-allocateaddress' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
+		$region = $this->getRequest()->getText( 'region' );
 		if ( ! $this->userLDAP->inRole( 'netadmin', $project ) ) {
 			$this->notInRole( 'netadmin' );
 			return false;
 		}
-		$userCredentials = $this->userLDAP->getCredentials();
-		$this->userNova = new OpenStackNovaController( $userCredentials, $project );
 		if ( !$this->getRequest()->wasPosted() ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-allocateaddress-confirm', $project );
 		}
@@ -77,13 +76,18 @@ class SpecialNovaAddress extends SpecialNova {
 			'default' => $project,
 			'name' => 'project',
 		);
+		$addressInfo['region'] = array(
+			'type' => 'hidden',
+			'default' => $region,
+			'name' => 'region',
+		);
 		$addressInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'allocate',
 			'name' => 'action',
 		);
 
-		$addressForm = new SpecialNovaAddressForm( $addressInfo, 'openstackmanager-novaaddress' );
+		$addressForm = new HTMLForm( $addressInfo, 'openstackmanager-novaaddress' );
 		$addressForm->setTitle( SpecialPage::getTitleFor( 'NovaAddress' ) );
 		$addressForm->setSubmitID( 'novaaddress-form-allocateaddresssubmit' );
 		$addressForm->setSubmitCallback( array( $this, 'tryAllocateSubmit' ) );
@@ -100,14 +104,15 @@ class SpecialNovaAddress extends SpecialNova {
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-releaseaddress' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
+		$region = $this->getRequest()->getText( 'region' );
 		if ( ! $this->userLDAP->inRole( 'netadmin', $project ) ) {
 			$this->notInRole( 'netadmin' );
 			return false;
 		}
-		$userCredentials = $this->userLDAP->getCredentials();
-		$this->userNova = new OpenStackNovaController( $userCredentials, $project );
-		$ip = $this->getRequest()->getText( 'ip' );
+		$id = $this->getRequest()->getText( 'id' );
 		if ( ! $this->getRequest()->wasPosted() ) {
+			$address = $this->userNova->getAddress( $id );
+			$ip = $address->getPublicIP();
 			$this->getOutput()->addWikiMsg( 'openstackmanager-releaseaddress-confirm', $ip );
 		}
 		$addressInfo = array();
@@ -116,17 +121,22 @@ class SpecialNovaAddress extends SpecialNova {
 			'default' => $project,
 			'name' => 'project',
 		);
-		$addressInfo['ip'] = array(
+		$addressInfo['region'] = array(
 			'type' => 'hidden',
-			'default' => $ip,
-			'name' => 'ip',
+			'default' => $region,
+			'name' => 'region',
+		);
+		$addressInfo['id'] = array(
+			'type' => 'hidden',
+			'default' => $id,
+			'name' => 'id',
 		);
 		$addressInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'release',
 			'name' => 'action',
 		);
-		$addressForm = new SpecialNovaAddressForm( $addressInfo, 'openstackmanager-novaaddress' );
+		$addressForm = new HTMLForm( $addressInfo, 'openstackmanager-novaaddress' );
 		$addressForm->setTitle( SpecialPage::getTitleFor( 'NovaAddress' ) );
 		$addressForm->setSubmitID( 'novaaddress-form-releaseaddresssubmit' );
 		$addressForm->setSubmitCallback( array( $this, 'tryReleaseSubmit' ) );
@@ -144,21 +154,20 @@ class SpecialNovaAddress extends SpecialNova {
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-associateaddress' ) );
 
-		$ip = $this->getRequest()->getText( 'ip' );
+		$id = $this->getRequest()->getText( 'id' );
 		$project = $this->getRequest()->getText( 'project' );
+		$region = $this->getRequest()->getText( 'region' );
 		if ( ! $this->userLDAP->inRole( 'netadmin', $project ) ) {
 			$this->notInRole( 'netadmin' );
 			return false;
 		}
-		$userCredentials = $this->userLDAP->getCredentials();
-		$this->userNova = new OpenStackNovaController( $userCredentials, $project );
 		$instances = $this->userNova->getInstances();
 		$instance_keys = array();
 		foreach ( $instances as $instance ) {
-			if ( $instance->getProject() == $project ) {
+			if ( $instance->getProject() === $project ) {
 				$instancename = $instance->getInstanceName();
-				$instanceid = $instance->getInstanceId();
-				$instance_keys["$instancename"] = $instanceid;
+				$instanceid = $instance->getInstanceOSId();
+				$instance_keys[$instancename] = $instanceid;
 			}
 		}
 		# Have it nicely sorted:
@@ -170,10 +179,15 @@ class SpecialNovaAddress extends SpecialNova {
 			'default' => $project,
 			'name' => 'project',
 		);
-		$addressInfo['ip'] = array(
+		$addressInfo['region'] = array(
 			'type' => 'hidden',
-			'default' => $ip,
-			'name' => 'ip',
+			'default' => $region,
+			'name' => 'region',
+		);
+		$addressInfo['id'] = array(
+			'type' => 'hidden',
+			'default' => $id,
+			'name' => 'id',
 		);
 		$addressInfo['instanceid'] = array(
 			'type' => 'select',
@@ -186,7 +200,7 @@ class SpecialNovaAddress extends SpecialNova {
 			'default' => 'associate',
 			'name' => 'action',
 		);
-		$addressForm = new SpecialNovaAddressForm( $addressInfo, 'openstackmanager-novaaddress' );
+		$addressForm = new HTMLForm( $addressInfo, 'openstackmanager-novaaddress' );
 		$addressForm->setTitle( SpecialPage::getTitleFor( 'NovaAddress' ) );
 		$addressForm->setSubmitID( 'novaaddress-form-releaseaddresssubmit' );
 		$addressForm->setSubmitCallback( array( $this, 'tryAssociateSubmit' ) );
@@ -203,14 +217,15 @@ class SpecialNovaAddress extends SpecialNova {
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-disassociateaddress' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
+		$region = $this->getRequest()->getText( 'region' );
 		if ( ! $this->userLDAP->inRole( 'netadmin', $project ) ) {
 			$this->notInRole( 'netadmin' );
 			return false;
 		}
-		$userCredentials = $this->userLDAP->getCredentials();
-		$this->userNova = new OpenStackNovaController( $userCredentials, $project );
-		$ip = $this->getRequest()->getText( 'ip' );
+		$id = $this->getRequest()->getText( 'id' );
 		if ( ! $this->getRequest()->wasPosted() ) {
+			$address = $this->userNova->getAddress( $id );
+			$ip = $address->getPublicIP();
 			$this->getOutput()->addWikiMsg( 'openstackmanager-disassociateaddress-confirm', $ip );
 		}
 		$addressInfo = array();
@@ -219,17 +234,27 @@ class SpecialNovaAddress extends SpecialNova {
 			'default' => $project,
 			'name' => 'project',
 		);
+		$addressInfo['region'] = array(
+			'type' => 'hidden',
+			'default' => $region,
+			'name' => 'region',
+		);
 		$addressInfo['ip'] = array(
 			'type' => 'hidden',
 			'default' => $ip,
 			'name' => 'ip',
+		);
+		$addressInfo['id'] = array(
+			'type' => 'hidden',
+			'default' => $id,
+			'name' => 'id',
 		);
 		$addressInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'disassociate',
 			'name' => 'action',
 		);
-		$addressForm = new SpecialNovaAddressForm( $addressInfo, 'openstackmanager-novaaddress' );
+		$addressForm = new HTMLForm( $addressInfo, 'openstackmanager-novaaddress' );
 		$addressForm->setTitle( SpecialPage::getTitleFor( 'NovaAddress' ) );
 		$addressForm->setSubmitID( 'novaaddress-form-disassociateaddresssubmit' );
 		$addressForm->setSubmitCallback( array( $this, 'tryDisassociateSubmit' ) );
@@ -247,21 +272,27 @@ class SpecialNovaAddress extends SpecialNova {
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-addhost' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
+		$region = $this->getRequest()->getText( 'region' );
 		if ( ! $this->userLDAP->inRole( 'netadmin', $project ) ) {
 			$this->notInRole( 'netadmin' );
 			return false;
 		}
-		$ip = $this->getRequest()->getText( 'ip' );
+		$id = $this->getRequest()->getText( 'id' );
 		$addressInfo = array();
 		$addressInfo['project'] = array(
 			'type' => 'hidden',
 			'default' => $project,
 			'name' => 'project',
 		);
-		$addressInfo['ip'] = array(
+		$addressInfo['region'] = array(
 			'type' => 'hidden',
-			'default' => $ip,
-			'name' => 'ip',
+			'default' => $region,
+			'name' => 'region',
+		);
+		$addressInfo['id'] = array(
+			'type' => 'hidden',
+			'default' => $id,
+			'name' => 'id',
 		);
 		$addressInfo['hostname'] = array(
 			'type' => 'text',
@@ -274,7 +305,7 @@ class SpecialNovaAddress extends SpecialNova {
 		$domain_keys = array();
 		foreach ( $domains as $domain ) {
 			$domainname = $domain->getDomainName();
-			$domain_keys["$domainname"] = $domainname;
+			$domain_keys[$domainname] = $domainname;
 		}
 		$addressInfo['domain'] = array(
 			'type' => 'select',
@@ -287,7 +318,7 @@ class SpecialNovaAddress extends SpecialNova {
 			'default' => 'addhost',
 			'name' => 'action',
 		);
-		$addressForm = new SpecialNovaAddressForm( $addressInfo, 'openstackmanager-novaaddress' );
+		$addressForm = new HTMLForm( $addressInfo, 'openstackmanager-novaaddress' );
 		$addressForm->setTitle( SpecialPage::getTitleFor( 'NovaAddress' ) );
 		$addressForm->setSubmitID( 'novaaddress-form-addhostsubmit' );
 		$addressForm->setSubmitCallback( array( $this, 'tryAddHostSubmit' ) );
@@ -305,16 +336,17 @@ class SpecialNovaAddress extends SpecialNova {
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-removehost' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
+		$region = $this->getRequest()->getText( 'region' );
 		if ( ! $this->userLDAP->inRole( 'netadmin', $project ) ) {
 			$this->notInRole( 'netadmin' );
 			return false;
 		}
-		$userCredentials = $this->userLDAP->getCredentials();
-		$this->userNova = new OpenStackNovaController( $userCredentials, $project );
-		$ip = $this->getRequest()->getText( 'ip' );
+		$id = $this->getRequest()->getText( 'id' );
 		$domain = $this->getRequest()->getText( 'domain' );
 		$hostname = $this->getRequest()->getText( 'hostname' );
 		if ( ! $this->getRequest()->wasPosted() ) {
+			$address = $this->userNova->getAddress( $id );
+			$ip = $address->getPublicIP();
 			$this->getOutput()->addWikiMsg( 'openstackmanager-removehost-confirm', $hostname, $ip );
 		}
 		$addressInfo = array();
@@ -323,10 +355,15 @@ class SpecialNovaAddress extends SpecialNova {
 			'default' => $project,
 			'name' => 'project',
 		);
-		$addressInfo['ip'] = array(
+		$addressInfo['region'] = array(
 			'type' => 'hidden',
-			'default' => $ip,
-			'name' => 'ip',
+			'default' => $region,
+			'name' => 'region',
+		);
+		$addressInfo['id'] = array(
+			'type' => 'hidden',
+			'default' => $id,
+			'name' => 'id',
 		);
 		$addressInfo['domain'] = array(
 			'type' => 'hidden',
@@ -343,7 +380,7 @@ class SpecialNovaAddress extends SpecialNova {
 			'default' => 'removehost',
 			'name' => 'action',
 		);
-		$addressForm = new SpecialNovaAddressForm( $addressInfo, 'openstackmanager-novaaddress' );
+		$addressForm = new HTMLForm( $addressInfo, 'openstackmanager-novaaddress' );
 		$addressForm->setTitle( SpecialPage::getTitleFor( 'NovaAddress' ) );
 		$addressForm->setSubmitID( 'novaaddress-form-removehostsubmit' );
 		$addressForm->setSubmitCallback( array( $this, 'tryRemoveHostSubmit' ) );
@@ -361,7 +398,7 @@ class SpecialNovaAddress extends SpecialNova {
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-addresslist' ) );
 
-		if ( $this->userLDAP->inGlobalRole( 'cloudadmin' ) ) {
+		if ( $this->getUser()->isAllowed( 'listall' ) ) {
 			$projects = OpenStackNovaProject::getAllProjects();
 		} else {
 			$projects = OpenStackNovaProject::getProjectsByName( $this->userLDAP->getProjects() );
@@ -376,26 +413,32 @@ class SpecialNovaAddress extends SpecialNova {
 
 		$out = '';
 
-		$addresses = $this->getResourcesGroupedByProject( $this->adminNova->getAddresses() );
-		$instances = $this->adminNova->getInstances();
-
 		foreach ( $projects as $project ) {
 			$projectName = $project->getProjectName();
 			if ( !in_array( $projectName, $projectfilter ) ) {
 				continue;
 			}
-			$actions = Array( 'netadmin' => Array() );
-			$actions['netadmin'][] = $this->createActionLink( 'openstackmanager-allocateaddress', array( 'action' => 'allocate', 'project' => $projectName ) );
-			$out .= $this->createProjectSection( $projectName, $actions, $this->getAddresses( $projectName, $this->getResourceByProject( $addresses, $projectName ), $instances ) );
+			$projectactions = Array( 'netadmin' => Array() );
+			$regions = '';
+			$this->userNova->setProject( $projectName );
+			foreach ( $this->userNova->getRegions( 'compute' ) as $region ) {
+				$regionactions = Array( 'netadmin' => Array( $this->createActionLink( 'openstackmanager-allocateaddress', array( 'action' => 'allocate', 'project' => $projectName, 'region' => $region ) ) ) );
+				$addresses = $this->getAddresses( $projectName, $region );
+				$regions .= $this->createRegionSection( $region, $projectName, $regionactions, $addresses );
+			}
+			$out .= $this->createProjectSection( $projectName, $projectactions, $regions );
 		}
 		$this->getOutput()->addHTML( $out );
 
 		return true;
 	}
 
-	function getAddresses( $projectName, $addresses, $instances ) {
+	function getAddresses( $projectName, $region ) {
+		$this->userNova->setRegion( $region );
 		$headers = Array( 'openstackmanager-address', 'openstackmanager-instanceid', 'openstackmanager-instancename',
 			'openstackmanager-hostnames', 'openstackmanager-actions' );
+		$addresses = $this->userNova->getAddresses();
+		$instances = $this->userNova->getInstances();
 		$addressRows = Array();
 		/**
 		 * @var $address OpenStackNovaAddress
@@ -403,12 +446,12 @@ class SpecialNovaAddress extends SpecialNova {
 		foreach ( $addresses as $address ) {
 			$addressRow = array();
 			$ip = $address->getPublicIP();
+			$id = $address->getAddressId();
 			$instanceid = $address->getInstanceId();
-			$project = $address->getProject();
 			$this->pushResourceColumn( $addressRow, $ip );
 			if ( $instanceid ) {
 				$this->pushResourceColumn( $addressRow, $instanceid );
-				$instancename = $instances["$instanceid"]->getInstanceName();
+				$instancename = $instances[$instanceid]->getInstanceName();
 				$this->pushResourceColumn( $addressRow, $instancename );
 			} else {
 				$this->pushResourceColumn( $addressRow, '' );
@@ -423,7 +466,7 @@ class SpecialNovaAddress extends SpecialNova {
 					foreach ( $fqdns as $fqdn ) {
 						$hostname = explode( '.', $fqdn );
 						$hostname = $hostname[0];
-						$link = $this->createActionLink( 'openstackmanager-removehost-action', array( 'action' => 'removehost', 'ip' => $ip, 'project' => $project, 'domain' => $domain->getDomainName(), 'hostname' => $hostname ) );
+						$link = $this->createActionLink( 'openstackmanager-removehost-action', array( 'action' => 'removehost', 'id' => $id, 'project' => $projectName, 'region' => $region, 'domain' => $domain->getDomainName(), 'hostname' => $hostname ) );
 						array_push( $hostArr, htmlentities( $fqdn ) . ' ' . $link );
 					}
 				}
@@ -433,13 +476,13 @@ class SpecialNovaAddress extends SpecialNova {
 			}
 			$actions = Array();
 			if ( $instanceid ) {
-				array_push( $actions, $this->createActionLink( 'openstackmanager-reassociateaddress', array( 'action' => 'associate', 'ip' => $ip, 'project' => $project ) ) );
-				array_push( $actions, $this->createActionLink( 'openstackmanager-disassociateaddress', array( 'action' => 'disassociate', 'ip' => $ip, 'project' => $project ) ) );
+				array_push( $actions, $this->createActionLink( 'openstackmanager-reassociateaddress', array( 'action' => 'associate', 'id' => $id, 'project' => $projectName, 'region' => $region ) ) );
+				array_push( $actions, $this->createActionLink( 'openstackmanager-disassociateaddress', array( 'action' => 'disassociate', 'id' => $id, 'project' => $projectName, 'region' => $region ) ) );
 			} else {
-				array_push( $actions, $this->createActionLink( 'openstackmanager-releaseaddress', array( 'action' => 'release', 'ip' => $ip, 'project' => $project ) ) );
-				array_push( $actions, $this->createActionLink( 'openstackmanager-associateaddress', array( 'action' => 'associate', 'ip' => $ip, 'project' => $project ) ) );
+				array_push( $actions, $this->createActionLink( 'openstackmanager-releaseaddress', array( 'action' => 'release', 'id' => $id, 'project' => $projectName, 'region' => $region ) ) );
+				array_push( $actions, $this->createActionLink( 'openstackmanager-associateaddress', array( 'action' => 'associate', 'id' => $id, 'project' => $projectName, 'region' => $region ) ) );
 			}
-			array_push( $actions, $this->createActionLink( 'openstackmanager-addhost', array( 'action' => 'addhost', 'ip' => $ip, 'project' => $project ) ) );
+			array_push( $actions, $this->createActionLink( 'openstackmanager-addhost', array( 'action' => 'addhost', 'id' => $id, 'project' => $projectName, 'region' => $region ) ) );
 			$this->pushRawResourceColumn( $addressRow, $this->createResourceList( $actions ) );
 			array_push( $addressRows, $addressRow );
 		}
@@ -476,22 +519,23 @@ class SpecialNovaAddress extends SpecialNova {
 	 * @return bool
 	 */
 	function tryReleaseSubmit( $formData, $entryPoint = 'internal' ) {
-		$ip = $formData['ip'];
+		$id = $formData['id'];
 		#TODO: Instead of throwing an error when host exist or the IP
 		# is associated, remove all host entries and disassociate the IP
 		# then release the address
 		$outputPage = $this->getOutput();
+		$address = $this->userNova->getAddress( $id );
+		$ip = $address->getPublicIp();
+		if ( $address->getInstanceId() ) {
+			$outputPage->addWikiMsg( 'openstackmanager-cannotreleaseaddress', $ip );
+			return true;
+		}
 		$hosts = OpenStackNovaHost::getHostsByIP( $ip );
 		if ( $hosts ) {
 			$outputPage->addWikiMsg( 'openstackmanager-cannotreleaseaddress', $ip );
 			return true;
 		}
-		$address = $this->adminNova->getAddress( $ip );
-		if ( $address->getInstanceId() ) {
-			$outputPage->addWikiMsg( 'openstackmanager-cannotreleaseaddress', $ip );
-			return true;
-		}
-		$success = $this->userNova->releaseAddress( $ip );
+		$success = $this->userNova->releaseAddress( $id );
 		if ( $success ) {
 			$outputPage->addWikiMsg( 'openstackmanager-releasedaddress', $ip );
 		} else {
@@ -512,8 +556,9 @@ class SpecialNovaAddress extends SpecialNova {
 	 */
 	function tryAssociateSubmit( $formData, $entryPoint = 'internal' ) {
 		$instanceid = $formData['instanceid'];
-		$ip = $formData['ip'];
-		$address = $this->adminNova->getAddress( $ip );
+		$id = $formData['id'];
+		$address = $this->userNova->getAddress( $id );
+		$ip = $address->getPublicIp();
 		if ( $address ) {
 			if ( $address->getInstanceId() ) {
 				$address = $this->userNova->disassociateAddress( $ip );
@@ -528,7 +573,7 @@ class SpecialNovaAddress extends SpecialNova {
 		if ( $address ) {
 			$outputPage->addWikiMsg( 'openstackmanager-associatedaddress', $ip, $instanceid );
 		} else {
-			$outputPage->addWikiMsg( 'openstackmanager-associatedaddressfailed', $ip, $instanceid );
+			$outputPage->addWikiMsg( 'openstackmanager-associateaddressfailed', $ip, $instanceid );
 		}
 
 		$out = '<br />';
@@ -544,8 +589,9 @@ class SpecialNovaAddress extends SpecialNova {
 	 * @return bool
 	 */
 	function tryDisassociateSubmit( $formData, $entryPoint = 'internal' ) {
+		$id = $formData['id'];
 		$ip = $formData['ip'];
-		$address = $this->userNova->disassociateAddress( $ip );
+		$address = $this->userNova->disassociateAddress( $id, $ip );
 		$outputPage = $this->getOutput();
 		if ( $address ) {
 			$outputPage->addWikiMsg( 'openstackmanager-disassociatedaddress', $ip );
@@ -566,16 +612,12 @@ class SpecialNovaAddress extends SpecialNova {
 	 * @return bool
 	 */
 	function tryAddHostSubmit( $formData, $entryPoint = 'internal' ) {
-		$ip = $formData['ip'];
-		$project = $formData['project'];
-		$address = $this->adminNova->getAddress( $ip );
+		$id = $formData['id'];
+		$address = $this->userNova->getAddress( $id );
+		$ip = $address->getPublicIp();
 		$outputPage = $this->getOutput();
 		if ( ! $address ) {
 			$outputPage->addWikiMsg( 'openstackmanager-invalidaddress', $ip );
-			return true;
-		}
-		if ( $address->getProject() != $project ) {
-			$outputPage->addWikiMsg( 'openstackmanager-invalidaddressforproject', $ip );
 			return true;
 		}
 		$hostname = $formData['hostname'];
@@ -622,18 +664,14 @@ $this->getOutput();
 	 * @return bool
 	 */
 	function tryRemoveHostSubmit( $formData, $entryPoint = 'internal' ) {
-		$ip = $formData['ip'];
-		$project = $formData['project'];
-		$address = $this->adminNova->getAddress( $ip );
+		$id = $formData['id'];
+		$address = $this->userNova->getAddress( $id );
 		$outputPage = $this->getOutput();
 		if ( ! $address ) {
-			$outputPage->addWikiMsg( 'openstackmanager-invalidaddress', $ip );
+			$outputPage->addWikiMsg( 'openstackmanager-invalidaddress', $id );
 			return true;
 		}
-		if ( $address->getProject() != $project ) {
-			$outputPage->addWikiMsg( 'openstackmanager-invalidaddressforproject', $ip );
-			return true;
-		}
+		$ip = $address->getPublicIp();
 		$hostname = $formData['hostname'];
 		$domain = $formData['domain'];
 		$domain = OpenStackNovaDomain::getDomainByName( $domain );
@@ -666,7 +704,4 @@ $this->getOutput();
 		$outputPage->addHTML( $out );
 		return true;
 	}
-}
-
-class SpecialNovaAddressForm extends HTMLForm {
 }

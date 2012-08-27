@@ -13,20 +13,14 @@ class OpenStackNovaRole {
 	var $roleDN;
 	var $roleInfo;
 	var $project;
-	var $global;
 
 	/**
 	 * @param  $rolename
 	 * @param null $project, optional
 	 */
-	function __construct( $rolename, $project=null ) {
+	function __construct( $rolename, $project ) {
 		$this->rolename = $rolename;
 		$this->project = $project;
-		if ( $this->project ) {
-			$this->global = false;
-		} else {
-			$this->global = true;
-		}
 		OpenStackNovaLdapConnection::connect();
 		$this->fetchRoleInfo();
 	}
@@ -36,22 +30,11 @@ class OpenStackNovaRole {
 	 */
 	function fetchRoleInfo() {
 		global $wgAuth;
-		global $wgOpenStackManagerLDAPGlobalRoles;
 
 		$query = '';
 
-		if ( $this->global ) {
-			if ( isset ( $wgOpenStackManagerLDAPGlobalRoles["$this->rolename"] ) ) {
-				$dn = $wgOpenStackManagerLDAPGlobalRoles["$this->rolename"];
-				$query = '(objectclass=groupofnames)';
-			} else {
-				# This condition would be a bug...
-				$dn = '';
-			}
-		} else {
-			$dn = $this->project->projectDN;
-			$query = '(cn=' . $this->rolename . ')';
-		}
+		$dn = $this->project->projectDN;
+		$query = '(cn=' . $this->rolename . ')';
 		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $dn, $query );
 		$this->roleInfo = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
 		if ( $this->roleInfo['count'] != "0" ) {
@@ -73,8 +56,8 @@ class OpenStackNovaRole {
 		global $wgAuth;
 
 		$members = array();
-		if ( isset( $this->roleInfo[0]['member'] ) ) {
-			$memberdns = $this->roleInfo[0]['member'];
+		if ( isset( $this->roleInfo[0]['roleoccupant'] ) ) {
+			$memberdns = $this->roleInfo[0]['roleoccupant'];
 			array_shift( $memberdns );
 			foreach ( $memberdns as $memberdn ) {
 				$searchattr = $wgAuth->getConf( 'SearchAttribute' );
@@ -104,8 +87,8 @@ class OpenStackNovaRole {
 		global $wgAuth;
 		global $wgMemc;
 
-		if ( isset( $this->roleInfo[0]['member'] ) ) {
-			$members = $this->roleInfo[0]['member'];
+		if ( isset( $this->roleInfo[0]['roleoccupant'] ) ) {
+			$members = $this->roleInfo[0]['roleoccupant'];
 			array_shift( $members );
 			$user = new OpenStackNovaUser( $username );
 			if ( ! $user->userDN ) {
@@ -119,9 +102,9 @@ class OpenStackNovaRole {
 			}
 			unset( $members[$index] );
 			$values = array();
-			$values['member'] = array();
+			$values['roleoccupant'] = array();
 			foreach ( $members as $member ) {
-				$values['member'][] = $member;
+				$values['roleoccupant'][] = $member;
 			}
 			$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->roleDN, $values );
 			if ( $success ) {
@@ -148,8 +131,8 @@ class OpenStackNovaRole {
 		global $wgMemc;
 
 		$members = array();
-		if ( isset( $this->roleInfo[0]['member'] ) ) {
-			$members = $this->roleInfo[0]['member'];
+		if ( isset( $this->roleInfo[0]['roleoccupant'] ) ) {
+			$members = $this->roleInfo[0]['roleoccupant'];
 			array_shift( $members );
 		}
 		$user = new OpenStackNovaUser( $username );
@@ -159,7 +142,7 @@ class OpenStackNovaRole {
 		}
 		$members[] = $user->userDN;
 		$values = array();
-		$values['member'] = $members;
+		$values['roleoccupant'] = $members;
 		$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->roleDN, $values );
 		if ( $success ) {
 			$this->fetchRoleInfo();
@@ -178,11 +161,6 @@ class OpenStackNovaRole {
 	 * @return String string
 	 */
 	function getMemcKey( $user ) {
-		if ( $this->global ) {
-			$role = $this->getRoleName();
-			return wfMemcKey( 'openstackmanager', "globalrole-$role", $user->userDN );
-		}
-
 		$projectname = $this->project->getProjectName();
 		$role = $this->getRoleName();
 		return wfMemcKey( 'openstackmanager', "projectrole-$projectname-$role", $user->userDN );
@@ -206,49 +184,19 @@ class OpenStackNovaRole {
 	/**
 	 * @static
 	 * @param  $rolename
-	 * @return null|OpenStackNovaRole
-	 */
-	static function getGlobalRoleByName( $rolename ) {
-		$role = new OpenStackNovaRole( $rolename );
-		if ( $role->roleInfo ) {
-			return $role;
-		} else {
-			return null;
-		}
-	}
-
-	/**
-	 * @static
-	 * @return array
-	 */
-	static function getAllGlobalRoles() {
-		global $wgOpenStackManagerLDAPGlobalRoles;
-
-		OpenStackNovaLdapConnection::connect();
-
-		$roles = array();
-		foreach ( array_keys( $wgOpenStackManagerLDAPGlobalRoles ) as $rolename ) {
-			$role = new OpenStackNovaRole( $rolename );
-			array_push( $roles, $role );
-		}
-
-		return $roles;
-	}
-
-	/**
-	 * @static
-	 * @param  $rolename
 	 * @param  $project OpenStackNovaProject
 	 * @return bool
 	 */
 	static function createRole( $rolename, $project ) {
 		global $wgAuth;
+		global $wgOpenStackManagerLDAPUser;
 
 		OpenStackNovaLdapConnection::connect();
 
 		$role = array();
-		$role['objectclass'][] = 'groupofnames';
+		$role['objectclass'][] = 'organizationalrole';
 		$role['cn'] = $rolename;
+		$role['roleoccupant'] = $wgOpenStackManagerLDAPUser;
 		$roledn = 'cn=' . $rolename . ',' . $project->projectDN;
 		$success = LdapAuthenticationPlugin::ldap_add( $wgAuth->ldapconn, $roledn, $role );
 		# TODO: If role addition fails, find a way to fail gracefully

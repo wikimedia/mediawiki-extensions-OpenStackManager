@@ -35,7 +35,7 @@ class OpenStackNovaProject {
 		global $wgOpenStackManagerLDAPProjectBaseDN;
 
 		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN,
-								'(&(cn=' . $this->projectname . ')(owner=*))' );
+								'(&(cn=' . $this->projectname . ')(objectclass=groupofnames))' );
 		$this->projectInfo = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
 		$this->projectDN = $this->projectInfo[0]['dn'];
 		$this->roles = array();
@@ -244,7 +244,7 @@ class OpenStackNovaProject {
 		OpenStackNovaLdapConnection::connect();
 
 		$projects = array();
-		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, '(owner=*)' );
+		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, '(objectclass=groupofnames)' );
 		if ( $result ) {
 			$entries = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
 			if ( $entries ) {
@@ -280,7 +280,7 @@ class OpenStackNovaProject {
 		$project = array();
 		$project['objectclass'][] = 'groupofnames';
 		$project['cn'] = $projectname;
-		$project['owner'] = $wgOpenStackManagerLDAPUser;
+		$project['member'] = $wgOpenStackManagerLDAPUser;
 		$projectdn = 'cn=' . $projectname . ',' . $wgOpenStackManagerLDAPProjectBaseDN;
 
 		$projectGroup = array();
@@ -389,37 +389,6 @@ class OpenStackNovaProject {
 		} else {
 			$wgAuth->printDebug( "Failed to delete project $projectname", NONSENSITIVE );
 			return false;
-		}
-	}
-
-	/**
-	 * Pulls all projects from LDAP and adds them as MediaWiki namespaces. Also adds
-	 * associated talk namespaces. This function must be called from LocalSettings.
-	 *
-	 * @static
-	 * @return void
-	 */
-	static function addNamespaces() {
-		global $wgAuth;
-		global $wgOpenStackManagerLDAPProjectBaseDN;
-		global $wgExtraNamespaces;
-
-		OpenStackNovaLdapConnection::connect();
-
-		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, 'owner=*' );
-		$entries = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
-		if ( $entries ) {
-			array_shift( $entries );
-			foreach ( $entries as $entry ) {
-				$id = (int)$entry['gidnumber'][0];
-				$talkid = $id + 1;
-				$name = ucwords( $entry['cn'][0] );
-				$wgAuth->printDebug( "Adding namespace $name", NONSENSITIVE );
-				$wgExtraNamespaces[$id] = $name;
-				$wgExtraNamespaces[$talkid] = $name . '_talk';
-			}
-		} else {
-			$wgAuth->printDebug( "Failed to find projects", NONSENSITIVE );
 		}
 	}
 

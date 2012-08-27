@@ -7,7 +7,6 @@
  * @ingroup Extensions
  */
 
-# TODO: Make this an abstract class, and make the EC2 API a subclass
 class OpenStackNovaSecurityGroup {
 
 	var $group;
@@ -19,7 +18,7 @@ class OpenStackNovaSecurityGroup {
 	function __construct( $apiInstanceResponse ) {
 		$this->group = $apiInstanceResponse;
 		$this->rules = array();
-		foreach ( $this->group->ipPermissions->item as $permission ) {
+		foreach ( OpenStackNovaController::_get_property( $this->group, 'rules' ) as $permission ) {
 			$this->rules[] = new OpenStackNovaSecurityGroupRule( $permission );
 		}
 	}
@@ -28,21 +27,28 @@ class OpenStackNovaSecurityGroup {
 	 * @return string
 	 */
 	function getGroupName() {
-		return (string)$this->group->groupName;
+		return OpenStackNovaController::_get_property( $this->group, 'name' );
+	}
+
+	/**
+	 * @return string
+	 */
+	function getGroupId() {
+		return OpenStackNovaController::_get_property( $this->group, 'id' );
 	}
 
 	/**
 	 * @return string
 	 */
 	function getGroupDescription() {
-		return (string)$this->group->groupDescription;
+		return OpenStackNovaController::_get_property( $this->group, 'description' );
 	}
 
 	/**
 	 * @return string
 	 */
 	function getProject() {
-		return (string)$this->group->ownerId;
+		return OpenStackNovaController::_get_property( $this->group, 'tenant_id' );
 	}
 
 	/**

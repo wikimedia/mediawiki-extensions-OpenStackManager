@@ -7,7 +7,6 @@
  * @ingroup Extensions
  */
 
-# TODO: Make this an abstract class, and make the EC2 API a subclass
 class OpenStackNovaKeyPair {
 
 	var $keypair;
@@ -25,7 +24,8 @@ class OpenStackNovaKeyPair {
 	 * @return string
 	 */
 	function getKeyName() {
-		return (string)$this->keypair->keyName;
+		# not implemented
+		return '';
 	}
 
 	/**
@@ -34,7 +34,8 @@ class OpenStackNovaKeyPair {
 	 * @return string
 	 */
 	function getKeyFingerprint() {
-		return (string)$this->keypair->keyFingerprint;
+		# not implemented
+		return '';
 	}
 
 }
