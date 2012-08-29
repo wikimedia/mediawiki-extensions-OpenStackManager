@@ -3671,6 +3671,10 @@ $messages['he'] = array(
 	'openstackmanager-instance' => 'ניהול מופע',
 	'openstackmanager-title' => 'OpenStackManager',
 	'openstackmanager-badresourcename' => 'סופק שם משאב גרוע. שמות המשאבים מתחילים בתווים a-z ויכולים להכיל רק את התווים a-z‏, 0-9‏, ו־_.',
+	'action-listall' => 'להציג את כל המידע על המשאב',
+	'action-manageproject' => 'ניהול פרויקטים ותפקידים של OpenStack',
+	'action-managednsdomain' => 'לנהל מתחמי dns',
+	'action-manageglobalpuppet' => 'לנהל מידע puppet גלובלי',
 	'specialpages-group-nova' => 'OpenStack Nova',
 	'novaaddress' => 'ניהול כתובות IP ציבוריות',
 	'novadomain' => 'ניהול מתחמי DNS',
@@ -3831,7 +3835,7 @@ $messages['he'] = array(
 	'openstackmanager-projects' => 'פרויקטים',
 	'openstackmanager-setprojects' => 'מסנן פרויקטים הוגדר בהצלחה.',
 	'openstackmanager-setprojectfilter' => 'נא לבחור את הפרויקטים שיוצגו באמצעות מסנן הפרויקטים.',
-	'openstackmanager-toggleproject' => 'בחירה',
+	'openstackmanager-toggle' => 'בחירה',
 	'openstackmanager-roles' => 'תפקידים',
 	'openstackmanager-rolename' => 'שם התפקיד',
 	'openstackmanager-removerolemember' => 'הסרת חבר',
@@ -3988,7 +3992,6 @@ $messages['he'] = array(
 	'openstackmanager-email-subject' => 'המופע שלך מוכן לכניסה לחשבון.',
 	'openstackmanager-email-body' => 'המופע הבא נוצר ואפשר להיכנס בו לחשבון:',
 	'right-manageproject' => 'ניהול פרויקטים ותפקידים של OpenStack',
-	'action-manageproject' => 'ניהול פרויקטים ותפקידים של OpenStack',
 );
 
 /** Hindi (हिन्दी)
@@ -4817,6 +4820,7 @@ $messages['ia'] = array(
 /** Italian (italiano)
  * @author Beta16
  * @author F. Cosoleto
+ * @author Raoli
  */
 $messages['it'] = array(
 	'openstackmanager-desc' => 'Permette agli utenti di gestire Nova e Swift',
@@ -4824,8 +4828,10 @@ $messages['it'] = array(
 	'openstackmanager-instance' => 'Gestisci istanze',
 	'openstackmanager-title' => 'OpenStackManager',
 	'openstackmanager-badresourcename' => 'Nome della risorsa non valido. I nomi delle risorse iniziano con a-z e possono contenere solo i caratteri a-z, 0-9, - e _.',
+	'action-listall' => 'visualizzare tutte le informazioni sulle risorse',
 	'action-manageproject' => 'gestire ruoli e progetti OpenStack',
 	'action-managednsdomain' => 'gestire domini DNS',
+	'action-manageglobalpuppet' => 'gestire le informazioni globali sulle utenze multiple',
 	'specialpages-group-nova' => 'OpenStack Nova',
 	'novaaddress' => 'Gestisci indirizzi IP pubblici',
 	'novadomain' => 'Gestisci domini DNS',
