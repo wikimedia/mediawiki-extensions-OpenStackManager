@@ -36,6 +36,7 @@ $wgAvailableRights[] = 'listall';
 $wgAvailableRights[] = 'manageproject';
 $wgAvailableRights[] = 'managednsdomain';
 $wgAvailableRights[] = 'manageglobalpuppet';
+$wgAvailableRights[] = 'loginviashell';
 
 // Keystone identity URI
 $wgOpenStackManagerNovaIdentityURI = 'http://localhost:5000/v2.0';

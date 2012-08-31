@@ -193,6 +193,7 @@ $messages['en'] = array(
 	'openstackmanager-deleteprojectfailed' => 'Failed to delete project.',
 	'openstackmanager-addedto' => 'Successfully added $1 to $2.',
 	'openstackmanager-failedtoadd' => 'Failed to add $1 to $2.',
+	'openstackmanager-failedtoaddneedsloginright' => 'Failed to add $1 to $2, needs loginviashell right.',
 	'openstackmanager-removedfrom' => 'Successfully removed $1 from $2.',
 	'openstackmanager-failedtoremove' => 'Failed to remove $1 from $2.',
 	'openstackmanager-novaproject-project' => 'Add project',
@@ -367,6 +368,7 @@ $messages['en'] = array(
 
 	'right-manageproject' => 'Manage OpenStack projects and roles',
 	'action-manageproject' => 'manage OpenStack projects and roles',
+	'right-loginviashell' => 'login via shell',
 );
 
 /** Message documentation (Message documentation)
@@ -472,6 +474,12 @@ $2: projectname',
 	'right-manageproject' => '{{doc-right|manageproject}}
 
 This is about OpenStack roles.',
+	'right-loginviashell' => '{{doc-right|loginviashell}}
+
+This is a right needed to be added to a project.',
+	'openstackmanager-failedtoaddneedsloginright' => '$1: member
+
+$2: projectname',
 );
 
 /** Afrikaans (Afrikaans)

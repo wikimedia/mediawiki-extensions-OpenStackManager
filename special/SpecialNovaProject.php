@@ -301,8 +301,6 @@ class SpecialNovaProject extends SpecialNova {
 			// We also need to ensure the project creator is in all roles
 			$role->addMember( $username );
 		}
-		# Create a default security group for this project, and add configured default rules
-		$groupname = 'default';
 		# Change the connection to reference this project
 		$this->userNova->setProject( $formData['projectname'] );
 		$regions = $this->userNova->getRegions( 'compute' );
@@ -387,6 +385,15 @@ class SpecialNovaProject extends SpecialNova {
 		$project = new OpenStackNovaProject( $formData['projectname'] );
 		$members = explode( ',', $formData['member'] );
 		foreach ( $members as $member ) {
+			$user = User::newFromName( $member, 'usable' );
+			if ( !$user ) {
+				$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoadd', $formData['member'], $formData['projectname'] );
+				continue;
+			}
+			if ( !$user->isAllowed( 'loginviashell' ) ) {
+				$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoaddneedsloginright', $formData['member'], $formData['projectname'] );
+				continue;
+			}
 			$success = $project->addMember( $member );
 			if ( $success ) {
 				$project->editArticle();
