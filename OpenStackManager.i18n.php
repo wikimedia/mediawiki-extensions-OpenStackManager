@@ -2439,6 +2439,7 @@ $messages['eu'] = array(
  * @author Huji
  * @author Mjbmr
  * @author ZxxZxxZ
+ * @author جواد
  */
 $messages['fa'] = array(
 	'openstackmanager' => 'اپن‌استاک‌منیجر',
@@ -2494,6 +2495,7 @@ $messages['fa'] = array(
 	'openstackmanager-addadditionalproject' => 'پروژهٔ دیگری بیفزایید.',
 	'openstackmanager-deleteproject' => 'حذف',
 	'openstackmanager-addedto' => '$1 را با موفقیت به $2 افزود.',
+	'openstackmanager-removedfrom' => '$1 از $2 با موفقیت حذف شد.',
 	'openstackmanager-novaproject-project' => 'افزودن پروژه',
 	'openstackmanager-novaprojectfilter-projectfilter' => 'پالایش پروژه',
 	'openstackmanager-projects' => 'پروژه‌ها',
