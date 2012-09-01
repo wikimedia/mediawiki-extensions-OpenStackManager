@@ -447,7 +447,7 @@ class SpecialNovaAddress extends SpecialNova {
 			if ( $instanceosid ) {
 				$instancename = $instances[$instanceosid]->getInstanceName();
 				$instanceid = $instances[$instanceosid]->getInstanceId();
-				$this->pushResourceColumn( $addressRow, $instanceid );
+				$this->pushRawResourceColumn( $addressRow, $this->createResourceLink( $instanceid ) );
 				$this->pushResourceColumn( $addressRow, $instancename );
 			} else {
 				$this->pushResourceColumn( $addressRow, '' );

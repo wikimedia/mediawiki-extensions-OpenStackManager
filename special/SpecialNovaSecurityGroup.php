@@ -110,8 +110,6 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function deleteSecurityGroup() {
-
-
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-deletesecuritygroup' ) );
 
@@ -394,9 +392,15 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		}
 		$groupid = $this->getRequest()->getText( 'groupid' );
 		$ruleid = $this->getRequest()->getText( 'ruleid' );
-		#TODO: fetch group name
 		if ( ! $this->getRequest()->wasPosted() ) {
-			$this->getOutput()->addWikiMsg( 'openstackmanager-removerule-confirm', $groupid );
+			$securitygroup = $this->userNova->getSecurityGroup( $groupid );
+			if ( $securitygroup ) {
+				$securitygroupname = $securitygroup->getGroupName();
+				$this->getOutput()->addWikiMsg( 'openstackmanager-removerule-confirm', $securitygroupname );
+			} else {
+				$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistantsecuritygroup' );
+				return false;
+			}
 		}
 		$securityGroupInfo = array();
 		$securityGroupInfo['groupid'] = array(

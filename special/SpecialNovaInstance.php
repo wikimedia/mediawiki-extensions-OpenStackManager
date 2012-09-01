@@ -323,7 +323,13 @@ class SpecialNovaInstance extends SpecialNova {
 		}
 		$instanceid = $this->getRequest()->getText( 'instanceid' );
 		if ( ! $this->getRequest()->wasPosted() ) {
-			$this->getOutput()->addWikiMsg( 'openstackmanager-deleteinstancequestion', $instanceid );
+			#TODO: memcache this instanceid lookup
+			$instance = $this->userNova->getInstance( $instanceid );
+			if ( !$instance ) {
+				$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistanthost' );
+				return false;
+			}
+			$this->getOutput()->addWikiMsg( 'openstackmanager-deleteinstancequestion', $instance->getInstanceId() );
 		}
 		$instanceInfo = array();
 		$instanceInfo['instanceid'] = array(
@@ -371,7 +377,13 @@ class SpecialNovaInstance extends SpecialNova {
 		}
 		$instanceid = $this->getRequest()->getText( 'instanceid' );
 		if ( ! $this->getRequest()->wasPosted() ) {
-			$this->getOutput()->addWikiMsg( 'openstackmanager-rebootinstancequestion', $instanceid );
+			#TODO: memcache this instanceid lookup
+			$instance = $this->userNova->getInstance( $instanceid );
+			if ( !$instance ) {
+				$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistanthost' );
+				return false;
+			}
+			$this->getOutput()->addWikiMsg( 'openstackmanager-rebootinstancequestion', $instance->getInstanceId() );
 		}
 		$instanceInfo = array();
 		$instanceInfo['instanceid'] = array(
@@ -408,8 +420,6 @@ class SpecialNovaInstance extends SpecialNova {
 	 * @return bool
 	 */
 	function getConsoleOutput() {
-
-
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-consoleoutput' ) );
 
@@ -468,10 +478,12 @@ class SpecialNovaInstance extends SpecialNova {
 	}
 
 	function getInstances( $projectName, $region ) {
+		global $wgMemc;
+
 		$this->userNova->setRegion( $region );
 		$headers = Array( 'openstackmanager-instancename', 'openstackmanager-instanceid', 'openstackmanager-instancestate',
-			'openstackmanager-instancetype', 'openstackmanager-instanceip', 'openstackmanager-instancepublicip',
-			'openstackmanager-securitygroups', 'openstackmanager-availabilityzone', 'openstackmanager-imageid',
+			'openstackmanager-instanceip', 'openstackmanager-instancepublicip',
+			'openstackmanager-securitygroups', 'openstackmanager-imageid',
 			'openstackmanager-launchtime', 'openstackmanager-actions' );
 		$instances = $this->userNova->getInstances();
 		$instanceRows = Array();
@@ -483,15 +495,19 @@ class SpecialNovaInstance extends SpecialNova {
 			$this->pushResourceColumn( $instanceRow, $instance->getInstanceName() );
 			$this->pushRawResourceColumn( $instanceRow, $this->createResourceLink( $instance->getInstanceId() ) );
 			$this->pushResourceColumn( $instanceRow, $instance->getInstanceState() );
-			$instanceType = $this->userNova->getInstanceType( $instance->getInstanceType() );
-			$instanceTypeName = $instanceType->getInstanceTypeName();
-			$this->pushResourceColumn( $instanceRow, $instanceTypeName );
 			$this->pushRawResourceColumn( $instanceRow, $this->createResourceList( $instance->getInstancePrivateIPs() ) );
 			$this->pushRawResourceColumn( $instanceRow, $this->createResourceList( $instance->getInstancePublicIPs() ) );
 			$this->pushRawResourceColumn( $instanceRow, $this->createResourceList( $instance->getSecurityGroups() ) );
-			$this->pushResourceColumn( $instanceRow, $region );
-			$image = $this->userNova->getImage( $instance->getImageId() );
-			$imageName = $image->getImageName();
+			$imageId = $instance->getImageId();
+			$key = wfMemcKey( 'openstackmanager', "imagename", $imageId );
+			$imageNameRet = $wgMemc->get( $key );
+			if ( is_string( $imageNameRet ) ) {
+				$imageName = $imageNameRet;
+			} else {
+				$image = $this->userNova->getImage( $imageId );
+				$imageName = $image->getImageName();
+				$wgMemc->set( $key, $imageName, 86400 );
+			}
 			$this->pushResourceColumn( $instanceRow, $imageName );
 			$this->pushResourceColumn( $instanceRow, $instance->getLaunchTime() );
 			$actions = Array();
