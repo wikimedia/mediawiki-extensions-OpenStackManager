@@ -452,6 +452,9 @@ An instance is a virtual machine. In this particular case, a clone of an image f
 	'openstackmanager-addedto' => '$1: member
 
 $2: projectname',
+	'openstackmanager-failedtoaddneedsloginright' => '$1: member
+
+$2: projectname',
 	'openstackmanager-novaproject-project' => '{{Identical|Project}}',
 	'openstackmanager-novaprojectfilter-projectfilter' => 'It is a filter than can be used to selectively show a set of projects in all management interfaces.',
 	'openstackmanager-projects' => 'A set of projects',
@@ -477,9 +480,6 @@ This is about OpenStack roles.',
 	'right-loginviashell' => '{{doc-right|loginviashell}}
 
 This is a right needed to be added to a project.',
-	'openstackmanager-failedtoaddneedsloginright' => '$1: member
-
-$2: projectname',
 );
 
 /** Afrikaans (Afrikaans)
@@ -1676,6 +1676,7 @@ $messages['de'] = array(
 	'openstackmanager-deleteprojectfailed' => 'Das Projekt konnte nicht gelöscht werden.',
 	'openstackmanager-addedto' => '$1 wurde erfolgreich zu $2 hinzugefügt.',
 	'openstackmanager-failedtoadd' => '$1 konnte nicht zu $2 hinzugefügt werden.',
+	'openstackmanager-failedtoaddneedsloginright' => 'Benutzer $1 konnte nicht zum Projekt $2 hinzugefügt werden. Hierzu wird das Recht „loginviashell“ benötigt.',
 	'openstackmanager-removedfrom' => '$1 wurde erfolgreich von $2 entfernt.',
 	'openstackmanager-failedtoremove' => '$1 konnte nicht aus $2 entfernt werden.',
 	'openstackmanager-novaproject-project' => 'Projekt hinzufügen',
@@ -1840,6 +1841,7 @@ $messages['de'] = array(
 	'openstackmanager-email-subject' => 'Die Instanz ist zum Anmelden bereit.',
 	'openstackmanager-email-body' => 'Die folgende Instanz wurde erstellt und ist ist zum Anmelden bereit.',
 	'right-manageproject' => 'OpenStack-Projekte und Rollen verwalten',
+	'right-loginviashell' => 'Über Shell anmelden',
 );
 
 /** Zazaki (Zazaki)
@@ -8212,7 +8214,7 @@ $messages['roa-tara'] = array(
 	'openstackmanager-removehost' => "Remove l'host",
 	'openstackmanager-securitygroupdescription' => 'Descrizione',
 	'openstackmanager-securitygrouplist' => "Liste d'u gruppe de protezione",
-	'openstackmanager-securitygrouprule' => 'Reghele',
+	'openstackmanager-securitygrouprule' => 'Regole',
 	'openstackmanager-novasecuritygroup-singlerule' => 'Regole individuale',
 	'openstackmanager-novasecuritygroup-group' => "Regole d'u gruppe",
 	'openstackmanager-securitygrouprule-fromport' => "Inizie de l'indervalle de porte",
