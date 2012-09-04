@@ -352,13 +352,9 @@ class OpenStackNovaUser {
 		global $wgRequest;
 
 		$values['objectclass'][] = 'person';
-		$values['objectclass'][] = 'novauser';
 		$values['objectclass'][] = 'ldappublickey';
 		$values['objectclass'][] = 'posixaccount';
 		$values['objectclass'][] = 'shadowaccount';
-		$values['accesskey'] = OpenStackNovaUser::uuid4();
-		$values['secretkey'] = OpenStackNovaUser::uuid4();
-		$values['isnovaadmin'] = 'FALSE';
 		$uidnumber = OpenStackNovaUser::getNextIdNumber( $auth, 'uidnumber' );
 		if ( ! $uidnumber ) {
 			$result = false;
@@ -410,6 +406,31 @@ class OpenStackNovaUser {
 		$auth->printDebug( "User account's objectclasses: ", NONSENSITIVE, $values['objectclass'] );
 		$auth->printDebug( "User account's attributes: ", HIGHLYSENSITIVE, $values );
 
+		return true;
+	}
+
+	/**
+	 * Hook to retry setting the creation values. Specifically, this will try to set a new
+	 * uid in case there's a race condition.
+	 *
+	 * @static
+	 * @param  $auth
+	 * @param  $username
+	 * @param  $values
+	 * @param  $writeloc
+	 * @param  $userdn
+	 * @param  $result
+	 * @return bool
+	 */
+	static function LDAPRetrySetCreationValues( $auth, $username, &$values, $writeloc, &$userdn, &$result ) {
+		$uidnumber = OpenStackNovaUser::getNextIdNumber( $auth, 'uidnumber' );
+		if ( ! $uidnumber ) {
+			$result = false;
+			return false;
+		}
+		$values['uidnumber'] = $uidnumber;
+
+		$result = true;
 		return true;
 	}
 
