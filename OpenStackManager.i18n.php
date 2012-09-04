@@ -157,7 +157,6 @@ $messages['en'] = array(
 	'openstackmanager-detachvolumefailed' => 'Failed to detach volume.',
 
 	'openstackmanager-novapublickey' => 'Public SSH key',
-	'openstackmanager-novakey-key' => 'Add SSH key',
 	'openstackmanager-deletekey' => 'Delete key',
 	'openstackmanager-deletekeyconfirm' => 'Are you sure you wish to delete the above key?',
 	'openstackmanager-keylist' => 'Key list',
@@ -184,7 +183,7 @@ $messages['en'] = array(
 	'openstackmanager-member' => 'Member',
 	'openstackmanager-action' => 'Action',
 	'openstackmanager-createprojectfailed' => 'Failed to create project.',
-	'openstackmanager-createdproject' => 'Created project.',
+	'openstackmanager-createdproject' => 'The project was created.',
 	'openstackmanager-projectlist' => 'Project list',
 	'openstackmanager-backprojectlist' => 'Back to project list',
 	'openstackmanager-addadditionalproject' => 'Add another project.',
