@@ -119,12 +119,32 @@ class OpenStackNovaUser {
 	}
 
 	/**
-	 * @param string $project
+	 * Returns a list of roles this user is a member of. Includes
+	 * all projects.
 	 * @return array
 	 */
-	function getRoles( $project = '' ) {
-		# Currently unsupported
-		return array();
+	function getRoles() {
+		global $wgAuth;
+		global $wgOpenStackManagerLDAPProjectBaseDN;
+
+		# All projects have a owner attribute, project
+		# roles do not
+		$roles = array();
+		$filter = "(&(objectclass=organizationalrole)(roleoccupant=$this->userDN))";
+		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, $filter );
+		if ( $result ) {
+			$entries = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
+			if ( $entries ) {
+				# First entry is always a count
+				array_shift( $entries );
+				foreach ( $entries as $entry ) {
+					array_push( $roles, $entry['cn'][0] );
+				}
+			}
+		} else {
+			$wgAuth->printDebug( "No result found when searching for user's roles", NONSENSITIVE );
+		}
+		return array_unique( $roles );
 	}
 
 	/**
@@ -467,6 +487,13 @@ class OpenStackNovaUser {
 		}
 
 		return $result;
+	}
+
+	static function DynamicSidebarGetGroups( &$groups ) {
+		$user = new OpenStackNovaUser();
+		$groups = array_merge( $groups, $user->getRoles() );
+
+		return true;
 	}
 
 }

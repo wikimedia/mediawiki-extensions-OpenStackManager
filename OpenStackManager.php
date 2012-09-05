@@ -163,6 +163,7 @@ $wgSpecialPages['NovaPuppetGroup'] = 'SpecialNovaPuppetGroup';
 $wgHooks['LDAPSetCreationValues'][] = 'OpenStackNovaUser::LDAPSetCreationValues';
 $wgHooks['LDAPRetrySetCreationValues'][] = 'OpenStackNovaUser::LDAPRetrySetCreationValues';
 $wgHooks['LDAPModifyUITemplate'][] = 'OpenStackNovaUser::LDAPModifyUITemplate';
+$wgHooks['DynamicSidebarGetGroups'][] = 'OpenStackNovaUser::DynamicSidebarGetGroups';
 $wgHooks['ChainAuth'][] = 'OpenStackNovaUser::ChainAuth';
 
 $commonModuleInfo = array(
