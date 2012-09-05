@@ -29,6 +29,7 @@ class SpecialNovaDomain extends SpecialNova {
 			$this->displayRestrictionError();
 			return;
 		}
+		$this->checkTwoFactor();
 
 		$action = $this->getRequest()->getVal( 'action' );
 		if ( $action === "delete" ) {

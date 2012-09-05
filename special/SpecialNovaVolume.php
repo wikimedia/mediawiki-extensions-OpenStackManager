@@ -33,6 +33,7 @@ class SpecialNovaVolume extends SpecialNova {
 			$this->noCredentials();
 			return;
 		}
+		$this->checkTwoFactor();
 		$project = $this->getRequest()->getVal( 'project' );
 		$region = $this->getRequest()->getVal( 'region' );
 		$this->userNova = OpenStackNovaController::newFromUser( $this->userLDAP );

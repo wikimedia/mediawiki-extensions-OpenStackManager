@@ -33,6 +33,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 			$this->noCredentials();
 			return;
 		}
+		$this->checkTwoFactor();
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
 		$this->userNova = OpenStackNovaController::newFromUser( $this->userLDAP );

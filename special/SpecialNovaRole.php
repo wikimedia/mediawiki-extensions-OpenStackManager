@@ -22,6 +22,7 @@ class SpecialNovaRole extends SpecialNova {
 			$this->notLoggedIn();
 			return;
 		}
+		$this->checkTwoFactor();
 		$this->userLDAP = new OpenStackNovaUser();
 		$action = $this->getRequest()->getVal( 'action' );
 		if ( $action === "addmember" ) {

@@ -26,6 +26,7 @@ class SpecialNovaProject extends SpecialNova {
 			$this->noCredentials();
 			return;
 		}
+		$this->checkTwoFactor();
 		$this->userNova = OpenStackNovaController::newFromUser( $this->userLDAP );
 		$action = $this->getRequest()->getVal( 'action' );
 		if ( $action === "delete" ) {

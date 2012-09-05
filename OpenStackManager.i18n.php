@@ -365,6 +365,9 @@ $messages['en'] = array(
 	'openstackmanager-email-subject' => 'Your instance is ready to be logged into.',
 	'openstackmanager-email-body' => 'The following instance has been created, and is ready to be logged into:',
 
+	'openstackmanager-twofactorrequired' => 'Two-factor authentication required',
+	'openstackmanager-twofactorrequired2' => 'Two-factor authentication is required. Please enable it and try again.',
+
 	'right-manageproject' => 'Manage OpenStack projects and roles',
 	'action-manageproject' => 'manage OpenStack projects and roles',
 	'right-loginviashell' => 'Login via shell',
@@ -473,6 +476,8 @@ $2: projectname',
 	'openstackmanager-sudoeroptions' => '{{Identical|Options}}',
 	'openstackmanager-email-subject' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-email-body' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
+	'openstackmanager-twofactorrequired' => 'A page title that will be shown on error when two factor auth is not enabled',
+	'openstackmanager-twofactorrequired2' => 'Text shown on error when two factor auth is not enabled',
 	'right-manageproject' => '{{doc-right|manageproject}}
 
 This is about OpenStack roles.',

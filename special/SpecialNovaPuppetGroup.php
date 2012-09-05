@@ -28,6 +28,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			$this->noCredentials();
 			return;
 		}
+		$this->checkTwoFactor();
 		$action = $this->getRequest()->getVal( 'action' );
 		if ( $action === "create" ) {
 			$this->createPuppetGroup();

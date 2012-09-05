@@ -25,6 +25,7 @@ class SpecialNovaSudoer extends SpecialNova {
 			$this->noCredentials();
 			return;
 		}
+		$this->checkTwoFactor();
 		$this->userNova = OpenStackNovaController::newFromUser( $this->userLDAP );
 		$action = $this->getRequest()->getVal( 'action' );
 		$project = $this->getRequest()->getText( 'project' );
