@@ -120,7 +120,6 @@ class SpecialNovaKey extends SpecialNova {
 				'type' => 'text',
 				'label-message' => 'openstackmanager-novakeyname',
 				'default' => '',
-				'section' => 'key',
 				'name' => 'keyname',
 			);
 			$project_keys = array();
@@ -136,7 +135,6 @@ class SpecialNovaKey extends SpecialNova {
 		}
 		$keyInfo['key'] = array(
 			'type' => 'textarea',
-			'section' => 'key',
 			'default' => '',
 			'label-message' => 'openstackmanager-novapublickey',
 			'name' => 'key',
