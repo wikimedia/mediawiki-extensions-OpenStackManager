@@ -6923,6 +6923,7 @@ $messages['nl'] = array(
 	'openstackmanager-deleteprojectfailed' => 'Het verwijderen van het project is mislukt.',
 	'openstackmanager-addedto' => '$1 is aan $2 toegevoegd.',
 	'openstackmanager-failedtoadd' => 'Het toevoegen van $1 aan $2 is mislukt.',
+	'openstackmanager-failedtoaddneedsloginright' => 'Het toevoegen van $1 aan $2 is mislukt. Hiervoor is het recht "<code>loginviashell</code>" vereist.',
 	'openstackmanager-removedfrom' => '$1 is uit $2 verwijderd.',
 	'openstackmanager-failedtoremove' => 'Het verwijderen van $1 uit $2 is mislukt.',
 	'openstackmanager-novaproject-project' => 'Project toevoegen',
@@ -7087,6 +7088,7 @@ $messages['nl'] = array(
 	'openstackmanager-email-subject' => 'U kunt nu aanmelden op uw instantie.',
 	'openstackmanager-email-body' => 'De volgende instantie is aangemaakt en er kan op aangemeld worden:',
 	'right-manageproject' => 'OpenStack-projecten en -rollen beheren',
+	'right-loginviashell' => 'Aanmelden via shell',
 );
 
 /** Oriya (ଓଡ଼ିଆ)
@@ -8223,8 +8225,9 @@ $messages['roa-tara'] = array(
 	'openstackmanager-members' => 'Membre',
 	'openstackmanager-member' => 'Membre',
 	'openstackmanager-action' => 'Azione',
-	'openstackmanager-createdproject' => 'Proggette ccrejate.',
+	'openstackmanager-createdproject' => "'U proggette ha state ccrejate.",
 	'openstackmanager-projectlist' => 'Elenghe de le pruggette',
+	'openstackmanager-backprojectlist' => "Tuèrne a l'elenghe de le pruggette",
 	'openstackmanager-deleteproject' => 'Scangille',
 	'openstackmanager-novaproject-project' => "Aggiunge 'nu proggette",
 	'openstackmanager-roles' => 'Ruole',
