@@ -1839,6 +1839,8 @@ $messages['de'] = array(
 	'openstackmanager-failedtodeletepuppetvar' => 'Die Puppet-Variable konnte nicht gelöscht werden.',
 	'openstackmanager-email-subject' => 'Die Instanz ist zum Anmelden bereit.',
 	'openstackmanager-email-body' => 'Die folgende Instanz wurde erstellt und ist ist zum Anmelden bereit.',
+	'openstackmanager-twofactorrequired' => 'Zwei-Faktor-Authentifizierung erforderlich',
+	'openstackmanager-twofactorrequired2' => 'Zwei-Faktor-Authentifizierung ist erforderlich. Bitte aktiviere es und versuche es erneut.',
 	'right-manageproject' => 'OpenStack-Projekte und Rollen verwalten',
 	'right-loginviashell' => 'Über Shell anmelden',
 );
@@ -5183,6 +5185,8 @@ $messages['it'] = array(
 	'openstackmanager-failedtodeletepuppetvar' => 'Errore durante la cancellazione della variabile Puppet.',
 	'openstackmanager-email-subject' => "L'istanza è pronta per potervi effettuare l'accesso.",
 	'openstackmanager-email-body' => 'Le seguenti istanze sono state create, e sono pronte per potervi accedere:',
+	'openstackmanager-twofactorrequired' => 'Autenticazione a due fattori necessaria',
+	'openstackmanager-twofactorrequired2' => "È richiesta l'autenticazione a due fattori. Attivarla e riprovare.",
 	'right-manageproject' => 'Gestire ruoli e progetti OpenStack',
 	'right-loginviashell' => "effettua l'accesso tramite la shell",
 );
