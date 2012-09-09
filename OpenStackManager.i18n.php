@@ -5357,6 +5357,8 @@ $messages['ja'] = array(
 	'openstackmanager-puppetvarname' => '変数名',
 	'openstackmanager-puppetgroupname' => 'パペット グループ名',
 	'openstackmanager-puppetgroup' => 'パペット グループ',
+	'openstackmanager-twofactorrequired' => '二要素認証が必要',
+	'openstackmanager-twofactorrequired2' => '二要素認証が必要です。有効にしてからもう一度試してください。',
 	'right-manageproject' => 'OpenStack プロジェクトと権限を管理',
 	'right-loginviashell' => 'シェルでログイン',
 );
@@ -6350,6 +6352,8 @@ $messages['mk'] = array(
 	'openstackmanager-failedtodeletepuppetvar' => 'Не успеав да ја избришам марионетската променлива.',
 	'openstackmanager-email-subject' => 'Вашиот примерок е спремен за најавување.',
 	'openstackmanager-email-body' => 'Создаден е следниов примерок. Дега можете да се најавите на него:',
+	'openstackmanager-twofactorrequired' => 'Се бара двофакторска заверка',
+	'openstackmanager-twofactorrequired2' => 'Се бара двофакторска заверка. Вклучете ја и обидете се повторно.',
 	'right-manageproject' => 'Раководство со проекти и улоги на OpenStack',
 	'right-loginviashell' => 'најавување преку обвивка',
 );
