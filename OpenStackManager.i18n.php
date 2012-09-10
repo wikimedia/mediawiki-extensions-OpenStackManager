@@ -1840,9 +1840,16 @@ $messages['de'] = array(
 	'openstackmanager-email-subject' => 'Die Instanz ist zum Anmelden bereit.',
 	'openstackmanager-email-body' => 'Die folgende Instanz wurde erstellt und ist ist zum Anmelden bereit.',
 	'openstackmanager-twofactorrequired' => 'Zwei-Faktor-Authentifizierung erforderlich',
-	'openstackmanager-twofactorrequired2' => 'Zwei-Faktor-Authentifizierung ist erforderlich. Bitte aktiviere es und versuche es erneut.',
+	'openstackmanager-twofactorrequired2' => 'Die Zwei-Faktor-Authentifizierung ist erforderlich. Bitte aktiviere sie und versuche es erneut.',
 	'right-manageproject' => 'OpenStack-Projekte und Rollen verwalten',
 	'right-loginviashell' => 'Über Shell anmelden',
+);
+
+/** German (formal address) (‪Deutsch (Sie-Form)‬)
+ * @author Kghbln
+ */
+$messages['de-formal'] = array(
+	'openstackmanager-twofactorrequired2' => 'Die Zwei-Faktor-Authentifizierung ist erforderlich. Bitte aktivieren Sie sie und versuchen Sie es erneut.',
 );
 
 /** Zazaki (Zazaki)
