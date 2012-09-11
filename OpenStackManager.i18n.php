@@ -3654,6 +3654,8 @@ $messages['gl'] = array(
 	'openstackmanager-failedtodeletepuppetvar' => 'Erro ao borrar a variable de monicreque.',
 	'openstackmanager-email-subject' => 'A súa instancia está lista para recibir as conexións.',
 	'openstackmanager-email-body' => 'Creouse a seguinte instancia e xa está lista para recibir conexións:',
+	'openstackmanager-twofactorrequired' => 'Cómpre a autenticación en dous pasos',
+	'openstackmanager-twofactorrequired2' => 'Cómpre a autenticación en dous pasos. Actívea e inténteo de novo.',
 	'right-manageproject' => 'Xestionar os roles e proxectos Openstack',
 	'right-loginviashell' => 'acceder ao sistema mediante shell',
 );
