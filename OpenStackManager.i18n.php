@@ -2393,6 +2393,8 @@ $messages['es'] = array(
 	'openstackmanager-failedtodeletepuppetvar' => 'Error al eliminar la variable de "puppet"',
 	'openstackmanager-email-subject' => 'La instancia está lista para ser conectada.',
 	'openstackmanager-email-body' => 'La siguiente instancia ha sido creada y está lista para ser conectada:',
+	'openstackmanager-twofactorrequired' => 'Se requiere autenticación de dos factores',
+	'openstackmanager-twofactorrequired2' => 'Se requiere autenticación de dos factores. Actívalo y vuelve a intentarlo.',
 	'right-manageproject' => 'Gestionar proyectos y funciones de OpenStack',
 	'right-loginviashell' => 'Inicio de sesión mediante shell',
 );
