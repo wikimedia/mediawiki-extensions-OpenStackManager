@@ -5692,7 +5692,7 @@ $messages['ka'] = array(
 	'openstackmanager-member' => 'წევრი',
 	'openstackmanager-action' => 'მოქმედება',
 	'openstackmanager-createprojectfailed' => 'პროექტის შექმნა ჩაიშალა.',
-	'openstackmanager-createdproject' => 'პროექტი შექმნილია.',
+	'openstackmanager-createdproject' => 'პროექტი შეიქმნა.',
 	'openstackmanager-projectlist' => 'პროექტების სია',
 	'openstackmanager-backprojectlist' => 'პროექტის სიაში დაბრუნება',
 	'openstackmanager-addadditionalproject' => 'სხვა პროექტის დამატება.',
@@ -5734,6 +5734,31 @@ $messages['ka'] = array(
 	'openstackmanager-addpuppetclass' => 'კლასის დამატება',
 	'openstackmanager-puppetclassname' => 'კლასის სახელი',
 	'openstackmanager-puppetvars' => 'ცვალებადი',
+);
+
+/** Korean (한국어)
+ * @author 아라
+ */
+$messages['ko'] = array(
+	'openstackmanager-desc' => '사용자가 Nova와 Swift를 관리 할 수 ​​있습니다',
+	'openstackmanager' => 'OpenStack관리자',
+	'openstackmanager-instance' => '인스턴스 관리',
+	'openstackmanager-title' => 'OpenStack관리자',
+	'specialpages-group-nova' => 'OpenStack Nova',
+	'novaaddress' => '공개 IP 주소 관리',
+	'novadomain' => 'DNS 도메인 관리',
+	'novainstance' => '인스턴스 관리',
+	'novakey' => '공개 SSH 키 관리',
+	'novaproject' => 'OpenStack 프로젝트 관리',
+	'novasecuritygroup' => '방화벽 보안 그룹 관리',
+	'novarole' => '전역 역할 관리',
+	'novavolume' => '저장소 볼륨 관리',
+	'novasudoer' => 'Sudo 정책 관리',
+	'novapuppetgroup' => '인형 그룹 관리',
+	'openstackmanager-novadomain' => 'Nova 도메인',
+	'openstackmanager-novainstance' => 'Nova 인스턴스',
+	'openstackmanager-novakey' => 'Nova 키',
+	'openstackmanager-novaproject' => 'Nova 프로젝트',
 );
 
 /** Colognian (Ripoarisch)
