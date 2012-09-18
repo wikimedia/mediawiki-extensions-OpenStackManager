@@ -3851,6 +3851,7 @@ $messages['he'] = array(
 	'openstackmanager-deleteprojectfailed' => 'כשל במחיקת פרויקט.',
 	'openstackmanager-addedto' => '$1 נוסף בהצלחה אל $2.',
 	'openstackmanager-failedtoadd' => 'כשל בהוספת $1 אל $2.',
+	'openstackmanager-failedtoaddneedsloginright' => 'הוספת $1 ל{{GRAMMAR:תחילית|$2}}. זה דורש את את ההרשאה "<code>loginviashell</code>".',
 	'openstackmanager-removedfrom' => '$1 נמחק בהצלחה מ־$2.',
 	'openstackmanager-failedtoremove' => 'כשל בהסרת $1 מ־$2.',
 	'openstackmanager-novaproject-project' => 'הוספת פרויקט',
