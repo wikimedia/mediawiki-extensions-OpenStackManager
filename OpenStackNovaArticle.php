@@ -21,6 +21,12 @@ class OpenStackNovaArticle {
 		$article->doEdit( $text, '' );
 	}
 
+	public static function getText( $titletext ) {
+		$title = Title::newFromText( $titletext, NS_NOVA_RESOURCE );
+		$article = new Article( $title, 0 );
+		return $article->getText();
+	}
+
 	public static function deleteArticle( $titletext ) {
 		if ( ! OpenStackNovaArticle::canCreatePages() ) {
 			return;
