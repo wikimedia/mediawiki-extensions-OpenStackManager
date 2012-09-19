@@ -5917,6 +5917,7 @@ $messages['lb'] = array(
 	'openstackmanager-removedhost' => '$1 gouf ewechgeholl.',
 	'openstackmanager-removehostfailed' => '$1 konnt net ewechgeholl ginn.',
 	'openstackmanager-securitygroupdescription' => 'Beschreiwung',
+	'openstackmanager-deletesecuritygroup-confirm' => 'Sidd Dir sécher datt Dir $1 läsche wëllt?',
 	'openstackmanager-securitygrouprule' => 'Regelen',
 	'openstackmanager-securitygrouprule-toport' => 'Ënn vun der Port-Range',
 	'openstackmanager-securitygrouprule-fromport' => 'Ufank vun der Port-Range',
