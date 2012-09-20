@@ -256,24 +256,9 @@ class OpenStackNovaInstance {
 %s
 {{Nova Resource
 |Resource Type=instance
-|Instance Name=%s
-|Reservation Id=
-|Instance Id=%s
-|Instance OS Id=%s
-|Private IP=%s
-|Public IP=%s
-|Instance State=%s
-|Instance Host=%s
-|Instance Type=%s
-|RAM Size=%s
-|Number of CPUs=%s
-|Amount of Storage=%s
 |Image Id=%s
 |Project=%s
-|Availability Zone=%s
 |Region=%s
-|Security Group=%s
-|Launch Time=%s
 |FQDN=%s
 |Puppet Class=%s
 |Puppet Var=%s}}
@@ -296,28 +281,12 @@ RESOURCEINFO;
 				$puppetvars .= $key . '=' . $val . ',';
 			}
 		}
-		$instanceType = $userNova->getInstanceType( $this->getInstanceType() );
 		$image = $userNova->getImage( $this->getImageId() );
 		$text = sprintf( $format,
 			$instanceStatus,
-			$this->getInstanceName(),
-			$this->getInstanceId(),
-			$this->getInstanceOSId(),
-			implode( ',', $this->getInstancePrivateIPs() ),
-			implode( ',', $this->getInstancePublicIPs() ),
-			// Since instance state is somewhat dynamic, is this useful?
-			$this->getInstanceState(),
-			$this->getInstanceHost(),
-			$instanceType->getInstanceTypeName(),
-			$instanceType->getMemorySize(),
-			$instanceType->getNumberOfCPUs(),
-			$instanceType->getStorageSize(),
 			$image->getImageName(),
 			$this->getProject(),
-			$this->getAvailabilityZone(),
 			$this->getRegion(),
-			implode( ',', $this->getSecurityGroups() ),
-			$this->getLaunchTime(),
 			$host->getFullyQualifiedHostName(),
 			$puppetclasses,
 			$puppetvars
