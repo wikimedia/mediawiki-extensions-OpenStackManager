@@ -256,6 +256,7 @@ class OpenStackNovaInstance {
 %s
 {{Nova Resource
 |Resource Type=instance
+|Instance Name=%s
 |Image Id=%s
 |Project=%s
 |Region=%s
@@ -284,6 +285,7 @@ RESOURCEINFO;
 		$image = $userNova->getImage( $this->getImageId() );
 		$text = sprintf( $format,
 			$instanceStatus,
+			$this->getInstanceName(),
 			$image->getImageName(),
 			$this->getProject(),
 			$this->getRegion(),
