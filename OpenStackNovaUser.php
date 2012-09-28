@@ -496,4 +496,35 @@ class OpenStackNovaUser {
 		return true;
 	}
 
+	public static function manageShellAccess( $user, $addedGroups, $removedGroups ) {
+		global $wgOpenStackManagerRemoveUserFromBastionProjectOnShellDisable;
+		global $wgOpenStackManagerRemoveUserFromAllProjectsOnShellDisable;
+		global $wgOpenStackManagerBastionProjectName;
+
+		$username = $user->getName();
+
+		if( $user->isAllowed( 'loginviashell' ) ) {
+			// Check the user is in the bastion project
+			$project = new OpenStackNovaProject( $wgOpenStackManagerBastionProjectName );
+			if( !in_array( $username, $project->getMembers() ) ) {
+				$project->addMember( $username );
+			}
+		} elseif( $wgOpenStackManagerRemoveUserFromAllProjectsOnShellDisable ) {
+			// Get a users projects
+			$userLDAP = new OpenStackNovaUser( $username );
+			foreach( $userLDAP->getProjects() as $projectName ) {
+				// Remove the user from the project
+				$project = new OpenStackNovaProject( $projectName );
+				$project->deleteMember( $username );
+			}
+		} elseif( $wgOpenStackManagerRemoveUserFromBastionProjectOnShellDisable ) {
+			// Remove the user from the bastion project
+			$project = new OpenStackNovaProject( $wgOpenStackManagerBastionProjectName );
+			if( in_array( $username, $project->getMembers() ) ) {
+				$project->deleteMember( $username );
+			}
+		}
+		return True;
+	}
+
 }

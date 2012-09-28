@@ -38,6 +38,8 @@ $wgAvailableRights[] = 'managednsdomain';
 $wgAvailableRights[] = 'manageglobalpuppet';
 $wgAvailableRights[] = 'loginviashell';
 
+$wgHooks['UserRights'][] = 'OpenStackNovaUser::manageShellAccess';
+
 // Keystone identity URI
 $wgOpenStackManagerNovaIdentityURI = 'http://localhost:5000/v2.0';
 
@@ -94,6 +96,12 @@ $wgOpenStackManagerInstanceDefaultImage = "";
 $wgOpenStackManagerCreateResourcePages = true;
 // Whether a Server Admin Log page should be created with project pages
 $wgOpenStackManagerCreateProjectSALPages = true;
+// Whether we should remove a user from all projects on removal of loginviashell
+$wgOpenStackManagerRemoveUserFromAllProjectsOnShellDisable = true;
+// Whether we should remove a user from bastion on removal of loginviashell
+$wgOpenStackManagerRemoveUserFromBastionProjectOnShellDisable = false;
+// 'bastion' project name
+$wgOpenStackManagerBastionProjectName = 'bastion';
 /**
  * Path to the ssh-keygen utility. Used for converting ssh key formats. False to disable its use.
  */
