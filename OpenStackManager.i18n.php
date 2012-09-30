@@ -2674,7 +2674,7 @@ $messages['fi'] = array(
 	'openstackmanager-puppetvars' => 'Muuttujat',
 	'openstackmanager-addpuppetvar' => 'Lisää muuttuja',
 	'openstackmanager-puppetvarname' => 'Muuttujan nimi',
-	'right-manageproject' => 'Hallita OpenStack-projekteja ja rooleja',
+	'right-manageproject' => 'Hallinnoida OpenStack-projekteja ja rooleja',
 );
 
 /** French (français)
