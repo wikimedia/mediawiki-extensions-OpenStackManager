@@ -798,7 +798,7 @@ $messages['ba'] = array(
 	'openstackmanager-location' => 'Урын',
 );
 
-/** Belarusian (Taraškievica orthography) (‪беларуская (тарашкевіца)‬)
+/** Belarusian (Taraškievica orthography) (беларуская (тарашкевіца)‎)
  * @author EugeneZelenko
  * @author Jim-by
  * @author Wizardist
@@ -1845,7 +1845,7 @@ $messages['de'] = array(
 	'right-loginviashell' => 'Über Shell anmelden',
 );
 
-/** German (formal address) (‪Deutsch (Sie-Form)‬)
+/** German (formal address) (Deutsch (Sie-Form)‎)
  * @author Kghbln
  */
 $messages['de-formal'] = array(
@@ -5783,7 +5783,6 @@ $messages['ksh'] = array(
 	'openstackmanager-attach' => 'aanhange',
 	'openstackmanager-detach' => 'afhange',
 	'openstackmanager-novapublickey' => 'Ene öffentlesche SSH-Schlößel',
-	'openstackmanager-novakey-key' => 'Ene SSH-Schlößel derbeidonn',
 	'openstackmanager-deletekey' => 'Ene Schlößel fott schmiiße',
 	'openstackmanager-deletekeyconfirm' => 'Wells De bovve dä Schlößel verhaftesch fott schmiiße?',
 	'openstackmanager-keylist' => 'Leß met Schlößele',
@@ -5795,7 +5794,7 @@ $messages['ksh'] = array(
 	'openstackmanager-addadditionalproject' => 'Donn noch e Projäk derbei',
 	'openstackmanager-deleteproject' => 'Fottschmiiße',
 	'openstackmanager-novaproject-project' => 'Donn e Projäk derbei',
-	'openstackmanager-toggleproject' => 'Ömschallde',
+	'openstackmanager-toggle' => 'Ömschallde',
 	'openstackmanager-backaddresslist' => 'Jangk retuur op de Leß met de Adräße',
 	'openstackmanager-hostname' => 'Däm Rääschner singe Name',
 	'openstackmanager-hostnames' => 'Dä Rääschner iehre Name',
@@ -5833,7 +5832,7 @@ $messages['ksh'] = array(
 	'openstackmanager-createpuppetgroup' => 'En Jropp derbei donn',
 );
 
-/** Kurdish (Latin script) (‪Kurdî (latînî)‬)
+/** Kurdish (Latin script) (Kurdî (latînî)‎)
  * @author George Animal
  */
 $messages['ku-latn'] = array(
@@ -6415,7 +6414,6 @@ $messages['ml'] = array(
 	'openstackmanager-attach' => 'ചേർത്തുവെയ്ക്കുക',
 	'openstackmanager-device' => 'ഉപകരണം',
 	'openstackmanager-novapublickey' => 'പൊതു എസ്.എസ്.എച്ച്. ചാവി',
-	'openstackmanager-novakey-key' => 'എസ്.എസ്.എച്ച്. ചാവി ചേർക്കുക',
 	'openstackmanager-name' => 'പേര്',
 	'openstackmanager-removemember' => 'അംഗത്തെ ഒഴിവാക്കുക',
 	'openstackmanager-members' => 'അംഗങ്ങൾ',
@@ -6775,7 +6773,7 @@ $messages['mt'] = array(
 	'openstackmanager-title' => 'OpenStackManager',
 );
 
-/** Norwegian Bokmål (‪norsk (bokmål)‬)
+/** Norwegian Bokmål (norsk (bokmål)‎)
  * @author Event
  * @author Nghtwlkr
  */
@@ -8727,7 +8725,7 @@ $messages['sl'] = array(
 	'openstackmanager-deleteddomain' => 'Domena je uspešno izbrisana.',
 );
 
-/** Serbian (Cyrillic script) (‪српски (ћирилица)‬)
+/** Serbian (Cyrillic script) (српски (ћирилица)‎)
  * @author Rancher
  * @author Михајло Анђелковић
  */
@@ -10181,7 +10179,7 @@ $messages['yi'] = array(
 	'openstackmanager-sudoeroptions' => 'ברירות',
 );
 
-/** Simplified Chinese (‪中文（简体）‬)
+/** Simplified Chinese (中文（简体）‎)
  * @author Anakmalaysia
  * @author Hydra
  * @author Simon Shek
