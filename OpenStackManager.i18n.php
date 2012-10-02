@@ -4241,6 +4241,7 @@ $messages['hsb'] = array(
 	'openstackmanager-novarole-info' => 'Informacije wo Nova-róli',
 	'openstackmanager-addresslist' => 'Lisćina zjawnych adresow',
 	'openstackmanager-address' => 'Zjawna IP-adresa',
+	'openstackmanager-allocateaddress' => 'IP připokazać',
 	'openstackmanager-backaddresslist' => 'Wróćo k lisćinje adresow',
 	'openstackmanager-invalidaddressforproject' => '$1 k požadanemu projektej njesłuša.',
 	'openstackmanager-addedhost' => 'Zapisk $1 je so wuspěšnje za IP-adresu $2 přidał.',
@@ -4307,6 +4308,8 @@ $messages['hsb'] = array(
 	'openstackmanager-puppetclassposition' => 'Pozicija klasy',
 	'openstackmanager-email-subject' => 'Twoja instanca je hotowa k přizjewjenju.',
 	'openstackmanager-email-body' => 'Slědowaca instanca je so załožiła a je hotowa k přizjewjenju:',
+	'openstackmanager-twofactorrequired' => 'Dwufaktorowa awtentifikacija trěbna',
+	'openstackmanager-twofactorrequired2' => 'Dwufaktorowa awtentifikacija je trěbna. Prošu zmóžń ju a spytaj hišće raz.',
 );
 
 /** Hungarian (magyar)
