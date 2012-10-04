@@ -586,7 +586,6 @@ class SpecialNovaAddress extends SpecialNova {
 	 * @return bool
 	 */
 	function tryDisassociateSubmit( $formData, $entryPoint = 'internal' ) {
-		$instanceid = $formData['instanceid'];
 		$id = $formData['id'];
 		$address = $this->userNova->getAddress( $id );
 		$ip = $address->getPublicIp();

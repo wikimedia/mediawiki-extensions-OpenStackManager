@@ -8,7 +8,6 @@
  */
 
 class OpenStackNovaProject {
-
 	var $projectname;
 	var $projectDN;
 	var $projectInfo;
@@ -145,8 +144,8 @@ class OpenStackNovaProject {
 			$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->projectDN, $values );
 			if ( $success ) {
 				foreach ( $this->roles as $role ) {
-					$success = $role->deleteMember( $username );
-					#TODO: Find a way to fail gracefully if role member
+					$role->deleteMember( $username );
+					# @todo Find a way to fail gracefully if role member
 					# deletion fails
 				}
 				$sudoers = OpenStackNovaSudoer::getAllSudoersByProject( $this->getProjectName() );
@@ -314,7 +313,7 @@ class OpenStackNovaProject {
 		$project = new OpenStackNovaProject( $projectname );
 		if ( $success ) {
 			foreach ( self::$rolenames as $rolename ) {
-				$role = OpenStackNovaRole::createRole( $rolename, $project );
+				OpenStackNovaRole::createRole( $rolename, $project );
 				# TODO: If role addition fails, find a way to fail gracefully
 				# Though, if the project was added successfully, it is unlikely
 				# that role addition will fail.
@@ -323,11 +322,11 @@ class OpenStackNovaProject {
 			$sudoerOU['objectclass'][] = 'organizationalunit';
 			$sudoerOU['ou'] = 'sudooers';
 			$sudoerOUdn = 'ou=sudoers,' . $projectdn;
-			$success = LdapAuthenticationPlugin::ldap_add( $wgAuth->ldapconn, $sudoerOUdn, $sudoerOU );
+			LdapAuthenticationPlugin::ldap_add( $wgAuth->ldapconn, $sudoerOUdn, $sudoerOU );
 			# TODO: If sudoerOU creation fails we need to be able to fail gracefully
 			$wgAuth->printDebug( "Successfully added project $projectname", NONSENSITIVE );
 			if ( $projectGroup ) {
-				$success = LdapAuthenticationPlugin::ldap_add( $wgAuth->ldapconn, $projectGroupdn, $projectGroup );
+				LdapAuthenticationPlugin::ldap_add( $wgAuth->ldapconn, $projectGroupdn, $projectGroup );
 				# TODO: If project group creation fails we need to be able to fail gracefully
 			}
 			return true;
@@ -445,5 +444,4 @@ RESOURCEINFO;
 	function deleteArticle() {
 		OpenStackNovaArticle::deleteArticle( $this->getProjectName() );
 	}
-
 }

@@ -239,9 +239,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 						$this->pushResourceColumn( $ruleRow, '' );
 					}
 					$sourcegroup = $rule->getGroup();
-					$groupinfo = array();
 					if ( $sourcegroup ) {
-						$groupinfo = $sourcegroup['groupname'];
 						$sourcegroupinfo = $sourcegroup['groupname'] . ' (' . $sourcegroup['project'] . ')';
 						$this->pushResourceColumn( $ruleRow, $sourcegroupinfo );
 					} else {
@@ -289,7 +287,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
 		$groupid = $this->getRequest()->getText( 'groupid' );
-		$group = $this->getRequest()->getText( 'group' );
+
 		if ( ! $this->userLDAP->inRole( 'netadmin', $project ) ) {
 			$this->notInRole( 'netadmin' );
 			return false;
@@ -304,9 +302,6 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		$securityGroups = $this->userNova->getSecurityGroups();
 		foreach ( $securityGroups as $securityGroup ) {
 			$securityGroupName = $securityGroup->getGroupName();
-			if ( $securityGroupName === $group ) {
-				$sourcegroupid = $securityGroup->getGroupId();
-			}
 			$group_keys[$securityGroupName] = $securityGroupName;
 		}
 		$securityGroupInfo = array();
@@ -444,10 +439,8 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
-		$project = $formData['project'];
 		$groupname = $formData['groupname'];
 		$description = $formData['description'];
-		$userCredentials = $this->userLDAP->getCredentials();
 		$securitygroup = $this->userNova->createSecurityGroup( $groupname, $description );
 		if ( $securitygroup ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-createdsecuritygroup' );
@@ -490,7 +483,6 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	 * @return bool
 	 */
 	function tryAddRuleSubmit( $formData, $entryPoint = 'internal' ) {
-		$project = $formData['project'];
 		$fromport = $formData['fromport'];
 		$toport = $formData['toport'];
 		$protocol = $formData['protocol'];

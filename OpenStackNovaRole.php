@@ -8,7 +8,6 @@
  */
 
 class OpenStackNovaRole {
-
 	var $rolename;
 	var $roleDN;
 	var $roleInfo;
@@ -30,8 +29,6 @@ class OpenStackNovaRole {
 	 */
 	function fetchRoleInfo() {
 		global $wgAuth;
-
-		$query = '';
 
 		$dn = $this->project->projectDN;
 		$query = '(cn=' . $this->rolename . ')';
@@ -107,7 +104,7 @@ class OpenStackNovaRole {
 			}
 			$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->roleDN, $values );
 			if ( $success ) {
-				$key = $this->deleteMemcKeys( $user );
+				$this->deleteMemcKeys( $user );
 				$this->fetchRoleInfo();
 				$wgAuth->printDebug( "Successfully removed $user->userDN from $this->roleDN", NONSENSITIVE );
 				return true;
@@ -144,7 +141,7 @@ class OpenStackNovaRole {
 		if ( $success ) {
 			$this->fetchRoleInfo();
 			$wgAuth->printDebug( "Successfully added $user->userDN to $this->roleDN", NONSENSITIVE );
-			$key = $this->deleteMemcKeys( $user );
+			$this->deleteMemcKeys( $user );
 			return true;
 		} else {
 			$wgAuth->printDebug( "Failed to add $user->userDN to $this->roleDN", NONSENSITIVE );
@@ -217,5 +214,4 @@ class OpenStackNovaRole {
 			return false;
 		}
 	}
-
 }

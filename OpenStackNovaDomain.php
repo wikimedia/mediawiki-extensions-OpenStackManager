@@ -236,7 +236,6 @@ class OpenStackNovaDomain {
 	static function createDomain( $domainname, $fqdn, $location ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
-		global $wgOpenStackManagerDNSOptions;
 
 		OpenStackNovaLdapConnection::connect();
 

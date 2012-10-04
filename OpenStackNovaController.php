@@ -8,7 +8,6 @@
  */
 
 class OpenStackNovaController {
-
 	var $username;
 	var $project;
 	var $region;
@@ -159,7 +158,6 @@ class OpenStackNovaController {
 	 */
 	function getInstances() {
 		$instancesarr = array();
-		$opt = array();
 		$ret = $this->restCall( 'compute', '/servers/detail', 'GET' );
 		$instances = self::_get_property( $ret['body'], 'servers' );
 		if ( !$instances ) {
@@ -384,7 +382,6 @@ class OpenStackNovaController {
 			return null;
 		}
 		$instance = new OpenStackNovaInstance( $ret['body']->server );
-		$instanceId = $instance->getInstanceId();
 
 		return $instance;
 	}
@@ -426,7 +423,6 @@ class OpenStackNovaController {
 			return null;
 		}
 		$securityGroup = new OpenStackNovaSecurityGroup( $attr );
-		$groupname = $securityGroup->getGroupName();
 
 		return $securityGroup;
 	}
@@ -514,7 +510,7 @@ class OpenStackNovaController {
 			return null;
 		}
 		$address = new OpenStackNovaAddress( $floating_ip );
-		$ip = $address->getPublicIP();
+
 		return $address;
 	}
 
@@ -667,7 +663,6 @@ class OpenStackNovaController {
 	}
 
 	function getProjectToken( $project ) {
-		global $wgAuth;
 		global $wgMemc;
 
 		// Try to fetch the project token
@@ -817,5 +812,4 @@ class OpenStackNovaController {
 		}
 		return null;
 	}
-
 }
