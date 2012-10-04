@@ -8,7 +8,6 @@
  */
 
 class SpecialNovaAddress extends SpecialNova {
-
 	var $userNova;
 
 	/**
@@ -60,7 +59,7 @@ class SpecialNovaAddress extends SpecialNova {
 	 */
 	function allocateAddress() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-allocateaddress' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-allocateaddress' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -102,7 +101,7 @@ class SpecialNovaAddress extends SpecialNova {
 	 */
 	function releaseAddress() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-releaseaddress' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-releaseaddress' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -153,7 +152,7 @@ class SpecialNovaAddress extends SpecialNova {
 	function associateAddress() {
 
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-associateaddress' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-associateaddress' ) );
 
 		$id = $this->getRequest()->getText( 'id' );
 		$project = $this->getRequest()->getText( 'project' );
@@ -215,7 +214,7 @@ class SpecialNovaAddress extends SpecialNova {
 	 */
 	function disassociateAddress() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-disassociateaddress' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-disassociateaddress' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -265,7 +264,7 @@ class SpecialNovaAddress extends SpecialNova {
 	 */
 	function addHost() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-addhost' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-addhost' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -329,7 +328,7 @@ class SpecialNovaAddress extends SpecialNova {
 	function removeHost() {
 
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-removehost' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-removehost' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -392,7 +391,7 @@ class SpecialNovaAddress extends SpecialNova {
 	function listAddresses() {
 		$this->setHeaders();
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-addresslist' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-addresslist' ) );
 
 		if ( $this->getUser()->isAllowed( 'listall' ) ) {
 			$projects = OpenStackNovaProject::getAllProjects();
@@ -418,7 +417,18 @@ class SpecialNovaAddress extends SpecialNova {
 			$regions = '';
 			$this->userNova->setProject( $projectName );
 			foreach ( $this->userNova->getRegions( 'compute' ) as $region ) {
-				$regionactions = Array( 'netadmin' => Array( $this->createActionLink( 'openstackmanager-allocateaddress', array( 'action' => 'allocate', 'project' => $projectName, 'region' => $region ) ) ) );
+				$regionactions = array(
+					'netadmin' => array(
+						$this->createActionLink(
+							'openstackmanager-allocateaddress',
+							array(
+								'action' => 'allocate',
+								'project' => $projectName,
+								'region' => $region
+							)
+						)
+					)
+				);
 				$addresses = $this->getAddresses( $projectName, $region );
 				$regions .= $this->createRegionSection( $region, $projectName, $regionactions, $addresses );
 			}
@@ -463,7 +473,16 @@ class SpecialNovaAddress extends SpecialNova {
 					foreach ( $fqdns as $fqdn ) {
 						$hostname = explode( '.', $fqdn );
 						$hostname = $hostname[0];
-						$link = $this->createActionLink( 'openstackmanager-removehost-action', array( 'action' => 'removehost', 'id' => $id, 'project' => $projectName, 'region' => $region, 'domain' => $domain->getDomainName(), 'hostname' => $hostname ) );
+						$link = $this->createActionLink(
+							'openstackmanager-removehost-action',
+							array(
+								'action' => 'removehost',
+								'id' => $id, 'project' => $projectName,
+								'region' => $region,
+								'domain' => $domain->getDomainName(),
+								'hostname' => $hostname
+							)
+						);
 						array_push( $hostArr, htmlentities( $fqdn ) . ' ' . $link );
 					}
 				}
@@ -473,13 +492,28 @@ class SpecialNovaAddress extends SpecialNova {
 			}
 			$actions = Array();
 			if ( $instanceosid ) {
-				array_push( $actions, $this->createActionLink( 'openstackmanager-reassociateaddress', array( 'action' => 'associate', 'id' => $id, 'project' => $projectName, 'region' => $region ) ) );
-				array_push( $actions, $this->createActionLink( 'openstackmanager-disassociateaddress', array( 'action' => 'disassociate', 'id' => $id, 'project' => $projectName, 'region' => $region ) ) );
+				array_push( $actions, $this->createActionLink(
+					'openstackmanager-reassociateaddress',
+					array( 'action' => 'associate', 'id' => $id, 'project' => $projectName, 'region' => $region )
+				) );
+				array_push( $actions, $this->createActionLink(
+					'openstackmanager-disassociateaddress',
+					array( 'action' => 'disassociate', 'id' => $id, 'project' => $projectName, 'region' => $region )
+				) );
 			} else {
-				array_push( $actions, $this->createActionLink( 'openstackmanager-releaseaddress', array( 'action' => 'release', 'id' => $id, 'project' => $projectName, 'region' => $region ) ) );
-				array_push( $actions, $this->createActionLink( 'openstackmanager-associateaddress', array( 'action' => 'associate', 'id' => $id, 'project' => $projectName, 'region' => $region ) ) );
+				array_push( $actions, $this->createActionLink(
+					'openstackmanager-releaseaddress',
+					array( 'action' => 'release', 'id' => $id, 'project' => $projectName, 'region' => $region )
+				) );
+				array_push( $actions, $this->createActionLink(
+					'openstackmanager-associateaddress',
+					array( 'action' => 'associate', 'id' => $id, 'project' => $projectName, 'region' => $region )
+				) );
 			}
-			array_push( $actions, $this->createActionLink( 'openstackmanager-addhost', array( 'action' => 'addhost', 'id' => $id, 'project' => $projectName, 'region' => $region ) ) );
+			array_push( $actions, $this->createActionLink(
+				'openstackmanager-addhost',
+				array( 'action' => 'addhost', 'id' => $id, 'project' => $projectName, 'region' => $region )
+			) );
 			$this->pushRawResourceColumn( $addressRow, $this->createResourceList( $actions ) );
 			array_push( $addressRows, $addressRow );
 		}
@@ -504,7 +538,10 @@ class SpecialNovaAddress extends SpecialNova {
 		$ip = $address->getPublicIP();
 		$this->getOutput()->addWikiMsg( 'openstackmanager-allocatedaddress', $ip );
 		$out = '<br />';
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backaddresslist' ) );
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-backaddresslist' )->escaped()
+		);
 		$this->getOutput()->addHTML( $out );
 
 		return true;
@@ -540,7 +577,10 @@ class SpecialNovaAddress extends SpecialNova {
 		}
 
 		$out = '<br />';
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backaddresslist' ) );
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-backaddresslist' )->escaped()
+		);
 		$outputPage->addHTML( $out );
 
 		return true;
@@ -574,7 +614,10 @@ class SpecialNovaAddress extends SpecialNova {
 		}
 
 		$out = '<br />';
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backaddresslist' ) );
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-backaddresslist' )->escaped()
+		);
 		$outputPage->addHTML( $out );
 
 		return true;
@@ -599,7 +642,10 @@ class SpecialNovaAddress extends SpecialNova {
 		}
 
 		$out = '<br />';
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backaddresslist' ) );
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-backaddresslist' )->escaped()
+		);
 		$outputPage->addHTML( $out );
 
 		return true;
@@ -652,7 +698,10 @@ class SpecialNovaAddress extends SpecialNova {
 		}
 $this->getOutput();
 		$out = '<br />';
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backaddresslist' ) );
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-backaddresslist' )->escaped()
+		);
 		$outputPage->addHTML( $out );
 		return true;
 	}
@@ -699,7 +748,10 @@ $this->getOutput();
 			$outputPage->addWikiMsg( 'openstackmanager-nonexistenthost' );
 		}
 		$out = '<br />';
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backaddresslist' ) );
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-backaddresslist' )->escaped()
+		);
 		$outputPage->addHTML( $out );
 		return true;
 	}

@@ -8,13 +8,12 @@
  */
 
 abstract class SpecialNova extends SpecialPage {
-
 	/**
 	 * @return void
 	 */
 	function notLoggedIn() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-notloggedin' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-notloggedin' ) );
 		$this->getOutput()->addWikiMsg( 'openstackmanager-mustbeloggedin' );
 	}
 
@@ -23,7 +22,7 @@ abstract class SpecialNova extends SpecialPage {
 	 */
 	function noCredentials() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-nonovacred' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-nonovacred' ) );
 		$this->getOutput()->addWikiMsg( 'openstackmanager-nonovacred-admincreate' );
 	}
 
@@ -32,7 +31,7 @@ abstract class SpecialNova extends SpecialPage {
 	 */
 	function notInProject() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-noaccount' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-noaccount' ) );
 		$this->getOutput()->addWikiMsg( 'openstackmanager-noaccount2' );
 	}
 
@@ -43,10 +42,10 @@ abstract class SpecialNova extends SpecialPage {
 	function notInRole( $role ) {
 		$this->setHeaders();
 		if ( $role === 'sysadmin' ) {
-			$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-needsysadminrole' ) );
+			$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-needsysadminrole' ) );
 			$this->getOutput()->addWikiMsg( 'openstackmanager-needsysadminrole2' );
 		} elseif ( $role === 'netadmin' ) {
-			$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-neednetadminrole' ) );
+			$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-neednetadminrole' ) );
 			$this->getOutput()->addWikiMsg( 'openstackmanager-neednetadminrole2' );
 		}
 	}
@@ -69,7 +68,11 @@ abstract class SpecialNova extends SpecialPage {
 	 */
 	function validateText( $resourcename, $alldata ) {
 		if ( ! preg_match( "/^[a-z][a-z0-9-]*$/", $resourcename ) ) {
-			return Xml::element( 'span', array( 'class' => 'error' ), wfMsg( 'openstackmanager-badresourcename' ) );
+			return Xml::element(
+				'span',
+				array( 'class' => 'error' ),
+				$this->msg( 'openstackmanager-badresourcename' )->text()
+			);
 		} else {
 			return true;
 		}
@@ -82,7 +85,11 @@ abstract class SpecialNova extends SpecialPage {
 	 */
 	function validateDomain( $resourcename, $alldata ) {
 		if ( ! preg_match( "/^[a-z\*][a-z0-9\-]*$/", $resourcename ) ) {
-			return Xml::element( 'span', array( 'class' => 'error' ), wfMsg( 'openstackmanager-badresourcename' ) );
+			return Xml::element(
+				'span',
+				array( 'class' => 'error' ),
+				$this->msg( 'openstackmanager-badresourcename' )->text()
+			);
 		} else {
 			return true;
 		}
@@ -153,7 +160,7 @@ abstract class SpecialNova extends SpecialPage {
 		if ( !$title ) {
 			$title = $this->getTitle();
 		}
-		return Linker::link( $title, wfMsgHtml( $msg ), array(), $params );
+		return Linker::link( $title, $this->msg( $msg )->escaped(), array(), $params );
 	}
 
 	function createResourceList( $resources ) {
@@ -194,7 +201,7 @@ abstract class SpecialNova extends SpecialPage {
 	function createResourceTable( $headers, $rows ) {
 		$table = '';
 		foreach ( $headers as $header ) {
-			$table .= Html::element( 'th', array(), wfMsg( $header ) );
+			$table .= Html::element( 'th', array(), $this->msg( $header )->text() );
 		}
 		foreach ( $rows as $row ) {
 			$rowOut = '';
@@ -227,10 +234,12 @@ abstract class SpecialNova extends SpecialPage {
 		}
 		if ( $actions ) {
 			$actions = implode( ', ', $actions );
-			$actions = '<a class="mw-customtoggle-' . htmlentities( $projectName ) . ' osm-remotetoggle">' . wfMsgHtml( 'openstackmanager-toggle' ) . '</a>, ' . $actions;
+			$actions = '<a class="mw-customtoggle-' . htmlentities( $projectName ) .
+				' osm-remotetoggle">' . $this->msg( 'openstackmanager-toggle' )->escaped() . '</a>, ' . $actions;
 			$actionOut = Html::rawElement( 'span', array( 'id' => 'novaaction' ), "[$actions]" );
 		} else {
-			$actions = '<a class="mw-customtoggle-' . htmlentities( $projectName ) . ' osm-remotetoggle">' . wfMsgHtml( 'openstackmanager-toggle' ) . '</a>';
+			$actions = '<a class="mw-customtoggle-' . htmlentities( $projectName ) .
+				' osm-remotetoggle">' . $this->msg( 'openstackmanager-toggle' )->escaped() . '</a>';
 			$actionOut = Html::rawElement( 'span', array( 'id' => 'novaaction' ), "[$actions]" );
 		}
 		$projectNameOut = $this->createResourceLink( $projectName );
@@ -263,7 +272,8 @@ abstract class SpecialNova extends SpecialPage {
 		$escapedregion = htmlentities( $region );
 		if ( $actions ) {
 			$actions = implode( ', ', $actions );
-			$actions = '<a class="mw-customtoggle-' . $escapedregion . ' osm-remotetoggle">' . wfMsgHtml( 'openstackmanager-toggle' ) . '</a>, ' . $actions;
+			$actions = '<a class="mw-customtoggle-' . $escapedregion . ' osm-remotetoggle">' .
+				$this->msg( 'openstackmanager-toggle' )->escaped() . '</a>, ' . $actions;
 			$actionOut = Html::rawElement( 'span', array( 'id' => 'novaaction' ), "[$actions]" );
 		} else {
 			$actionOut = '';
@@ -288,5 +298,4 @@ abstract class SpecialNova extends SpecialPage {
 
 		return true;
 	}
-
 }

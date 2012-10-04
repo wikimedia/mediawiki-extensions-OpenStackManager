@@ -38,7 +38,7 @@ class SpecialNovaRole extends SpecialNova {
 	 */
 	function addMember() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-addmember' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-addmember' ) );
 
 		$roleInfo = array();
 		$rolename = $this->getRequest()->getText( 'rolename' );
@@ -107,7 +107,7 @@ class SpecialNovaRole extends SpecialNova {
 	 */
 	function deleteMember() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-removerolemember' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-removerolemember' ) );
 
 		$rolename = $this->getRequest()->getText( 'rolename' );
 		$projectname = $this->getRequest()->getText( 'projectname' );
@@ -204,7 +204,10 @@ class SpecialNovaRole extends SpecialNova {
 
 		$out = '<br />';
 		$returnto = Title::newFromText( $formData['returnto'] );
-		$out .= Linker::link( $returnto, wfMsgHtml( 'openstackmanager-backprojectlist' ) );
+		$out .= Linker::link(
+			$returnto,
+			$this->msg( 'openstackmanager-backprojectlist' )->escaped()
+		);
 		$this->getOutput()->addHTML( $out );
 
 		return true;
@@ -242,7 +245,10 @@ class SpecialNovaRole extends SpecialNova {
 
 		$out = '<br />';
 		$returnto = Title::newFromText( $formData['returnto'] );
-		$out .= Linker::link( $returnto, wfMsgHtml( 'openstackmanager-backprojectlist' ) );
+		$out .= Linker::link(
+			$returnto,
+			$this->msg( 'openstackmanager-backprojectlist' )->escaped()
+		);
 		$this->getOutput()->addHTML( $out );
 
 		return true;

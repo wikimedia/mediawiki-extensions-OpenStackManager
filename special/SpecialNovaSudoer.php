@@ -8,7 +8,6 @@
  */
 
 class SpecialNovaSudoer extends SpecialNova {
-
 	var $userLDAP;
 
 	function __construct() {
@@ -57,7 +56,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	 */
 	function createSudoer() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-modifysudoer' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-modifysudoer' ) );
 		$projectName = $this->getRequest()->getText( 'project' );
 		if ( ! $this->userLDAP->inRole( 'sysadmin', $projectName ) ) {
 			$this->notInRole( 'sysadmin' );
@@ -129,7 +128,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	 */
 	function deleteSudoer() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-deletesudoer' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-deletesudoer' ) );
 		$project = $this->getRequest()->getText( 'project' );
 		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
 			$this->notInRole( 'sysadmin' );
@@ -169,7 +168,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	 */
 	function modifySudoer() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-modifysudoer' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-modifysudoer' ) );
 		$projectName = $this->getRequest()->getText( 'project' );
 		if ( ! $this->userLDAP->inRole( 'sysadmin', $projectName ) ) {
 			$this->notInRole( 'sysadmin' );
@@ -309,7 +308,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	function listSudoers() {
 		$this->setHeaders();
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-sudoerlist' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-sudoerlist' ) );
 
 		if ( $this->getUser()->isAllowed( 'listall' ) ) {
 			$projects = OpenStackNovaProject::getAllProjects();
@@ -427,7 +426,10 @@ class SpecialNovaSudoer extends SpecialNova {
 		$this->getOutput()->addWikiMsg( 'openstackmanager-createdsudoer' );
 
 		$out = '<br />';
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backsudoerlist' ) );
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-backsudoerlist' )->escaped()
+		);
 		$this->getOutput()->addHTML( $out );
 
 		return true;
@@ -448,7 +450,10 @@ class SpecialNovaSudoer extends SpecialNova {
 		}
 
 		$out = '<br />';
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backsudoerlist' ) );
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-backsudoerlist' )->escaped()
+		);
 		$this->getOutput()->addHTML( $out );
 
 		return true;
@@ -483,10 +488,12 @@ class SpecialNovaSudoer extends SpecialNova {
 		}
 
 		$out = '<br />';
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backsudoerlist' ) );
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-backsudoerlist' )->escaped()
+		);
 		$this->getOutput()->addHTML( $out );
 
 		return true;
 	}
-
 }

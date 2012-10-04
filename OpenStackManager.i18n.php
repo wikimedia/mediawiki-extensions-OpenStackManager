@@ -25,7 +25,6 @@ $messages['en'] = array(
 	'openstackmanager-badresourcename' => 'Bad resource name provided. Resource names start with a-z, and can only contain a-z, 0-9, -, and _ characters.',
 
 	'action-listall' => 'display all resource information',
-	'action-manageproject' => 'manage projects',
 	'action-managednsdomain' => 'manage dns domains',
 	'action-manageglobalpuppet' => 'manage global puppet information',
 

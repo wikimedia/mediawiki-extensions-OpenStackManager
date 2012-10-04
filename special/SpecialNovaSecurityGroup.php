@@ -8,7 +8,6 @@
  */
 
 class SpecialNovaSecurityGroup extends SpecialNova {
-
 	/**
 	 * @var OpenStackNovaController
 	 */
@@ -60,7 +59,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	 */
 	function createSecurityGroup() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-createsecuritygroup' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-createsecuritygroup' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -112,7 +111,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	 */
 	function deleteSecurityGroup() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-deletesecuritygroup' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-deletesecuritygroup' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -167,7 +166,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	function listSecurityGroups() {
 		$this->setHeaders();
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-securitygrouplist' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-securitygrouplist' ) );
 
 		if ( $this->userCanExecute( $this->getUser() ) ) {
 			$projects = OpenStackNovaProject::getAllProjects();
@@ -282,7 +281,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	 */
 	function addRule() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-addrule' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-addrule' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -365,7 +364,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		);
 		$securityGroupForm = new HTMLForm( $securityGroupInfo, 'openstackmanager-novasecuritygroup' );
 		$securityGroupForm->setTitle( SpecialPage::getTitleFor( 'NovaSecurityGroup' ) );
-		$securityGroupForm->addHeaderText( wfMsg( 'openstackmanager-securitygrouprule-group-exclusive' ), 'rule' );
+		$securityGroupForm->addHeaderText( $this->msg( 'openstackmanager-securitygrouprule-group-exclusive' )->text(), 'rule' );
 		$securityGroupForm->setSubmitID( 'novainstance-form-removerulesubmit' );
 		$securityGroupForm->setSubmitCallback( array( $this, 'tryAddRuleSubmit' ) );
 		$securityGroupForm->show();
@@ -378,7 +377,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	 */
 	function removeRule() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-removerule' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-removerule' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -449,7 +448,10 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		}
 
 		$out = '<br />';
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backsecuritygrouplist' ) );
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-backsecuritygrouplist' )->escaped()
+		);
 
 		$this->getOutput()->addHTML( $out );
 		return true;
@@ -471,7 +473,10 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		}
 
 		$out = '<br />';
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backsecuritygrouplist' ) );
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-backsecuritygrouplist' )->escaped()
+		);
 
 		$this->getOutput()->addHTML( $out );
 		return true;
@@ -506,7 +511,10 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		}
 
 		$out = '<br />';
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backsecuritygrouplist' ) );
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-backsecuritygrouplist' )->escaped()
+		);
 
 		$this->getOutput()->addHTML( $out );
 		return true;
@@ -528,7 +536,10 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		}
 
 		$out = '<br />';
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backsecuritygrouplist' ) );
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-backsecuritygrouplist' )->escaped()
+		);
 
 		$this->getOutput()->addHTML( $out );
 		return true;

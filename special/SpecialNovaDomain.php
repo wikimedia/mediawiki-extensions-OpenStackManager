@@ -8,7 +8,6 @@
  */
 
 class SpecialNovaDomain extends SpecialNova {
-
 	var $userLDAP;
 
 	function __construct() {
@@ -44,7 +43,7 @@ class SpecialNovaDomain extends SpecialNova {
 	 */
 	function deleteDomain() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-deletedomain' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-deletedomain' ) );
 
 		$domainname = $this->getRequest()->getText( 'domainname' );
 		if ( ! $this->getRequest()->wasPosted() ) {
@@ -75,7 +74,7 @@ class SpecialNovaDomain extends SpecialNova {
 	 */
 	function listDomains() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-domainlist' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-domainlist' ) );
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
 
 		$domainInfo = array();
@@ -148,7 +147,10 @@ class SpecialNovaDomain extends SpecialNova {
 		$this->getOutput()->addWikiMsg( 'openstackmanager-createddomain' );
 
 		$out = '<br />';
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-addadditionaldomain' ) );
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-addadditionaldomain' )->escaped()
+		);
 		$this->getOutput()->addHTML( $out );
 
 		return true;
@@ -168,10 +170,12 @@ class SpecialNovaDomain extends SpecialNova {
 		}
 
 		$out = '<br />';
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backdomainlist' ) );
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-backdomainlist' )->escaped()
+		);
 		$this->getOutput()->addHTML( $out );
 
 		return true;
 	}
-
 }

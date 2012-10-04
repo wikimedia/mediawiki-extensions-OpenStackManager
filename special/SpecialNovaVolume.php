@@ -8,7 +8,6 @@
  */
 
 class SpecialNovaVolume extends SpecialNova {
-
 	/**
 	 * @var OpenStackNovaController
 	 */
@@ -76,7 +75,7 @@ class SpecialNovaVolume extends SpecialNova {
 	 */
 	function createVolume() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-createvolume' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-createvolume' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -136,7 +135,7 @@ class SpecialNovaVolume extends SpecialNova {
 	 */
 	function deleteVolume() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-deletevolume' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-deletevolume' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -183,7 +182,7 @@ class SpecialNovaVolume extends SpecialNova {
 	 */
 	function attachVolume() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-attachvolume' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-attachvolume' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -262,7 +261,7 @@ class SpecialNovaVolume extends SpecialNova {
 	 */
 	function detachVolume() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-detachvolume' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-detachvolume' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -319,7 +318,7 @@ class SpecialNovaVolume extends SpecialNova {
 	function listVolumes() {
 		$this->setHeaders();
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-volumelist' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-volumelist' ) );
 
 		if ( $this->getUser()->isAllowed( 'listall' ) ) {
 			$projects = OpenStackNovaProject::getAllProjects();
@@ -402,7 +401,10 @@ class SpecialNovaVolume extends SpecialNova {
 		}
 
 		$out = '<br />';
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backvolumelist' ) );
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-backvolumelist' )->escaped()
+		);
 
 		$this->getOutput()->addHTML( $out );
 		return true;
@@ -428,7 +430,10 @@ class SpecialNovaVolume extends SpecialNova {
 		}
 
 		$out = '<br />';
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backvolumelist' ) );
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-backvolumelist' )->escaped()
+		);
 
 		$this->getOutput()->addHTML( $out );
 		return true;
@@ -448,7 +453,10 @@ class SpecialNovaVolume extends SpecialNova {
 		}
 
 		$out = '<br />';
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backvolumelist' ) );
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-backvolumelist' )->escaped()
+		);
 
 		$this->getOutput()->addHTML( $out );
 		return true;
@@ -473,7 +481,10 @@ class SpecialNovaVolume extends SpecialNova {
 		}
 
 		$out = '<br />';
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backvolumelist' ) );
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-backvolumelist' )->escaped()
+		);
 
 		$this->getOutput()->addHTML( $out );
 		return true;

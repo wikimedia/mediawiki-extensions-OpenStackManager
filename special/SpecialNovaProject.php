@@ -8,7 +8,6 @@
  */
 
 class SpecialNovaProject extends SpecialNova {
-
 	var $userLDAP;
 	var $userNova;
 
@@ -45,7 +44,7 @@ class SpecialNovaProject extends SpecialNova {
 	 */
 	function addMember() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-addmember' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-addmember' ) );
 
 		$project = $this->getRequest()->getText( 'projectname' );
 		if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inProject( $project ) ) {
@@ -84,7 +83,7 @@ class SpecialNovaProject extends SpecialNova {
 	 */
 	function deleteMember() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-removemember' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-removemember' ) );
 
 		$projectname = $this->getRequest()->getText( 'projectname' );
 		if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inProject( $projectname ) ) {
@@ -133,7 +132,7 @@ class SpecialNovaProject extends SpecialNova {
 			$this->displayRestrictionError();
 			return false;
 		}
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-deleteproject' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-deleteproject' ) );
 
 		$project = $this->getRequest()->getText( 'projectname' );
 		if ( ! $this->getRequest()->wasPosted() ) {
@@ -164,7 +163,7 @@ class SpecialNovaProject extends SpecialNova {
 	 */
 	function listProjects() {
 		$this->setHeaders();
-		$this->getOutput()->setPageTitle( wfMsg( 'openstackmanager-projectlist' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-projectlist' ) );
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
 
 		if ( $this->getUser()->isAllowed( 'listall' ) ) {
@@ -349,7 +348,10 @@ class SpecialNovaProject extends SpecialNova {
 		$this->getOutput()->addWikiMsg( 'openstackmanager-createdproject' );
 
 		$out = '<br />';
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-addadditionalproject' ) );
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-addadditionalproject' )->escaped()
+		);
 		$this->getOutput()->addHTML( $out );
 
 		return true;
@@ -371,7 +373,10 @@ class SpecialNovaProject extends SpecialNova {
 		}
 
 		$out = '<br />';
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backprojectlist' ) );
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-backprojectlist' )->escaped()
+		);
 		$this->getOutput()->addHTML( $out );
 
 		return true;
@@ -405,7 +410,10 @@ class SpecialNovaProject extends SpecialNova {
 		}
 
 		$out = '<br />';
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backprojectlist' ) );
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-backprojectlist' )->escaped()
+		);
 		$this->getOutput()->addHTML( $out );
 
 		return true;
@@ -433,10 +441,12 @@ class SpecialNovaProject extends SpecialNova {
 		}
 		$out = '<br />';
 
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backprojectlist' ) );
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-backprojectlist' )->escaped()
+		);
 		$this->getOutput()->addHTML( $out );
 
 		return true;
 	}
-
 }

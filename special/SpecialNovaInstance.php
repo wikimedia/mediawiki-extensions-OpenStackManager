@@ -15,7 +15,6 @@
  * The page can be passed a (project,instance,action) see execute()
  */
 class SpecialNovaInstance extends SpecialNova {
-
 	/**
 	 * @var OpenStackNovaController
 	 */
@@ -95,7 +94,7 @@ class SpecialNovaInstance extends SpecialNova {
 		global $wgOpenStackManagerInstanceDefaultImage;
 
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-createinstance' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-createinstance' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -121,7 +120,8 @@ class SpecialNovaInstance extends SpecialNova {
 			$cpus = $instanceType->getNumberOfCPUs();
 			$ram = $instanceType->getMemorySize();
 			$storage = $instanceType->getStorageSize();
-			$instanceLabel = $instanceTypeName . ' (' . wfMsgExt( 'openstackmanager-instancetypelabel', 'parsemag', $cpus, $ram, $storage ) . ')';
+			// @todo FIXME: Hard coded parentheses.
+			$instanceLabel = $instanceTypeName . ' (' . $this->msg( 'openstackmanager-instancetypelabel', $cpus, $ram, $storage )->text() . ')';
 			$instanceType_keys[$instanceLabel] = $instanceTypeId;
 		}
 		$instanceInfo['instanceType'] = array(
@@ -237,7 +237,8 @@ class SpecialNovaInstance extends SpecialNova {
 
 		$instanceForm = new HTMLForm( $instanceInfo, 'openstackmanager-novainstance' );
 		$instanceForm->setTitle( SpecialPage::getTitleFor( 'NovaInstance' ) );
-		$instanceForm->addHeaderText( wfMsg( 'openstackmanager-createinstancepuppetwarning' ) . '<div class="mw-collapsible mw-collapsed">', 'puppetinfo' );
+		$instanceForm->addHeaderText( $this->msg( 'openstackmanager-createinstancepuppetwarning' )->text() .
+			'<div class="mw-collapsible mw-collapsed">', 'puppetinfo' );
 		$instanceForm->addFooterText( '</div>', 'puppetinfo' );
 		$instanceForm->setSubmitID( 'openstackmanager-novainstance-createinstancesubmit' );
 		$instanceForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
@@ -254,7 +255,7 @@ class SpecialNovaInstance extends SpecialNova {
 		global $wgOpenStackManagerPuppetOptions;
 
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-configureinstance' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-configureinstance' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -314,7 +315,7 @@ class SpecialNovaInstance extends SpecialNova {
 	 */
 	function deleteInstance() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-deleteinstance' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-deleteinstance' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -368,7 +369,7 @@ class SpecialNovaInstance extends SpecialNova {
 	 */
 	function rebootInstance() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-rebootinstance' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-rebootinstance' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -378,7 +379,7 @@ class SpecialNovaInstance extends SpecialNova {
 		}
 		$instanceid = $this->getRequest()->getText( 'instanceid' );
 		if ( ! $this->getRequest()->wasPosted() ) {
-			#TODO: memcache this instanceid lookup
+			# @todo memcache this instanceid lookup
 			$instance = $this->userNova->getInstance( $instanceid );
 			if ( !$instance ) {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistanthost' );
@@ -422,7 +423,7 @@ class SpecialNovaInstance extends SpecialNova {
 	 */
 	function getConsoleOutput() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-consoleoutput' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-consoleoutput' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
@@ -431,7 +432,10 @@ class SpecialNovaInstance extends SpecialNova {
 		}
 		$instanceid = $this->getRequest()->getText( 'instanceid' );
 		$consoleOutput = $this->userNova->getConsoleOutput( $instanceid );
-		$out = Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backinstancelist' ) );
+		$out = Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-backinstancelist' )->escaped()
+		);
 		$out .= Html::element( 'pre', array(), $consoleOutput );
 		$this->getOutput()->addHTML( $out );
 	}
@@ -443,7 +447,7 @@ class SpecialNovaInstance extends SpecialNova {
 	function listInstances() {
 		$this->setHeaders();
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-instancelist' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-instancelist' ) );
 
 		if ( $this->getUser()->isAllowed( 'listall' ) ) {
 			$projects = OpenStackNovaProject::getAllProjects();
@@ -513,10 +517,41 @@ class SpecialNovaInstance extends SpecialNova {
 			$this->pushResourceColumn( $instanceRow, $instance->getLaunchTime() );
 			$actions = Array();
 			if ( $this->userLDAP->inRole( 'sysadmin', $projectName ) ) {
-				array_push( $actions, $this->createActionLink( 'openstackmanager-delete', array( 'action' => 'delete', 'project' => $projectName, 'instanceid' => $instance->getInstanceOSId(), 'project' => $projectName, 'region' => $region ) ) );
-				array_push( $actions, $this->createActionLink( 'openstackmanager-reboot', array( 'action' => 'reboot', 'project' => $projectName, 'instanceid' => $instance->getInstanceOSId(), 'project' => $projectName, 'region' => $region ) ) );
-				array_push( $actions, $this->createActionLink( 'openstackmanager-configure', array( 'action' => 'configure', 'project' => $projectName, 'instanceid' => $instance->getInstanceOSId(), 'project' => $projectName, 'region' => $region ) ) );
-				array_push( $actions, $this->createActionLink( 'openstackmanager-getconsoleoutput', array( 'action' => 'consoleoutput', 'project' => $projectName, 'instanceid' => $instance->getInstanceOSId(), 'region' => $region ) ) );
+				array_push( $actions, $this->createActionLink(
+					'openstackmanager-delete',
+					array(
+						'action' => 'delete',
+						'instanceid' => $instance->getInstanceOSId(),
+						'project' => $projectName,
+						'region' => $region )
+				) );
+				array_push( $actions, $this->createActionLink(
+					'openstackmanager-reboot',
+					array(
+						'action' => 'reboot',
+						'instanceid' => $instance->getInstanceOSId(),
+						'project' => $projectName,
+						'region' => $region
+					)
+				) );
+				array_push( $actions, $this->createActionLink(
+					'openstackmanager-configure',
+					array(
+						'action' => 'configure',
+						'instanceid' => $instance->getInstanceOSId(),
+						'project' => $projectName,
+						'region' => $region
+					)
+				) );
+				array_push( $actions, $this->createActionLink(
+					'openstackmanager-getconsoleoutput',
+					array(
+						'action' => 'consoleoutput',
+						'project' => $projectName,
+						'instanceid' => $instance->getInstanceOSId(),
+						'region' => $region
+					)
+				) );
 			}
 			$this->pushRawResourceColumn( $instanceRow, $this->createResourceList( $actions ) );
 			array_push( $instanceRows, $instanceRow );
@@ -567,7 +602,10 @@ class SpecialNovaInstance extends SpecialNova {
 		}
 
 		$out = '<br />';
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backinstancelist' ) );
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-backinstancelist' )->escaped()
+		);
 
 		$this->getOutput()->addHTML( $out );
 		return true;
@@ -601,7 +639,10 @@ class SpecialNovaInstance extends SpecialNova {
 		}
 
 		$out = '<br />';
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backinstancelist' ) );
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-backinstancelist' )->escaped()
+		);
 
 		$this->getOutput()->addHTML( $out );
 		return true;
@@ -622,7 +663,10 @@ class SpecialNovaInstance extends SpecialNova {
 		}
 
 		$out = '<br />';
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backinstancelist' ) );
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-backinstancelist' )->escaped()
+		);
 
 		$this->getOutput()->addHTML( $out );
 		return true;
@@ -649,7 +693,10 @@ class SpecialNovaInstance extends SpecialNova {
 		}
 
 		$out = '<br />';
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backinstancelist' ) );
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-backinstancelist' )->escaped()
+		);
 
 		$this->getOutput()->addHTML( $out );
 		return true;
@@ -746,5 +793,4 @@ class SpecialNovaInstance extends SpecialNova {
 	}
 
 	#### End of Puppet related methods ################################
-
 }

@@ -8,7 +8,6 @@
  */
 
 class SpecialNovaKey extends SpecialNova {
-
 	var $userNova;
 
 	/**
@@ -49,7 +48,7 @@ class SpecialNovaKey extends SpecialNova {
 		global $wgOpenStackManagerNovaKeypairStorage;
 
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-deletekey' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-deletekey' ) );
 
 		$keyInfo = array();
 		$hash = '';
@@ -110,7 +109,7 @@ class SpecialNovaKey extends SpecialNova {
 		global $wgOpenStackManagerNovaKeypairStorage;
 
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( wfMsg( 'openstackmanager-keylist' ) );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-keylist' ) );
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
 
 		$keyInfo = array();
@@ -332,7 +331,10 @@ class SpecialNovaKey extends SpecialNova {
 		}
 		$out = '<br />';
 
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-addadditionalkey' ) );
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-addadditionalkey' )->escaped()
+		);
 		$this->getOutput()->addHTML( $out );
 		return true;
 	}
@@ -351,7 +353,10 @@ class SpecialNovaKey extends SpecialNova {
 		}
 		$out = '<br />';
 
-		$out .= Linker::link( $this->getTitle(), wfMsgHtml( 'openstackmanager-backkeylist' ) );
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-backkeylist' )->escaped()
+		);
 		$this->getOutput()->addHTML( $out );
 		return true;
 	}
