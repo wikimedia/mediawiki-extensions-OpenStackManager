@@ -15,7 +15,8 @@ class OpenStackNovaSudoer {
 	var $sudoerInfo;
 
 	/**
-	 * @param  $sudoername
+	 * @param $sudoername
+	 * @param $project
 	 */
 	function __construct( $sudoername, $project ) {
 		$this->sudoername = $sudoername;
@@ -193,7 +194,7 @@ class OpenStackNovaSudoer {
 	/**
 	 * Get all sudo policies
 	 *
-	 * @static
+	 * @param $projectName
 	 * @return array of OpenStackNovaSudoer
 	 */
 	static function getAllSudoersByProject( $projectName ) {
@@ -223,7 +224,8 @@ class OpenStackNovaSudoer {
 	 * Get a sudoer policy by name.
 	 *
 	 * @static
-	 * @param  $sudoername
+	 * @param $sudoerName
+	 * @param $projectName
 	 * @return null|OpenStackNovaSudoer
 	 */
 	static function getSudoerByName( $sudoerName, $projectName ) {
@@ -242,6 +244,7 @@ class OpenStackNovaSudoer {
 	 *
 	 * @static
 	 * @param  $sudoername
+	 * @param $projectName
 	 * @param  $users
 	 * @param  $hosts
 	 * @param  $commands
@@ -286,6 +289,7 @@ class OpenStackNovaSudoer {
 	 *
 	 * @static
 	 * @param  $sudoername
+	 * @param $projectName
 	 * @return bool
 	 */
 	static function deleteSudoer( $sudoername, $projectName ) {

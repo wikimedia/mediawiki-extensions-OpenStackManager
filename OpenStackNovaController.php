@@ -105,7 +105,7 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @param  $ip
+	 * @param $id
 	 * @return null
 	 */
 	function getAddress( $id ) {
@@ -120,7 +120,7 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @return
+	 * @return array
 	 */
 	function getAddresses() {
 		$addressesarr = array();
@@ -186,7 +186,6 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @param  $sort
 	 * @return array
 	 */
 	function getInstanceTypes() {
@@ -206,7 +205,8 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @return
+	 * @param $imageid
+	 * @return null|\OpenStackNovaImage
 	 */
 	function getImage( $imageid ) {
 		$imageid = urlencode( $imageid );
@@ -219,7 +219,7 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @return
+	 * @return array
 	 */
 	function getImages() {
 		$ret = $this->restCall( 'compute', '/images/detail', 'GET' );
@@ -237,16 +237,13 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @return
 	 */
 	function getKeypairs() {
 		// Currently unimplemented
-		return;
 	}
 
 	/**
-	 * @param  $project
-	 * @param  $groupname
+	 * @param $groupid
 	 * @return OpenStackNovaSecurityGroup
 	 */
 	function getSecurityGroup( $groupid ) {
@@ -261,7 +258,7 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @return
+	 * @return array
 	 */
 	function getSecurityGroups() {
 		$ret = $this->restCall( 'compute', '/os-security-groups', 'GET' );
@@ -387,8 +384,8 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @param  $instanceId
-	 * @return
+	 * @param $instanceid
+	 * @return bool
 	 */
 	function terminateInstance( $instanceid ) {
 		$addresses = $this->getAddresses();
@@ -428,8 +425,8 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @param  $groupname
-	 * @return
+	 * @param $groupid
+	 * @return bool
 	 */
 	function deleteSecurityGroup( $groupid ) {
 		$groupid = urlencode( $groupid );
@@ -443,13 +440,13 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @param  $groupname
+	 * @param $groupid
 	 * @param string $fromport
 	 * @param string $toport
 	 * @param string $protocol
-	 * @param array $ranges
-	 * @param array $groups
-	 * @return
+	 * @param string $range
+	 * @param string $group
+	 * @return bool
 	 */
 	function addSecurityGroupRule( $groupid, $fromport='', $toport='', $protocol='', $range='', $group='' ) {
 		if ( $group && $range ) {
@@ -478,13 +475,8 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @param  $groupname
-	 * @param string $fromport
-	 * @param string $toport
-	 * @param string $protocol
-	 * @param array $ranges
-	 * @param array $groups
-	 * @return
+	 * @param $ruleid
+	 * @return bool
 	 */
 	function removeSecurityGroupRule( $ruleid ) {
 		$ruleid = urlencode( $ruleid );
@@ -517,8 +509,8 @@ class OpenStackNovaController {
 	/**
 	 * Release ip address
 	 *
-	 * @param  $ip
-	 * @return
+	 * @param $id
+	 * @return bool
 	 */
 	function releaseAddress( $id ) {
 		$id = urlencode( $id );
@@ -553,6 +545,7 @@ class OpenStackNovaController {
 	/**
 	 * Disassociate address from an instance
 	 *
+	 * @param $instanceid
 	 * @param  $ip
 	 * @return bool
 	 */
@@ -621,8 +614,8 @@ class OpenStackNovaController {
 	/**
 	 * Reboots an instance
 	 *
-	 * @param instanceid
 	 * @param type
+	 * @param string $type
 	 * @return boolean
 	 */
 	function rebootInstance( $instanceid, $type='SOFT' ) {

@@ -181,8 +181,9 @@ class OpenStackNovaUser {
 	}
 
 	/**
-	 * @param  $role
+	 * @param $role
 	 * @param string $projectname
+	 * @param bool $strict
 	 * @return bool
 	 */
 	function inRole( $role, $projectname, $strict=false ) {

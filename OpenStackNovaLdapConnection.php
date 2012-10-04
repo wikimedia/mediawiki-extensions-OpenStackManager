@@ -8,7 +8,6 @@
  */
 
 class OpenStackNovaLdapConnection {
-
 	/**
 	 * Connect to LDAP as the open stack manager account using wgAuth
 	 */
@@ -23,5 +22,4 @@ class OpenStackNovaLdapConnection {
 			$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 		}
 	}
-
 }

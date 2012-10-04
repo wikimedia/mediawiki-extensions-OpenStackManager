@@ -8,7 +8,6 @@
  */
 
 class SpecialNovaRole extends SpecialNova {
-
 	var $userLDAP;
 
 	function __construct() {
@@ -31,7 +30,6 @@ class SpecialNovaRole extends SpecialNova {
 			$this->deleteMember();
 		} else {
 			$this->displayRestrictionError();
-			return false;
 		}
 	}
 

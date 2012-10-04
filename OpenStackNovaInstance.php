@@ -228,7 +228,7 @@ class OpenStackNovaInstance {
 	/**
 	 * Adds or edits an article for this instance
 	 *
-	 * @return void
+	 * @param $userNova
 	 */
 	function editArticle( $userNova ) {
 		if ( ! OpenStackNovaArticle::canCreatePages() ) {

@@ -15,7 +15,7 @@ class OpenStackNovaPuppetGroup {
 	 * Constructor. Can't be called directly. Call one of the static NewFrom* methods
 	 * @param $id Int Database id for the group
 	 * @param $name String User-defined name of the group
-	 * @param $position int
+	 * @param $is_global
 	 * @param $project string|null
 	 */
 	public function __construct( $id, $name, $is_global, $project=null ) {
@@ -65,6 +65,7 @@ class OpenStackNovaPuppetGroup {
 
 	/**
 	 * @param $name string
+	 * @param null $project
 	 * @return OpenStackNovaPuppetGroup|null
 	 */
 	public static function newFromName( $name, $project=null ) {
@@ -159,7 +160,7 @@ class OpenStackNovaPuppetGroup {
 	}
 
 	/**
-	 * @param $projects array Optionally get list for a set of projects
+	 * @param string $project Optionally get list for a set of projects
 	 * @return array
 	 */
 	public static function getGroupList( $project='' ) {
@@ -238,6 +239,7 @@ class OpenStackNovaPuppetGroup {
 
 	/**
 	 * @param $name string
+	 * @param string $project
 	 * @return bool
 	 */
 	public static function addGroup( $name, $project='' ) {

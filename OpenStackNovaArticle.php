@@ -8,7 +8,6 @@
  */
 
 class OpenStackNovaArticle {
-
 	public static function canCreatePages() {
 		global $wgOpenStackManagerCreateResourcePages;
 
@@ -17,13 +16,13 @@ class OpenStackNovaArticle {
 
 	public static function editArticle( $titletext, $text ) {
 		$title = Title::newFromText( $titletext, NS_NOVA_RESOURCE );
-		$article = new Article( $title, 0 );
+		$article = WikiPage::factory( $title );
 		$article->doEdit( $text, '' );
 	}
 
 	public static function getText( $titletext ) {
 		$title = Title::newFromText( $titletext, NS_NOVA_RESOURCE );
-		$article = new Article( $title, 0 );
+		$article = WikiPage::factory( $title );
 		return $article->getText();
 	}
 
@@ -32,8 +31,7 @@ class OpenStackNovaArticle {
 			return;
 		}
 		$title = Title::newFromText( $titletext, NS_NOVA_RESOURCE );
-		$article = new Article( $title, 0 );
+		$article = WikiPage::factory( $title );
 		$article->doDeleteArticle( '' );
 	}
-
 }

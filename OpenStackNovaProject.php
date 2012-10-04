@@ -19,6 +19,7 @@ class OpenStackNovaProject {
 
 	/**
 	 * @param  $projectname
+	 * @param bool $load
 	 */
 	function __construct( $projectname, $load=true ) {
 		$this->projectname = $projectname;

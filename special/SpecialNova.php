@@ -62,9 +62,9 @@ abstract class SpecialNova extends SpecialPage {
 	}
 
 	/**
-	 * @param  $resourcename
-	 * @param  $error
-	 * @param  $alldata
+	 * @param $resourcename
+	 * @param $alldata
+	 * @internal param $error
 	 * @return bool|string
 	 */
 	function validateText( $resourcename, $alldata ) {
@@ -76,9 +76,8 @@ abstract class SpecialNova extends SpecialPage {
 	}
 
 	/**
-	 * @param  $resourcename
-	 * @param  $error
-	 * @param  $alldata
+	 * @param $resourcename
+	 * @param $alldata
 	 * @return bool|string
 	 */
 	function validateDomain( $resourcename, $alldata ) {
@@ -245,6 +244,7 @@ abstract class SpecialNova extends SpecialPage {
 	 * Create a region section to be displayed in a list page. Warning: neither $actionsByRole nor
 	 * $data are escaped in this function and must be escaped prior to this call.
 	 *
+	 * @param $region
 	 * @param $projectName
 	 * @param $actionsByRole
 	 * @param $data
