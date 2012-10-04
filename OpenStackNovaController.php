@@ -33,6 +33,10 @@ class OpenStackNovaController {
 		return new OpenStackNovaController( $username );
 	}
 
+	/**
+	 * @param $username string
+	 * @return OpenStackNovaController
+	 */
 	static function newFromUsername( $username ) {
 		return new OpenStackNovaController( $username );
 	}
@@ -397,11 +401,7 @@ class OpenStackNovaController {
 		$instanceid = urlencode( $instanceid );
 		$ret = $this->restCall( 'compute', '/servers/' . $instanceid, 'DELETE' );
 
-		if ( $ret['code'] === 204 ) {
-			return true;
-		} else {
-			return false;
-		}
+		return( $ret['code'] === 204 );
 	}
 
 	/**
@@ -432,11 +432,7 @@ class OpenStackNovaController {
 		$groupid = urlencode( $groupid );
 		$ret = $this->restCall( 'compute', '/os-security-groups/' . $groupid, 'DELETE' );
 
-		if ( $ret['code'] === 202 ) {
-			return true;
-		} else {
-			return false;
-		}
+		return ( $ret['code'] === 202 );
 	}
 
 	/**
@@ -467,11 +463,7 @@ class OpenStackNovaController {
 		}
 		$ret = $this->restCall( 'compute', '/os-security-group-rules', 'POST', $data );
 
-		if ( $ret['code'] === 200 ) {
-			return true;
-		} else {
-			return false;
-		}
+		return ( $ret['code'] === 200 );
 	}
 
 	/**
@@ -482,11 +474,7 @@ class OpenStackNovaController {
 		$ruleid = urlencode( $ruleid );
 		$ret = $this->restCall( 'compute', '/os-security-group-rules/' . $ruleid, 'DELETE' );
 
-		if ( $ret['code'] === 202 ) {
-			return true;
-		} else {
-			return false;
-		}
+		return ( $ret['code'] === 202 );
 	}
 
 	/**
@@ -516,11 +504,7 @@ class OpenStackNovaController {
 		$id = urlencode( $id );
 		$ret = $this->restCall( 'compute', '/os-floating-ips/' . $id, 'DELETE' );
 
-		if ( $ret['code'] === 202 ) {
-			return true;
-		} else {
-			return false;
-		}
+		return ( $ret['code'] === 202 );
 	}
 
 	/**
@@ -535,11 +519,7 @@ class OpenStackNovaController {
 		$data = array( 'addFloatingIp' => array( 'address' => $ip ) );
 		$ret = $this->restCall( 'compute', '/servers/' . $instanceid . '/action', 'POST', $data );
 
-		if ( $ret['code'] === 202 ) {
-			return true;
-		} else {
-			return false;
-		}
+		return ( $ret['code'] === 202 );
 	}
 
 	/**
@@ -554,11 +534,7 @@ class OpenStackNovaController {
 		$data = array( 'removeFloatingIp' => array ( 'address' => $ip ) );
 		$ret = $this->restCall( 'compute', '/servers/' . $instanceid . '/action', 'POST', $data );
 
-		if ( $ret['code'] === 202 ) {
-			return true;
-		} else {
-			return false;
-		}
+		return ( $ret['code'] === 202 );
 	}
 
 	/**
@@ -622,11 +598,7 @@ class OpenStackNovaController {
 		$instanceid = urlencode( $instanceid );
 		$data = array( 'reboot' => array( 'type' => $type ) );
 		$ret = $this->restCall( 'compute', '/servers/' . $instanceid . '/action', 'POST', $data );
-		if ( $ret['code'] === 202 ) {
-			return true;
-		} else {
-			return false;
-		}
+		return ( $ret['code'] === 202 );
 	}
 
 	function authenticate( $username, $password ) {
