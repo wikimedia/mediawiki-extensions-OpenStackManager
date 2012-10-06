@@ -3695,7 +3695,6 @@ $messages['he'] = array(
 	'openstackmanager-title' => 'OpenStackManager',
 	'openstackmanager-badresourcename' => 'סופק שם משאב גרוע. שמות המשאבים מתחילים בתווים a-z ויכולים להכיל רק את התווים a-z‏, 0-9‏, ו־_.',
 	'action-listall' => 'להציג את כל המידע על המשאב',
-	'action-manageproject' => 'ניהול פרויקטים ותפקידים של OpenStack',
 	'action-managednsdomain' => 'לנהל מתחמי dns',
 	'action-manageglobalpuppet' => 'לנהל מידע puppet גלובלי',
 	'specialpages-group-nova' => 'OpenStack Nova',
@@ -4014,7 +4013,11 @@ $messages['he'] = array(
 	'openstackmanager-failedtodeletepuppetvar' => 'מחיקת משתנה puppet נכשלה',
 	'openstackmanager-email-subject' => 'המופע שלך מוכן לכניסה לחשבון.',
 	'openstackmanager-email-body' => 'המופע הבא נוצר ואפשר להיכנס בו לחשבון:',
+	'openstackmanager-twofactorrequired' => 'נדרש אימות דו־רכיבי',
+	'openstackmanager-twofactorrequired2' => 'נדרש אימות דו־רכיבי. נא להפעילו ולנסות שוב.',
 	'right-manageproject' => 'ניהול פרויקטים ותפקידים של OpenStack',
+	'action-manageproject' => 'ניהול פרויקטים ותפקידים של OpenStack',
+	'right-loginviashell' => 'כניסה דרך מסוף',
 );
 
 /** Hindi (हिन्दी)
