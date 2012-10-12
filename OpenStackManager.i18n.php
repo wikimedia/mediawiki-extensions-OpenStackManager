@@ -375,6 +375,7 @@ $messages['en'] = array(
 /** Message documentation (Message documentation)
  * @author EugeneZelenko
  * @author Kghbln
+ * @author Nemo bis
  * @author Nike
  * @author Platonides
  * @author Purodha
@@ -387,9 +388,6 @@ $messages['qqq'] = array(
 	'openstackmanager-desc' => '{{desc}}',
 	'openstackmanager-instance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'action-listall' => '{{doc-action|listall}}',
-	'action-manageproject' => '{{doc-action|manageproject}}
-
-This is about OpenStack roles.',
 	'action-managednsdomain' => '{{doc-action|managednsdomain}}',
 	'action-manageglobalpuppet' => '{{doc-action|manageglobalpuppet}}',
 	'novainstance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
@@ -469,7 +467,7 @@ $2: projectname',
 	'openstackmanager-associateaddressfailed' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-addedhost' => '* $1: Hostname
 * $2: IP',
-	'openstackmanager-removehost-action' => 'A link text. [[File:Wikimedia_labs_address_admin.png|thumb]].',
+	'openstackmanager-removehost-action' => 'A link text. [[File:Wikimedia_labs_address_admin.png|thumb]]',
 	'openstackmanager-securitygroupdescription' => '{{Identical|Description}}',
 	'openstackmanager-sudoerusers' => '{{Identical|User}}',
 	'openstackmanager-sudoeroptions' => '{{Identical|Options}}',
@@ -478,6 +476,9 @@ $2: projectname',
 	'openstackmanager-twofactorrequired' => 'A page title that will be shown on error when two factor auth is not enabled',
 	'openstackmanager-twofactorrequired2' => 'Text shown on error when two factor auth is not enabled',
 	'right-manageproject' => '{{doc-right|manageproject}}
+
+This is about OpenStack roles.',
+	'action-manageproject' => '{{doc-action|manageproject}}
 
 This is about OpenStack roles.',
 	'right-loginviashell' => '{{doc-right|loginviashell}}
@@ -6821,6 +6822,7 @@ $messages['nb'] = array(
  * @author SPQRobin
  * @author Saruman
  * @author Siebrand
+ * @author Wiki13
  */
 $messages['nl'] = array(
 	'openstackmanager-desc' => 'Laat gebruikers Nova en Swift beheren',
@@ -6829,7 +6831,6 @@ $messages['nl'] = array(
 	'openstackmanager-title' => 'OpenStack-beheer',
 	'openstackmanager-badresourcename' => 'Er is een onjuiste bronnaam opgegeven. Bronnamen beginnen met a-z en kunnen alleen de tekens a-z, 0-9, - en _ bevatten.',
 	'action-listall' => 'alle brongegevens weer te geven',
-	'action-manageproject' => 'OpenStackprojecten en -rollen te beheren',
 	'action-managednsdomain' => 'DNS-domeinen te beheren',
 	'action-manageglobalpuppet' => 'globale puppetgegevens te beheren',
 	'specialpages-group-nova' => 'OpenStack Nova',
@@ -7148,7 +7149,9 @@ $messages['nl'] = array(
 	'openstackmanager-failedtodeletepuppetvar' => 'Het verwijderen van de puppetvariabele is mislukt.',
 	'openstackmanager-email-subject' => 'U kunt nu aanmelden op uw instantie.',
 	'openstackmanager-email-body' => 'De volgende instantie is aangemaakt en er kan op aangemeld worden:',
+	'openstackmanager-twofactorrequired' => 'Twee-factor authenticatie is vereist',
 	'right-manageproject' => 'OpenStack-projecten en -rollen beheren',
+	'action-manageproject' => 'OpenStackprojecten en -rollen te beheren',
 	'right-loginviashell' => 'Aanmelden via shell',
 );
 
