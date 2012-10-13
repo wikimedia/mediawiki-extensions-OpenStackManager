@@ -99,7 +99,7 @@ $messages['en'] = array(
 	'openstackmanager-availabilityzone' => 'Availability zone',
 	'openstackmanager-imageid' => 'Image ID',
 	'openstackmanager-imagetype' => 'Image type',
-	'openstackmanager-instancetypelabel' => '{{PLURAL:$1|$1 CPU|$1 CPUs}}, $2 MB RAM, $3 GB storage',
+	'openstackmanager-instancetypelabel' => '{{PLURAL:$1|$1 CPU|$1 CPUs}}, $2 MB RAM, $3 GB root partition, $4 GB storage',
 
 	'openstackmanager-rebootinstance' => 'Reboot Instance',
 	'openstackmanager-rebootinstancequestion' => 'Are you sure you wish to reboot instance "$1"?',

@@ -46,12 +46,21 @@ class OpenStackNovaInstanceType {
 	}
 
 	/**
+	 * Return the amount of root storage this instance will use
+	 *
+	 * @return string
+	 */
+	function getRootStorageSize() {
+		return $this->instanceType->disk;
+	}
+
+	/**
 	 * Return the amount of storage this instance will use
 	 *
 	 * @return string
 	 */
 	function getStorageSize() {
-		return $this->instanceType->disk;
+		return $this->instanceType->{'OS-FLV-EXT-DATA:ephemeral'};
 	}
 
 	/**

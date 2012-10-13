@@ -119,9 +119,10 @@ class SpecialNovaInstance extends SpecialNova {
 			$instanceTypeId = $instanceType->getInstanceTypeId();
 			$cpus = $instanceType->getNumberOfCPUs();
 			$ram = $instanceType->getMemorySize();
+			$root_storage = $instanceType->getRootStorageSize();
 			$storage = $instanceType->getStorageSize();
 			// @todo FIXME: Hard coded parentheses.
-			$instanceLabel = $instanceTypeName . ' (' . $this->msg( 'openstackmanager-instancetypelabel', $cpus, $ram, $storage )->text() . ')';
+			$instanceLabel = $instanceTypeName . ' (' . $this->msg( 'openstackmanager-instancetypelabel', $cpus, $ram, $root_storage, $storage )->text() . ')';
 			$instanceType_keys[$instanceLabel] = $instanceTypeId;
 		}
 		$instanceInfo['instanceType'] = array(
