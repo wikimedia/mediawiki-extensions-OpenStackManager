@@ -7242,6 +7242,7 @@ $messages['nl'] = array(
 	'openstackmanager-email-subject' => 'U kunt nu aanmelden op uw instantie.',
 	'openstackmanager-email-body' => 'De volgende instantie is aangemaakt en er kan op aangemeld worden:',
 	'openstackmanager-twofactorrequired' => 'Twee-factor authenticatie is vereist',
+	'openstackmanager-twofactorrequired2' => 'Tweefactorauthenticatie is verplicht. Schakel het in en probeer het opnieuw.',
 	'right-manageproject' => 'OpenStack-projecten en -rollen beheren',
 	'action-manageproject' => 'OpenStackprojecten en -rollen te beheren',
 	'right-loginviashell' => 'Aanmelden via shell',
