@@ -35,11 +35,11 @@ class OpenStackNovaProject {
 	 * Fetch the project from LDAP and initialize the object
 	 * @return void
 	 */
-	function fetchProjectInfo() {
+	function fetchProjectInfo( $refresh=true ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPProjectBaseDN;
 
-		if ( $this->loaded ) {
+		if ( $this->loaded and !$refresh ) {
 			return;
 		}
 		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN,
@@ -158,7 +158,7 @@ class OpenStackNovaProject {
 						$wgAuth->printDebug( "Failed to remove $username from " . $sudoer->getSudoerName(), NONSENSITIVE );
 					}
 				}
-				$this->fetchProjectInfo();
+				$this->fetchProjectInfo(true);
 				$wgAuth->printDebug( "Successfully removed $user->userDN from $this->projectDN", NONSENSITIVE );
 				return true;
 			} else {
@@ -194,7 +194,7 @@ class OpenStackNovaProject {
 		$values['member'] = $members;
 		$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->projectDN, $values );
 		if ( $success ) {
-			$this->fetchProjectInfo();
+			$this->fetchProjectInfo(true);
 			$wgAuth->printDebug( "Successfully added $user->userDN to $this->projectDN", NONSENSITIVE );
 			return true;
 		} else {
