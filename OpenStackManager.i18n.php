@@ -1874,7 +1874,7 @@ $messages['diq'] = array(
 	'openstackmanager-actions' => 'Kerdışi',
 	'openstackmanager-name' => 'Name',
 	'openstackmanager-action' => 'Kerdış',
-	'openstackmanager-novaproject-project' => 'Proce deke',
+	'openstackmanager-novaproject-project' => 'Proce cı ke',
 	'openstackmanager-sudoeroptions' => 'Weçinegi',
 );
 
