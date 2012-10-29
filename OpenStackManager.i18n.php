@@ -1871,6 +1871,7 @@ $messages['de-formal'] = array(
  * @author Mirzali
  */
 $messages['diq'] = array(
+	'openstackmanager-configure' => 'awan ke',
 	'openstackmanager-actions' => 'Kerdışi',
 	'openstackmanager-name' => 'Name',
 	'openstackmanager-action' => 'Kerdış',
