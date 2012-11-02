@@ -116,6 +116,9 @@ class SpecialNovaInstance extends SpecialNova {
 		$instanceType_keys = array();
 		foreach ( $instanceTypes as $instanceType ) {
 			$instanceTypeName = $instanceType->getInstanceTypeName();
+			if ( $instanceTypeName == "m1.tiny" ) {
+				continue;
+			}
 			$instanceTypeId = $instanceType->getInstanceTypeId();
 			$cpus = $instanceType->getNumberOfCPUs();
 			$ram = $instanceType->getMemorySize();
