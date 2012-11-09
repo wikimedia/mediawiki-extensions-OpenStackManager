@@ -55,3 +55,8 @@ $specialPageAliases['nl'] = array(
 	'OpenStackManager' => array( 'OpenStackBeheren' ),
 	'OpenStackManageInstance' => array( 'InstantieBeheren' ),
 );
+
+/** Simplified Chinese (中文（简体）‎) */
+$specialPageAliases['zh-hans'] = array(
+	'OpenStackManageInstance' => array( '管理实例' ),
+);
