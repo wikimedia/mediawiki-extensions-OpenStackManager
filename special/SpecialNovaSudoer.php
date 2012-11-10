@@ -348,9 +348,12 @@ class SpecialNovaSudoer extends SpecialNova {
 			$this->userNova->setRegion( $region );
 			$instances = $this->userNova->getInstances();
 			foreach ( $instances as $instance ) {
-				$fqdn = $instance->getHost()->getFullyQualifiedHostName();
-				// $instanceNames will be output later with no change of escaping
-				$instanceNames[$fqdn] = htmlentities( $instance->getInstanceName() . ' (' . $region . ')' );
+				$host = $instance->getHost();
+				if ( $host ) {
+					$fqdn = $host->getFullyQualifiedHostName();
+					// $instanceNames will be output later with no change of escaping
+					$instanceNames[$fqdn] = htmlentities( $instance->getInstanceName() . ' (' . $region . ')' );
+				}
 			}
 		}
 		$headers = Array( 'openstackmanager-sudoername', 'openstackmanager-sudoerusers', 'openstackmanager-sudoerhosts',
