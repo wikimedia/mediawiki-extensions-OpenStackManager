@@ -32,6 +32,11 @@ $specialPageAliases['ia'] = array(
 	'OpenStackManageInstance' => array( 'Gerer_instantia' ),
 );
 
+/** Italian (italiano) */
+$specialPageAliases['it'] = array(
+	'OpenStackManageInstance' => array( 'GestisciIstanza' ),
+);
+
 /** Korean (한국어) */
 $specialPageAliases['ko'] = array(
 	'OpenStackManager' => array( '오픈스택관리자' ),
