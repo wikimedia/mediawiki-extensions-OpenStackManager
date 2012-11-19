@@ -1871,11 +1871,27 @@ $messages['de-formal'] = array(
  * @author Mirzali
  */
 $messages['diq'] = array(
+	'openstackmanager-delete' => 'besterne',
 	'openstackmanager-configure' => 'awan ke',
 	'openstackmanager-actions' => 'Kerdışi',
+	'openstackmanager-location' => 'Lokasyon',
+	'openstackmanager-novavolume-volume' => 'Venge',
+	'openstackmanager-device' => 'Cihaz',
 	'openstackmanager-name' => 'Name',
+	'openstackmanager-keys' => 'Kıliti',
+	'openstackmanager-members' => 'Ezay',
+	'openstackmanager-member' => 'Eza',
 	'openstackmanager-action' => 'Kerdış',
+	'openstackmanager-deleteproject' => 'Besterne',
 	'openstackmanager-novaproject-project' => 'Proce cı ke',
+	'openstackmanager-projects' => 'Procey',
+	'openstackmanager-toggle' => 'Toggle',
+	'openstackmanager-roles' => 'Roli',
+	'openstackmanager-rolename' => 'Namey roler',
+	'openstackmanager-removerolemember' => 'Ezay hewad',
+	'openstackmanager-addrolemember' => 'Eza deke',
+	'openstackmanager-sudoerusers' => 'Karberi',
+	'openstackmanager-sudoerhosts' => 'Wêrêkeyi',
 	'openstackmanager-sudoeroptions' => 'Weçinegi',
 );
 
