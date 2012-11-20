@@ -1871,6 +1871,7 @@ $messages['de-formal'] = array(
  * @author Mirzali
  */
 $messages['diq'] = array(
+	'specialpages-group-nova' => 'OpenStack Nova',
 	'openstackmanager-delete' => 'besterne',
 	'openstackmanager-configure' => 'awan ke',
 	'openstackmanager-actions' => 'Kerdışi',
