@@ -21,7 +21,7 @@ $wgExtensionCredits['other'][] = array(
 	'path' => __FILE__,
 	'name' => 'OpenStackManager',
 	'author' => 'Ryan Lane',
-	'version' => '2.0',
+	'version' => '2.1',
 	'url' => 'http://mediawiki.org/wiki/Extension:OpenStackManager',
 	'descriptionmsg' => 'openstackmanager-desc',
 );
@@ -200,6 +200,7 @@ function efOpenStackSchemaUpdates( $updater ) {
 		$updater->addExtensionTable( 'openstack_puppet_groups', "$base/openstack.sql" );
 		$updater->addExtensionTable( 'openstack_puppet_vars', "$base/openstack.sql" );
 		$updater->addExtensionTable( 'openstack_puppet_classes', "$base/openstack.sql" );
+		$updater->addExtensionTable( 'openstack_tokens', "$base/schema-changes/tokens.sql" );
 		$updater->addExtensionUpdate( array( 'addField', 'openstack_puppet_groups', 'group_project', "$base/schema-changes/openstack_project_field.sql", true ) );
 		$updater->addExtensionUpdate( array( 'addField', 'openstack_puppet_groups', 'group_is_global', "$base/schema-changes/openstack_group_is_global_field.sql", true ) );
 		$updater->addExtensionUpdate( array( 'dropField', 'openstack_puppet_groups', 'group_position', "$base/schema-changes/openstack_drop_positions.sql", true ) );

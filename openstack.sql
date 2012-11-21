@@ -10,7 +10,7 @@ CREATE TABLE /*_*/openstack_puppet_groups (
 	group_project varchar(255) binary,
 
 	-- OpenStack project to which this group belongs, if any
-	group_is_global boolean not null,
+	group_is_global boolean not null
 
 ) /*$wgDBTableOptions*/;
 
@@ -24,7 +24,7 @@ CREATE TABLE /*_*/openstack_puppet_vars (
 	var_name varchar(255) binary not null,
 
 	-- Group to which this variable belongs
-	var_group_id int not null,
+	var_group_id int not null
 
 ) /*$wgDBTableOptions*/;
 
@@ -39,7 +39,7 @@ CREATE TABLE /*_*/openstack_puppet_classes (
 	class_name varchar(255) binary not null,
 
 	-- Group to which this class belongs
-	class_group_id int not null,
+	class_group_id int not null
 
 ) /*$wgDBTableOptions*/;
 
