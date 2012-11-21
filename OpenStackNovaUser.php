@@ -56,13 +56,63 @@ class OpenStackNovaUser {
 		$userNova = OpenStackNovaController::newFromUser( $this );
 		$token = $userNova->getProjectToken( $project );
 		if ( !$token ) {
-			# Load token from options, if set
+			# Load token from database, if long-term token is used
 			if ( $wgUser->getToken( false ) ) {
-				$token = $wgUser->getOption( 'openstacktoken' );
+				self::loadToken( $wgUser );
 			}
 		}
 
 		return array( 'token' => $token );
+	}
+
+	/**
+	 * @param User $user
+	 * @return string
+	 */
+	static function loadToken( $user ) {
+		$user_id = $user->getId();
+		if ( $user_id != 0 ) {
+			$dbr = wfGetDB( DB_SLAVE );
+			$row = $dbr->selectRow(
+				'openstack_tokens',
+				array( 'token' ),
+				array( 'user_id' => $user_id ),
+				__METHOD__ );
+
+			if ( $row ) {
+				return $row->token;
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * @param User $user
+	 * @param string $token
+	 * @return bool
+	 */
+	static function saveToken( $user, $token ) {
+		$user_id = $user->getId();
+		if ( $user_id != 0 ) {
+			$dbw = wfGetDB( DB_MASTER );
+			$oldtoken = self::loadToken( $user );
+			if ( $oldtoken ) {
+				return $dbw->update(
+					'openstack_tokens',
+					array( 'token' => $token ),
+					array( 'user_id' => $user_id ),
+					__METHOD__ );
+			} else {
+				return $dbw->insert(
+					'openstack_tokens',
+					array(  'token' => $token,
+						'user_id' => $user_id ),
+					__METHOD__ );
+			}
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -481,9 +531,9 @@ class OpenStackNovaUser {
 	 */
 	static function LDAPUpdateUser( &$wikiUser ) {
 		if ( $wikiUser->getToken( false ) && isset( $_SESSION['wsOpenStackToken'] ) ) {
-			# If the user has a long-lived token, add the openstacktoken to the
-			# options, so that it can be refetched.
-			$wikiUser->setOption( 'openstacktoken', $_SESSION['wsOpenStackToken'] );
+			# If the user has a long-lived token, save the token,
+			# so that it can be refetched.
+			self::saveToken( $wikiUser, $_SESSION['wsOpenStackToken'] );
 		}
 		return true;
 	}
