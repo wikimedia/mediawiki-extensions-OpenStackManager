@@ -111,6 +111,10 @@ $wgSshKeygen = 'ssh-keygen';
  */
 $wgPuttygen = 'puttygen';
 
+// We add a hidden preference in the user's options to be able to fetch
+// the token when a session is resumed from a long-lived token
+$wgHiddenPrefs[] = 'openstacktoken';
+
 $dir = dirname( __FILE__ ) . '/';
 
 $wgExtensionMessagesFiles['OpenStackManager'] = $dir . 'OpenStackManager.i18n.php';
