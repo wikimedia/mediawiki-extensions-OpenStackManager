@@ -51,8 +51,16 @@ class OpenStackNovaUser {
 	 * @return array
 	 */
 	function getCredentials( $project='' ) {
+		global $wgUser;
+
 		$userNova = OpenStackNovaController::newFromUser( $this );
 		$token = $userNova->getProjectToken( $project );
+		if ( !$token ) {
+			# Load token from options, if set
+			if ( $wgUser->getToken( false ) ) {
+				$token = $wgUser->getOption( 'openstacktoken' );
+			}
+		}
 
 		return array( 'token' => $token );
 	}
@@ -468,6 +476,20 @@ class OpenStackNovaUser {
 	}
 
 	/**
+	 * @static
+	 * @param $user
+	 * @return bool
+	 */
+	static function LDAPUpdateUser( &$wikiUser ) {
+		if ( $wikiUser->getToken( false ) && isset( $_SESSION['wsOpenStackToken'] ) ) {
+			# If the user has a long-lived token, add the openstacktoken to the
+			# options, so that it can be refetched.
+			$wikiUser->setOption( 'openstacktoken', $_SESSION['wsOpenStackToken'] );
+		}
+		return true;
+	}
+
+	/**
 	 * @param $username string
 	 * @param $password string
 	 * @param $result bool
@@ -481,8 +503,11 @@ class OpenStackNovaUser {
 		if ( $wgOpenStackManagerLDAPUseUidAsNamingAttribute ) {
 			$username = $user->getUid();
 		}
-		if ( $userNova->authenticate( $username, $password ) ) {
+		$token = $userNova->authenticate( $username, $password );
+		if ( $token ) {
 			$result = true;
+			# Add token to session, so that it can be referenced later
+			$_SESSION['wsOpenStackToken'] = $token;
 		} else {
 			$result = false;
 		}
