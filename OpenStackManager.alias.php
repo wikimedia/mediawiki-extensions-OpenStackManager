@@ -61,6 +61,11 @@ $specialPageAliases['nl'] = array(
 	'OpenStackManageInstance' => array( 'InstantieBeheren' ),
 );
 
+/** Sicilian (sicilianu) */
+$specialPageAliases['scn'] = array(
+	'OpenStackManageInstance' => array( 'GestisciIstanza' ),
+);
+
 /** Simplified Chinese (中文（简体）‎) */
 $specialPageAliases['zh-hans'] = array(
 	'OpenStackManageInstance' => array( '管理实例' ),
