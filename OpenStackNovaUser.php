@@ -58,7 +58,7 @@ class OpenStackNovaUser {
 		if ( !$token ) {
 			# Load token from database, if long-term token is used
 			if ( $wgUser->getToken( false ) ) {
-				self::loadToken( $wgUser );
+				$token = self::loadToken( $wgUser );
 			}
 		}
 
