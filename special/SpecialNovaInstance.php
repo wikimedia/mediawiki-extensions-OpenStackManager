@@ -259,7 +259,6 @@ class SpecialNovaInstance extends SpecialNova {
 		global $wgOpenStackManagerPuppetOptions;
 
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-configureinstance' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -270,6 +269,8 @@ class SpecialNovaInstance extends SpecialNova {
 		$instanceosid = $this->getRequest()->getText( 'instanceid' );
 		$instance = $this->userNova->getInstance( $instanceosid );
 		$instanceid = $instance->getInstanceId();
+		$instancename = $instance->getInstanceName();
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-configureinstance', $instanceid, $instancename ) );
 		$instanceInfo = array();
 		$instanceInfo['instanceid'] = array(
 			'type' => 'hidden',
@@ -319,7 +320,6 @@ class SpecialNovaInstance extends SpecialNova {
 	 */
 	function deleteInstance() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-deleteinstance' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -327,20 +327,27 @@ class SpecialNovaInstance extends SpecialNova {
 			$this->notInRole( 'sysadmin' );
 			return false;
 		}
-		$instanceid = $this->getRequest()->getText( 'instanceid' );
+		$instanceosid = $this->getRequest()->getText( 'instanceid' );
 		if ( ! $this->getRequest()->wasPosted() ) {
 			#TODO: memcache this instanceid lookup
-			$instance = $this->userNova->getInstance( $instanceid );
+			$instance = $this->userNova->getInstance( $instanceosid );
 			if ( !$instance ) {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistanthost' );
 				return false;
 			}
 			$this->getOutput()->addWikiMsg( 'openstackmanager-deleteinstancequestion', $instance->getInstanceId() );
+			$titleid = $instance->getInstanceId();
+			$titlename = $instance->getInstanceName();
+			$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-deleteinstancewithname',
+				                          $titleid, $titlename ) );
+		} else {
+			$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-deleteinstance' ) );
 		}
+
 		$instanceInfo = array();
 		$instanceInfo['instanceid'] = array(
 			'type' => 'hidden',
-			'default' => $instanceid,
+			'default' => $instanceosid,
 			'name' => 'instanceid',
 		);
 		$instanceInfo['project'] = array(
@@ -373,7 +380,6 @@ class SpecialNovaInstance extends SpecialNova {
 	 */
 	function rebootInstance() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-rebootinstance' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -381,20 +387,27 @@ class SpecialNovaInstance extends SpecialNova {
 			$this->notInRole( 'sysadmin' );
 			return false;
 		}
-		$instanceid = $this->getRequest()->getText( 'instanceid' );
+		$instanceosid = $this->getRequest()->getText( 'instanceid' );
 		if ( ! $this->getRequest()->wasPosted() ) {
 			# @todo memcache this instanceid lookup
-			$instance = $this->userNova->getInstance( $instanceid );
+			$instance = $this->userNova->getInstance( $instanceosid );
 			if ( !$instance ) {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistanthost' );
 				return false;
 			}
 			$this->getOutput()->addWikiMsg( 'openstackmanager-rebootinstancequestion', $instance->getInstanceId() );
+			$instanceid = $instance->getInstanceId();
+			$instancename = $instance->getInstanceName();
+			$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-rebootinstancewithname',
+			                                              $instanceid, $instancename ) );
+		} else {
+			$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-rebootinstance' ) );
 		}
+
 		$instanceInfo = array();
 		$instanceInfo['instanceid'] = array(
 			'type' => 'hidden',
-			'default' => $instanceid,
+			'default' => $instanceosid,
 			'name' => 'instanceid',
 		);
 		$instanceInfo['project'] = array(
@@ -427,15 +440,18 @@ class SpecialNovaInstance extends SpecialNova {
 	 */
 	function getConsoleOutput() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-consoleoutput' ) );
+		$instanceosid = $this->getRequest()->getText( 'instanceid' );
+		$instance = $this->userNova->getInstance( $instanceosid );
+		$instanceid = $instance->getInstanceId();
+		$instancename = $instance->getInstanceName();
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-consoleoutput', $instanceid, $instancename ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
 			$this->notInRole( 'sysadmin' );
 			return;
 		}
-		$instanceid = $this->getRequest()->getText( 'instanceid' );
-		$consoleOutput = $this->userNova->getConsoleOutput( $instanceid );
+		$consoleOutput = $this->userNova->getConsoleOutput( $instanceosid );
 		$out = Linker::link(
 			$this->getTitle(),
 			$this->msg( 'openstackmanager-backinstancelist' )->escaped()

@@ -77,7 +77,7 @@ $messages['en'] = array(
 	'openstackmanager-location-help' => 'Location field is for private DNS zones. Leave blank for public zones.',
 
 	'openstackmanager-novainstance-instance' => 'Instance',
-	'openstackmanager-configureinstance' => 'Configure instance',
+	'openstackmanager-configureinstance' => 'Configure instance $1 ($2)',
 	'openstackmanager-nonexistanthost' => 'The requested host does not exist.',
 	'openstackmanager-dnsdomain' => 'DNS domain',
 	'openstackmanager-puppetclasses' => 'Classes',
@@ -86,6 +86,7 @@ $messages['en'] = array(
 	'openstackmanager-novainstance-project' => 'Project specific groups',
 	'openstackmanager-novainstance-global' => 'Global groups',
 
+	'openstackmanager-deleteinstancewithname' => 'Delete Instance $1 ($2)',
 	'openstackmanager-deleteinstance' => 'Delete Instance',
 	'openstackmanager-deleteinstancequestion' => 'Are you sure you wish to delete instance "$1"?',
 	'openstackmanager-instancelist' => 'Instance list',
@@ -102,6 +103,7 @@ $messages['en'] = array(
 	'openstackmanager-instancetypelabel' => '{{PLURAL:$1|$1 CPU|$1 CPUs}}, $2 MB RAM, $3 GB root partition, $4 GB storage',
 
 	'openstackmanager-rebootinstance' => 'Reboot Instance',
+	'openstackmanager-rebootinstancewithname' => 'Reboot Instance $1 ($2)',
 	'openstackmanager-rebootinstancequestion' => 'Are you sure you wish to reboot instance "$1"?',
 	'openstackmanager-rebootedinstance' => 'Rebooted instance $1.',
 	'openstackmanager-rebootinstancefailed' => 'Failed to reboot instance.',
@@ -119,7 +121,7 @@ $messages['en'] = array(
 	'openstackmanager-modifiedinstance' => 'Successfully modified instance $1 ($2).',
 	'openstackmanager-modifyinstancefailed' => 'Failed to modify instance.',
 	'openstackmanager-deleteinstancefailed' => 'Failed to delete instance.',
-	'openstackmanager-consoleoutput' => 'Console Output',
+	'openstackmanager-consoleoutput' => 'Console Output for $1 ($2)',
 	'openstackmanager-getconsoleoutput' => 'get console output',
 
 	'openstackmanager-createvolume' => 'Create Volume',
@@ -404,9 +406,18 @@ $messages['qqq'] = array(
 	'openstackmanager-novadomain-domain' => '',
 	'openstackmanager-location' => '{{Identical|Location}}',
 	'openstackmanager-novainstance-instance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
-	'openstackmanager-configureinstance' => 'Page title',
+	'openstackmanager-configureinstance' => 'An instance is a virtual machine.  This is the page title for a page that allows configuration of an instance.  Parameters:
+* $1: an alphanumeric instance id for the configured instance
+* $2  the human-readable name for the same instance.',
+	'openstackmanager-consoleoutput' => 'Page title for a page that displays the total console text for a running instance.  Parameters:
+* $1: an alphanumeric instance id for the instance
+* $2  the human-readable name for the same instance',
 	'openstackmanager-novainstance-info' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-deleteinstance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
+	'openstackmanager-deleteinstancewithname' => 'Page title for a page that asks confirmation before deleting an instance.  Parameters:
+* $1: an alphanumeric instance id for the instance to be deleted
+* $2: the human-readable name for the same instance',
+	'openstackmanager-instancelist' => 'Page title',
 	'openstackmanager-instancelist' => 'Page title',
 	'openstackmanager-instancename' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-instanceid' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
@@ -414,6 +425,9 @@ $messages['qqq'] = array(
 	'openstackmanager-instanceip' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-instancepublicip' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-rebootinstance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
+	'openstackmanager-rebootinstancewithname' => 'Page title for a page that asks confirmation before rebooting an instance.  Parameters:
+* $1: an alphanumeric instance id for the instance to be rebooted
+* $2: the human-readable name for the same instance',
 	'openstackmanager-rebootinstancequestion' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-rebootedinstance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-rebootinstancefailed' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
