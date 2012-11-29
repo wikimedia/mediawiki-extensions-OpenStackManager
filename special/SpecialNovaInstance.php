@@ -610,8 +610,10 @@ class SpecialNovaInstance extends SpecialNova {
 				$title = Title::newFromText( $this->getOutput()->getPageTitle() );
 				$job = new OpenStackNovaHostJob( $title, array( 'instanceid' => $instance->getInstanceId(), 'instanceosid' => $instance->getInstanceOSId(), 'project' => $project, 'region' => $region ) );
 				$job->insert();
+				$image = $this->userNova->getImage( $instance->getImageId() );
+				$imageName = $image->getImageName();
 				$this->getOutput()->addWikiMsg( 'openstackmanager-createdinstance', $instance->getInstanceID(),
-					$instance->getImageId(), $host->getFullyQualifiedHostName() );
+					$imageName, $host->getFullyQualifiedHostName() );
 			} else {
 				$this->userNova->terminateInstance( $instance->getInstanceId() );
 				$this->getOutput()->addWikiMsg( 'openstackmanager-createfailedldap' );
