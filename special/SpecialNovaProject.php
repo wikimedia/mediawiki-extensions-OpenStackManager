@@ -196,7 +196,7 @@ class SpecialNovaProject extends SpecialNova {
 
 	function getProject( $project ) {
 		$project->fetchProjectInfo();
-		$headers = Array( 'openstackmanager-rolename', 'openstackmanager-members', 'openstackmanager-actions' );
+		$headers = Array( 'openstackmanager-members', 'openstackmanager-roles', 'openstackmanager-actions' );
 		$projectRows = Array();
 		$projectRow = Array();
 		$this->pushRawResourceColumn( $projectRow, $this->createResourceList( $project->getMembers() ) );
