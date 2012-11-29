@@ -212,7 +212,7 @@ $messages['en'] = array(
 	'openstackmanager-novarole-info' => 'Nova role information',
 
 	'openstackmanager-shellaccountname' => 'Instance shell account name',
-	'openstackmanager-shellaccountnamehelp' => 'The shell account name must start with a-z, and can only contain a-z, 0-9, -, and _ characters.',
+	'openstackmanager-shellaccountnamehelp' => 'A shell account name is required.  It must start with a-z, and can only contain a-z, 0-9, -, and _ characters.',
 
 	'openstackmanager-addresslist' => 'Public IP address list',
 	'openstackmanager-address' => 'Public IP address',
