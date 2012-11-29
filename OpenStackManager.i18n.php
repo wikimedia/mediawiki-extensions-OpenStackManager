@@ -408,16 +408,12 @@ $messages['qqq'] = array(
 	'openstackmanager-novainstance-instance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-configureinstance' => 'An instance is a virtual machine.  This is the page title for a page that allows configuration of an instance.  Parameters:
 * $1: an alphanumeric instance id for the configured instance
-* $2  the human-readable name for the same instance.',
-	'openstackmanager-consoleoutput' => 'Page title for a page that displays the total console text for a running instance.  Parameters:
-* $1: an alphanumeric instance id for the instance
-* $2  the human-readable name for the same instance',
+* $2  the human-readable name for the same instance.', # Fuzzy
 	'openstackmanager-novainstance-info' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
-	'openstackmanager-deleteinstance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-deleteinstancewithname' => 'Page title for a page that asks confirmation before deleting an instance.  Parameters:
 * $1: an alphanumeric instance id for the instance to be deleted
 * $2: the human-readable name for the same instance',
-	'openstackmanager-instancelist' => 'Page title',
+	'openstackmanager-deleteinstance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-instancelist' => 'Page title',
 	'openstackmanager-instancename' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-instanceid' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
@@ -449,6 +445,9 @@ An instance is a virtual machine. In this particular case, a clone of an image f
 *$2 - the instance name',
 	'openstackmanager-modifyinstancefailed' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-deleteinstancefailed' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
+	'openstackmanager-consoleoutput' => 'Page title for a page that displays the total console text for a running instance.  Parameters:
+* $1: an alphanumeric instance id for the instance
+* $2  the human-readable name for the same instance', # Fuzzy
 	'openstackmanager-volumeattachmentinstance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-volumedeleteonvolumedelete' => 'Do you want this volume to be deleted when its associated instance is deleted?',
 	'openstackmanager-attach' => 'Verb.
