@@ -606,12 +606,10 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			if ( $projectfilter && !in_array( $projectName, $projectfilter ) ) {
 				continue;
 			}
-			if ( !$this->userLDAP->inRole( 'sysadmin', $projectName ) ) {
-				continue;
-			}
 			$actions = Array( 'sysadmin' => Array() );
 			$actions['sysadmin'][] = $this->createActionLink( 'openstackmanager-createpuppetgroup', array( 'action' => 'create', 'project' => $projectName ) );
-			$out .= $this->createProjectSection( $projectName, $actions, $this->getPuppetGroupOutput( OpenStackNovaPuppetGroup::getGroupList( $projectName ) ) );
+			$links = ( $this->userCanExecute( $this->getUser() ) && $this->userLDAP->inRole( 'sysadmin', $projectName ) );
+			$out .= $this->createProjectSection( $projectName, $actions, $this->getPuppetGroupOutput( OpenStackNovaPuppetGroup::getGroupList( $projectName ), $links ) );
 		}
 		$action = '';
 		$showlinks = $this->userCanExecute( $this->getUser() );
