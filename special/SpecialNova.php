@@ -104,7 +104,7 @@ abstract class SpecialNova extends SpecialPage {
 		return array();
 	}
 
-	function showProjectFilter( $projects, $showbydefault=false ) {
+	function showProjectFilter( $projects, $showbydefault=false, $tocmode=true ) {
 		if ( $this->getRequest()->wasPosted() && $this->getRequest()->getVal( 'action' ) !== 'setprojectfilter' ) {
 			return null;
 		}
@@ -117,7 +117,14 @@ abstract class SpecialNova extends SpecialPage {
 		$defaults = array();
 		foreach ( $projects as $project ) {
 			$projectName = $project->getProjectName();
-			$project_keys[$projectName] = $projectName;
+			if ( $tocmode && in_array( $projectName, $currentProjects ) ) {
+				# If the project is currently visible and toc mode is turned on,
+				#  link the filter entry to an appropriate anchor further on down 
+				$projectLink = Html::element( 'a', array('href' => "#$projectName"), $projectName );
+			} else {
+				$projectLink = $projectName;
+			}
+			$project_keys[$projectLink] = $projectName;
 			if ( in_array( $projectName, $currentProjects ) ) {
 				$defaults[$projectName] = $projectName;
 			}
@@ -243,7 +250,9 @@ abstract class SpecialNova extends SpecialPage {
 			$actionOut = Html::rawElement( 'span', array( 'id' => 'novaaction' ), "[$actions]" );
 		}
 		$projectNameOut = $this->createResourceLink( $projectName );
-		$out = Html::rawElement( 'h2', array(), "$projectNameOut $actionOut" );
+		# Mark this element with an id so that we can #link to it from elsewhere.
+		$elementWithId = "h2 id=\"$projectName\"";
+		$out = Html::rawElement( $elementWithId, array(), "$projectNameOut $actionOut" );
 		$out .= Html::rawElement( 'div', array( 'class' => 'mw-collapsible', 'id' => 'mw-customcollapsible-' . $projectName ), $data );
 
 		return $out;
