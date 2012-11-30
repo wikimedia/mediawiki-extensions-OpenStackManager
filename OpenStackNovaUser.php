@@ -31,6 +31,10 @@ class OpenStackNovaUser {
 		if ( $this->username ) {
 			$this->userDN = $wgAuth->getUserDN( strtolower( $this->username ) );
 			$wgAuth->printDebug( "Fetching userdn using username: $this->userDN ", NONSENSITIVE );
+			if ( ! $this->userDN ) {
+				$this->userDN = $wgAuth->getUserDN( strtolower( $this->username ), false, "uid" );
+				$wgAuth->printDebug( "Fetching userdn using shell name: $this->userDN ", NONSENSITIVE );
+			}
 		} else {
 			$this->userDN = $wgAuth->getUserDN( strtolower( $wgUser->getName() ) );
 			$wgAuth->printDebug( "Fetching userdn using wiki name: " . $wgUser->getName(), NONSENSITIVE );
