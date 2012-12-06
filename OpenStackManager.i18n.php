@@ -5800,6 +5800,8 @@ $messages['jv'] = array(
  * @author David1010
  */
 $messages['ka'] = array(
+	'openstackmanager' => 'OpenStackManager',
+	'openstackmanager-title' => 'OpenStackManager',
 	'openstackmanager-delete' => 'წაშლა',
 	'openstackmanager-configure' => 'კონფიგურირება',
 	'openstackmanager-modify' => 'შეცვლა',
@@ -5814,7 +5816,9 @@ $messages['ka'] = array(
 	'openstackmanager-createddomain' => 'დომენი შექმნილია',
 	'openstackmanager-domainlist' => 'დომენების სია',
 	'openstackmanager-backdomainlist' => 'დომენების სიაზე დაბრუნება',
+	'openstackmanager-addadditionaldomain' => 'სხვა დომენის დამატება.',
 	'openstackmanager-deleteddomain' => 'დომენი წარმატებით წაიშალა.',
+	'openstackmanager-failedeletedomain' => 'დომენის წაშლა ვერ მოხერხდა.',
 	'openstackmanager-domainname' => 'დომენის სახელი',
 	'openstackmanager-location' => 'მდებარეობა',
 	'openstackmanager-dnsdomain' => 'DNS დომენი',
@@ -5880,13 +5884,19 @@ $messages['ka'] = array(
 	'openstackmanager-novasecuritygroup-singlerule' => 'ინდივიდუალური წესები',
 	'openstackmanager-securitygrouprule-groups' => 'წყაროს ჯგუფი',
 	'openstackmanager-createnewsecuritygroup' => 'ჯგუფის დამატება',
+	'openstackmanager-addrule-action' => 'წესის დამატება',
+	'openstackmanager-removerule' => 'წესის წაშლა',
+	'openstackmanager-addrulefailed' => 'წესის დამატება ვერ მოხერხდა',
 	'openstackmanager-sudoerusers' => 'მომხმარებლები',
+	'openstackmanager-sudoerhosts' => 'ჰოსტები',
+	'openstackmanager-sudoercommands' => 'ბრძანებები',
 	'openstackmanager-sudoeroptions' => 'პარამეტრები',
 	'openstackmanager-puppetallprojects' => 'ყველა პროექტი',
 	'openstackmanager-createpuppetgroup' => 'ჯგუფის დამატება',
 	'openstackmanager-addpuppetclass' => 'კლასის დამატება',
 	'openstackmanager-puppetclassname' => 'კლასის სახელი',
 	'openstackmanager-puppetvars' => 'ცვალებადი',
+	'openstackmanager-addpuppetvar' => 'ცვლადის დამატება',
 );
 
 /** Korean (한국어)
