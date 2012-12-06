@@ -102,6 +102,8 @@ $wgOpenStackManagerRemoveUserFromAllProjectsOnShellDisable = true;
 $wgOpenStackManagerRemoveUserFromBastionProjectOnShellDisable = false;
 // 'bastion' project name
 $wgOpenStackManagerBastionProjectName = 'bastion';
+// Base URL for puppet docs. Classname will be appended with s/::/\//g
+$wgOpenStackManagerPuppetDocBase = '';
 /**
  * Path to the ssh-keygen utility. Used for converting ssh key formats. False to disable its use.
  */

@@ -768,6 +768,8 @@ class SpecialNovaInstance extends SpecialNova {
 	}
 
 	function setPuppetInfoByGroups( &$instanceInfo, $puppetinfo, $puppetGroups ) {
+		global $wgOpenStackManagerPuppetDocBase;
+
 		foreach ( $puppetGroups as $puppetGroup ) {
 			$classes = array();
 			$defaults = array();
@@ -780,7 +782,16 @@ class SpecialNovaInstance extends SpecialNova {
 			}
 			foreach ( $puppetGroup->getClasses() as $class ) {
 				$classname = $class["name"];
-				$classes[$classname] = $classname;
+				$classlabel = $classname;
+				if ( $wgOpenStackManagerPuppetDocBase ) {
+					$docentry = str_replace( '::', '/', $classname );
+					$docurl = $wgOpenStackManagerPuppetDocBase . $docentry . '.html';
+					#  FIXME:  This probably doesn't handle modules properly.
+					$doclink = Html::element( 'a', array('href' => $docurl ),
+						$this->msg( 'openstackmanager-puppetdoclink' ) );
+					$classlabel = "$classname $doclink";
+				}
+				$classes[$classlabel] = $classname;
 				if ( $puppetinfo && in_array( $classname, $puppetinfo['puppetclass'] ) ) {
 					$defaults[$classname] = $classname;
 				}
