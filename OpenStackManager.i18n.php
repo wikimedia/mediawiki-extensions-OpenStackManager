@@ -7510,6 +7510,7 @@ $messages['pfl'] = array(
  * @author Beau
  * @author BeginaFelicysym
  * @author Odder
+ * @author Odie2
  * @author Olgak85
  * @author Przemub
  * @author Woytecr
@@ -7562,11 +7563,13 @@ $messages['pl'] = array(
 	'openstackmanager-location' => 'Lokalizacja',
 	'openstackmanager-location-help' => 'Pole lokalizacja jest potrzebne dla prywatnych stref DNS. Pozostaw je puste dla publicznych stref.',
 	'openstackmanager-novainstance-instance' => 'Instancja',
-	'openstackmanager-configureinstance' => 'Konfiguruj instancję',
+	'openstackmanager-configureinstance' => 'Konfiguruj instancję', # Fuzzy
 	'openstackmanager-nonexistanthost' => 'Żądany host nie istnieje.',
 	'openstackmanager-dnsdomain' => 'Domena DNS',
 	'openstackmanager-puppetclasses' => 'Klasy',
+	'openstackmanager-puppetdoclink' => '[?]',
 	'openstackmanager-novainstance-info' => 'Informacje o instancji',
+	'openstackmanager-deleteinstancewithname' => 'Usuń instancję $1 ($2)',
 	'openstackmanager-deleteinstance' => 'Usuń instancję',
 	'openstackmanager-deleteinstancequestion' => 'Jesteś {{GENDER:|pewien|pewna}}, że chcesz usunąć instancję "$1"?',
 	'openstackmanager-instancelist' => 'Lista instancji',
@@ -7581,6 +7584,7 @@ $messages['pl'] = array(
 	'openstackmanager-imagetype' => 'Typ obrazu',
 	'openstackmanager-instancetypelabel' => '$1 {{PLURAL:$1|procesor|procesory|procesorów}}, $2 MB RAM, $3 GB przestrzeni dyskowej', # Fuzzy
 	'openstackmanager-rebootinstance' => 'Zrestartuj instancję',
+	'openstackmanager-rebootinstancewithname' => 'Zresetuj instancję $1 ($2)',
 	'openstackmanager-rebootinstancequestion' => 'Jesteś {{GENDER:|pewien|pewna}}, że chcesz zrestartować instancję "$1"?',
 	'openstackmanager-rebootedinstance' => 'Zrestartowano instancję $1',
 	'openstackmanager-rebootinstancefailed' => 'Nie udało się zrestartować instancji.',
@@ -7597,6 +7601,7 @@ $messages['pl'] = array(
 	'openstackmanager-modifiedinstance' => 'Pomyślnie zmodyfikowano instancję $1 ($2).',
 	'openstackmanager-modifyinstancefailed' => 'Nie udało się zmodyfikować instancji.',
 	'openstackmanager-deleteinstancefailed' => 'Nie udało się usunąć instancji.',
+	'openstackmanager-consoleoutput' => 'Konsola wyjściowa dla $1 ($2)',
 	'openstackmanager-createvolume' => 'Utwórz Wolumin',
 	'openstackmanager-volumename' => 'Nazwa Woluminu',
 	'openstackmanager-volumeid' => 'Identyfikator Woluminu',
