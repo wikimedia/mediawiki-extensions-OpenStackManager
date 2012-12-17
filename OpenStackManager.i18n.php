@@ -10014,9 +10014,12 @@ $messages['tr'] = array(
 );
 
 /** Ukrainian (українська)
+ * @author Base
  * @author Тест
  */
 $messages['uk'] = array(
+	'openstackmanager-desc' => 'Дозволяє користувачам керувати Nova і Swift',
+	'openstackmanager' => 'OpenStackManager',
 	'openstackmanager-delete' => 'вилучити',
 	'openstackmanager-modify' => 'змінити',
 	'openstackmanager-rename' => 'перейменувати',
