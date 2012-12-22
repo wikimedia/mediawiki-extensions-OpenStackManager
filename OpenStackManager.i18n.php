@@ -776,6 +776,13 @@ $messages['af'] = array(
 	'right-manageproject' => 'Bestuur OpenStack projekte en rolle',
 );
 
+/** Aramaic (ܐܪܡܝܐ)
+ * @author Basharh
+ */
+$messages['arc'] = array(
+	'openstackmanager-novadomain-domain' => 'ܐܘܣܦ ܪܘܚܬܐ',
+);
+
 /** Assamese (অসমীয়া)
  * @author Bishnu Saikia
  */
@@ -2462,6 +2469,8 @@ $messages['et'] = array(
 	'openstackmanager-modify' => 'muuda',
 	'openstackmanager-rename' => 'nimeta ümber',
 	'openstackmanager-notloggedin' => 'Vajalik on sisselogimine',
+	'openstackmanager-mustbeloggedin' => 'Sa pead olema sisselogitud, et seda toimingut sooritada.',
+	'openstackmanager-location' => 'Asukoht',
 	'openstackmanager-deletekey' => 'Kustuta võti',
 	'openstackmanager-deletekeyconfirm' => 'Kas oled kindel, et soovid selle võtme kustutada?',
 	'openstackmanager-keylist' => 'Võtmete loetelu',
@@ -2485,10 +2494,22 @@ $messages['et'] = array(
 	'openstackmanager-removerolemember' => 'Eemalda liige',
 	'openstackmanager-addrolemember' => 'Lisa liige',
 	'openstackmanager-securitygroupdescription' => 'Kirjeldus',
+	'openstackmanager-securitygrouprule' => 'Reeglid',
+	'openstackmanager-createnewsecuritygroup' => 'Lisa rühm',
+	'openstackmanager-addrule-action' => 'lisa reegel',
+	'openstackmanager-removerule-action' => 'eemalda reegel',
+	'openstackmanager-removerule' => 'Eemalda reegel',
+	'openstackmanager-addrule' => 'Lisa reegel',
+	'openstackmanager-addedrule' => 'Reegli lisamine õnnestus',
+	'openstackmanager-addrulefailed' => 'Reegli lisamine nurjus.',
+	'openstackmanager-commadelimiter' => 'Komaga eraldatud',
 	'openstackmanager-sudoerusers' => 'Kasutajad',
 	'openstackmanager-sudoercommands' => 'Käsud',
 	'openstackmanager-puppetallprojects' => 'Kõik projektid',
 	'openstackmanager-createpuppetgroup' => 'Lisa rühm',
+	'openstackmanager-puppetvars' => 'Muutujad',
+	'openstackmanager-addpuppetvar' => 'Lisa muutuja',
+	'openstackmanager-puppetvarname' => 'Muutuja nimi',
 );
 
 /** Basque (euskara)
@@ -2560,6 +2581,7 @@ $messages['fa'] = array(
 	'openstackmanager-device' => 'دستگاه',
 	'openstackmanager-name' => 'نام',
 	'openstackmanager-fingerprint' => 'اثرانگشت',
+	'openstackmanager-keys' => 'کلیدها',
 	'openstackmanager-addmember' => 'افزودن عضو',
 	'openstackmanager-removemember' => 'حذف عضو',
 	'openstackmanager-createproject' => 'افزودن پروژه',
@@ -2576,6 +2598,8 @@ $messages['fa'] = array(
 	'openstackmanager-projects' => 'پروژه‌ها',
 	'openstackmanager-removerolemember' => 'حذف عضو',
 	'openstackmanager-addrolemember' => 'افزودن عضو',
+	'openstackmanager-allocateaddress' => 'اختصاص دادن آی‌پی',
+	'openstackmanager-releaseaddress' => 'آزاد سازی آی‌پی',
 	'openstackmanager-backaddresslist' => 'بازگشت به فهرست نشانی‌ها',
 	'openstackmanager-hostname' => 'نام میزبان',
 	'openstackmanager-addhost' => 'افزودن نام میزبان',
@@ -2716,6 +2740,7 @@ $messages['fi'] = array(
 	'openstackmanager-removehost-action' => '(Poista isäntänimi)',
 	'openstackmanager-securitygroupdescription' => 'Kuvaus',
 	'openstackmanager-securitygrouprule' => 'Säännöt',
+	'openstackmanager-createnewsecuritygroup' => 'Lisää ryhmä',
 	'openstackmanager-removerule' => 'Poista sääntö',
 	'openstackmanager-removedrule' => 'Säännön poistaminen onnistui.',
 	'openstackmanager-removerulefailed' => 'Säännön poistaminen epäonnistui.',
@@ -5843,6 +5868,11 @@ $messages['ka'] = array(
 	'openstackmanager-launchtime' => 'გაშვების დრო',
 	'openstackmanager-attach' => 'მიმაგრება',
 	'openstackmanager-detach' => 'მოხსნა',
+	'openstackmanager-deletevolume' => 'ტომის წაშლა',
+	'openstackmanager-deletevolumequestion' => 'დარწმუნებული ხართ რომ გსურთ წაშალოთ „$1“ ტომი?',
+	'openstackmanager-volumelist' => 'ტომების სია',
+	'openstackmanager-novavolume-volume' => 'ნაწილი',
+	'openstackmanager-novavolume-info' => 'ტომის ინფორმაცია',
 	'openstackmanager-device' => 'მოწყობილობა',
 	'openstackmanager-novapublickey' => 'საჯარო SSH გასაღები',
 	'openstackmanager-deletekey' => 'გასარების წაშლა',
@@ -5893,10 +5923,12 @@ $messages['ka'] = array(
 	'openstackmanager-securitygrouprule' => 'წესები',
 	'openstackmanager-novasecuritygroup-rule' => 'უსაფრთხოების ჯგუფის წესები',
 	'openstackmanager-novasecuritygroup-singlerule' => 'ინდივიდუალური წესები',
+	'openstackmanager-securitygrouprule-protocol' => 'პროტოკოლი',
 	'openstackmanager-securitygrouprule-groups' => 'წყაროს ჯგუფი',
 	'openstackmanager-createnewsecuritygroup' => 'ჯგუფის დამატება',
 	'openstackmanager-addrule-action' => 'წესის დამატება',
 	'openstackmanager-removerule' => 'წესის წაშლა',
+	'openstackmanager-addrule' => 'წესის დამატება',
 	'openstackmanager-addrulefailed' => 'წესის დამატება ვერ მოხერხდა',
 	'openstackmanager-sudoerusers' => 'მომხმარებლები',
 	'openstackmanager-sudoerhosts' => 'ჰოსტები',
@@ -8344,6 +8376,7 @@ $messages['ro'] = array(
 	'openstackmanager-location' => 'Loc',
 	'openstackmanager-novainstance-instance' => 'Instanță',
 	'openstackmanager-dnsdomain' => 'Domeniu DNS',
+	'openstackmanager-puppetclasses' => 'Clase',
 	'openstackmanager-imagetype' => 'Tipul imaginii',
 	'openstackmanager-launchtime' => 'Ora lansării',
 	'openstackmanager-createinstance' => 'Adăugare instanță',
@@ -8375,6 +8408,8 @@ $messages['ro'] = array(
 	'openstackmanager-novaproject-project' => 'Adaugă proiect',
 	'openstackmanager-novaprojectfilter-projectfilter' => 'Filtru de proiecte',
 	'openstackmanager-projects' => 'Proiecte',
+	'openstackmanager-removerolemember' => 'Eliminați membru',
+	'openstackmanager-addrolemember' => 'Adăugați membru',
 	'openstackmanager-addresslist' => 'Listă de adrese IP publice',
 	'openstackmanager-address' => 'Adresă IP publică',
 	'openstackmanager-allocateaddress' => 'Alocați IP',
@@ -8385,6 +8420,8 @@ $messages['ro'] = array(
 	'openstackmanager-allocateaddressfailed' => 'Nu s-a putut aloca o nouă adresă IP publică.',
 	'openstackmanager-allocatedaddress' => 'Noua adresă IP publică alocată: $1',
 	'openstackmanager-backaddresslist' => 'Înapoi la lista de adrese',
+	'openstackmanager-hostname' => 'Nume gazdă',
+	'openstackmanager-addhost' => 'Adăugați nume gazdă',
 	'openstackmanager-securitygroupdescription' => 'Descriere',
 	'openstackmanager-securitygrouprule' => 'Reguli',
 	'openstackmanager-removerule' => 'Eliminați regula',
@@ -8392,6 +8429,8 @@ $messages['ro'] = array(
 	'openstackmanager-removerulefailed' => 'Imposibil de eliminat regula.',
 	'openstackmanager-addrule' => 'Adăugați regulă',
 	'openstackmanager-sudoerusers' => 'Utilizator:',
+	'openstackmanager-sudoerhosts' => 'Gazde',
+	'openstackmanager-sudoercommands' => 'Comenzi',
 	'openstackmanager-sudoeroptions' => 'Opțiuni',
 	'openstackmanager-puppetallprojects' => 'Toate proiectele',
 	'openstackmanager-createpuppetgroup' => 'Adăugați grup',
@@ -10015,6 +10054,7 @@ $messages['tr'] = array(
 
 /** Ukrainian (українська)
  * @author Base
+ * @author Steve.rusyn
  * @author Тест
  */
 $messages['uk'] = array(
@@ -10037,16 +10077,34 @@ $messages['uk'] = array(
 	'openstackmanager-imageid' => 'ID зображення',
 	'openstackmanager-imagetype' => 'Тип зображення',
 	'openstackmanager-launchtime' => 'Час запуску',
+	'openstackmanager-createvolume' => 'Створити том',
+	'openstackmanager-volumename' => 'Назва тому',
+	'openstackmanager-volumedescription' => 'Опис тому',
 	'openstackmanager-attach' => 'приєднати',
 	'openstackmanager-detach' => "від'єднати",
+	'openstackmanager-deletevolume' => 'Вилучити том',
+	'openstackmanager-deletevolumequestion' => 'Ви впевнені, що хочете видалити том "$1"?',
+	'openstackmanager-volumelist' => 'Список томів',
+	'openstackmanager-novavolume-volume' => 'Том',
 	'openstackmanager-device' => 'Пристрій',
+	'openstackmanager-deletekey' => 'Видалити ключ',
+	'openstackmanager-keylist' => 'Список ключів',
+	'openstackmanager-name' => "Ім'я",
+	'openstackmanager-keys' => 'Ключі',
+	'openstackmanager-deletedkeyfailed' => 'Не вдалося вилучити ключ.',
+	'openstackmanager-addmember' => 'Додати учасника',
+	'openstackmanager-removemember' => 'Видалити учасника',
 	'openstackmanager-createproject' => 'Додавання проекту',
+	'openstackmanager-projectname' => 'Назва проекту',
+	'openstackmanager-members' => 'Учасники',
+	'openstackmanager-member' => 'Учасник',
 	'openstackmanager-createprojectfailed' => 'Не вдалося створити проект.',
 	'openstackmanager-projectlist' => 'Список проектів',
 	'openstackmanager-backprojectlist' => 'Повернутися до списку проектів',
 	'openstackmanager-deleteproject' => 'Вилучення',
 	'openstackmanager-deleteprojectfailed' => 'Не вдалося вилучити проект.',
 	'openstackmanager-novaproject-project' => 'Додати проект',
+	'openstackmanager-projects' => 'Проекти',
 	'openstackmanager-address' => 'Публічна IP адреса',
 	'openstackmanager-backaddresslist' => 'Повернутися до списку адрес',
 	'openstackmanager-securitygroupdescription' => 'Опис',
