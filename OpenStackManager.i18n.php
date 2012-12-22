@@ -22,7 +22,7 @@ $messages['en'] = array(
 	'openstackmanager-instance' => 'Manage instance',
 	'openstackmanager-title' => 'OpenStackManager',
 
-	'openstackmanager-badresourcename' => 'Bad resource name provided. Resource names start with a-z, and can only contain a-z, 0-9, -, and _ characters.',
+	'openstackmanager-badresourcename' => 'Bad resource name provided. Resource names start with a-z, and can only contain a-z, 0-9, and - characters.',
 
 	'action-listall' => 'display all resource information',
 	'action-managednsdomain' => 'manage dns domains',
@@ -216,7 +216,7 @@ $messages['en'] = array(
 
 	'openstackmanager-shellaccountname' => 'Instance shell account name',
 	'openstackmanager-shellaccountnamehelp' => 'A shell account name is required.
-It must start with a-z, and can only contain a-z, 0-9, -, and _ characters.',
+It must start with a-z, and can only contain a-z, 0-9, and - characters.',
 
 	'openstackmanager-addresslist' => 'Public IP address list',
 	'openstackmanager-address' => 'Public IP address',
