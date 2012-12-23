@@ -1103,6 +1103,7 @@ $messages['be-tarask'] = array(
 
 /** Bulgarian (български)
  * @author DCLXVI
+ * @author පසිඳු කාවින්ද
  */
 $messages['bg'] = array(
 	'openstackmanager-delete' => 'изтриване',
@@ -1111,6 +1112,10 @@ $messages['bg'] = array(
 	'openstackmanager-rename' => 'преименуване',
 	'openstackmanager-reboot' => 'рестартиране',
 	'openstackmanager-actions' => 'Действия',
+	'openstackmanager-location' => 'Местоположение',
+	'openstackmanager-name' => 'Име',
+	'openstackmanager-action' => 'Действие',
+	'openstackmanager-deleteproject' => 'Изтрий',
 );
 
 /** Bengali (বাংলা)
@@ -1541,6 +1546,12 @@ $messages['cs'] = array(
 	'openstackmanager-action' => 'Akce',
 	'openstackmanager-createprojectfailed' => 'Chyba při vytváření projektu.',
 	'openstackmanager-createdproject' => 'Vytvořený projekt.', # Fuzzy
+	'openstackmanager-projects' => 'Projekty',
+	'openstackmanager-roles' => 'Role',
+	'openstackmanager-rolename' => 'Název role',
+	'openstackmanager-removerolemember' => 'Odebrat člena',
+	'openstackmanager-addrolemember' => 'Přidat člena',
+	'openstackmanager-rolelist' => 'Globální seznam rolí',
 	'openstackmanager-puppetallprojects' => 'Všechny projekty',
 );
 
@@ -1555,7 +1566,7 @@ $messages['de'] = array(
 	'openstackmanager' => 'OpenStack-Verwaltung',
 	'openstackmanager-instance' => 'Instanz verwalten',
 	'openstackmanager-title' => 'OpenStack-Verwaltung',
-	'openstackmanager-badresourcename' => 'Es wurde ein ungültiger Ressourcenname angegeben. Ressourcennamen beginnen mit den Buchstaben a bis z und können ausschließlich die Zeichen a bis z, 0 bis 9 sowie - und _ enthalten.',
+	'openstackmanager-badresourcename' => 'Es wurde ein ungültiger Ressourcenname angegeben. Ressourcennamen beginnen mit den Buchstaben a bis z und können ausschließlich die Zeichen a bis z, 0 bis 9 sowie Striche enthalten.',
 	'action-listall' => 'alle Ressourceninformationen anzuzeigen',
 	'action-managednsdomain' => 'DNS-Domains zu verwalten',
 	'action-manageglobalpuppet' => 'globale Puppet-Informationen zu verwalten',
@@ -1733,7 +1744,8 @@ $messages['de'] = array(
 	'openstackmanager-novarole-role' => 'Nova-Rolle',
 	'openstackmanager-novarole-info' => 'Nova-Rolleninformation',
 	'openstackmanager-shellaccountname' => 'Benutzername der Instanz-Shell',
-	'openstackmanager-shellaccountnamehelp' => 'Es ist ein Benutzername der Instanz-Shell erforderlich. Er fängt mit den Buchstaben (a-z) an und kann nur die Buchstaben (a-z), Zahlen (0-9), Unter- (_) sowie Bindestriche (-) enthalten.',
+	'openstackmanager-shellaccountnamehelp' => 'Es ist ein Benutzername der Instanz-Shell erforderlich.
+Er fängt mit den Buchstaben (a-z) an und kann nur die Buchstaben (a-z), Zahlen (0-9) sowie Striche enthalten.',
 	'openstackmanager-addresslist' => 'Öffentliche IP-Adressliste',
 	'openstackmanager-address' => 'Öffentliche IP-Adresse',
 	'openstackmanager-allocateaddress' => 'IP zuweisen',
@@ -2500,7 +2512,7 @@ $messages['et'] = array(
 	'openstackmanager-removerule-action' => 'eemalda reegel',
 	'openstackmanager-removerule' => 'Eemalda reegel',
 	'openstackmanager-addrule' => 'Lisa reegel',
-	'openstackmanager-addedrule' => 'Reegli lisamine õnnestus',
+	'openstackmanager-addedrule' => 'Reegli lisamine õnnestus.',
 	'openstackmanager-addrulefailed' => 'Reegli lisamine nurjus.',
 	'openstackmanager-commadelimiter' => 'Komaga eraldatud',
 	'openstackmanager-sudoerusers' => 'Kasutajad',
@@ -2648,7 +2660,7 @@ $messages['fa'] = array(
 $messages['fi'] = array(
 	'openstackmanager-desc' => 'Mahdollistaa Novan ja Swiftin hallinnan wikin kautta',
 	'openstackmanager' => 'OpenStackManager',
-	'openstackmanager-badresourcename' => 'Resurssin nimi ei kelpaa. Resurssin nimen ensimmäisen merkin on oltava a–z ja sallitut merkit ovat a–z, 0–9, - ja _.',
+	'openstackmanager-badresourcename' => 'Resurssin nimi ei kelpaa. Resurssin nimen ensimmäisen merkin on oltava a–z ja sallitut merkit ovat a–z, 0–9, - ja _.', # Fuzzy
 	'specialpages-group-nova' => 'OpenStack Nova',
 	'novaaddress' => 'Hallitse julkisia IP-osoitteita',
 	'novadomain' => 'Hallitse DNS-domaineja',
@@ -4969,6 +4981,16 @@ $messages['ia'] = array(
 	'action-manageproject' => 'gerer projectos e rolos OpenStack',
 );
 
+/** Indonesian (Bahasa Indonesia)
+ * @author පසිඳු කාවින්ද
+ */
+$messages['id'] = array(
+	'openstackmanager-location' => 'Lokasi',
+	'openstackmanager-device' => 'Peranti',
+	'openstackmanager-name' => 'Nama',
+	'openstackmanager-securitygroupdescription' => 'Deskripsi',
+);
+
 /** Italian (italiano)
  * @author Beta16
  * @author Darth Kule
@@ -7052,7 +7074,7 @@ $messages['nl'] = array(
 	'openstackmanager' => 'OpenStack-beheer',
 	'openstackmanager-instance' => 'Instantie beheren',
 	'openstackmanager-title' => 'OpenStack-beheer',
-	'openstackmanager-badresourcename' => 'Er is een onjuiste bronnaam opgegeven. Bronnamen beginnen met a-z en kunnen alleen de tekens a-z, 0-9, - en _ bevatten.',
+	'openstackmanager-badresourcename' => 'Er is een onjuiste bronnaam opgegeven. Bronnamen beginnen met a-z en kunnen alleen de tekens a-z, 0-9 en - bevatten.',
 	'action-listall' => 'alle brongegevens weer te geven',
 	'action-managednsdomain' => 'DNS-domeinen te beheren',
 	'action-manageglobalpuppet' => 'globale puppetgegevens te beheren',
@@ -7229,7 +7251,8 @@ $messages['nl'] = array(
 	'openstackmanager-novarole-role' => 'Nova-rol',
 	'openstackmanager-novarole-info' => 'Noval-rolgegevens',
 	'openstackmanager-shellaccountname' => 'Shellgebruikersnaam voor instantie',
-	'openstackmanager-shellaccountnamehelp' => 'Een naam voor de shellgebruikersnaam is verplicht. Deze moet beginnen met a-z en kan alleen de tekens a-z, 0-9, - en _ bevatten.',
+	'openstackmanager-shellaccountnamehelp' => 'Een naam voor de shellgebruikersnaam is verplicht.
+Deze moet beginnen met a-z en kan alleen de tekens a-z, 0-9 en - bevatten.',
 	'openstackmanager-addresslist' => 'Publieke IP-adressenlijst',
 	'openstackmanager-address' => 'Publiek IP-adres',
 	'openstackmanager-allocateaddress' => 'IP-adres toewijzen',
@@ -8408,8 +8431,8 @@ $messages['ro'] = array(
 	'openstackmanager-novaproject-project' => 'Adaugă proiect',
 	'openstackmanager-novaprojectfilter-projectfilter' => 'Filtru de proiecte',
 	'openstackmanager-projects' => 'Proiecte',
-	'openstackmanager-removerolemember' => 'Eliminați membru',
-	'openstackmanager-addrolemember' => 'Adăugați membru',
+	'openstackmanager-removerolemember' => 'Elimină membru',
+	'openstackmanager-addrolemember' => 'Adaugă membru',
 	'openstackmanager-addresslist' => 'Listă de adrese IP publice',
 	'openstackmanager-address' => 'Adresă IP publică',
 	'openstackmanager-allocateaddress' => 'Alocați IP',
@@ -8420,8 +8443,8 @@ $messages['ro'] = array(
 	'openstackmanager-allocateaddressfailed' => 'Nu s-a putut aloca o nouă adresă IP publică.',
 	'openstackmanager-allocatedaddress' => 'Noua adresă IP publică alocată: $1',
 	'openstackmanager-backaddresslist' => 'Înapoi la lista de adrese',
-	'openstackmanager-hostname' => 'Nume gazdă',
-	'openstackmanager-addhost' => 'Adăugați nume gazdă',
+	'openstackmanager-hostname' => 'Numele gazdei',
+	'openstackmanager-addhost' => 'Adaugă numele gazdei',
 	'openstackmanager-securitygroupdescription' => 'Descriere',
 	'openstackmanager-securitygrouprule' => 'Reguli',
 	'openstackmanager-removerule' => 'Eliminați regula',
@@ -10060,10 +10083,15 @@ $messages['tr'] = array(
 $messages['uk'] = array(
 	'openstackmanager-desc' => 'Дозволяє користувачам керувати Nova і Swift',
 	'openstackmanager' => 'OpenStackManager',
+	'openstackmanager-instance' => 'Керування елементом',
+	'openstackmanager-title' => 'OpenStackManager',
+	'openstackmanager-badresourcename' => 'Вказано погану назву ресурсу. Назви ресурсів розпочинаються із a-z і можуть містити лише a-z, 0-9 і - символи.',
+	'action-listall' => 'показ усієї інформації про ресурси',
 	'openstackmanager-delete' => 'вилучити',
 	'openstackmanager-modify' => 'змінити',
 	'openstackmanager-rename' => 'перейменувати',
 	'openstackmanager-reboot' => 'перезавантажити',
+	'openstackmanager-actions' => 'Дії',
 	'openstackmanager-createdomain' => 'Створення домену',
 	'openstackmanager-deletedomain' => 'Вилучення домену',
 	'openstackmanager-novadomain-domain' => 'Додати домен',
@@ -10074,6 +10102,7 @@ $messages['uk'] = array(
 	'openstackmanager-failedeletedomain' => 'Не вдалося вилучити домен.',
 	'openstackmanager-domainname' => "Доменне ім'я",
 	'openstackmanager-location' => 'Розташування',
+	'openstackmanager-puppetclasses' => 'Класи',
 	'openstackmanager-imageid' => 'ID зображення',
 	'openstackmanager-imagetype' => 'Тип зображення',
 	'openstackmanager-launchtime' => 'Час запуску',
@@ -10111,6 +10140,7 @@ $messages['uk'] = array(
 	'openstackmanager-securitygrouprule' => 'Правила',
 	'openstackmanager-novasecuritygroup-group' => 'Групове правило',
 	'openstackmanager-securitygrouprule-protocol' => 'Протокол',
+	'openstackmanager-createnewsecuritygroup' => 'Додати групу',
 	'openstackmanager-addrule-action' => 'додати правило',
 	'openstackmanager-removerule-action' => 'вилучити правило',
 	'openstackmanager-removerule' => 'Вилучити правило',
@@ -10118,6 +10148,13 @@ $messages['uk'] = array(
 	'openstackmanager-addedrule' => 'Правило успішно додано.',
 	'openstackmanager-sudoerusers' => 'Користувачі',
 	'openstackmanager-sudoerhosts' => 'Хости',
+	'openstackmanager-sudoercommands' => 'Команди',
+	'openstackmanager-sudoeroptions' => 'Налаштування',
+	'openstackmanager-puppetallprojects' => 'Всі проекти',
+	'openstackmanager-createpuppetgroup' => 'Додати групу',
+	'openstackmanager-addpuppetclass' => 'Додати клас',
+	'openstackmanager-puppetvars' => 'Змінні',
+	'openstackmanager-addpuppetvar' => 'Додати змінну',
 );
 
 /** Urdu (اردو)
