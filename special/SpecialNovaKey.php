@@ -25,10 +25,6 @@ class SpecialNovaKey extends SpecialNova {
 			return;
 		}
 		$this->userLDAP = new OpenStackNovaUser();
-		if ( !$this->userLDAP->exists() ) {
-			$this->noCredentials();
-			return;
-		}
 
 		$action = $this->getRequest()->getVal( 'action' );
 		if ( $action === "import" ) {
