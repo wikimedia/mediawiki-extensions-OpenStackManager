@@ -423,7 +423,7 @@ $messages['qqq'] = array(
 	'openstackmanager-novainstance-instance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-configureinstance' => 'An instance is a virtual machine.  This is the page title for a page that allows configuration of an instance.  Parameters:
 * $1: an alphanumeric instance id for the configured instance
-* $2  the human-readable name for the same instance.', # Fuzzy
+* $2  the human-readable name for the same instance.',
 	'openstackmanager-puppetdoclink' => 'A simple label like [?] or (docs) that will link to a doc page about the associated puppet class',
 	'openstackmanager-novainstance-info' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-deleteinstancewithname' => 'Page title for a page that asks confirmation before deleting an instance.  Parameters:
@@ -436,6 +436,7 @@ $messages['qqq'] = array(
 	'openstackmanager-instancestate' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-instanceip' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-instancepublicip' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
+	'openstackmanager-imageid' => '"ID" stands for "Identifier".',
 	'openstackmanager-rebootinstance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-rebootinstancewithname' => 'Page title for a page that asks confirmation before rebooting an instance.  Parameters:
 * $1: an alphanumeric instance id for the instance to be rebooted
@@ -463,7 +464,8 @@ An instance is a virtual machine. In this particular case, a clone of an image f
 	'openstackmanager-deleteinstancefailed' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-consoleoutput' => 'Page title for a page that displays the total console text for a running instance.  Parameters:
 * $1: an alphanumeric instance id for the instance
-* $2  the human-readable name for the same instance', # Fuzzy
+* $2  the human-readable name for the same instance',
+	'openstackmanager-volumeid' => '"ID" stands for "Identifier".',
 	'openstackmanager-volumeattachmentinstance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-volumedeleteonvolumedelete' => 'Do you want this volume to be deleted when its associated instance is deleted?',
 	'openstackmanager-attach' => 'Verb.
@@ -511,6 +513,9 @@ An instance is a virtual machine. In this particular case, a clone of an image f
 	'openstackmanager-removehostfailed' => '*$1 - host name',
 	'openstackmanager-securitygroupdescription' => '{{Identical|Description}}',
 	'openstackmanager-deletesecuritygroup-confirm' => '*$1 - security group name',
+	'openstackmanager-securitygrouprule-ipranges' => 'CIDR = Classless Inter-Domain Routing',
+	'openstackmanager-securitygrouprule-ranges' => 'CIDR = Classless Inter-Domain Routing',
+	'openstackmanager-securitygrouprule-ranges-help' => 'CIDR = Classless Inter-Domain Routing',
 	'openstackmanager-sudoerusers' => '{{Identical|User}}',
 	'openstackmanager-sudoeroptions' => '{{Identical|Options}}',
 	'openstackmanager-deletesudoer-confirm' => '*$1 - sudo policy name',
@@ -5394,7 +5399,8 @@ $messages['ja'] = array(
 	'novakey' => 'SSH 公開鍵を管理',
 	'novaproject' => 'OpenStack プロジェクトを管理',
 	'novarole' => 'グローバル権限を管理',
-	'novasudoer' => 'Sudo ポリシーを管理',
+	'novavolume' => 'ストレージボリュームの管理',
+	'novasudoer' => 'sudo ポリシーを管理',
 	'novapuppetgroup' => 'パペット グループを管理',
 	'openstackmanager-novadomain' => 'Nova ドメイン',
 	'openstackmanager-novainstance' => 'Nova インスタンス',
@@ -5411,7 +5417,8 @@ $messages['ja'] = array(
 	'openstackmanager-nonexistentresource' => '指定したリソースは存在しません。',
 	'openstackmanager-createdomain' => 'ドメインを作成',
 	'openstackmanager-deletedomain' => 'ドメインを削除',
-	'openstackmanager-deletedomain-confirm' => 'ドメイン「$1」を本当に削除しますか? この操作はすべての VM に影響を及ぼします。この操作を軽率には実行しないでください!',
+	'openstackmanager-deletedomain-confirm' => 'ドメイン「$1」を本当に削除しますか?
+この操作はすべての VM に影響を及ぼします。この操作を軽率には実行しないでください!',
 	'openstackmanager-novadomain-domain' => 'ドメインを追加',
 	'openstackmanager-createdomainfailed' => 'ドメインの作成に失敗しました。',
 	'openstackmanager-createddomain' => 'ドメインを作成しました。',
@@ -5481,7 +5488,8 @@ $messages['ja'] = array(
 	'openstackmanager-name' => '名前',
 	'openstackmanager-addmember' => 'メンバーを追加',
 	'openstackmanager-removemember' => 'メンバーを除去',
-	'openstackmanager-removeprojectconfirm' => 'プロジェクト「$1」を本当に削除しますか? この操作はすべての VM に影響を及ぼします。この操作を軽率には実行しないでください!',
+	'openstackmanager-removeprojectconfirm' => 'プロジェクト「$1」を本当に削除しますか?
+この操作はすべての VM に影響を及ぼします。この操作を軽率には実行しないでください!',
 	'openstackmanager-createproject' => 'プロジェクトを追加',
 	'openstackmanager-projectname' => 'プロジェクト名',
 	'openstackmanager-members' => 'メンバー',
@@ -5496,7 +5504,8 @@ $messages['ja'] = array(
 	'openstackmanager-deleteprojectfailed' => 'プロジェクトの削除に失敗しました。',
 	'openstackmanager-addedto' => '$1 を $2 に追加しました。',
 	'openstackmanager-failedtoadd' => '$1 の $2 への追加に失敗しました。',
-	'openstackmanager-failedtoaddneedsloginright' => '$1 を $2 に追加するのに失敗しました。loginviashell 権限が必要です。',
+	'openstackmanager-failedtoaddneedsloginright' => '$1 を $2 に追加するのに失敗しました。
+この操作には「<code>loginviashell</code>」権限が必要です。',
 	'openstackmanager-removedfrom' => '$1 を $2 から除去しました。',
 	'openstackmanager-failedtoremove' => '$1 の $2 からの除去に失敗しました。',
 	'openstackmanager-novaproject-project' => 'プロジェクトを追加',
@@ -5556,15 +5565,15 @@ $messages['ja'] = array(
 	'openstackmanager-deletesecuritygroupfailed' => 'セキュリティ グループの削除に失敗しました。',
 	'openstackmanager-securitygrouprule-ranges' => 'CIDR の範囲',
 	'openstackmanager-securitygrouprule-ranges-help' => 'CIDR の範囲は、範囲をカンマ区切りした列挙です。',
-	'openstackmanager-createsudoer' => 'Sudo ポリシーを作成',
+	'openstackmanager-createsudoer' => 'sudo ポリシーを作成',
 	'openstackmanager-novasudoer-sudoer' => 'sudo ポリシーを追加',
-	'openstackmanager-novasudoer-info' => 'Sudo ポリシー情報',
-	'openstackmanager-sudoername' => 'Sudo ポリシー名',
+	'openstackmanager-novasudoer-info' => 'sudo ポリシー情報',
+	'openstackmanager-sudoername' => 'sudo ポリシー名',
 	'openstackmanager-commadelimiter' => 'カンマ区切り',
 	'openstackmanager-sudoerusers' => '利用者',
 	'openstackmanager-sudoerhosts' => 'ホスト',
 	'openstackmanager-sudoeroptions' => 'オプション',
-	'openstackmanager-deletesudoer' => 'Sudo ポリシーを削除',
+	'openstackmanager-deletesudoer' => 'sudo ポリシーを削除',
 	'openstackmanager-deletesudoer-confirm' => 'sudo ポリシー $1 を本当に削除しますか？',
 	'openstackmanager-createsudoerfailed' => 'sudo ポリシーの作成に失敗しました。',
 	'openstackmanager-createdsudoer' => 'sudo ポリシーを作成しました。',
@@ -5572,8 +5581,8 @@ $messages['ja'] = array(
 	'openstackmanager-addadditionalsudoer' => '他の sudo ポリシーを追加します。',
 	'openstackmanager-deletedsudoer' => 'sudo ポリシーを削除しました。',
 	'openstackmanager-failedeletedsudoer' => 'sudo ポリシーの削除に失敗しました。',
-	'openstackmanager-sudoerlist' => 'Sudo ポリシー一覧',
-	'openstackmanager-modifysudoer' => 'Sudo ポリシーを変更',
+	'openstackmanager-sudoerlist' => 'sudo ポリシー一覧',
+	'openstackmanager-modifysudoer' => 'sudo ポリシーを変更',
 	'openstackmanager-modifysudoerfailed' => 'sudo ポリシーの変更に失敗しました。',
 	'openstackmanager-modifiedsudoer' => 'sudo ポリシーを変更しました。',
 	'openstackmanager-nonexistantsudoer' => '指定した sudo ポリシーは存在しません。',
@@ -5606,7 +5615,7 @@ $messages['ja'] = array(
 	'openstackmanager-failedtomodifypuppetvar' => 'パペット変数の変更に失敗しました。',
 	'openstackmanager-puppetgroupname' => 'パペット グループ名',
 	'openstackmanager-puppetgroupposition' => 'パペット グループの位置',
-	'openstackmanager-modifypuppetclass' => 'パペットクラスを変更',
+	'openstackmanager-modifypuppetclass' => 'パペット クラスを変更',
 	'openstackmanager-failedtomodifypuppetclass' => 'パペット クラスの変更に失敗しました。',
 	'openstackmanager-puppetclassposition' => 'クラスの位置',
 	'openstackmanager-puppetgroup' => 'パペット グループ',
@@ -6335,7 +6344,7 @@ a-z로 시작해야 하고 a-z, 0-9와 - 문자만 포함할 수 있습니다.',
 	'openstackmanager-removepuppetvar' => '인형 변수 삭제',
 	'openstackmanager-removepuppetvarconfirm' => '정말 이 인형 변수를 삭제하겠습니까?',
 	'openstackmanager-deletedpuppetvar' => '인형 변수를 삭제했습니다.',
-	'openstackmanager-failedtodeletepuppetvar' => '인형 변수를 삭제하는 데 실패했습니다',
+	'openstackmanager-failedtodeletepuppetvar' => '인형 변수를 삭제하는 데 실패했습니다.',
 	'openstackmanager-email-subject' => '인스턴스에 로그인할 준비가 되어 있습니다.',
 	'openstackmanager-email-body' => '다음 인스턴스는 만들어졌고 로그인할 준비가 되어 있습니다:',
 	'openstackmanager-twofactorrequired' => '2단계 인증 필요',
@@ -8074,13 +8083,14 @@ $messages['pl'] = array(
 /** Piedmontese (Piemontèis)
  * @author Borichèt
  * @author Dragonòt
+ * @author පසිඳු කාවින්ද
  */
 $messages['pms'] = array(
 	'openstackmanager-desc' => "Lassa che j'utent a gestisso Nova e Swift",
 	'openstackmanager' => 'Mansé OpenStack',
 	'openstackmanager-instance' => "Gestì l'istansa",
 	'openstackmanager-title' => 'Mansé OpenStack',
-	'openstackmanager-badresourcename' => "Nòm d'arsorsa dàit nen bon. Ij nòm d'arsorsa a ancamin-o për a-z, e a peulo mach conten-e ij caràter a-z, 0-9, - e _.",
+	'openstackmanager-badresourcename' => "Nòm d'arsorsa dàit nen bon. Ij nòm d'arsorsa a ancamin-o për a-z, e a peulo mach conten-e ij caràter a-z, 0-9, - e _.", # Fuzzy
 	'specialpages-group-nova' => 'OpenStack Nova',
 	'novaaddress' => "Gestì j'adrësse IP pùbliche",
 	'novadomain' => 'Gestì ij domini DNS',
@@ -8124,7 +8134,7 @@ $messages['pms'] = array(
 	'openstackmanager-location' => 'Locassion',
 	'openstackmanager-location-help' => "Ël camp ëd locassion a l'é për le zòne privà dël DNS. Lassé an bianch për le zòne pùbliche.",
 	'openstackmanager-novainstance-instance' => 'Istansa',
-	'openstackmanager-configureinstance' => "Configuré l'istansa",
+	'openstackmanager-configureinstance' => "Configuré l'istansa", # Fuzzy
 	'openstackmanager-nonexistanthost' => "Ël nòm d'òspit ciamà a esist pa.",
 	'openstackmanager-dnsdomain' => 'Domini DNS',
 	'openstackmanager-puppetclasses' => 'Classe',
@@ -8163,7 +8173,7 @@ $messages['pms'] = array(
 	'openstackmanager-modifiedinstance' => "Modificà l'istansa për da bin.", # Fuzzy
 	'openstackmanager-modifyinstancefailed' => "Falì a modifiché l'istansa.",
 	'openstackmanager-deleteinstancefailed' => "Falì a scancelé l'istansa.",
-	'openstackmanager-consoleoutput' => 'Surtìa dla Console',
+	'openstackmanager-consoleoutput' => 'Surtìa dla Console', # Fuzzy
 	'openstackmanager-getconsoleoutput' => 'oten-e la surtìa dla console',
 	'openstackmanager-createvolume' => 'Creé un volum',
 	'openstackmanager-volumename' => 'Nòm ëd Volum',
@@ -8233,6 +8243,7 @@ $messages['pms'] = array(
 	'openstackmanager-removedfrom' => 'Gavà për da bin $1 da $2.',
 	'openstackmanager-failedtoremove' => 'Falì a gavé $1 da $2.',
 	'openstackmanager-novaproject-project' => 'Gionté un proget',
+	'openstackmanager-projects' => 'Proget',
 	'openstackmanager-roles' => 'Ròj',
 	'openstackmanager-rolename' => 'Nòm dël ròl',
 	'openstackmanager-removerolemember' => 'Gavé ël mèmber',
@@ -8243,7 +8254,7 @@ $messages['pms'] = array(
 	'openstackmanager-novarole-role' => 'Ròl Nova',
 	'openstackmanager-novarole-info' => 'Anformassion an sël ròl Nova',
 	'openstackmanager-shellaccountname' => "Nòm dël cont dla nos dl'istansa",
-	'openstackmanager-shellaccountnamehelp' => "Ël nòm dël cont dla nos dl'istansa a dev ancaminé con a-z, e a peul mach conten-e ij caràter a-z, 0-9, -, e _.",
+	'openstackmanager-shellaccountnamehelp' => "Ël nòm dël cont dla nos dl'istansa a dev ancaminé con a-z, e a peul mach conten-e ij caràter a-z, 0-9, -, e _.", # Fuzzy
 	'openstackmanager-addresslist' => "Lista dj'adrësse IP pùbliche",
 	'openstackmanager-address' => 'Adrëssa IP pùblica',
 	'openstackmanager-allocateaddress' => 'Assigné IP',
@@ -10476,13 +10487,23 @@ $messages['uk'] = array(
 	'openstackmanager-projectname' => 'Назва проекту',
 	'openstackmanager-members' => 'Учасники',
 	'openstackmanager-member' => 'Учасник',
+	'openstackmanager-action' => 'Дія',
 	'openstackmanager-createprojectfailed' => 'Не вдалося створити проект.',
+	'openstackmanager-createdproject' => 'Проект було створено.',
 	'openstackmanager-projectlist' => 'Список проектів',
 	'openstackmanager-backprojectlist' => 'Повернутися до списку проектів',
+	'openstackmanager-addadditionalproject' => 'Додати ще один проект.',
 	'openstackmanager-deleteproject' => 'Вилучення',
+	'openstackmanager-deletedproject' => 'Проект успішно вилучено.',
 	'openstackmanager-deleteprojectfailed' => 'Не вдалося вилучити проект.',
+	'openstackmanager-addedto' => 'Успішно додано $1 до $2.',
+	'openstackmanager-failedtoadd' => 'Не вдалося додати $1 до $2.',
+	'openstackmanager-removedfrom' => 'Успішно вилучено $1 з $2.',
+	'openstackmanager-failedtoremove' => 'Не вдалося вилучити $1 з $2.',
 	'openstackmanager-novaproject-project' => 'Додати проект',
 	'openstackmanager-projects' => 'Проекти',
+	'openstackmanager-removerolemember' => 'Видалити учасника',
+	'openstackmanager-addrolemember' => 'Додати учасника',
 	'openstackmanager-addresslist' => 'Список публічних IP-адрес',
 	'openstackmanager-address' => 'Публічна IP адреса',
 	'openstackmanager-allocateaddress' => 'Присвоїти IP',
@@ -10490,6 +10511,7 @@ $messages['uk'] = array(
 	'openstackmanager-associateaddress' => "Зв'язати IP",
 	'openstackmanager-reassociateaddress' => "Повторно зв'язати IP",
 	'openstackmanager-backaddresslist' => 'Повернутися до списку адрес',
+	'openstackmanager-removedhost' => 'Успішно вилучено $1.',
 	'openstackmanager-removehostfailed' => 'Не вдалося вилучити $1.',
 	'openstackmanager-securitygroupdescription' => 'Опис',
 	'openstackmanager-securitygrouprule' => 'Правила',
