@@ -64,7 +64,8 @@ Please ask a Nova administrator to create credentials for you.',
 
 	'openstackmanager-deletedomain' => 'Delete domain',
 	'openstackmanager-deletedomain-confirm' => 'Are you sure you wish to delete domain "$1"?
-This action has reprecusions on all VMs.Do not take this action lightly!',
+This action has reprecusions on all VMs.
+Do not take this action lightly!',
 	'openstackmanager-novadomain-domain' => 'Add domain',
 
 	'openstackmanager-createdomainfailed' => 'Failed to create domain.',
@@ -186,7 +187,8 @@ It can result in volume corruption and data loss.',
 	'openstackmanager-addmember' => 'Add member',
 	'openstackmanager-removemember' => 'Remove member',
 	'openstackmanager-removeprojectconfirm' => 'Are you sure you wish to delete project "$1"?
-This action has reprecusions on all VMs.Do not take this action lightly!',
+This action has reprecusions on all VMs.
+Do not take this action lightly!',
 	'openstackmanager-createproject' => 'Add project',
 	'openstackmanager-projectname' => 'Project name',
 	'openstackmanager-members' => 'Members',
