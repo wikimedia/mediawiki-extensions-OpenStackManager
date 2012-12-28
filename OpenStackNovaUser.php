@@ -37,6 +37,7 @@ class OpenStackNovaUser {
 			}
 		} else {
 			$this->userDN = $wgAuth->getUserDN( strtolower( $wgUser->getName() ) );
+			$this->username = $wgUser->getName();
 			$wgAuth->printDebug( "Fetching userdn using wiki name: " . $wgUser->getName(), NONSENSITIVE );
 		}
 		$this->userInfo = $wgAuth->userInfo;
