@@ -9,6 +9,7 @@
 
 class OpenStackNovaController {
 	var $username;
+	var $user;
 	var $project;
 	var $region;
 	var $token;
@@ -16,29 +17,22 @@ class OpenStackNovaController {
 	/**
 	 * @param  $username
 	 */
-	function __construct( $username ) {
-		$this->username = $username;
+	function __construct( $user ) {
+		global $wgOpenStackManagerLDAPUseUidAsNamingAttribute;
+
 		$this->project = '';
 		$this->token = '';
+
+		if ( $wgOpenStackManagerLDAPUseUidAsNamingAttribute ) {
+			$this->username = $user->getUid();
+		} else {
+			$this->username = $user->getUsername();
+		}
+		$this->user = $user;
 	}
 
 	static function newFromUser( $user ) {
-		global $wgOpenStackManagerLDAPUseUidAsNamingAttribute;
-
-		if ( $wgOpenStackManagerLDAPUseUidAsNamingAttribute ) {
-			$username = $user->getUid();
-		} else {
-			$username = $user->getUsername();
-		}
-		return new OpenStackNovaController( $username );
-	}
-
-	/**
-	 * @param $username string
-	 * @return OpenStackNovaController
-	 */
-	static function newFromUsername( $username ) {
-		return new OpenStackNovaController( $username );
+		return new OpenStackNovaController( $user );
 	}
 
 	/**
@@ -620,9 +614,11 @@ class OpenStackNovaController {
 		$this->token = $this->_get_property( $user->access->token, 'id' );
 		$wgAuth->printDebug( "token: $this->token", NONSENSITIVE );
 		$expires = $this->_get_property( $user->access->token, 'expires' );
-		// TODO: make this memcache key expire on the token's expiration date
 		$key = wfMemcKey( 'openstackmanager', 'fulltoken', $username );
-		$wgMemc->set( $key, array( 'id' => $this->token, 'expires' => $expires ) );
+		// Expiration time is unneccessary. Token expiration is expected
+		// to be longer than MediaWiki's token, so a re-auth will occur
+		// before the generic token expires.
+		$wgMemc->set( $key, $this->token );
 
 		return $this->token;
 	}
@@ -633,19 +629,24 @@ class OpenStackNovaController {
 		// Try to fetch the project token
 		$projectkey = wfMemcKey( 'openstackmanager', "fulltoken-$project", $this->username );
 		$projecttoken = $wgMemc->get( $projectkey );
-		if ( is_array( $projecttoken ) && !$this->isExpired( $projecttoken ) ) {
-			return $projecttoken['id'];
+		if ( is_string( $projecttoken ) ) {
+			return $projecttoken;
 		}
 		// Try to fetch the non-project token
 		$key = wfMemcKey( 'openstackmanager', "fulltoken", $this->username );
 		$fulltoken = $wgMemc->get( $key );
-		if ( is_array( $fulltoken ) && !$this->isExpired( $fulltoken ) ) {
-			$token = $fulltoken['id'];
+		if ( is_string( $fulltoken ) ) {
+			$token = $fulltoken;
 		} else {
 			if ( !$this->token ) {
-				// If there's no non-project token, there's nothing to do, the
-				// user will need to re-authenticate.
-				return '';
+				$wikiuser = User::newFromName( $this->user->getUsername() );
+				$token = OpenStackNovaUser::loadToken( $wikiuser );
+				if ( !$token ) {
+					// If there's no non-project token, there's nothing to do, the
+					// user will need to re-authenticate.
+					return '';
+				}
+				$wgMemc->set( $key, $token );
 			} else {
 				$token = $this->token;
 			}
@@ -662,12 +663,10 @@ class OpenStackNovaController {
 		}
 		$user = $ret['body'];
 		$token = $this->_get_property( $user->access->token, 'id' );
-		$expires = $this->_get_property( $user->access->token, 'expires' );
-		// TODO: make this memcache key expire on the token's expiration date
-		$wgMemc->set( $projectkey, array( 'id' => $token, 'expires' => $expires ) );
-		// TODO: make this memcache key expire on the token's expiration date
+		$expires = strtotime( $this->_get_property( $user->access->token, 'expires' ) );
+		$wgMemc->set( $projectkey, $token, $expires );
 		$key = wfMemcKey( 'openstackmanager', 'serviceCatalog-' . $project, $this->username );
-		$wgMemc->set( $key, json_encode( $user->access->serviceCatalog ) );
+		$wgMemc->set( $key, json_encode( $user->access->serviceCatalog ), $expires );
 
 		return $token;
 	}
@@ -686,16 +685,6 @@ class OpenStackNovaController {
 			}
 		}
 		return $endpoints;
-	}
-
-	function isExpired( $fulltoken ) {
-		$expiration_date = strtotime( $fulltoken['expires'] );
-		$now = strtotime('now');
-		if ( $expiration_date < $now ) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	function getTokenHeaders( $token, $project ) {

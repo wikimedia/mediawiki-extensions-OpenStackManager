@@ -59,12 +59,6 @@ class OpenStackNovaUser {
 
 		$userNova = OpenStackNovaController::newFromUser( $this );
 		$token = $userNova->getProjectToken( $project );
-		if ( !$token ) {
-			# Load token from database, if long-term token is used
-			if ( $wgUser->getToken( false ) ) {
-				$token = self::loadToken( $wgUser );
-			}
-		}
 
 		return array( 'token' => $token );
 	}
