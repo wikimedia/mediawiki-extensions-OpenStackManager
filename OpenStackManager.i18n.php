@@ -7052,7 +7052,9 @@ $messages['ms'] = array(
 	'openstackmanager' => 'OpenStackManager',
 	'openstackmanager-instance' => 'Uruskan tika',
 	'openstackmanager-title' => 'OpenStackManager',
-	'openstackmanager-badresourcename' => 'Nama sumber yang diberikan tidak elok. Nama sumber bermula dengna a-z, dan mengandungi aksara-aksara a-z, 0-9, -, dan _ sahaja.',
+	'openstackmanager-badresourcename' => 'Nama sumber yang diberikan tidak elok.
+
+Nama sumber bermula dengan a-z, dan mengandungi aksara-aksara a-z, 0-9, -, dan - sahaja.',
 	'action-listall' => 'memaparkan semua maklumat sumber',
 	'action-managednsdomain' => 'menguruskan domain-domain dns',
 	'action-manageglobalpuppet' => 'menguruskan maklumat boneka sejagat',
@@ -7229,7 +7231,9 @@ $messages['ms'] = array(
 	'openstackmanager-novarole-role' => 'Peranan Nova',
 	'openstackmanager-novarole-info' => 'Maklumat peranan Nova',
 	'openstackmanager-shellaccountname' => 'Nama akaun kekerang tika',
-	'openstackmanager-shellaccountnamehelp' => 'Nama akaun kekerang diperlukan dan mesti bermula dengan a-z, dan boleh mengandungi aksara a-z, 0-9, -, and _ sahaja.',
+	'openstackmanager-shellaccountnamehelp' => 'Nama akaun kekerang diperlukan.
+
+Nama akaun bermula dengan a-z, dan mengandungi aksara-aksara a-z, 0-9, -, dan - sahaja.',
 	'openstackmanager-addresslist' => 'Senarai alamat IP umum',
 	'openstackmanager-address' => 'Alamat IP umum',
 	'openstackmanager-allocateaddress' => 'Peruntukkan IP',
@@ -9362,6 +9366,7 @@ $messages['si'] = array(
 	'openstackmanager-email-subject' => 'ඔබේ දෘෂ්ටාන්තය ප්‍රවිෂ්ට වීම සඳහා සූදානම්.',
 	'openstackmanager-email-body' => 'ඔබේ දෘෂ්ටාන්තය තනන ලද අතර, එය ප්‍රවිෂ්ට වීමටද සූදානම්:',
 	'right-manageproject' => 'විවෘතරාක්ක ව්‍යපෘති සහ කාර්ය සංකේත කළමනාකරණය කරන්න',
+	'right-loginviashell' => 'කවචය හරහා පිවිසෙන්න',
 );
 
 /** Slovenian (slovenščina)
