@@ -289,6 +289,9 @@ class SpecialNovaSudoer extends SpecialNova {
 				// instanceName will be output later, without a change to escape.
 				$instanceName = htmlentities( $instanceName . ' (' . $region . ')' );
 				$instanceHost = $instance->getHost();
+				if ( !$instanceHost ) {
+					continue;
+				}
 				$instanceHostname = $instanceHost->getFullyQualifiedHostName();
 				$host_keys[$instanceName] = $instanceHostname;
 				if ( in_array( $instanceHostname, $sudohosts ) ) {
