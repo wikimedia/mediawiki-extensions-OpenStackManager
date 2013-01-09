@@ -608,8 +608,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			}
 			$actions = Array( 'sysadmin' => Array() );
 			$actions['sysadmin'][] = $this->createActionLink( 'openstackmanager-createpuppetgroup', array( 'action' => 'create', 'project' => $projectName ) );
-			$links = ( $this->userCanExecute( $this->getUser() ) && $this->userLDAP->inRole( 'sysadmin', $projectName ) );
-			$out .= $this->createProjectSection( $projectName, $actions, $this->getPuppetGroupOutput( OpenStackNovaPuppetGroup::getGroupList( $projectName ), $links ) );
+			$out .= $this->createProjectSection( $projectName, $actions, $this->getPuppetGroupOutput( OpenStackNovaPuppetGroup::getGroupList( $projectName ) ) );
 		}
 		$action = '';
 		$showlinks = $this->userCanExecute( $this->getUser() );
