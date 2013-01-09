@@ -92,6 +92,10 @@ $wgOpenStackManagerInstanceUserData = array(
 $wgOpenStackManagerDefaultSecurityGroupRules = array();
 // Image ID to default to in the instance creation interface
 $wgOpenStackManagerInstanceDefaultImage = "";
+// List of image IDs to not display on instance creation interface
+$wgOpenStackManagerInstanceBannedImages = Array();
+// List of instance type names to not display on instance creation interface
+$wgOpenStackManagerInstanceBannedInstanceTypes = Array();
 // Whether resource pages should be managed on instance/project creation/deletion
 $wgOpenStackManagerCreateResourcePages = true;
 // Whether a Server Admin Log page should be created with project pages

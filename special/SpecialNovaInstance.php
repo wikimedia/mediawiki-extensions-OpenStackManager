@@ -91,7 +91,9 @@ class SpecialNovaInstance extends SpecialNova {
 	 */
 	function createInstance() {
 		global $wgOpenStackManagerPuppetOptions;
+		global $wgOpenStackManagerInstanceBannedInstanceTypes;
 		global $wgOpenStackManagerInstanceDefaultImage;
+		global $wgOpenStackManagerInstanceBannedImages;
 
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-createinstance' ) );
@@ -116,7 +118,7 @@ class SpecialNovaInstance extends SpecialNova {
 		$instanceType_keys = array();
 		foreach ( $instanceTypes as $instanceType ) {
 			$instanceTypeName = $instanceType->getInstanceTypeName();
-			if ( $instanceTypeName == "m1.tiny" ) {
+			if ( in_array( $instanceTypeName, $wgOpenStackManagerInstanceBannedInstanceTypes ) ) {
 				continue;
 			}
 			$instanceTypeId = $instanceType->getInstanceTypeId();
@@ -153,6 +155,9 @@ class SpecialNovaInstance extends SpecialNova {
 			}
 			$imageName = $image->getImageName();
 			if ( $imageName === '' ) {
+				continue;
+			}
+			if ( in_array( $image->getImageId(), $wgOpenStackManagerInstanceBannedImages ) ) {
 				continue;
 			}
 			$imageLabel = $imageName;
