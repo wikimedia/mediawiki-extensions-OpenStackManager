@@ -10570,6 +10570,7 @@ $messages['ug-arab'] = array(
 
 /** Ukrainian (українська)
  * @author Base
+ * @author Olvin
  * @author Steve.rusyn
  * @author Тест
  */
@@ -10644,11 +10645,11 @@ $messages['uk'] = array(
 	'openstackmanager-associateaddress' => "Зв'язати IP",
 	'openstackmanager-reassociateaddress' => "Повторно зв'язати IP",
 	'openstackmanager-backaddresslist' => 'Повернутися до списку адрес',
-	'openstackmanager-hostname' => "Ім'я хосту",
-	'openstackmanager-hostnames' => 'Імена хостів',
-	'openstackmanager-addhost' => "Додати ім'я хосту",
+	'openstackmanager-hostname' => 'Назва хоста',
+	'openstackmanager-hostnames' => 'Назви хоста',
+	'openstackmanager-addhost' => 'Додати назву хоста',
 	'openstackmanager-removehost' => 'Вилучити хост',
-	'openstackmanager-removehost-action' => "(Вилучити ім'я хосту)",
+	'openstackmanager-removehost-action' => '(Вилучити назву хоста)',
 	'openstackmanager-removedhost' => 'Успішно вилучено $1.',
 	'openstackmanager-removehostfailed' => 'Не вдалося вилучити $1.',
 	'openstackmanager-nonexistenthost' => 'Запитуваний хост не існує.',
