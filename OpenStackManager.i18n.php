@@ -424,7 +424,8 @@ $messages['qqq'] = array(
 	'openstackmanager-configureinstance' => 'An instance is a virtual machine.  This is the page title for a page that allows configuration of an instance.  Parameters:
 * $1: an alphanumeric instance id for the configured instance
 * $2  the human-readable name for the same instance.',
-	'openstackmanager-puppetdoclink' => 'A simple label like [?] or (docs) that will link to a doc page about the associated puppet class',
+	'openstackmanager-puppetdoclink' => '{{Optional}}
+A simple label like [?] or (docs) that will link to a doc page about the associated puppet class',
 	'openstackmanager-novainstance-info' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-deleteinstancewithname' => 'Page title for a page that asks confirmation before deleting an instance.  Parameters:
 * $1: an alphanumeric instance id for the instance to be deleted
