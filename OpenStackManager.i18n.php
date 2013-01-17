@@ -826,15 +826,16 @@ $messages['ast'] = array(
 );
 
 /** Azerbaijani (azərbaycanca)
+ * @author AZISS
  * @author Cekli829
  */
 $messages['az'] = array(
 	'openstackmanager-delete' => 'sil',
-	'openstackmanager-location' => 'Yerləşməsi',
+	'openstackmanager-location' => 'Yerləşdiyi yer',
 	'openstackmanager-novavolume-volume' => 'Cild',
 	'openstackmanager-name' => 'Ad',
 	'openstackmanager-keys' => 'Açar',
-	'openstackmanager-members' => 'Üzvlər',
+	'openstackmanager-members' => 'İştirakçılar',
 	'openstackmanager-member' => 'Üzv',
 	'openstackmanager-novaproject-project' => 'Layihə', # Fuzzy
 	'openstackmanager-sudoerusers' => 'İstifadəçilər',
