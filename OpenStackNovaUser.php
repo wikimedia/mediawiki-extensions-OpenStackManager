@@ -412,6 +412,38 @@ class OpenStackNovaUser {
 	}
 
 	/**
+	 * Create a shell request page for $username
+	 *
+	 * @static
+	 * @param  $auth
+	 * @param  $username
+	 * @return bool
+	 */
+	static function RequestShellAccess( $auth, $username ) {
+
+		$auth->printDebug( "Autogenerating shell access request for " . $username );
+
+		$titletext = "Shell_Request/" . $username;
+		$title = Title::newFromText( $titletext );
+		$article = WikiPage::factory( $title );
+
+		if ( $article->exists() ) {
+			$auth->printDebug( "shell request for " . $username . " already exists." );
+			return false;
+		}
+
+		$text = "{{Shell Access Request "
+				. "|Justification=(auto request on account creation) "
+				. "|Completed=false "
+				. "|User Name=$username}}";
+
+
+		$article->doEdit( $text, 'auto request' );
+
+		return true;
+	}
+
+	/**
 	 * Hook to add objectclasses and attributes for users being created.
 	 *
 	 * @static
@@ -483,6 +515,8 @@ class OpenStackNovaUser {
 		}
 		$auth->printDebug( "User account's objectclasses: ", NONSENSITIVE, $values['objectclass'] );
 		$auth->printDebug( "User account's attributes: ", HIGHLYSENSITIVE, $values );
+
+		OpenStackNovaUser::RequestShellAccess( $auth, $username );
 
 		return true;
 	}
