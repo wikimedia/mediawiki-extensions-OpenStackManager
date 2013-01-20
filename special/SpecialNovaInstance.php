@@ -651,9 +651,21 @@ class SpecialNovaInstance extends SpecialNova {
 		}
 		$instancename = $instance->getInstanceName();
 		$instanceosid = $instance->getInstanceOSId();
+		$instanceproject = $instance->getProject();
 		$instanceid = $instance->getInstanceId();
 		$success = $this->userNova->terminateInstance( $instanceosid );
 		if ( $success ) {
+			if ( class_exists( 'EchoEvent' ) ) {
+				EchoEvent::create( array(
+					'type' => 'osm-instance-deleted',
+					'title' => Title::newFromText( $instanceproject, NS_NOVA_RESOURCE ),
+					'agent' => $this->getUser(),
+					'extra' => array(
+						'instanceName' => $instancename,
+						'projectName' => $instanceproject
+					)
+				) );
+			}
 			$instance->deleteArticle();
 			$success = OpenStackNovaHost::deleteHostByInstanceId( $instanceid );
 			if ( $success ) {

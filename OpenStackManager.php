@@ -153,6 +153,7 @@ $wgAutoloadClasses['SpecialNovaSudoer'] = $dir . 'special/SpecialNovaSudoer.php'
 $wgAutoloadClasses['SpecialNovaPuppetGroup'] = $dir . 'special/SpecialNovaPuppetGroup.php';
 $wgAutoloadClasses['SpecialNova'] = $dir . 'special/SpecialNova.php';
 $wgAutoloadClasses['Spyc'] = $dir . 'Spyc.php';
+$wgAutoloadClasses['OpenStackManagerNotificationFormatter'] = $dir . 'OpenStackManagerNotificationFormatter.php';
 $wgSpecialPages['NovaInstance'] = 'SpecialNovaInstance';
 $wgSpecialPageGroups['NovaInstance'] = 'nova';
 $wgSpecialPages['NovaKey'] = 'SpecialNovaKey';
@@ -195,6 +196,61 @@ require_once( $dir . 'OpenStackNovaProject.php' );
 
 # Schema changes
 $wgHooks['LoadExtensionSchemaUpdates'][] = 'efOpenStackSchemaUpdates';
+
+$wgHooks['EchoGetDefaultNotifiedUsers'][] = 'efEchoGetDefaultNotifiedUsers';
+
+/**
+ * Handler for EchoGetDefaultNotifiedUsers hook.
+ * @param $event EchoEvent to get implicitly subscribed users for
+ * @param &$users Array to append implicitly subscribed users to.
+ * @return bool true in all cases
+ */
+function efEchoGetDefaultNotifiedUsers ( $event, &$users ) {
+	if ( $event->getType() == 'osm-instance-build-completed' || $event->getType() == 'osm-instance-deleted' ) {
+		$extra = $event->getExtra(); // Sigh. PHP 5.3 compatability.
+		foreach ( OpenStackNovaProject::getProjectByName( $extra['projectName'] )->getRoles() as $role ) {
+			if ( $role->getRoleName() == 'sysadmin' ) {
+				foreach ( $role->getMembers() as $sysadminRoleMember ) {
+					if ( $sysadminRoleMember != $event->getAgent() || $event->getType() != 'osm-instance-deleted' ) { // Instance deletion notifications don't need to go to the agent, they already know...
+						$sysadminRoleMemberUser = User::newFromName( $sysadminRoleMember );
+						$users[$sysadminRoleMemberUser->getId()] = $sysadminRoleMemberUser;
+					}
+				}
+			}
+		}
+	} elseif ( $event->getType() == 'osm-instance-reboot-completed' ) {
+		$users[$event->getAgent()->getId()] = $event->getAgent(); // Only notify the person who did it to say the reboot was completed.
+	}
+	return true;
+}
+
+$wgEchoNotificationFormatters['osm-instance-build-completed'] = array(
+	'class' => 'OpenStackManagerNotificationFormatter',
+	'title-message' => 'notification-osm-instance-build-completed',
+	'title-params' => array( 'agent', 'title', 'instance' ),
+	'icon' => 'placeholder',
+	'payload' => array( 'summary' )
+);
+
+$wgEchoNotificationFormatters['osm-instance-reboot-completed'] = array(
+	'class' => 'OpenStackManagerNotificationFormatter',
+	'title-message' => 'notification-osm-instance-reboot-completed',
+	'title-params' => array( 'agent', 'title', 'instance' ),
+	'icon' => 'placeholder',
+	'payload' => array( 'summary' )
+);
+
+$wgEchoNotificationFormatters['osm-instance-deleted'] = array(
+	'class' => 'OpenStackManagerNotificationFormatter',
+	'title-message' => 'notification-osm-instance-deleted',
+	'title-params' => array( 'agent', 'title', 'instance' ),
+	'icon' => 'trash',
+	'payload' => array( 'summary' )
+);
+
+$wgEchoEnabledEvents[] = 'osm-instance-build-completed';
+$wgEchoEnabledEvents[] = 'osm-instance-reboot-completed';
+$wgEchoEnabledEvents[] = 'osm-instance-deleted';
 
 /**
  * @param $updater DatabaseUpdater

@@ -387,6 +387,13 @@ Choose one or the other, not both.',
 	'right-manageproject' => 'Manage OpenStack projects and roles',
 	'action-manageproject' => 'manage OpenStack projects and roles',
 	'right-loginviashell' => 'Login via shell',
+
+	'notification-osm-instance-deleted' => '$1 deleted instance \'$3\' in project [[$2]]',
+	'notification-osm-instance-build-completed' => '$1 build instance \'$3\' in project [[$2]]',
+	'notification-osm-instance-reboot-completed' => '$1 rebooted instance \'$3\' in project [[$2]]',
+	'echo-pref-email-osm-instance-deleted' => 'Deletes an instance from a project I\'m a sysadmin on.',
+	'echo-pref-email-osm-instance-build-completed' => 'Builds an instance on a project I\'m a sysadmin on.',
+	'echo-pref-email-osm-instance-reboot-completed' => 'Reboots an instance.',
 );
 
 /** Message documentation (Message documentation)
@@ -533,6 +540,13 @@ This is about OpenStack roles.',
 	'right-loginviashell' => '{{doc-right|loginviashell}}
 
 This is a right needed to be added to a project.',
+
+	'notification-osm-instance-deleted' => 'Title for the instance deletion notification.',
+	'notification-osm-instance-build-completed' => 'Title for the instance build completion notification.',
+	'notification-osm-instance-reboot-completed' => 'Title for the instance reboot completion notification.',
+	'echo-pref-email-osm-instance-deleted' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable email notification for the osm-instance-deleted event.',
+	'echo-pref-email-osm-instance-build-completed' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable email notification for the osm-instance-build-completed event.',
+	'echo-pref-email-osm-instance-reboot-completed' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable email notification for the osm-instance-reboot-completed event.',
 );
 
 /** Afrikaans (Afrikaans)
