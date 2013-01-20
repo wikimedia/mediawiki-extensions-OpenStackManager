@@ -1938,7 +1938,7 @@ $messages['de-formal'] = array(
  */
 $messages['diq'] = array(
 	'specialpages-group-nova' => 'OpenStack Nova',
-	'openstackmanager-delete' => 'besterne',
+	'openstackmanager-delete' => 'bestere',
 	'openstackmanager-configure' => 'awan ke',
 	'openstackmanager-actions' => 'Kerdışi',
 	'openstackmanager-location' => 'Lokasyon',
