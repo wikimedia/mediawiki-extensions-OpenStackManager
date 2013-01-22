@@ -540,7 +540,6 @@ This is about OpenStack roles.',
 	'right-loginviashell' => '{{doc-right|loginviashell}}
 
 This is a right needed to be added to a project.',
-
 	'notification-osm-instance-deleted' => 'Title for the instance deletion notification.',
 	'notification-osm-instance-build-completed' => 'Title for the instance build completion notification.',
 	'notification-osm-instance-reboot-completed' => 'Title for the instance reboot completion notification.',
