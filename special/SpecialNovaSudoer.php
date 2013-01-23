@@ -27,21 +27,22 @@ class SpecialNovaSudoer extends SpecialNova {
 		$this->checkTwoFactor();
 		$this->userNova = OpenStackNovaController::newFromUser( $this->userLDAP );
 		$action = $this->getRequest()->getVal( 'action' );
-		$project = $this->getRequest()->getText( 'project' );
+		$this->projectName = $this->getRequest()->getText( 'project' );
+		$this->project = OpenStackNovaProject::getProjectByName( $this->projectName );
 		if ( $action === "create" ) {
-			if ( ! $this->userLDAP->inProject( $project ) ) {
+			if ( ! $this->userLDAP->inProject( $this->projectName ) ) {
 				$this->notInProject();
 				return;
 			}
 			$this->createSudoer();
 		} elseif ( $action === "delete" ) {
-			if ( ! $this->userLDAP->inProject( $project ) ) {
+			if ( ! $this->userLDAP->inProject( $this->projectName ) ) {
 				$this->notInProject();
 				return;
 			}
 			$this->deleteSudoer();
 		} elseif ( $action === "modify" ) {
-			if ( ! $this->userLDAP->inProject( $project ) ) {
+			if ( ! $this->userLDAP->inProject( $this->projectName ) ) {
 				$this->notInProject();
 				return;
 			}
@@ -57,15 +58,14 @@ class SpecialNovaSudoer extends SpecialNova {
 	function createSudoer() {
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-modifysudoer' ) );
-		$projectName = $this->getRequest()->getText( 'project' );
-		if ( ! $this->userLDAP->inRole( 'sysadmin', $projectName ) ) {
+		if ( ! $this->userLDAP->inRole( 'sysadmin', $this->projectName ) ) {
 			$this->notInRole( 'sysadmin' );
 			return false;
 		}
 
-		$userArr = $this->getSudoUsers( $projectName );
+		$userArr = $this->getSudoUsers( $this->projectName );
 		$user_keys = $userArr["keys"];
-		$hostArr = $this->getSudoHosts( $projectName );
+		$hostArr = $this->getSudoHosts( $this->projectName );
 		$host_keys = $hostArr["keys"];
 		$sudoerInfo = array();
 		$sudoerInfo['sudoername'] = array(
@@ -105,7 +105,7 @@ class SpecialNovaSudoer extends SpecialNova {
 		);
 		$sudoerInfo['project'] = array(
 			'type' => 'hidden',
-			'default' => $projectName,
+			'default' => $this->projectName,
 			'name' => 'project',
 		);
 		$sudoerInfo['action'] = array(
@@ -129,8 +129,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	function deleteSudoer() {
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-deletesudoer' ) );
-		$project = $this->getRequest()->getText( 'project' );
-		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
+		if ( ! $this->userLDAP->inRole( 'sysadmin', $this->projectName ) ) {
 			$this->notInRole( 'sysadmin' );
 			return false;
 		}
@@ -146,7 +145,7 @@ class SpecialNovaSudoer extends SpecialNova {
 		);
 		$sudoerInfo['project'] = array(
 			'type' => 'hidden',
-			'default' => $project,
+			'default' => $this->projectName,
 			'name' => 'project',
 		);
 		$sudoerInfo['action'] = array(
@@ -169,17 +168,16 @@ class SpecialNovaSudoer extends SpecialNova {
 	function modifySudoer() {
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-modifysudoer' ) );
-		$projectName = $this->getRequest()->getText( 'project' );
-		if ( ! $this->userLDAP->inRole( 'sysadmin', $projectName ) ) {
+		if ( ! $this->userLDAP->inRole( 'sysadmin', $this->projectName ) ) {
 			$this->notInRole( 'sysadmin' );
 			return false;
 		}
 		$sudoername = $this->getRequest()->getText( 'sudoername' );
-		$sudoer = OpenStackNovaSudoer::getSudoerByName( $sudoername, $projectName );
-		$userArr = $this->getSudoUsers( $projectName, $sudoer );
+		$sudoer = OpenStackNovaSudoer::getSudoerByName( $sudoername, $this->projectName );
+		$userArr = $this->getSudoUsers( $this->projectName, $sudoer );
 		$user_keys = $userArr["keys"];
 		$user_defaults = $userArr["defaults"];
-		$hostArr = $this->getSudoHosts( $projectName, $sudoer );
+		$hostArr = $this->getSudoHosts( $this->projectName, $sudoer );
 		$host_keys = $hostArr["keys"];
 		$host_defaults = $hostArr["defaults"];
 		$commands = implode( "\n", $sudoer->getSudoerCommands() );
@@ -229,7 +227,7 @@ class SpecialNovaSudoer extends SpecialNova {
 		);
 		$sudoerInfo['project'] = array(
 			'type' => 'hidden',
-			'default' => $projectName,
+			'default' => $this->projectName,
 			'name' => 'project',
 		);
 		$sudoerInfo['action'] = array(
