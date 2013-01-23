@@ -58,8 +58,8 @@ class SpecialNovaSudoer extends SpecialNova {
 	function createSudoer() {
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-modifysudoer' ) );
-		if ( ! $this->userLDAP->inRole( 'sysadmin', $this->projectName ) ) {
-			$this->notInRole( 'sysadmin' );
+		if ( ! $this->userLDAP->inRole( 'projectadmin', $this->projectName ) ) {
+			$this->notInRole( 'projectadmin' );
 			return false;
 		}
 
@@ -136,8 +136,8 @@ class SpecialNovaSudoer extends SpecialNova {
 	function deleteSudoer() {
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-deletesudoer' ) );
-		if ( ! $this->userLDAP->inRole( 'sysadmin', $this->projectName ) ) {
-			$this->notInRole( 'sysadmin' );
+		if ( ! $this->userLDAP->inRole( 'projectadmin', $this->projectName ) ) {
+			$this->notInRole( 'projectadmin' );
 			return false;
 		}
 		$sudoername = $this->getRequest()->getText( 'sudoername' );
@@ -175,8 +175,8 @@ class SpecialNovaSudoer extends SpecialNova {
 	function modifySudoer() {
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-modifysudoer' ) );
-		if ( ! $this->userLDAP->inRole( 'sysadmin', $this->projectName ) ) {
-			$this->notInRole( 'sysadmin' );
+		if ( ! $this->userLDAP->inRole( 'projectadmin', $this->projectName ) ) {
+			$this->notInRole( 'projectadmin' );
 			return false;
 		}
 		$sudoername = $this->getRequest()->getText( 'sudoername' );
@@ -361,8 +361,8 @@ class SpecialNovaSudoer extends SpecialNova {
 			if ( !in_array( $projectName, $projectfilter ) ) {
 				continue;
 			}
-			$actions = Array( 'sysadmin' => Array() );
-			$actions['sysadmin'][] = $this->createActionLink( 'openstackmanager-createsudoer', array( 'action' => 'create', 'project' => $projectName ) );
+			$actions = Array( 'projectadmin' => Array() );
+			$actions['projectadmin'][] = $this->createActionLink( 'openstackmanager-createsudoer', array( 'action' => 'create', 'project' => $projectName ) );
 			$out .= $this->createProjectSection( $projectName, $actions, $this->getSudoers( $project ) );
 		}
 

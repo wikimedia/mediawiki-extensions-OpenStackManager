@@ -61,8 +61,8 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		$project = $this->getRequest()->getText( 'project' );
 		if ( $project ) {
 			// Project specific
-			if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
-				$this->notInRole( 'sysadmin' );
+			if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+				$this->notInRole( 'projectadmin' );
 				return false;
 			}
 		} else {
@@ -116,8 +116,8 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		$project = $group->getProject();
 		if ( $project ) {
 			// Project specific
-			if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
-				$this->notInRole( 'sysadmin' );
+			if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+				$this->notInRole( 'projectadmin' );
 				return false;
 			}
 		} else {
@@ -175,8 +175,8 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		$project = $group->getProject();
 		if ( $project ) {
 			// Project specific
-			if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
-				$this->notInRole( 'sysadmin' );
+			if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+				$this->notInRole( 'projectadmin' );
 				return false;
 			}
 		} else {
@@ -225,8 +225,8 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		$project = $group->getProject();
 		if ( $project ) {
 			// Project specific
-			if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
-				$this->notInRole( 'sysadmin' );
+			if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+				$this->notInRole( 'projectadmin' );
 				return false;
 			}
 		} else {
@@ -285,8 +285,8 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		$project = $group->getProject();
 		if ( $project ) {
 			// Project specific
-			if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
-				$this->notInRole( 'sysadmin' );
+			if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+				$this->notInRole( 'projectadmin' );
 				return false;
 			}
 		} else {
@@ -337,8 +337,8 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		$project = $group->getProject();
 		if ( $project ) {
 			// Project specific
-			if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
-				$this->notInRole( 'sysadmin' );
+			if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+				$this->notInRole( 'projectadmin' );
 				return false;
 			}
 		} else {
@@ -381,7 +381,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		$puppetClassId = $this->getRequest()->getInt( 'puppetclassid' );
 		$group = OpenStackNovaPuppetGroup::newFromClassId( $puppetClassId );
 		$puppetGroupId = $this->getRequest()->getInt( 'puppetgroupid' );
-		// Check to ensure a user is a sysadmin in both the from and to
+		// Check to ensure a user is a projectadmin in both the from and to
 		// groups.
 		if ( $puppetGroupId !== $group->getId() ) {
 			$newgroup = OpenStackNovaPuppetGroup::newFromId( $puppetGroupId );
@@ -390,8 +390,8 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 				return false;
 			}
 			$project = $newgroup->getProject();
-			if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
-				$this->notInRole( 'sysadmin' );
+			if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+				$this->notInRole( 'projectadmin' );
 				return false;
 			}
 		}
@@ -402,8 +402,8 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		$project = $group->getProject();
 		if ( $project ) {
 			// Project specific
-			if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
-				$this->notInRole( 'sysadmin' );
+			if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+				$this->notInRole( 'projectadmin' );
 				return false;
 			}
 		} else {
@@ -457,7 +457,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		$puppetVarId = $this->getRequest()->getInt( 'puppetvarid' );
 		$group = OpenStackNovaPuppetGroup::newFromVarId( $puppetVarId );
 		$puppetGroupId = $this->getRequest()->getInt( 'puppetgroupid' );
-		// Check to ensure a user is a sysadmin in both the from and to
+		// Check to ensure a user is a projectadmin in both the from and to
 		// groups.
 		if ( $puppetGroupId !== $group->getId() ) {
 			$newgroup = OpenStackNovaPuppetGroup::newFromId( $puppetGroupId );
@@ -466,8 +466,8 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 				return false;
 			}
 			$project = $newgroup->getProject();
-			if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
-				$this->notInRole( 'sysadmin' );
+			if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+				$this->notInRole( 'projectadmin' );
 				return false;
 			}
 		}
@@ -479,8 +479,8 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 
 		if ( $project ) {
 			// Project specific
-			if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
-				$this->notInRole( 'sysadmin' );
+			if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+				$this->notInRole( 'projectadmin' );
 				return false;
 			}
 		} else {
@@ -541,8 +541,8 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		$project = $group->getProject();
 		if ( $project ) {
 			// Project specific
-			if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
-				$this->notInRole( 'sysadmin' );
+			if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+				$this->notInRole( 'projectadmin' );
 				return false;
 			}
 		} else {
@@ -606,8 +606,8 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			if ( $projectfilter && !in_array( $projectName, $projectfilter ) ) {
 				continue;
 			}
-			$actions = Array( 'sysadmin' => Array() );
-			$actions['sysadmin'][] = $this->createActionLink( 'openstackmanager-createpuppetgroup', array( 'action' => 'create', 'project' => $projectName ) );
+			$actions = Array( 'projectadmin' => Array() );
+			$actions['projectadmin'][] = $this->createActionLink( 'openstackmanager-createpuppetgroup', array( 'action' => 'create', 'project' => $projectName ) );
 			$out .= $this->createProjectSection( $projectName, $actions, $this->getPuppetGroupOutput( OpenStackNovaPuppetGroup::getGroupList( $projectName ) ) );
 		}
 		$action = '';

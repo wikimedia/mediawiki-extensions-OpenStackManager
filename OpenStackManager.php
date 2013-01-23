@@ -209,11 +209,11 @@ function efEchoGetDefaultNotifiedUsers ( $event, &$users ) {
 	if ( $event->getType() == 'osm-instance-build-completed' || $event->getType() == 'osm-instance-deleted' ) {
 		$extra = $event->getExtra(); // Sigh. PHP 5.3 compatability.
 		foreach ( OpenStackNovaProject::getProjectByName( $extra['projectName'] )->getRoles() as $role ) {
-			if ( $role->getRoleName() == 'sysadmin' ) {
-				foreach ( $role->getMembers() as $sysadminRoleMember ) {
-					if ( $sysadminRoleMember != $event->getAgent() || $event->getType() != 'osm-instance-deleted' ) { // Instance deletion notifications don't need to go to the agent, they already know...
-						$sysadminRoleMemberUser = User::newFromName( $sysadminRoleMember );
-						$users[$sysadminRoleMemberUser->getId()] = $sysadminRoleMemberUser;
+			if ( $role->getRoleName() == 'projectadmin' ) {
+				foreach ( $role->getMembers() as $roleMember ) {
+					if ( $roleMember != $event->getAgent() || $event->getType() != 'osm-instance-deleted' ) { // Instance deletion notifications don't need to go to the agent, they already know...
+						$roleMemberUser = User::newFromName( $roleMember );
+						$users[$roleMemberUser->getId()] = $roleMemberUser;
 					}
 				}
 			}

@@ -63,8 +63,8 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
-		if ( ! $this->userLDAP->inRole( 'netadmin', $project ) ) {
-			$this->notInRole( 'netadmin' );
+		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+			$this->notInRole( 'projectadmin' );
 			return false;
 		}
 		$securityGroupInfo = array();
@@ -115,8 +115,8 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
-		if ( ! $this->userLDAP->inRole( 'netadmin', $project ) ) {
-			$this->notInRole( 'netadmin' );
+		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+			$this->notInRole( 'projectadmin' );
 			return false;
 		}
 		$securitygroupid = $this->getRequest()->getText( 'groupid' );
@@ -187,12 +187,12 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 			if ( !in_array( $projectName, $projectfilter ) ) {
 				continue;
 			}
-			$projectactions = Array( 'netadmin' => Array() );
+			$projectactions = Array( 'projectadmin' => Array() );
 			$regions = '';
 			$this->userNova->setProject( $projectName );
 			foreach ( $this->userNova->getRegions( 'compute' ) as $region ) {
 				$this->userNova->setRegion( $region );
-				$regionactions = Array( 'netadmin' => Array( $this->createActionLink( 'openstackmanager-createnewsecuritygroup', array( 'action' => 'create', 'project' => $projectName, 'region' => $region ) ) ) );
+				$regionactions = Array( 'projectadmin' => Array( $this->createActionLink( 'openstackmanager-createnewsecuritygroup', array( 'action' => 'create', 'project' => $projectName, 'region' => $region ) ) ) );
 				$securityGroups = $this->getSecurityGroups( $projectName, $region );
 				$regions .= $this->createRegionSection( $region, $projectName, $regionactions, $securityGroups );
 			}
@@ -245,7 +245,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 						$this->pushRawResourceColumn( $ruleRow, '' );
 					}
 					$actions = '';
-					if ( $this->userLDAP->inRole( 'netadmin', $project ) ) {
+					if ( $this->userLDAP->inRole( 'projectadmin', $project ) ) {
 						$args = array(  'action' => 'removerule',
 								'project' => $project,
 								'region' => $region,
@@ -262,7 +262,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 				$this->pushRawResourceColumn( $groupRow, '' );
 			}
 			$actions = Array();
-			if ( $this->userLDAP->inRole( 'netadmin', $project ) ) {
+			if ( $this->userLDAP->inRole( 'projectadmin', $project ) ) {
 				array_push( $actions, $this->createActionLink( 'openstackmanager-delete', array( 'action' => 'delete', 'project' => $project, 'region' => $region, 'groupid' => $groupid ) ) );
 				array_push( $actions, $this->createActionLink( 'openstackmanager-addrule-action', array( 'action' => 'addrule', 'project' => $project, 'region' => $region, 'groupid' => $groupid ) ) );
 			}
@@ -287,8 +287,8 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		$region = $this->getRequest()->getText( 'region' );
 		$groupid = $this->getRequest()->getText( 'groupid' );
 
-		if ( ! $this->userLDAP->inRole( 'netadmin', $project ) ) {
-			$this->notInRole( 'netadmin' );
+		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+			$this->notInRole( 'projectadmin' );
 			return false;
 		}
 		$securitygroup = $this->userNova->getSecurityGroup( $groupid );
@@ -381,8 +381,8 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
-		if ( ! $this->userLDAP->inRole( 'netadmin', $project ) ) {
-			$this->notInRole( 'netadmin' );
+		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+			$this->notInRole( 'projectadmin' );
 			return false;
 		}
 		$groupid = $this->getRequest()->getText( 'groupid' );

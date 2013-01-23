@@ -63,8 +63,8 @@ class SpecialNovaAddress extends SpecialNova {
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
-		if ( ! $this->userLDAP->inRole( 'netadmin', $project ) ) {
-			$this->notInRole( 'netadmin' );
+		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+			$this->notInRole( 'projectadmin' );
 			return false;
 		}
 		if ( !$this->getRequest()->wasPosted() ) {
@@ -105,8 +105,8 @@ class SpecialNovaAddress extends SpecialNova {
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
-		if ( ! $this->userLDAP->inRole( 'netadmin', $project ) ) {
-			$this->notInRole( 'netadmin' );
+		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+			$this->notInRole( 'projectadmin' );
 			return false;
 		}
 		$id = $this->getRequest()->getText( 'id' );
@@ -157,8 +157,8 @@ class SpecialNovaAddress extends SpecialNova {
 		$id = $this->getRequest()->getText( 'id' );
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
-		if ( ! $this->userLDAP->inRole( 'netadmin', $project ) ) {
-			$this->notInRole( 'netadmin' );
+		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+			$this->notInRole( 'projectadmin' );
 			return false;
 		}
 		$instances = $this->userNova->getInstances();
@@ -218,8 +218,8 @@ class SpecialNovaAddress extends SpecialNova {
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
-		if ( ! $this->userLDAP->inRole( 'netadmin', $project ) ) {
-			$this->notInRole( 'netadmin' );
+		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+			$this->notInRole( 'projectadmin' );
 			return false;
 		}
 		$id = $this->getRequest()->getText( 'id' );
@@ -268,8 +268,8 @@ class SpecialNovaAddress extends SpecialNova {
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
-		if ( ! $this->userLDAP->inRole( 'netadmin', $project ) ) {
-			$this->notInRole( 'netadmin' );
+		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+			$this->notInRole( 'projectadmin' );
 			return false;
 		}
 		$id = $this->getRequest()->getText( 'id' );
@@ -332,8 +332,8 @@ class SpecialNovaAddress extends SpecialNova {
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
-		if ( ! $this->userLDAP->inRole( 'netadmin', $project ) ) {
-			$this->notInRole( 'netadmin' );
+		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+			$this->notInRole( 'projectadmin' );
 			return false;
 		}
 		$id = $this->getRequest()->getText( 'id' );
@@ -413,12 +413,12 @@ class SpecialNovaAddress extends SpecialNova {
 			if ( !in_array( $projectName, $projectfilter ) ) {
 				continue;
 			}
-			$projectactions = Array( 'netadmin' => Array() );
+			$projectactions = Array( 'projectadmin' => Array() );
 			$regions = '';
 			$this->userNova->setProject( $projectName );
 			foreach ( $this->userNova->getRegions( 'compute' ) as $region ) {
 				$regionactions = array(
-					'netadmin' => array(
+					'projectadmin' => array(
 						$this->createActionLink(
 							'openstackmanager-allocateaddress',
 							array(

@@ -16,7 +16,7 @@ class OpenStackNovaProject {
 	var $projectGroup;
 
 	// list of roles
-	static $rolenames = array( 'sysadmin', 'netadmin' );
+	static $rolenames = array( 'projectadmin' );
 
 	/**
 	 * @param  $projectname

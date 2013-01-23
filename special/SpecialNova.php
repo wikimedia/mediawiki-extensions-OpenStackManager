@@ -41,13 +41,8 @@ abstract class SpecialNova extends SpecialPage {
 	 */
 	function notInRole( $role ) {
 		$this->setHeaders();
-		if ( $role === 'sysadmin' ) {
-			$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-needsysadminrole' ) );
-			$this->getOutput()->addWikiMsg( 'openstackmanager-needsysadminrole2' );
-		} elseif ( $role === 'netadmin' ) {
-			$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-neednetadminrole' ) );
-			$this->getOutput()->addWikiMsg( 'openstackmanager-neednetadminrole2' );
-		}
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-needrole', $role ) );
+		$this->getOutput()->addWikiMsg( 'openstackmanager-needrole2', $role );
 	}
 
 	function checkTwoFactor() {

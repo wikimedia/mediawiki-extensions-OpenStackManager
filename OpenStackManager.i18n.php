@@ -264,12 +264,8 @@ Please remove all host entries and disassociate the IP address before trying to 
 	'openstackmanager-removehostfailed' => 'Failed to remove $1.',
 	'openstackmanager-nonexistenthost' => 'The requested host does not exist.',
 
-	'openstackmanager-needsysadminrole' => 'Sysadmin role required',
-	'openstackmanager-needsysadminrole2' => 'You must be a member of the sysadmin role to perform this action.',
-	'openstackmanager-neednetadminrole' => 'Netadmin role required',
-	'openstackmanager-neednetadminrole2' => 'You must be a member of the netadmin role to perform this action.',
-	'openstackmanager-needcloudadminrole' => 'Cloudadmin role required',
-	'openstackmanager-needcloudadminrole2' => 'You must be a member of the cloudadmin role to perform this action.',
+	'openstackmanager-needrole' => '$1 role required',
+	'openstackmanager-needrole2' => 'You must be a member of the $1 role to perform this action.',
 
 	'openstackmanager-createsecuritygroup' => 'Create security group',
 	'openstackmanager-securitygroupname' => 'Security group name',
@@ -393,8 +389,8 @@ Choose one or the other, not both.',
 	'notification-osm-instance-deleted' => '$1 deleted instance \'$3\' in project [[$2]]',
 	'notification-osm-instance-build-completed' => '$1 build instance \'$3\' in project [[$2]]',
 	'notification-osm-instance-reboot-completed' => '$1 rebooted instance \'$3\' in project [[$2]]',
-	'echo-pref-email-osm-instance-deleted' => 'Deletes an instance from a project I\'m a sysadmin on.',
-	'echo-pref-email-osm-instance-build-completed' => 'Builds an instance on a project I\'m a sysadmin on.',
+	'echo-pref-email-osm-instance-deleted' => 'Deletes an instance from a project I\'m a admin on.',
+	'echo-pref-email-osm-instance-build-completed' => 'Builds an instance on a project I\'m a admin on.',
 	'echo-pref-email-osm-instance-reboot-completed' => 'Reboots an instance.',
 );
 
@@ -551,6 +547,8 @@ This is a right needed to be added to a project.',
 	'echo-pref-email-osm-instance-deleted' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable email notification for the osm-instance-deleted event.',
 	'echo-pref-email-osm-instance-build-completed' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable email notification for the osm-instance-build-completed event.',
 	'echo-pref-email-osm-instance-reboot-completed' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable email notification for the osm-instance-reboot-completed event.',
+	'openstackmanager-needrole' => 'Title for an error on special pages. $1 is the role the user needs.',
+	'openstackmanager-needrole2' => 'Error message on special pages. $1 is the role the user needs.',
 );
 
 /** Afrikaans (Afrikaans)

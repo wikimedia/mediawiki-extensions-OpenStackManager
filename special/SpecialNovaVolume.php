@@ -79,8 +79,8 @@ class SpecialNovaVolume extends SpecialNova {
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
-		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
-			$this->notInRole( 'sysadmin' );
+		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+			$this->notInRole( 'projectadmin' );
 			return false;
 		}
 		$volumeInfo = array();
@@ -139,8 +139,8 @@ class SpecialNovaVolume extends SpecialNova {
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
-		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
-			$this->notInRole( 'sysadmin' );
+		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+			$this->notInRole( 'projectadmin' );
 			return false;
 		}
 		$volumeid = $this->getRequest()->getText( 'volumeid' );
@@ -186,8 +186,8 @@ class SpecialNovaVolume extends SpecialNova {
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
-		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
-			$this->notInRole( 'sysadmin' );
+		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+			$this->notInRole( 'projectadmin' );
 			return false;
 		}
 		$instances = $this->userNova->getInstances();
@@ -265,8 +265,8 @@ class SpecialNovaVolume extends SpecialNova {
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
-		if ( ! $this->userLDAP->inRole( 'sysadmin', $project ) ) {
-			$this->notInRole( 'sysadmin' );
+		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+			$this->notInRole( 'projectadmin' );
 			return false;
 		}
 		$volumeInfo = array();
@@ -339,11 +339,11 @@ class SpecialNovaVolume extends SpecialNova {
 			if ( !in_array( $projectName, $projectfilter ) ) {
 				continue;
 			}
-			$projectactions = Array( 'sysadmin' => Array() );
+			$projectactions = Array( 'projectadmin' => Array() );
 			$regions = '';
 			$this->userNova->setProject( $projectName );
 			foreach ( $this->userNova->getRegions( 'compute' ) as $region ) {
-				$regionactions = Array( 'sysadmin' => Array( $this->createActionLink( 'openstackmanager-createvolume', array( 'action' => 'create', 'project' => $projectName, 'region' => $region ) ) ) );
+				$regionactions = Array( 'projectadmin' => Array( $this->createActionLink( 'openstackmanager-createvolume', array( 'action' => 'create', 'project' => $projectName, 'region' => $region ) ) ) );
 				$volumes = $this->getVolumes( $projectName, $region );
 				$regions .= $this->createRegionSection( $region, $projectName, $regionactions, $volumes );
 			}
