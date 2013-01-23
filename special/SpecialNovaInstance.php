@@ -612,6 +612,8 @@ class SpecialNovaInstance extends SpecialNova {
 			$host = OpenStackNovaHost::addHost( $instance, $domain, $this->getPuppetInfo( $formData ) );
 
 			if ( $host ) {
+				$instance->setHost( $host );
+				OpenStackManagerEvent::storeEventInfo( 'build', $this->getUser(), $instance, $project );
 				$title = Title::newFromText( $this->getOutput()->getPageTitle() );
 				$job = new OpenStackNovaHostJob( $title, array( 'instanceid' => $instance->getInstanceId(), 'instanceosid' => $instance->getInstanceOSId(), 'project' => $project, 'region' => $region ) );
 				$job->insert();
@@ -655,17 +657,7 @@ class SpecialNovaInstance extends SpecialNova {
 		$instanceid = $instance->getInstanceId();
 		$success = $this->userNova->terminateInstance( $instanceosid );
 		if ( $success ) {
-			if ( class_exists( 'EchoEvent' ) ) {
-				EchoEvent::create( array(
-					'type' => 'osm-instance-deleted',
-					'title' => Title::newFromText( $instanceproject, NS_NOVA_RESOURCE ),
-					'agent' => $this->getUser(),
-					'extra' => array(
-						'instanceName' => $instancename,
-						'projectName' => $instanceproject
-					)
-				) );
-			}
+			OpenStackManagerEvent::createDeletionEvent( $instancename, $instanceproject, $this->getUser() );
 			$instance->deleteArticle();
 			$success = OpenStackNovaHost::deleteHostByInstanceId( $instanceid );
 			if ( $success ) {
@@ -696,6 +688,7 @@ class SpecialNovaInstance extends SpecialNova {
 		$instanceid = $formData['instanceid'];
 		$success = $this->userNova->rebootInstance( $instanceid );
 		if ( $success ) {
+			OpenStackManagerEvent::storeEventInfo( 'reboot', $this->getUser(), $this->userNova->getInstance( $instanceid ), $formData['project'] );
 			$this->getOutput()->addWikiMsg( 'openstackmanager-rebootedinstance', $instanceid );
 		} else {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-rebootinstancefailed' );

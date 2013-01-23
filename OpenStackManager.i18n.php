@@ -395,7 +395,7 @@ Choose one or the other, not both.',
 	'right-loginviashell' => 'Login via shell',
 
 	'notification-osm-instance-deleted' => '$1 deleted instance \'$3\' in project [[$2]]',
-	'notification-osm-instance-build-completed' => '$1 build instance \'$3\' in project [[$2]]',
+	'notification-osm-instance-build-completed' => '$1 built instance \'$3\' in project [[$2]]',
 	'notification-osm-instance-reboot-completed' => '$1 rebooted instance \'$3\' in project [[$2]]',
 	'echo-pref-email-osm-instance-deleted' => 'Deletes an instance from a project I\'m a admin on.',
 	'echo-pref-email-osm-instance-build-completed' => 'Builds an instance on a project I\'m a admin on.',

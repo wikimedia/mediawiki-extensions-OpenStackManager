@@ -154,6 +154,7 @@ $wgAutoloadClasses['SpecialNovaPuppetGroup'] = $dir . 'special/SpecialNovaPuppet
 $wgAutoloadClasses['SpecialNova'] = $dir . 'special/SpecialNova.php';
 $wgAutoloadClasses['Spyc'] = $dir . 'Spyc.php';
 $wgAutoloadClasses['OpenStackManagerNotificationFormatter'] = $dir . 'OpenStackManagerNotificationFormatter.php';
+$wgAutoloadClasses['OpenStackManagerEvent'] = $dir . 'OpenStackManagerEvent.php';
 $wgSpecialPages['NovaInstance'] = 'SpecialNovaInstance';
 $wgSpecialPageGroups['NovaInstance'] = 'nova';
 $wgSpecialPages['NovaKey'] = 'SpecialNovaKey';
@@ -209,16 +210,15 @@ function efEchoGetDefaultNotifiedUsers ( $event, &$users ) {
 		foreach ( OpenStackNovaProject::getProjectByName( $extra['projectName'] )->getRoles() as $role ) {
 			if ( $role->getRoleName() == 'projectadmin' ) {
 				foreach ( $role->getMembers() as $roleMember ) {
-					if ( $roleMember != $event->getAgent() || $event->getType() != 'osm-instance-deleted' ) { // Instance deletion notifications don't need to go to the agent, they already know...
-						$roleMemberUser = User::newFromName( $roleMember );
-						$users[$roleMemberUser->getId()] = $roleMemberUser;
-					}
+					$roleMemberUser = User::newFromName( $roleMember );
+					$users[$roleMemberUser->getId()] = $roleMemberUser;
 				}
 			}
 		}
 	} elseif ( $event->getType() == 'osm-instance-reboot-completed' ) {
 		$users[$event->getAgent()->getId()] = $event->getAgent(); // Only notify the person who did it to say the reboot was completed.
 	}
+	unset( $users[0] );
 	return true;
 }
 
@@ -262,6 +262,7 @@ function efOpenStackSchemaUpdates( $updater ) {
 		$updater->addExtensionTable( 'openstack_puppet_vars', "$base/openstack.sql" );
 		$updater->addExtensionTable( 'openstack_puppet_classes', "$base/openstack.sql" );
 		$updater->addExtensionTable( 'openstack_tokens', "$base/schema-changes/tokens.sql" );
+		$updater->addExtensionTable( 'openstack_notification_event', "$base/schema-changes/openstack_add_notification_events_table.sql" );
 		$updater->addExtensionUpdate( array( 'addField', 'openstack_puppet_groups', 'group_project', "$base/schema-changes/openstack_project_field.sql", true ) );
 		$updater->addExtensionUpdate( array( 'addField', 'openstack_puppet_groups', 'group_is_global', "$base/schema-changes/openstack_group_is_global_field.sql", true ) );
 		$updater->addExtensionUpdate( array( 'dropField', 'openstack_puppet_groups', 'group_position', "$base/schema-changes/openstack_drop_positions.sql", true ) );

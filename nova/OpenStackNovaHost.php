@@ -684,4 +684,13 @@ class OpenStackNovaHost {
 		}
 	}
 
+	/**
+	 * @param $hostname
+	 * @return bool
+	 */
+	static function validateHostname( $hostname ) {
+		# Does not handle trailing dots, purposely
+		return (bool)preg_match( "/^(?=.{1,255}$)[0-9A-Za-z](?:(?:[0-9A-Za-z]|\b-){0,61}[0-9A-Za-z])?(?:\.[0-9A-Za-z](?:(?:[0-9A-Za-z]|\b-){0,61}[0-9A-Za-z])?)*$/", $hostname );
+	}
+
 }
