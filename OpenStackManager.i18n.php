@@ -375,7 +375,7 @@ Choose one or the other, not both.',
 	'openstackmanager-failedtodeletepuppetclass' => 'Failed to delete Puppet class.',
 	'openstackmanager-removepuppetvar' => 'Delete Puppet variable',
 	'openstackmanager-removepuppetvarconfirm' => 'Are you sure you would like to delete this Puppet variable?',
-	'openstackmanager-deletedpuppetvar' => 'Deleted puppet variable.',
+	'openstackmanager-deletedpuppetvar' => 'Deleted Puppet variable.',
 	'openstackmanager-failedtodeletepuppetvar' => 'Failed to delete Puppet variable.',
 
 	'openstackmanager-email-subject' => 'Your instance is ready to be logged into.',
