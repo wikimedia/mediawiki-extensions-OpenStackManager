@@ -5452,6 +5452,12 @@ Deve iniziare con a-z e può contenere solo i caratteri a-z, 0-9 e -.',
 	'right-manageproject' => 'Gestire ruoli e progetti OpenStack',
 	'action-manageproject' => 'gestire ruoli e progetti OpenStack',
 	'right-loginviashell' => "effettua l'accesso tramite la shell",
+	'notification-osm-instance-deleted' => "$1 ha cancellato l'istanza '$3' dal progetto [[$2]]",
+	'notification-osm-instance-build-completed' => "$1 ha costruito l'istanza '$3' nel progetto [[$2]]",
+	'notification-osm-instance-reboot-completed' => "$1 ha riavviato l'istanza '$3' nel progetto [[$2]]",
+	'echo-pref-email-osm-instance-deleted' => "Cancellazione di un'istanza da un progetto di cui io sono un amministratore di sistema.",
+	'echo-pref-email-osm-instance-build-completed' => "Costruzione di un'istanza su un progetto di cui io sono un amministratore di sistema.",
+	'echo-pref-email-osm-instance-reboot-completed' => "Riavvio di un'istanza.",
 );
 
 /** Japanese (日本語)
@@ -9062,6 +9068,7 @@ $messages['roa-tara'] = array(
 	'openstackmanager-removerolemember' => "Live 'nu membre",
 	'openstackmanager-addrolemember' => "Aggiunge 'nu membre",
 	'openstackmanager-novarole-role' => 'Regole de Nova',
+	'openstackmanager-address' => 'Indirizze IP pubbleche',
 	'openstackmanager-allocateaddress' => "Alloche l'IP",
 	'openstackmanager-releaseaddress' => "Relasse l'IP",
 	'openstackmanager-associateaddress' => "Assoce l'IP",
@@ -9093,6 +9100,7 @@ $messages['roa-tara'] = array(
 	'openstackmanager-addpuppetvar' => "Aggiunge 'na variabbile",
 	'openstackmanager-puppetvarname' => "Nome d'a variabile",
 	'openstackmanager-puppetclassposition' => "Posizione d'a classe",
+	'openstackmanager-puppetgroup' => 'Gruppe de le Pupazzere',
 );
 
 /** Russian (русский)
