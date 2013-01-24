@@ -113,6 +113,13 @@ class SpecialNovaSudoer extends SpecialNova {
 			'default' => 'create',
 			'name' => 'action',
 		);
+		$sudoerInfo['requirepassword'] = array(
+			'type' => 'check',
+			'label-message' => 'openstackmanager-requirepassword',
+			'default' => false,
+			'section' => 'sudoer',
+			'name' => 'requirepassword',
+		);
 
 		$sudoerForm = new HTMLForm( $sudoerInfo, 'openstackmanager-novasudoer' );
 		$sudoerForm->setTitle( SpecialPage::getTitleFor( 'NovaSudoer' ) );
@@ -181,7 +188,15 @@ class SpecialNovaSudoer extends SpecialNova {
 		$host_keys = $hostArr["keys"];
 		$host_defaults = $hostArr["defaults"];
 		$commands = implode( "\n", $sudoer->getSudoerCommands() );
-		$options = implode( "\n", $sudoer->getSudoerOptions() );
+		$optionArray = $sudoer->getSudoerOptions();
+		$requirePassword = false;
+		if ( ( $k = array_search( '!authenticate', $optionArray )) !== false ) {
+			unset( $optionArray[$k] );
+		} elseif ( ( $k = array_search( 'authenticate', $optionArray )) !== false) {
+			unset( $optionArray[$k] );
+			$requirePassword = true;
+		}
+		$options = implode( "\n", $optionArray );
 		$sudoerInfo = array();
 		$sudoerInfo['sudoernameinfo'] = array(
 			'type' => 'info',
@@ -234,6 +249,13 @@ class SpecialNovaSudoer extends SpecialNova {
 			'type' => 'hidden',
 			'default' => 'modify',
 			'name' => 'action',
+		);
+		$sudoerInfo['requirepassword'] = array(
+			'type' => 'check',
+			'label-message' => 'openstackmanager-requirepassword',
+			'default' => $requirePassword,
+			'section' => 'sudoer',
+			'name' => 'requirepassword',
 		);
 
 		$sudoerForm = new HTMLForm( $sudoerInfo, 'openstackmanager-novasudoer' );
@@ -456,6 +478,11 @@ class SpecialNovaSudoer extends SpecialNova {
 		} else {
 			$options = array();
 		}
+		if ( $formData['requirepassword'] ) {
+			$options[] = 'authenticate';
+		} else {
+			$options[] = '!authenticate';
+		}
 		$success = OpenStackNovaSudoer::createSudoer( $formData['sudoername'], $formData['project'], $this->removeALLFromUserKeys($formData['users']), $formData['hosts'], $commands, $options );
 		if ( ! $success ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-createsudoerfailed' );
@@ -514,6 +541,11 @@ class SpecialNovaSudoer extends SpecialNova {
 				$options = explode( "\n", $formData['options'] );
 			} else {
 				$options = array();
+			}
+			if ( $formData['requirepassword'] ) {
+				$options[] = 'authenticate';
+			} else {
+				$options[] = '!authenticate';
 			}
 			$success = $sudoer->modifySudoer( $this->removeALLFromUserKeys($formData['users']), $formData['hosts'], $commands, $options );
 			if ( ! $success ) {
