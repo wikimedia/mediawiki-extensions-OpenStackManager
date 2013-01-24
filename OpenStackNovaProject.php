@@ -443,6 +443,15 @@ class OpenStackNovaProject {
 				OpenStackNovaProjectGroup::createProjectGroup( $projectname );
 				# TODO: If project group creation fails we need to be able to fail gracefully
 			}
+
+			// Create a default, permissive sudo policy.
+			$projectGroup = "%" . $project->getProjectGroup()->getProjectGroupName();
+			if ( OpenStackNovaSudoer::createSudoer( 'default', $projectname, array( $projectGroup ),
+						array( 'ALL' ), array( 'ALL' ),
+						array( '!authenticate' ) ) ) {
+				$wgAuth->printDebug( "Successfully created default sudo policy for $projectname", NONSENSITIVE );
+			}
+
 			return true;
 		} else {
 			$wgAuth->printDebug( "Failed to add project $projectname", NONSENSITIVE );
