@@ -5506,7 +5506,8 @@ $messages['ja'] = array(
 	'openstackmanager-createdomain' => 'ドメインを作成',
 	'openstackmanager-deletedomain' => 'ドメインを削除',
 	'openstackmanager-deletedomain-confirm' => 'ドメイン「$1」を本当に削除しますか?
-この操作はすべての VM に影響を及ぼします。この操作を軽率には実行しないでください!',
+この操作はすべての VM に影響を及ぼします。
+この操作を軽率には実行しないでください!',
 	'openstackmanager-novadomain-domain' => 'ドメインを追加',
 	'openstackmanager-createdomainfailed' => 'ドメインの作成に失敗しました。',
 	'openstackmanager-createddomain' => 'ドメインを作成しました。',
@@ -5577,7 +5578,8 @@ $messages['ja'] = array(
 	'openstackmanager-addmember' => 'メンバーを追加',
 	'openstackmanager-removemember' => 'メンバーを除去',
 	'openstackmanager-removeprojectconfirm' => 'プロジェクト「$1」を本当に削除しますか?
-この操作はすべての VM に影響を及ぼします。この操作を軽率には実行しないでください!',
+この操作はすべての VM に影響を及ぼします。
+この操作を軽率には実行しないでください!',
 	'openstackmanager-createproject' => 'プロジェクトを追加',
 	'openstackmanager-projectname' => 'プロジェクト名',
 	'openstackmanager-members' => 'メンバー',
@@ -7043,6 +7045,7 @@ $messages['mk'] = array(
 	'openstackmanager-sudoerusers' => 'Корисници',
 	'openstackmanager-sudoerhosts' => 'Домаќини',
 	'openstackmanager-sudoercommands' => 'Наредби',
+	'openstackmanager-requirepassword' => 'Барај заверка',
 	'openstackmanager-sudoeroptions' => 'Нагодувања',
 	'openstackmanager-allmembers' => 'Сите членови на проектот',
 	'openstackmanager-deletesudoer' => 'Избриши правило',
