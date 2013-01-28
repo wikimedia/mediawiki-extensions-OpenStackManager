@@ -126,6 +126,7 @@ class OpenStackNovaProject {
 	 */
 	function getMembers() {
 		global $wgAuth;
+		global $wgOpenStackManagerLDAPDomain;
 
 		$members = array();
 		if ( isset( $this->projectInfo[0]['member'] ) ) {
@@ -135,7 +136,7 @@ class OpenStackNovaProject {
 			// Shift it off.
 			array_shift( $memberdns );
 			foreach ( $memberdns as $memberdn ) {
-				$searchattr = $wgAuth->getConf( 'SearchAttribute' );
+				$searchattr = $wgAuth->getConf( 'SearchAttribute', $wgOpenStackManagerLDAPDomain );
 				if ( $searchattr ) {
 					// We need to look up the search attr from the user entry
 					// this is expensive, but must be done.

@@ -51,13 +51,14 @@ class OpenStackNovaRole {
 	 */
 	function getMembers() {
 		global $wgAuth;
+		global $wgOpenStackManagerLDAPDomain;
 
 		$members = array();
 		if ( isset( $this->roleInfo[0]['roleoccupant'] ) ) {
 			$memberdns = $this->roleInfo[0]['roleoccupant'];
 			array_shift( $memberdns );
 			foreach ( $memberdns as $memberdn ) {
-				$searchattr = $wgAuth->getConf( 'SearchAttribute' );
+				$searchattr = $wgAuth->getConf( 'SearchAttribute', $wgOpenStackManagerLDAPDomain );
 				if ( $searchattr ) {
 					// We need to look up the search attr from the user entry
 					// this is expensive, but must be done.
