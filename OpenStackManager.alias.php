@@ -49,7 +49,7 @@ $specialPageAliases['mk'] = array(
 	'OpenStackManageInstance' => array( 'РаководиСоПримерок' ),
 );
 
-/** Nedersaksies (Nedersaksies) */
+/** Low Saxon (Netherlands) (Nedersaksies) */
 $specialPageAliases['nds-nl'] = array(
 	'OpenStackManager' => array( 'Open_beuntbeheerder' ),
 	'OpenStackManageInstance' => array( 'Instansie_beheren' ),
