@@ -402,6 +402,7 @@ Choose one or the other, not both.',
  * @author Platonides
  * @author Purodha
  * @author Raymond
+ * @author SPQRobin
  * @author Sam Reed <reedy@wikimedia.org>
  * @author Shirayuki
  * @author Siebrand
@@ -546,8 +547,12 @@ This is a right needed to be added to a project.',
 	'notification-osm-instance-deleted' => 'Title for the instance deletion notification.',
 	'notification-osm-instance-build-completed' => 'Title for the instance build completion notification.',
 	'notification-osm-instance-reboot-completed' => 'Title for the instance reboot completion notification.',
-	'echo-pref-email-osm-instance-deleted' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable email notification for the osm-instance-deleted event.',
-	'echo-pref-email-osm-instance-build-completed' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable email notification for the osm-instance-build-completed event.',
+	'echo-pref-email-osm-instance-deleted' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable email notification for the osm-instance-deleted event.
+
+Preceded by {{msg-mw|prefs-emailsubscriptions}}.',
+	'echo-pref-email-osm-instance-build-completed' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable email notification for the osm-instance-build-completed event.
+
+Preceded by {{msg-mw|prefs-emailsubscriptions}}.',
 	'echo-pref-email-osm-instance-reboot-completed' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable email notification for the osm-instance-reboot-completed event.',
 );
 
@@ -3761,6 +3766,8 @@ Debe comezar con letras do a ao z, e só pode conter caracteres a-z, 0-9 e "-".'
 	'openstackmanager-removedhost' => 'Eliminouse correctamente $1.',
 	'openstackmanager-removehostfailed' => 'Erro ao eliminar $1.',
 	'openstackmanager-nonexistenthost' => 'O provedor de aloxamento que solicitou non existe.',
+	'openstackmanager-needrole' => 'Cómpre o rol de $1',
+	'openstackmanager-needrole2' => 'Debe ser un membro do rol de $1 para realizar esta acción.',
 	'openstackmanager-createsecuritygroup' => 'Crear o grupo de seguridade',
 	'openstackmanager-securitygroupname' => 'Nome do grupo de seguridade',
 	'openstackmanager-securitygroupdescription' => 'Descrición',
@@ -3876,8 +3883,8 @@ Debe comezar con letras do a ao z, e só pode conter caracteres a-z, 0-9 e "-".'
 	'notification-osm-instance-deleted' => '$1 borrou a instancia "$3" no proxecto [[$2]]',
 	'notification-osm-instance-build-completed' => '$1 construíu a instancia "$3" no proxecto [[$2]]',
 	'notification-osm-instance-reboot-completed' => '$1 reiniciou a instancia "$3" no proxecto [[$2]]',
-	'echo-pref-email-osm-instance-deleted' => 'Borre unha instancia nun proxecto no que son administrador.', # Fuzzy
-	'echo-pref-email-osm-instance-build-completed' => 'Constrúa unha instancia nun proxecto no que son administrador.', # Fuzzy
+	'echo-pref-email-osm-instance-deleted' => 'Borre unha instancia nun proxecto no que son administrador.',
+	'echo-pref-email-osm-instance-build-completed' => 'Constrúa unha instancia nun proxecto no que son administrador.',
 	'echo-pref-email-osm-instance-reboot-completed' => 'Reinicie unha instancia.',
 );
 
@@ -7860,8 +7867,8 @@ Verwijder alle hostkoppelingen en ontkoppel het IP-adres voordat u het vrijgeeft
 	'notification-osm-instance-deleted' => '{{GENDER:$1|$1}} heeft de instantie "$3" in het project [[$2]] verwijderd',
 	'notification-osm-instance-build-completed' => '{{GENDER:$1|$1}} heeft de instantie "$3" in het project [[$2]] gebouwd',
 	'notification-osm-instance-reboot-completed' => '{{GENDER:$1|$1}} heeft de instantie "$3" in het project [[$2]] herstart',
-	'echo-pref-email-osm-instance-deleted' => 'Een instantie verwijdert van een project waarin ik beheerder ben.', # Fuzzy
-	'echo-pref-email-osm-instance-build-completed' => 'Een instantie bouwt in een project waarin ik beheerder ben.', # Fuzzy
+	'echo-pref-email-osm-instance-deleted' => 'Een instantie verwijdert van een project waarin ik beheerder ben.',
+	'echo-pref-email-osm-instance-build-completed' => 'Een instantie bouwt in een project waarin ik beheerder ben.',
 	'echo-pref-email-osm-instance-reboot-completed' => 'Een instantie herstart.',
 );
 
