@@ -5461,7 +5461,7 @@ Deve iniziare con a-z e può contenere solo i caratteri a-z, 0-9 e -.',
 	'notification-osm-instance-deleted' => "$1 ha cancellato l'istanza '$3' dal progetto [[$2]]",
 	'notification-osm-instance-build-completed' => "$1 ha costruito l'istanza '$3' nel progetto [[$2]]",
 	'notification-osm-instance-reboot-completed' => "$1 ha riavviato l'istanza '$3' nel progetto [[$2]]",
-	'echo-pref-email-osm-instance-deleted' => "Cancellazione di un'istanza da un progetto di cui io sono un amministratore.", # Fuzzy
+	'echo-pref-email-osm-instance-deleted' => "Cancellazione di un'istanza da un progetto di cui io sono un amministratore.",
 	'echo-pref-email-osm-instance-build-completed' => "Costruzione di un'istanza su un progetto di cui io sono un amministratore.",
 	'echo-pref-email-osm-instance-reboot-completed' => "Riavvio di un'istanza.",
 );
