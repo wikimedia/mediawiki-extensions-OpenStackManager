@@ -11096,6 +11096,7 @@ $messages['yi'] = array(
  * @author Xiaomingyan
  * @author Yanmiao liu
  * @author Yfdyh000
+ * @author 乌拉跨氪
  */
 $messages['zh-hans'] = array(
 	'openstackmanager-desc' => '让用户管理 Nova 和 Swift',
@@ -11305,12 +11306,7 @@ $messages['zh-hans'] = array(
 	'openstackmanager-removedhost' => '删除$1成功。',
 	'openstackmanager-removehostfailed' => '删除$1失败。',
 	'openstackmanager-nonexistenthost' => '请求的主机不存在。',
-	'openstackmanager-needsysadminrole' => '需要系统管理员作用',
-	'openstackmanager-needsysadminrole2' => '您必须成为系统管理员作用成员才能执行此操作。',
-	'openstackmanager-neednetadminrole' => '需要网络管理员作用',
-	'openstackmanager-neednetadminrole2' => '您必须成为网络管理员作用成员才能执行此操作。',
-	'openstackmanager-needcloudadminrole' => '需要云计算管理员作用',
-	'openstackmanager-needcloudadminrole2' => '您必须成为云计算管理员作用成员才能执行此操作。',
+	'openstackmanager-needrole2' => '您必须成为$1管理员才能执行此操作。',
 	'openstackmanager-createsecuritygroup' => '创建安全组',
 	'openstackmanager-securitygroupname' => '安全组名称',
 	'openstackmanager-securitygroupdescription' => '说明',
@@ -11358,7 +11354,9 @@ $messages['zh-hans'] = array(
 	'openstackmanager-sudoerusers' => '用户',
 	'openstackmanager-sudoerhosts' => '主机',
 	'openstackmanager-sudoercommands' => '命令',
+	'openstackmanager-requirepassword' => '需要验证身份',
 	'openstackmanager-sudoeroptions' => '选项',
+	'openstackmanager-allmembers' => '所有项目',
 	'openstackmanager-deletesudoer' => '删除sudo策略',
 	'openstackmanager-deletesudoer-confirm' => '您确定要删除$1 sudo策略吗？',
 	'openstackmanager-createsudoerfailed' => '创建sudo策略失败。',
