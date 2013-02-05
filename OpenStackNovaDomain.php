@@ -278,7 +278,7 @@ class OpenStackNovaDomain {
 		$domain = new OpenStackNovaDomain( $domainname );
 		if ( ! $domain ) {
 			$wgAuth->printDebug( "Domain $domainname does not exist", NONSENSITIVE );
-			return false;
+			return array( false, 'openstackmanager-failedeletedomainnotfound' );
 		}
 		$dn = $domain->domainDN;
 
@@ -287,16 +287,16 @@ class OpenStackNovaDomain {
 		$hosts = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
 		if ( $hosts['count'] != "0" ) {
 			$wgAuth->printDebug( "Failed to delete domain $domainname, since it had sub entries", NONSENSITIVE );
-			return false;
+			return array( false, 'openstackmanager-failedeletedomainduplicates' );
 		}
 
 		$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $dn );
 		if ( $success ) {
 			$wgAuth->printDebug( "Successfully deleted domain $domainname", NONSENSITIVE );
-			return true;
+			return array( true, '' );
 		} else {
 			$wgAuth->printDebug( "Failed to delete domain $domainname, since it had sub entries", NONSENSITIVE );
-			return false;
+			return array( false, 'openstackmanager-failedeletedomain' );
 		}
 	}
 
