@@ -7752,6 +7752,8 @@ Verwijder alle hostkoppelingen en ontkoppel het IP-adres voordat u het vrijgeeft
 	'openstackmanager-removedhost' => '$1 is verwijderd.',
 	'openstackmanager-removehostfailed' => 'Het verwijderen van $1 is mislukt.',
 	'openstackmanager-nonexistenthost' => 'Het opgegeven host bestaat niet.',
+	'openstackmanager-needrole' => 'Rol "$1" is vereist',
+	'openstackmanager-needrole2' => 'U moet lid zijn van de rol "$1" om deze handeling uit te kunnen voeren.',
 	'openstackmanager-createsecuritygroup' => 'Beveiligingsgroep aanmaken',
 	'openstackmanager-securitygroupname' => 'Beveiligingsgroepsnaam',
 	'openstackmanager-securitygroupdescription' => 'Beschrijving',
