@@ -420,7 +420,8 @@ $messages['qqq'] = array(
 	'openstackmanager-modify' => '{{Identical|Modify}}',
 	'openstackmanager-rename' => '{{Identical|Rename}}',
 	'openstackmanager-actions' => '{{Identical|Action}}',
-	'openstackmanager-notloggedin' => 'Page title',
+	'openstackmanager-notloggedin' => 'Page title.
+{{Identical|Login required}}',
 	'openstackmanager-nonovacred' => 'Page title',
 	'openstackmanager-createdomain' => 'Page title',
 	'openstackmanager-deletedomain' => 'Page title',
@@ -549,9 +550,21 @@ This is about OpenStack roles.',
 	'right-loginviashell' => '{{doc-right|loginviashell}}
 
 This is a right needed to be added to a project.',
-	'notification-osm-instance-deleted' => 'Title for the instance deletion notification.',
-	'notification-osm-instance-build-completed' => 'Title for the instance build completion notification.',
-	'notification-osm-instance-reboot-completed' => 'Title for the instance reboot completion notification.',
+	'notification-osm-instance-deleted' => 'Title for the instance deletion notification.
+Parameters:
+* $1 - agent
+* $2 - project
+* $3 - instance',
+	'notification-osm-instance-build-completed' => 'Title for the instance build completion notification.
+Parameters:
+* $1 - agent
+* $2 - project
+* $3 - instance',
+	'notification-osm-instance-reboot-completed' => 'Title for the instance reboot completion notification.
+Parameters:
+* $1 - agent
+* $2 - project
+* $3 - instance',
 	'echo-pref-email-osm-instance-deleted' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable email notification for the osm-instance-deleted event.
 
 Preceded by {{msg-mw|prefs-emailsubscriptions}}.',
