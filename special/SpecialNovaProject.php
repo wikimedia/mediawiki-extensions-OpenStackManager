@@ -34,6 +34,8 @@ class SpecialNovaProject extends SpecialNova {
 			$this->addMember();
 		} elseif ( $action === "deletemember" ) {
 			$this->deleteMember();
+		} elseif ( $action === "configureproject" ) {
+			$this->configureProject();
 		} else {
 			$this->listProjects();
 		}
@@ -219,6 +221,7 @@ class SpecialNovaProject extends SpecialNova {
 		array_push( $actions, $this->createActionLink( 'openstackmanager-deleteproject', array( 'action' => 'delete', 'projectname' => $projectName ) ) );
 		array_push( $actions, $this->createActionLink( 'openstackmanager-addmember', array( 'action' => 'addmember', 'projectname' => $projectName ) ) );
 		array_push( $actions, $this->createActionLink( 'openstackmanager-removemember', array( 'action' => 'deletemember', 'projectname' => $projectName ) ) );
+		array_push( $actions, $this->createActionLink( 'openstackmanager-configure', array( 'action' => 'configureproject', 'projectname' => $projectName ) ) );
 		$this->pushRawResourceColumn( $projectRow,  $this->createResourceList( $actions ) );
 		array_push( $projectRows, $projectRow );
 		return $this->createResourceTable( $headers, $projectRows );
@@ -269,6 +272,58 @@ class SpecialNovaProject extends SpecialNova {
 		$projectForm->setSubmitID( 'novaproject-form-createprojectsubmit' );
 		$projectForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
 		$projectForm->show();
+	}
+
+	/**
+	 * @return bool
+	 */
+	function configureProject() {
+		$this->setHeaders();
+		$projectName = $this->getRequest()->getText( 'projectname' );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-configureproject', $projectName ) );
+		if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inProject( $project ) ) {
+			$this->notInProject();
+			return false;
+		}
+		$project = OpenStackNovaProject::getProjectByName( $projectName );
+
+		$volumes = $project->getVolumeSettings();
+		$defaultHomedirs = in_array( "home", $volumes );
+		$defaultProject = in_array( "project", $volumes );
+
+		$formInfo = array();
+		$formInfo['homedirs'] = array(
+			'type' => 'check',
+			'label-message' => 'openstackmanager-configureproject-sharedhomedirs',
+			'default' => $defaultHomedirs,
+			'section' => 'volume',
+			'name' => 'sharedhomedirs',
+		);
+		$formInfo['storage'] = array(
+			'type' => 'check',
+			'label-message' => 'openstackmanager-configureproject-sharedstorage',
+			'default' => $defaultProject,
+			'section' => 'volume',
+			'name' => 'sharedstorage',
+		);
+		$formInfo['action'] = array(
+			'type' => 'hidden',
+			'default' => 'configureproject',
+			'name' => 'action',
+		);
+		$formInfo['projectname'] = array(
+			'type' => 'hidden',
+			'default' => $projectName,
+			'name' => 'projectname',
+		);
+
+		$projectForm = new HTMLForm( $formInfo, 'openstackmanager-configureproject' );
+		$projectForm->setTitle( SpecialPage::getTitleFor( 'NovaProject' ) );
+		$projectForm->setSubmitID( 'novaproject-form-configuresubmit' );
+		$projectForm->setSubmitCallback( array( $this, 'tryConfigureProjectSubmit' ) );
+		$projectForm->show();
+
+		return true;
 	}
 
 	/**
@@ -440,6 +495,43 @@ class SpecialNovaProject extends SpecialNova {
 			}
 		}
 		$out = '<br />';
+
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-backprojectlist' )->escaped()
+		);
+		$this->getOutput()->addHTML( $out );
+
+		return true;
+	}
+
+	/**
+	 * @param  $formData
+	 * @param string $entryPoint
+	 * @return bool
+	 */
+	function tryConfigureProjectSubmit( $formData, $entryPoint = 'internal' ) {
+		$project = OpenStackNovaProject::getProjectByName( $formData['projectname'] );
+		if ( ! $project ) {
+			$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistentproject' );
+			return true;
+		}
+
+		$vols = array();
+
+		if ( $formData['homedirs'] ) {
+			array_push( $vols, "home" );
+		}
+
+		if ( $formData['storage'] ) {
+			array_push( $vols, "project" );
+		}
+
+		if ( $project->setVolumeSettings( $vols ) ) {
+			$this->getOutput()->addWikiMsg( 'openstackmanager-configureproject-success' );
+		} else {
+			$this->getOutput()->addWikiMsg( 'openstackmanager-configureproject-failed' );
+		}
 
 		$out .= Linker::link(
 			$this->getTitle(),

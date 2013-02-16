@@ -156,6 +156,59 @@ class OpenStackNovaProject {
 	}
 
 	/**
+	 * Return a list of volume settings.
+	 *
+	 * Volume settings live in ldap in the form
+	 *
+	 * info: volume=home
+	 * info: volume=project
+	 *
+	 * @return array
+	 */
+	function getVolumeSettings() {
+		$volumes = array();
+
+		if ( isset( $this->projectInfo[0]['info'] ) ) {
+			$infos = $this->projectInfo[0]['info'];
+
+			// first member is a count.
+			array_shift( $infos );
+			foreach ( $infos as $info ) {
+				$substrings=explode( '=', $info );
+				if ( ( count( $substrings ) == 2 ) and ( $substrings[0] == 'use_volume' ) ) {
+				    array_push( $volumes, $substrings[1] );
+				}
+			}
+		}
+		return $volumes;
+	}
+
+	/**
+	 * Set volume settings.
+	 *
+	 * @param  $volumes (e.g. ['home', 'project'])
+	 * @return bool
+	 *
+	 *
+	 * @return array
+	 */
+	function setVolumeSettings( $volumes ) {
+		global $wgAuth;
+
+		$values = array();
+		$values['info'] = array();
+		foreach ( $volumes as $volume ) {
+			$values['info'][] = "use_volume=" . $volume;
+		}
+
+		$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->projectDN, $values );
+
+		$this->fetchProjectInfo( true );
+
+		return $success;
+	}
+
+	/**
 	 * Returns an array of all member DNs that belong to this project.
 	 *
 	 * @return array
