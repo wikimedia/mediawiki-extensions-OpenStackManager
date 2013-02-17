@@ -2231,6 +2231,7 @@ $messages['eo'] = array(
  * @author Bernardom
  * @author Imre
  * @author Platonides
+ * @author Vivaelcelta
  */
 $messages['es'] = array(
 	'openstackmanager-desc' => 'Permite a los usuarios administrar Nova y Swift',
@@ -2388,7 +2389,7 @@ $messages['es'] = array(
 	'openstackmanager-createprojectfailed' => 'No se pudo crear el proyecto.',
 	'openstackmanager-createdproject' => 'Se ha creado el proyecto.',
 	'openstackmanager-projectlist' => 'Lista de proyectos',
-	'openstackmanager-backprojectlist' => 'Volver a lista de proyectos',
+	'openstackmanager-backprojectlist' => 'Volver a la lista de proyectos',
 	'openstackmanager-addadditionalproject' => 'Añadir otro proyecto.',
 	'openstackmanager-deleteproject' => 'Borrar',
 	'openstackmanager-deletedproject' => 'Proyecto eliminado correctamente.',
@@ -2448,12 +2449,6 @@ $messages['es'] = array(
 	'openstackmanager-removedhost' => 'Eliminado correctamente $1.',
 	'openstackmanager-removehostfailed' => 'Error al eliminar $1.',
 	'openstackmanager-nonexistenthost' => 'El host solicitado no existe.',
-	'openstackmanager-needsysadminrole' => 'Hace falta el rol sysadmin',
-	'openstackmanager-needsysadminrole2' => 'Es preciso cumplir el rol de sysadmin para poder realizar esta acción.',
-	'openstackmanager-neednetadminrole' => 'Hace falta el rol netadmin',
-	'openstackmanager-neednetadminrole2' => "Es preciso cumplir el rol de ''netadmin'' para poder realizar esta acción.",
-	'openstackmanager-needcloudadminrole' => 'Hace falta el rol cloudadmin',
-	'openstackmanager-needcloudadminrole2' => "Es preciso cumplir el rol de ''cloudadmin'' para poder realizar esta acción.",
 	'openstackmanager-createsecuritygroup' => 'Crear grupo de seguridad',
 	'openstackmanager-securitygroupname' => 'Nombre del grupo de seguridad',
 	'openstackmanager-securitygroupdescription' => 'Descripción',
