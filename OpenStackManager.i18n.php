@@ -11130,6 +11130,8 @@ $messages['zh-hans'] = array(
 	'openstackmanager-badresourcename' => '提供了无效资源名称。
 
 资源名称以 a-z 开头并且只能包含 a-z、0-9、- 和 _ 字符。',
+	'action-listall' => '显示所有资源信息',
+	'action-managednsdomain' => '管理DNS域',
 	'specialpages-group-nova' => 'OpenStack Nova',
 	'novaaddress' => '管理公共IP地址',
 	'novadomain' => '管理DNS域',
@@ -11181,6 +11183,7 @@ $messages['zh-hans'] = array(
 	'openstackmanager-novainstance-puppetinfo' => '傀儡信息',
 	'openstackmanager-novainstance-project' => '项目特定组',
 	'openstackmanager-novainstance-global' => '全局组',
+	'openstackmanager-deleteinstancewithname' => '删除实例 $1 ($2)',
 	'openstackmanager-deleteinstance' => '删除实例',
 	'openstackmanager-deleteinstancequestion' => '您确定要删除"$1"实例吗？',
 	'openstackmanager-instancelist' => '实例列表',
@@ -11196,6 +11199,7 @@ $messages['zh-hans'] = array(
 	'openstackmanager-imagetype' => '图像类型',
 	'openstackmanager-instancetypelabel' => '{{PLURAL:$1|$1 CPU|$1 CPU}}、$2 MB RAM、$3 GB 根分区、$4 GB 存储',
 	'openstackmanager-rebootinstance' => '重新引导实例',
+	'openstackmanager-rebootinstancewithname' => '重启实例 $1 ($2)',
 	'openstackmanager-rebootinstancequestion' => '您确定要重新引导"$1"实例吗？',
 	'openstackmanager-rebootedinstance' => '$1实例已重新引导。',
 	'openstackmanager-rebootinstancefailed' => '重新引导实例失败。',
@@ -11281,6 +11285,8 @@ $messages['zh-hans'] = array(
 	'openstackmanager-deleteprojectfailed' => '删除项目失败',
 	'openstackmanager-addedto' => '$1添入$2成功。',
 	'openstackmanager-failedtoadd' => '$1添入$2失败。',
+	'openstackmanager-failedtoaddneedsloginright' => '添加 $1 到 $2 失败。
+这需要“<code>loginviashell</code>”权限。',
 	'openstackmanager-removedfrom' => '从$2中删除$1成功。',
 	'openstackmanager-failedtoremove' => '从$2中删除$1失败。',
 	'openstackmanager-novaproject-project' => '添加项目',
