@@ -461,6 +461,7 @@ class OpenStackNovaProject {
 		OpenStackNovaLdapConnection::connect();
 
 		$project = array();
+		$project['objectclass'][] = 'extensibleobject';
 		$project['objectclass'][] = 'groupofnames';
 		$project['cn'] = $projectname;
 		$project['member'] = $wgOpenStackManagerLDAPUser;
