@@ -162,11 +162,11 @@ class SpecialNovaDomain extends SpecialNova {
 	 * @return bool
 	 */
 	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
-		$success = OpenStackNovaDomain::deleteDomain( $formData['domainname'] );
+		list( $success, $errmsg ) = OpenStackNovaDomain::deleteDomain( $formData['domainname'] );
 		if ( $success ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-deleteddomain' );
 		} else {
-			$this->getOutput()->addWikiMsg( 'openstackmanager-failedeletedomain' );
+			$this->getOutput()->addWikiMsg( $errmsg );
 		}
 
 		$out = '<br />';
