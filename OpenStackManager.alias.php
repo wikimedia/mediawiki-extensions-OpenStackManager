@@ -68,5 +68,6 @@ $specialPageAliases['scn'] = array(
 
 /** Simplified Chinese (中文（简体）‎) */
 $specialPageAliases['zh-hans'] = array(
+	'OpenStackManager' => array( '打开堆栈管理器' ),
 	'OpenStackManageInstance' => array( '管理实例' ),
 );
