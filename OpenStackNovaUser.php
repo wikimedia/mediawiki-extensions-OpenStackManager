@@ -437,8 +437,12 @@ class OpenStackNovaUser {
 				. "|Completed=false "
 				. "|User Name=$username}}";
 
-
-		$article->doEdit( $text, 'auto request' );
+		$logbot = User::newFromName( 'labslogbot' );
+		if ( ! $logbot ) {
+			$auth->printDebug( "Failed to get 'labslogbot' user, so unable to create shell request.", NONSENSITIVE );
+		} else {
+			$article->doEdit( $text, 'auto request', 0, false, $logbot );
+		}
 
 		return true;
 	}
