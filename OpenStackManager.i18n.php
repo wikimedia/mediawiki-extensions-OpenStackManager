@@ -1988,9 +1988,9 @@ Er fängt mit den Buchstaben (a-z) an und kann nur die Buchstaben (a-z), Zahlen 
 	'notification-osm-instance-deleted' => '$1 hat die Instanz „$3“ im Projekt [[$2]] gelöscht',
 	'notification-osm-instance-build-completed' => '$1 hat die Instanz „$3“ im Projekt [[$2]] erstellt',
 	'notification-osm-instance-reboot-completed' => '$1 hat die Instanz „$3“ im Projekt [[$2]] neu gestartet',
-	'echo-pref-email-osm-instance-deleted' => 'Löscht eine Instanz eines Projektes, auf dem ich Administrator bin.',
-	'echo-pref-email-osm-instance-build-completed' => 'Erstellt eine Instanz auf einem Projekt, auf dem ich Administrator bin.',
-	'echo-pref-email-osm-instance-reboot-completed' => 'Startet eine Instanz neu.',
+	'echo-pref-email-osm-instance-deleted' => 'eine Instanz eines Projektes löscht, auf dem ich Administrator bin.',
+	'echo-pref-email-osm-instance-build-completed' => 'eine Instanz auf einem Projekt erstellt, auf dem ich Administrator bin.',
+	'echo-pref-email-osm-instance-reboot-completed' => 'eine Instanz neu startet.',
 );
 
 /** German (formal address) (Deutsch (Sie-Form)‎)
