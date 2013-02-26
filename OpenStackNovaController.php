@@ -612,7 +612,6 @@ class OpenStackNovaController {
 		}
 		$user = $ret['body'];
 		$this->token = $this->_get_property( $user->access->token, 'id' );
-		$wgAuth->printDebug( "token: $this->token", NONSENSITIVE );
 		$expires = $this->_get_property( $user->access->token, 'expires' );
 		$key = wfMemcKey( 'openstackmanager', 'fulltoken', $username );
 		// Expiration time is unneccessary. Token expiration is expected
@@ -733,7 +732,6 @@ class OpenStackNovaController {
 		case 'POST':
 			curl_setopt( $handle, CURLOPT_POST, true );
 			curl_setopt( $handle, CURLOPT_POSTFIELDS, json_encode( $data ) );
-			$wgAuth->printDebug( "OpenStackNovaController::restCall data: " . json_encode( $data ), NONSENSITIVE );
 			break;
 		case 'PUT':
 			curl_setopt( $handle, CURLOPT_CUSTOMREQUEST, 'PUT' );
