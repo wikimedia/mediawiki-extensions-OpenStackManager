@@ -417,7 +417,7 @@ Choose one or the other, not both.',
  * @author Umherirrender
  */
 $messages['qqq'] = array(
-	'openstackmanager-desc' => '{{desc}}',
+	'openstackmanager-desc' => '{{desc|name=Open Stack Manager|url=http://www.mediawiki.org/wiki/Extension:OpenStackManager}}',
 	'openstackmanager-instance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'action-listall' => '{{doc-action|listall}}',
 	'action-managednsdomain' => '{{doc-action|managednsdomain}}',
