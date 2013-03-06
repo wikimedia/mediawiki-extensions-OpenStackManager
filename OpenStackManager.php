@@ -121,26 +121,26 @@ $dir = dirname( __FILE__ ) . '/';
 
 $wgExtensionMessagesFiles['OpenStackManager'] = $dir . 'OpenStackManager.i18n.php';
 $wgExtensionMessagesFiles['OpenStackManagerAlias'] = $dir . 'OpenStackManager.alias.php';
-$wgAutoloadClasses['OpenStackNovaInstance'] = $dir . 'OpenStackNovaInstance.php';
-$wgAutoloadClasses['OpenStackNovaInstanceType'] = $dir . 'OpenStackNovaInstanceType.php';
-$wgAutoloadClasses['OpenStackNovaImage'] = $dir . 'OpenStackNovaImage.php';
-$wgAutoloadClasses['OpenStackNovaKeypair'] = $dir . 'OpenStackNovaKeypair.php';
-$wgAutoloadClasses['OpenStackNovaController'] = $dir . 'OpenStackNovaController.php';
-$wgAutoloadClasses['OpenStackNovaUser'] = $dir . 'OpenStackNovaUser.php';
-$wgAutoloadClasses['OpenStackNovaDomain'] = $dir . 'OpenStackNovaDomain.php';
-$wgAutoloadClasses['OpenStackNovaHost'] = $dir . 'OpenStackNovaHost.php';
-$wgAutoloadClasses['OpenStackNovaAddress'] = $dir . 'OpenStackNovaAddress.php';
-$wgAutoloadClasses['OpenStackNovaSecurityGroup'] = $dir . 'OpenStackNovaSecurityGroup.php';
-$wgAutoloadClasses['OpenStackNovaSecurityGroupRule'] = $dir . 'OpenStackNovaSecurityGroupRule.php';
-$wgAutoloadClasses['OpenStackNovaRole'] = $dir . 'OpenStackNovaRole.php';
-$wgAutoloadClasses['OpenStackNovaVolume'] = $dir . 'OpenStackNovaVolume.php';
-$wgAutoloadClasses['OpenStackNovaSudoer'] = $dir . 'OpenStackNovaSudoer.php';
-$wgAutoloadClasses['OpenStackNovaArticle'] = $dir . 'OpenStackNovaArticle.php';
-$wgAutoloadClasses['OpenStackNovaHostJob'] = $dir . 'OpenStackNovaHostJob.php';
-$wgAutoloadClasses['OpenStackNovaPuppetGroup'] = $dir . 'OpenStackNovaPuppetGroup.php';
-$wgAutoloadClasses['OpenStackNovaLdapConnection'] = $dir . 'OpenStackNovaLdapConnection.php';
-$wgAutoloadClasses['OpenStackNovaProject'] = $dir . 'OpenStackNovaProject.php';
-$wgAutoloadClasses['OpenStackNovaProjectGroup'] = $dir . 'OpenStackNovaProjectGroup.php';
+$wgAutoloadClasses['OpenStackNovaInstance'] = $dir . 'nova/OpenStackNovaInstance.php';
+$wgAutoloadClasses['OpenStackNovaInstanceType'] = $dir . 'nova/OpenStackNovaInstanceType.php';
+$wgAutoloadClasses['OpenStackNovaImage'] = $dir . 'nova/OpenStackNovaImage.php';
+$wgAutoloadClasses['OpenStackNovaKeypair'] = $dir . 'nova/OpenStackNovaKeypair.php';
+$wgAutoloadClasses['OpenStackNovaController'] = $dir . 'nova/OpenStackNovaController.php';
+$wgAutoloadClasses['OpenStackNovaUser'] = $dir . 'nova/OpenStackNovaUser.php';
+$wgAutoloadClasses['OpenStackNovaDomain'] = $dir . 'nova/OpenStackNovaDomain.php';
+$wgAutoloadClasses['OpenStackNovaHost'] = $dir . 'nova/OpenStackNovaHost.php';
+$wgAutoloadClasses['OpenStackNovaAddress'] = $dir . 'nova/OpenStackNovaAddress.php';
+$wgAutoloadClasses['OpenStackNovaSecurityGroup'] = $dir . 'nova/OpenStackNovaSecurityGroup.php';
+$wgAutoloadClasses['OpenStackNovaSecurityGroupRule'] = $dir . 'nova/OpenStackNovaSecurityGroupRule.php';
+$wgAutoloadClasses['OpenStackNovaRole'] = $dir . 'nova/OpenStackNovaRole.php';
+$wgAutoloadClasses['OpenStackNovaVolume'] = $dir . 'nova/OpenStackNovaVolume.php';
+$wgAutoloadClasses['OpenStackNovaSudoer'] = $dir . 'nova/OpenStackNovaSudoer.php';
+$wgAutoloadClasses['OpenStackNovaArticle'] = $dir . 'nova/OpenStackNovaArticle.php';
+$wgAutoloadClasses['OpenStackNovaHostJob'] = $dir . 'nova/OpenStackNovaHostJob.php';
+$wgAutoloadClasses['OpenStackNovaPuppetGroup'] = $dir . 'nova/OpenStackNovaPuppetGroup.php';
+$wgAutoloadClasses['OpenStackNovaLdapConnection'] = $dir . 'nova/OpenStackNovaLdapConnection.php';
+$wgAutoloadClasses['OpenStackNovaProject'] = $dir . 'nova/OpenStackNovaProject.php';
+$wgAutoloadClasses['OpenStackNovaProjectGroup'] = $dir . 'nova/OpenStackNovaProjectGroup.php';
 $wgAutoloadClasses['SpecialNovaInstance'] = $dir . 'special/SpecialNovaInstance.php';
 $wgAutoloadClasses['SpecialNovaKey'] = $dir . 'special/SpecialNovaKey.php';
 $wgAutoloadClasses['SpecialNovaProject'] = $dir . 'special/SpecialNovaProject.php';
@@ -191,8 +191,6 @@ $commonModuleInfo = array(
 $wgResourceModules['ext.openstack'] = array(
 	'styles' => 'ext.openstack.css',
 ) + $commonModuleInfo;
-
-require_once( $dir . 'OpenStackNovaProject.php' );
 
 # Schema changes
 $wgHooks['LoadExtensionSchemaUpdates'][] = 'efOpenStackSchemaUpdates';
