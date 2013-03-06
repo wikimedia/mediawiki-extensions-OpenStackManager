@@ -497,7 +497,8 @@ Parameters:
 	'openstackmanager-volumedeleteonvolumedelete' => 'Do you want this volume to be deleted when its associated instance is deleted?',
 	'openstackmanager-attach' => 'Verb.
 {{Identical|Attach}}',
-	'openstackmanager-detach' => 'Verb.',
+	'openstackmanager-detach' => 'Verb.
+{{Identical|Detach}}',
 	'openstackmanager-deletekey' => 'Page title',
 	'openstackmanager-keylist' => 'Page title',
 	'openstackmanager-name' => '{{Identical|Name}}',

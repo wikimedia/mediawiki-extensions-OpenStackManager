@@ -66,6 +66,11 @@ $specialPageAliases['scn'] = array(
 	'OpenStackManageInstance' => array( 'GestisciIstanza' ),
 );
 
+/** Vietnamese (Tiếng Việt) */
+$specialPageAliases['vi'] = array(
+	'OpenStackManageInstance' => array( 'Quản_lý_thực_thể', 'Quản_lí_thực_thể' ),
+);
+
 /** Simplified Chinese (中文（简体）‎) */
 $specialPageAliases['zh-hans'] = array(
 	'OpenStackManager' => array( '打开堆栈管理器' ),
