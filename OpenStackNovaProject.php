@@ -587,6 +587,7 @@ class OpenStackNovaProject {
 {{Nova Resource
 |Resource Type=project
 |Project Name=%s
+|Admins=%s
 |Members=%s}}
 __NOEDITSECTION__
 RESOURCEINFO;
@@ -595,8 +596,17 @@ RESOURCEINFO;
 		foreach ( $rawmembers as $member ) {
 			array_push( $members, 'User:' . $member );
 		}
+		$admins = array();
+		# All roles have elevated privileges, count them all as admins
+		foreach ( $this->getRoles() as $role ) {
+			$rawadmins = $role->getMembers();
+			foreach ( $rawadmins as $admin ) {
+				array_push( $admins, 'User:' . $admin );
+			}
+		}
 		$text = sprintf( $format,
 			$this->getProjectName(),
+			implode( ',', $admins ),
 			implode( ',', $members )
 		);
 		OpenStackNovaArticle::editArticle( $this->getProjectName(), $text );
