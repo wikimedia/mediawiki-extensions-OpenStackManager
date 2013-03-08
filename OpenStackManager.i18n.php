@@ -169,6 +169,7 @@ It can result in volume corruption and data loss.',
 	'openstackmanager-detachvolumefailed' => 'Failed to detach volume.',
 
 	'openstackmanager-novapublickey' => 'Public SSH key',
+	'openstackmanager-prefs-novapublickey' => 'Public SSH keys:',
 	'openstackmanager-deletekey' => 'Delete key',
 	'openstackmanager-deletekeyconfirm' => 'Are you sure you wish to delete the above key?',
 	'openstackmanager-keylist' => 'Key list',
