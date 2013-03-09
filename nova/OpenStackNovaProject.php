@@ -456,7 +456,6 @@ class OpenStackNovaProject {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser;
 		global $wgOpenStackManagerLDAPProjectBaseDN;
-		global $wgOpenStackManagerLDAPProjectGroupBaseDN;
 
 		OpenStackNovaLdapConnection::connect();
 

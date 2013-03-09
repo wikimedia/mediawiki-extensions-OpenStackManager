@@ -15,7 +15,7 @@ class OpenStackNovaController {
 	var $token;
 
 	/**
-	 * @param  $username
+	 * @param $user string
 	 */
 	function __construct( $user ) {
 		global $wgOpenStackManagerLDAPUseUidAsNamingAttribute;
@@ -31,6 +31,10 @@ class OpenStackNovaController {
 		$this->user = $user;
 	}
 
+	/**
+	 * @param $user string
+	 * @return OpenStackNovaController
+	 */
 	static function newFromUser( $user ) {
 		return new OpenStackNovaController( $user );
 	}
@@ -612,7 +616,6 @@ class OpenStackNovaController {
 		}
 		$user = $ret['body'];
 		$this->token = $this->_get_property( $user->access->token, 'id' );
-		$expires = $this->_get_property( $user->access->token, 'expires' );
 		$key = wfMemcKey( 'openstackmanager', 'fulltoken', $username );
 		// Expiration time is unneccessary. Token expiration is expected
 		// to be longer than MediaWiki's token, so a re-auth will occur

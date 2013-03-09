@@ -13,12 +13,9 @@ class OpenStackNovaSyncProjectGroups extends Maintenance {
 	}
 
 	public function execute() {
-		global $wgAuth;
 		global $wgOpenStackManagerLDAPUsername;
-		global $wgOpenStackManagerLDAPUserPassword;
 
 		$user     = new OpenStackNovaUser( $wgOpenStackManagerLDAPUsername );
-		$userNova = OpenStackNovaController::newFromUser( $user );
 		$projects = OpenStackNovaProject::getAllProjects();
 
 		$failedSync = false;
@@ -27,6 +24,9 @@ class OpenStackNovaSyncProjectGroups extends Maintenance {
 		$synced_count  = 0;
 		$failed_count  = 0;
 
+		/**
+		 * @var $project OpenStackNovaProject
+		 */
 		foreach ( $projects as $project ) {
 			// actually load the project info from ldap
 			// (getAllProjects() doesn't do this)
@@ -41,7 +41,7 @@ class OpenStackNovaSyncProjectGroups extends Maintenance {
 			//  1: successful sync
 
 			if ( $retval != 0 ) {
-				$this->output( ( $success ? "Succeeded" : "Failed")  . " syncing members for project $projectName and group " . $project->projectGroup->getProjectGroupName() );
+				$this->output( ( $retval ? "Succeeded" : "Failed")  . " syncing members for project $projectName and group " . $project->projectGroup->getProjectGroupName() );
 				if ( $retval < 0 ) {
 					$failedSync = true;
 					$failed_count++;

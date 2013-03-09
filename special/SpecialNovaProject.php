@@ -8,7 +8,14 @@
  */
 
 class SpecialNovaProject extends SpecialNova {
+		/**
+	 * @var OpenStackNovaUser
+	 */
 	var $userLDAP;
+
+	/**
+	 * @var OpenStackNovaController
+	 */
 	var $userNova;
 
 	function __construct() {
@@ -533,7 +540,7 @@ class SpecialNovaProject extends SpecialNova {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-configureproject-failed' );
 		}
 
-		$out .= Linker::link(
+		$out = Linker::link(
 			$this->getTitle(),
 			$this->msg( 'openstackmanager-backprojectlist' )->escaped()
 		);
