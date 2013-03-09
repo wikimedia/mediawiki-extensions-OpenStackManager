@@ -640,4 +640,25 @@ class OpenStackNovaUser {
 		return True;
 	}
 
+	/**
+	 * @param $user User
+	 * @param $preferences array
+	 * @return bool True
+	 */
+	public static function manageSSHKey( User $user, array &$preferences ) {
+		$link = Linker::link( SpecialPage::getTitleFor( 'NovaKey' ),
+			wfMessage( 'novakey' )->escaped(),
+			array(),
+			array( 'returnto' => SpecialPage::getTitleFor( 'Preferences' )->getPrefixedText() )
+		);
+
+		$preferences['sshkey'] = array(
+			'type' => 'info',
+			'raw' => true,
+			'default' => $link,
+			'label-message' => 'openstackmanager-prefs-novapublickey',
+			'section' => 'personal/info',
+		);
+		return true;
+	}
 }

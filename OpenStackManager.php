@@ -183,6 +183,7 @@ $wgHooks['LDAPModifyUITemplate'][] = 'OpenStackNovaUser::LDAPModifyUITemplate';
 $wgHooks['LDAPUpdateUser'][] = 'OpenStackNovaUser::LDAPUpdateUser';
 $wgHooks['DynamicSidebarGetGroups'][] = 'OpenStackNovaUser::DynamicSidebarGetGroups';
 $wgHooks['ChainAuth'][] = 'OpenStackNovaUser::ChainAuth';
+$wgHooks['GetPreferences'][] = 'OpenStackNovaUser::manageSSHKey';
 
 $commonModuleInfo = array(
 	'localBasePath' => dirname( __FILE__ ) . '/modules',
