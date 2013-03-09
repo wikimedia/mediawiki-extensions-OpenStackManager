@@ -348,19 +348,6 @@ class OpenStackNovaUser {
 	}
 
 	/**
-	 * @static
-	 * @return string
-	 */
-	static function uuid4() {
-		$uuid = '';
-		uuid_create( &$uuid );
-		uuid_make( $uuid, UUID_MAKE_V4 );
-		$uuidExport = '';
-		uuid_export( $uuid, UUID_FMT_STR, &$uuidExport );
-		return trim( $uuidExport );
-	}
-
-	/**
 	 * Does not ensure uniqueness during concurrent use!
 	 * Also does not work when resource limits are set for
 	 * LDAP queries by the client or the server.
