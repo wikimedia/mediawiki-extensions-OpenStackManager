@@ -47,6 +47,9 @@ class OpenStackNovaUser {
 		return $this->userInfo[0]['uid'][0];
 	}
 
+	/**
+	 * @return string
+	 */
 	function getUsername() {
 		return $this->username;
 	}
@@ -632,18 +635,24 @@ class OpenStackNovaUser {
 	 * @param $preferences array
 	 * @return bool True
 	 */
-	public static function manageSSHKey( User $user, array &$preferences ) {
+	public static function novaUserPreferences( User $user, array &$preferences ) {
 		$link = Linker::link( SpecialPage::getTitleFor( 'NovaKey' ),
 			wfMessage( 'novakey' )->escaped(),
 			array(),
 			array( 'returnto' => SpecialPage::getTitleFor( 'Preferences' )->getPrefixedText() )
 		);
-
 		$preferences['sshkey'] = array(
 			'type' => 'info',
 			'raw' => true,
 			'default' => $link,
 			'label-message' => 'openstackmanager-prefs-novapublickey',
+			'section' => 'personal/info',
+		);
+		$novaUser = new OpenStackNovaUser( $user->getName() );
+		$preferences['shellusername'] = array(
+			'type' => 'info',
+			'label-message' => 'openstackmanager-shellaccountname-pref',
+			'default' => $novaUser->getUid(),
 			'section' => 'personal/info',
 		);
 		return true;

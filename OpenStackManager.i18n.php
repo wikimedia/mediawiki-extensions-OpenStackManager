@@ -235,6 +235,7 @@ This needs the "<code>loginviashell</code>" right.',
 	'openstackmanager-novarole-info' => 'Nova role information',
 
 	'openstackmanager-shellaccountname' => 'Instance shell account name',
+	'openstackmanager-shellaccountname-pref' => 'Instance shell account name:',
 	'openstackmanager-shellaccountnamehelp' => 'A shell account name is required.
 It must start with a-z, and can only contain a-z, 0-9, and - characters.',
 
