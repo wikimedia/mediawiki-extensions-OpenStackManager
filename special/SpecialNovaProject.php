@@ -281,7 +281,7 @@ class SpecialNovaProject extends SpecialNova {
 		$this->setHeaders();
 		$projectName = $this->getRequest()->getText( 'projectname' );
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-configureproject', $projectName ) );
-		if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inProject( $project ) ) {
+		if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inProject( $projectName ) ) {
 			$this->notInProject();
 			return false;
 		}
