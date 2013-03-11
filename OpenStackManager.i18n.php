@@ -235,6 +235,7 @@ This needs the "<code>loginviashell</code>" right.',
 	'openstackmanager-novarole-info' => 'Nova role information',
 
 	'openstackmanager-shellaccountname' => 'Instance shell account name',
+	'openstackmanager-shellaccountname-pref' => 'Instance shell account name:',
 	'openstackmanager-shellaccountnamehelp' => 'A shell account name is required.
 It must start with a-z, and can only contain a-z, 0-9, and - characters.',
 
@@ -1295,7 +1296,6 @@ $messages['bn'] = array(
 );
 
 /** Breton (brezhoneg)
- * @author Fohanno
  * @author Fulup
  * @author Y-M D
  */
@@ -1416,7 +1416,6 @@ $messages['br'] = array(
 	'openstackmanager-addmember' => 'Ouzhpennañ un ezel',
 	'openstackmanager-removemember' => 'Diverkañ an ezel',
 	'openstackmanager-removeprojectconfirm' => 'Ha sur oc\'h e fell deoc\'h  diverkañ ar raktres "$1" ? Emplegadennoù en do an ober-mañ war an holl vekanikoù galloudel (VM). Na rit ket se diwar skañv !',
-	'openstackmanager-configureproject' => 'Kefluniañ ar raktres $1',
 	'openstackmanager-createproject' => 'Ouzhpennañ ar raktres',
 	'openstackmanager-projectname' => 'Anv ar raktres',
 	'openstackmanager-members' => 'Izili',
@@ -1482,6 +1481,7 @@ $messages['br'] = array(
 	'openstackmanager-removedhost' => 'Diverket eo bet $1 ervat.',
 	'openstackmanager-removehostfailed' => "N'eus ket bet gallet lemel $1.",
 	'openstackmanager-nonexistenthost' => "N'eus ket eus an herberc'hier goulennet.",
+	'openstackmanager-needsysadminrole' => 'Mankout a ra ar roll merour reizhiad',
 	'openstackmanager-createsecuritygroup' => 'Krouiñ ur strollad surentez',
 	'openstackmanager-securitygroupname' => 'Anv ar strollad surentez',
 	'openstackmanager-securitygroupdescription' => 'Deskrivadur',
@@ -1545,7 +1545,6 @@ $messages['br'] = array(
 	'openstackmanager-nonexistantsudoer' => "N'eus ket eus ar reolenn Sudo goulennet.",
 	'openstackmanager-puppetallprojects' => 'An holl raktresoù',
 	'openstackmanager-createpuppetgroup' => 'Ouzhpennañ ur strollad',
-	'openstackmanager-puppetclassname' => 'Anv klas',
 	'openstackmanager-puppetvars' => 'Argemmennoù',
 	'openstackmanager-addpuppetvar' => 'Ouzhpennaén un argemenn',
 	'openstackmanager-puppetvarname' => 'Anv an argemenn',
@@ -3058,7 +3057,6 @@ $messages['fr'] = array(
 	'openstackmanager-detachedvolume' => 'Volume détaché avec succès.',
 	'openstackmanager-detachvolumefailed' => 'Échec lors du détachement du volume.',
 	'openstackmanager-novapublickey' => 'Clé publique SSH',
-	'openstackmanager-prefs-novapublickey' => 'Clés SSH publiques:',
 	'openstackmanager-deletekey' => 'Supprimer la clé',
 	'openstackmanager-deletekeyconfirm' => 'Êtes-vous sûr de vouloir supprimer la clé ci-dessus ?',
 	'openstackmanager-keylist' => 'Liste des clés',
