@@ -43,6 +43,9 @@ class OpenStackNovaUser {
 		$this->userInfo = $wgAuth->userInfo;
 	}
 
+	/**
+	 * @return string
+	 */
 	function getUid() {
 		return $this->userInfo[0]['uid'][0];
 	}
@@ -59,8 +62,6 @@ class OpenStackNovaUser {
 	 * @return array
 	 */
 	function getCredentials( $project='' ) {
-		global $wgUser;
-
 		$userNova = OpenStackNovaController::newFromUser( $this );
 		$token = $userNova->getProjectToken( $project );
 
@@ -144,11 +145,7 @@ class OpenStackNovaUser {
 	 */
 	function exists() {
 		$credentials = $this->getCredentials();
-		if ( $credentials['token'] ) {
-			return true;
-		} else {
-			return false;
-		}
+		return (bool)$credentials['token'];
 	}
 
 	/**
@@ -641,20 +638,111 @@ class OpenStackNovaUser {
 			array(),
 			array( 'returnto' => SpecialPage::getTitleFor( 'Preferences' )->getPrefixedText() )
 		);
-		$preferences['sshkey'] = array(
-			'type' => 'info',
-			'raw' => true,
-			'default' => $link,
-			'label-message' => 'openstackmanager-prefs-novapublickey',
-			'section' => 'personal/info',
-		);
+
 		$novaUser = new OpenStackNovaUser( $user->getName() );
+
 		$preferences['shellusername'] = array(
 			'type' => 'info',
 			'label-message' => 'openstackmanager-shellaccountname-pref',
 			'default' => $novaUser->getUid(),
 			'section' => 'personal/info',
 		);
+
+		$preferences['openstack-sshkeylist'] = array(
+			'type' => 'info',
+			'raw' => true,
+			'default' => self::getKeyList( $novaUser ),
+			'label-message' => 'openstackmanager-prefs-novapublickey',
+			'section' => 'openstack/openstack-keys',
+		);
 		return true;
+	}
+
+	/**
+	 * @param $user OpenStackNovaUser
+	 * @return string
+	 */
+	static function getKeyList( $user ) {
+		global $wgOpenStackManagerNovaKeypairStorage;
+		$keyInfo = array();
+		if ( $wgOpenStackManagerNovaKeypairStorage === 'nova' ) {
+			$projects = $user->getProjects();
+			$keyInfo['keyname'] = array(
+				'type' => 'text',
+				'label-message' => 'openstackmanager-novakeyname',
+				'default' => '',
+				'name' => 'keyname',
+			);
+			$project_keys = array();
+			foreach ( $projects as $project ) {
+				$project_keys[$project] = $project;
+			}
+			$keyInfo['project'] = array(
+				'type' => 'select',
+				'options' => $project_keys,
+				'label-message' => 'openstackmanager-project',
+				'name' => 'project',
+			);
+		}
+		$keyInfo['key'] = array(
+			'type' => 'textarea',
+			'default' => '',
+			'label-message' => 'openstackmanager-novapublickey',
+			'name' => 'key',
+		);
+
+		// TODO: Remove evil code
+		global $wgOut;
+		$wgOut->addModuleStyles( 'ext.openstack' );
+
+		$out = '';
+		if ( $wgOpenStackManagerNovaKeypairStorage === 'nova' ) {
+			# TODO: add project filter
+			foreach ( $projects as $project ) {
+				$userCredentials = $user->getCredentials();
+				$userNova = new OpenStackNovaController( $userCredentials, $project );
+				$keypairs = $userNova->getKeypairs();
+				if ( !$keypairs ) {
+					continue;
+				}
+				$out .= Html::element( 'h2', array(), $project );
+				$headers = array( 'openstackmanager-name', 'openstackmanager-fingerprint' );
+				$keyRows = array();
+				foreach ( $keypairs as $keypair ) {
+					$keyRow = array();
+					SpecialNova::pushResourceColumn( $keyRow, $keypair->getKeyName() );
+					SpecialNova::pushResourceColumn( $keyRow, $keypair->getKeyFingerprint() );
+					array_push( $keyRows, $keyRow );
+				}
+				$out .= SpecialNova::createResourceTable( $headers, $keyRows );
+			}
+		} elseif ( $wgOpenStackManagerNovaKeypairStorage === 'ldap' ) {
+			$headers = array( 'openstackmanager-keys', 'openstackmanager-actions' );
+			$keypairs = $user->getKeypairs();
+			$keyRows = array();
+			foreach ( $keypairs as $hash => $key ) {
+				$keyRow = array();
+				SpecialNova::pushResourceColumn( $keyRow, $key, array( 'class' => 'Nova_col' ) );
+				$actions = array();
+				array_push( $actions,
+					SpecialNova::createNovaKeyActionLink(
+						'openstackmanager-delete',
+						array(
+							'action' => 'delete',
+							'hash' => $hash,
+							'returnto' => SpecialPage::getTitleFor( 'Preferences', false, 'mw-prefsection-openstack' )->getPrefixedText()
+						)
+					)
+				);
+				SpecialNova::pushRawResourceColumn( $keyRow, SpecialNova::createResourceList( $actions ) );
+				array_push( $keyRows, $keyRow );
+			}
+			$out .= SpecialNova::createResourceTable( $headers, $keyRows );
+		}
+		$out .= Linker::link(
+			SpecialPage::getTitleFor( 'NovaKey' ),
+			wfMessage( 'openstackmanager-addkey' )->escaped()
+		);
+		return $out;
 	}
 }

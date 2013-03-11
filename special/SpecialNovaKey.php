@@ -28,11 +28,11 @@ class SpecialNovaKey extends SpecialNova {
 
 		$action = $this->getRequest()->getVal( 'action' );
 		if ( $action === "import" ) {
-			$this->importKey();
+			$this->importKey(); // FIXME: Method is undefined
 		} elseif ( $action === "delete" ) {
 			$this->deleteKey();
 		} else {
-			$this->listKeys();
+			$this->addKey();
 		}
 	}
 
@@ -40,7 +40,6 @@ class SpecialNovaKey extends SpecialNova {
 	 * @return bool
 	 */
 	function deleteKey() {
-
 		global $wgOpenStackManagerNovaKeypairStorage;
 
 		$this->setHeaders();
@@ -98,15 +97,11 @@ class SpecialNovaKey extends SpecialNova {
 		return true;
 	}
 
-	/**
-	 * @return void
-	 */
-	function listKeys() {
+	function addKey() {
 		global $wgOpenStackManagerNovaKeypairStorage;
 
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-keylist' ) );
-		$this->getOutput()->addModuleStyles( 'ext.openstack' );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-addkey' ) );
 
 		$keyInfo = array();
 		if ( $wgOpenStackManagerNovaKeypairStorage === 'nova' ) {
@@ -140,46 +135,6 @@ class SpecialNovaKey extends SpecialNova {
 		$keyForm->setSubmitID( 'novakey-form-createkeysubmit' );
 		$keyForm->setSubmitCallback( array( $this, 'tryImportSubmit' ) );
 		$keyForm->show();
-		$out = '';
-
-		if ( $wgOpenStackManagerNovaKeypairStorage === 'nova' ) {
-			# TODO: add project filter
-			foreach ( $projects as $project ) {
-				$userCredentials = $this->userLDAP->getCredentials();
-				$this->userNova = new OpenStackNovaController( $userCredentials, $project );
-				$keypairs = $this->userNova->getKeypairs();
-				if ( ! $keypairs ) {
-					continue;
-				}
-				$out .= Html::element( 'h2', array(), $project );
-				$headers = Array( 'openstackmanager-name', 'openstackmanager-fingerprint' );
-				$keyRows = Array();
-				foreach ( $keypairs as $keypair ) {
-					$keyRow = Array();
-					$this->pushResourceColumn( $keyRow, $keypair->getKeyName() );
-					$this->pushResourceColumn( $keyRow, $keypair->getKeyFingerprint() );
-					array_push( $keyRows, $keyRow );
-				}
-				$out .= $this->createResourceTable( $headers, $keyRows );
-			}
-		} elseif ( $wgOpenStackManagerNovaKeypairStorage === 'ldap' ) {
-			$headers = Array( 'openstackmanager-keys', 'openstackmanager-actions' );
-			$keypairs = $this->userLDAP->getKeypairs();
-			$keyRows = Array();
-			foreach ( $keypairs as $hash => $key ) {
-				$keyRow = Array();
-				$this->pushResourceColumn( $keyRow, $key, array( 'class' => 'Nova_col' ) );
-				$actions = Array();
-				array_push( $actions, $this->createActionLink( 'openstackmanager-delete', array( 'action' => 'delete', 'hash' => $hash ) ) );
-				$this->pushRawResourceColumn( $keyRow, $this->createResourceList( $actions) );
-				array_push( $keyRows, $keyRow );
-			}
-			$out .= $this->createResourceTable( $headers, $keyRows );
-		} else {
-			$this->getOutput()->addWikiMsg( 'openstackmanager-invalidkeypair' );
-		}
-
-		$this->getOutput()->addHTML( $out );
 	}
 
 	/**
@@ -191,12 +146,13 @@ class SpecialNovaKey extends SpecialNova {
 
 		$public = self::opensshFormatKeySshKeygen( $keydata );
 
-		if ( !$public )
+		if ( !$public ) {
 			$public = self::opensshFormatKeyPuttygen( $keydata );
- 
+		}
+
 		return $public;
 	}
-	
+
 	/**
 	 * Converts a public ssh key to openssh format, using puttygen.
 	 * @param $keydata string SSH public/private key in some format
@@ -205,48 +161,49 @@ class SpecialNovaKey extends SpecialNova {
 	static function opensshFormatKeyPuttygen( $keydata ) {
 		global $wgPuttygen;
 
-		if ( wfIsWindows() || !$wgPuttygen )
+		if ( wfIsWindows() || !$wgPuttygen ) {
 			return false;
-		
+		}
+
 		// We need to store the key in a file, as puttygen opens it several times.
 		$tmpfile = tmpfile();
 		if (!$tmpfile)
 			return false;
-		
+
 		fwrite( $tmpfile, $keydata );
-		
+
 		$descriptorspec = array(
-		   0 => $tmpfile,       
+		   0 => $tmpfile,
 		   1 => array("pipe", "w"),
 		   2 => array("file", wfGetNull(), "a")
 		);
-		
+
 		$process = proc_open( escapeshellcmd( $wgPuttygen ) . ' -O public-openssh -o /dev/stdout /dev/stdin', $descriptorspec, $pipes );
 		if ( $process === false )
 			return false;
-		
+
 		$data = stream_get_contents( $pipes[1] );
 		fclose( $pipes[1] );
 		proc_close( $process );
-		
+
 		/* Overwrite the file with nulls, padded to the next 4KB boundary.
 		 * This shouldn't be needed, as it is a public key material, and
-		 * it's going to be stored in a place from which it's probably 
+		 * it's going to be stored in a place from which it's probably
 		 * easier to retrieve than a deleted file.
-		 * However, there's no reason to have it innecesary copies, in 
+		 * However, there's no reason to have it innecesary copies, in
 		 * some cases (certain DSA keys) the private key can be extracted
 		 * from public one, and there could be worse attacks in the future.
 		 * Moreover, if someone provided the private key to Special:NovaKey,
-		 * this function would strip it to the public part, but we'd still 
+		 * this function would strip it to the public part, but we'd still
 		 * need not to keep such information we should have never been given.
 		 */
 		rewind( $tmpfile );
 		fwrite( $tmpfile, str_repeat( "\0", strlen( $keydata ) + 4096 - strlen( $keydata ) % 4096 ) );
 		fclose( $tmpfile );
-		
+
 		if ( $data === false || !preg_match( '/(^| )ssh-(rsa|dss) /', $data ) )
 			return false;
-		
+
 		return $data;
 	}
 	 /**
@@ -259,35 +216,35 @@ class SpecialNovaKey extends SpecialNova {
 
 		if ( wfIsWindows() || !$wgSshKeygen )
 			return false;
-		
+
 		if ( substr_compare( $keydata, 'PuTTY-User-Key-File-2:', 0, 22 ) == 0 ) {
 			$keydata = explode( "\nPrivate-Lines:", $keydata, 2 );
 			$keydata = $keydata[0] . "\n";
 		}
-		
+
 		$descriptorspec = array(
-		   0 => array("pipe", "r"),     
+		   0 => array("pipe", "r"),
 		   1 => array("pipe", "w"),
 		   2 => array("file", wfGetNull(), "a")
 		);
-		
+
 		$process = proc_open( escapeshellcmd( $wgSshKeygen ) . ' -i -f /dev/stdin', $descriptorspec, $pipes );
 		if ( $process === false )
 			return false;
-		
+
 		fwrite( $pipes[0], $keydata );
 		fclose( $pipes[0] );
 		$data = stream_get_contents( $pipes[1] );
-		
+
 		fclose( $pipes[1] );
 		proc_close( $process );
-		
+
 		if ( $data === false || !preg_match( '/(^| )ssh-(rsa|dss) /', $data ) )
 			return false;
-		
+
 		return $data;
 	}
-	
+
 	/**
 	 * @param  $formData
 	 * @param string $entryPoint
@@ -307,7 +264,7 @@ class SpecialNovaKey extends SpecialNova {
 			}
 			$this->getOutput()->addWikiMsg( 'openstackmanager-keypairformatconverted' );
 		}
- 
+
 		if ( $wgOpenStackManagerNovaKeypairStorage === 'ldap' ) {
 			$success = $this->userLDAP->importKeypair( $key );
 			if ( ! $success ) {

@@ -114,7 +114,7 @@ abstract class SpecialNova extends SpecialPage {
 			$projectName = $project->getProjectName();
 			if ( $tocmode && in_array( $projectName, $currentProjects ) ) {
 				# If the project is currently visible and toc mode is turned on,
-				#  link the filter entry to an appropriate anchor further on down 
+				#  link the filter entry to an appropriate anchor further on down
 				$projectLink = Html::element( 'a', array('href' => "#$projectName"), $projectName );
 			} else {
 				$projectLink = $projectName;
@@ -152,20 +152,24 @@ abstract class SpecialNova extends SpecialPage {
 		$projectFilterForm->show();
 	}
 
-	function createResourceLink( $resource ) {
+	public static function createResourceLink( $resource ) {
 		$resource = htmlentities( $resource );
 		$title = Title::newFromText( $resource, NS_NOVA_RESOURCE );
 		return Linker::link( $title, $resource );
 	}
 
-	function createActionLink( $msg, $params, $title = Null ) {
+	function createActionLink( $msg, $params, $title = null ) {
 		if ( !$title ) {
 			$title = $this->getTitle();
 		}
 		return Linker::link( $title, $this->msg( $msg )->escaped(), array(), $params );
 	}
 
-	function createResourceList( $resources ) {
+	public static function createNovaKeyActionLink( $msg, $params ) {
+		return Linker::link( SpecialPage::getTitleFor( 'NovaKey' ), wfMessage( $msg )->escaped(), array(), $params );
+	}
+
+	public static function createResourceList( $resources ) {
 		$resourceList = '';
 		foreach ( $resources as $resource ) {
 			$resourceList .= Html::rawElement( 'li', array(), $resource );
@@ -173,7 +177,7 @@ abstract class SpecialNova extends SpecialPage {
 		return Html::rawElement( 'ul', array(), $resourceList );
 	}
 
-	function pushResourceColumn( &$row, $value, $attribs=array() ) {
+	public static function pushResourceColumn( &$row, $value, $attribs=array() ) {
 		if ( array_key_exists( 'class', $attribs ) ) {
 			$attribs['class'] = $attribs['class'] . ' Nova_cell';
 		} else {
@@ -182,7 +186,7 @@ abstract class SpecialNova extends SpecialPage {
 		array_push( $row, Html::element( 'td', $attribs, $value ) );
 	}
 
-	function pushRawResourceColumn( &$row, $value, $attribs=array() ) {
+	public static function pushRawResourceColumn( &$row, $value, $attribs=array() ) {
 		if ( array_key_exists( 'class', $attribs ) ) {
 			$attribs['class'] = $attribs['class'] . ' Nova_cell';
 		} else {
@@ -200,10 +204,10 @@ abstract class SpecialNova extends SpecialPage {
 	 *
 	 * @return string
 	 */
-	function createResourceTable( $headers, $rows ) {
+	public static function createResourceTable( $headers, $rows ) {
 		$table = '';
 		foreach ( $headers as $header ) {
-			$table .= Html::element( 'th', array(), $this->msg( $header )->text() );
+			$table .= Html::element( 'th', array(), wfMessage( $header )->text() );
 		}
 		foreach ( $rows as $row ) {
 			$rowOut = '';

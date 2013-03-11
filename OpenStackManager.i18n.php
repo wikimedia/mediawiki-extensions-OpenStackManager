@@ -168,11 +168,12 @@ It can result in volume corruption and data loss.',
 	'openstackmanager-detachedvolume' => 'Successfully detached volume.',
 	'openstackmanager-detachvolumefailed' => 'Failed to detach volume.',
 
-	'openstackmanager-novapublickey' => 'Public SSH key',
+	'openstackmanager-novapublickey' => 'Public SSH key:',
 	'openstackmanager-prefs-novapublickey' => 'Public SSH keys:',
-	'openstackmanager-deletekey' => 'Delete key',
+	'openstackmanager-deletekey' => 'Delete public SSH key',
 	'openstackmanager-deletekeyconfirm' => 'Are you sure you wish to delete the above key?',
-	'openstackmanager-keylist' => 'Key list',
+	'openstackmanager-keylist' => 'Public SSH key list',
+	'openstackmanager-addkey' => 'Add public SSH key',
 	'openstackmanager-name' => 'Name',
 	'openstackmanager-fingerprint' => 'Fingerprint',
 	'openstackmanager-keys' => 'Keys',
@@ -402,6 +403,9 @@ Choose one or the other, not both.',
 	'echo-pref-email-osm-instance-deleted' => 'Deletes an instance from a project I\'m a admin on.',
 	'echo-pref-email-osm-instance-build-completed' => 'Builds an instance on a project I\'m a admin on.',
 	'echo-pref-email-osm-instance-reboot-completed' => 'Reboots an instance.',
+
+	'prefs-openstack' => 'OpenStack',
+	'prefs-openstack-keys' => 'Key list',
 );
 
 /** Message documentation (Message documentation)
@@ -505,6 +509,7 @@ Parameters:
 	'openstackmanager-prefs-novapublickey' => '{{Identical|Public SSH key}}',
 	'openstackmanager-deletekey' => 'Page title',
 	'openstackmanager-keylist' => 'Page title',
+	'openstackmanager-addkey' => 'Link for users to add a new public SSH key to their account',
 	'openstackmanager-name' => '{{Identical|Name}}',
 	'openstackmanager-keys' => '{{Identical|Key}}',
 	'openstackmanager-addmember' => 'Page title',
@@ -602,6 +607,9 @@ Preceded by {{msg-mw|prefs-emailsubscriptions}}.',
 
 Preceded by {{msg-mw|prefs-emailsubscriptions}}.',
 	'echo-pref-email-osm-instance-reboot-completed' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable email notification for the osm-instance-reboot-completed event.',
+
+	'prefs-openstack' => 'Title for a tab in Preferences for OpenStack related items',
+	'prefs-openstack-keys' => 'Subheading used in the Preferences -> OpenStack for a the public SSH key list',
 );
 
 /** Afrikaans (Afrikaans)
