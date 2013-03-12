@@ -265,14 +265,19 @@ class SpecialNovaInstance extends SpecialNova {
 
 		$this->setHeaders();
 
-		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
-		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+		$instanceosid = $this->getRequest()->getText( 'instanceid' );
+		$instance = $this->userNova->getInstance( $instanceosid );
+		if ( !$instance ) {
+			$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistentresource' );
+			return false;
+		}
+
+		if ( !$this->userLDAP->inRole( 'projectadmin', $instance->getProject() ) ) {
 			$this->notInRole( 'projectadmin' );
 			return false;
 		}
-		$instanceosid = $this->getRequest()->getText( 'instanceid' );
-		$instance = $this->userNova->getInstance( $instanceosid );
+
 		$instanceid = $instance->getInstanceId();
 		$instancename = $instance->getInstanceName();
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-configureinstance', $instanceid, $instancename ) );
@@ -284,7 +289,7 @@ class SpecialNovaInstance extends SpecialNova {
 		);
 		$instanceInfo['project'] = array(
 			'type' => 'hidden',
-			'default' => $project,
+			'default' => $instance->getProject(),
 			'name' => 'project',
 		);
 		$instanceInfo['region'] = array(
