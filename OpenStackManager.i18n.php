@@ -409,6 +409,7 @@ Choose one or the other, not both.',
 /** Message documentation (Message documentation)
  * @author EugeneZelenko
  * @author Kghbln
+ * @author Krenair
  * @author Nemo bis
  * @author Nike
  * @author Platonides
@@ -434,10 +435,31 @@ $messages['qqq'] = array(
 	'openstackmanager-actions' => '{{Identical|Action}}',
 	'openstackmanager-notloggedin' => 'Page title.
 {{Identical|Login required}}',
-	'openstackmanager-nonovacred' => 'Page title',
+	'openstackmanager-nonovacred' => 'Used as page title in Special:Nova.
+
+The page body for this title is:
+* {{msg-mw|Openstackmanager-nonovacred-admincreate}}',
+	'openstackmanager-nonovacred-admincreate' => 'Used in Special:Nova.
+
+The page title for this message is:
+* {{msg-mw|Openstackmanager-nonovacred}}',
+	'openstackmanager-noaccount' => 'Used as page title in Special:Nova.
+
+The page body for this title is:
+* {{msg-mw|Openstackmanager-noaccount2}}',
+	'openstackmanager-noaccount2' => 'Used as page body in Special:Nova.
+
+The page title for this message is:
+* {{msg-mw|Openstackmanager-noaccount}}',
 	'openstackmanager-createdomain' => 'Page title',
-	'openstackmanager-deletedomain' => 'Page title',
+	'openstackmanager-deletedomain' => 'Used as page title in Special:NovaDomain.',
+	'openstackmanager-deletedomain-confirm' => 'Used in Special:NovaAdmin.
+
+Parameters:
+* $1 - domain name',
 	'openstackmanager-novadomain-domain' => '',
+	'openstackmanager-domainlist' => 'Used as page title in Special:NovaDomain.',
+	'openstackmanager-backdomainlist' => 'Used as link text in Special:NovaDomain.',
 	'openstackmanager-failedeletedomain' => 'Failure message when a DNS domain cannot be deleted',
 	'openstackmanager-failedeletedomainduplicates' => 'Failure message when a DNS domain cannot be deleted',
 	'openstackmanager-failedeletedomainnotfound' => 'Failure message when a DNS domain cannot be deleted',
@@ -457,13 +479,24 @@ Parameters:
 * $1 - an alphanumeric instance id for the instance to be deleted
 * $2 - the human-readable name for the same instance',
 	'openstackmanager-deleteinstance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
-	'openstackmanager-instancelist' => 'Page title',
+	'openstackmanager-deleteinstancequestion' => 'Used in Special:NovaInstance.
+
+An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].
+
+Parameters:
+* $1 - instance ID',
+	'openstackmanager-instancelist' => 'Used as page title in Special:NovaInstance.',
 	'openstackmanager-instancename' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-instanceid' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-instancestate' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-instanceip' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-instancepublicip' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-imageid' => '"ID" stands for "Identifier".',
+	'openstackmanager-instancetypelabel' => 'Used in Special:NovaInstance. Parameters:
+* $1 - number of CPUs
+* $2 - memory size (in megabytes)
+* $3 - root storage size (in gigabytes)
+* $4 - storage size (in gigabytes)',
 	'openstackmanager-rebootinstance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-rebootinstancewithname' => 'Page title for a page that asks confirmation before rebooting an instance.
 
@@ -473,14 +506,20 @@ Parameters:
 	'openstackmanager-rebootinstancequestion' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-rebootedinstance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-rebootinstancefailed' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
-	'openstackmanager-createinstance' => 'Header shown in Special:NovaInstance for its create action',
+	'openstackmanager-createinstance' => 'Used as page title and as action link title, in Special:NovaInstance.',
+	'openstackmanager-createinstancepuppetwarning' => 'Used in Special:NovaInstance.
+
+The page title for this message is:
+* {{msg-mw|Openstackmanager-createinstance}}',
 	'openstackmanager-createdinstance' => 'Parameters:
 * $1 - Instance (string) identifier. e.g. i-000000b4
 * $2 - Identifier (string) for machine image used
 * $3 - The hostname of the instance created',
 	'openstackmanager-createfailedldap' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-createinstancefailed' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
-	'openstackmanager-backinstancelist' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
+	'openstackmanager-backinstancelist' => 'Used as link text in Special:NovaInstance.
+
+An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-deletedinstance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-deletedinstance-faileddns' => 'Tells the user an instance was deleted, but the [[wikipedia:Domain Name System|DNS]] entry was not.
 *$1 - the specific DNS name
@@ -496,6 +535,7 @@ An instance is a virtual machine. In this particular case, a clone of an image f
 Parameters:
 * $1 - an alphanumeric instance id for the instance
 * $2 - the human-readable name for the same instance',
+	'openstackmanager-createvolume' => 'Used as page title and as action link text, in Special:NovaVolume.',
 	'openstackmanager-volumeid' => '"ID" stands for "Identifier".',
 	'openstackmanager-volumeattachmentinstance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-volumedeleteonvolumedelete' => 'Do you want this volume to be deleted when its associated instance is deleted?',
@@ -503,16 +543,75 @@ Parameters:
 {{Identical|Attach}}',
 	'openstackmanager-detach' => 'Verb.
 {{Identical|Detach}}',
+	'openstackmanager-deletevolume' => 'Used as page title in Special:NovaVolume.',
+	'openstackmanager-deletevolumequestion' => 'Used in Special:NovaVolume. Parameters:
+* $1 - volume ID',
+	'openstackmanager-volumelist' => 'Used as page title in Special:NovaVolume.',
+	'openstackmanager-createdvolume' => 'Used in Special:NovaVolume. Parameters:
+* $1 - volume ID
+See also:
+* {{msg-mw|Openstackmanager-createevolumefailed}}',
+	'openstackmanager-createevolumefailed' => 'Used in Special:NovaVolume.
+
+See also:
+* {{msg-mw|Openstackmanager-createdvolume}}',
+	'openstackmanager-deletedvolume' => 'Used as success message in Special:NovaVolume.
+
+This message indicates the volume has been deleted successfully.
+
+See also:
+* {{msg-mw|Openstackmanager-deletevolumefailed}}',
+	'openstackmanager-deletevolumefailed' => 'Used as failure message in Special:NovaVolume.
+
+This message indicates the volume has been failed todelete.
+
+See also:
+* {{msg-mw|Openstackmanager-deletedvolume}}',
+	'openstackmanager-backvolumelist' => 'Used as link text in Special:NovaVolume.',
+	'openstackmanager-attachvolume' => 'Used as page title in Special:NovaVolume.',
+	'openstackmanager-attachedvolume' => 'Used as success message in Special:NovaVolume.
+
+See also:
+* {{msg-mw|Openstackmanager-attachvolumefailed}}',
+	'openstackmanager-attachvolumefailed' => 'Used as failure message in Special:NovaVolume.
+
+See also:
+* {{msg-mw|Openstackmanager-attachedvolume}}',
+	'openstackmanager-detachvolume' => 'Used as page title in Special:NovaVolume.',
+	'openstackmanager-detachedvolume' => 'Used as success message in Special:NovaVolume.
+
+See also:
+* {{msg-mw|Openstackmanager-detachvolumefailed}}',
+	'openstackmanager-detachvolumefailed' => 'Used as failure message in Special:NovaVolume.
+
+See also:
+* {{msg-mw|Openstackmanager-detachedvolume}}',
 	'openstackmanager-novapublickey' => '{{Identical|Public SSH key}}',
 	'openstackmanager-prefs-novapublickey' => '{{Identical|Public SSH key}}',
-	'openstackmanager-deletekey' => 'Page title',
+	'openstackmanager-deletekey' => 'Used as page title in Special:NovaKey.',
+	'openstackmanager-deletekeyconfirm' => 'Used as page body in Special:NovaKey.
+
+The title for this message is:
+* {{msg-mw|Openstackmanager-deletekey}}',
 	'openstackmanager-keylist' => 'Page title',
-	'openstackmanager-addkey' => 'Link for users to add a new public SSH key to their account',
+	'openstackmanager-addkey' => 'Used as link text. Link for users to add a new public SSH key to their account. It is a link to Special:NovaKey.',
 	'openstackmanager-name' => '{{Identical|Name}}',
 	'openstackmanager-keys' => '{{Identical|Key}}',
-	'openstackmanager-addmember' => 'Page title',
-	'openstackmanager-removemember' => 'Page title',
-	'openstackmanager-configureproject' => 'Page title, $1 is project name.',
+	'openstackmanager-keypairimportedfingerprint' => 'Used in Special:NovaKey.
+
+This message indicates keypair with fingerprint has been imported.
+
+Parameters:
+* $1 - key name
+* $2 - key fingerprint',
+	'openstackmanager-addmember' => 'Used as page title and as action link title, in Special:NovaProject and in Special:NovaRole.',
+	'openstackmanager-removemember' => 'Used as page title and as action link text, in Special:NovaProject.',
+	'openstackmanager-removeprojectconfirm' => 'Used in Special:NovaProject. Parameters:
+* $1 - project name
+The title (page title) for this message is:
+* {{msg-mw|Openstackmanager-deleteproject}}',
+	'openstackmanager-configureproject' => 'Used as page title in Special:NovaProject. Parameters:
+* $1 - project name',
 	'openstackmanager-configureproject-sharedhomedirs' => 'checkbox label',
 	'openstackmanager-configureproject-sharedstorage' => 'checkbox label',
 	'openstackmanager-configureproject-volume' => 'form section title',
@@ -523,8 +622,9 @@ Parameters:
 	'openstackmanager-members' => '{{Identical|Member}}',
 	'openstackmanager-member' => '{{Identical|Member}}',
 	'openstackmanager-action' => '{{Identical|Action}}',
-	'openstackmanager-projectlist' => 'Page title',
-	'openstackmanager-deleteproject' => 'Page title.
+	'openstackmanager-projectlist' => 'Used as page title in Special:NovaProject.',
+	'openstackmanager-backprojectlist' => 'Used as link text in Special:Project and Special:Role.',
+	'openstackmanager-deleteproject' => 'Used as page title and as action link title, in Special:NovaProject.
 {{Identical|Delete}}',
 	'openstackmanager-addedto' => '*$1 - member
 *$2 - project name',
@@ -543,33 +643,161 @@ Parameters:
 	'openstackmanager-setprojectfilter' => ' A message telling the user that a project filter should be applied to see any resources.',
 	'openstackmanager-toggle' => 'A message to tell the user they can toggle the collapsing and expanding of project sections.',
 	'openstackmanager-roles' => '{{Identical|Role}}',
+	'openstackmanager-removerolemember' => 'Used as page title and as action link text, in Special:NovaRole.',
 	'openstackmanager-rolelist' => 'It is a list of roles that are assigned to all instances (i.e. global).',
+	'openstackmanager-shellaccountname-pref' => "Label used for displaying the user's shell account name on Special:Preferences.",
+	'openstackmanager-addresslist' => 'Used as page title in Special:NovaAddress.',
+	'openstackmanager-allocateaddress' => 'Used as page title and as action link title, in Special:NovaAddress.',
+	'openstackmanager-releaseaddress' => 'Used as page title and as action link title, in Special:NovaAddress.',
+	'openstackmanager-associateaddress' => 'Used as page title and as action link title, in Special:NovaAddress.',
+	'openstackmanager-disassociateaddress' => 'Used as page title and as link title in Special:NovaAddress.',
+	'openstackmanager-allocatedaddress' => 'Used in Special:NovaAddress. Parameters:
+* $1 - public IP address',
+	'openstackmanager-backaddresslist' => 'Used as link title in Special:NovaAddress.',
+	'openstackmanager-allocateaddress-confirm' => 'Used in Special:NovaAddress. Parameters:
+* $1 - project name',
+	'openstackmanager-releasedaddress' => 'Used in Special:NovaAddress. Parameters:
+* $1 - public IP address which has been released',
+	'openstackmanager-releaseaddressfailed' => 'Unused at this time. Parameters:
+* $1 - public IP address which has been failed to release',
 	'openstackmanager-cannotreleaseaddress' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-associatedaddress' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-associateaddressfailed' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
+	'openstackmanager-disassociatedaddress' => 'Used in Special:NovaAddress. Parameters:
+* $1 - public IP address which has been disassociated
+See also:
+* {{msg-mw|Openstackmanager-disassociateaddressfailed}}',
+	'openstackmanager-disassociateaddressfailed' => 'Used in Special:NovaAddress. Parameters:
+* $1 - public IP address which has been failed to disassociate
+See also:
+* {{msg-mw|Openstackmanager-disassociateaddress}}',
+	'openstackmanager-disassociateaddress-confirm' => 'Used in Special:NovaAddress. Parameters:
+* $1 - public IP address
+The title (page title) for this message is:
+* {{msg-mw|Openstackmanager-disassociateaddress}}',
+	'openstackmanager-releaseaddress-confirm' => 'Used in Special:NovaAddress. Parameters:
+* $1 - public IP address
+The title (page title) for this message is:
+* {{msg-mw|Openstackmanager-releaseaddress}}',
+	'openstackmanager-invalidaddress' => 'Used in Special:NovaAddress. Parameters:
+* $1 - public IP address, or address ID',
+	'openstackmanager-invalidaddressforproject' => 'Unused at this time. Parameters:
+* $1 - public IP address',
 	'openstackmanager-addedhost' => '*$1 - host name
 *$2 - IP address',
 	'openstackmanager-addhostfailed' => '*$1 - host name
 *$2 - IP address',
+	'openstackmanager-addhost' => 'Used as page title and as action link title, in Special:NovaAddress.',
+	'openstackmanager-removehost' => 'Used as page title and as action link title, in Special:NovaAddress.',
 	'openstackmanager-removehost-action' => 'A link text. [[File:Wikimedia_labs_address_admin.png|thumb]]',
+	'openstackmanager-removehost-confirm' => 'Used in Special:NovaAddress. Parameters:
+* $1 - host name
+* $2 - public IP address',
 	'openstackmanager-removedhost' => '*$1 - host name',
 	'openstackmanager-removehostfailed' => '*$1 - host name',
-	'openstackmanager-needrole' => 'Title for an error on special pages.
+	'openstackmanager-needrole' => 'Used as page title for an error on special pages.
 Parameters:
-* $1 - the role the user needs. not localized. (e.g. projectadmin)',
-	'openstackmanager-needrole2' => 'Error message on special pages. $1 is the role the user needs.',
+* $1 - the role the user needs. not localized. (e.g. projectadmin)
+The page body for this page title is:
+* {{msg-mw|Openstackmanager-needrole2}}',
+	'openstackmanager-needrole2' => 'Error message on special pages. Parameters:
+* $1 - the role the user needs, not localized (e.g. projectadmin).',
+	'openstackmanager-createsecuritygroup' => 'Used as page title in Special:NovaSecurityGroup.',
 	'openstackmanager-securitygroupdescription' => '{{Identical|Description}}',
+	'openstackmanager-deletesecuritygroup' => 'Used as page title in Special:NovaSecurityGroup.',
 	'openstackmanager-deletesecuritygroup-confirm' => '*$1 - security group name',
+	'openstackmanager-securitygrouplist' => 'Used as page title in Special:NovaSecurityGroup.',
 	'openstackmanager-securitygrouprule-ipranges' => 'CIDR = Classless Inter-Domain Routing',
 	'openstackmanager-createnewsecuritygroup' => '{{Identical|Add group}}',
+	'openstackmanager-addrule-action' => 'Used as action link text in Special:NovaSecurityGroup.',
+	'openstackmanager-removerule-action' => 'Used as action link text in Special:NovaSecurityGroup.',
+	'openstackmanager-backsecuritygrouplist' => 'Used as link text in Special:NovaSecurityGroup.',
+	'openstackmanager-createdsecuritygroup' => 'Used as success message in Special:NovaSecurityGroup.
+
+See also:
+* {{msg-mw|openstackmanager-createsecuritygroupfailed}}',
+	'openstackmanager-createsecuritygroupfailed' => 'Used as failure message in Special:NovaSecurityGroup.
+
+See also:
+* {{msg-mw|openstackmanager-createdsecuritygroup}}',
+	'openstackmanager-nonexistantsecuritygroup' => "Used in Special:NovaSecurityGroup, when the security group doesn't exist.
+
+If the security group exists, the following message is used:
+* {{msg-mw|Openstackmanager-removehost-confirm}}",
+	'openstackmanager-deletedsecuritygroup' => 'Used as success message in Special:NovaSecurityGroup.
+
+See also:
+* {{msg-mw|Openstackmanager-deletesecuritygroupfailed}}',
+	'openstackmanager-deletesecuritygroupfailed' => 'Used as failure message in Special:NovaSecurityGroup.
+
+See also:
+* {{msg-mw|Openstackmanager-deletedsecuritygroup}}',
+	'openstackmanager-removerule' => 'Used as page title in Special:NovaSecurityGroup.',
+	'openstackmanager-removerule-confirm' => "Used in Special:NovaSecurityGroup. Parameters:
+* $1 - security group name
+If the security group doesn't exist, the following message is used:
+* {{msg-mw|Openstackmanager-nonexistantsecuritygroup}}",
+	'openstackmanager-removedrule' => 'Used as success message in Special:NovaSecurityGroup.
+
+See also:
+* {{msg-mw|Openstackmanager-removerulefailed}}',
+	'openstackmanager-removerulefailed' => 'Used as failure message in Special:NovaSecurityGroup.
+
+See also:
+* {{msg-mw|Openstackmanager-removedrule}}',
+	'openstackmanager-addrule' => 'Used as page title in Special:NovaSecurityGroup.',
 	'openstackmanager-securitygrouprule-ranges' => 'CIDR = Classless Inter-Domain Routing',
 	'openstackmanager-securitygrouprule-ranges-help' => 'CIDR = Classless Inter-Domain Routing',
+	'openstackmanager-addedrule' => 'Used as success message in Special:NovaSecurityGroup.
+
+See also:
+* {{msg-mw|Openstackmanager-addrulefailed}}',
+	'openstackmanager-addrulefailed' => 'Used as failure message in Special:NovaSecurityGroup.
+
+See also:
+* {{msg-mw|Openstackmanager-addedrule}}',
 	'openstackmanager-sudoerusers' => '{{Identical|User}}',
 	'openstackmanager-requirepassword' => 'When this option is checked, sudo will require the user password',
 	'openstackmanager-sudoeroptions' => '{{Identical|Options}}',
 	'openstackmanager-allmembers' => 'Label for a checkbox that includes all project members in a sudo policy',
+	'openstackmanager-deletesudoer' => 'Used as page title in Special:NovaSudoer.',
 	'openstackmanager-deletesudoer-confirm' => '*$1 - sudo policy name',
-	'openstackmanager-createpuppetgroup' => '{{Identical|Add group}}',
+	'openstackmanager-backsudoerlist' => 'Used as link text in Special:NovaSudoer.',
+	'openstackmanager-sudoerlist' => 'Used as page title in Special:NovaSudoer.',
+	'openstackmanager-modifysudoer' => 'Used as page title in Special:NovaSudoer.',
+	'openstackmanager-modifysudoerfailed' => 'Used as failure message in Special:NovaSudoer.',
+	'openstackmanager-puppetgrouplist' => 'Used as page title in Special:NovaPuppetGroup.',
+	'openstackmanager-createpuppetgroup' => 'Used as page title and as action link text, in Special:NovaPuppetGroup.
+{{Identical|Add group}}',
+	'openstackmanager-backpuppetgrouplist' => 'Used as link text in Special:PuppetGroup.',
+	'openstackmanager-addpuppetclass' => 'Used as page title and as action link title, in Special:NovaPuppetGroup.',
+	'openstackmanager-deletepuppetgroup' => 'Used as page title in Special:NovaPuppetGroup.',
+	'openstackmanager-deletedpuppetgroup' => 'Used in Special:NovaPuppetGroup.
+
+This message indicates the puppet group has been deleted successfully.
+
+See also:
+* {{msg-mw|Openstackmanager-deletepuppetgroupfailed}}',
+	'openstackmanager-deletepuppetgroupfailed' => 'Used as failure message in Special:NovaPuppetGroup.
+
+This message indicates the puppet group has been failed to delete.
+
+See also:
+* {{msg-mw|Openstackmanager-deletedpuppetgroup}}',
+	'openstackmanager-modifypuppetgroup' => 'Used as page title in Special:NovaPuppetGroup.',
+	'openstackmanager-addpuppetvar' => 'Used as page title and as action link text, in Special:NovaPuppetGroup.',
+	'openstackmanager-modifypuppetvar' => 'Used as page title in Special:NovaPuppetGroup.',
+	'openstackmanager-modifypuppetclass' => 'Used as page title in Special:NovaPuppetGroup.',
+	'openstackmanager-removepuppetclass' => 'Used as page title in Special:NovaPuppetGroup.',
+	'openstackmanager-removepuppetclassconfirm' => 'Used as page body in Special:NovaPuppetGroup.
+
+The title for this message is:
+* {{msg-mw|Openstackmanager-removepuppetclass}}',
+	'openstackmanager-removepuppetvar' => 'Used as page title in Special:NovaPuppetGroup.',
+	'openstackmanager-removepuppetvarconfirm' => 'Used as page body in Special:NovaPuppetGroup.
+
+The title for this message is:
+* {{msg-mw|Openstackmanager-removepuppetvar}}',
 	'openstackmanager-email-subject' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-email-body' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-twofactorrequired' => 'A page title that will be shown on error when two factor auth is not enabled',
@@ -600,12 +828,11 @@ Parameters:
 * $3 - instance',
 	'echo-pref-email-osm-instance-deleted' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable email notification for the osm-instance-deleted event.
 
-Preceded by {{msg-mw|prefs-emailsubscriptions}}.',
+Preceded by {{msg-mw|Prefs-emailsubscriptions}}.',
 	'echo-pref-email-osm-instance-build-completed' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable email notification for the osm-instance-build-completed event.
 
-Preceded by {{msg-mw|prefs-emailsubscriptions}}.',
+Preceded by {{msg-mw|Prefs-emailsubscriptions}}.',
 	'echo-pref-email-osm-instance-reboot-completed' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable email notification for the osm-instance-reboot-completed event.',
-
 	'prefs-openstack' => 'Title for a tab in Preferences for OpenStack related items',
 	'prefs-openstack-keys' => 'Subheading used in the Preferences -> OpenStack for a the public SSH key list',
 );
@@ -1302,6 +1529,7 @@ $messages['bn'] = array(
 );
 
 /** Breton (brezhoneg)
+ * @author Fohanno
  * @author Fulup
  * @author Y-M D
  */
@@ -1405,9 +1633,9 @@ $messages['br'] = array(
 	'openstackmanager-volumelist' => 'Roll ar volumoù',
 	'openstackmanager-device' => 'Trobarzhell',
 	'openstackmanager-novapublickey' => "Alc'hwez foran SSH",
-	'openstackmanager-deletekey' => "Diverkañ an alc'hwez",
+	'openstackmanager-deletekey' => "Diverkañ an alc'hwez", # Fuzzy
 	'openstackmanager-deletekeyconfirm' => "Ha sur oc'h hoc'h eus c'hoant da zilemel an alc'hwez a-us ?",
-	'openstackmanager-keylist' => "Roll an alc'hwezioù",
+	'openstackmanager-keylist' => "Roll an alc'hwezioù", # Fuzzy
 	'openstackmanager-name' => 'Anv',
 	'openstackmanager-fingerprint' => 'Roudoù-bizied',
 	'openstackmanager-keys' => "Alc'hwezioù",
@@ -1415,13 +1643,12 @@ $messages['br'] = array(
 	'openstackmanager-keypairimportfailed' => "Dibosupl enporzhiañ an daouad alc'hwezioù.",
 	'openstackmanager-keypairimported' => "Daouad alc'hwezioù enporzhiet.",
 	'openstackmanager-keypairimportedfingerprint' => "Enporzhiet an daouad alc'hwezioù $1, gant roudoù bizied $2.",
-	'openstackmanager-backkeylist' => "Distreiñ d'ar roll alc'hwezioù",
-	'openstackmanager-addadditionalkey' => "Ouzhpennañ un alc'hwez all.",
 	'openstackmanager-deletedkey' => "Diverket eo bet an alc'hwez ervat.",
 	'openstackmanager-deletedkeyfailed' => "N'eus ket bet gallet diverkañ an alc'hwez.",
 	'openstackmanager-addmember' => 'Ouzhpennañ un ezel',
 	'openstackmanager-removemember' => 'Diverkañ an ezel',
 	'openstackmanager-removeprojectconfirm' => 'Ha sur oc\'h e fell deoc\'h  diverkañ ar raktres "$1" ? Emplegadennoù en do an ober-mañ war an holl vekanikoù galloudel (VM). Na rit ket se diwar skañv !',
+	'openstackmanager-configureproject' => 'Kefluniañ ar raktres $1',
 	'openstackmanager-createproject' => 'Ouzhpennañ ar raktres',
 	'openstackmanager-projectname' => 'Anv ar raktres',
 	'openstackmanager-members' => 'Izili',
@@ -1487,7 +1714,6 @@ $messages['br'] = array(
 	'openstackmanager-removedhost' => 'Diverket eo bet $1 ervat.',
 	'openstackmanager-removehostfailed' => "N'eus ket bet gallet lemel $1.",
 	'openstackmanager-nonexistenthost' => "N'eus ket eus an herberc'hier goulennet.",
-	'openstackmanager-needsysadminrole' => 'Mankout a ra ar roll merour reizhiad',
 	'openstackmanager-createsecuritygroup' => 'Krouiñ ur strollad surentez',
 	'openstackmanager-securitygroupname' => 'Anv ar strollad surentez',
 	'openstackmanager-securitygroupdescription' => 'Deskrivadur',
@@ -1551,6 +1777,7 @@ $messages['br'] = array(
 	'openstackmanager-nonexistantsudoer' => "N'eus ket eus ar reolenn Sudo goulennet.",
 	'openstackmanager-puppetallprojects' => 'An holl raktresoù',
 	'openstackmanager-createpuppetgroup' => 'Ouzhpennañ ur strollad',
+	'openstackmanager-puppetclassname' => 'Anv klas',
 	'openstackmanager-puppetvars' => 'Argemmennoù',
 	'openstackmanager-addpuppetvar' => 'Ouzhpennaén un argemenn',
 	'openstackmanager-puppetvarname' => 'Anv an argemenn',
@@ -1797,9 +2024,10 @@ $messages['de'] = array(
 	'openstackmanager-detachvolumefailed' => 'Der Datenträger konnte nicht ausgehängt werden.',
 	'openstackmanager-novapublickey' => 'Öffentlicher SSH-Schlüssel',
 	'openstackmanager-prefs-novapublickey' => 'Öffentliche SSH-Schlüssel:',
-	'openstackmanager-deletekey' => 'SSH-Schlüssel löschen',
+	'openstackmanager-deletekey' => 'Öffentlichen SSH-Schlüssel löschen',
 	'openstackmanager-deletekeyconfirm' => 'Soll der oben angegebene SSH-Schlüssel wirklich gelöscht werden?',
-	'openstackmanager-keylist' => 'SSH-Schlüsselliste',
+	'openstackmanager-keylist' => 'Öffentliche SSH-Schlüsselliste',
+	'openstackmanager-addkey' => 'Öffentlichen SSH-Schlüssel hinzufügen',
 	'openstackmanager-name' => 'Name',
 	'openstackmanager-fingerprint' => 'Fingerabdruck',
 	'openstackmanager-keys' => 'SSH-Schlüssel',
@@ -1809,8 +2037,6 @@ $messages['de'] = array(
 	'openstackmanager-keypairimportedfingerprint' => 'Das SSH-Schlüsselpaar $1 wurde mit Fingerabdruck $2 importiert.',
 	'openstackmanager-keypairformatwrong' => 'Der angegebenen SSH-Schlüssel ist fehlerhaft oder hat ein unbekanntes Format.',
 	'openstackmanager-keypairformatconverted' => 'Das Format des SSH-Schlüssels wurde automatisch konvertiert.',
-	'openstackmanager-backkeylist' => 'Zurück zur SSH-Schlüsselliste',
-	'openstackmanager-addadditionalkey' => 'Weiteren Schlüssel hinzufügen',
 	'openstackmanager-deletedkey' => 'Der SSH-Schlüssel wurde erfolgreich gelöscht.',
 	'openstackmanager-deletedkeyfailed' => 'Der SSH-Schlüssel konnte nicht gelöscht werden.',
 	'openstackmanager-addmember' => 'Mitglied hinzufügen',
@@ -1856,6 +2082,7 @@ $messages['de'] = array(
 	'openstackmanager-novarole-role' => 'Nova-Rolle',
 	'openstackmanager-novarole-info' => 'Nova-Rolleninformation',
 	'openstackmanager-shellaccountname' => 'Benutzername der Instanz-Shell',
+	'openstackmanager-shellaccountname-pref' => 'Kontenname der Instanz-Shell:',
 	'openstackmanager-shellaccountnamehelp' => 'Es ist ein Benutzername der Instanz-Shell erforderlich.
 Er fängt mit den Buchstaben (a-z) an und kann nur die Buchstaben (a-z), Zahlen (0-9) sowie Striche enthalten.',
 	'openstackmanager-addresslist' => 'Öffentliche IP-Adressliste',
@@ -2011,6 +2238,8 @@ Er fängt mit den Buchstaben (a-z) an und kann nur die Buchstaben (a-z), Zahlen 
 	'echo-pref-email-osm-instance-deleted' => 'eine Instanz eines Projektes löscht, auf dem ich Administrator bin.',
 	'echo-pref-email-osm-instance-build-completed' => 'eine Instanz auf einem Projekt erstellt, auf dem ich Administrator bin.',
 	'echo-pref-email-osm-instance-reboot-completed' => 'eine Instanz neu startet.',
+	'prefs-openstack' => 'OpenStack',
+	'prefs-openstack-keys' => 'Schlüsselliste',
 );
 
 /** German (formal address) (Deutsch (Sie-Form)‎)
@@ -3063,9 +3292,10 @@ $messages['fr'] = array(
 	'openstackmanager-detachedvolume' => 'Volume détaché avec succès.',
 	'openstackmanager-detachvolumefailed' => 'Échec lors du détachement du volume.',
 	'openstackmanager-novapublickey' => 'Clé publique SSH',
-	'openstackmanager-deletekey' => 'Supprimer la clé',
+	'openstackmanager-prefs-novapublickey' => 'Clés SSH publiques:',
+	'openstackmanager-deletekey' => 'Supprimer la clé', # Fuzzy
 	'openstackmanager-deletekeyconfirm' => 'Êtes-vous sûr de vouloir supprimer la clé ci-dessus ?',
-	'openstackmanager-keylist' => 'Liste des clés',
+	'openstackmanager-keylist' => 'Liste des clés', # Fuzzy
 	'openstackmanager-name' => 'Nom',
 	'openstackmanager-fingerprint' => 'Empreinte',
 	'openstackmanager-keys' => 'Clés',
@@ -3075,8 +3305,6 @@ $messages['fr'] = array(
 	'openstackmanager-keypairimportedfingerprint' => 'Paire de clés $1 importée avec l’empreinte $2.',
 	'openstackmanager-keypairformatwrong' => 'La clé SSH fournie était erronée ou dans un format inconnu.',
 	'openstackmanager-keypairformatconverted' => 'Le format de la clé SSH a été converti automatiquement.',
-	'openstackmanager-backkeylist' => 'Revenir à la liste des clés',
-	'openstackmanager-addadditionalkey' => 'Ajouter une autre clé',
 	'openstackmanager-deletedkey' => 'Clé supprimée avec succès.',
 	'openstackmanager-deletedkeyfailed' => 'Échec de la suppression de la clé.',
 	'openstackmanager-addmember' => 'Ajouter un membre',
@@ -3747,9 +3975,9 @@ $messages['gl'] = array(
 	'openstackmanager-detachvolumefailed' => 'Erro ao desligar o volume.',
 	'openstackmanager-novapublickey' => 'Clave pública SSH',
 	'openstackmanager-prefs-novapublickey' => 'Claves públicas SSH:',
-	'openstackmanager-deletekey' => 'Borrar a clave',
+	'openstackmanager-deletekey' => 'Borrar a clave', # Fuzzy
 	'openstackmanager-deletekeyconfirm' => 'Está seguro de querer borrar a clave anterior?',
-	'openstackmanager-keylist' => 'Lista de claves',
+	'openstackmanager-keylist' => 'Lista de claves', # Fuzzy
 	'openstackmanager-name' => 'Nome',
 	'openstackmanager-fingerprint' => 'Pegada',
 	'openstackmanager-keys' => 'Claves',
@@ -3759,8 +3987,6 @@ $messages['gl'] = array(
 	'openstackmanager-keypairimportedfingerprint' => 'Par de claves $1 importadas coa impresión dixital $2.',
 	'openstackmanager-keypairformatwrong' => 'A clave SSH proporcionada era incorrecta ou tiña un formato descoñecido.',
 	'openstackmanager-keypairformatconverted' => 'O formato da clave SSH converteuse automaticamente.',
-	'openstackmanager-backkeylist' => 'Volver á lista de claves',
-	'openstackmanager-addadditionalkey' => 'Engadir outra clase.',
 	'openstackmanager-deletedkey' => 'A clave borrouse correctamente.',
 	'openstackmanager-deletedkeyfailed' => 'Erro ao borrar a clave.',
 	'openstackmanager-addmember' => 'Engadir un membro',
@@ -4499,9 +4725,11 @@ $messages['hsb'] = array(
 	'openstackmanager-detach' => 'wotpowěsnyć',
 	'openstackmanager-device' => 'Grat',
 	'openstackmanager-novapublickey' => 'Zjawny SSH-kluč',
-	'openstackmanager-deletekey' => 'Kluč zhašeć',
+	'openstackmanager-prefs-novapublickey' => 'Zjawne SSH-kluče:',
+	'openstackmanager-deletekey' => 'Zjawny SSH-kluč zhašeć',
 	'openstackmanager-deletekeyconfirm' => 'Chceš horni kluč woprawdźe zhašeć?',
-	'openstackmanager-keylist' => 'Lisćina klučow',
+	'openstackmanager-keylist' => 'Lisćina zjawnych SSH-klučow',
+	'openstackmanager-addkey' => 'Zjawny SSH-kluč přidać',
 	'openstackmanager-name' => 'Mjeno',
 	'openstackmanager-fingerprint' => 'Porstowy wotćišć',
 	'openstackmanager-keys' => 'Kluče',
@@ -4510,12 +4738,12 @@ $messages['hsb'] = array(
 	'openstackmanager-keypairimported' => 'Klučowy por importowany.',
 	'openstackmanager-keypairformatwrong' => 'Podaty SSH-kluč bě wopak abo w njeznatym formaće.',
 	'openstackmanager-keypairformatconverted' => 'Format SSH-kluča je so awtomatisce konwertował.',
-	'openstackmanager-backkeylist' => 'Wróćo k lisćinje klučow',
-	'openstackmanager-addadditionalkey' => 'Druhi kluč přidać',
 	'openstackmanager-deletedkey' => 'Kluč je so wuspěšnje zhašał.',
 	'openstackmanager-deletedkeyfailed' => 'Kluč njeda so zhašeć.',
 	'openstackmanager-addmember' => 'Čłona přidać',
 	'openstackmanager-removemember' => 'Čłona wotstronić',
+	'openstackmanager-configureproject' => 'Projekt $1 konfigurować',
+	'openstackmanager-configureproject-success' => 'Projektowe nastajenja zaktualizowane.',
 	'openstackmanager-createproject' => 'Projekt přidać',
 	'openstackmanager-projectname' => 'Projektowe mjeno',
 	'openstackmanager-members' => 'Čłonojo',
@@ -4563,9 +4791,7 @@ $messages['hsb'] = array(
 	'openstackmanager-removedhost' => '$1 je so wuspěšnje wotstronił.',
 	'openstackmanager-removehostfailed' => '$1 njeda so wotstronić.',
 	'openstackmanager-nonexistenthost' => 'Požadany host njeeksistuje.',
-	'openstackmanager-needsysadminrole' => 'Róla systemoweho administratora trěbna',
-	'openstackmanager-neednetadminrole' => 'Róla syćoweho administratora trěbna',
-	'openstackmanager-needcloudadminrole' => 'Róla mróćeloweho administratora trěbna',
+	'openstackmanager-needrole' => 'Róla $1 trěbna',
 	'openstackmanager-createsecuritygroup' => 'Wěstotnu skupinu wutworić',
 	'openstackmanager-securitygroupname' => 'Mjeno wěstotneje skupiny',
 	'openstackmanager-securitygroupdescription' => 'Wopisanje',
@@ -4605,6 +4831,7 @@ $messages['hsb'] = array(
 	'openstackmanager-sudoerhosts' => 'Hosty',
 	'openstackmanager-sudoercommands' => 'Přikazy',
 	'openstackmanager-sudoeroptions' => 'Opcije',
+	'openstackmanager-allmembers' => 'Wšitcy projektowi čłonojo',
 	'openstackmanager-puppetallprojects' => 'Wšě projekty',
 	'openstackmanager-createpuppetgroup' => 'Skupinu přidać',
 	'openstackmanager-addpuppetclass' => 'Klasu přidać',
@@ -4618,6 +4845,8 @@ $messages['hsb'] = array(
 	'openstackmanager-email-body' => 'Slědowaca instanca je so załožiła a je hotowa k přizjewjenju:',
 	'openstackmanager-twofactorrequired' => 'Dwufaktorowa awtentifikacija trěbna',
 	'openstackmanager-twofactorrequired2' => 'Dwufaktorowa awtentifikacija je trěbna. Prošu zmóžń ju a spytaj hišće raz.',
+	'right-loginviashell' => 'Přez komandowu linku přizjewić',
+	'prefs-openstack-keys' => 'Lisćina klučow',
 );
 
 /** Hungarian (magyar)
@@ -5583,7 +5812,7 @@ $messages['ja'] = array(
 	'openstackmanager-mustbeloggedin' => 'この操作を行うにはログインする必要があります。',
 	'openstackmanager-nonexistentresource' => '指定したリソースは存在しません。',
 	'openstackmanager-createdomain' => 'ドメインを作成',
-	'openstackmanager-deletedomain' => 'ドメインを削除',
+	'openstackmanager-deletedomain' => 'ドメインの削除',
 	'openstackmanager-deletedomain-confirm' => 'ドメイン「$1」を本当に削除しますか?
 この操作はすべての VM に影響を及ぼします。
 この操作を軽率には実行しないでください!',
@@ -5643,7 +5872,7 @@ $messages['ja'] = array(
 	'openstackmanager-volumesize' => 'ボリュームのサイズ (GB)',
 	'openstackmanager-volumedeleteonvolumedelete' => '関連付けられたインスタンスの削除時にこのボリュームも削除しますか?',
 	'openstackmanager-volumecreationtime' => 'ボリュームの作成日時',
-	'openstackmanager-deletevolume' => 'ボリュームを削除',
+	'openstackmanager-deletevolume' => 'ボリュームの削除',
 	'openstackmanager-deletevolumequestion' => 'ボリューム「$1」を本当に削除しますか?',
 	'openstackmanager-volumelist' => 'ボリューム一覧',
 	'openstackmanager-novavolume-volume' => 'ボリューム',
@@ -5654,14 +5883,14 @@ $messages['ja'] = array(
 	'openstackmanager-deletevolumefailed' => 'ボリュームの削除に失敗しました。',
 	'openstackmanager-backvolumelist' => 'ボリューム一覧に戻る',
 	'openstackmanager-device' => 'デバイス',
-	'openstackmanager-novapublickey' => 'SSH 公開鍵',
+	'openstackmanager-novapublickey' => 'SSH 公開鍵:',
 	'openstackmanager-prefs-novapublickey' => 'SSH 公開鍵:',
-	'openstackmanager-deletekey' => '鍵の削除',
+	'openstackmanager-deletekey' => 'SSH 公開鍵の削除',
 	'openstackmanager-deletekeyconfirm' => '上記の鍵を本当に削除しますか?',
-	'openstackmanager-keylist' => '鍵一覧',
+	'openstackmanager-keylist' => 'SSH 公開鍵の一覧',
+	'openstackmanager-addkey' => 'SSH 公開鍵を追加',
 	'openstackmanager-name' => '名前',
 	'openstackmanager-keys' => '鍵',
-	'openstackmanager-backkeylist' => '鍵一覧に戻る',
 	'openstackmanager-deletedkey' => 'キーを削除しました。',
 	'openstackmanager-deletedkeyfailed' => 'キーの削除に失敗しました。',
 	'openstackmanager-addmember' => 'メンバーを追加',
@@ -5704,6 +5933,7 @@ $messages['ja'] = array(
 	'openstackmanager-novarole-role' => 'Nova 権限',
 	'openstackmanager-novarole-info' => 'Nova 権限の情報',
 	'openstackmanager-shellaccountname' => 'インスタンスのシェルのアカウント名',
+	'openstackmanager-shellaccountname-pref' => 'インスタンスのシェルのアカウント名:',
 	'openstackmanager-addresslist' => '公開 IP アドレス一覧',
 	'openstackmanager-address' => '公開 IP アドレス',
 	'openstackmanager-allocateaddress' => 'IP を割り当て',
@@ -5722,11 +5952,11 @@ $messages['ja'] = array(
 	'openstackmanager-nonexistenthost' => '指定したホストは存在しません。',
 	'openstackmanager-needrole' => '$1 権限が必要',
 	'openstackmanager-needrole2' => 'この操作を実行するには $1 権限が必要です。',
-	'openstackmanager-createsecuritygroup' => 'セキュリティ グループを作成',
+	'openstackmanager-createsecuritygroup' => 'セキュリティ グループの作成',
 	'openstackmanager-securitygroupname' => 'セキュリティ グループ名',
 	'openstackmanager-securitygroupdescription' => '説明',
 	'openstackmanager-configuresecuritygroup' => 'セキュリティ グループの設定',
-	'openstackmanager-deletesecuritygroup' => 'セキュリティ グループを削除',
+	'openstackmanager-deletesecuritygroup' => 'セキュリティ グループの削除',
 	'openstackmanager-deletesecuritygroup-confirm' => '$1 を本当に削除しますか?',
 	'openstackmanager-securitygrouplist' => 'セキュリティ グループ一覧',
 	'openstackmanager-securitygrouprule-toport' => 'ポート範囲の終点',
@@ -5755,7 +5985,7 @@ $messages['ja'] = array(
 	'openstackmanager-requirepassword' => '認証を求める',
 	'openstackmanager-sudoeroptions' => 'オプション',
 	'openstackmanager-allmembers' => 'プロジェクトのすべてのメンバー',
-	'openstackmanager-deletesudoer' => 'sudo ポリシーを削除',
+	'openstackmanager-deletesudoer' => 'sudo ポリシーの削除',
 	'openstackmanager-deletesudoer-confirm' => 'sudo ポリシー $1 を本当に削除しますか?',
 	'openstackmanager-createsudoerfailed' => 'sudo ポリシーの作成に失敗しました。',
 	'openstackmanager-createdsudoer' => 'sudo ポリシーを作成しました。',
@@ -5764,7 +5994,7 @@ $messages['ja'] = array(
 	'openstackmanager-deletedsudoer' => 'sudo ポリシーを削除しました。',
 	'openstackmanager-failedeletedsudoer' => 'sudo ポリシーの削除に失敗しました。',
 	'openstackmanager-sudoerlist' => 'sudo ポリシー一覧',
-	'openstackmanager-modifysudoer' => 'sudo ポリシーを変更',
+	'openstackmanager-modifysudoer' => 'sudo ポリシーの変更',
 	'openstackmanager-modifysudoerfailed' => 'sudo ポリシーの変更に失敗しました。',
 	'openstackmanager-modifiedsudoer' => 'sudo ポリシーを変更しました。',
 	'openstackmanager-nonexistantsudoer' => '指定した sudo ポリシーは存在しません。',
@@ -5780,10 +6010,10 @@ $messages['ja'] = array(
 	'openstackmanager-failedtoaddpuppetclass' => 'パペット クラスの追加に失敗しました。',
 	'openstackmanager-puppetclassname' => 'クラス名',
 	'openstackmanager-removepuppetgroupconfirm' => 'このパペット グループを本当に削除しますか?',
-	'openstackmanager-deletepuppetgroup' => 'パペット グループを削除',
+	'openstackmanager-deletepuppetgroup' => 'パペット グループの削除',
 	'openstackmanager-deletedpuppetgroup' => 'パペット グループを削除しました。',
 	'openstackmanager-deletepuppetgroupfailed' => 'パペット グループの削除に失敗しました。',
-	'openstackmanager-modifypuppetgroup' => 'パペット グループを変更',
+	'openstackmanager-modifypuppetgroup' => 'パペット グループの変更',
 	'openstackmanager-modifiedpuppetgroup' => 'パペット グループを変更しました。',
 	'openstackmanager-failedtomodifypuppetgroup' => 'パペット グループの変更に失敗しました。',
 	'openstackmanager-puppetvars' => '変数',
@@ -5792,21 +6022,21 @@ $messages['ja'] = array(
 	'openstackmanager-puppetvarposition' => '変数の位置',
 	'openstackmanager-addedpuppetvar' => 'パペット変数を追加しました。',
 	'openstackmanager-failedtoaddpuppetvar' => 'パペット変数の追加に失敗しました。',
-	'openstackmanager-modifypuppetvar' => 'パペット変数を変更',
+	'openstackmanager-modifypuppetvar' => 'パペット変数の変更',
 	'openstackmanager-modifiedpuppetvar' => 'パペット変数を変更しました。',
 	'openstackmanager-failedtomodifypuppetvar' => 'パペット変数の変更に失敗しました。',
 	'openstackmanager-puppetgroupname' => 'パペット グループ名',
 	'openstackmanager-puppetgroupposition' => 'パペット グループの位置',
-	'openstackmanager-modifypuppetclass' => 'パペット クラスを変更',
+	'openstackmanager-modifypuppetclass' => 'パペット クラスの変更',
 	'openstackmanager-failedtomodifypuppetclass' => 'パペット クラスの変更に失敗しました。',
 	'openstackmanager-puppetclassposition' => 'クラスの位置',
 	'openstackmanager-puppetgroup' => 'パペット グループ',
 	'openstackmanager-modifiedpuppetclass' => 'パペット クラスを変更しました。',
-	'openstackmanager-removepuppetclass' => 'パペット クラスを削除',
+	'openstackmanager-removepuppetclass' => 'パペット クラスの削除',
 	'openstackmanager-removepuppetclassconfirm' => 'このパペット クラスを本当に削除しますか?',
 	'openstackmanager-deletedpuppetclass' => 'パペット クラスを削除しました。',
 	'openstackmanager-failedtodeletepuppetclass' => 'パペット クラスの削除に失敗しました。',
-	'openstackmanager-removepuppetvar' => 'パペット変数を削除',
+	'openstackmanager-removepuppetvar' => 'パペット変数の削除',
 	'openstackmanager-removepuppetvarconfirm' => 'このパペット変数を本当に削除しますか?',
 	'openstackmanager-deletedpuppetvar' => 'パペット変数を削除しました。',
 	'openstackmanager-failedtodeletepuppetvar' => 'パペット変数の削除に失敗しました。',
@@ -5823,6 +6053,8 @@ $messages['ja'] = array(
 	'echo-pref-email-osm-instance-deleted' => '自分が管理者のプロジェクトからインスタンスを削除したとき',
 	'echo-pref-email-osm-instance-build-completed' => '自分が管理者のプロジェクトでインスタンスを構築したとき',
 	'echo-pref-email-osm-instance-reboot-completed' => 'インスタンスを再起動したとき',
+	'prefs-openstack' => 'OpenStack',
+	'prefs-openstack-keys' => 'キーの一覧',
 );
 
 /** Javanese (Basa Jawa)
@@ -7002,9 +7234,10 @@ $messages['mk'] = array(
 	'openstackmanager-detachvolumefailed' => 'Не успеав да го оттргнам носачот.',
 	'openstackmanager-novapublickey' => 'Јавен SSH-клуч',
 	'openstackmanager-prefs-novapublickey' => 'Јавни SSH-клучеви:',
-	'openstackmanager-deletekey' => 'Бришење на клучот',
+	'openstackmanager-deletekey' => 'Избриши јавен SSH-клуч',
 	'openstackmanager-deletekeyconfirm' => 'Дали сте сигурни дека сакате да го избришете горенаведениот клуч?',
-	'openstackmanager-keylist' => 'Список на клучеви',
+	'openstackmanager-keylist' => 'Список на јавни SSH-клучеви',
+	'openstackmanager-addkey' => 'Додај јавен SSH-клуч',
 	'openstackmanager-name' => 'Име',
 	'openstackmanager-fingerprint' => 'Отпечаток',
 	'openstackmanager-keys' => 'Клучеви',
@@ -7014,8 +7247,6 @@ $messages['mk'] = array(
 	'openstackmanager-keypairimportedfingerprint' => 'Увезен е парот клучеви $1 со отпечаток $2.',
 	'openstackmanager-keypairformatwrong' => 'Наведениот SSH-клуч е погрешен или во непознат формат.',
 	'openstackmanager-keypairformatconverted' => 'Форматот на SSH-клучот е автоматски претворен.',
-	'openstackmanager-backkeylist' => 'Назад на списокот на клучеви',
-	'openstackmanager-addadditionalkey' => 'Додај друг клуч.',
 	'openstackmanager-deletedkey' => 'Клучот е избришан успешно.',
 	'openstackmanager-deletedkeyfailed' => 'Не успеав да го избришам клучот.',
 	'openstackmanager-addmember' => 'Додај член',
@@ -7061,6 +7292,7 @@ $messages['mk'] = array(
 	'openstackmanager-novarole-role' => 'Улога на Nova',
 	'openstackmanager-novarole-info' => 'Податоци за улогата на Nova',
 	'openstackmanager-shellaccountname' => 'Име на сметката за лушпата на примерокот',
+	'openstackmanager-shellaccountname-pref' => 'Име на сметката за лушпата на примерокот:',
 	'openstackmanager-shellaccountnamehelp' => 'Името на сметката на лушпата е задолжително. 
 Мора да почнува со латинични букви (од a до z), и може да содржи само букви, бројки (од 0 до 9), како и знакот „-“.',
 	'openstackmanager-addresslist' => 'Список на јавни IP-адреси',
@@ -7216,6 +7448,8 @@ $messages['mk'] = array(
 	'echo-pref-email-osm-instance-deleted' => 'Брише примерок од проект кајшто сум администратор.',
 	'echo-pref-email-osm-instance-build-completed' => 'Прави примерок на проектот кајшто сум администратор.',
 	'echo-pref-email-osm-instance-reboot-completed' => 'Одново пушта примерок.',
+	'prefs-openstack' => 'OpenStack',
+	'prefs-openstack-keys' => 'Список на клучеви',
 );
 
 /** Malayalam (മലയാളം)
@@ -7790,9 +8024,11 @@ $messages['nl'] = array(
 	'openstackmanager-detachedvolume' => 'Het volume is ontkoppeld.',
 	'openstackmanager-detachvolumefailed' => 'Het ontkoppelen van het volume is mislukt.',
 	'openstackmanager-novapublickey' => 'Publieke SSH-sleutel',
-	'openstackmanager-deletekey' => 'Sleutel verwijderen',
+	'openstackmanager-prefs-novapublickey' => 'Openbare SSH-sleutels:',
+	'openstackmanager-deletekey' => 'Openbare SSH-sleutel verwijderen',
 	'openstackmanager-deletekeyconfirm' => 'Weet u zeker dat u de bovenstaande sleutel wilt verwijderen?',
-	'openstackmanager-keylist' => 'Sleutellijst',
+	'openstackmanager-keylist' => 'Openbare SSH-sleutellijst',
+	'openstackmanager-addkey' => 'Openbare SSH-sleutel toevoegen',
 	'openstackmanager-name' => 'Naam',
 	'openstackmanager-fingerprint' => 'Vingerafdruk',
 	'openstackmanager-keys' => 'Sleutels',
@@ -7802,8 +8038,6 @@ $messages['nl'] = array(
 	'openstackmanager-keypairimportedfingerprint' => 'Het sleutelpaar $1 met de vingerafdruk $2 is geïmporteerd.',
 	'openstackmanager-keypairformatwrong' => 'De opgegeven SSH-sleutel was verkeerd of had een onbekende indeling.',
 	'openstackmanager-keypairformatconverted' => 'De indeling van de SSH-sleutel is automatisch geconverteerd.',
-	'openstackmanager-backkeylist' => 'Terug naar de sleutellijst',
-	'openstackmanager-addadditionalkey' => 'Nog een sleutel toevoegen.',
 	'openstackmanager-deletedkey' => 'De sleutel is verwijderd.',
 	'openstackmanager-deletedkeyfailed' => 'Het verwijderen van de sleutel is mislukt.',
 	'openstackmanager-addmember' => 'Lid toevoegen',
@@ -7849,6 +8083,7 @@ $messages['nl'] = array(
 	'openstackmanager-novarole-role' => 'Nova-rol',
 	'openstackmanager-novarole-info' => 'Noval-rolgegevens',
 	'openstackmanager-shellaccountname' => 'Shellgebruikersnaam voor instantie',
+	'openstackmanager-shellaccountname-pref' => 'Shellgebruikersnaam voor instantie:',
 	'openstackmanager-shellaccountnamehelp' => 'Een naam voor de shellgebruikersnaam is verplicht.
 Deze moet beginnen met a-z en kan alleen de tekens a-z, 0-9 en - bevatten.',
 	'openstackmanager-addresslist' => 'Publieke IP-adressenlijst',
@@ -8005,6 +8240,8 @@ Verwijder alle hostkoppelingen en ontkoppel het IP-adres voordat u het vrijgeeft
 	'echo-pref-email-osm-instance-deleted' => 'Een instantie verwijdert van een project waarin ik beheerder ben.',
 	'echo-pref-email-osm-instance-build-completed' => 'Een instantie bouwt in een project waarin ik beheerder ben.',
 	'echo-pref-email-osm-instance-reboot-completed' => 'Een instantie herstart.',
+	'prefs-openstack' => 'OpenStack',
+	'prefs-openstack-keys' => 'Sleutellijst',
 );
 
 /** Oriya (ଓଡ଼ିଆ)
@@ -9114,6 +9351,8 @@ $messages['roa-tara'] = array(
 	'openstackmanager' => 'OpenStackManager',
 	'openstackmanager-instance' => "Gestisce l'istanze",
 	'openstackmanager-title' => 'OpenStackManager',
+	'specialpages-group-nova' => 'Nova OpenStack',
+	'novadomain' => 'Gestisce le dominie DNS',
 	'novainstance' => 'Gestisce le istanze',
 	'openstackmanager-novadomain' => 'Dominie Nova',
 	'openstackmanager-novainstance' => 'Istanze de Nova',
@@ -9185,8 +9424,8 @@ $messages['roa-tara'] = array(
 	'openstackmanager-device' => 'Despositive',
 	'openstackmanager-detachvolume' => "Stacche 'u Volume",
 	'openstackmanager-novapublickey' => 'Chièje pubbleche SSH',
-	'openstackmanager-deletekey' => "Scangelle 'a chièje",
-	'openstackmanager-keylist' => 'Elenghe de le chiave',
+	'openstackmanager-deletekey' => "Scangelle 'a chiave pubbleche SSH",
+	'openstackmanager-keylist' => 'Elenghe de le chiave pubbleche SSH',
 	'openstackmanager-name' => 'Nome',
 	'openstackmanager-keys' => 'Chiave',
 	'openstackmanager-addmember' => 'Aggiunge membre',
