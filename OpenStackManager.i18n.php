@@ -183,8 +183,6 @@ It can result in volume corruption and data loss.',
 	'openstackmanager-keypairimportedfingerprint' => 'Imported keypair $1 with fingerprint $2.',
 	'openstackmanager-keypairformatwrong' => 'The provided SSH key was wrong or in unknown format.',
 	'openstackmanager-keypairformatconverted' => 'The format of the SSH key has been automatically converted.',
-	'openstackmanager-backkeylist' => 'Back to key list',
-	'openstackmanager-addadditionalkey' => 'Add another key.',
 	'openstackmanager-deletedkey' => 'Successfully deleted key.',
 	'openstackmanager-deletedkeyfailed' => 'Failed to delete key.',
 

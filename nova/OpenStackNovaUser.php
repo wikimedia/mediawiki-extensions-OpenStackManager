@@ -730,7 +730,7 @@ class OpenStackNovaUser {
 						array(
 							'action' => 'delete',
 							'hash' => $hash,
-							'returnto' => SpecialPage::getTitleFor( 'Preferences', false, 'mw-prefsection-openstack' )->getPrefixedText()
+							'returnto' => SpecialPage::getTitleFor( 'Preferences', false, 'mw-prefsection-openstack' )->getFullText()
 						)
 					)
 				);
@@ -741,7 +741,9 @@ class OpenStackNovaUser {
 		}
 		$out .= Linker::link(
 			SpecialPage::getTitleFor( 'NovaKey' ),
-			wfMessage( 'openstackmanager-addkey' )->escaped()
+			wfMessage( 'openstackmanager-addkey' )->escaped(),
+			array(),
+			array( 'returnto' => SpecialPage::getTitleFor( 'Preferences', false, 'mw-prefsection-openstack' )->getFullText() )
 		);
 		return $out;
 	}

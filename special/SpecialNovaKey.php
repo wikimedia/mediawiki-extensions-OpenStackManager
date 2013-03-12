@@ -44,6 +44,7 @@ class SpecialNovaKey extends SpecialNova {
 
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-deletekey' ) );
+		$returnto = $this->getRequest()->getVal( 'returnto' );
 
 		$keyInfo = array();
 		$hash = '';
@@ -89,6 +90,11 @@ class SpecialNovaKey extends SpecialNova {
 			'default' => 'delete',
 			'name' => 'action',
 		);
+		$keyInfo['returnto'] = array(
+			'type' => 'hidden',
+			'default' => $returnto,
+			'name' => 'returnto',
+		);
 		$keyForm = new HTMLForm( $keyInfo, 'openstackmanager-novakey' );
 		$keyForm->setTitle( SpecialPage::getTitleFor( 'NovaKey' ) );
 		$keyForm->setSubmitID( 'novakey-form-deletekeysubmit' );
@@ -102,6 +108,7 @@ class SpecialNovaKey extends SpecialNova {
 
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-addkey' ) );
+		$returnto = $this->getRequest()->getVal( 'returnto' );
 
 		$keyInfo = array();
 		if ( $wgOpenStackManagerNovaKeypairStorage === 'nova' ) {
@@ -128,6 +135,16 @@ class SpecialNovaKey extends SpecialNova {
 			'default' => '',
 			'label-message' => 'openstackmanager-novapublickey',
 			'name' => 'key',
+		);
+		$keyInfo['action'] = array(
+			'type' => 'hidden',
+			'default' => 'add',
+			'name' => 'action',
+		);
+		$keyInfo['returnto'] = array(
+			'type' => 'hidden',
+			'default' => $returnto,
+			'name' => 'returnto',
 		);
 
 		$keyForm = new HTMLForm( $keyInfo, 'openstackmanager-novakey' );
@@ -254,12 +271,16 @@ class SpecialNovaKey extends SpecialNova {
 		global $wgOpenStackManagerNovaKeypairStorage;
 
 		$key = $formData['key'];
+		$returnto = Title::newFromText( $formData['returnto'] );
 		if ( !preg_match( '/(^| )ssh-(rsa|dss) /', $key ) ) {
 			# This doesn't look like openssh format, it's probably a
 			# Windows user providing it in PuTTY format.
 			$key = self::opensshFormatKey( $key );
 			if ( $key === false ) {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-keypairformatwrong' );
+				if ( $returnto ) {
+					$this->getOutput()->addReturnTo( $returnto );
+				}
 				return false;
 			}
 			$this->getOutput()->addWikiMsg( 'openstackmanager-keypairformatconverted' );
@@ -267,28 +288,26 @@ class SpecialNovaKey extends SpecialNova {
 
 		if ( $wgOpenStackManagerNovaKeypairStorage === 'ldap' ) {
 			$success = $this->userLDAP->importKeypair( $key );
-			if ( ! $success ) {
+			if ( $success ) {
+				$this->getOutput()->addWikiMsg( 'openstackmanager-keypairimported' );
+			} else {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-keypairimportfailed' );
+				if ( $returnto ) {
+					$this->getOutput()->addReturnTo( $returnto );
+				}
 				return false;
 			}
-			$this->getOutput()->addWikiMsg( 'openstackmanager-keypairimported' );
 		} elseif ( $wgOpenStackManagerNovaKeypairStorage === 'nova' ) {
-			# wgOpenStackManagerNovaKeypairStorage === 'nova'
-			# OpenStack's EC2 API doesn't yet support importing keys, use
-			# of this option isn't currently recommended
 			$keypair = $this->userNova->importKeypair( $formData['keyname'], $key );
 
 			$this->getOutput()->addWikiMsg( 'openstackmanager-keypairimportedfingerprint', $keypair->getKeyName(), $keypair->getKeyFingerprint() );
 		} else {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-invalidkeypair' );
 		}
-		$out = '<br />';
 
-		$out .= Linker::link(
-			$this->getTitle(),
-			$this->msg( 'openstackmanager-addadditionalkey' )->escaped()
-		);
-		$this->getOutput()->addHTML( $out );
+		if ( $returnto ) {
+			$this->getOutput()->addReturnTo( $returnto );
+		}
 		return true;
 	}
 
@@ -304,13 +323,11 @@ class SpecialNovaKey extends SpecialNova {
 		} else {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-deletedkeyfailed' );
 		}
-		$out = '<br />';
 
-		$out .= Linker::link(
-			$this->getTitle(),
-			$this->msg( 'openstackmanager-backkeylist' )->escaped()
-		);
-		$this->getOutput()->addHTML( $out );
+		$returnto = Title::newFromText( $formData['returnto'] );
+		if ( $returnto ) {
+			$this->getOutput()->addReturnTo( $returnto );
+		}
 		return true;
 	}
 }
