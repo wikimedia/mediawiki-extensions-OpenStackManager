@@ -94,7 +94,7 @@ class OpenStackNovaController {
 			foreach ( $serviceCatalog as $entry ) {
 				if ( $entry->type === "compute" ) {
 					foreach ( $entry->endpoints as $endpoint ) {
-						array_push( $regions, $endpoint->region );
+						$regions[] = $endpoint->region;
 					}
 				}
 			}
@@ -682,7 +682,7 @@ class OpenStackNovaController {
 		if ( $serviceCatalog ) {
 			foreach ( $serviceCatalog as $entry ) {
 				if ( $entry->type === $service ) {
-					array_push( $endpoints, $entry->endpoints );
+					$endpoints[] = $entry->endpoints;
 				}
 			}
 		}

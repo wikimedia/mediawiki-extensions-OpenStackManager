@@ -196,7 +196,7 @@ class SpecialNovaProject extends SpecialNova {
 			if ( !in_array( $projectName, $projectfilter ) ) {
 				continue;
 			}
-			$actions = Array();
+			$actions = array();
 			$out .= $this->createProjectSection( $projectName, $actions, $this->getProject( $project ) );
 		}
 
@@ -205,32 +205,38 @@ class SpecialNovaProject extends SpecialNova {
 
 	function getProject( $project ) {
 		$project->fetchProjectInfo();
-		$headers = Array( 'openstackmanager-members', 'openstackmanager-roles', 'openstackmanager-actions' );
-		$projectRows = Array();
-		$projectRow = Array();
+		$headers = array( 'openstackmanager-members', 'openstackmanager-roles', 'openstackmanager-actions' );
+		$projectRows = array();
+		$projectRow = array();
 		$this->pushRawResourceColumn( $projectRow, $this->createResourceList( $project->getMembers() ) );
-		$roleRows = Array();
+		$roleRows = array();
 		$projectName = $project->getProjectName();
 		foreach ( $project->getRoles() as $role ) {
-			$roleRow = Array();
+			$roleRow = array();
 			$roleName = $role->getRoleName();
 			$this->pushResourceColumn( $roleRow, $roleName );
 			$this->pushRawResourceColumn( $roleRow, $this->createResourceList( $role->getMembers() ) );
-			$actions= Array();
+			$actions = array();
 			$specialRoleTitle = Title::newFromText( 'Special:NovaRole' );
-			array_push( $actions, $this->createActionLink( 'openstackmanager-addrolemember', array( 'action' => 'addmember', 'projectname' => $projectName, 'rolename' => $roleName, 'returnto' => 'Special:NovaProject' ), $specialRoleTitle ) );
-			array_push( $actions, $this->createActionLink( 'openstackmanager-removerolemember', array( 'action' => 'deletemember', 'projectname' => $projectName, 'rolename' => $roleName, 'returnto' => 'Special:NovaProject' ), $specialRoleTitle ) );
+			$actions[] = $this->createActionLink( 'openstackmanager-addrolemember',
+				array( 'action' => 'addmember', 'projectname' => $projectName, 'rolename' => $roleName, 'returnto' => 'Special:NovaProject' ),
+				$specialRoleTitle
+			);
+			$actions[] = $this->createActionLink( 'openstackmanager-removerolemember',
+				array( 'action' => 'deletemember', 'projectname' => $projectName, 'rolename' => $roleName, 'returnto' => 'Special:NovaProject' ),
+				$specialRoleTitle
+			);
 			$this->pushRawResourceColumn( $roleRow,  $this->createResourceList( $actions ) );
-			array_push( $roleRows, $roleRow );
+			$roleRows[] = $roleRow;
 		}
 		$this->pushRawResourceColumn( $projectRow, $this->createResourceTable( $headers, $roleRows ) );
-		$actions = Array();
-		array_push( $actions, $this->createActionLink( 'openstackmanager-deleteproject', array( 'action' => 'delete', 'projectname' => $projectName ) ) );
-		array_push( $actions, $this->createActionLink( 'openstackmanager-addmember', array( 'action' => 'addmember', 'projectname' => $projectName ) ) );
-		array_push( $actions, $this->createActionLink( 'openstackmanager-removemember', array( 'action' => 'deletemember', 'projectname' => $projectName ) ) );
-		array_push( $actions, $this->createActionLink( 'openstackmanager-configure', array( 'action' => 'configureproject', 'projectname' => $projectName ) ) );
+		$actions = array();
+		$actions[] = $this->createActionLink( 'openstackmanager-deleteproject', array( 'action' => 'delete', 'projectname' => $projectName ) );
+		$actions[] = $this->createActionLink( 'openstackmanager-addmember', array( 'action' => 'addmember', 'projectname' => $projectName ) );
+		$actions[] = $this->createActionLink( 'openstackmanager-removemember', array( 'action' => 'deletemember', 'projectname' => $projectName ) );
+		$actions[] = $this->createActionLink( 'openstackmanager-configure', array( 'action' => 'configureproject', 'projectname' => $projectName ) );
 		$this->pushRawResourceColumn( $projectRow,  $this->createResourceList( $actions ) );
-		array_push( $projectRows, $projectRow );
+		$projectRows[] = $projectRow;
 		return $this->createResourceTable( $headers, $projectRows );
 	}
 
@@ -527,11 +533,11 @@ class SpecialNovaProject extends SpecialNova {
 		$vols = array();
 
 		if ( $formData['homedirs'] ) {
-			array_push( $vols, "home" );
+			$vols[] = "home";
 		}
 
 		if ( $formData['storage'] ) {
-			array_push( $vols, "project" );
+			$vol[] = "project";
 		}
 
 		if ( $project->setVolumeSettings( $vols ) ) {

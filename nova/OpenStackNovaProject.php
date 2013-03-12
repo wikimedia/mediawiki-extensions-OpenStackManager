@@ -176,7 +176,7 @@ class OpenStackNovaProject {
 			foreach ( $infos as $info ) {
 				$substrings=explode( '=', $info );
 				if ( ( count( $substrings ) == 2 ) and ( $substrings[0] == 'use_volume' ) ) {
-				    array_push( $volumes, $substrings[1] );
+					$volumes[] = $substrings[1];
 				}
 			}
 		}
@@ -406,7 +406,7 @@ class OpenStackNovaProject {
 		foreach ( $projectnames as $projectname ) {
 			$project = new OpenStackNovaProject( $projectname );
 			if ( $project->projectInfo ) {
-				array_push( $projects, $project );
+				$projects[] = $project;
 			}
 		}
 		return $projects;
@@ -435,7 +435,7 @@ class OpenStackNovaProject {
 				array_shift( $entries );
 				foreach ( $entries as $entry ) {
 					$project = new OpenStackNovaProject( $entry['cn'][0], false );
-					array_push( $projects, $project );
+					$projects[] = $project;
 				}
 			}
 		}
@@ -593,14 +593,14 @@ RESOURCEINFO;
 		$rawmembers = $this->getMembers();
 		$members = array();
 		foreach ( $rawmembers as $member ) {
-			array_push( $members, 'User:' . $member );
+			$members[] = 'User:' . $member;
 		}
 		$admins = array();
 		# All roles have elevated privileges, count them all as admins
 		foreach ( $this->getRoles() as $role ) {
 			$rawadmins = $role->getMembers();
 			foreach ( $rawadmins as $admin ) {
-				array_push( $admins, 'User:' . $admin );
+				$admins[] = 'User:' . $admin;
 			}
 		}
 		$text = sprintf( $format,

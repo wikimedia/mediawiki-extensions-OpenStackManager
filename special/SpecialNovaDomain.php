@@ -112,17 +112,17 @@ class SpecialNovaDomain extends SpecialNova {
 		$domainForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
 		$domainForm->show();
 
-		$headers = Array( 'openstackmanager-domainname', 'openstackmanager-fqdn', 'openstackmanager-location', 'openstackmanager-actions' );
+		$headers = array( 'openstackmanager-domainname', 'openstackmanager-fqdn', 'openstackmanager-location', 'openstackmanager-actions' );
 		$domains = OpenStackNovaDomain::getAllDomains();
-		$domainRows = Array();
+		$domainRows = array();
 		foreach ( $domains as $domain ) {
-			$domainRow = Array();
+			$domainRow = array();
 			$domainName = $domain->getDomainName();
 			$this->pushResourceColumn( $domainRow, $domainName );
 			$this->pushResourceColumn( $domainRow, $domain->getFullyQualifiedDomainName() );
 			$this->pushResourceColumn( $domainRow, $domain->getLocation() );
 			$this->pushRawResourceColumn( $domainRow, $this->createActionLink( 'openstackmanager-delete', array( 'action' => 'delete', 'domainname' => $domainName ) ) );
-			array_push( $domainRows, $domainRow );
+			$domainRows[] = $domainRow;
 		}
 		if ( $domainRows ) {
 			$out = $this->createResourceTable( $headers, $domainRows );

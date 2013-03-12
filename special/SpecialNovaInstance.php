@@ -493,11 +493,11 @@ class SpecialNovaInstance extends SpecialNova {
 			if ( !in_array( $projectName, $projectfilter ) ) {
 				continue;
 			}
-			$projectactions = Array( 'projectadmin' => Array() );
+			$projectactions = array( 'projectadmin' => array() );
 			$regions = '';
 			$this->userNova->setProject( $projectName );
 			foreach ( $this->userNova->getRegions( 'compute' ) as $region ) {
-				$regionactions = Array( 'projectadmin' => Array( $this->createActionLink( 'openstackmanager-createinstance', array( 'action' => 'create', 'project' => $projectName, 'region' => $region ) ) ) );
+				$regionactions = array( 'projectadmin' => array( $this->createActionLink( 'openstackmanager-createinstance', array( 'action' => 'create', 'project' => $projectName, 'region' => $region ) ) ) );
 				$instances = $this->getInstances( $projectName, $region );
 				$regions .= $this->createRegionSection( $region, $projectName, $regionactions, $instances );
 			}
@@ -511,12 +511,12 @@ class SpecialNovaInstance extends SpecialNova {
 		global $wgMemc;
 
 		$this->userNova->setRegion( $region );
-		$headers = Array( 'openstackmanager-instancename', 'openstackmanager-instanceid', 'openstackmanager-instancestate',
+		$headers = array( 'openstackmanager-instancename', 'openstackmanager-instanceid', 'openstackmanager-instancestate',
 			'openstackmanager-instanceip', 'openstackmanager-instancepublicip',
 			'openstackmanager-securitygroups', 'openstackmanager-imageid',
 			'openstackmanager-launchtime', 'openstackmanager-actions' );
 		$instances = $this->userNova->getInstances();
-		$instanceRows = Array();
+		$instanceRows = array();
 		/**
 		 * @var $instance OpenStackNovaInstance
 		 */
@@ -540,17 +540,17 @@ class SpecialNovaInstance extends SpecialNova {
 			}
 			$this->pushResourceColumn( $instanceRow, $imageName );
 			$this->pushResourceColumn( $instanceRow, $instance->getLaunchTime() );
-			$actions = Array();
+			$actions = array();
 			if ( $this->userLDAP->inRole( 'projectadmin', $projectName ) ) {
-				array_push( $actions, $this->createActionLink(
+				$actions[] = $this->createActionLink(
 					'openstackmanager-delete',
 					array(
 						'action' => 'delete',
 						'instanceid' => $instance->getInstanceOSId(),
 						'project' => $projectName,
 						'region' => $region )
-				) );
-				array_push( $actions, $this->createActionLink(
+				);
+				$actions[] = $this->createActionLink(
 					'openstackmanager-reboot',
 					array(
 						'action' => 'reboot',
@@ -558,8 +558,8 @@ class SpecialNovaInstance extends SpecialNova {
 						'project' => $projectName,
 						'region' => $region
 					)
-				) );
-				array_push( $actions, $this->createActionLink(
+				);
+				$actions[] = $this->createActionLink(
 					'openstackmanager-configure',
 					array(
 						'action' => 'configure',
@@ -567,8 +567,8 @@ class SpecialNovaInstance extends SpecialNova {
 						'project' => $projectName,
 						'region' => $region
 					)
-				) );
-				array_push( $actions, $this->createActionLink(
+				);
+				$actions[] = $this->createActionLink(
 					'openstackmanager-getconsoleoutput',
 					array(
 						'action' => 'consoleoutput',
@@ -576,10 +576,10 @@ class SpecialNovaInstance extends SpecialNova {
 						'instanceid' => $instance->getInstanceOSId(),
 						'region' => $region
 					)
-				) );
+				);
 			}
 			$this->pushRawResourceColumn( $instanceRow, $this->createResourceList( $actions ) );
-			array_push( $instanceRows, $instanceRow );
+			$instanceRows[] = $instanceRow;
 		}
 		if ( $instanceRows ) {
 			return $this->createResourceTable( $headers, $instanceRows );

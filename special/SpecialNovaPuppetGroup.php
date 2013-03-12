@@ -606,7 +606,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			if ( $projectfilter && !in_array( $projectName, $projectfilter ) ) {
 				continue;
 			}
-			$actions = Array( 'projectadmin' => Array() );
+			$actions = array( 'projectadmin' => array() );
 			$actions['projectadmin'][] = $this->createActionLink( 'openstackmanager-createpuppetgroup', array( 'action' => 'create', 'project' => $projectName ) );
 			$out .= $this->createProjectSection( $projectName, $actions, $this->getPuppetGroupOutput( OpenStackNovaPuppetGroup::getGroupList( $projectName ) ) );
 		}
@@ -673,7 +673,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			$puppetGroupClasses = $puppetGroup->getClasses();
 			$puppetGroupVars = $puppetGroup->getVars();
 			if ( $puppetGroupClasses ) {
-				$classes = Array();
+				$classes = array();
 				foreach ( $puppetGroupClasses as $puppetGroupClass ) {
 					$classname = htmlentities( $puppetGroupClass["name"] );
 					if ( $showlinks ) {
@@ -694,10 +694,10 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 								'returnto' => 'Special:NovaPuppetGroup'
 							)
 						);
-						$classname  .= Html::rawElement( 'span', array( 'id' => 'novaaction' ), " [$modify, $delete]" ); 
+						$classname  .= Html::rawElement( 'span', array( 'id' => 'novaaction' ), " [$modify, $delete]" );
 					}
 
-					array_push( $classes, $classname );
+					$classes[] = $classname;
 				}
 				$out .= $this->createResourceList( $classes );
 			}
@@ -719,7 +719,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			$varsMsg = $this->msg( 'openstackmanager-puppetvars' )->escaped();
 			$out .= Html::rawElement( 'h4', array(), "$varsMsg $action" );
 			if ( $puppetGroupVars ) {
-				$vars = Array();
+				$vars = array();
 				foreach ( $puppetGroupVars as $puppetGroupVar ) {
 					$varname = htmlentities( $puppetGroupVar["name"] );
 					if ( $showlinks ) {
@@ -746,7 +746,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 							" [$modify, $delete]"
 						);
 					}
-					array_push( $vars, $varname );
+					$vars[] = $varname;
 				}
 				$out .= $this->createResourceList( $vars );
 			}

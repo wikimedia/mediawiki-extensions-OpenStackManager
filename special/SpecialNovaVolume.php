@@ -339,11 +339,11 @@ class SpecialNovaVolume extends SpecialNova {
 			if ( !in_array( $projectName, $projectfilter ) ) {
 				continue;
 			}
-			$projectactions = Array( 'projectadmin' => Array() );
+			$projectactions = array( 'projectadmin' => array() );
 			$regions = '';
 			$this->userNova->setProject( $projectName );
 			foreach ( $this->userNova->getRegions( 'compute' ) as $region ) {
-				$regionactions = Array( 'projectadmin' => Array( $this->createActionLink( 'openstackmanager-createvolume', array( 'action' => 'create', 'project' => $projectName, 'region' => $region ) ) ) );
+				$regionactions = array( 'projectadmin' => array( $this->createActionLink( 'openstackmanager-createvolume', array( 'action' => 'create', 'project' => $projectName, 'region' => $region ) ) ) );
 				$volumes = $this->getVolumes( $projectName, $region );
 				$regions .= $this->createRegionSection( $region, $projectName, $regionactions, $volumes );
 			}
@@ -354,17 +354,17 @@ class SpecialNovaVolume extends SpecialNova {
 	}
 
 	function getVolumes( $projectName, $region ) {
-		$headers = Array( 'openstackmanager-volumename', 'openstackmanager-volumeid', 'openstackmanager-volumedescription',
+		$headers = array( 'openstackmanager-volumename', 'openstackmanager-volumeid', 'openstackmanager-volumedescription',
 				'openstackmanager-volumeattachmentinstance',
 				'openstackmanager-volumeattachmentdevice', 'openstackmanager-volumeattachmentstatus',
 				'openstackmanager-volumesize',
 				'openstackmanager-volumecreationtime', 'openstackmanager-actions' );
 		$this->userNova->setRegion( $region );
 		$volumes = $this->userNova->getVolumes();
-		$volumeRows = Array();
+		$volumeRows = array();
 		foreach ( $volumes as $volume ) {
-			$volumeRow = Array();
-			$this->pushResourceColumn( $volumeRow, $volume->getVolumeName() ); 
+			$volumeRow = array();
+			$this->pushResourceColumn( $volumeRow, $volume->getVolumeName() );
 			$volumeId = $volume->getVolumeId();
 			$this->pushRawResourceColumn( $volumeRow, $this->createResourceLink( $volumeId ) );
 			$this->pushResourceColumn( $volumeRow, $volume->getVolumeDescription() );
@@ -373,12 +373,18 @@ class SpecialNovaVolume extends SpecialNova {
 			$this->pushResourceColumn( $volumeRow, $volume->getAttachmentStatus() );
 			$this->pushResourceColumn( $volumeRow, $volume->getVolumeSize() );
 			$this->pushResourceColumn( $volumeRow, $volume->getVolumeCreationTime() );
-			$actions = Array();
-			array_push( $actions, $this->createActionLink( 'openstackmanager-delete', array( 'action' => 'delete', 'project' => $projectName, 'region' => $region, 'volumeid' => $volumeId ) ) );
-			array_push( $actions, $this->createActionLink( 'openstackmanager-attach', array( 'action' => 'attach', 'project' => $projectName, 'region' => $region, 'volumeid' => $volumeId ) ) );
-			array_push( $actions, $this->createActionLink( 'openstackmanager-detach', array( 'action' => 'detach', 'project' => $projectName, 'region' => $region, 'volumeid' => $volumeId ) ) );
+			$actions = array();
+			$actions[] = $this->createActionLink( 'openstackmanager-delete',
+				array( 'action' => 'delete', 'project' => $projectName, 'region' => $region, 'volumeid' => $volumeId )
+			);
+			$actions[] = $this->createActionLink( 'openstackmanager-attach',
+				array( 'action' => 'attach', 'project' => $projectName, 'region' => $region, 'volumeid' => $volumeId )
+			);
+			$actions[] = $this->createActionLink( 'openstackmanager-detach',
+				array( 'action' => 'detach', 'project' => $projectName, 'region' => $region, 'volumeid' => $volumeId )
+			);
 			$this->pushRawResourceColumn( $volumeRow, $this->createResourceList( $actions ) );
-			array_push( $volumeRows, $volumeRow );
+			$volumeRows[] = $volumeRow;
 		}
 		if ( $volumeRows ) {
 			return $this->createResourceTable( $headers, $volumeRows );

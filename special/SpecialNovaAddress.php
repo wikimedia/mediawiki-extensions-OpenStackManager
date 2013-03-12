@@ -413,7 +413,7 @@ class SpecialNovaAddress extends SpecialNova {
 			if ( !in_array( $projectName, $projectfilter ) ) {
 				continue;
 			}
-			$projectactions = Array( 'projectadmin' => Array() );
+			$projectactions = array( 'projectadmin' => array() );
 			$regions = '';
 			$this->userNova->setProject( $projectName );
 			foreach ( $this->userNova->getRegions( 'compute' ) as $region ) {
@@ -441,11 +441,11 @@ class SpecialNovaAddress extends SpecialNova {
 
 	function getAddresses( $projectName, $region ) {
 		$this->userNova->setRegion( $region );
-		$headers = Array( 'openstackmanager-address', 'openstackmanager-instanceid', 'openstackmanager-instancename',
+		$headers = array( 'openstackmanager-address', 'openstackmanager-instanceid', 'openstackmanager-instancename',
 			'openstackmanager-hostnames', 'openstackmanager-actions' );
 		$addresses = $this->userNova->getAddresses();
 		$instances = $this->userNova->getInstances();
-		$addressRows = Array();
+		$addressRows = array();
 		/**
 		 * @var $address OpenStackNovaAddress
 		 */
@@ -466,7 +466,7 @@ class SpecialNovaAddress extends SpecialNova {
 			}
 			$hosts = OpenStackNovaHost::getHostsByIP( $ip );
 			if ( $hosts ) {
-				$hostArr = Array();
+				$hostArr = array();
 				foreach ( $hosts as $host ) {
 					$domain = $host->getDomain();
 					$fqdns = $host->getAssociatedDomains();
@@ -483,39 +483,39 @@ class SpecialNovaAddress extends SpecialNova {
 								'hostname' => $hostname
 							)
 						);
-						array_push( $hostArr, htmlentities( $fqdn ) . ' ' . $link );
+						$hostArr[] = htmlentities( $fqdn ) . ' ' . $link;
 					}
 				}
 				$this->pushRawResourceColumn( $addressRow, $this->createResourceList( $hostArr ) );
 			} else {
 				$this->pushResourceColumn( $addressRow, '' );
 			}
-			$actions = Array();
+			$actions = array();
 			if ( $instanceosid ) {
-				array_push( $actions, $this->createActionLink(
+				$actions[] = $this->createActionLink(
 					'openstackmanager-reassociateaddress',
 					array( 'action' => 'associate', 'id' => $id, 'project' => $projectName, 'region' => $region )
-				) );
-				array_push( $actions, $this->createActionLink(
+				);
+				$actions[] = $this->createActionLink(
 					'openstackmanager-disassociateaddress',
 					array( 'action' => 'disassociate', 'id' => $id, 'project' => $projectName, 'region' => $region )
-				) );
+				);
 			} else {
-				array_push( $actions, $this->createActionLink(
+				$actions[] = $this->createActionLink(
 					'openstackmanager-releaseaddress',
 					array( 'action' => 'release', 'id' => $id, 'project' => $projectName, 'region' => $region )
-				) );
-				array_push( $actions, $this->createActionLink(
+				);
+				$actions[] = $this->createActionLink(
 					'openstackmanager-associateaddress',
 					array( 'action' => 'associate', 'id' => $id, 'project' => $projectName, 'region' => $region )
-				) );
+				);
 			}
-			array_push( $actions, $this->createActionLink(
+			$actions[] = $this->createActionLink(
 				'openstackmanager-addhost',
 				array( 'action' => 'addhost', 'id' => $id, 'project' => $projectName, 'region' => $region )
-			) );
+			);
 			$this->pushRawResourceColumn( $addressRow, $this->createResourceList( $actions ) );
-			array_push( $addressRows, $addressRow );
+			$addressRows[] = $addressRow;
 		}
 		if ( $addressRows ) {
 			return $this->createResourceTable( $headers, $addressRows );

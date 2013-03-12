@@ -1,7 +1,7 @@
 <?php
 
 /**
- * class for NovaInstance 
+ * class for NovaInstance
  *
  * @file
  * @ingroup Extensions
@@ -79,7 +79,7 @@ class OpenStackNovaInstance {
 				foreach ( $addresslist as $address ) {
 					$addr = OpenStackNovaController::_get_property( $address, 'addr' );
 					if ( $addr && !filter_var( $addr, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE ) ) {
-						array_push( $addrs, $addr );
+						$addrs[] = $addr;
 					}
 				}
 			}
@@ -101,7 +101,7 @@ class OpenStackNovaInstance {
 				foreach ( $addresslist as $address ) {
 					$addr = OpenStackNovaController::_get_property( $address, 'addr' );
 					if ( $addr && filter_var( $addr, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE ) ) {
-						array_push( $addrs, $addr );
+						$addrs[] = $addr;
 					}
 				}
 			}
