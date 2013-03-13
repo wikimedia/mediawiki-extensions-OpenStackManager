@@ -424,17 +424,60 @@ Choose one or the other, not both.',
 $messages['qqq'] = array(
 	'openstackmanager-desc' => '{{desc|name=Open Stack Manager|url=http://www.mediawiki.org/wiki/Extension:OpenStackManager}}',
 	'openstackmanager-instance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
+	'openstackmanager-badresourcename' => 'Used as error message in Special:NovaAddress, Special:NovaInstance, SpecialNova:Project, Special:NovaPuppetGroup and Special:NovaVolume.
+
+This error is the result of the form validation about the following elements: host name, instance name, project name, puppet group name and volume name.
+
+"Resource name(s)" in this message probably refers the above-mentioned "*name" elements.',
 	'action-listall' => '{{doc-action|listall}}',
 	'action-managednsdomain' => '{{doc-action|managednsdomain}}',
 	'action-manageglobalpuppet' => '{{doc-action|manageglobalpuppet}}',
-	'novainstance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
+	'specialpages-group-nova' => 'Used as "Special pages group name" which appears in [[Special:SpecialPages]].
+
+The following special pages are listed as members of this group:
+* {{msg-mw|Novaaddress}}
+* {{msg-mw|Novadomain}}
+* {{msg-mw|Novainstance}}
+* {{msg-mw|Novakey}}
+* {{msg-mw|Novaproject}}
+* {{msg-mw|Novasecuritygroup}}
+* {{msg-mw|Novarole}}
+* {{msg-mw|Novavolume}}
+* {{msg-mw|Novasudoer}}
+* {{msg-mw|Novapuppetgroup}}',
+	'novaaddress' => 'Used as page title in Special:NovaAddress.',
+	'novadomain' => 'Used as page title in Special:NovaDomain.',
+	'novainstance' => 'Used as page title in Special:NovaInstance.
+
+An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
+	'novakey' => 'Used as page title in Special:NovaKey.',
+	'novaproject' => 'Used as page title in Special:NovaProject.',
+	'novasecuritygroup' => 'Used as page title in Special:NovaSecurityGroup.',
+	'novarole' => 'Used as page title in Special:NovaRole.',
+	'novavolume' => 'Used as page title in Special:NovaVolume.',
+	'novasudoer' => 'Used as page title in Special:NovaSudoer.',
+	'novapuppetgroup' => 'Used as page title in Special:NovaPuppetGroup.',
+	'openstackmanager-novadomain' => 'Used as title for the form in Special:NovaDomain.',
 	'openstackmanager-novainstance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
-	'openstackmanager-delete' => '{{Identical|Delete}}',
+	'openstackmanager-novakey' => 'Used as title for the form in Special:NovaKey.',
+	'openstackmanager-novaproject' => 'Used as title for the form in Special:NovaProject.',
+	'openstackmanager-delete' => 'Used as action link text in several Special pages.
+{{Identical|Delete}}',
+	'openstackmanager-configure' => 'Used as action link text in Special:NovaInstance and Special:NovaProject.
+{{Identical|Configure}}',
 	'openstackmanager-modify' => '{{Identical|Modify}}',
 	'openstackmanager-rename' => '{{Identical|Rename}}',
-	'openstackmanager-actions' => '{{Identical|Action}}',
-	'openstackmanager-notloggedin' => 'Page title.
+	'openstackmanager-reboot' => 'Used as action link text in Special:NovaInstance.',
+	'openstackmanager-actions' => 'Used as column header of tables in several Special pages.
+{{Identical|Action}}',
+	'openstackmanager-notloggedin' => 'Used as page title in Special:Nova.
+
+The page body for this message is:
+* {{msg-mw|Openstackmanager-mustbeloggedin}}
 {{Identical|Login required}}',
+	'openstackmanager-mustbeloggedin' => 'Used as page body in Special:Nova.
+
+The page title for this message is {{msg-mw|Openstackmanager-notloggedin}}.',
 	'openstackmanager-nonovacred' => 'Used as page title in Special:Nova.
 
 The page body for this title is:
@@ -451,6 +494,7 @@ The page body for this title is:
 
 The page title for this message is:
 * {{msg-mw|Openstackmanager-noaccount}}',
+	'openstackmanager-nonexistentresource' => 'Used as error message in Special:NovaPuppetGroup.',
 	'openstackmanager-createdomain' => 'Page title',
 	'openstackmanager-deletedomain' => 'Used as page title in Special:NovaDomain.',
 	'openstackmanager-deletedomain-confirm' => 'Used in Special:NovaAdmin.
@@ -458,18 +502,44 @@ The page title for this message is:
 Parameters:
 * $1 - domain name',
 	'openstackmanager-novadomain-domain' => '',
+	'openstackmanager-createdomainfailed' => 'Used as failure message in Special:NovaDomain.
+
+This message indicates the domain has been failed to create.
+
+See also:
+* {{msg-mw|Openstackmanager-createddomain}}',
+	'openstackmanager-createddomain' => 'Used as success message in Special:NovaDomain.
+
+This message indicates the domain has been created successfully.
+
+See also:
+* {{msg-mw|Openstackmanager-createdomainfailed}}',
 	'openstackmanager-domainlist' => 'Used as page title in Special:NovaDomain.',
 	'openstackmanager-backdomainlist' => 'Used as link text in Special:NovaDomain.',
+	'openstackmanager-addadditionaldomain' => 'Used as link title in Special:NovaDomain.',
+	'openstackmanager-deleteddomain' => 'Used as success message in Special:NovaDomain.
+
+This message indicates the domain has been deleted successfully.',
 	'openstackmanager-failedeletedomain' => 'Failure message when a DNS domain cannot be deleted',
 	'openstackmanager-failedeletedomainduplicates' => 'Failure message when a DNS domain cannot be deleted',
 	'openstackmanager-failedeletedomainnotfound' => 'Failure message when a DNS domain cannot be deleted',
-	'openstackmanager-location' => '{{Identical|Location}}',
+	'openstackmanager-domainname' => 'Used as label for input box and as heading cell in "resource" table, in Special:NovaDomain.',
+	'openstackmanager-fqdn' => 'Used as label for input box and as heading cell in "resource" table, in Special:NovaDomain.',
+	'openstackmanager-location' => 'Used as label for input box in Special:NovaDomain.
+
+The help message for this input box is:
+* {{msg-mw|Openstackmanager-location-help}}
+{{Identical|Location}}',
+	'openstackmanager-location-help' => 'Used as help message for input box which is labeled {{msg-mw|Openstackmanager-location}} in Special:NovaDomain.',
 	'openstackmanager-novainstance-instance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-configureinstance' => 'An instance is a virtual machine.  This is the page title for a page that allows configuration of an instance.
 
 Parameters:
 * $1 - an alphanumeric instance id for the configured instance
 * $2 - the human-readable name for the same instance',
+	'openstackmanager-nonexistanthost' => 'Used as error message in Special:NovaInstance.',
+	'openstackmanager-dnsdomain' => 'Used as label for select box in Special:NovaAddress.',
+	'openstackmanager-puppetclasses' => 'Used as <code>&lt;h4&gt;</code> heading in Special:NovaPuppetGroup.',
 	'openstackmanager-puppetdoclink' => '{{Optional}}
 A simple label like [?] or (docs) that will link to a doc page about the associated puppet class',
 	'openstackmanager-novainstance-info' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
@@ -489,8 +559,10 @@ Parameters:
 	'openstackmanager-instancename' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-instanceid' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-instancestate' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
+	'openstackmanager-instancetype' => 'Used as label for select box in Special:NovaInstance.',
 	'openstackmanager-instanceip' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-instancepublicip' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
+	'openstackmanager-securitygroups' => 'Used as label for multi-select box and as heading cell in "resource" table, in Special:NovaInstance.',
 	'openstackmanager-imageid' => '"ID" stands for "Identifier".',
 	'openstackmanager-instancetypelabel' => 'Used in Special:NovaInstance. Parameters:
 * $1 - number of CPUs
@@ -504,40 +576,128 @@ Parameters:
 * $1 - an alphanumeric instance id for the instance to be rebooted
 * $2 - the human-readable name for the same instance',
 	'openstackmanager-rebootinstancequestion' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
-	'openstackmanager-rebootedinstance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
-	'openstackmanager-rebootinstancefailed' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
+	'openstackmanager-rebootedinstance' => 'Used as success message in Special:NovaInstance.
+
+This message indicates the instance has been rebooted successfully.
+
+An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].
+
+See also:
+* {{msg-mw|Openstackmanager-rebootinstancefailed}}',
+	'openstackmanager-rebootinstancefailed' => 'Used as failure message in Special:NovaInstance.
+
+This message indicates the instance has been failed to create.
+
+An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].
+
+See also:
+* {{msg-mw|Openstackmanager-rebootedinstance}}',
+	'openstackmanager-launchtime' => 'Used as heading cell in "resource" table, in Special:NovaInstance.',
 	'openstackmanager-createinstance' => 'Used as page title and as action link title, in Special:NovaInstance.',
 	'openstackmanager-createinstancepuppetwarning' => 'Used in Special:NovaInstance.
 
 The page title for this message is:
 * {{msg-mw|Openstackmanager-createinstance}}',
-	'openstackmanager-createdinstance' => 'Parameters:
+	'openstackmanager-invaliddomain' => 'Used as error message in Special:NovaInstance.',
+	'openstackmanager-createdinstance' => 'Used as success message in Special:NovaInstance.
+
+This message indicates the instance has been created successfully.
+
+Parameters:
 * $1 - Instance (string) identifier. e.g. i-000000b4
 * $2 - Identifier (string) for machine image used
-* $3 - The hostname of the instance created',
-	'openstackmanager-createfailedldap' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
-	'openstackmanager-createinstancefailed' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
+* $3 - The hostname of the instance created
+
+An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].
+
+See also:
+* {{msg-mw|Openstackmanager-createfailedldap}}
+* {{msg-mw|Openstackmanager-createinstancefailed}}',
+	'openstackmanager-createfailedldap' => 'Used as failure message in Special:NovaInstance.
+
+This message indicates the instance has been failed to create.
+
+An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].
+
+See also:
+* {{msg-mw|Openstackmanager-createinstancefailed}}
+* {{msg-mw|Openstackmanager-createdinstance}}',
+	'openstackmanager-createinstancefailed' => 'Used as failure message in Special:NovaInstance.
+
+This message indicates the instance has been failed to create.
+
+An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].
+
+See also:
+* {{msg-mw|Openstackmanager-createfailedldap}}
+* {{msg-mw|Openstackmanager-createdinstance}}',
 	'openstackmanager-backinstancelist' => 'Used as link text in Special:NovaInstance.
 
 An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
-	'openstackmanager-deletedinstance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
-	'openstackmanager-deletedinstance-faileddns' => 'Tells the user an instance was deleted, but the [[wikipedia:Domain Name System|DNS]] entry was not.
-*$1 - the specific DNS name
+	'openstackmanager-deletedinstance' => 'Used as success message in Special:NovaInstance.
 
-An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
-	'openstackmanager-modifiedinstance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].
-*$1 - the instance ID
-*$2 - the instance name',
-	'openstackmanager-modifyinstancefailed' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
-	'openstackmanager-deleteinstancefailed' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
+This message indicates the instance has been deleted successfully.
+
+An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].
+
+Parameters:
+* $1 - instance ID
+
+See also:
+* {{msg-mw|Openstackmanager-deleteinstancefailed}}
+* {{msg-mw|Openstackmanager-deletedinstance-faileddns}}',
+	'openstackmanager-deletedinstance-faileddns' => 'Used in Special:NovaInstance.
+
+Tells the user an instance has been deleted successfully, but the [[wikipedia:Domain Name System|DNS]] entry has been failed to remove.
+
+An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].
+
+Parameters:
+* $1 - the specific DNS name
+
+See also:
+* {{msg-mw|Openstackmanager-deletedinstance}}
+* {{msg-mw|Openstackmanager-deleteinstancefailed}}',
+	'openstackmanager-modifiedinstance' => 'Used as success message in Special:NovaInstance.
+
+An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].
+
+Parameters:
+* $1 - the instance ID
+* $2 - the instance name
+See also:
+* {{msg-mw|Openstackmanager-modifyinstancefailed}}',
+	'openstackmanager-modifyinstancefailed' => 'Used as failure message in Special:NovaInstance.
+
+An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].
+
+See also:
+* {{msg-mw|Openstackmanager-modifiedinstance}}',
+	'openstackmanager-deleteinstancefailed' => 'Used as failure message in Special:NovaInstance.
+
+This message indicates the instance has been failed to delete.
+
+An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].
+
+See also:
+* {{msg-mw|Openstackmanager-deletedinstance}}
+* {{msg-mw|Openstackmanager-deletedinstance-faileddns}}',
 	'openstackmanager-consoleoutput' => 'Page title for a page that displays the total console text for a running instance.
 
 Parameters:
 * $1 - an alphanumeric instance id for the instance
 * $2 - the human-readable name for the same instance',
+	'openstackmanager-getconsoleoutput' => 'Used as action link label in Special:NovaInstance.',
 	'openstackmanager-createvolume' => 'Used as page title and as action link text, in Special:NovaVolume.',
+	'openstackmanager-volumename' => 'Used as label for input box and as heading cell in "resource" table, in Special:NovaVolume.',
 	'openstackmanager-volumeid' => '"ID" stands for "Identifier".',
+	'openstackmanager-volumedescription' => 'Used as label for input box in Special:NovaVolume.',
 	'openstackmanager-volumeattachmentinstance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
+	'openstackmanager-volumeattachmentdevice' => 'Used as heading cell in "resource" table, in Special:NovaVolume.',
+	'openstackmanager-volumesize' => 'Used as label for "Size" input box and as heading cell in "resource" table, in Special:NovaVolume.
+
+"GBs" stands for "Gigabytes".',
+	'openstackmanager-volumeattachmentstatus' => 'Used as heading cell in "resource" table, in Special:NovaVolume.',
 	'openstackmanager-volumedeleteonvolumedelete' => 'Do you want this volume to be deleted when its associated instance is deleted?',
 	'openstackmanager-attach' => 'Verb.
 {{Identical|Attach}}',
@@ -547,11 +707,18 @@ Parameters:
 	'openstackmanager-deletevolumequestion' => 'Used in Special:NovaVolume. Parameters:
 * $1 - volume ID',
 	'openstackmanager-volumelist' => 'Used as page title in Special:NovaVolume.',
-	'openstackmanager-createdvolume' => 'Used in Special:NovaVolume. Parameters:
+	'openstackmanager-createdvolume' => 'Used as success message in Special:NovaVolume.
+
+This message indicates the volume has been created successfully.
+
+Parameters:
 * $1 - volume ID
+
 See also:
 * {{msg-mw|Openstackmanager-createevolumefailed}}',
-	'openstackmanager-createevolumefailed' => 'Used in Special:NovaVolume.
+	'openstackmanager-createevolumefailed' => 'Used as failure message in Special:NovaVolume.
+
+This message indicates the volume has been failed to create.
 
 See also:
 * {{msg-mw|Openstackmanager-createdvolume}}',
@@ -569,6 +736,8 @@ See also:
 * {{msg-mw|Openstackmanager-deletedvolume}}',
 	'openstackmanager-backvolumelist' => 'Used as link text in Special:NovaVolume.',
 	'openstackmanager-attachvolume' => 'Used as page title in Special:NovaVolume.',
+	'openstackmanager-device' => 'Used as label for "Drive devices" select box in Special:NovaVolume.
+{{Identical|Device}}',
 	'openstackmanager-attachedvolume' => 'Used as success message in Special:NovaVolume.
 
 See also:
@@ -578,6 +747,11 @@ See also:
 See also:
 * {{msg-mw|Openstackmanager-attachedvolume}}',
 	'openstackmanager-detachvolume' => 'Used as page title in Special:NovaVolume.',
+	'openstackmanager-forcedetachment' => 'Used as label for toggle in Special:NovaVolume.
+
+The help message for this toggle is:
+* {{msg-mw|Openstackmanager-forcedetachmenthelp}}',
+	'openstackmanager-forcedetachmenthelp' => 'Used as help message for the toggle which is labeled {{msg-mw|openstackmanager-forcedetachment}} in Special:NovaVolume.',
 	'openstackmanager-detachedvolume' => 'Used as success message in Special:NovaVolume.
 
 See also:
@@ -586,17 +760,36 @@ See also:
 
 See also:
 * {{msg-mw|Openstackmanager-detachedvolume}}',
-	'openstackmanager-novapublickey' => '{{Identical|Public SSH key}}',
-	'openstackmanager-prefs-novapublickey' => '{{Identical|Public SSH key}}',
+	'openstackmanager-novapublickey' => 'Used as label for textarea in Special:NovaKey.
+{{Identical|Public SSH key}}',
+	'openstackmanager-prefs-novapublickey' => 'Used as label for Public SSH keys table in [[Special:Preferences]].
+{{Identical|Public SSH key}}',
 	'openstackmanager-deletekey' => 'Used as page title in Special:NovaKey.',
 	'openstackmanager-deletekeyconfirm' => 'Used as page body in Special:NovaKey.
 
 The title for this message is:
 * {{msg-mw|Openstackmanager-deletekey}}',
 	'openstackmanager-keylist' => 'Page title',
-	'openstackmanager-addkey' => 'Used as link text. Link for users to add a new public SSH key to their account. It is a link to Special:NovaKey.',
+	'openstackmanager-addkey' => 'Used as link text. Link for users to add a new public SSH key to their account. It is a link to Special:NovaKey.
+
+And also used as page title in Special:NovaKey.',
 	'openstackmanager-name' => '{{Identical|Name}}',
-	'openstackmanager-keys' => '{{Identical|Key}}',
+	'openstackmanager-fingerprint' => 'Used as heading cell in "resource" table.',
+	'openstackmanager-keys' => 'Used as column header of the {{msg-mw|Openstackmanager-prefs-novapublickey}} table in [[Special:Preferences]].
+{{Identical|Key}}',
+	'openstackmanager-invalidkeypair' => 'Used as error message in Special:NovaKey, when importing SSH key.',
+	'openstackmanager-keypairimportfailed' => 'Used as failure message in Special:NovaKey.
+
+This message indicates the keypair has been failed to import.
+
+See also:
+* {{msg-mw|Openstackmanager-keypairimported}}',
+	'openstackmanager-keypairimported' => 'Used as success message in Special:NovaKey.
+
+This message indicates the keypair has been imported successfully.
+
+See also:
+* {{msg-mw|Openstackmanager-keypairimportfailed}}',
 	'openstackmanager-keypairimportedfingerprint' => 'Used in Special:NovaKey.
 
 This message indicates keypair with fingerprint has been imported.
@@ -604,6 +797,20 @@ This message indicates keypair with fingerprint has been imported.
 Parameters:
 * $1 - key name
 * $2 - key fingerprint',
+	'openstackmanager-keypairformatwrong' => 'Used as error message in Special:NovaKey, when importing SSH key.',
+	'openstackmanager-keypairformatconverted' => "Used in Special:NovaKey, when importing SSH key and it's in known format.",
+	'openstackmanager-deletedkey' => 'Used as success message in Special:NovaKey.
+
+This message indicates the key has been deleted successfully.
+
+See also:
+* {{msg-mw|Openstackmanager-deletedkeyfailed}}',
+	'openstackmanager-deletedkeyfailed' => 'Used as failure message in Special:NovaKey.
+
+This message indicates the key has been failed to delete.
+
+See also:
+* {{msg-mw|Openstackmanager-deletedkey}}',
 	'openstackmanager-addmember' => 'Used as page title and as action link title, in Special:NovaProject and in Special:NovaRole.',
 	'openstackmanager-removemember' => 'Used as page title and as action link text, in Special:NovaProject.',
 	'openstackmanager-removeprojectconfirm' => 'Used in Special:NovaProject. Parameters:
@@ -615,27 +822,92 @@ The title (page title) for this message is:
 	'openstackmanager-configureproject-sharedhomedirs' => 'checkbox label',
 	'openstackmanager-configureproject-sharedstorage' => 'checkbox label',
 	'openstackmanager-configureproject-volume' => 'form section title',
-	'openstackmanager-configureproject-failed' => 'Message when project configure fails',
-	'openstackmanager-configureproject-success' => 'Message when project configure works',
+	'openstackmanager-configureproject-failed' => 'Used as failure message in Special:NovaProject.
+
+This message indicates the project settings has been failed to change.
+
+See also:
+* {{msg-mw|Openstackmanager-configureproject-success}}',
+	'openstackmanager-configureproject-success' => 'Used as success message in Special:NovaProject.
+
+This message indicates the project settings has been updated successfully.
+
+See also:
+* {{msg-mw|Openstackmanager-configureproject-failed}}',
 	'openstackmanager-createproject' => 'Page title',
 	'openstackmanager-projectname' => '{{Identical|Project name}}',
 	'openstackmanager-members' => '{{Identical|Member}}',
 	'openstackmanager-member' => '{{Identical|Member}}',
 	'openstackmanager-action' => '{{Identical|Action}}',
+	'openstackmanager-createprojectfailed' => 'Used as failure message in Special:NovaProject.
+
+This message indicates the project has been failed to create.
+
+See also:
+* {{msg-mw|Openstackmanager-createdproject}}',
+	'openstackmanager-createdproject' => 'Used as success message in Special:NovaProject.
+
+This message indicates the project has been created successfully.
+
+See also:
+* {{msg-mw|Openstackmanager-createprojectfailed}}',
 	'openstackmanager-projectlist' => 'Used as page title in Special:NovaProject.',
 	'openstackmanager-backprojectlist' => 'Used as link text in Special:Project and Special:Role.',
+	'openstackmanager-addadditionalproject' => 'Used as link text in Special:NovaProject.',
 	'openstackmanager-deleteproject' => 'Used as page title and as action link title, in Special:NovaProject.
 {{Identical|Delete}}',
-	'openstackmanager-addedto' => '*$1 - member
-*$2 - project name',
-	'openstackmanager-failedtoadd' => '*$1 - member
-*$2 - project name',
-	'openstackmanager-failedtoaddneedsloginright' => '*$1 - member
-*$2 - project name',
-	'openstackmanager-removedfrom' => '*$1 - member
-*$2 - project name',
-	'openstackmanager-failedtoremove' => '*$1 - member
-*$2 - project name',
+	'openstackmanager-deletedproject' => 'Used as success message in Special:NovaProject.
+
+This message indicates the project has been deleted successfully.
+
+See also:
+* {{msg-mw|Openstackmanager-deleteprojectfailed}}',
+	'openstackmanager-deleteprojectfailed' => 'Used as failure message in Special:NovaProject.
+
+This message indicates the project has been failed to delete.
+
+See also:
+* {{msg-mw|Openstackmanager-deletedproject}}',
+	'openstackmanager-addedto' => 'Used as success message in Special:NovaProject and Special:NovaRole.
+
+Parameters:
+* $1 - member
+* $2 - project name or role name
+
+See also:
+* {{msg-mw|Openstackmanager-failedtoadd}}',
+	'openstackmanager-failedtoadd' => 'Used as failure message in Special:NovaProject and Special:NovaRole.
+
+Parameters:
+* $1 - member
+* $2 - project name or role name
+
+See also:
+* {{msg-mw|Openstackmanager-addedto}}',
+	'openstackmanager-failedtoaddneedsloginright' => 'Used as failure message in Special:NovaProject.
+
+Parameters:
+* $1 - member
+* $2 - project name
+
+See also:
+* {{msg-mw|Openstackmanager-addedto}}',
+	'openstackmanager-removedfrom' => 'Used as success message in Special:NovaProject and Special:NovaRole.
+
+Parameters:
+* $1 - member
+* $2 - project name or role name
+
+See also:
+* {{msg-mw|Openstackmanager-failedtoremove}}',
+	'openstackmanager-failedtoremove' => 'Used as failure message in Special:NovaProject and Special:NovaRole.
+
+Parameters:
+* $1 - member
+* $2 - project name or role name
+
+See also:
+* {{msg-mw|Openstackmanager-removedfrom}}',
 	'openstackmanager-novaproject-project' => '{{Identical|Project}}',
 	'openstackmanager-novaprojectfilter-projectfilter' => 'It is a filter than can be used to selectively show a set of projects in all management interfaces.',
 	'openstackmanager-projects' => 'A set of projects',
@@ -644,15 +916,49 @@ The title (page title) for this message is:
 	'openstackmanager-toggle' => 'A message to tell the user they can toggle the collapsing and expanding of project sections.',
 	'openstackmanager-roles' => '{{Identical|Role}}',
 	'openstackmanager-removerolemember' => 'Used as page title and as action link text, in Special:NovaRole.',
+	'openstackmanager-addrolemember' => 'Used as action link text in Special:NovaProject.',
 	'openstackmanager-rolelist' => 'It is a list of roles that are assigned to all instances (i.e. global).',
-	'openstackmanager-shellaccountname-pref' => "Label used for displaying the user's shell account name on Special:Preferences.",
+	'openstackmanager-nomemberstoadd' => 'Used in Special:NovaRole.
+
+See also:
+* {{msg-mw|Openstackmanager-nomemberstoremove}}',
+	'openstackmanager-nomemberstoremove' => 'Used in Special:NovaRole.
+
+See also:
+* {{msg-mw|Openstackmanager-nomemberstoadd}}',
+	'openstackmanager-shellaccountname' => 'Used as label for the input box.
+
+The help text for the input box is:
+* {{msg-mw|Openstackmanager-shellaccountnamehelp}}
+See also:
+* {{msg-mw|Openstackmanager-shellaccountname-pref|with colon}}',
+	'openstackmanager-shellaccountname-pref' => "Label used for displaying the user's shell account name on Special:Preferences.
+
+See also:
+* {{msg-mw|Openstackmanager-shellaccountname|without colon}}",
+	'openstackmanager-shellaccountnamehelp' => 'Used as help text for the input box which is labeled {{msg-mw|Openstackmanager-shellaccountname}}.',
 	'openstackmanager-addresslist' => 'Used as page title in Special:NovaAddress.',
+	'openstackmanager-address' => 'Used as heading cell in "resource" table, in Special:NovaAddress.',
 	'openstackmanager-allocateaddress' => 'Used as page title and as action link title, in Special:NovaAddress.',
 	'openstackmanager-releaseaddress' => 'Used as page title and as action link title, in Special:NovaAddress.',
 	'openstackmanager-associateaddress' => 'Used as page title and as action link title, in Special:NovaAddress.',
+	'openstackmanager-reassociateaddress' => 'Used as action link title in Special:NovaAddress.',
 	'openstackmanager-disassociateaddress' => 'Used as page title and as link title in Special:NovaAddress.',
-	'openstackmanager-allocatedaddress' => 'Used in Special:NovaAddress. Parameters:
-* $1 - public IP address',
+	'openstackmanager-allocateaddressfailed' => 'Used as failure message in Special:NovaAddress.
+
+This message indicates new public IP address has been failed to allocate.
+
+See also:
+* {{msg-mw|Openstackmanager-allocatedaddress}}',
+	'openstackmanager-allocatedaddress' => 'Used as success message in Special:NovaAddress.
+
+This message indicates new public IP address has been allocated successfully.
+
+Parameters:
+* $1 - public IP address
+
+See also:
+* {{msg-mw|Openstackmanager-allocateaddressfailed}}',
 	'openstackmanager-backaddresslist' => 'Used as link title in Special:NovaAddress.',
 	'openstackmanager-allocateaddress-confirm' => 'Used in Special:NovaAddress. Parameters:
 * $1 - project name',
@@ -661,16 +967,39 @@ The title (page title) for this message is:
 	'openstackmanager-releaseaddressfailed' => 'Unused at this time. Parameters:
 * $1 - public IP address which has been failed to release',
 	'openstackmanager-cannotreleaseaddress' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
-	'openstackmanager-associatedaddress' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
-	'openstackmanager-associateaddressfailed' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
-	'openstackmanager-disassociatedaddress' => 'Used in Special:NovaAddress. Parameters:
+	'openstackmanager-associatedaddress' => 'Used as success message in Special:NovaAddress.
+
+An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].
+
+Parameters:
+* $1 - public IP address
+* $2 - instance ID
+
+See also:
+* {{msg-mw|Openstackmanager-associateaddressfailed}}',
+	'openstackmanager-associateaddressfailed' => 'Used as failure message in Special:NovaAddress.
+
+An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].
+
+Parameters:
+* $1 - public IP address
+* $2 - instance ID
+
+See also:
+* {{msg-mw|Openstackmanager-associatedaddress}}',
+	'openstackmanager-disassociatedaddress' => 'Used as success message in Special:NovaAddress.
+
+Parameters:
 * $1 - public IP address which has been disassociated
 See also:
 * {{msg-mw|Openstackmanager-disassociateaddressfailed}}',
-	'openstackmanager-disassociateaddressfailed' => 'Used in Special:NovaAddress. Parameters:
+	'openstackmanager-disassociateaddressfailed' => 'Used as failure message in Special:NovaAddress.
+
+Parameters:
 * $1 - public IP address which has been failed to disassociate
+
 See also:
-* {{msg-mw|Openstackmanager-disassociateaddress}}',
+* {{msg-mw|Openstackmanager-disassociatedaddress}}',
 	'openstackmanager-disassociateaddress-confirm' => 'Used in Special:NovaAddress. Parameters:
 * $1 - public IP address
 The title (page title) for this message is:
@@ -683,18 +1012,51 @@ The title (page title) for this message is:
 * $1 - public IP address, or address ID',
 	'openstackmanager-invalidaddressforproject' => 'Unused at this time. Parameters:
 * $1 - public IP address',
-	'openstackmanager-addedhost' => '*$1 - host name
-*$2 - IP address',
-	'openstackmanager-addhostfailed' => '*$1 - host name
-*$2 - IP address',
+	'openstackmanager-addedhost' => 'Used as success message in Special:NovaAddress.
+
+Parameters:
+* $1 - host name
+* $2 - public IP address
+
+See also:
+* {{msg-mw|Openstackmanager-addhostfailed}}',
+	'openstackmanager-addhostfailed' => 'Used as failure message in Special:NovaAddress.
+
+Parameters:
+* $1 - host name
+* $2 - public IP address
+
+See also:
+* {{msg-mw|Openstackmanager-addedhost}}',
+	'openstackmanager-hostname' => 'Used as label for "Host name" input box in the "Add host" form, in Special:NovaAddress.',
+	'openstackmanager-hostnames' => 'Used as heading cell in "resource" table, in Special:NovaAddress.',
 	'openstackmanager-addhost' => 'Used as page title and as action link title, in Special:NovaAddress.',
 	'openstackmanager-removehost' => 'Used as page title and as action link title, in Special:NovaAddress.',
 	'openstackmanager-removehost-action' => 'A link text. [[File:Wikimedia_labs_address_admin.png|thumb]]',
 	'openstackmanager-removehost-confirm' => 'Used in Special:NovaAddress. Parameters:
 * $1 - host name
 * $2 - public IP address',
-	'openstackmanager-removedhost' => '*$1 - host name',
-	'openstackmanager-removehostfailed' => '*$1 - host name',
+	'openstackmanager-removedhost' => 'Used as success message in Special:NovaAddress.
+
+Parameters:
+* $1 - hostname
+* $2 - (Unused) public IP address
+
+See also:
+* {{msg-mw|Openstackmanager-removehostfailed}}',
+	'openstackmanager-removehostfailed' => 'Used as failure message in Special:NovaAddress.
+
+Parameters:
+* $1 - public IP address
+* $2 - (Unused) hostname
+
+See also:
+* {{msg-mw|Openstackmanager-removedhost}}',
+	'openstackmanager-nonexistenthost' => 'Used as error message in Special:NovaAddress.
+
+See also:
+* {{msg-mw|Openstackmanager-removedhost|success message}}
+* {{msg-mw|Openstackmanager-removehostfailed|failure message}}',
 	'openstackmanager-needrole' => 'Used as page title for an error on special pages.
 Parameters:
 * $1 - the role the user needs. not localized. (e.g. projectadmin)
@@ -703,14 +1065,29 @@ The page body for this page title is:
 	'openstackmanager-needrole2' => 'Error message on special pages. Parameters:
 * $1 - the role the user needs, not localized (e.g. projectadmin).',
 	'openstackmanager-createsecuritygroup' => 'Used as page title in Special:NovaSecurityGroup.',
+	'openstackmanager-securitygroupname' => 'Used as label for "security group name" input box in "create security group" form, in Special:NovaSecurityGroup.',
 	'openstackmanager-securitygroupdescription' => '{{Identical|Description}}',
 	'openstackmanager-deletesecuritygroup' => 'Used as page title in Special:NovaSecurityGroup.',
 	'openstackmanager-deletesecuritygroup-confirm' => '*$1 - security group name',
 	'openstackmanager-securitygrouplist' => 'Used as page title in Special:NovaSecurityGroup.',
+	'openstackmanager-securitygrouprule' => 'Used as heading cell in "resource" table, in Special:NovaSecurityGroup.
+{{Identical|Rule}}',
+	'openstackmanager-novasecuritygroup-group' => 'Unused at this time.',
+	'openstackmanager-securitygrouprule-group-exclusive' => 'Used as heading in the "add security group rule" form in Special:NovaSecurityGroup.',
+	'openstackmanager-securitygrouprule-toport' => 'Used as label for input box and as heading cell in "resource" table, in Special:NovaSecurityGroup.',
+	'openstackmanager-securitygrouprule-fromport' => 'Used as label for input box and as heading cell in "resource" table, in Special:NovaSecurityGroup.',
+	'openstackmanager-securitygrouprule-protocol' => 'Used as label for select box and as heading cell in "resource" table, in Special:NovaSecurityGroup.',
 	'openstackmanager-securitygrouprule-ipranges' => 'CIDR = Classless Inter-Domain Routing',
+	'openstackmanager-securitygrouprule-groups' => 'Used as label for select box and as heading cell in "resource" table, in Special:NovaSecurityGroup.
+
+Help message for the select box is:
+* {{msg-mw|Openstackmanager-securitygrouprule-groups-help}}',
 	'openstackmanager-createnewsecuritygroup' => '{{Identical|Add group}}',
 	'openstackmanager-addrule-action' => 'Used as action link text in Special:NovaSecurityGroup.',
 	'openstackmanager-removerule-action' => 'Used as action link text in Special:NovaSecurityGroup.',
+	'openstackmanager-modifiedgroup' => 'Unused at this time.',
+	'openstackmanager-modifygroupfailed' => 'Unused at this time.',
+	'openstackmanager-nonexistantgroup' => 'Unused at this time.',
 	'openstackmanager-backsecuritygrouplist' => 'Used as link text in Special:NovaSecurityGroup.',
 	'openstackmanager-createdsecuritygroup' => 'Used as success message in Special:NovaSecurityGroup.
 
@@ -748,6 +1125,9 @@ See also:
 	'openstackmanager-addrule' => 'Used as page title in Special:NovaSecurityGroup.',
 	'openstackmanager-securitygrouprule-ranges' => 'CIDR = Classless Inter-Domain Routing',
 	'openstackmanager-securitygrouprule-ranges-help' => 'CIDR = Classless Inter-Domain Routing',
+	'openstackmanager-securitygrouprule-groups-help' => 'Used as help message for the select box in Special:NovaSecurityGroup.
+
+The select box is labeled {{msg-mw|openstackmanager-securitygrouprule-groups}}.',
 	'openstackmanager-addedrule' => 'Used as success message in Special:NovaSecurityGroup.
 
 See also:
@@ -756,21 +1136,95 @@ See also:
 
 See also:
 * {{msg-mw|Openstackmanager-addedrule}}',
+	'openstackmanager-createsudoer' => 'Used as action link text in Special:NovaSudoer.
+
+See also:
+* {{msg-mw|Openstackmanager-createdsudoer|success message}}
+* {{msg-mw|Openstackmanager-createsudoerfailed|failure message}}',
+	'openstackmanager-novasudoer-sudoer' => 'Unused at this time.',
+	'openstackmanager-novasudoer-info' => 'Unused at this time.',
+	'openstackmanager-sudoername' => 'Used as label for input box and as heading cell in "resource" table, in Special:NovaSudoer.',
+	'openstackmanager-commadelimiter' => 'Unused at this time.',
 	'openstackmanager-sudoerusers' => '{{Identical|User}}',
+	'openstackmanager-sudoerhosts' => 'Used as label for multi-select box and as heading cell in "resource" table.',
+	'openstackmanager-sudoercommands' => 'Used as label for textarea and as heading cell in "resource" table, in Special:NovaSudoer.',
 	'openstackmanager-requirepassword' => 'When this option is checked, sudo will require the user password',
 	'openstackmanager-sudoeroptions' => '{{Identical|Options}}',
 	'openstackmanager-allmembers' => 'Label for a checkbox that includes all project members in a sudo policy',
 	'openstackmanager-deletesudoer' => 'Used as page title in Special:NovaSudoer.',
 	'openstackmanager-deletesudoer-confirm' => '*$1 - sudo policy name',
+	'openstackmanager-createsudoerfailed' => 'Used as failure message in Special:NovaSudoer.
+
+See also:
+* {{msg-mw|Openstackmanager-createdsudoer}}',
+	'openstackmanager-createdsudoer' => 'Used as success message in Special:NovaSudoer.
+
+See also:
+* {{msg-mw|Openstackmanager-createsudoerfailed}}',
 	'openstackmanager-backsudoerlist' => 'Used as link text in Special:NovaSudoer.',
+	'openstackmanager-addadditionalsudoer' => 'Unused at this time.',
+	'openstackmanager-deletedsudoer' => 'Used as success message in Special:NovaSudoer.
+
+See also:
+* {{msg-mw|Openstackmanager-failedeletedsudoer}}',
+	'openstackmanager-failedeletedsudoer' => 'Used as failure message in Special:NovaSudoer.
+
+See also:
+* {{msg-mw|Openstackmanager-deletedsudoer}}',
 	'openstackmanager-sudoerlist' => 'Used as page title in Special:NovaSudoer.',
 	'openstackmanager-modifysudoer' => 'Used as page title in Special:NovaSudoer.',
-	'openstackmanager-modifysudoerfailed' => 'Used as failure message in Special:NovaSudoer.',
+	'openstackmanager-modifysudoerfailed' => 'Used as failure message in Special:NovaSudoer.
+
+See also:
+* {{msg-mw|Openstackmanager-modifiedsudoer}}',
+	'openstackmanager-modifiedsudoer' => 'Used as success message in Special:NovaSudoer.
+
+See also:
+* {{msg-mw|Openstackmanager-modifysudoerfailed}}',
+	'openstackmanager-nonexistantsudoer' => 'Used as error message in Special:NovaSudoer.
+
+See also:
+* {{msg-mw|Openstackmanager-modifiedsudoer}}
+* {{msg-mw|Openstackmanager-modifysudoerfailed}}',
+	'openstackmanager-novapuppetgroup' => 'Used as title for the form in Special:NovaPuppetGroup.',
 	'openstackmanager-puppetgrouplist' => 'Used as page title in Special:NovaPuppetGroup.',
+	'openstackmanager-puppetallprojects' => 'Used as <code>&lt;h2&gt;</code> heading in Special:NovaPuppetGroup.
+
+This message is followed by the action link {{msg-mw|Openstackmanager-createpuppetgroup}} (if enabled).
+{{Identical|All projects}}',
 	'openstackmanager-createpuppetgroup' => 'Used as page title and as action link text, in Special:NovaPuppetGroup.
 {{Identical|Add group}}',
+	'openstackmanager-createdpuppetgroup' => 'Used as success message in Special:PuppetGroup.
+
+This message indicates the puppet group has been created successfully.
+
+See also:
+* {{msg-mw|Openstackmanager-createpuppetgroupfailed}}',
+	'openstackmanager-createpuppetgroupfailed' => 'Used as failure message in Special:PuppetGroup.
+
+This message indicates the puppet group has been failed to create.
+
+See also:
+* {{msg-mw|Openstackmanager-createdpuppetgroup}}',
 	'openstackmanager-backpuppetgrouplist' => 'Used as link text in Special:PuppetGroup.',
 	'openstackmanager-addpuppetclass' => 'Used as page title and as action link title, in Special:NovaPuppetGroup.',
+	'openstackmanager-addedpuppetclass' => 'Used as success message in Special:NovaPuppetGroup.
+
+This message indicates the puppet class has been added successfully.
+
+See also:
+* {{msg-mw|Openstackmanager-failedtoaddpuppetclass}}',
+	'openstackmanager-failedtoaddpuppetclass' => 'Used as failure message in Special:NovaPuppetGroup.
+
+This message indicates the puppet class has been failed to add.
+
+See also:
+* {{msg-mw|Openstackmanager-addedpuppetclass}}',
+	'openstackmanager-puppetclassname' => 'Used as label for "puppet class name" input box in Special:NovaPuppetGroup.
+{{Identical|Class name}}',
+	'openstackmanager-removepuppetgroupconfirm' => 'Used in Special:NovaPuppetGroup.
+
+This message is followed by the "delete puppet group" form.',
 	'openstackmanager-deletepuppetgroup' => 'Used as page title in Special:NovaPuppetGroup.',
 	'openstackmanager-deletedpuppetgroup' => 'Used in Special:NovaPuppetGroup.
 
@@ -785,19 +1239,101 @@ This message indicates the puppet group has been failed to delete.
 See also:
 * {{msg-mw|Openstackmanager-deletedpuppetgroup}}',
 	'openstackmanager-modifypuppetgroup' => 'Used as page title in Special:NovaPuppetGroup.',
+	'openstackmanager-modifiedpuppetgroup' => 'Used as success message in Special:NovaPuppetGroup.
+
+This message indicates the puppet group has been modified successfully.
+
+See also:
+* {{msg-mw|Openstackmanager-failedtomodifypuppetgroup}}',
+	'openstackmanager-failedtomodifypuppetgroup' => 'Used as failure message in Special:NovaPuppetGroup.
+
+This message indicates the puppet group has been failed to modify.
+
+See also:
+* {{msg-mw|Openstackmanager-modifiedpuppetgroup}}',
+	'openstackmanager-puppetvars' => 'Used as <code>&lt;h4&gt;</code> heading in Special:NovaPuppetGroup.
+
+This message is followed by the action link {{msg-mw|Openstackmanager-addpuppetvar}} (if enabled).
+{{Identical|Variable}}',
 	'openstackmanager-addpuppetvar' => 'Used as page title and as action link text, in Special:NovaPuppetGroup.',
+	'openstackmanager-puppetvarname' => 'Used as label for "puppet variable name" input box in Special:NovaPuppetGroup.',
+	'openstackmanager-puppetvarposition' => 'Unused at this time.',
+	'openstackmanager-addedpuppetvar' => 'Used as success message in Special:PuppetGroup.
+
+This message indicates the puppet variable has been added successfully.
+
+See also:
+* {{msg-mw|Openstackmanager-failedtoaddpuppetvar}}',
+	'openstackmanager-failedtoaddpuppetvar' => 'Used as failure message in Special:PuppetGroup.
+
+This message indicates the puppet variable has been failed to add.
+
+See also:
+* {{msg-mw|Openstackmanager-addedpuppetvar}}',
 	'openstackmanager-modifypuppetvar' => 'Used as page title in Special:NovaPuppetGroup.',
+	'openstackmanager-modifiedpuppetvar' => 'Used as success message in Special:NovaPuppetGroup.
+
+This message indicates the puppet variable has been modified successfully.
+
+See also:
+* {{msg-mw|Openstackmanager-failedtomodifypuppetvar}}',
+	'openstackmanager-failedtomodifypuppetvar' => 'Used as failure message in Special:NovaPuppetGroup.
+
+This message indicates the puppet variable has been failed to modify.
+
+See also:
+* {{msg-mw|Openstackmanager-modifiedpuppetvar}}',
+	'openstackmanager-puppetgroupname' => 'Used as label for input box in Special:NovaPuppetGroup.',
+	'openstackmanager-puppetgroupposition' => 'Unused at this time.',
 	'openstackmanager-modifypuppetclass' => 'Used as page title in Special:NovaPuppetGroup.',
+	'openstackmanager-failedtomodifypuppetclass' => 'Used as failure message in Special:NovaPuppetGroup.
+
+This message indicates the puppet class has been failed to modify.
+
+See also:
+* {{msg-mw|Openstackmanager-modifiedpuppetclass}}',
+	'openstackmanager-puppetclassposition' => 'Unused at this time.',
+	'openstackmanager-puppetgroup' => 'Used as label for select box in Special:NovaPuppetGroup.',
+	'openstackmanager-modifiedpuppetclass' => 'Used as success message in Special:NovaPuppetGroup.
+
+This message indicates the puppet class has been modified successfully.
+
+See also:
+* {{msg-mw|Openstackmanager-failedtomodifypuppetclass}}',
 	'openstackmanager-removepuppetclass' => 'Used as page title in Special:NovaPuppetGroup.',
 	'openstackmanager-removepuppetclassconfirm' => 'Used as page body in Special:NovaPuppetGroup.
 
 The title for this message is:
 * {{msg-mw|Openstackmanager-removepuppetclass}}',
+	'openstackmanager-deletedpuppetclass' => 'Used as success message in Special:NovaPuppetGroup.
+
+This message indicates the puppet class has been deleted successfully.
+
+See also:
+* {{msg-mw|Openstackmanager-failedtodeletepuppetclass}}',
+	'openstackmanager-failedtodeletepuppetclass' => 'Used as failure message in Special:NovaPuppetGroup.
+
+This message indicates the puppet class has been failed to delete.
+
+See also:
+* {{msg-mw|Openstackmanager-deletedpuppetclass}}',
 	'openstackmanager-removepuppetvar' => 'Used as page title in Special:NovaPuppetGroup.',
 	'openstackmanager-removepuppetvarconfirm' => 'Used as page body in Special:NovaPuppetGroup.
 
 The title for this message is:
 * {{msg-mw|Openstackmanager-removepuppetvar}}',
+	'openstackmanager-deletedpuppetvar' => 'Used as success message in Special:PuppetGroup.
+
+This message indicates the puppet variable has been deleted successfully.
+
+See also:
+* {{msg-mw|Openstackmanager-failedtodeletepuppetvar}}',
+	'openstackmanager-failedtodeletepuppetvar' => 'Used as failure message in Special:PuppetGroup.
+
+This message indicates the puppet variable has been failed to delete.
+
+See also:
+* {{msg-mw|Openstackmanager-deletedpuppetvar}}',
 	'openstackmanager-email-subject' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-email-body' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-twofactorrequired' => 'A page title that will be shown on error when two factor auth is not enabled',
@@ -2063,7 +2599,8 @@ $messages['de'] = array(
 	'openstackmanager-deleteprojectfailed' => 'Das Projekt konnte nicht gelöscht werden.',
 	'openstackmanager-addedto' => '$1 wurde erfolgreich zu $2 hinzugefügt.',
 	'openstackmanager-failedtoadd' => '$1 konnte nicht zu $2 hinzugefügt werden.',
-	'openstackmanager-failedtoaddneedsloginright' => 'Benutzer $1 konnte nicht zum Projekt $2 hinzugefügt werden. Hierzu wird das Recht „loginviashell“ benötigt.',
+	'openstackmanager-failedtoaddneedsloginright' => 'Benutzer $1 konnte nicht zum Projekt $2 hinzugefügt werden.
+Der Benutzer $1 muss das „<code>loginviashell</code>“-Recht haben.',
 	'openstackmanager-removedfrom' => '$1 wurde erfolgreich von $2 entfernt.',
 	'openstackmanager-failedtoremove' => '$1 konnte nicht aus $2 entfernt werden.',
 	'openstackmanager-novaproject-project' => 'Projekt hinzufügen',
@@ -3331,7 +3868,7 @@ $messages['fr'] = array(
 	'openstackmanager-deleteprojectfailed' => 'Échec de la suppression de projet.',
 	'openstackmanager-addedto' => '$1 ajouté à $2 avec succès.',
 	'openstackmanager-failedtoadd' => "Impossible d'ajouter $1 à $2.",
-	'openstackmanager-failedtoaddneedsloginright' => 'Impossible d\'ajouter $1 à $2. Cela nécessite le droit "<code>loginviashell</code>".',
+	'openstackmanager-failedtoaddneedsloginright' => 'Impossible d\'ajouter $1 à $2. Cela nécessite le droit "<code>loginviashell</code>".', # Fuzzy
 	'openstackmanager-removedfrom' => '$1 supprimé de $2 avec succès.',
 	'openstackmanager-failedtoremove' => 'Impossible de supprimer $1 de $2.',
 	'openstackmanager-novaproject-project' => 'Ajouter un projet',
@@ -3975,9 +4512,10 @@ $messages['gl'] = array(
 	'openstackmanager-detachvolumefailed' => 'Erro ao desligar o volume.',
 	'openstackmanager-novapublickey' => 'Clave pública SSH',
 	'openstackmanager-prefs-novapublickey' => 'Claves públicas SSH:',
-	'openstackmanager-deletekey' => 'Borrar a clave', # Fuzzy
+	'openstackmanager-deletekey' => 'Borrar a clave pública SSH',
 	'openstackmanager-deletekeyconfirm' => 'Está seguro de querer borrar a clave anterior?',
-	'openstackmanager-keylist' => 'Lista de claves', # Fuzzy
+	'openstackmanager-keylist' => 'Lista de claves públicas SSH',
+	'openstackmanager-addkey' => 'Engadir unha clave pública SSH',
 	'openstackmanager-name' => 'Nome',
 	'openstackmanager-fingerprint' => 'Pegada',
 	'openstackmanager-keys' => 'Claves',
@@ -4013,7 +4551,8 @@ $messages['gl'] = array(
 	'openstackmanager-deleteprojectfailed' => 'Erro ao borrar o proxecto.',
 	'openstackmanager-addedto' => '$1 engadiuse correctamente a $2.',
 	'openstackmanager-failedtoadd' => 'Erro ao engadir a $1 a $2.',
-	'openstackmanager-failedtoaddneedsloginright' => 'Erro ao engadir a $1 a $2. Cómpre ter dereitos de rexistro mediante shell.',
+	'openstackmanager-failedtoaddneedsloginright' => 'Erro ao engadir a $1 a $2.
+O usuario $1 debe ter dereitos de "<code>loginviashell</code>".',
 	'openstackmanager-removedfrom' => '$1 eliminouse correctamente de $2.',
 	'openstackmanager-failedtoremove' => 'Erro ao eliminar a $1 de $2.',
 	'openstackmanager-novaproject-project' => 'Engadir un proxecto',
@@ -4032,6 +4571,7 @@ $messages['gl'] = array(
 	'openstackmanager-novarole-role' => 'Rol Nova',
 	'openstackmanager-novarole-info' => 'Información sobre o rol Nova',
 	'openstackmanager-shellaccountname' => 'Nome da conta shell da instancia',
+	'openstackmanager-shellaccountname-pref' => 'Nome da conta shell da instancia:',
 	'openstackmanager-shellaccountnamehelp' => 'Cómpre indicar o nome da conta shell.
 Debe comezar con letras do a ao z, e só pode conter caracteres a-z, 0-9 e "-".',
 	'openstackmanager-addresslist' => 'Lista de enderezos IP públicos',
@@ -4187,6 +4727,8 @@ Debe comezar con letras do a ao z, e só pode conter caracteres a-z, 0-9 e "-".'
 	'echo-pref-email-osm-instance-deleted' => 'Borre unha instancia nun proxecto no que son administrador.',
 	'echo-pref-email-osm-instance-build-completed' => 'Constrúa unha instancia nun proxecto no que son administrador.',
 	'echo-pref-email-osm-instance-reboot-completed' => 'Reinicie unha instancia.',
+	'prefs-openstack' => 'OpenStack',
+	'prefs-openstack-keys' => 'Lista de claves',
 );
 
 /** Swiss German (Alemannisch)
@@ -5561,9 +6103,11 @@ $messages['it'] = array(
 	'openstackmanager-detachedvolume' => 'Scollegamento volume riuscito.',
 	'openstackmanager-detachvolumefailed' => 'Errore durante lo scollegamento del volume.',
 	'openstackmanager-novapublickey' => 'Chiave SSH pubblica',
-	'openstackmanager-deletekey' => 'Cancella chiave',
+	'openstackmanager-prefs-novapublickey' => 'Chiave SSH pubblica:',
+	'openstackmanager-deletekey' => 'Cancella chiave SSH pubblica',
 	'openstackmanager-deletekeyconfirm' => 'Sei sicuro di voler eliminare la chiave riportata sopra?',
-	'openstackmanager-keylist' => 'Elenco chiavi',
+	'openstackmanager-keylist' => 'Elenco chiavi SSH pubbliche',
+	'openstackmanager-addkey' => 'Aggiungi chiave SSH pubblica',
 	'openstackmanager-name' => 'Nome',
 	'openstackmanager-fingerprint' => 'Fingerprint',
 	'openstackmanager-keys' => 'Chiavi',
@@ -5573,8 +6117,6 @@ $messages['it'] = array(
 	'openstackmanager-keypairimportedfingerprint' => 'Chiavi pubblica/privata $1 importata con fingerprint $2.',
 	'openstackmanager-keypairformatwrong' => 'La chiave SSH fornita era errata o in un formato sconosciuto.',
 	'openstackmanager-keypairformatconverted' => 'Il formato della chiave SSH è stato automaticamente convertito.',
-	'openstackmanager-backkeylist' => "Ritorna all'elenco delle chiavi",
-	'openstackmanager-addadditionalkey' => "Aggiungi un'altra chiave.",
 	'openstackmanager-deletedkey' => 'Cancellazione chiave riuscita.',
 	'openstackmanager-deletedkeyfailed' => 'Cancellazione chiave non riuscita.',
 	'openstackmanager-addmember' => 'Aggiungi membro',
@@ -5599,7 +6141,7 @@ $messages['it'] = array(
 	'openstackmanager-deleteprojectfailed' => 'Errore durante la cancellazione del progetto.',
 	'openstackmanager-addedto' => 'Aggiunto $1 a $2 correttamente.',
 	'openstackmanager-failedtoadd' => 'Non riuscito ad aggiungere $1 a $2.',
-	'openstackmanager-failedtoaddneedsloginright' => 'Impossibile aggiungere $1 a $2, richiede il permesso loginviashell.',
+	'openstackmanager-failedtoaddneedsloginright' => 'Impossibile aggiungere $1 a $2, richiede il permesso loginviashell.', # Fuzzy
 	'openstackmanager-removedfrom' => 'Rimosso $1 da $2 correttamente.',
 	'openstackmanager-failedtoremove' => 'Errore durante la rimozione di $1 da $2.',
 	'openstackmanager-novaproject-project' => 'Aggiungi progetto',
@@ -5773,6 +6315,8 @@ Deve iniziare con a-z e può contenere solo i caratteri a-z, 0-9 e -.',
 	'echo-pref-email-osm-instance-deleted' => "Cancellazione di un'istanza da un progetto di cui io sono un amministratore.",
 	'echo-pref-email-osm-instance-build-completed' => "Costruzione di un'istanza su un progetto di cui io sono un amministratore.",
 	'echo-pref-email-osm-instance-reboot-completed' => "Riavvio di un'istanza.",
+	'prefs-openstack' => 'OpenStack',
+	'prefs-openstack-keys' => 'Elenco chiavi',
 );
 
 /** Japanese (日本語)
@@ -5821,6 +6365,7 @@ $messages['ja'] = array(
 	'openstackmanager-createddomain' => 'ドメインを作成しました。',
 	'openstackmanager-domainlist' => 'ドメイン一覧',
 	'openstackmanager-backdomainlist' => 'ドメイン一覧に戻る',
+	'openstackmanager-addadditionaldomain' => '別のドメインを追加する。',
 	'openstackmanager-deleteddomain' => 'ドメインを削除しました。',
 	'openstackmanager-failedeletedomain' => 'ドメインの削除に失敗しました。',
 	'openstackmanager-failedeletedomainduplicates' => '下位エントリがあるためドメインを削除できません。',
@@ -5918,7 +6463,7 @@ $messages['ja'] = array(
 	'openstackmanager-addedto' => '$1 を $2 に追加しました。',
 	'openstackmanager-failedtoadd' => '$1 の $2 への追加に失敗しました。',
 	'openstackmanager-failedtoaddneedsloginright' => '$1 を $2 に追加するのに失敗しました。
-この操作には「<code>loginviashell</code>」権限が必要です。',
+この操作は「<code>loginviashell</code>」権限を持つ利用者のみが実行できます。',
 	'openstackmanager-removedfrom' => '$1 を $2 から除去しました。',
 	'openstackmanager-failedtoremove' => '$1 の $2 からの除去に失敗しました。',
 	'openstackmanager-novaproject-project' => 'プロジェクトを追加',
@@ -7273,7 +7818,7 @@ $messages['mk'] = array(
 	'openstackmanager-deleteprojectfailed' => 'Не успеав да го избришам проектот.',
 	'openstackmanager-addedto' => 'Успешно го додадов $1 во $2.',
 	'openstackmanager-failedtoadd' => 'Не успеав да го додадам $1 во $2.',
-	'openstackmanager-failedtoaddneedsloginright' => 'Не успеав да го додадам членот $1 на $2. За тоа е потребно правото за најавување преку обвивка.',
+	'openstackmanager-failedtoaddneedsloginright' => 'Не успеав да го додадам членот $1 на $2. За тоа е потребно правото за најавување преку обвивка.', # Fuzzy
 	'openstackmanager-removedfrom' => '$1 е успешно отстрането од $2.',
 	'openstackmanager-failedtoremove' => 'Не успеав да го отстранам $1 од $2.',
 	'openstackmanager-novaproject-project' => 'Додај проект',
@@ -8064,7 +8609,7 @@ $messages['nl'] = array(
 	'openstackmanager-deleteprojectfailed' => 'Het verwijderen van het project is mislukt.',
 	'openstackmanager-addedto' => '$1 is aan $2 toegevoegd.',
 	'openstackmanager-failedtoadd' => 'Het toevoegen van $1 aan $2 is mislukt.',
-	'openstackmanager-failedtoaddneedsloginright' => 'Het toevoegen van $1 aan $2 is mislukt. Hiervoor is het recht "<code>loginviashell</code>" vereist.',
+	'openstackmanager-failedtoaddneedsloginright' => 'Het toevoegen van $1 aan $2 is mislukt. Hiervoor is het recht "<code>loginviashell</code>" vereist.', # Fuzzy
 	'openstackmanager-removedfrom' => '$1 is uit $2 verwijderd.',
 	'openstackmanager-failedtoremove' => 'Het verwijderen van $1 uit $2 is mislukt.',
 	'openstackmanager-novaproject-project' => 'Project toevoegen',
