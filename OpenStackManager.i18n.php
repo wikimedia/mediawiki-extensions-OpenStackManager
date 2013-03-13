@@ -213,7 +213,7 @@ Do not take this action lightly!',
 	'openstackmanager-addedto' => 'Successfully added $1 to $2.',
 	'openstackmanager-failedtoadd' => 'Failed to add $1 to $2.',
 	'openstackmanager-failedtoaddneedsloginright' => 'Failed to add $1 to $2.
-This needs the "<code>loginviashell</code>" right.',
+This needs user $1 to have the "<code>loginviashell</code>" right.',
 	'openstackmanager-removedfrom' => 'Successfully removed $1 from $2.',
 	'openstackmanager-failedtoremove' => 'Failed to remove $1 from $2.',
 	'openstackmanager-novaproject-project' => 'Add project',
