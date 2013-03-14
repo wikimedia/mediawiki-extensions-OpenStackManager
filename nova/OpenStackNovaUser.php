@@ -166,7 +166,7 @@ class OpenStackNovaUser {
 				# First entry is always a count
 				array_shift( $entries );
 				foreach ( $entries as $entry ) {
-					array_push( $projects, $entry['cn'][0] );
+					$projects[] = $entry['cn'][0];
 				}
 			}
 		} else {
@@ -195,7 +195,7 @@ class OpenStackNovaUser {
 				# First entry is always a count
 				array_shift( $entries );
 				foreach ( $entries as $entry ) {
-					array_push( $roles, $entry['cn'][0] );
+					$roles[] = $entry['cn'][0];
 				}
 			}
 		} else {
@@ -378,7 +378,7 @@ class OpenStackNovaUser {
 					array_shift( $entries );
 					$uids = array();
 					foreach ( $entries as $entry ) {
-						array_push( $uids, $entry[$attr][0] );
+						$uids[] = $entry[$attr][0];
 					}
 					sort( $uids, SORT_NUMERIC );
 					$highest = array_pop( $uids ) + 1;
@@ -712,7 +712,7 @@ class OpenStackNovaUser {
 					$keyRow = array();
 					SpecialNova::pushResourceColumn( $keyRow, $keypair->getKeyName() );
 					SpecialNova::pushResourceColumn( $keyRow, $keypair->getKeyFingerprint() );
-					array_push( $keyRows, $keyRow );
+					$keyRows[] = $kewRow;
 				}
 				$out .= SpecialNova::createResourceTable( $headers, $keyRows );
 			}
@@ -724,18 +724,16 @@ class OpenStackNovaUser {
 				$keyRow = array();
 				SpecialNova::pushResourceColumn( $keyRow, $key, array( 'class' => 'Nova_col' ) );
 				$actions = array();
-				array_push( $actions,
-					SpecialNova::createNovaKeyActionLink(
-						'openstackmanager-delete',
-						array(
-							'action' => 'delete',
-							'hash' => $hash,
-							'returnto' => SpecialPage::getTitleFor( 'Preferences', false, 'mw-prefsection-openstack' )->getFullText()
-						)
+				$actions[] = SpecialNova::createNovaKeyActionLink(
+					'openstackmanager-delete',
+					array(
+						'action' => 'delete',
+						'hash' => $hash,
+						'returnto' => SpecialPage::getTitleFor( 'Preferences', false, 'mw-prefsection-openstack' )->getFullText()
 					)
 				);
 				SpecialNova::pushRawResourceColumn( $keyRow, SpecialNova::createResourceList( $actions ) );
-				array_push( $keyRows, $keyRow );
+				$keyRows[] = $keyRow;
 			}
 			$out .= SpecialNova::createResourceTable( $headers, $keyRows );
 		}

@@ -93,9 +93,9 @@ $wgOpenStackManagerDefaultSecurityGroupRules = array();
 // Image ID to default to in the instance creation interface
 $wgOpenStackManagerInstanceDefaultImage = "";
 // List of image IDs to not display on instance creation interface
-$wgOpenStackManagerInstanceBannedImages = Array();
+$wgOpenStackManagerInstanceBannedImages = array();
 // List of instance type names to not display on instance creation interface
-$wgOpenStackManagerInstanceBannedInstanceTypes = Array();
+$wgOpenStackManagerInstanceBannedInstanceTypes = array();
 // Whether resource pages should be managed on instance/project creation/deletion
 $wgOpenStackManagerCreateResourcePages = true;
 // Whether a Server Admin Log page should be created with project pages
@@ -202,7 +202,7 @@ $wgHooks['EchoGetDefaultNotifiedUsers'][] = 'efEchoGetDefaultNotifiedUsers';
 /**
  * Handler for EchoGetDefaultNotifiedUsers hook.
  * @param $event EchoEvent to get implicitly subscribed users for
- * @param &$users Array to append implicitly subscribed users to.
+ * @param &$users array to append implicitly subscribed users to.
  * @return bool true in all cases
  */
 function efEchoGetDefaultNotifiedUsers ( $event, &$users ) {

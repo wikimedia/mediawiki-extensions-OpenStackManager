@@ -183,7 +183,7 @@ abstract class SpecialNova extends SpecialPage {
 		} else {
 			$attribs['class'] = 'Nova_cell';
 		}
-		array_push( $row, Html::element( 'td', $attribs, $value ) );
+		$row[] = Html::element( 'td', $attribs, $value );
 	}
 
 	public static function pushRawResourceColumn( &$row, $value, $attribs=array() ) {
@@ -192,7 +192,7 @@ abstract class SpecialNova extends SpecialPage {
 		} else {
 			$attribs['class'] = 'Nova_cell';
 		}
-		array_push( $row, Html::rawElement( 'td', $attribs, $value ) );
+		$row[] = Html::rawElement( 'td', $attribs, $value );
 	}
 
 	/**
@@ -230,11 +230,11 @@ abstract class SpecialNova extends SpecialPage {
 	 * @return string
 	 */
 	function createProjectSection( $projectName, $actionsByRole, $data ) {
-		$actions = Array();
+		$actions = array();
 		foreach ( $actionsByRole as $role => $roleActions ) {
 			foreach ( $roleActions as $action ) {
 				if ( $this->userLDAP->inRole( $role, $projectName ) ) {
-					array_push( $actions, $action );
+					$actions[] = $action;
 				}
 			}
 		}
@@ -269,11 +269,11 @@ abstract class SpecialNova extends SpecialPage {
 	 * @return string
 	 */
 	function createRegionSection( $region, $projectName, $actionsByRole, $data ) {
-		$actions = Array();
+		$actions = array();
 		foreach ( $actionsByRole as $role => $roleActions ) {
 			foreach ( $roleActions as $action ) {
 				if ( $this->userLDAP->inRole( $role, $projectName ) ) {
-					array_push( $actions, $action );
+					$actions[] = $action;
 				}
 			}
 		}

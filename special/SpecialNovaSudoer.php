@@ -361,7 +361,7 @@ class SpecialNovaSudoer extends SpecialNova {
 			if ( !in_array( $projectName, $projectfilter ) ) {
 				continue;
 			}
-			$actions = Array( 'projectadmin' => Array() );
+			$actions = array( 'projectadmin' => array() );
 			$actions['projectadmin'][] = $this->createActionLink( 'openstackmanager-createsudoer', array( 'action' => 'create', 'project' => $projectName ) );
 			$out .= $this->createProjectSection( $projectName, $actions, $this->getSudoers( $project ) );
 		}
@@ -387,12 +387,12 @@ class SpecialNovaSudoer extends SpecialNova {
 				}
 			}
 		}
-		$headers = Array( 'openstackmanager-sudoername', 'openstackmanager-sudoerusers', 'openstackmanager-sudoerhosts',
+		$headers = array( 'openstackmanager-sudoername', 'openstackmanager-sudoerusers', 'openstackmanager-sudoerhosts',
 				'openstackmanager-sudoercommands', 'openstackmanager-sudoeroptions', 'openstackmanager-actions' );
 		$sudoers = OpenStackNovaSudoer::getAllSudoersByProject( $projectName );
-		$sudoerRows = Array();
+		$sudoerRows = array();
 		foreach ( $sudoers as $sudoer ) {
-			$sudoerRow = Array();
+			$sudoerRow = array();
 			$sudoerName = $sudoer->getSudoerName();
 			$this->pushResourceColumn( $sudoerRow, $sudoerName );
 			$userNames = array();
@@ -401,7 +401,7 @@ class SpecialNovaSudoer extends SpecialNova {
 			foreach ( $projectmembers as $member ) {
 				$user = new OpenStackNovaUser( $member );
 				if ( in_array( $user->getUid(), $sudoUsers ) ) {
-					array_push( $userNames, $member );
+					$userNames[] = $member;
 				}
 			}
 			// Display the cryptic %project-<projectname> as 'openstackmanager-allmembers'
@@ -417,7 +417,7 @@ class SpecialNovaSudoer extends SpecialNova {
 			$sudoHostNames = array();
 			foreach ( $sudoHosts as $sudoHost ) {
 				if ( array_key_exists( $sudoHost, $instanceNames ) ) {
-					array_push( $sudoHostNames, $instanceNames[$sudoHost] );
+					$sudoHostNames[] = $instanceNames[$sudoHost];
 				}
 			}
 			if ( in_array( 'ALL', $sudoHosts ) ) {
@@ -427,11 +427,15 @@ class SpecialNovaSudoer extends SpecialNova {
 			$this->pushRawResourceColumn( $sudoerRow, $this->createResourceList( $sudoHostNames ) );
 			$this->pushRawResourceColumn( $sudoerRow, $this->createResourceList( $sudoer->getSudoerCommands() ) );
 			$this->pushRawResourceColumn( $sudoerRow, $this->createResourceList( $sudoer->getSudoerOptions() ) );
-			$actions = Array();
-			array_push( $actions, $this->createActionLink( 'openstackmanager-modify', array( 'action' => 'modify', 'sudoername' => $sudoerName, 'project' => $projectName ) ) );
-			array_push( $actions, $this->createActionLink( 'openstackmanager-delete', array( 'action' => 'delete', 'sudoername' => $sudoerName, 'project' => $projectName ) ) );
+			$actions = array();
+			$actions[] = $this->createActionLink( 'openstackmanager-modify',
+				array( 'action' => 'modify', 'sudoername' => $sudoerName, 'project' => $projectName )
+			);
+			$actions[] = $this->createActionLink( 'openstackmanager-delete',
+				array( 'action' => 'delete', 'sudoername' => $sudoerName, 'project' => $projectName )
+			);
 			$this->pushRawResourceColumn( $sudoerRow, $this->createResourceList( $actions ) );
-			array_push( $sudoerRows, $sudoerRow );
+			$sudoerRows[] = $sudoerRow;
 		}
 		if ( $sudoerRows ) {
 			$out = $this->createResourceTable( $headers, $sudoerRows );

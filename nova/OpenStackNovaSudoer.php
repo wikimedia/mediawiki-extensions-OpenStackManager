@@ -212,7 +212,7 @@ class OpenStackNovaSudoer {
 				array_shift( $entries );
 				foreach ( $entries as $entry ) {
 					$sudoer = new OpenStackNovaSudoer( $entry['cn'][0], $project );
-					array_push( $sudoers, $sudoer );
+					$sudoers[] = $sudoer;
 				}
 			}
 		}

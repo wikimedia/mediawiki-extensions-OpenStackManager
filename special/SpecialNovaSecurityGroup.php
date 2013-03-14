@@ -187,12 +187,12 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 			if ( !in_array( $projectName, $projectfilter ) ) {
 				continue;
 			}
-			$projectactions = Array( 'projectadmin' => Array() );
+			$projectactions = array( 'projectadmin' => array() );
 			$regions = '';
 			$this->userNova->setProject( $projectName );
 			foreach ( $this->userNova->getRegions( 'compute' ) as $region ) {
 				$this->userNova->setRegion( $region );
-				$regionactions = Array( 'projectadmin' => Array( $this->createActionLink( 'openstackmanager-createnewsecuritygroup', array( 'action' => 'create', 'project' => $projectName, 'region' => $region ) ) ) );
+				$regionactions = array( 'projectadmin' => array( $this->createActionLink( 'openstackmanager-createnewsecuritygroup', array( 'action' => 'create', 'project' => $projectName, 'region' => $region ) ) ) );
 				$securityGroups = $this->getSecurityGroups( $projectName, $region );
 				$regions .= $this->createRegionSection( $region, $projectName, $regionactions, $securityGroups );
 			}
@@ -204,15 +204,15 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	}
 
 	function getSecurityGroups( $projectName, $region ) {
-		$groupHeaders = Array( 'openstackmanager-securitygroupname', 'openstackmanager-securitygroupdescription',
+		$groupHeaders = array( 'openstackmanager-securitygroupname', 'openstackmanager-securitygroupdescription',
 			'openstackmanager-securitygrouprule', 'openstackmanager-actions' );
-		$ruleHeaders = Array( 'openstackmanager-securitygrouprule-fromport', 'openstackmanager-securitygrouprule-toport',
+		$ruleHeaders = array( 'openstackmanager-securitygrouprule-fromport', 'openstackmanager-securitygrouprule-toport',
 			'openstackmanager-securitygrouprule-protocol', 'openstackmanager-securitygrouprule-ipranges',
 			'openstackmanager-securitygrouprule-groups', 'openstackmanager-actions' );
 		$securityGroups = $this->userNova->getSecurityGroups();
-		$groupRows = Array();
+		$groupRows = array();
 		foreach ( $securityGroups as $group ) {
-			$groupRow = Array();
+			$groupRow = array();
 			$project = $group->getProject();
 			$groupname = $group->getGroupName();
 			$groupid = $group->getGroupId();
@@ -221,9 +221,9 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 			# Add rules
 			$rules = $group->getRules();
 			if ( $rules ) {
-				$ruleRows = Array();
+				$ruleRows = array();
 				foreach ( $rules as $rule ) {
-					$ruleRow = Array();
+					$ruleRow = array();
 					$fromport = $rule->getFromPort();
 					$toport = $rule->getToPort();
 					$ipprotocol = $rule->getIPProtocol();
@@ -255,19 +255,23 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 						$actions = $this->createResourceList( array( $link ) );
 					}
 					$this->pushRawResourceColumn( $ruleRow, $actions );
-					array_push( $ruleRows, $ruleRow );
+					$ruleRows[] = $ruleRow;
 				}
 				$this->pushRawResourceColumn( $groupRow, $this->createResourceTable( $ruleHeaders, $ruleRows ) );
 			} else {
 				$this->pushRawResourceColumn( $groupRow, '' );
 			}
-			$actions = Array();
+			$actions = array();
 			if ( $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-				array_push( $actions, $this->createActionLink( 'openstackmanager-delete', array( 'action' => 'delete', 'project' => $project, 'region' => $region, 'groupid' => $groupid ) ) );
-				array_push( $actions, $this->createActionLink( 'openstackmanager-addrule-action', array( 'action' => 'addrule', 'project' => $project, 'region' => $region, 'groupid' => $groupid ) ) );
+				$actions[] = $this->createActionLink( 'openstackmanager-delete',
+					array( 'action' => 'delete', 'project' => $project, 'region' => $region, 'groupid' => $groupid )
+				);
+				$actions[] = $this->createActionLink( 'openstackmanager-addrule-action',
+					array( 'action' => 'addrule', 'project' => $project, 'region' => $region, 'groupid' => $groupid )
+				);
 			}
 			$this->pushRawResourceColumn( $groupRow, $this->createResourceList( $actions ) );
-			array_push( $groupRows, $groupRow );
+			$groupRows[] = $groupRow;
 		}
 		if ( $groupRows ) {
 			return $this->createResourceTable( $groupHeaders, $groupRows );

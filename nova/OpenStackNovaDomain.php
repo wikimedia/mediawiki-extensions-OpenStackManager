@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class for Nova Domain 
+ * Class for Nova Domain
  *
  * @file
  * @ingroup Extensions
@@ -133,7 +133,7 @@ class OpenStackNovaDomain {
 				array_shift( $entries );
 				foreach ( $entries as $entry ) {
 					$domain = new OpenStackNovaDomain( $entry['dc'][0] );
-					array_push( $domains, $domain );
+					$domains[] = $domain;
 				}
 			}
 		}
