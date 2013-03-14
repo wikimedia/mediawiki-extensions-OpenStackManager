@@ -691,10 +691,6 @@ class OpenStackNovaUser {
 			'name' => 'key',
 		);
 
-		// TODO: Remove evil code
-		global $wgOut;
-		$wgOut->addModuleStyles( 'ext.openstack' );
-
 		$out = '';
 		if ( $wgOpenStackManagerNovaKeypairStorage === 'nova' ) {
 			# TODO: add project filter

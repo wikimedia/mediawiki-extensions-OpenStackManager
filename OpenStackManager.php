@@ -277,3 +277,17 @@ function efOpenStackSchemaUpdates( $updater ) {
 	}
 	return true;
 }
+
+$wgHooks['BeforePageDisplay'][] = 'efOpenStackBeforePageDisplay';
+
+/**
+ * @param $out OutputPage
+ * @param $skin Skin
+ * @return bool
+ */
+function efOpenStackBeforePageDisplay( $out, $skin ) {
+	if ( $out->getTitle()->isSpecial( 'Preferences' ) ) {
+		$out->addModuleStyles( 'ext.openstack' );
+	}
+	return true;
+}
