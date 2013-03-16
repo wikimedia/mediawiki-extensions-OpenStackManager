@@ -7128,9 +7128,11 @@ $messages['ko'] = array(
 	'openstackmanager-detachedvolume' => '성공적으로 볼륨을 분리했습니다.',
 	'openstackmanager-detachvolumefailed' => '볼륨을 분리하는 데 실패했습니다.',
 	'openstackmanager-novapublickey' => '공개 SSH 키',
-	'openstackmanager-deletekey' => '키 삭제',
+	'openstackmanager-prefs-novapublickey' => '공개 SSH 키:',
+	'openstackmanager-deletekey' => '공개 SSH 키 삭제',
 	'openstackmanager-deletekeyconfirm' => '정말 위의 키를 삭제하겠습니까?',
-	'openstackmanager-keylist' => '키 목록',
+	'openstackmanager-keylist' => '공개 SSH 키 목록',
+	'openstackmanager-addkey' => '공개 SSH 키 추가',
 	'openstackmanager-name' => '이름',
 	'openstackmanager-fingerprint' => '지문',
 	'openstackmanager-keys' => '키',
@@ -7140,8 +7142,6 @@ $messages['ko'] = array(
 	'openstackmanager-keypairimportedfingerprint' => '$2 지문으로 된 $1 키 쌍을 가져왔습니다.',
 	'openstackmanager-keypairformatwrong' => '제공한 SSH 키는 잘못되었거나 알 수 없는 형식입니다.',
 	'openstackmanager-keypairformatconverted' => 'SSH 키의 형식을 자동으로 변환했습니다.',
-	'openstackmanager-backkeylist' => '키 목록으로 돌아가기',
-	'openstackmanager-addadditionalkey' => '다른 키를 추가합니다.',
 	'openstackmanager-deletedkey' => '성공적으로 키를 삭제했습니다.',
 	'openstackmanager-deletedkeyfailed' => '키를 삭제하는 데 실패했습니다.',
 	'openstackmanager-addmember' => '구성원 추가',
@@ -7171,7 +7171,7 @@ $messages['ko'] = array(
 	'openstackmanager-addedto' => '$1 구성원을 $2에 추가했습니다.',
 	'openstackmanager-failedtoadd' => '$1 구성원을 $2에 추가하는 데 실패했습니다.',
 	'openstackmanager-failedtoaddneedsloginright' => '$1 구성원을 $2에 추가하는 데 실패했습니다.
-"<code>loginviashell</code>" 권한이 필요합니다.',
+"<code>loginviashell</code>" 권한을 가진 $1 사용자가 필요합니다.',
 	'openstackmanager-removedfrom' => '성공적으로 $1 구성원을 $2에서 제거했습니다.',
 	'openstackmanager-failedtoremove' => '$1 구성원을 $2에서 제거하는 데 실패했습니다.',
 	'openstackmanager-novaproject-project' => '프로젝트 추가',
@@ -7190,6 +7190,7 @@ $messages['ko'] = array(
 	'openstackmanager-novarole-role' => 'Nova 역할',
 	'openstackmanager-novarole-info' => 'Nova 역할 정보',
 	'openstackmanager-shellaccountname' => '인스턴스 셸 계정 이름',
+	'openstackmanager-shellaccountname-pref' => '인스턴스 셸 계정 이름:',
 	'openstackmanager-shellaccountnamehelp' => '셸 계정 이름은 필수입니다.
 a-z로 시작해야 하고 a-z, 0-9와 - 문자만 포함할 수 있습니다.',
 	'openstackmanager-addresslist' => '공개 IP 주소 목록',
@@ -7347,6 +7348,8 @@ a-z로 시작해야 하고 a-z, 0-9와 - 문자만 포함할 수 있습니다.',
 	'echo-pref-email-osm-instance-deleted' => '자신이 관리자의 프로젝트에서 인스턴스를 삭제합니다.',
 	'echo-pref-email-osm-instance-build-completed' => '자신이 관리자의 프로젝트에서 인스턴스를 구축합니다.',
 	'echo-pref-email-osm-instance-reboot-completed' => '인스턴스를 다시 시작합니다.',
+	'prefs-openstack' => 'OpenStack',
+	'prefs-openstack-keys' => '키 목록',
 );
 
 /** Colognian (Ripoarisch)
