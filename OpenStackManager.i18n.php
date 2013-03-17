@@ -3693,6 +3693,7 @@ Resurssin nimen ensimmäisen merkin on oltava a–z ja sallitut merkit ovat a–
  * @author Dereckson
  * @author Gomoko
  * @author Hashar
+ * @author Hello71
  * @author IAlex
  * @author Tititou36
  * @author Verdy p
@@ -3868,7 +3869,8 @@ $messages['fr'] = array(
 	'openstackmanager-deleteprojectfailed' => 'Échec de la suppression de projet.',
 	'openstackmanager-addedto' => '$1 ajouté à $2 avec succès.',
 	'openstackmanager-failedtoadd' => "Impossible d'ajouter $1 à $2.",
-	'openstackmanager-failedtoaddneedsloginright' => 'Impossible d\'ajouter $1 à $2. Cela nécessite le droit "<code>loginviashell</code>".', # Fuzzy
+	'openstackmanager-failedtoaddneedsloginright' => 'Impossible d\'ajouter $1 à $2.
+Cela nécessite $1 d\'avoir le droit "<code>loginviashell</code>".',
 	'openstackmanager-removedfrom' => '$1 supprimé de $2 avec succès.',
 	'openstackmanager-failedtoremove' => 'Impossible de supprimer $1 de $2.',
 	'openstackmanager-novaproject-project' => 'Ajouter un projet',
