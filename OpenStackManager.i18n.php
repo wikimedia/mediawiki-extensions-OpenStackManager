@@ -3831,9 +3831,10 @@ $messages['fr'] = array(
 	'openstackmanager-detachvolumefailed' => 'Échec lors du détachement du volume.',
 	'openstackmanager-novapublickey' => 'Clé publique SSH',
 	'openstackmanager-prefs-novapublickey' => 'Clés SSH publiques:',
-	'openstackmanager-deletekey' => 'Supprimer la clé', # Fuzzy
+	'openstackmanager-deletekey' => 'Supprimer la clé publique SSH',
 	'openstackmanager-deletekeyconfirm' => 'Êtes-vous sûr de vouloir supprimer la clé ci-dessus ?',
-	'openstackmanager-keylist' => 'Liste des clés', # Fuzzy
+	'openstackmanager-keylist' => 'Liste des clés publiques SSH',
+	'openstackmanager-addkey' => 'Ajouter une clé publique SSH',
 	'openstackmanager-name' => 'Nom',
 	'openstackmanager-fingerprint' => 'Empreinte',
 	'openstackmanager-keys' => 'Clés',
@@ -3889,6 +3890,7 @@ Cela nécessite $1 d\'avoir le droit "<code>loginviashell</code>".',
 	'openstackmanager-novarole-role' => 'Rôle Nova',
 	'openstackmanager-novarole-info' => 'Informations sur le rôle Nova',
 	'openstackmanager-shellaccountname' => "Nom du compte pour le ''shell'' de l’instance",
+	'openstackmanager-shellaccountname-pref' => 'Nom de compte de l’instance de shell:',
 	'openstackmanager-shellaccountnamehelp' => "Un nom de compte ''shell'' est obligatoire.
 Il doit commencer par une lettre (a–z) et ne peut contenir que des lettres (a–z), chiffres (0–9) et tirets (-).",
 	'openstackmanager-addresslist' => 'Liste des adresses IP publiques',
@@ -4044,6 +4046,8 @@ Il doit commencer par une lettre (a–z) et ne peut contenir que des lettres (a�
 	'echo-pref-email-osm-instance-deleted' => 'Supprime une instance d’un projet dont je suis administrateur.',
 	'echo-pref-email-osm-instance-build-completed' => 'Construit une instance d’un projet dont je suis administrateur.',
 	'echo-pref-email-osm-instance-reboot-completed' => 'Redémarre une instance.',
+	'prefs-openstack' => 'OpenStack',
+	'prefs-openstack-keys' => 'Liste de clés',
 );
 
 /** Franco-Provençal (arpetan)
@@ -7827,7 +7831,8 @@ $messages['mk'] = array(
 	'openstackmanager-deleteprojectfailed' => 'Не успеав да го избришам проектот.',
 	'openstackmanager-addedto' => 'Успешно го додадов $1 во $2.',
 	'openstackmanager-failedtoadd' => 'Не успеав да го додадам $1 во $2.',
-	'openstackmanager-failedtoaddneedsloginright' => 'Не успеав да го додадам членот $1 на $2. За тоа е потребно правото за најавување преку обвивка.', # Fuzzy
+	'openstackmanager-failedtoaddneedsloginright' => 'Не успеав да го додадам членот $1 на $2. 
+За ова, на корисникот $1 му е потребно правото „<code>loginviashell</code>“ (најава преку обвивка).',
 	'openstackmanager-removedfrom' => '$1 е успешно отстрането од $2.',
 	'openstackmanager-failedtoremove' => 'Не успеав да го отстранам $1 од $2.',
 	'openstackmanager-novaproject-project' => 'Додај проект',
