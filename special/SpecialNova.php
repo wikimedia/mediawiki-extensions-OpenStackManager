@@ -36,6 +36,15 @@ abstract class SpecialNova extends SpecialPage {
 	}
 
 	/**
+	 * @return void
+	 */
+	function notInServiceGroup() {
+		$this->setHeaders();
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-notinservicegroup' ) );
+		$this->getOutput()->addWikiMsg( 'openstackmanager-needservicegroup' );
+	}
+
+	/**
 	 * @param  $role
 	 * @return void
 	 */

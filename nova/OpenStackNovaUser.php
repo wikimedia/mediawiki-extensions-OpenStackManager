@@ -354,12 +354,18 @@ class OpenStackNovaUser {
 	 *
 	 * TODO: write a better and more efficient version of this.
 	 *
+	 * TODO: Make use of $wgOpenStackManagerIdRanges for all cases.
+	 * TODO: Make $wgOpenStackManagerIdRanges use a set of ranges.
+	 *
 	 * @static
 	 * @param  $auth
 	 * @param  $attr
+	 * @param  $projectDN (optional)
 	 * @return mixed|string
 	 */
-	static function getNextIdNumber( $auth, $attr ) {
+	static function getNextIdNumber( $auth, $attr, $projectDN = "" ) {
+		global $wgOpenStackManagerIdRanges;
+
 		$highest = '';
 		if ( $attr === 'gidnumber' ) {
 			$filter = "(objectclass=posixgroup)";
@@ -368,13 +374,20 @@ class OpenStackNovaUser {
 			$filter = "(objectclass=posixaccount)";
 			$base = USERDN;
 		}
-		$result = LdapAuthenticationPlugin::ldap_search( $auth->ldapconn, $auth->getBaseDN( $base ), $filter );
+		if ( $projectDN ) {
+			# if a project is specified, we're just looking for
+			# the next ID local to this project.
+			$basedn = $projectDN;
+			$highest = $wgOpenStackManagerIdRanges['service']['gid']['min'];
+		} else {
+			$basedn = $auth->getBaseDN( $base );
+			$highest = '500';
+		}
+		$result = LdapAuthenticationPlugin::ldap_search( $auth->ldapconn, $basedn, $filter );
 		if ( $result ) {
 			$entries = LdapAuthenticationPlugin::ldap_get_entries( $auth->ldapconn, $result );
 			if ( $entries ) {
-				if ( $entries['count'] == "0" ) {
-					$highest = '500';
-				} else {
+				if ( $entries['count'] != "0" ) {
 					array_shift( $entries );
 					$uids = array();
 					foreach ( $entries as $entry ) {
@@ -394,6 +407,11 @@ class OpenStackNovaUser {
 		} else {
 			$auth->printDebug( "Failed to get a result searching for next $attr", NONSENSITIVE );
 		}
+
+		if ( $projectDN && $highest > $wgOpenStackManagerIdRanges['service']['gid']['max']) {
+			$auth->printDebug( "Ran out of service group gids!", NONSENSITIVE );
+		}
+
 		$auth->printDebug( "id returned: $highest", NONSENSITIVE );
 		return $highest;
 	}

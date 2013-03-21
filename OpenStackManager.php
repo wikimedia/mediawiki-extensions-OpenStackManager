@@ -57,6 +57,20 @@ $wgOpenStackManagerLDAPUserPassword = '';
 $wgOpenStackManagerLDAPProjectBaseDN = '';
 // DN location of hosts/instances
 $wgOpenStackManagerLDAPInstanceBaseDN = '';
+// Service groups will be automatically prefaced with this;
+// e.g. if the user asks for 'fancytool' the group will be called
+// 'local-fancytool'.
+$wgOpenStackManagerServiceGroupPrefix = 'local-';
+// Default pattern for service group homedir creation.
+// %u is username, %p is $wgOpenStackManagerServiceGroupPrefix.
+$wgOpenStackManagerServiceGroupHomedirPattern = '/home/%p%u/';
+
+$wgOpenStackManagerIdRanges = array(
+	'service' => array(
+		'gid' => array( 'min' => 40000, 'max' => 49999 ),
+	),
+);
+
 // gid used when creating users
 //TODO: change this ridiculous option to a configurable naming attribute
 // Whether to use uid, rather than cn as a naming attribute for user objects
@@ -133,6 +147,7 @@ $wgAutoloadClasses['OpenStackNovaAddress'] = $dir . 'nova/OpenStackNovaAddress.p
 $wgAutoloadClasses['OpenStackNovaSecurityGroup'] = $dir . 'nova/OpenStackNovaSecurityGroup.php';
 $wgAutoloadClasses['OpenStackNovaSecurityGroupRule'] = $dir . 'nova/OpenStackNovaSecurityGroupRule.php';
 $wgAutoloadClasses['OpenStackNovaRole'] = $dir . 'nova/OpenStackNovaRole.php';
+$wgAutoloadClasses['OpenStackNovaServiceGroup'] = $dir . 'nova/OpenStackNovaServiceGroup.php';
 $wgAutoloadClasses['OpenStackNovaVolume'] = $dir . 'nova/OpenStackNovaVolume.php';
 $wgAutoloadClasses['OpenStackNovaSudoer'] = $dir . 'nova/OpenStackNovaSudoer.php';
 $wgAutoloadClasses['OpenStackNovaArticle'] = $dir . 'nova/OpenStackNovaArticle.php';
@@ -148,6 +163,7 @@ $wgAutoloadClasses['SpecialNovaDomain'] = $dir . 'special/SpecialNovaDomain.php'
 $wgAutoloadClasses['SpecialNovaAddress'] = $dir . 'special/SpecialNovaAddress.php';
 $wgAutoloadClasses['SpecialNovaSecurityGroup'] = $dir . 'special/SpecialNovaSecurityGroup.php';
 $wgAutoloadClasses['SpecialNovaRole'] = $dir . 'special/SpecialNovaRole.php';
+$wgAutoloadClasses['SpecialNovaServiceGroup'] = $dir . 'special/SpecialNovaServiceGroup.php';
 $wgAutoloadClasses['SpecialNovaVolume'] = $dir . 'special/SpecialNovaVolume.php';
 $wgAutoloadClasses['SpecialNovaSudoer'] = $dir . 'special/SpecialNovaSudoer.php';
 $wgAutoloadClasses['SpecialNovaPuppetGroup'] = $dir . 'special/SpecialNovaPuppetGroup.php';
@@ -167,6 +183,8 @@ $wgSpecialPages['NovaAddress'] = 'SpecialNovaAddress';
 $wgSpecialPageGroups['NovaAddress'] = 'nova';
 $wgSpecialPages['NovaSecurityGroup'] = 'SpecialNovaSecurityGroup';
 $wgSpecialPageGroups['NovaSecurityGroup'] = 'nova';
+$wgSpecialPages['NovaServiceGroup'] = 'SpecialNovaServiceGroup';
+$wgSpecialPageGroups['NovaServiceGroup'] = 'nova';
 $wgSpecialPages['NovaRole'] = 'SpecialNovaRole';
 $wgSpecialPageGroups['NovaRole'] = 'nova';
 $wgSpecialPages['NovaVolume'] = 'SpecialNovaVolume';

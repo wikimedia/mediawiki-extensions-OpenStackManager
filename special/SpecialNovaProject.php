@@ -43,6 +43,10 @@ class SpecialNovaProject extends SpecialNova {
 			$this->deleteMember();
 		} elseif ( $action === "configureproject" ) {
 			$this->configureProject();
+		} elseif ( $action === "addservicegroup" ) {
+			$this->addServiceGroup();
+		} elseif ( $action === "removeservicegroup" ) {
+			$this->removeServiceGroup();
 		} else {
 			$this->listProjects();
 		}
@@ -135,6 +139,89 @@ class SpecialNovaProject extends SpecialNova {
 	/**
 	 * @return bool
 	 */
+	function addServiceGroup() {
+		$this->setHeaders();
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-addservicegroup' ) );
+
+		$project = $this->getRequest()->getText( 'projectname' );
+		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+			$this->displayRestrictionError();
+			return false;
+		}
+
+		$projectInfo = array();
+		$projectInfo['servicegroupname'] = array(
+			'type' => 'text',
+			'label-message' => 'openstackmanager-servicegroupname',
+			'validation-callback' => array( $this, 'validateText' ),
+			'default' => '',
+			'name' => 'servicegroupname',
+		);
+		$projectInfo['projectname'] = array(
+			'type' => 'hidden',
+			'default' => $project,
+			'name' => 'projectname',
+		);
+		$projectInfo['action'] = array(
+			'type' => 'hidden',
+			'default' => 'addservicegroup',
+			'name' => 'action',
+		);
+
+		$projectForm = new HTMLForm( $projectInfo, 'openstackmanager-addservicegroup' );
+		$projectForm->setTitle( SpecialPage::getTitleFor( 'NovaProject' ) );
+		$projectForm->setSubmitID( 'novaproject-form-createservicegroupsubmit' );
+		$projectForm->setSubmitCallback( array( $this, 'tryCreateServiceGroupSubmit' ) );
+		$projectForm->show();
+
+		return true;
+	}
+
+	/**
+	 * @return bool
+	 */
+	function removeServiceGroup() {
+		$this->setHeaders();
+		$project = $this->getRequest()->getText( 'projectname' );
+
+		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+			$this->displayRestrictionError();
+			return false;
+		}
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-removeservicegroup' ) );
+
+		$groupName = $this->getRequest()->getText( 'groupname' );
+		if ( ! $this->getRequest()->wasPosted() ) {
+			$this->getOutput()->addWikiMsg( 'openstackmanager-removeservicegroupconfirm', $groupName );
+		}
+		$projectInfo = array();
+		$projectInfo['projectname'] = array(
+			'type' => 'hidden',
+			'default' => $project,
+			'name' => 'projectname',
+		);
+		$projectInfo['groupname'] = array(
+			'type' => 'hidden',
+			'default' => $groupName,
+			'name' => 'groupname',
+		);
+		$projectInfo['action'] = array(
+			'type' => 'hidden',
+			'default' => 'removeservicegroup',
+			'name' => 'action',
+		);
+		$projectForm = new HTMLForm( $projectInfo, 'openstackmanager-novaproject' );
+		$projectForm->setTitle( SpecialPage::getTitleFor( 'NovaProject' ) );
+		$projectForm->setSubmitID( 'novaproject-form-removeservicegroupsubmit' );
+		$projectForm->setSubmitCallback( array( $this, 'tryRemoveServiceGroupSubmit' ) );
+		$projectForm->show();
+
+		return true;
+	}
+
+	/**
+	 * @return bool
+	 */
 	function deleteProject() {
 		$this->setHeaders();
 		if ( !$this->userCanExecute( $this->getUser() ) ) {
@@ -205,7 +292,7 @@ class SpecialNovaProject extends SpecialNova {
 
 	function getProject( $project ) {
 		$project->fetchProjectInfo();
-		$headers = array( 'openstackmanager-members', 'openstackmanager-roles', 'openstackmanager-actions' );
+		$headers = array( 'openstackmanager-members', 'openstackmanager-roles', 'openstackmanager-servicegroups', 'openstackmanager-actions' );
 		$projectRows = array();
 		$projectRow = array();
 		$this->pushRawResourceColumn( $projectRow, $this->createResourceList( $project->getMembers() ) );
@@ -229,11 +316,35 @@ class SpecialNovaProject extends SpecialNova {
 			$this->pushRawResourceColumn( $roleRow,  $this->createResourceList( $actions ) );
 			$roleRows[] = $roleRow;
 		}
-		$this->pushRawResourceColumn( $projectRow, $this->createResourceTable( $headers, $roleRows ) );
+		$roleheaders = array( 'openstackmanager-rolename', 'openstackmanager-members', 'openstackmanager-actions' );
+		$this->pushRawResourceColumn( $projectRow, $this->createResourceTable( $roleheaders, $roleRows ) );
+		$servicegroupRows = array();
+		foreach ( $project->getServiceGroups() as $group) {
+			$groupName = $group->groupName;
+			$groupRow = array();
+			$this->pushResourceColumn( $groupRow, $groupName );
+			$this->pushRawResourceColumn( $groupRow, $this->createResourceList( $group->getMembers() ) );
+			$actions = array();
+			$specialGroupTitle = Title::newFromText( 'Special:NovaServiceGroup' );
+			$actions[] = $this->createActionLink( 'openstackmanager-addservicegroupmember',
+				array( 'action' => 'addmember', 'projectname' => $projectName, 'servicegroupname' => $groupName, 'returnto' => 'Special:NovaProject' ),
+				$specialGroupTitle
+			);
+			$actions[] = $this->createActionLink( 'openstackmanager-removeservicegroupmember',
+				array( 'action' => 'deletemember', 'projectname' => $projectName, 'servicegroupname' => $groupName, 'returnto' => 'Special:NovaProject' ),
+				$specialGroupTitle
+			);
+			$actions[] = $this->createActionLink( 'openstackmanager-removeservicegroup', array( 'action' => 'removeservicegroup', 'projectname' => $projectName, 'groupname' => $groupName ) );
+			$this->pushRawResourceColumn( $groupRow,  $this->createResourceList( $actions ) );
+			$servicegroupRows[] = $groupRow;
+		}
+		$servicegroupheaders = array( 'openstackmanager-servicegroupname', 'openstackmanager-members', 'openstackmanager-actions' );
+		$this->pushRawResourceColumn( $projectRow, $this->createResourceTable( $servicegroupheaders, $servicegroupRows ) );
 		$actions = array();
 		$actions[] = $this->createActionLink( 'openstackmanager-deleteproject', array( 'action' => 'delete', 'projectname' => $projectName ) );
 		$actions[] = $this->createActionLink( 'openstackmanager-addmember', array( 'action' => 'addmember', 'projectname' => $projectName ) );
 		$actions[] = $this->createActionLink( 'openstackmanager-removemember', array( 'action' => 'deletemember', 'projectname' => $projectName ) );
+		$actions[] = $this->createActionLink( 'openstackmanager-addservicegroup', array( 'action' => 'addservicegroup', 'projectname' => $projectName ) );
 		$actions[] = $this->createActionLink( 'openstackmanager-configure', array( 'action' => 'configureproject', 'projectname' => $projectName ) );
 		$this->pushRawResourceColumn( $projectRow,  $this->createResourceList( $actions ) );
 		$projectRows[] = $projectRow;
@@ -273,7 +384,6 @@ class SpecialNovaProject extends SpecialNova {
 			'options' => $role_keys,
 			'name' => 'roles',
 		);
-
 		$projectInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'create',
@@ -291,6 +401,8 @@ class SpecialNovaProject extends SpecialNova {
 	 * @return bool
 	 */
 	function configureProject() {
+		global $wgOpenStackManagerServiceGroupPrefix;
+
 		$this->setHeaders();
 		$projectName = $this->getRequest()->getText( 'projectname' );
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-configureproject', $projectName ) );
@@ -303,6 +415,7 @@ class SpecialNovaProject extends SpecialNova {
 		$volumes = $project->getVolumeSettings();
 		$defaultHomedirs = in_array( "home", $volumes );
 		$defaultProject = in_array( "project", $volumes );
+		$homePattern = $project->getServiceGroupHomedirPattern();
 
 		$formInfo = array();
 		$formInfo['homedirs'] = array(
@@ -318,6 +431,19 @@ class SpecialNovaProject extends SpecialNova {
 			'default' => $defaultProject,
 			'section' => 'volume',
 			'name' => 'sharedstorage',
+		);
+		$formInfo['serviceuserhome'] = array(
+			'type' => 'text',
+			'label-message' => 'openstackmanager-configureproject-serviceuserhome',
+			'default' => $homePattern,
+			'section' => 'servicegroup',
+			'name' => 'serviceuserhome',
+		);
+		$msg = $this->msg( 'openstackmanager-configureproject-serviceuserinfo', $wgOpenStackManagerServiceGroupPrefix );
+		$formInfo['serviceuserhomeinfo'] = array(
+			'type' => 'info',
+			'section' => 'servicegroup',
+			'label' => $msg,
 		);
 		$formInfo['action'] = array(
 			'type' => 'hidden',
@@ -335,6 +461,58 @@ class SpecialNovaProject extends SpecialNova {
 		$projectForm->setSubmitID( 'novaproject-form-configuresubmit' );
 		$projectForm->setSubmitCallback( array( $this, 'tryConfigureProjectSubmit' ) );
 		$projectForm->show();
+
+		return true;
+	}
+
+	/**
+	 * @param  $formData
+	 * @param string $entryPoint
+	 * @return bool
+	 */
+	function tryCreateServiceGroupSubmit( $formData, $entryPoint = 'internal' ) {
+		$project = OpenStackNovaProject::getProjectByName( $formData['projectname'] );
+		$username = $this->userLDAP->getUsername();
+
+		$success = $project->addServiceGroup( $formData['servicegroupname'], $username );
+		if ( ! $success ) {
+			$this->getOutput()->addWikiMsg( 'openstackmanager-createservicegroupfailed' );
+			return false;
+		}
+
+		$this->getOutput()->addWikiMsg( 'openstackmanager-createdservicegroup' );
+
+		$out = '<br />';
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-backprojectlist' )->escaped()
+		);
+		$this->getOutput()->addHTML( $out );
+
+		return true;
+	}
+
+	/**
+	 * @param  $formData
+	 * @param string $entryPoint
+	 * @return bool
+	 */
+	function tryRemoveServiceGroupSubmit( $formData, $entryPoint = 'internal' ) {
+		$project = OpenStackNovaProject::getProjectByName( $formData['projectname'] );
+
+		$success = $project->deleteServiceGroup( $formData['groupname'] );
+		if ( $success ) {
+			$this->getOutput()->addWikiMsg( 'openstackmanager-removedservicegroup' );
+		} else {
+			$this->getOutput()->addWikiMsg( 'openstackmanager-removeservicegroupfailed' );
+		}
+
+		$out = '<br />';
+		$out .= Linker::link(
+			$this->getTitle(),
+			$this->msg( 'openstackmanager-backprojectlist' )->escaped()
+		);
+		$this->getOutput()->addHTML( $out );
 
 		return true;
 	}
@@ -540,7 +718,9 @@ class SpecialNovaProject extends SpecialNova {
 			$vols[] = "project";
 		}
 
-		if ( $project->setVolumeSettings( $vols ) ) {
+		$homedirPattern = $formData['serviceuserhome'];
+
+		if ( $project->setVolumeSettings( $vols ) && $project->setServiceGroupHomedirPattern( $homedirPattern) ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-configureproject-success' );
 		} else {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-configureproject-failed' );

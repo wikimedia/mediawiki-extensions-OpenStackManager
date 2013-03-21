@@ -54,9 +54,40 @@ class OpenStackNovaProject {
 		// fetch the associated posix project group (project-$projectname)
 		$this->fetchProjectGroup();
 
+		$this->fetchServiceGroups();
+
 		$this->loaded = true;
 	}
 
+	function hasServiceGroupOU() {
+		global $wgAuth;
+
+		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn,
+				$this->getServiceGroupOUDN(),
+				'(objectclass=organizationalunit)' );
+
+		return $result;
+	}
+
+	function fetchServiceGroups() {
+		global $wgAuth;
+		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn,
+				$this->getServiceGroupOUDN(),
+				'(objectclass=groupofnames)' );
+
+		if ( $result ) {
+			$this->serviceGroups = array();
+			$groupList = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
+			if ( isset( $groupList ) ) {
+				array_shift( $groupList );
+				foreach ( $groupList as $groupEntry ) {
+					$this->serviceGroups[] = new OpenStackNovaServiceGroup( $groupEntry['cn'][0], $this );
+				}
+			}
+		} else {
+			$this->serviceGroups = array();
+		}
+	}
 
 	/**
 	 * Initializes the corresponding project group object for this project.
@@ -120,6 +151,14 @@ class OpenStackNovaProject {
 	}
 
 	/**
+	 * Return all service groups for this project
+	 * @return array
+	 */
+	function getServiceGroups() {
+		return $this->serviceGroups;
+	}
+
+	/**
 	 * Return all users who are a member of this project
 	 *
 	 * @return array
@@ -156,6 +195,78 @@ class OpenStackNovaProject {
 	}
 
 	/**
+	 * Get service user homedir setting for project.
+	 *
+	 * This is stored as an 'info' setting in ldap:
+	 *
+	 * info: homedirpattern=<pattern>
+	 *
+	 * @return string
+	 */
+	function getServiceGroupHomedirPattern() {
+		global $wgOpenStackManagerServiceGroupHomedirPattern;
+		$pattern = $wgOpenStackManagerServiceGroupHomedirPattern;
+
+		if ( isset( $this->projectInfo[0]['info'] ) ) {
+			$infos = $this->projectInfo[0]['info'];
+
+			// first member is a count.
+			array_shift( $infos );
+			foreach ( $infos as $info ) {
+				$substrings=explode( '=', $info );
+				if ( ( count( $substrings ) == 2 ) and ( $substrings[0] == 'servicegrouphomedirpattern' ) ) {
+					$pattern = $substrings[1];
+					break;
+				}
+			}
+		}
+		return $pattern;
+	}
+
+	/**
+	 * Set service user homedir pattern
+	 *
+	 * @param  $pattern (string, e.g. "/data/project/%u")
+	 * @return bool
+	 *
+	 * @return array
+	 */
+	function setServiceGroupHomedirPattern( $pattern ) {
+		global $wgAuth;
+		global $wgOpenStackManagerServiceGroupHomedirPattern;
+
+		if ( !$pattern ) {
+			$pattern = $wgOpenStackManagerServiceGroupHomedirPattern;
+		}
+
+		$values = array();
+		$values['info'] = array();
+
+		# There might be other stuff in the 'info' list, so make sure we're keeping them in:
+		if ( isset( $this->projectInfo[0]['info'] ) ) {
+			$infos = $this->projectInfo[0]['info'];
+
+			// first member is a count.
+			array_shift( $infos );
+			foreach ( $infos as $info ) {
+				$substrings=explode( '=', $info );
+				if ( ! ( ( count( $substrings ) == 2 ) and ( $substrings[0] == 'servicegrouphomedirpattern' ) ) ) {
+					# This isn't a volume setting, so retain it verbatim.
+					$values['info'][] = $info;
+				}
+			}
+		}
+		$values['info'][] = "servicegrouphomedirpattern=" . $pattern;
+
+		$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->projectDN, $values );
+
+		$this->fetchProjectInfo( true );
+
+		return $success;
+	}
+
+
+	/**
 	 * Return a list of volume settings.
 	 *
 	 * Volume settings live in ldap in the form
@@ -189,6 +300,7 @@ class OpenStackNovaProject {
 	 * @param  $volumes (e.g. ['home', 'project'])
 	 * @return bool
 	 *
+	 * TODO:  Write some generalized code for adding/removing things from the 'info' section.
 	 *
 	 * @return array
 	 */
@@ -199,6 +311,22 @@ class OpenStackNovaProject {
 		$values['info'] = array();
 		foreach ( $volumes as $volume ) {
 			$values['info'][] = "use_volume=" . $volume;
+		}
+
+
+		# There might be other stuff in the 'info' list, so make sure we're keeping them in:
+		if ( isset( $this->projectInfo[0]['info'] ) ) {
+			$infos = $this->projectInfo[0]['info'];
+
+			// first member is a count.
+			array_shift( $infos );
+			foreach ( $infos as $info ) {
+				$substrings=explode( '=', $info );
+				if ( ! ( ( count( $substrings ) == 2 ) and ( $substrings[0] == 'use_volume' ) ) ) {
+					# This isn't a volume setting, so retain it verbatim.
+					$values['info'][] = $info;
+				}
+			}
 		}
 
 		$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->projectDN, $values );
@@ -232,6 +360,14 @@ class OpenStackNovaProject {
 
 	function getSudoersDN() {
 		return 'ou=sudoers,' . $this->projectDN;
+	}
+
+	function getServiceGroupOUDN() {
+		return 'ou=groups,' . $this->projectDN;
+	}
+
+	function getServiceUserOUDN() {
+		return 'ou=people,' . $this->projectDN;
 	}
 
 	/**
@@ -293,6 +429,46 @@ class OpenStackNovaProject {
 		} else {
 			return false;
 		}
+	}
+
+	/**
+	 * Add a service group to this project
+	 *
+	 * @param $groupname string
+	 * @return bool
+	 */
+	function addServiceGroup( $groupName, $initialUser ) {
+		global $wgAuth;
+
+		# This might be an old project that doesn't know about service groups.
+		if ( !$this->hasServiceGroupOU() ) {
+			OpenStackNovaProject::createServiceGroupOUs( $this->projectname );
+			$this->fetchServiceGroups();
+		}
+
+		$group = OpenStackNovaServiceGroup::createServiceGroup( $groupName, $this, $initialUser );
+		if ( ! $group ) {
+			$wgAuth->printDebug( "Failed to create service group $groupName", NONSENSITIVE );
+			return false;
+		}
+
+		$this->fetchServiceGroups();
+		return true;
+	}
+
+	/**
+	 * Remove a service group from the project
+	 *
+	 * @param  $groupName string
+	 * @return bool
+	 */
+	function deleteServiceGroup( $groupName ) {
+		global $wgAuth;
+
+		$success = OpenStackNovaServiceGroup::deleteServiceGroup( $groupName, $this );
+
+		$this->fetchServiceGroups();
+		return $success;
 	}
 
 	/**
@@ -505,13 +681,55 @@ class OpenStackNovaProject {
 						array( '!authenticate' ) ) ) {
 				$wgAuth->printDebug( "Successfully created default sudo policy for $projectname", NONSENSITIVE );
 			}
-
-			return true;
 		} else {
 			$wgAuth->printDebug( "Failed to add project $projectname", NONSENSITIVE );
 			return false;
 		}
+
+		OpenStackNovaProject::createServiceGroupOUs( $projectname );
+
+		return true;
 	}
+
+	/**
+	 * Add the top-level entry for Service Groups to this project.
+	 * This is in a separate function so we can call it for old entries
+	 * for reverse-compatibility
+	 *
+	 * @param  $projectname String
+	 * @return bool
+	 */
+	static function createServiceGroupOUs( $projectname ) {
+		global $wgAuth;
+		global $wgOpenStackManagerLDAPProjectBaseDN;
+
+		// Create ou for service groups
+		$groups = array();
+		$groups['objectclass'][] = 'organizationalunit';
+		$groups['ou'] = 'groups';
+		$groupsdn = 'ou=' . $groups['ou'] . ',' . 'cn=' . $projectname . ',' . $wgOpenStackManagerLDAPProjectBaseDN;
+
+		$success = LdapAuthenticationPlugin::ldap_add( $wgAuth->ldapconn, $groupsdn, $groups );
+		if ( !$success ) {
+			$wgAuth->printDebug( "Failed to create service group ou for  project $projectname", NONSENSITIVE );
+			return false;
+		}
+
+		// Create ou for service users
+		$users = array();
+		$users['objectclass'][] = 'organizationalunit';
+		$users['ou'] = 'people';
+		$usersdn = 'ou=' . $users['ou'] . ',' . 'cn=' . $projectname . ',' . $wgOpenStackManagerLDAPProjectBaseDN;
+
+		$success = LdapAuthenticationPlugin::ldap_add( $wgAuth->ldapconn, $usersdn, $users );
+		if ( !$success ) {
+			$wgAuth->printDebug( "Failed to create service user ou for project $projectname", NONSENSITIVE );
+			return false;
+		}
+
+		return true;
+	}
+
 
 	/**
 	 * Deletes a project based on project name. This function will also delete all roles
@@ -564,6 +782,29 @@ class OpenStackNovaProject {
 			$wgAuth->printDebug( "Successfully deleted sudoers OU " .  $project->getSudoersDN(), NONSENSITIVE );
 		} else {
 			$wgAuth->printDebug( "Failed to delete sudoers OU " .  $project->getSudoersDN(), NONSENSITIVE );
+		}
+		# And, we need to clean up service groups.
+		$servicegroups = $project->getServiceGroups();
+		foreach ( $servicegroups as $group ) {
+			$groupName = $group->groupName;
+			$success = OpenStackNovaServiceGroup::deleteServiceGroup( $groupName, $project );
+			if ( $success ){
+				$wgAuth->printDebug( "Successfully deleted service group " . $groupName, NONSENSITIVE );
+			} else {
+				$wgAuth->printDebug( "Failed to delete servie group " . $groupName, NONSENSITIVE );
+			}
+		}
+		$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $project->getServiceGroupOUDN() );
+		if ( $success ) {
+			$wgAuth->printDebug( "Successfully deleted service groups ou " .  $project->getServiceGroupOUDN(), NONSENSITIVE );
+		} else {
+			$wgAuth->printDebug( "Failed to delete service groups ou " .  $project->getServiceGroupOUDN(), NONSENSITIVE );
+		}
+		$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $project->getServiceUserOUDN() );
+		if ( $success ) {
+			$wgAuth->printDebug( "Successfully deleted service users ou " .  $project->getServiceUserOUDN(), NONSENSITIVE );
+		} else {
+			$wgAuth->printDebug( "Failed to delete service users ou " .  $project->getServiceUserOUDN(), NONSENSITIVE );
 		}
 		$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $dn );
 		if ( $success ) {
