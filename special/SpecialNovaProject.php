@@ -537,7 +537,7 @@ class SpecialNovaProject extends SpecialNova {
 		}
 
 		if ( $formData['storage'] ) {
-			$vol[] = "project";
+			$vols[] = "project";
 		}
 
 		if ( $project->setVolumeSettings( $vols ) ) {
