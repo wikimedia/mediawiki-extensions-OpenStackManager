@@ -432,8 +432,7 @@ This error is the result of the form validation about the following elements: ho
 	'action-listall' => '{{doc-action|listall}}',
 	'action-managednsdomain' => '{{doc-action|managednsdomain}}',
 	'action-manageglobalpuppet' => '{{doc-action|manageglobalpuppet}}',
-	'specialpages-group-nova' => 'Used as "Special pages group name" which appears in [[Special:SpecialPages]].
-
+	'specialpages-group-nova' => '{{doc-special-group|that=are related to OpenStack Nova|like=[[Special:NovaInstance]], [[Special:NovaKey]], [[Special:NovaProject]], [[Special:NovaDomain]], [[Special:NovaAddress]], [[Special:NovaSecurityGroup]], [[Special:NovaRole]], [[Special:NovaVolume]], [[Special:NovaSudoer]], [[Special:NovaPuppetGroup]]}}
 The following special pages are listed as members of this group:
 * {{msg-mw|Novaaddress}}
 * {{msg-mw|Novadomain}}
@@ -3387,15 +3386,13 @@ $messages['et'] = array(
 	'openstackmanager-imagetype' => 'Pildi tüüp',
 	'openstackmanager-attach' => 'lisa',
 	'openstackmanager-detach' => 'eemalda',
-	'openstackmanager-deletekey' => 'Kustuta võti',
+	'openstackmanager-deletekey' => 'Kustuta avalik SSH-võti',
 	'openstackmanager-deletekeyconfirm' => 'Kas oled kindel, et soovid selle võtme kustutada?',
-	'openstackmanager-keylist' => 'Võtmete loetelu',
+	'openstackmanager-keylist' => 'Avalik SSH-võtmete loetelu',
 	'openstackmanager-name' => 'Nimi',
 	'openstackmanager-fingerprint' => 'Sõrmejälg',
 	'openstackmanager-keys' => 'Võtmed',
 	'openstackmanager-keypairimported' => 'Imporditud võtmepaar.',
-	'openstackmanager-backkeylist' => 'Tagasi võtmete loetellu',
-	'openstackmanager-addadditionalkey' => 'Lisa veel üks võti.',
 	'openstackmanager-deletedkey' => 'Edukalt kustutatud võti.',
 	'openstackmanager-deletedkeyfailed' => 'Võtme kustutamine ebaõnnestus.',
 	'openstackmanager-addmember' => 'Liikme lisamine',
@@ -3562,6 +3559,7 @@ $messages['fa'] = array(
  * @author Nedergard
  * @author Nike
  * @author Olli
+ * @author Silvonen
  * @author VezonThunder
  */
 $messages['fi'] = array(
@@ -3617,12 +3615,12 @@ Resurssin nimen ensimmäisen merkin on oltava a–z ja sallitut merkit ovat a–
 	'openstackmanager-detach' => 'irrota',
 	'openstackmanager-device' => 'Laite',
 	'openstackmanager-novapublickey' => 'Julkinen SSH-avain',
-	'openstackmanager-deletekey' => 'Poista avain',
+	'openstackmanager-deletekey' => 'Poista avain', # Fuzzy
 	'openstackmanager-deletekeyconfirm' => 'Haluatko varmasti poistaa yllä mainitun avaimen?',
-	'openstackmanager-keylist' => 'Avainluettelo',
+	'openstackmanager-keylist' => 'Avainluettelo', # Fuzzy
+	'openstackmanager-addkey' => 'Lisää julkinen SSH-avain',
 	'openstackmanager-name' => 'Nimi',
 	'openstackmanager-keys' => 'Avaimet',
-	'openstackmanager-backkeylist' => 'Takasin avainluetteloon',
 	'openstackmanager-deletedkey' => 'Avaimen poisto onnistui.',
 	'openstackmanager-deletedkeyfailed' => 'Avaimen poisto epäonnistui.',
 	'openstackmanager-addmember' => 'Lisää jäsen',
@@ -3678,6 +3676,7 @@ Resurssin nimen ensimmäisen merkin on oltava a–z ja sallitut merkit ovat a–
 	'openstackmanager-sudoeroptions' => 'Asetukset',
 	'openstackmanager-puppetallprojects' => 'Kaikki projektit',
 	'openstackmanager-createpuppetgroup' => 'Lisää ryhmä',
+	'openstackmanager-addpuppetclass' => 'Lisää luokka',
 	'openstackmanager-puppetclassname' => 'Luokan nimi',
 	'openstackmanager-puppetvars' => 'Muuttujat',
 	'openstackmanager-addpuppetvar' => 'Lisää muuttuja',
