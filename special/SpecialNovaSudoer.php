@@ -398,6 +398,12 @@ class SpecialNovaSudoer extends SpecialNova {
 			$userNames = array();
 			$projectmembers = $project->getMembers();
 			$sudoUsers = $sudoer->getSudoerUsers();
+			# Add service users.  These aren't editable.
+			foreach ( $project->serviceGroups as $servicegroup ) {
+				if ( in_array( $servicegroup->groupName, $sudoUsers ) ) {
+					$userNames[] = $servicegroup->groupName;
+				}
+			}
 			foreach ( $projectmembers as $member ) {
 				$user = new OpenStackNovaUser( $member );
 				if ( in_array( $user->getUid(), $sudoUsers ) ) {
@@ -551,7 +557,17 @@ class SpecialNovaSudoer extends SpecialNova {
 			} else {
 				$options[] = '!authenticate';
 			}
-			$success = $sudoer->modifySudoer( $this->removeALLFromUserKeys($formData['users']), $formData['hosts'], $commands, $options );
+
+			# Make sure we aren't pulling service users out of the list.
+			$users = $this->removeALLFromUserKeys($formData['users']);
+			$project = OpenStackNovaProject::getProjectByName( $formData['project'] );
+			foreach ( $this->project->serviceGroups as $servicegroup ) {
+				if ( in_array( $servicegroup->groupName, $sudoer->getSudoerUsers() ) ) {
+					$users[] = $servicegroup->groupName;
+				}
+			}
+
+			$success = $sudoer->modifySudoer( $users, $formData['hosts'], $commands, $options );
 			if ( ! $success ) {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-modifysudoerfailed' );
 				return true;
