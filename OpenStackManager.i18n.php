@@ -444,18 +444,17 @@ The following special pages are listed as members of this group:
 * {{msg-mw|Novavolume}}
 * {{msg-mw|Novasudoer}}
 * {{msg-mw|Novapuppetgroup}}',
-	'novaaddress' => 'Used as page title in Special:NovaAddress.',
-	'novadomain' => 'Used as page title in Special:NovaDomain.',
-	'novainstance' => 'Used as page title in Special:NovaInstance.
-
+	'novaaddress' => '{{doc-special|NovaAddress}}',
+	'novadomain' => '{{doc-special|NovaDomain}}',
+	'novainstance' => '{{doc-special|NovaInstance}}
 An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
-	'novakey' => 'Used as page title in Special:NovaKey.',
-	'novaproject' => 'Used as page title in Special:NovaProject.',
-	'novasecuritygroup' => 'Used as page title in Special:NovaSecurityGroup.',
-	'novarole' => 'Used as page title in Special:NovaRole.',
-	'novavolume' => 'Used as page title in Special:NovaVolume.',
-	'novasudoer' => 'Used as page title in Special:NovaSudoer.',
-	'novapuppetgroup' => 'Used as page title in Special:NovaPuppetGroup.',
+	'novakey' => '{{doc-special|NovaKey}}',
+	'novaproject' => '{{doc-special|NovaProject}}',
+	'novasecuritygroup' => '{{doc-special|NovaSecurityGroup}}',
+	'novarole' => '{{doc-special|NovaRole}}',
+	'novavolume' => '{{doc-special|NovaVolume}}',
+	'novasudoer' => '{{doc-special|NovaSudoer}}',
+	'novapuppetgroup' => '{{doc-special|NovaPuppetGroup}}',
 	'openstackmanager-novadomain' => 'Used as title for the form in Special:NovaDomain.',
 	'openstackmanager-novainstance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-novakey' => 'Used as title for the form in Special:NovaKey.',
