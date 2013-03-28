@@ -908,7 +908,8 @@ See also:
 * {{msg-mw|Openstackmanager-removedfrom}}',
 	'openstackmanager-novaproject-project' => '{{Identical|Project}}',
 	'openstackmanager-novaprojectfilter-projectfilter' => 'It is a filter than can be used to selectively show a set of projects in all management interfaces.',
-	'openstackmanager-projects' => 'A set of projects',
+	'openstackmanager-projects' => 'A set of projects.
+{{Identical|Project}}',
 	'openstackmanager-setprojects' => 'A message informing the user that a project filter has been successfully assigned',
 	'openstackmanager-setprojectfilter' => ' A message telling the user that a project filter should be applied to see any resources.',
 	'openstackmanager-toggle' => 'A message to tell the user they can toggle the collapsing and expanding of project sections.',
@@ -3693,6 +3694,7 @@ Resurssin nimen ensimmäisen merkin on oltava a–z ja sallitut merkit ovat a–
  * @author Hashar
  * @author Hello71
  * @author IAlex
+ * @author Peter17
  * @author Tititou36
  * @author Verdy p
  * @author Wyz
@@ -3828,7 +3830,7 @@ $messages['fr'] = array(
 	'openstackmanager-detachedvolume' => 'Volume détaché avec succès.',
 	'openstackmanager-detachvolumefailed' => 'Échec lors du détachement du volume.',
 	'openstackmanager-novapublickey' => 'Clé publique SSH',
-	'openstackmanager-prefs-novapublickey' => 'Clés SSH publiques:',
+	'openstackmanager-prefs-novapublickey' => 'Clés SSH publiques :',
 	'openstackmanager-deletekey' => 'Supprimer la clé publique SSH',
 	'openstackmanager-deletekeyconfirm' => 'Êtes-vous sûr de vouloir supprimer la clé ci-dessus ?',
 	'openstackmanager-keylist' => 'Liste des clés publiques SSH',
@@ -3868,8 +3870,8 @@ $messages['fr'] = array(
 	'openstackmanager-deleteprojectfailed' => 'Échec de la suppression de projet.',
 	'openstackmanager-addedto' => '$1 ajouté à $2 avec succès.',
 	'openstackmanager-failedtoadd' => "Impossible d'ajouter $1 à $2.",
-	'openstackmanager-failedtoaddneedsloginright' => 'Impossible d\'ajouter $1 à $2.
-Cela nécessite $1 d\'avoir le droit "<code>loginviashell</code>".',
+	'openstackmanager-failedtoaddneedsloginright' => "Impossible d'ajouter $1 à $2.
+Cela nécessite $1 d'avoir le droit « <code>loginviashell</code> ».",
 	'openstackmanager-removedfrom' => '$1 supprimé de $2 avec succès.',
 	'openstackmanager-failedtoremove' => 'Impossible de supprimer $1 de $2.',
 	'openstackmanager-novaproject-project' => 'Ajouter un projet',
@@ -4039,7 +4041,7 @@ Il doit commencer par une lettre (a–z) et ne peut contenir que des lettres (a�
 	'action-manageproject' => 'gérer les projets et les rôles OpenStack',
 	'right-loginviashell' => 'Connexion par le shell',
 	'notification-osm-instance-deleted' => "$1 a supprimé l’instance '$3' dans le projet [[$2]]",
-	'notification-osm-instance-build-completed' => "$1 a créé l’instance '$3' dans le projet [[$2]]",
+	'notification-osm-instance-build-completed' => '$1 a créé l’instance « $3 » dans le projet [[$2]]',
 	'notification-osm-instance-reboot-completed' => "$1 a redémarré l’instance '$3' dans le projet [[$2]]",
 	'echo-pref-email-osm-instance-deleted' => 'Supprime une instance d’un projet dont je suis administrateur.',
 	'echo-pref-email-osm-instance-build-completed' => 'Construit une instance d’un projet dont je suis administrateur.',
@@ -8441,6 +8443,21 @@ $messages['nb'] = array(
 	'openstackmanager-dnsdomain' => 'DNS-domene',
 	'openstackmanager-puppetclasses' => 'Klasser',
 	'openstackmanager-novainstance-info' => 'Instansinformasjon',
+);
+
+/** Low German (Plattdüütsch)
+ * @author Joachim Mos
+ */
+$messages['nds'] = array(
+	'openstackmanager-delete' => 'wegsmieten',
+	'openstackmanager-actions' => 'Akschonen',
+	'openstackmanager-name' => 'Naam',
+	'openstackmanager-projectname' => 'Projektnaam',
+	'openstackmanager-members' => 'Liddmaten',
+	'openstackmanager-member' => 'Liddmaat',
+	'openstackmanager-action' => 'Akschoon',
+	'openstackmanager-deleteproject' => 'Wegdoon',
+	'openstackmanager-sudoerusers' => 'Brukers',
 );
 
 /** Dutch (Nederlands)
