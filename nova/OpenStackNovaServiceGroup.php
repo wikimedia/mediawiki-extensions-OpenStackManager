@@ -259,6 +259,20 @@ class OpenStackNovaServiceGroup {
 			return null;
 		}
 
+		# Create Sudo policy so that members of this group can chmod files
+		if ( OpenStackNovaSudoer::createSudoer( $groupName . '-chmod',
+				$project->projectname,
+				array( $groupName ),
+				array( 'ALL' ),
+				array( 'chown -R ' . $groupName . ':' . $groupName . ' ' . $homeDir ),
+				array( '!authenticate' ) ) ) {
+			$wgAuth->printDebug( "Successfully created chmod sudo policy for $groupName",
+				NONSENSITIVE );
+		} else {
+			$wgAuth->printDebug( "Failed to  creat chmod sudo policy for $groupName",
+				NONSENSITIVE );
+		}
+
 		return $newGroup;
 	}
 
