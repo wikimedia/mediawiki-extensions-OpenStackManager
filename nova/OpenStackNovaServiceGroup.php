@@ -195,6 +195,7 @@ class OpenStackNovaServiceGroup {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser;
 		global $wgOpenStackManagerServiceGroupPrefix;
+		global $wgOpenStackManagerLDAPDefaultShell;
 
 		OpenStackNovaLdapConnection::connect();
 
