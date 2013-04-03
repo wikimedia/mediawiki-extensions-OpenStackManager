@@ -91,6 +91,21 @@ class OpenStackNovaSudoer {
 	}
 
 	/**
+	 * Return the 'run as' users for the policy
+	 *
+	 * @return array
+	 */
+	function getSudoerRunAsUsers() {
+		if ( isset( $this->sudoerInfo[0]['sudorunasuser'] ) ) {
+			$runasusers = $this->sudoerInfo[0]['sudorunasuser'];
+			array_shift( $runasusers );
+			return $runasusers;
+		} else {
+			return array();
+		}
+	}
+
+	/**
 	 * Return the policy commands
 	 *
 	 * @return array
@@ -129,7 +144,7 @@ class OpenStackNovaSudoer {
 	 * @param  $options
 	 * @return boolean
 	 */
-	function modifySudoer( $users, $hosts, $commands, $options ) {
+	function modifySudoer( $users, $hosts, $runasuser, $commands, $options ) {
 		global $wgAuth;
 		global $wgMemc;
 
@@ -141,6 +156,10 @@ class OpenStackNovaSudoer {
 		$sudoer['sudohost'] = array();
 		foreach ( $hosts as $host ) {
 			$sudoer['sudohost'][] = $host;
+		}
+		$sudoer['sudorunasuser'] = array();
+		foreach ( $runasuser as $runas ) {
+			$sudoer['sudorunasuser'][] = $runas;
 		}
 		$sudoer['sudocommand'] = array();
 		foreach ( $commands as $command ) {
@@ -251,7 +270,7 @@ class OpenStackNovaSudoer {
 	 * @param  $options
 	 * @return null|OpenStackNovaSudoer
 	 */
-	static function createSudoer( $sudoername, $projectName, $users, $hosts, $commands, $options ) {
+	static function createSudoer( $sudoername, $projectName, $users, $hosts, $runasuser, $commands, $options ) {
 		global $wgAuth;
 
 		OpenStackNovaLdapConnection::connect();
@@ -263,6 +282,9 @@ class OpenStackNovaSudoer {
 		}
 		foreach ( $hosts as $host ) {
 			$sudoer['sudohost'][] = $host;
+		}
+		foreach ( $runasuser as $runas ) {
+			$sudoer['sudorunasuser'][] = $runas;
 		}
 		foreach ( $commands as $command ) {
 			$sudoer['sudocommand'][] = $command;

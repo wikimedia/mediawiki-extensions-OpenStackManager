@@ -677,7 +677,7 @@ class OpenStackNovaProject {
 			// Create a default, permissive sudo policy.
 			$projectGroup = "%" . $project->getProjectGroup()->getProjectGroupName();
 			if ( OpenStackNovaSudoer::createSudoer( 'default', $projectname, array( $projectGroup ),
-						array( 'ALL' ), array( 'ALL' ),
+						array( 'ALL' ), array(),  array( 'ALL' ),
 						array( '!authenticate' ) ) ) {
 				$wgAuth->printDebug( "Successfully created default sudo policy for $projectname", NONSENSITIVE );
 			}

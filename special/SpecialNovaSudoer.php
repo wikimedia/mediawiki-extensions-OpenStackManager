@@ -67,6 +67,8 @@ class SpecialNovaSudoer extends SpecialNova {
 		$user_keys = $userArr["keys"];
 		$hostArr = $this->getSudoHosts( $this->projectName );
 		$host_keys = $hostArr["keys"];
+		$runasArr = $this->getSudoRunAsUsers( $this->projectName );
+		$runas_keys = $runasArr["keys"];
 		$sudoerInfo = array();
 		$sudoerInfo['sudoername'] = array(
 			'type' => 'text',
@@ -88,6 +90,13 @@ class SpecialNovaSudoer extends SpecialNova {
 			'options' => $host_keys,
 			'section' => 'sudoer',
 			'name' => 'hosts',
+		);
+		$sudoerInfo['runas'] = array(
+			'type' => 'multiselect',
+			'label-message' => 'openstackmanager-sudoerrunas',
+			'options' => $runas_keys,
+			'section' => 'sudoer',
+			'name' => 'runas',
 		);
 		$sudoerInfo['commands'] = array(
 			'type' => 'textarea',
@@ -187,6 +196,9 @@ class SpecialNovaSudoer extends SpecialNova {
 		$hostArr = $this->getSudoHosts( $this->projectName, $sudoer );
 		$host_keys = $hostArr["keys"];
 		$host_defaults = $hostArr["defaults"];
+		$runasArr = $this->getSudoRunAsUsers( $this->projectName, $sudoer );
+		$runas_keys = $runasArr["keys"];
+		$runas_defaults = $runasArr["defaults"];
 		$commands = implode( "\n", $sudoer->getSudoerCommands() );
 		$optionArray = $sudoer->getSudoerOptions();
 		$requirePassword = false;
@@ -225,6 +237,14 @@ class SpecialNovaSudoer extends SpecialNova {
 			'default' => $host_defaults,
 			'section' => 'sudoer',
 			'name' => 'hosts',
+		);
+		$sudoerInfo['runas'] = array(
+			'type' => 'multiselect',
+			'label-message' => 'openstackmanager-sudoerrunas',
+			'options' => $runas_keys,
+			'default' => $runas_defaults,
+			'section' => 'sudoer',
+			'name' => 'runas',
 		);
 		$sudoerInfo['commands'] = array(
 			'type' => 'textarea',
@@ -267,6 +287,18 @@ class SpecialNovaSudoer extends SpecialNova {
 		return true;
 	}
 
+	function getProjectMemberUids( $project) {
+		$projectmembers = $project->getMembers();
+		$uids = array();
+
+		foreach ( $projectmembers as $projectmember ) {
+			$user = new OpenStackNovaUser( $projectmember );
+			$uids[] = $user->getUid();
+		}
+
+		return $uids;
+	}
+
 	function getSudoUsers( $projectName, $sudoer=null ) {
 		$project = OpenStackNovaProject::getProjectByName( $projectName );
 		$projectmembers = $project->getMembers();
@@ -298,6 +330,40 @@ class SpecialNovaSudoer extends SpecialNova {
 			$user_keys[$projectmember] = $userUid;
 		}
 		return array( 'keys' => $user_keys, 'defaults' => $user_defaults );
+	}
+
+	function getSudoRunAsUsers( $projectName, $sudoer=null ) {
+		$project = OpenStackNovaProject::getProjectByName( $projectName );
+		$projectmembers = $project->getMembers();
+
+		array_unshift( $projectmembers, $this->msg( 'openstackmanager-allmembers' )->text() );
+		$runasmembers = array();
+		if ( $sudoer ) {
+			$runasmembers = $sudoer->getSudoerRunAsUsers();
+		}
+
+		$runas_keys = array();
+		$runas_defaults = array();
+		foreach ( $projectmembers as $projectmember ) {
+
+			$projectGroup = "%" . $project->getProjectGroup()->getProjectGroupName();
+
+			if ( $projectmember == $this->msg( 'openstackmanager-allmembers' )->text() ) {
+				$userUid = $this->msg( 'openstackmanager-allmembers' )->text();
+				if ( in_array( 'ALL', $runasmembers ) || in_array ( $projectGroup, $runasmembers ) ) {
+					$runas_defaults[$projectmember] = $userUid;
+				}
+			} else {
+				$user = new OpenStackNovaUser( $projectmember );
+				$userUid = $user->getUid();
+				if ( in_array( $userUid, $runasmembers ) ) {
+					$runas_defaults[$projectmember] = $userUid;
+				}
+			}
+
+			$runas_keys[$projectmember] = $userUid;
+		}
+		return array( 'keys' => $runas_keys, 'defaults' => $runas_defaults );
 	}
 
 	function getSudoHosts( $projectName, $sudoer=null ) {
@@ -369,6 +435,39 @@ class SpecialNovaSudoer extends SpecialNova {
 		$this->getOutput()->addHTML( $out );
 	}
 
+	function makeHumanReadableUserlist( $userList, $project ) {
+		$HRList = array();
+
+		$projectmembers = $project->getMembers();
+		$leftovers = $userList;
+		foreach ( $projectmembers as $member ) {
+			$user = new OpenStackNovaUser( $member );
+			$userIndex = array_search( $user->getUid(), $userList );
+			if ( $userIndex !== false ) {
+				$HRList[] = $member;
+				unset( $leftovers[$userIndex] );
+			}
+		}
+
+		# Now $leftovers contains anything in the sudo users list that wasn't
+		# a user.  We still want to display them to the user, but some are special
+		# cases which we'll dress up a bit.
+		$AllProjectMembers = "%" . $project->getProjectGroup()->getProjectGroupName();
+		foreach ( $leftovers as $leftover ) {
+			if ( $leftover == $AllProjectMembers ) {
+				array_unshift( $HRList, $this->msg( 'openstackmanager-allmembers' )->text() );
+			} elseif ( $leftover == 'ALL' ) {
+				array_unshift( $HRList, $this->msg( 'openstackmanager-allmembers' )->text() );
+			} elseif ( $leftover[0] == '%' ) {
+				array_unshift( $HRList, $this->msg( 'openstackmanager-membersofgroup', substr( $leftover, 1 ) ) );
+			} else {
+				array_unshift( $HRList, $leftover );
+			}
+		}
+
+		return $HRList;
+	}
+
 	function getSudoers( $project ) {
 		$project->fetchProjectInfo();
 		$projectName = $project->getProjectName();
@@ -388,7 +487,8 @@ class SpecialNovaSudoer extends SpecialNova {
 			}
 		}
 		$headers = array( 'openstackmanager-sudoername', 'openstackmanager-sudoerusers', 'openstackmanager-sudoerhosts',
-				'openstackmanager-sudoercommands', 'openstackmanager-sudoeroptions', 'openstackmanager-actions' );
+				'openstackmanager-sudoerrunas', 'openstackmanager-sudoercommands',
+				'openstackmanager-sudoeroptions', 'openstackmanager-actions' );
 		$sudoers = OpenStackNovaSudoer::getAllSudoersByProject( $projectName );
 		$sudoerRows = array();
 		foreach ( $sudoers as $sudoer ) {
@@ -397,28 +497,10 @@ class SpecialNovaSudoer extends SpecialNova {
 			$this->pushResourceColumn( $sudoerRow, $sudoerName );
 			$userNames = array();
 			$projectmembers = $project->getMembers();
-			$sudoUsers = $sudoer->getSudoerUsers();
-			# Add service users.  These aren't editable.
-			foreach ( $project->serviceGroups as $servicegroup ) {
-				if ( in_array( $servicegroup->groupName, $sudoUsers ) ) {
-					$userNames[] = $servicegroup->groupName;
-				}
-			}
-			foreach ( $projectmembers as $member ) {
-				$user = new OpenStackNovaUser( $member );
-				if ( in_array( $user->getUid(), $sudoUsers ) ) {
-					$userNames[] = $member;
-				}
-			}
-			// Display the cryptic %project-<projectname> as 'openstackmanager-allmembers'
-			$AllProjectMembers = "%" . $project->getProjectGroup()->getProjectGroupName();
-			if ( in_array( $AllProjectMembers, $sudoUsers ) ) {
-				array_unshift( $userNames, $this->msg( 'openstackmanager-allmembers' )->text() );
-			}
-			// This bit is for reverse-compatibility:
-			if ( in_array( 'ALL', $sudoUsers ) ) {
-				array_unshift( $userNames, $this->msg( 'openstackmanager-allmembers' )->text() );
-			}
+
+			$userNames = $this->makeHumanReadableUserlist( $sudoer->getSudoerUsers(), $project );
+			$sudoRunAsUsers = $this->makeHumanReadableUserlist( $sudoer->getSudoerRunAsUsers(), $project );
+
 			$sudoHosts = $sudoer->getSudoerHosts();
 			$sudoHostNames = array();
 			foreach ( $sudoHosts as $sudoHost ) {
@@ -431,6 +513,7 @@ class SpecialNovaSudoer extends SpecialNova {
 			}
 			$this->pushRawResourceColumn( $sudoerRow, $this->createResourceList( $userNames ) );
 			$this->pushRawResourceColumn( $sudoerRow, $this->createResourceList( $sudoHostNames ) );
+			$this->pushRawResourceColumn( $sudoerRow, $this->createResourceList( $sudoRunAsUsers ) );
 			$this->pushRawResourceColumn( $sudoerRow, $this->createResourceList( $sudoer->getSudoerCommands() ) );
 			$this->pushRawResourceColumn( $sudoerRow, $this->createResourceList( $sudoer->getSudoerOptions() ) );
 			$actions = array();
@@ -462,6 +545,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	 *
 	 */
 	function removeALLFromUserKeys( $users ) {
+		$newusers = array();
 		foreach ( $users as $user ) {
 			if ( ( $user == 'ALL' ) || ( $user == $this->msg( 'openstackmanager-allmembers' )->text() )) {
 				$newusers[] = "%" . $this->project->getProjectGroup()->getProjectGroupName();
@@ -493,7 +577,8 @@ class SpecialNovaSudoer extends SpecialNova {
 		} else {
 			$options[] = '!authenticate';
 		}
-		$success = OpenStackNovaSudoer::createSudoer( $formData['sudoername'], $formData['project'], $this->removeALLFromUserKeys($formData['users']), $formData['hosts'], $commands, $options );
+		$runasusers = $this->removeALLFromUserKeys($formData['runas']);
+		$success = OpenStackNovaSudoer::createSudoer( $formData['sudoername'], $formData['project'], $this->removeALLFromUserKeys($formData['users']), $formData['hosts'], $runasusers, $commands, $options );
 		if ( ! $success ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-createsudoerfailed' );
 			return false;
@@ -558,16 +643,33 @@ class SpecialNovaSudoer extends SpecialNova {
 				$options[] = '!authenticate';
 			}
 
-			# Make sure we aren't pulling service users out of the list.
+			$projectName = $formData['project'];
+			$project = OpenStackNovaProject::getProjectByName( $projectName );
+			$projectuids = $this->getProjectMemberUids( $project );
+			$projectGroup = "%" . $project->getProjectGroup()->getProjectGroupName();
+
 			$users = $this->removeALLFromUserKeys($formData['users']);
-			$project = OpenStackNovaProject::getProjectByName( $formData['project'] );
-			foreach ( $this->project->serviceGroups as $servicegroup ) {
-				if ( in_array( $servicegroup->groupName, $sudoer->getSudoerUsers() ) ) {
-					$users[] = $servicegroup->groupName;
+			$formerusers = $sudoer->getSudoerUsers();
+			foreach ( $formerusers as $candidate ) {
+				# Anything in this list that isn't a user or  ALL
+				# wasn't exposed to user selection so needs to stay.
+				if ( $candidate != $projectGroup ) {
+					if ( ! in_array( $candidate, $projectuids ) ) {
+						$users[] = $candidate;
+					}
 				}
 			}
 
-			$success = $sudoer->modifySudoer( $users, $formData['hosts'], $commands, $options );
+			$runasusers = $this->removeALLFromUserKeys($formData['runas']);
+			foreach ( $sudoer->getSudoerRunAsUsers() as $candidate ) {
+				if ( $candidate != $projectGroup ) {
+					if ( ! in_array( $candidate, $projectuids ) ) {
+						$runasusers[] = $candidate;
+					}
+				}
+			}
+
+			$success = $sudoer->modifySudoer( $users, $formData['hosts'], $runasusers, $commands, $options );
 			if ( ! $success ) {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-modifysudoerfailed' );
 				return true;

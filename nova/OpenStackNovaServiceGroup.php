@@ -265,6 +265,7 @@ class OpenStackNovaServiceGroup {
 				$project->projectname,
 				array( $groupName ),
 				array( 'ALL' ),
+				array(),
 				array( 'chown -R ' . $groupName . ':' . $groupName . ' ' . $homeDir ),
 				array( '!authenticate' ) ) ) {
 			$wgAuth->printDebug( "Successfully created chmod sudo policy for $groupName",
