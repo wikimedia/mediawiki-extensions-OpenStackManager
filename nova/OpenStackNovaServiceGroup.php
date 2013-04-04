@@ -260,7 +260,7 @@ class OpenStackNovaServiceGroup {
 			return null;
 		}
 
-		# Create Sudo policy so that members of this group can chmod files
+		# Create Sudo policy so that the service user can chown files in its homedir
 		if ( OpenStackNovaSudoer::createSudoer( $groupName . '-chmod',
 				$project->projectname,
 				array( $groupName ),
@@ -272,6 +272,21 @@ class OpenStackNovaServiceGroup {
 				NONSENSITIVE );
 		} else {
 			$wgAuth->printDebug( "Failed to  creat chmod sudo policy for $groupName",
+				NONSENSITIVE );
+		}
+
+		# Create Sudo policy so that members of the group can sudo as the service user
+		if ( OpenStackNovaSudoer::createSudoer( 'runas-' . $groupName,
+				$project->projectname,
+				array( "%" . $groupName ),
+				array( 'ALL' ),
+				array( $groupName ),
+				array( 'ALL' ),
+				array( '!authenticate' ) ) ) {
+			$wgAuth->printDebug( "Successfully created run-as sudo policy for $groupName",
+				NONSENSITIVE );
+		} else {
+			$wgAuth->printDebug( "Failed to  creat run-as sudo policy for $groupName",
 				NONSENSITIVE );
 		}
 
