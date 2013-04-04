@@ -292,7 +292,7 @@ class SpecialNovaProject extends SpecialNova {
 
 	function getProject( $project ) {
 		$project->fetchProjectInfo();
-		$headers = array( 'openstackmanager-members', 'openstackmanager-roles', 'openstackmanager-servicegroups', 'openstackmanager-actions' );
+		$headers = array( 'openstackmanager-members', 'openstackmanager-roles', 'openstackmanager-actions' );
 		$projectRows = array();
 		$projectRow = array();
 		$this->pushRawResourceColumn( $projectRow, $this->createResourceList( $project->getMembers() ) );
@@ -318,28 +318,34 @@ class SpecialNovaProject extends SpecialNova {
 		}
 		$roleheaders = array( 'openstackmanager-rolename', 'openstackmanager-members', 'openstackmanager-actions' );
 		$this->pushRawResourceColumn( $projectRow, $this->createResourceTable( $roleheaders, $roleRows ) );
-		$servicegroupRows = array();
-		foreach ( $project->getServiceGroups() as $group) {
-			$groupName = $group->groupName;
-			$groupRow = array();
-			$this->pushResourceColumn( $groupRow, $groupName );
-			$this->pushRawResourceColumn( $groupRow, $this->createResourceList( $group->getMembers() ) );
-			$actions = array();
-			$specialGroupTitle = Title::newFromText( 'Special:NovaServiceGroup' );
-			$actions[] = $this->createActionLink( 'openstackmanager-addservicegroupmember',
-				array( 'action' => 'addmember', 'projectname' => $projectName, 'servicegroupname' => $groupName, 'returnto' => 'Special:NovaProject' ),
-				$specialGroupTitle
-			);
-			$actions[] = $this->createActionLink( 'openstackmanager-removeservicegroupmember',
-				array( 'action' => 'deletemember', 'projectname' => $projectName, 'servicegroupname' => $groupName, 'returnto' => 'Special:NovaProject' ),
-				$specialGroupTitle
-			);
-			$actions[] = $this->createActionLink( 'openstackmanager-removeservicegroup', array( 'action' => 'removeservicegroup', 'projectname' => $projectName, 'groupname' => $groupName ) );
-			$this->pushRawResourceColumn( $groupRow,  $this->createResourceList( $actions ) );
-			$servicegroupRows[] = $groupRow;
+
+		$serviceGroups =  $project->getServiceGroups();
+		if ( $serviceGroups ) {
+			$servicegroupRows = array();
+			foreach ( $serviceGroups as $group) {
+				$groupName = $group->groupName;
+				$groupRow = array();
+				$this->pushResourceColumn( $groupRow, $groupName );
+				$this->pushRawResourceColumn( $groupRow, $this->createResourceList( $group->getMembers() ) );
+				$actions = array();
+				$specialGroupTitle = Title::newFromText( 'Special:NovaServiceGroup' );
+				$actions[] = $this->createActionLink( 'openstackmanager-addservicegroupmember',
+					array( 'action' => 'addmember', 'projectname' => $projectName, 'servicegroupname' => $groupName, 'returnto' => 'Special:NovaProject' ),
+					$specialGroupTitle
+				);
+				$actions[] = $this->createActionLink( 'openstackmanager-removeservicegroupmember',
+					array( 'action' => 'deletemember', 'projectname' => $projectName, 'servicegroupname' => $groupName, 'returnto' => 'Special:NovaProject' ),
+					$specialGroupTitle
+				);
+				$actions[] = $this->createActionLink( 'openstackmanager-removeservicegroup', array( 'action' => 'removeservicegroup', 'projectname' => $projectName, 'groupname' => $groupName ) );
+				$this->pushRawResourceColumn( $groupRow,  $this->createResourceList( $actions ) );
+				$servicegroupRows[] = $groupRow;
+			}
+			$headers = array( 'openstackmanager-members', 'openstackmanager-roles', 'openstackmanager-servicegroups', 'openstackmanager-actions' );
+			$servicegroupheaders = array( 'openstackmanager-servicegroupname', 'openstackmanager-members', 'openstackmanager-actions' );
+			$this->pushRawResourceColumn( $projectRow, $this->createResourceTable( $servicegroupheaders, $servicegroupRows ) );
 		}
-		$servicegroupheaders = array( 'openstackmanager-servicegroupname', 'openstackmanager-members', 'openstackmanager-actions' );
-		$this->pushRawResourceColumn( $projectRow, $this->createResourceTable( $servicegroupheaders, $servicegroupRows ) );
+
 		$actions = array();
 		$actions[] = $this->createActionLink( 'openstackmanager-deleteproject', array( 'action' => 'delete', 'projectname' => $projectName ) );
 		$actions[] = $this->createActionLink( 'openstackmanager-addmember', array( 'action' => 'addmember', 'projectname' => $projectName ) );
