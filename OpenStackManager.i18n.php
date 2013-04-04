@@ -429,7 +429,10 @@ Choose one or the other, not both.',
 	'prefs-openstack-keys' => 'Key list',
 );
 
-/** Message documentation (Message documentation)
+/** Message documentation (This is the name of the message documentation language code (qqq). Follow the rules of your languages and use small first letter if it doesn't capitalize language names always.
+
+It might be easier to translate it as "translation guidelines" or "translation help".
+{{Identical|Message documentation}})
  * @author EugeneZelenko
  * @author Kghbln
  * @author Krenair
@@ -1196,7 +1199,9 @@ See also:
 	'openstackmanager-commadelimiter' => 'Unused at this time.',
 	'openstackmanager-sudoerusers' => '{{Identical|User}}',
 	'openstackmanager-sudoerhosts' => 'Used as label for multi-select box and as heading cell in "resource" table.',
-	'openstackmanager-sudoerrunas' => 'Used as label for multi-select box and as heading cell in "resource" table in Special:NovaSudoer',
+	'openstackmanager-sudoerrunas' => 'Used as label for multi-select box and as heading cell in "resource" table in [[Special:NovaSudoer]].
+
+The multi-select box has a list of the users.',
 	'openstackmanager-sudoercommands' => 'Used as label for textarea and as heading cell in "resource" table, in Special:NovaSudoer.',
 	'openstackmanager-requirepassword' => 'When this option is checked, sudo will require the user password',
 	'openstackmanager-sudoeroptions' => '{{Identical|Options}}',
@@ -2773,10 +2778,12 @@ Er fängt mit den Buchstaben (a-z) an und kann nur die Buchstaben (a-z), Zahlen 
 	'openstackmanager-commadelimiter' => 'Kommagetrennt',
 	'openstackmanager-sudoerusers' => 'Benutzer',
 	'openstackmanager-sudoerhosts' => 'Hosts',
+	'openstackmanager-sudoerrunas' => 'Ermöglicht die Ausführung als',
 	'openstackmanager-sudoercommands' => 'Kommandos',
 	'openstackmanager-requirepassword' => 'Authentifizierung anfordern',
 	'openstackmanager-sudoeroptions' => 'Optionen',
 	'openstackmanager-allmembers' => 'Alle Projektmitglieder',
+	'openstackmanager-membersofgroup' => 'Mitglieder der Gruppe $1',
 	'openstackmanager-deletesudoer' => 'Sudo-Richtlinie löschen',
 	'openstackmanager-deletesudoer-confirm' => 'Soll die Sudo-Richtlinie $1 wirklich gelöscht werden?',
 	'openstackmanager-createsudoerfailed' => 'Die Sudo-Richtlinie konnte nicht erstellt werden.',
@@ -4064,10 +4071,12 @@ Il doit commencer par une lettre (a–z) et ne peut contenir que des lettres (a�
 	'openstackmanager-commadelimiter' => 'Séparés par des virgules',
 	'openstackmanager-sudoerusers' => 'Utilisateurs',
 	'openstackmanager-sudoerhosts' => 'Hôtes',
+	'openstackmanager-sudoerrunas' => 'Permettre l’exécution en tant que',
 	'openstackmanager-sudoercommands' => 'Commandes',
 	'openstackmanager-requirepassword' => 'Authentification requise',
 	'openstackmanager-sudoeroptions' => 'Options',
 	'openstackmanager-allmembers' => 'Tous les membres du projet',
+	'openstackmanager-membersofgroup' => 'Membres du groupe $1',
 	'openstackmanager-deletesudoer' => "Supprimer une règle ''sudo''",
 	'openstackmanager-deletesudoer-confirm' => "Êtes-vous sûr de vouloir supprimer la règle ''sudo'' $1 ?",
 	'openstackmanager-createsudoerfailed' => "Impossible de créer la règle ''sudo''.",
@@ -4648,6 +4657,8 @@ Isto pode desactivar as ferramentas ou os bots que necesitan este grupo para fun
 	'openstackmanager-configureproject-failed' => 'Erro ao modificar a configuración do proxecto.',
 	'openstackmanager-configureproject-success' => 'Actualizáronse as configuracións do proxecto.',
 	'openstackmanager-configureproject-servicegroup' => 'Grupos de servizo',
+	'openstackmanager-configureproject-serviceuserhome' => 'Patrón para o directorio raíz do usuario de servizo',
+	'openstackmanager-configureproject-serviceuserinfo' => '(No patrón do directorio raíz, "%u" ha substituírse polo nome de usuario e "%p" por "$1".)',
 	'openstackmanager-createproject' => 'Engadir un proxecto',
 	'openstackmanager-projectname' => 'Nome do proxecto',
 	'openstackmanager-members' => 'Membros',
@@ -4768,10 +4779,12 @@ Debe comezar con letras do a ao z, e só pode conter caracteres a-z, 0-9 e "-".'
 	'openstackmanager-commadelimiter' => 'Separados por comas',
 	'openstackmanager-sudoerusers' => 'Usuarios',
 	'openstackmanager-sudoerhosts' => 'Servidores',
+	'openstackmanager-sudoerrunas' => 'Permitir a execución como',
 	'openstackmanager-sudoercommands' => 'Comandos',
 	'openstackmanager-requirepassword' => 'Cómpre autenticación',
 	'openstackmanager-sudoeroptions' => 'Opcións',
 	'openstackmanager-allmembers' => 'Todos os membros do proxecto',
+	'openstackmanager-membersofgroup' => 'Membros do grupo $1',
 	'openstackmanager-deletesudoer' => 'Borrar unha política sudo',
 	'openstackmanager-deletesudoer-confirm' => 'Está seguro de querer borrar a política sudo $1?',
 	'openstackmanager-createsudoerfailed' => 'Erro ao crear a política sudo.',
@@ -6675,9 +6688,11 @@ $messages['ja'] = array(
 	'openstackmanager-commadelimiter' => 'カンマ区切り',
 	'openstackmanager-sudoerusers' => '利用者',
 	'openstackmanager-sudoerhosts' => 'ホスト',
+	'openstackmanager-sudoerrunas' => '以下の利用者としての実行を許可',
 	'openstackmanager-requirepassword' => '認証を求める',
 	'openstackmanager-sudoeroptions' => 'オプション',
 	'openstackmanager-allmembers' => 'プロジェクトのすべてのメンバー',
+	'openstackmanager-membersofgroup' => 'グループ $1 のメンバー',
 	'openstackmanager-deletesudoer' => 'sudo ポリシーの削除',
 	'openstackmanager-deletesudoer-confirm' => 'sudo ポリシー $1 を本当に削除しますか?',
 	'openstackmanager-createsudoerfailed' => 'sudo ポリシーの作成に失敗しました。',
@@ -8092,10 +8107,12 @@ $messages['mk'] = array(
 	'openstackmanager-commadelimiter' => 'Одделено со запирка',
 	'openstackmanager-sudoerusers' => 'Корисници',
 	'openstackmanager-sudoerhosts' => 'Домаќини',
+	'openstackmanager-sudoerrunas' => 'Допушти работа како',
 	'openstackmanager-sudoercommands' => 'Наредби',
 	'openstackmanager-requirepassword' => 'Барај заверка',
 	'openstackmanager-sudoeroptions' => 'Нагодувања',
 	'openstackmanager-allmembers' => 'Сите членови на проектот',
+	'openstackmanager-membersofgroup' => 'Членови на групата $1',
 	'openstackmanager-deletesudoer' => 'Избриши правило',
 	'openstackmanager-deletesudoer-confirm' => 'Дали сте сигурни дека сакате да го избришете правилото $1?',
 	'openstackmanager-createsudoerfailed' => 'Не успеав да го создадам правилото.',
