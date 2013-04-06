@@ -7798,6 +7798,7 @@ $messages['lt'] = array(
 );
 
 /** Latvian (latviešu)
+ * @author Admresdeserv.
  * @author GreenZeb
  */
 $messages['lv'] = array(
@@ -7807,6 +7808,8 @@ $messages['lv'] = array(
 	'openstackmanager-rename' => 'pārdēvēt',
 	'openstackmanager-reboot' => 'atsāknēt',
 	'openstackmanager-actions' => 'Darbības',
+	'openstackmanager-sudoerrunas' => 'Atļaut darbību ka',
+	'openstackmanager-membersofgroup' => 'Dala no grupas $1',
 );
 
 /** Macedonian (македонски)
