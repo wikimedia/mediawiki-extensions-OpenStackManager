@@ -429,10 +429,7 @@ Choose one or the other, not both.',
 	'prefs-openstack-keys' => 'Key list',
 );
 
-/** Message documentation (This is the name of the message documentation language code (qqq). Follow the rules of your languages and use small first letter if it doesn't capitalize language names always.
-
-It might be easier to translate it as "translation guidelines" or "translation help".
-{{Identical|Message documentation}})
+/** Message documentation (Message documentation)
  * @author EugeneZelenko
  * @author Kghbln
  * @author Krenair
@@ -6391,6 +6388,7 @@ Deve iniziare con a-z e può contenere solo i caratteri a-z, 0-9 e -.',
 	'openstackmanager-requirepassword' => "Richiedi l'autenticazione",
 	'openstackmanager-sudoeroptions' => 'Opzioni',
 	'openstackmanager-allmembers' => 'Tutti i membri del progetto',
+	'openstackmanager-membersofgroup' => 'Membri del gruppo $1',
 	'openstackmanager-deletesudoer' => 'Cancella politica Sudo',
 	'openstackmanager-deletesudoer-confirm' => 'Sei sicuro di voler cancellare la politica Sudo $1?',
 	'openstackmanager-createsudoerfailed' => 'Errore durante la creazione della politica Sudo.',
