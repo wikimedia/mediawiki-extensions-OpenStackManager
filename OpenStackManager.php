@@ -241,33 +241,46 @@ function efEchoGetDefaultNotifiedUsers ( $event, &$users ) {
 	return true;
 }
 
-$wgEchoNotificationFormatters['osm-instance-build-completed'] = array(
-	'class' => 'OpenStackManagerNotificationFormatter',
+$wgEchoNotifications['osm-instance-build-completed'] = array(
+	'formatter-class' => 'OpenStackManagerNotificationFormatter',
+	'category' => 'osm-instance-build-completed',
 	'title-message' => 'notification-osm-instance-build-completed',
 	'title-params' => array( 'agent', 'title', 'instance' ),
 	'icon' => 'placeholder',
 	'payload' => array( 'summary' )
 );
+$wgEchoNotificationCategories['osm-instance-build-completed'] = array(
+	'priority' => 10
+);
+$wgDefaultUserOptions["echo-subscriptions-web-osm-instance-build-completed"] = true;
+$wgDefaultUserOptions["echo-subscriptions-email-osm-instance-build-completed"] = true;
 
-$wgEchoNotificationFormatters['osm-instance-reboot-completed'] = array(
-	'class' => 'OpenStackManagerNotificationFormatter',
+$wgEchoNotifications['osm-instance-reboot-completed'] = array(
+	'formatter-class' => 'OpenStackManagerNotificationFormatter',
+	'category' => 'osm-instance-reboot-completed',
 	'title-message' => 'notification-osm-instance-reboot-completed',
 	'title-params' => array( 'agent', 'title', 'instance' ),
 	'icon' => 'placeholder',
 	'payload' => array( 'summary' )
 );
+$wgEchoNotificationCategories['osm-instance-reboot-completed'] = array(
+	'priority' => 10
+);
+$wgDefaultUserOptions["echo-subscriptions-web-osm-instance-reboot-completed"] = true;
 
-$wgEchoNotificationFormatters['osm-instance-deleted'] = array(
-	'class' => 'OpenStackManagerNotificationFormatter',
+$wgEchoNotifications['osm-instance-deleted'] = array(
+	'formatter-class' => 'OpenStackManagerNotificationFormatter',
+	'category' => 'osm-instance-deleted',
 	'title-message' => 'notification-osm-instance-deleted',
 	'title-params' => array( 'agent', 'title', 'instance' ),
 	'icon' => 'trash',
 	'payload' => array( 'summary' )
 );
-
-$wgEchoEnabledEvents[] = 'osm-instance-build-completed';
-$wgEchoEnabledEvents[] = 'osm-instance-reboot-completed';
-$wgEchoEnabledEvents[] = 'osm-instance-deleted';
+$wgEchoNotificationCategories['osm-instance-deleted'] = array(
+	'priority' => 10
+);
+$wgDefaultUserOptions["echo-subscriptions-web-osm-instance-deleted"] = true;
+$wgDefaultUserOptions["echo-subscriptions-email-osm-instance-deleted"] = true;
 
 /**
  * @param $updater DatabaseUpdater

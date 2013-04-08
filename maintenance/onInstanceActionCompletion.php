@@ -78,7 +78,7 @@ class OnInstanceActionComplete extends Maintenance {
 			$this->error( "Lookup of temporary event info failed.\n", true );
 		}
 
-		EchoEvent::create( array(
+		$successful = EchoEvent::create( array(
 			'type' => 'osm-instance-' . $this->getOption( 'action' ) . '-completed',
 			'title' => Title::newFromText( $result->event_project, NS_NOVA_RESOURCE ),
 			'agent' => User::newFromId( $result->event_actor_id ),
@@ -89,17 +89,22 @@ class OnInstanceActionComplete extends Maintenance {
 			)
 		) );
 
-		$dbw->delete(
-			'openstack_notification_event',
-			array(
-				'event_action' => $this->getOption( 'action' ),
-				'event_instance_host' => $this->getOption( 'instance' ),
-				'event_instance_name' => $result->event_instance_name,
-				'event_project' => $result->event_project,
-				'event_actor_id' => $result->event_actor_id
-			),
-			__METHOD__
-		);
+		if ( $successful ) {
+			$dbw->delete(
+				'openstack_notification_event',
+				array(
+					'event_action' => $this->getOption( 'action' ),
+					'event_instance_host' => $this->getOption( 'instance' ),
+					'event_instance_name' => $result->event_instance_name,
+					'event_project' => $result->event_project,
+					'event_actor_id' => $result->event_actor_id
+				),
+				__METHOD__
+			);
+			$this->output( "Event created successfully.\n" );
+		} else {
+			$this->error( "Something went wrong creating the echo notification.\n", true );
+		}
 	}
 }
 
