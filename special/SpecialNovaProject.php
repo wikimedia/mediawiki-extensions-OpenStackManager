@@ -145,7 +145,7 @@ class SpecialNovaProject extends SpecialNova {
 
 		$project = $this->getRequest()->getText( 'projectname' );
 		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-			$this->displayRestrictionError();
+			$this->notInRole( 'projectadmin' );
 			return false;
 		}
 
@@ -185,7 +185,7 @@ class SpecialNovaProject extends SpecialNova {
 		$project = $this->getRequest()->getText( 'projectname' );
 
 		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-			$this->displayRestrictionError();
+			$this->notInRole( 'projectadmin' );
 			return false;
 		}
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-removeservicegroup' ) );
