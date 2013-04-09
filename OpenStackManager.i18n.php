@@ -35,6 +35,7 @@ Resource names start with a-z, and can only contain a-z, 0-9, and - characters.'
 	'novainstance' => 'Manage instances',
 	'novakey' => 'Manage your public SSH keys',
 	'novaproject' => 'Manage OpenStack projects',
+	'novaservicegroup' => 'Manage service groups',
 	'novasecuritygroup' => 'Manage firewall security groups',
 	'novarole' => 'Manage global roles',
 	'novavolume' => 'Manage storage volumes',
@@ -455,7 +456,7 @@ This error is the result of the form validation about the following elements: ho
 	'action-listall' => '{{doc-action|listall}}',
 	'action-managednsdomain' => '{{doc-action|managednsdomain}}',
 	'action-manageglobalpuppet' => '{{doc-action|manageglobalpuppet}}',
-	'specialpages-group-nova' => '{{doc-special-group|that=are related to OpenStack Nova|like=[[Special:NovaInstance]], [[Special:NovaKey]], [[Special:NovaProject]], [[Special:NovaDomain]], [[Special:NovaAddress]], [[Special:NovaSecurityGroup]], [[Special:NovaRole]], [[Special:NovaVolume]], [[Special:NovaSudoer]], [[Special:NovaPuppetGroup]]}}
+	'specialpages-group-nova' => '{{doc-special-group|that=are related to OpenStack Nova|like=[[Special:NovaInstance]], [[Special:NovaKey]], [[Special:NovaProject]], [[Special:NovaDomain]], [[Special:NovaAddress]], [[Special:NovaSecurityGroup]], [[Special:NovaServiceGroup]],[[Special:NovaRole]], [[Special:NovaVolume]], [[Special:NovaSudoer]], [[Special:NovaPuppetGroup]]}}
 The following special pages are listed as members of this group:
 * {{msg-mw|Novaaddress}}
 * {{msg-mw|Novadomain}}
@@ -463,6 +464,7 @@ The following special pages are listed as members of this group:
 * {{msg-mw|Novakey}}
 * {{msg-mw|Novaproject}}
 * {{msg-mw|Novasecuritygroup}}
+* {{msg-mw|Novaservicegroup}}
 * {{msg-mw|Novarole}}
 * {{msg-mw|Novavolume}}
 * {{msg-mw|Novasudoer}}
@@ -474,6 +476,7 @@ An instance is a virtual machine. In this particular case, a clone of an image f
 	'novakey' => '{{doc-special|NovaKey}}',
 	'novaproject' => '{{doc-special|NovaProject}}',
 	'novasecuritygroup' => '{{doc-special|NovaSecurityGroup}}',
+	'novaservicegroup' => '{{doc-special|NovaServiceGroup}}',
 	'novarole' => '{{doc-special|NovaRole}}',
 	'novavolume' => '{{doc-special|NovaVolume}}',
 	'novasudoer' => '{{doc-special|NovaSudoer}}',
