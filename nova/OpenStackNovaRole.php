@@ -169,6 +169,8 @@ class OpenStackNovaRole {
 		}
 		$key = wfMemcKey( 'openstackmanager', "fulltoken-$projectname", $username );
 		$wgMemc->delete( $key );
+		$key = wfMemcKey( 'openstackmanager', 'roles', $user->userDN );
+		$wgMemc->delete( $key );
 	}
 
 	/**
