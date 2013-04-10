@@ -181,8 +181,14 @@ class OpenStackNovaUser {
 	 * @return array
 	 */
 	function getRoles() {
-		global $wgAuth;
+		global $wgAuth, $wgMemc;
 		global $wgOpenStackManagerLDAPProjectBaseDN;
+
+		$key = wfMemcKey( 'openstackmanager', 'roles', $this->userDN );
+		$roles = $wgMemc->get( $key );
+		if ( is_array( $roles ) ) {
+			return $roles;
+		}
 
 		# All projects have a owner attribute, project
 		# roles do not
@@ -198,10 +204,12 @@ class OpenStackNovaUser {
 					$roles[] = $entry['cn'][0];
 				}
 			}
+			$roles = array_unique( $roles );
 		} else {
 			$wgAuth->printDebug( "No result found when searching for user's roles", NONSENSITIVE );
 		}
-		return array_unique( $roles );
+		$wgMemc->set( $key, $roles, '3600' );
+		return $roles;
 	}
 
 	/**
@@ -608,8 +616,11 @@ class OpenStackNovaUser {
 	}
 
 	static function DynamicSidebarGetGroups( &$groups ) {
-		$user = new OpenStackNovaUser();
-		$groups = array_merge( $groups, $user->getRoles() );
+		global $wgUser;
+		if ( $wgUser->isLoggedIn() ) {
+			$user = new OpenStackNovaUser();
+			$groups = array_merge( $groups, $user->getRoles() );
+		}
 
 		return true;
 	}
