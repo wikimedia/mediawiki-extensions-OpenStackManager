@@ -603,7 +603,7 @@ class OpenStackNovaProject {
 		OpenStackNovaLdapConnection::connect();
 
 		$projects = array();
-		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, '(objectclass=groupofnames)' );
+		$result = LdapAuthenticationPlugin::ldap_list( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, '(objectclass=groupofnames)' );
 		if ( $result ) {
 			$entries = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
 			if ( $entries ) {
