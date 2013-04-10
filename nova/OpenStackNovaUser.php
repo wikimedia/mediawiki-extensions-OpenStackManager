@@ -208,6 +208,7 @@ class OpenStackNovaUser {
 		} else {
 			$wgAuth->printDebug( "No result found when searching for user's roles", NONSENSITIVE );
 		}
+		$key = wfMemcKey( 'openstackmanager', 'roles', $this->getUsername() );
 		$wgMemc->set( $key, $roles, '3600' );
 		return $roles;
 	}
@@ -616,10 +617,15 @@ class OpenStackNovaUser {
 	}
 
 	static function DynamicSidebarGetGroups( &$groups ) {
-		global $wgUser;
+		global $wgUser, $wgMemc;
 		if ( $wgUser->isLoggedIn() ) {
-			$user = new OpenStackNovaUser();
-			$groups = array_merge( $groups, $user->getRoles() );
+			$key = wfMemcKey( 'openstackmanager', 'roles', $wgUser->getName() );
+			$roles = $wgMemc->get( $key );
+			if ( !is_array( $roles ) ) {
+				$user = new OpenStackNovaUser();
+				$roles = $user->getRoles();
+			}
+			$groups = array_merge( $groups, $roles );
 		}
 
 		return true;
