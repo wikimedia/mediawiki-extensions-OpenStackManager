@@ -475,8 +475,8 @@ The following special pages are listed as members of this group:
 An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'novakey' => '{{doc-special|NovaKey}}',
 	'novaproject' => '{{doc-special|NovaProject}}',
-	'novasecuritygroup' => '{{doc-special|NovaSecurityGroup}}',
 	'novaservicegroup' => '{{doc-special|NovaServiceGroup}}',
+	'novasecuritygroup' => '{{doc-special|NovaSecurityGroup}}',
 	'novarole' => '{{doc-special|NovaRole}}',
 	'novavolume' => '{{doc-special|NovaVolume}}',
 	'novasudoer' => '{{doc-special|NovaSudoer}}',
@@ -2498,6 +2498,7 @@ $messages['de'] = array(
 	'novainstance' => 'Instanzen verwalten',
 	'novakey' => 'Öffentliche SSH-Schlüssel verwalten',
 	'novaproject' => 'OpenStack-Projekte verwalten',
+	'novaservicegroup' => 'Dienstgruppen verwalten',
 	'novasecuritygroup' => 'Firewall-Sicherheitsgruppen verwalten',
 	'novarole' => 'Globale Rollen verwalten',
 	'novavolume' => 'Datenträger verwalten',
@@ -3793,6 +3794,7 @@ $messages['fr'] = array(
 	'novainstance' => 'Gérer les instances',
 	'novakey' => 'Gérez vos clés publiques SSH',
 	'novaproject' => 'Gérer les projets OpenStack',
+	'novaservicegroup' => 'Gérer les groupes de service',
 	'novasecuritygroup' => 'Gérer les groupes de sécurité du pare-feu',
 	'novarole' => 'Gérer les rôles globaux',
 	'novavolume' => 'Gérer les volumes de stockage',
@@ -4500,6 +4502,7 @@ $messages['gl'] = array(
 	'novainstance' => 'Xestionar as instancias',
 	'novakey' => 'Xestionar a súas claves SSH públicas',
 	'novaproject' => 'Xestionar os proxectos OpenStack',
+	'novaservicegroup' => 'Xestionar os grupos de servizo',
 	'novasecuritygroup' => 'Xestionar os grupos de seguridade da devasa',
 	'novarole' => 'Xestionar os roles globais',
 	'novavolume' => 'Xestionar os volumes de almacenamento',
@@ -4882,6 +4885,7 @@ $messages['gsw'] = array(
 /** Hebrew (עברית)
  * @author Amire80
  * @author Ofekalef
+ * @author Orsa
  * @author ערן
  */
 $messages['he'] = array(
@@ -5013,9 +5017,9 @@ $messages['he'] = array(
 	'openstackmanager-detachedvolume' => 'ביטול שיוך הכרך הצליח.',
 	'openstackmanager-detachvolumefailed' => 'ביטול שיוך הכרך נכשל.',
 	'openstackmanager-novapublickey' => 'מפתח SSH ציבורי',
-	'openstackmanager-deletekey' => 'מחיקת מפתח',
+	'openstackmanager-deletekey' => 'מחיקת מפתח', # Fuzzy
 	'openstackmanager-deletekeyconfirm' => 'האם באמת למחוק את המפתח הנ״ל?',
-	'openstackmanager-keylist' => 'רשימת מפתחות',
+	'openstackmanager-keylist' => 'רשימת מפתחות', # Fuzzy
 	'openstackmanager-name' => 'שם',
 	'openstackmanager-fingerprint' => 'טביעת אצבע',
 	'openstackmanager-keys' => 'מפתחות',
@@ -5025,8 +5029,6 @@ $messages['he'] = array(
 	'openstackmanager-keypairimportedfingerprint' => 'יובא זוג המפתחות $1 עם טביעת האצבע $2.',
 	'openstackmanager-keypairformatwrong' => 'מפתח ה־SSH היה שגוי או בעל תסדיר לא ידוע.',
 	'openstackmanager-keypairformatconverted' => 'התסדיר של מפתח ה־SSH הומר באופן אוטומטי.',
-	'openstackmanager-backkeylist' => 'חזרה לרשימת מפתחות.',
-	'openstackmanager-addadditionalkey' => 'הוספת כפתור נוסף',
 	'openstackmanager-deletedkey' => 'המפתח נמחק בהצלחה.',
 	'openstackmanager-deletedkeyfailed' => 'כשל במחיקת מפתח.',
 	'openstackmanager-addmember' => 'הוספת חבר פרויקט',
@@ -5047,7 +5049,7 @@ $messages['he'] = array(
 	'openstackmanager-deleteprojectfailed' => 'כשל במחיקת פרויקט.',
 	'openstackmanager-addedto' => '$1 נוסף בהצלחה אל $2.',
 	'openstackmanager-failedtoadd' => 'כשל בהוספת $1 אל $2.',
-	'openstackmanager-failedtoaddneedsloginright' => 'הוספת $1 ל{{GRAMMAR:תחילית|$2}}. זה דורש את את ההרשאה "<code>loginviashell</code>".',
+	'openstackmanager-failedtoaddneedsloginright' => 'הוספת $1 ל{{GRAMMAR:תחילית|$2}}. זה דורש את את ההרשאה "<code>loginviashell</code>".', # Fuzzy
 	'openstackmanager-removedfrom' => '$1 נמחק בהצלחה מ־$2.',
 	'openstackmanager-failedtoremove' => 'כשל בהסרת $1 מ־$2.',
 	'openstackmanager-novaproject-project' => 'הוספת פרויקט',
@@ -5057,7 +5059,7 @@ $messages['he'] = array(
 	'openstackmanager-setprojectfilter' => 'נא לבחור את הפרויקטים שיוצגו באמצעות מסנן הפרויקטים.',
 	'openstackmanager-toggle' => 'בחירה',
 	'openstackmanager-roles' => 'תפקידים',
-	'openstackmanager-rolename' => 'שם התפקיד',
+	'openstackmanager-rolename' => 'שם התפקיד', # Fuzzy
 	'openstackmanager-removerolemember' => 'הסרת חבר',
 	'openstackmanager-addrolemember' => 'הוספת חבר',
 	'openstackmanager-rolelist' => 'רשימת תפקידים כללית',
@@ -5100,12 +5102,6 @@ $messages['he'] = array(
 	'openstackmanager-removedhost' => 'הסרת $1 הצליחה.',
 	'openstackmanager-removehostfailed' => 'הסרת $1 נכשלה.',
 	'openstackmanager-nonexistenthost' => 'המארח המבוקש אינו קיים.',
-	'openstackmanager-needsysadminrole' => 'נדרש תפקיד מנהל מערכת',
-	'openstackmanager-needsysadminrole2' => 'רק בעל תפקיד sysadmin יכול לבצע את הפעולה הזאת.',
-	'openstackmanager-neednetadminrole' => 'נדרש תפקיד מנהל רשת',
-	'openstackmanager-neednetadminrole2' => 'רק בעל תפקיד netadmin יכול לבצע את הפעולה הזאת.',
-	'openstackmanager-needcloudadminrole' => 'נדרש תפקיד מנהל ענן',
-	'openstackmanager-needcloudadminrole2' => 'רק בעלי תפקיד מנהל יכולים לבצע את הפעולה הזאת.',
 	'openstackmanager-createsecuritygroup' => 'יצירת קבוצת אבטחה',
 	'openstackmanager-securitygroupname' => 'שם קבוצת אבטחה',
 	'openstackmanager-securitygroupdescription' => 'תיאור',
@@ -5216,6 +5212,8 @@ $messages['he'] = array(
 	'right-manageproject' => 'ניהול פרויקטים ותפקידים של OpenStack',
 	'action-manageproject' => 'ניהול פרויקטים ותפקידים של OpenStack',
 	'right-loginviashell' => 'כניסה דרך מסוף',
+	'echo-pref-subscription-osm-instance-deleted' => 'מחיקת מופע מפרוייקט שאני מנהל.',
+	'echo-pref-subscription-osm-instance-build-completed' => 'בונה מופע על פרויקט שאני מנהל.',
 );
 
 /** Hindi (हिन्दी)
@@ -6482,6 +6480,7 @@ $messages['ja'] = array(
 	'novainstance' => 'インスタンスを管理',
 	'novakey' => 'SSH 公開鍵を管理',
 	'novaproject' => 'OpenStack プロジェクトを管理',
+	'novaservicegroup' => 'サービスグループの管理',
 	'novasecuritygroup' => 'ファイアウォール セキュリティ グループを管理',
 	'novarole' => 'グローバル権限を管理',
 	'novavolume' => 'ストレージボリュームの管理',
