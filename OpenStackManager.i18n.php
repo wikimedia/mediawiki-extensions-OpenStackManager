@@ -6455,9 +6455,9 @@ Deve iniziare con a-z e può contenere solo i caratteri a-z, 0-9 e -.',
 	'notification-osm-instance-deleted' => "$1 ha cancellato l'istanza '$3' dal progetto [[$2]]",
 	'notification-osm-instance-build-completed' => "$1 ha costruito l'istanza '$3' nel progetto [[$2]]",
 	'notification-osm-instance-reboot-completed' => "$1 ha riavviato l'istanza '$3' nel progetto [[$2]]",
-	'echo-pref-subscription-osm-instance-deleted' => "Cancellazione di un'istanza da un progetto di cui io sono un amministratore.", # Fuzzy
-	'echo-pref-subscription-osm-instance-build-completed' => "Costruzione di un'istanza su un progetto di cui io sono un amministratore.", # Fuzzy
-	'echo-pref-subscription-osm-instance-reboot-completed' => "Riavvio di un'istanza.", # Fuzzy
+	'echo-pref-subscription-osm-instance-deleted' => "Cancellazione di un'istanza da un progetto di cui io sono un amministratore.",
+	'echo-pref-subscription-osm-instance-build-completed' => "Costruzione di un'istanza su un progetto di cui io sono un amministratore.",
+	'echo-pref-subscription-osm-instance-reboot-completed' => "Riavvio di un'istanza.",
 	'prefs-openstack' => 'OpenStack',
 	'prefs-openstack-keys' => 'Elenco chiavi',
 );
@@ -8659,6 +8659,7 @@ $messages['nl'] = array(
 	'novainstance' => 'Instanties beheren',
 	'novakey' => 'Uw publieke SSH-sleutels beheren',
 	'novaproject' => 'OpenStack-projecten beheren',
+	'novaservicegroup' => 'Dienstengroepen beheren',
 	'novasecuritygroup' => 'Beveiligingsgroepen voor de firewall beheren',
 	'novarole' => 'Globale rollen beheren',
 	'novavolume' => 'Opslagvolumes beheren',
@@ -8939,10 +8940,12 @@ Verwijder alle hostkoppelingen en ontkoppel het IP-adres voordat u het vrijgeeft
 	'openstackmanager-commadelimiter' => 'Kommagescheiden',
 	'openstackmanager-sudoerusers' => 'Gebruikers',
 	'openstackmanager-sudoerhosts' => 'Hosts',
+	'openstackmanager-sudoerrunas' => 'Uitvoeren toestaan als de volgende gebruiker',
 	'openstackmanager-sudoercommands' => "Commando's",
 	'openstackmanager-requirepassword' => 'Verificatie vereisen',
 	'openstackmanager-sudoeroptions' => 'Opties',
 	'openstackmanager-allmembers' => 'Alle projectleden',
+	'openstackmanager-membersofgroup' => 'Leden van de groep $1',
 	'openstackmanager-deletesudoer' => 'Sudo-beleid verwijderen',
 	'openstackmanager-deletesudoer-confirm' => 'Weet u zeker dat u sudo-beleid $1 wilt verwijderen?',
 	'openstackmanager-createsudoerfailed' => 'Het aanmaken van het sudo-beleid is mislukt.',
@@ -9008,9 +9011,9 @@ Verwijder alle hostkoppelingen en ontkoppel het IP-adres voordat u het vrijgeeft
 	'notification-osm-instance-deleted' => '{{GENDER:$1|$1}} heeft de instantie "$3" in het project [[$2]] verwijderd',
 	'notification-osm-instance-build-completed' => '{{GENDER:$1|$1}} heeft de instantie "$3" in het project [[$2]] gebouwd',
 	'notification-osm-instance-reboot-completed' => '{{GENDER:$1|$1}} heeft de instantie "$3" in het project [[$2]] herstart',
-	'echo-pref-subscription-osm-instance-deleted' => 'Een instantie verwijdert van een project waarin ik beheerder ben.', # Fuzzy
-	'echo-pref-subscription-osm-instance-build-completed' => 'Een instantie bouwt in een project waarin ik beheerder ben.', # Fuzzy
-	'echo-pref-subscription-osm-instance-reboot-completed' => 'Een instantie herstart.', # Fuzzy
+	'echo-pref-subscription-osm-instance-deleted' => 'Een instantie verwijdert van een project waarin ik beheerder ben.',
+	'echo-pref-subscription-osm-instance-build-completed' => 'Een instantie bouwt in een project waarin ik beheerder ben.',
+	'echo-pref-subscription-osm-instance-reboot-completed' => 'Een instantie herstart.',
 	'prefs-openstack' => 'OpenStack',
 	'prefs-openstack-keys' => 'Sleutellijst',
 );
