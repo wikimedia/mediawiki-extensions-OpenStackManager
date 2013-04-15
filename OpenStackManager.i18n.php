@@ -2912,6 +2912,8 @@ $messages['el'] = array(
 	'openstackmanager-deletedkeyfailed' => 'Απέτυχε να διαγράψει κλειδί.',
 	'openstackmanager-addmember' => 'Προσθήκη μέλους',
 	'openstackmanager-removemember' => 'Μετακίνηση μέλους',
+	'openstackmanager-addservicegroupmember' => 'Προσθήκη χρήστη στο service group',
+	'openstackmanager-removeservicegroupmember' => 'Απομάκρυνση χρήστη',
 	'openstackmanager-createproject' => 'Προσθήκη εγχειρήματος',
 	'openstackmanager-projectname' => 'Όνομα εγχειρήματος',
 	'openstackmanager-members' => 'Μέλη',
@@ -2922,7 +2924,7 @@ $messages['el'] = array(
 	'openstackmanager-deleteproject' => 'Διαγραφή',
 	'openstackmanager-projects' => 'Έργα',
 	'openstackmanager-roles' => 'Ρόλοι',
-	'openstackmanager-rolename' => 'Όνομα ρόλου',
+	'openstackmanager-rolename' => 'Ρόλος',
 	'openstackmanager-removerolemember' => 'Απομάκρυνση μέλους',
 	'openstackmanager-addrolemember' => 'Προσθήκη μέλους',
 	'openstackmanager-securitygroupdescription' => 'Περιγραφή',
@@ -7842,6 +7844,7 @@ $messages['mk'] = array(
 	'novainstance' => 'Раководство со примероци',
 	'novakey' => 'Раководство со вашите јавни SSH-клучеви',
 	'novaproject' => 'Раководство со проекти на OpenStack',
+	'novaservicegroup' => 'Раководство со службени групи',
 	'novasecuritygroup' => 'Раководство со сигурносни групи за огнен ѕид',
 	'novarole' => 'Раководство со глобални улоги',
 	'novavolume' => 'Раководење со складишни носачи на податоци',
@@ -11100,6 +11103,7 @@ $messages['sr-el'] = array(
 );
 
 /** Swedish (svenska)
+ * @author Ainali
  * @author WikiPhoenix
  */
 $messages['sv'] = array(
@@ -11152,7 +11156,7 @@ $messages['sv'] = array(
 	'openstackmanager-deletedvolume' => 'Raderad volym.',
 	'openstackmanager-backvolumelist' => 'Tillbaka till volymlista',
 	'openstackmanager-device' => 'Enhet',
-	'openstackmanager-deletekey' => 'Radera nyckel', # Fuzzy
+	'openstackmanager-deletekey' => 'Radera publik SSH-nyckel',
 	'openstackmanager-deletekeyconfirm' => 'Är du säker på att du vill ta bort nyckeln ovan?',
 	'openstackmanager-keylist' => 'Nyckellista', # Fuzzy
 	'openstackmanager-name' => 'Namn',
