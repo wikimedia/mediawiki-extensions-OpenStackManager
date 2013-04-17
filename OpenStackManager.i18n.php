@@ -12260,6 +12260,7 @@ $messages['yi'] = array(
 /** Simplified Chinese (中文（简体）‎)
  * @author Anakmalaysia
  * @author Hydra
+ * @author Linforest
  * @author Simon Shek
  * @author Xiaomingyan
  * @author Yanmiao liu
@@ -12465,7 +12466,7 @@ $messages['zh-hans'] = array(
 	'openstackmanager-setprojectfilter' => '请选择项目以使用该项目过滤器显示。',
 	'openstackmanager-toggle' => '切换',
 	'openstackmanager-roles' => '作用',
-	'openstackmanager-rolename' => '作用名称', # Fuzzy
+	'openstackmanager-rolename' => '角色',
 	'openstackmanager-removerolemember' => '删除成员',
 	'openstackmanager-addrolemember' => '添加成员',
 	'openstackmanager-rolelist' => '全局作用列表',
