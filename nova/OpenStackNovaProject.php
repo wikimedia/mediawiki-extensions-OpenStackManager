@@ -421,6 +421,7 @@ class OpenStackNovaProject {
 				}
 				$this->fetchProjectInfo(true);
 				$wgAuth->printDebug( "Successfully removed $user->userDN from $this->projectDN", NONSENSITIVE );
+				$this->editArticle();
 				return true;
 			} else {
 				$wgAuth->printDebug( "Failed to remove $user->userDN from $this->projectDN: " . ldap_error($wgAuth->ldapconn), NONSENSITIVE );
@@ -504,6 +505,7 @@ class OpenStackNovaProject {
 
 			$this->fetchProjectInfo( true );
 			$wgAuth->printDebug( "Successfully added $user->userDN to $this->projectDN", NONSENSITIVE );
+			$this->editArticle();
 			return true;
 		} else {
 			$wgAuth->printDebug( "Failed to add $user->userDN to $this->projectDN: " . ldap_error($wgAuth->ldapconn), NONSENSITIVE );

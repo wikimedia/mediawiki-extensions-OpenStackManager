@@ -654,7 +654,6 @@ class SpecialNovaProject extends SpecialNova {
 			}
 			$success = $project->addMember( $member );
 			if ( $success ) {
-				$project->editArticle();
 				$this->getOutput()->addWikiMsg( 'openstackmanager-addedto', $formData['member'], $formData['projectname'] );
 			} else {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoadd', $formData['member'], $formData['projectname'] );
@@ -685,7 +684,6 @@ class SpecialNovaProject extends SpecialNova {
 		foreach ( $formData['members'] as $member ) {
 			$success = $project->deleteMember( $member );
 			if ( $success ) {
-				$project->editArticle();
 				$this->getOutput()->addWikiMsg( 'openstackmanager-removedfrom', $member, $formData['projectname'] );
 			} else {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoremove', $member, $formData['projectname'] );
