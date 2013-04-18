@@ -372,26 +372,21 @@ class OpenStackNovaUser {
 	 * @param  $projectDN (optional)
 	 * @return mixed|string
 	 */
-	static function getNextIdNumber( $auth, $attr, $projectDN = "" ) {
+	static function getNextIdNumber( $auth, $attr ) {
 		global $wgOpenStackManagerIdRanges;
 
 		$highest = '';
 		if ( $attr === 'gidnumber' ) {
 			$filter = "(objectclass=posixgroup)";
 			$base = GROUPDN;
+			$highest = $wgOpenStackManagerIdRanges['service']['gid']['min'];
 		} else {
 			$filter = "(objectclass=posixaccount)";
 			$base = USERDN;
-		}
-		if ( $projectDN ) {
-			# if a project is specified, we're just looking for
-			# the next ID local to this project.
-			$basedn = $projectDN;
-			$highest = $wgOpenStackManagerIdRanges['service']['gid']['min'];
-		} else {
-			$basedn = $auth->getBaseDN( $base );
 			$highest = '500';
 		}
+		$basedn = $auth->getBaseDN( $base );
+
 		$result = LdapAuthenticationPlugin::ldap_search( $auth->ldapconn, $basedn, $filter );
 		if ( $result ) {
 			$entries = LdapAuthenticationPlugin::ldap_get_entries( $auth->ldapconn, $result );

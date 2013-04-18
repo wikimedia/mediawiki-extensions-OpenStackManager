@@ -219,7 +219,7 @@ class OpenStackNovaServiceGroup {
 		$group['objectclass'][] = 'groupofnames';
 		$group['cn'] = $groupName;
 		$groupdn = 'cn=' . $groupName . ',' . 'ou=groups' . ',' . $project->projectDN;
-		$group['gidnumber'] = OpenStackNovaUser::getNextIdNumber( $wgAuth, 'gidnumber', $project->projectDN );
+		$group['gidnumber'] = OpenStackNovaUser::getNextIdNumber( $wgAuth, 'gidnumber' );
 		$group['member'] = array();
 		$group['member'][] = $initialUserDN;
 		$success = LdapAuthenticationPlugin::ldap_add( $wgAuth->ldapconn, $groupdn, $group );
