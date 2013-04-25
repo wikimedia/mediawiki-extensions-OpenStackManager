@@ -167,11 +167,11 @@ abstract class SpecialNova extends SpecialPage {
 		return Linker::link( $title, $resource );
 	}
 
-	function createActionLink( $msg, $params, $title = null ) {
+	function createActionLink( $msg, $params, $title = null, $attribs=array() ) {
 		if ( !$title ) {
 			$title = $this->getTitle();
 		}
-		return Linker::link( $title, $this->msg( $msg )->escaped(), array(), $params );
+		return Linker::link( $title, $this->msg( $msg )->escaped(), $attribs, $params );
 	}
 
 	public static function createNovaKeyActionLink( $msg, $params ) {

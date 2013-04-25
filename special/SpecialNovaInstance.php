@@ -476,7 +476,7 @@ class SpecialNovaInstance extends SpecialNova {
 	 */
 	function listInstances() {
 		$this->setHeaders();
-		$this->getOutput()->addModuleStyles( 'ext.openstack' );
+		$this->getOutput()->addModules( 'ext.openstack' );
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-instancelist' ) );
 
 		if ( $this->getUser()->isAllowed( 'listall' ) ) {
@@ -527,9 +527,9 @@ class SpecialNovaInstance extends SpecialNova {
 		 */
 		foreach ( $instances as $instance ) {
 			$instanceRow = array();
-			$this->pushResourceColumn( $instanceRow, $instance->getInstanceName() );
+			$this->pushResourceColumn( $instanceRow, $instance->getInstanceName(), array( 'class' => 'novainstancename' ) );
 			$this->pushRawResourceColumn( $instanceRow, $this->createResourceLink( $instance->getInstanceId() ) );
-			$this->pushResourceColumn( $instanceRow, $instance->getInstanceState() );
+			$this->pushResourceColumn( $instanceRow, $instance->getInstanceState(), array( 'class' => 'novainstancestate' ) );
 			$this->pushRawResourceColumn( $instanceRow, $this->createResourceList( $instance->getInstancePrivateIPs() ) );
 			$this->pushRawResourceColumn( $instanceRow, $this->createResourceList( $instance->getInstancePublicIPs() ) );
 			$this->pushRawResourceColumn( $instanceRow, $this->createResourceList( $instance->getSecurityGroups() ) );
@@ -562,7 +562,9 @@ class SpecialNovaInstance extends SpecialNova {
 						'instanceid' => $instance->getInstanceOSId(),
 						'project' => $projectName,
 						'region' => $region
-					)
+					),
+					null,
+					array( 'class' => 'novainstanceaction' )
 				);
 				$actions[] = $this->createActionLink(
 					'openstackmanager-configure',
@@ -696,7 +698,7 @@ class SpecialNovaInstance extends SpecialNova {
 			OpenStackManagerEvent::storeEventInfo( 'reboot', $this->getUser(), $this->userNova->getInstance( $instanceid ), $formData['project'] );
 			$this->getOutput()->addWikiMsg( 'openstackmanager-rebootedinstance', $instanceid );
 		} else {
-			$this->getOutput()->addWikiMsg( 'openstackmanager-rebootinstancefailed' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-rebootinstancefailed', $instanceid );
 		}
 
 		$out = '<br />';

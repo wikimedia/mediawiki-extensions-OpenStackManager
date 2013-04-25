@@ -8,3 +8,28 @@ vertical-align: top;
 #novaaction  {
 font-size: 67%;
 }
+.OpenStack_warning {
+/* @embed */
+background-image: url(images/warning-32.png);
+	background-position: center center;
+	background-repeat: no-repeat;
+	padding: 16px;
+	position: relative;
+	top: -16px;
+}
+.OpenStack_error {
+/* @embed */
+background-image: url(images/critical-32.png);
+	background-position: center center;
+	background-repeat: no-repeat;
+	padding: 16px;
+	position: relative;
+	top: -16px;
+}
+.OpenStack_success {
+/* @embed */
+background-image: url(images/tick-32.png);
+display: inline-block;
+height: 20px;
+width: 20px;
+}

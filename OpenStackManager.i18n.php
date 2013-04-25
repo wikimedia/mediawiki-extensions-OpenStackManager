@@ -115,7 +115,7 @@ Leave blank for public zones.',
 	'openstackmanager-rebootinstancewithname' => 'Reboot instance $1 ($2)',
 	'openstackmanager-rebootinstancequestion' => 'Are you sure you wish to reboot instance "$1"?',
 	'openstackmanager-rebootedinstance' => 'Rebooted instance $1.',
-	'openstackmanager-rebootinstancefailed' => 'Failed to reboot instance.',
+	'openstackmanager-rebootinstancefailed' => 'Failed to reboot instance $1.',
 
 	'openstackmanager-launchtime' => 'Launch time',
 	'openstackmanager-createinstance' => 'Add instance',
@@ -613,6 +613,9 @@ See also:
 This message indicates the instance has been failed to create.
 
 An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].
+
+Parameters:
+* $1 - the human-readable name for the same instance
 
 See also:
 * {{msg-mw|Openstackmanager-rebootedinstance}}',

@@ -168,6 +168,8 @@ $wgAutoloadClasses['SpecialNovaVolume'] = $dir . 'special/SpecialNovaVolume.php'
 $wgAutoloadClasses['SpecialNovaSudoer'] = $dir . 'special/SpecialNovaSudoer.php';
 $wgAutoloadClasses['SpecialNovaPuppetGroup'] = $dir . 'special/SpecialNovaPuppetGroup.php';
 $wgAutoloadClasses['SpecialNova'] = $dir . 'special/SpecialNova.php';
+$wgAutoloadClasses['ApiNovaInstance'] = $dir . 'api/ApiNovaInstance.php';
+$wgAutoloadClasses['ApiNovaProjects'] = $dir . 'api/ApiNovaProjects.php';
 $wgAutoloadClasses['Spyc'] = $dir . 'Spyc.php';
 $wgAutoloadClasses['OpenStackManagerNotificationFormatter'] = $dir . 'OpenStackManagerNotificationFormatter.php';
 $wgAutoloadClasses['OpenStackManagerEvent'] = $dir . 'OpenStackManagerEvent.php';
@@ -210,7 +212,13 @@ $commonModuleInfo = array(
 
 $wgResourceModules['ext.openstack'] = array(
 	'styles' => 'ext.openstack.css',
+	'scripts' => 'ext.openstack.js',
+	'dependencies' => array( 'jquery.spinner' ),
+	'messages' => array( 'openstackmanager-rebootinstancefailed', 'openstackmanager-rebootedinstance' ),
 ) + $commonModuleInfo;
+
+$wgAPIModules['novainstance'] = 'ApiNovaInstance';
+$wgAPIModules['novaprojects'] = 'ApiNovaProjects';
 
 # Schema changes
 $wgHooks['LoadExtensionSchemaUpdates'][] = 'efOpenStackSchemaUpdates';
