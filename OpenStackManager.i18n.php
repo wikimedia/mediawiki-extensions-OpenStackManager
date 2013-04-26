@@ -12650,6 +12650,7 @@ $messages['zh-hans'] = array(
 
 /** Traditional Chinese (中文（繁體）‎)
  * @author Anakmalaysia
+ * @author Littletung
  * @author Oapbtommy
  * @author Simon Shek
  */
@@ -12658,7 +12659,8 @@ $messages['zh-hant'] = array(
 	'openstackmanager' => 'OpenStackManager',
 	'openstackmanager-instance' => '管理實例',
 	'openstackmanager-title' => 'OpenStackManager',
-	'openstackmanager-badresourcename' => '提供了無效資源名稱。資源名稱以a-z開頭並且只能包含a-z、0-9、- 和_ 字符。', # Fuzzy
+	'openstackmanager-badresourcename' => '提供了無效資源名稱。
+資源名稱以a-z開頭並且只能包含a-z、0-9和- 字符。',
 	'specialpages-group-nova' => 'OpenStack Nova',
 	'novaaddress' => '管理公共IP地址',
 	'novadomain' => '管理DNS域',
@@ -12777,9 +12779,9 @@ $messages['zh-hant'] = array(
 	'openstackmanager-detachedvolume' => '拆離卷成功。',
 	'openstackmanager-detachvolumefailed' => '拆離卷失敗。',
 	'openstackmanager-novapublickey' => '公共SSH密鑰',
-	'openstackmanager-deletekey' => '刪除密鑰',
+	'openstackmanager-deletekey' => '刪除密鑰', # Fuzzy
 	'openstackmanager-deletekeyconfirm' => '你確定要刪除以上密鑰嗎？',
-	'openstackmanager-keylist' => '密鑰列表',
+	'openstackmanager-keylist' => '密鑰列表', # Fuzzy
 	'openstackmanager-name' => '名',
 	'openstackmanager-fingerprint' => '指印',
 	'openstackmanager-keys' => '密鑰',
@@ -12789,8 +12791,6 @@ $messages['zh-hant'] = array(
 	'openstackmanager-keypairimportedfingerprint' => '具有$2指印的$1密鑰對已導入。',
 	'openstackmanager-keypairformatwrong' => '提供的SSH密鑰是錯誤的或者是未知的格式。',
 	'openstackmanager-keypairformatconverted' => 'SSH密鑰的格式已被自動轉換。',
-	'openstackmanager-backkeylist' => '返回密鑰列表',
-	'openstackmanager-addadditionalkey' => '增加另一個密鑰。',
 	'openstackmanager-deletedkey' => '刪除密鑰成功。',
 	'openstackmanager-deletedkeyfailed' => '刪除密鑰失敗。',
 	'openstackmanager-addmember' => '增加成員',
@@ -12823,7 +12823,7 @@ $messages['zh-hant'] = array(
 	'openstackmanager-setprojects' => '設置項目篩選器成功。',
 	'openstackmanager-toggle' => '切換',
 	'openstackmanager-roles' => '職務',
-	'openstackmanager-rolename' => '作用名稱',
+	'openstackmanager-rolename' => '作用名稱', # Fuzzy
 	'openstackmanager-removerolemember' => '刪除成員',
 	'openstackmanager-addrolemember' => '增加成員',
 	'openstackmanager-rolelist' => '全域職務列表',
