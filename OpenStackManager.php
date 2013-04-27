@@ -212,9 +212,12 @@ $commonModuleInfo = array(
 
 $wgResourceModules['ext.openstack'] = array(
 	'styles' => 'ext.openstack.css',
-	'scripts' => 'ext.openstack.js',
 	'dependencies' => array( 'jquery.spinner' ),
 	'messages' => array( 'openstackmanager-rebootinstancefailed', 'openstackmanager-rebootedinstance' ),
+	'scripts' => array(
+		'ext.openstack.Instance.js',
+		'ext.openstack.js',
+	),
 ) + $commonModuleInfo;
 
 $wgAPIModules['novainstance'] = 'ApiNovaInstance';

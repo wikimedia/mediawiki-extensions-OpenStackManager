@@ -546,6 +546,13 @@ class SpecialNovaInstance extends SpecialNova {
 			$this->pushResourceColumn( $instanceRow, $imageName );
 			$this->pushResourceColumn( $instanceRow, $instance->getLaunchTime() );
 			$actions = array();
+			$instanceDataAttributes = array(
+				'data-id' => $instance->getInstanceOSId(),
+				'data-name' => $instance->getInstanceName(),
+				'data-project' => $projectName,
+				'data-region' => $region,
+				'class' => 'novainstanceaction',
+			);
 			if ( $this->userLDAP->inRole( 'projectadmin', $projectName ) ) {
 				$actions[] = $this->createActionLink(
 					'openstackmanager-delete',
@@ -564,7 +571,7 @@ class SpecialNovaInstance extends SpecialNova {
 						'region' => $region
 					),
 					null,
-					array( 'class' => 'novainstanceaction' )
+					$instanceDataAttributes
 				);
 				$actions[] = $this->createActionLink(
 					'openstackmanager-configure',
