@@ -399,11 +399,6 @@ class OpenStackNovaUser {
 					}
 					sort( $uids, SORT_NUMERIC );
 					$highest = array_pop( $uids ) + 1;
-					if ( $attr === 'gidnumber' && $highest % 2 ) {
-						# Ensure groups are always even, since they'll
-						# be used for namespaces as well.
-						$highest = $highest + 1;
-					}
 				}
 			} else {
 				$auth->printDebug( "Failed to find any entries when searching for next $attr", NONSENSITIVE );
