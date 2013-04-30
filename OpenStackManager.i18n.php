@@ -115,7 +115,7 @@ Leave blank for public zones.',
 	'openstackmanager-rebootinstancewithname' => 'Reboot instance $1 ($2)',
 	'openstackmanager-rebootinstancequestion' => 'Are you sure you wish to reboot instance "$1"?',
 	'openstackmanager-rebootedinstance' => 'Rebooted instance $1.',
-	'openstackmanager-rebootinstancefailed' => 'Failed to reboot instance.',
+	'openstackmanager-rebootinstancefailed' => 'Failed to reboot instance $1.',
 
 	'openstackmanager-launchtime' => 'Launch time',
 	'openstackmanager-createinstance' => 'Add instance',
@@ -613,6 +613,9 @@ See also:
 This message indicates the instance has been failed to create.
 
 An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].
+
+Parameters:
+* $1 - the human-readable name for the same instance
 
 See also:
 * {{msg-mw|Openstackmanager-rebootedinstance}}',
@@ -6126,7 +6129,6 @@ $messages['it'] = array(
 	'novainstance' => 'Gestisci istanze',
 	'novakey' => 'Gestisci la tua chiave pubblica SSH',
 	'novaproject' => 'Gestisci progetti OpenStack',
-	'novaservicegroup' => 'Gestione gruppi di servizio',
 	'novasecuritygroup' => 'Gestisci gruppi di sicurezza firewall',
 	'novarole' => 'Gestisci regole globali',
 	'novavolume' => 'Gestisci volumi di memorizzazione',
@@ -6261,15 +6263,12 @@ $messages['it'] = array(
 	'openstackmanager-addmember' => 'Aggiungi membro',
 	'openstackmanager-removemember' => 'Rimuovi membro',
 	'openstackmanager-removeprojectconfirm' => 'Sei sicuro di voler cancellare il progetto "$1"? Questa azione ha ripercussioni su tutte le macchine virtuali. Non prendere alla leggera quest\'azione!',
-	'openstackmanager-notinservicegroup' => 'Non sei nel gruppo di servizio',
 	'openstackmanager-needservicegroup' => 'Devi essere un membro di questo gruppo di servizio per eseguire questa azione.',
 	'openstackmanager-addservicegroup' => 'Aggiungi gruppo di servizio',
 	'openstackmanager-servicegroupname' => 'Nome gruppo di servizio',
 	'openstackmanager-removeservicegroup' => 'Rimuovi gruppo di servizio',
 	'openstackmanager-addservicegroupmember' => 'Aggiungi utente al gruppo di servizio',
 	'openstackmanager-removeservicegroupmember' => 'Rimuovi utente',
-	'openstackmanager-removeservicegroupconfirm' => 'Sei sicuro di voler cancellare il gruppo di servizio "$1"?
-Questo può disabilitare gli strumenti o i bot che vengono eseguiti utilizzando questo gruppo.',
 	'openstackmanager-createservicegroupfailed' => 'Errore durante la creazione del gruppo di servizio.',
 	'openstackmanager-createdservicegroup' => 'Gruppo di servizio creato.',
 	'openstackmanager-removedservicegroup' => 'Gruppo di servizio cancellato.',
@@ -6403,7 +6402,6 @@ Deve iniziare con a-z e può contenere solo i caratteri a-z, 0-9 e -.',
 	'openstackmanager-commadelimiter' => 'Separate da virgola',
 	'openstackmanager-sudoerusers' => 'Utenti',
 	'openstackmanager-sudoerhosts' => 'Host',
-	'openstackmanager-sudoerrunas' => "Consenti l'esecuzione come",
 	'openstackmanager-sudoercommands' => 'Comandi',
 	'openstackmanager-requirepassword' => "Richiedi l'autenticazione",
 	'openstackmanager-sudoeroptions' => 'Opzioni',
