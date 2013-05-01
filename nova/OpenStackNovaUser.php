@@ -256,6 +256,9 @@ class OpenStackNovaUser {
 		global $wgAuth;
 		global $wgMemc;
 
+		if ( !$projectname ) {
+			return false;
+		}
 		$key = wfMemcKey( 'openstackmanager', "projectrole-$projectname-$role", $this->userDN );
 		$cacheLength = 3600;
 		$inRole = $wgMemc->get( $key );

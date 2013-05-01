@@ -46,7 +46,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 		$project = OpenStackNovaProject::getProjectByName( $projectname );
 		if ( $project ) {
 			$group = OpenStackNovaServiceGroup::getServiceGroupByName( $groupName, $project );
-			if ( ! $this->userLDAP->inRole( 'projectadmin', $this->projectName ) &&
+			if ( ! $this->userLDAP->inRole( 'projectadmin', $projectname ) &&
 				( !$group->isMember( $this->userLDAP->getUsername() ) ) ) {
 				# We can add a member if we're an admin or if we're already in the security group.
 				$this->notInServiceGroup();
@@ -115,7 +115,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 		$project = OpenStackNovaProject::getProjectByName( $projectname );
 		if ( $project ) {
 			$group = OpenStackNovaServiceGroup::getServiceGroupByName( $groupName, $project );
-			if ( ! $this->userLDAP->inRole( 'projectadmin', $this->projectName ) &&
+			if ( ! $this->userLDAP->inRole( 'projectadmin', $projectname ) &&
 				( !$group->isMember( $this->userLDAP->getUsername() ) ) ) {
 				# We can delete a member if we're an admin or if we're already in the security group.
 				$this->notInServiceGroup();
