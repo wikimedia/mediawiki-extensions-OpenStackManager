@@ -2570,7 +2570,7 @@ $messages['de'] = array(
 	'openstackmanager-rebootinstancewithname' => 'Instanz „$1“ neu starten ($2)',
 	'openstackmanager-rebootinstancequestion' => 'Soll die Instanz $1 wirklich neu gestartet werden?',
 	'openstackmanager-rebootedinstance' => 'Die Instanz $1 wurde neu gestartet.',
-	'openstackmanager-rebootinstancefailed' => 'Die Instanz konnte nicht neu gestartet werden.',
+	'openstackmanager-rebootinstancefailed' => 'Die Instanz „$1“ konnte nicht neu gestartet werden.',
 	'openstackmanager-launchtime' => 'Startzeit',
 	'openstackmanager-createinstance' => 'Instanz hinzufügen',
 	'openstackmanager-createinstancepuppetwarning' => 'Warnung: Das Hinzufügen einer Puppet-Konfiguration während der Instanzerstellung kann die deren Erstellung scheitern lassen. Diese Konfiguration ist mit Vorsicht durchzuführen. Die Instanz kann auch nach deren Erstellung noch konfiguriert werden.',
@@ -3783,6 +3783,7 @@ Resurssin nimen ensimmäisen merkin on oltava a–z ja sallitut merkit ovat a–
 );
 
 /** French (français)
+ * @author Boniface
  * @author Cquoi
  * @author Crochet.david
  * @author Dereckson
@@ -3879,7 +3880,7 @@ $messages['fr'] = array(
 	'openstackmanager-rebootinstancewithname' => "Redémarrer l'instance $1 ($2)",
 	'openstackmanager-rebootinstancequestion' => 'Êtes-vous sûr de vouloir redémarrer l’instance « $1 » ?',
 	'openstackmanager-rebootedinstance' => 'Instance $1 redémarrée',
-	'openstackmanager-rebootinstancefailed' => "Impossible de redémarrer l'instance.",
+	'openstackmanager-rebootinstancefailed' => "Impossible de redémarrer l'instance $1.",
 	'openstackmanager-launchtime' => 'Heure de démarrage',
 	'openstackmanager-createinstance' => 'Ajouter une instance',
 	'openstackmanager-createinstancepuppetwarning' => "Avertissement : l’ajout d’une configuration de ''puppet'' lors de la création d’une instance peut faire échouer la construction de l’instance. Utilisez cette configuration avec prudence. Vous aurez la possibilité de configurer l’instance après la fin de sa construction.",
@@ -6129,6 +6130,7 @@ $messages['it'] = array(
 	'novainstance' => 'Gestisci istanze',
 	'novakey' => 'Gestisci la tua chiave pubblica SSH',
 	'novaproject' => 'Gestisci progetti OpenStack',
+	'novaservicegroup' => 'Gestione gruppi di servizio',
 	'novasecuritygroup' => 'Gestisci gruppi di sicurezza firewall',
 	'novarole' => 'Gestisci regole globali',
 	'novavolume' => 'Gestisci volumi di memorizzazione',
@@ -6195,7 +6197,7 @@ $messages['it'] = array(
 	'openstackmanager-rebootinstancewithname' => 'Riavvia istanza $1 ($2)',
 	'openstackmanager-rebootinstancequestion' => 'Sei sicuro di voler riavviare l\'istanza "$1"?',
 	'openstackmanager-rebootedinstance' => 'Istanza riavviata $1.',
-	'openstackmanager-rebootinstancefailed' => "Errore durante il riavvio dell'istanza.",
+	'openstackmanager-rebootinstancefailed' => "Errore durante il riavvio dell'istanza.", # Fuzzy
 	'openstackmanager-launchtime' => 'Ora di lancio',
 	'openstackmanager-createinstance' => 'Aggiungi istanza',
 	'openstackmanager-createinstancepuppetwarning' => "Attenzione: aggiungendo una configurazione Puppet durante la creazione dell'istanza può causare errori in fase di costruzione. Usa questa configurazione con cautela. Potrai configurare l'istanza dopo il termine della costruzione.",
@@ -6263,12 +6265,15 @@ $messages['it'] = array(
 	'openstackmanager-addmember' => 'Aggiungi membro',
 	'openstackmanager-removemember' => 'Rimuovi membro',
 	'openstackmanager-removeprojectconfirm' => 'Sei sicuro di voler cancellare il progetto "$1"? Questa azione ha ripercussioni su tutte le macchine virtuali. Non prendere alla leggera quest\'azione!',
+	'openstackmanager-notinservicegroup' => 'Non sei nel gruppo di servizio',
 	'openstackmanager-needservicegroup' => 'Devi essere un membro di questo gruppo di servizio per eseguire questa azione.',
 	'openstackmanager-addservicegroup' => 'Aggiungi gruppo di servizio',
 	'openstackmanager-servicegroupname' => 'Nome gruppo di servizio',
 	'openstackmanager-removeservicegroup' => 'Rimuovi gruppo di servizio',
 	'openstackmanager-addservicegroupmember' => 'Aggiungi utente al gruppo di servizio',
 	'openstackmanager-removeservicegroupmember' => 'Rimuovi utente',
+	'openstackmanager-removeservicegroupconfirm' => 'Sei sicuro di voler cancellare il gruppo di servizio "$1"?
+Questo può disabilitare gli strumenti o i bot che vengono eseguiti utilizzando questo gruppo.',
 	'openstackmanager-createservicegroupfailed' => 'Errore durante la creazione del gruppo di servizio.',
 	'openstackmanager-createdservicegroup' => 'Gruppo di servizio creato.',
 	'openstackmanager-removedservicegroup' => 'Gruppo di servizio cancellato.',
@@ -6402,6 +6407,7 @@ Deve iniziare con a-z e può contenere solo i caratteri a-z, 0-9 e -.',
 	'openstackmanager-commadelimiter' => 'Separate da virgola',
 	'openstackmanager-sudoerusers' => 'Utenti',
 	'openstackmanager-sudoerhosts' => 'Host',
+	'openstackmanager-sudoerrunas' => "Consenti l'esecuzione come",
 	'openstackmanager-sudoercommands' => 'Comandi',
 	'openstackmanager-requirepassword' => "Richiedi l'autenticazione",
 	'openstackmanager-sudoeroptions' => 'Opzioni',
@@ -6558,7 +6564,7 @@ $messages['ja'] = array(
 	'openstackmanager-rebootinstancewithname' => 'インスタンス $1 ($2) を再起動',
 	'openstackmanager-rebootinstancequestion' => 'インスタンス「$1」を本当に再起動しますか?',
 	'openstackmanager-rebootedinstance' => 'インスタンス $1 を再起動しました。',
-	'openstackmanager-rebootinstancefailed' => 'インスタンスの再起動に失敗しました。',
+	'openstackmanager-rebootinstancefailed' => 'インスタンス $1 の再起動に失敗しました。',
 	'openstackmanager-createinstance' => 'インスタンスを追加',
 	'openstackmanager-invaliddomain' => '指定したドメインは無効です。',
 	'openstackmanager-createinstancefailed' => 'インスタンスの作成に失敗しました。',
@@ -7916,7 +7922,7 @@ $messages['mk'] = array(
 	'openstackmanager-rebootinstancewithname' => 'Превчитување на примерокот $1 ($2)',
 	'openstackmanager-rebootinstancequestion' => 'Дали сте сигурни дека сакате одново да го покренете примерокот „$1“?',
 	'openstackmanager-rebootedinstance' => 'Примерокот $1 е повторно покренат.',
-	'openstackmanager-rebootinstancefailed' => 'Не успеав повторно да го покренам примерокот.',
+	'openstackmanager-rebootinstancefailed' => 'Не успеав повторно да го покренам примерокот.', # Fuzzy
 	'openstackmanager-launchtime' => 'Време на пуштање',
 	'openstackmanager-createinstance' => 'Создај примерок',
 	'openstackmanager-createinstancepuppetwarning' => 'Предупредување: Додавајќи марионетските поставки може да предизвикате примерокот да не се состави. Користете ги овие поставки мошне внимателно. Ќе имате можност да ги наместите поставките на примерокот откако ќе се состави.',
@@ -8770,7 +8776,7 @@ $messages['nl'] = array(
 	'openstackmanager-rebootinstancewithname' => 'Instantie $1 herstarten ($2)',
 	'openstackmanager-rebootinstancequestion' => 'Weet u zeker dat u de instantie "$1" wilt herstarten?',
 	'openstackmanager-rebootedinstance' => 'De instantie $1 is herstart.',
-	'openstackmanager-rebootinstancefailed' => 'Het herstarten van de instantie is mislukt.',
+	'openstackmanager-rebootinstancefailed' => 'Het herstarten van de instantie $1 is mislukt.',
 	'openstackmanager-launchtime' => 'Starttijd',
 	'openstackmanager-createinstance' => 'Instantie toevoegen',
 	'openstackmanager-createinstancepuppetwarning' => 'Waarschuwing: door puppetinstellingen toe te voegen tijdens het aanmaken van de instantie, is het mogelijk dat het opbouwen mislukt. Gebruik deze instelling met mate. U kunt de instantie configureren nadat deze is gebouwd.',
@@ -9770,6 +9776,7 @@ $messages['ps'] = array(
 
 /** Portuguese (português)
  * @author Hamilton Abreu
+ * @author Luckas
  * @author SandroHc
  * @author Waldir
  */
@@ -9843,7 +9850,7 @@ $messages['pt'] = array(
 	'openstackmanager-rebootinstance' => 'Reiniciar Instância',
 	'openstackmanager-rebootinstancequestion' => 'Tem a certeza de que pretende reiniciar a instância "$1"?',
 	'openstackmanager-rebootedinstance' => 'A instância $1 foi reiniciada.',
-	'openstackmanager-rebootinstancefailed' => 'Não foi possível reiniciar a instância.',
+	'openstackmanager-rebootinstancefailed' => 'Não foi possível reiniciar a instância.', # Fuzzy
 	'openstackmanager-launchtime' => 'Hora de lançamento',
 	'openstackmanager-createinstance' => 'Criar uma instância nova', # Fuzzy
 	'openstackmanager-invaliddomain' => 'O domínio solicitado é inválido.',
@@ -9891,9 +9898,9 @@ $messages['pt'] = array(
 	'openstackmanager-detachedvolume' => 'O volume foi desligado.',
 	'openstackmanager-detachvolumefailed' => 'Não foi possível desligar o volume.',
 	'openstackmanager-novapublickey' => 'Chave SSH pública',
-	'openstackmanager-deletekey' => 'Eliminar a chave',
+	'openstackmanager-deletekey' => 'Eliminar a chave', # Fuzzy
 	'openstackmanager-deletekeyconfirm' => 'Tem a certeza de que pretende eliminar a chave acima?',
-	'openstackmanager-keylist' => 'Lista de chaves',
+	'openstackmanager-keylist' => 'Lista de chaves', # Fuzzy
 	'openstackmanager-name' => 'Nome',
 	'openstackmanager-fingerprint' => 'Impressão digital',
 	'openstackmanager-keys' => 'Chaves',
@@ -9901,14 +9908,13 @@ $messages['pt'] = array(
 	'openstackmanager-keypairimportfailed' => 'Não foi possível importar o par de chaves.',
 	'openstackmanager-keypairimported' => 'O par de chaves foi importado.',
 	'openstackmanager-keypairimportedfingerprint' => 'Foi importado o par de chaves $1 com a impressão digital $2.',
-	'openstackmanager-backkeylist' => 'Voltar à lista de chaves',
 	'openstackmanager-deletedkey' => 'A chave foi eliminada.',
 	'openstackmanager-deletedkeyfailed' => 'Não foi possivel eliminar a chave.',
-	'openstackmanager-addmember' => 'Adicionar um projecto', # Fuzzy
-	'openstackmanager-removemember' => 'Remover um projecto', # Fuzzy
+	'openstackmanager-addmember' => 'Adicionar membro',
+	'openstackmanager-removemember' => 'Remover membro',
 	'openstackmanager-removeprojectconfirm' => 'Tem a certeza de que pretende eliminar o projecto "$1"? Esta acção tem repercussões em todas as máquinas virtuais. Não a execute se não estiver absolutamente certo.',
 	'openstackmanager-createproject' => 'Criar um projecto novo', # Fuzzy
-	'openstackmanager-projectname' => 'Nome do projecto',
+	'openstackmanager-projectname' => 'Nome do projeto',
 	'openstackmanager-members' => 'Membros',
 	'openstackmanager-member' => 'Membro',
 	'openstackmanager-action' => 'Acção',
@@ -9925,7 +9931,7 @@ $messages['pt'] = array(
 	'openstackmanager-failedtoremove' => 'Não foi possível remover $1 de $2.',
 	'openstackmanager-novaproject-project' => 'Projecto', # Fuzzy
 	'openstackmanager-roles' => 'Funções',
-	'openstackmanager-rolename' => 'Nome da função',
+	'openstackmanager-rolename' => 'Nome da função', # Fuzzy
 	'openstackmanager-removerolemember' => 'Remover um membro da função', # Fuzzy
 	'openstackmanager-addrolemember' => 'Adicionar um membro à função', # Fuzzy
 	'openstackmanager-rolelist' => 'Lista de funções globais',
@@ -9968,12 +9974,6 @@ $messages['pt'] = array(
 	'openstackmanager-removedhost' => '$1 foi removido.',
 	'openstackmanager-removehostfailed' => 'Não foi possível remover $1.',
 	'openstackmanager-nonexistenthost' => 'O servidor solicitado não existe.',
-	'openstackmanager-needsysadminrole' => 'É necessária a função de administrador do sistema',
-	'openstackmanager-needsysadminrole2' => 'Para executar esta operação tem de ser membro da função administrador do sistema.',
-	'openstackmanager-neednetadminrole' => 'É necessária a função de administrador da rede',
-	'openstackmanager-neednetadminrole2' => 'Para executar esta operação tem de ser membro da função administrador da rede.',
-	'openstackmanager-needcloudadminrole' => 'É necessária a função de administrador da nuvem',
-	'openstackmanager-needcloudadminrole2' => 'Para executar esta operação tem de ser membro da função administrador da nuvem.',
 	'openstackmanager-createsecuritygroup' => 'Criar grupo de segurança',
 	'openstackmanager-securitygroupname' => 'Nome do grupo de segurança',
 	'openstackmanager-securitygroupdescription' => 'Descrição',
@@ -10033,6 +10033,15 @@ $messages['pt'] = array(
 	'openstackmanager-email-subject' => 'A sua instância está pronta para receber ligações.',
 	'openstackmanager-email-body' => 'A seguinte instância foi criada e está pronta para receber ligações:',
 	'right-manageproject' => 'Gerir os projectos e funções Openstack',
+);
+
+/** Brazilian Portuguese (português do Brasil)
+ * @author Luckas
+ */
+$messages['pt-br'] = array(
+	'openstackmanager-addmember' => 'Adicionar membro',
+	'openstackmanager-removemember' => 'Remover membro',
+	'openstackmanager-projectname' => 'Nome do projeto',
 );
 
 /** Romanian (română)
@@ -12733,7 +12742,7 @@ $messages['zh-hant'] = array(
 	'openstackmanager-rebootinstance' => '重新引導實例',
 	'openstackmanager-rebootinstancequestion' => '你確定要重新引導「$1」實例嗎？',
 	'openstackmanager-rebootedinstance' => '$1实例已重新引導。',
-	'openstackmanager-rebootinstancefailed' => '重新引導實例失敗。',
+	'openstackmanager-rebootinstancefailed' => '重新引導實例失敗。', # Fuzzy
 	'openstackmanager-launchtime' => '啟動時間',
 	'openstackmanager-createinstance' => '增加實例',
 	'openstackmanager-createinstancepuppetwarning' => '警告：實例創造中添加傀儡設定恐會阻止實例創造，請細心運用此設定。實例創造完成之後就得設定。',
