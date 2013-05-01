@@ -212,7 +212,10 @@ $commonModuleInfo = array(
 
 $wgResourceModules['ext.openstack'] = array(
 	'styles' => 'ext.openstack.css',
-	'dependencies' => array( 'jquery.spinner' ),
+	'dependencies' => array(
+		'jquery.spinner',
+		'mediawiki.api',
+	),
 	'messages' => array( 'openstackmanager-rebootinstancefailed', 'openstackmanager-rebootedinstance' ),
 	'scripts' => array(
 		'ext.openstack.Instance.js',
