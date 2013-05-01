@@ -159,7 +159,7 @@ class OpenStackNovaUser {
 		# roles do not
 		$projects = array();
 		$filter = "(&(objectclass=groupofnames)(member=$this->userDN))";
-		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, $filter );
+		$result = LdapAuthenticationPlugin::ldap_list( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, $filter );
 		if ( $result ) {
 			$entries = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
 			if ( $entries ) {
