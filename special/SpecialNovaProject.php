@@ -60,8 +60,8 @@ class SpecialNovaProject extends SpecialNova {
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-addmember' ) );
 
 		$project = $this->getRequest()->getText( 'projectname' );
-		if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inProject( $project ) ) {
-			$this->notInProject();
+		if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( 'projectadmin', $project ) ) {
+			$this->notInRole( 'projectadmin' );
 			return false;
 		}
 		$projectInfo = array();
@@ -99,8 +99,8 @@ class SpecialNovaProject extends SpecialNova {
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-removemember' ) );
 
 		$projectname = $this->getRequest()->getText( 'projectname' );
-		if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inProject( $projectname ) ) {
-			$this->notInProject();
+		if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( 'projectadmin', $project ) ) {
+			$this->notInRole( 'projectadmin' );
 			return false;
 		}
 		$project = OpenStackNovaProject::getProjectByName( $projectname );
@@ -144,8 +144,8 @@ class SpecialNovaProject extends SpecialNova {
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-addservicegroup' ) );
 
 		$project = $this->getRequest()->getText( 'projectname' );
-		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-			$this->notInRole( 'projectadmin' );
+		if ( !$this->userLDAP->inProject( $projectname ) ) {
+			$this->notInProject();
 			return false;
 		}
 
@@ -184,7 +184,7 @@ class SpecialNovaProject extends SpecialNova {
 		$this->setHeaders();
 		$project = $this->getRequest()->getText( 'projectname' );
 
-		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+		if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( 'projectadmin', $project ) ) {
 			$this->notInRole( 'projectadmin' );
 			return false;
 		}
@@ -412,8 +412,8 @@ class SpecialNovaProject extends SpecialNova {
 		$this->setHeaders();
 		$projectName = $this->getRequest()->getText( 'projectname' );
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-configureproject', $projectName ) );
-		if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inProject( $projectName ) ) {
-			$this->notInProject();
+		if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( 'projectadmin', $project ) ) {
+			$this->notInRole( 'projectadmin' );
 			return false;
 		}
 		$project = OpenStackNovaProject::getProjectByName( $projectName );
