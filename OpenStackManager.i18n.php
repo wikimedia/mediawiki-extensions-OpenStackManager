@@ -7922,7 +7922,7 @@ $messages['mk'] = array(
 	'openstackmanager-rebootinstancewithname' => 'Превчитување на примерокот $1 ($2)',
 	'openstackmanager-rebootinstancequestion' => 'Дали сте сигурни дека сакате одново да го покренете примерокот „$1“?',
 	'openstackmanager-rebootedinstance' => 'Примерокот $1 е повторно покренат.',
-	'openstackmanager-rebootinstancefailed' => 'Не успеав повторно да го покренам примерокот.', # Fuzzy
+	'openstackmanager-rebootinstancefailed' => 'Не успеав повторно да го покренам примерокот $1.',
 	'openstackmanager-launchtime' => 'Време на пуштање',
 	'openstackmanager-createinstance' => 'Создај примерок',
 	'openstackmanager-createinstancepuppetwarning' => 'Предупредување: Додавајќи марионетските поставки може да предизвикате примерокот да не се состави. Користете ги овие поставки мошне внимателно. Ќе имате можност да ги наместите поставките на примерокот откако ќе се состави.',
@@ -10042,6 +10042,7 @@ $messages['pt-br'] = array(
 	'openstackmanager-addmember' => 'Adicionar membro',
 	'openstackmanager-removemember' => 'Remover membro',
 	'openstackmanager-projectname' => 'Nome do projeto',
+	'openstackmanager-securitygroupdescription' => 'Descrição',
 );
 
 /** Romanian (română)
