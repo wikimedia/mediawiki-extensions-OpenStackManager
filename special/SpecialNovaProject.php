@@ -144,7 +144,7 @@ class SpecialNovaProject extends SpecialNova {
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-addservicegroup' ) );
 
 		$project = $this->getRequest()->getText( 'projectname' );
-		if ( !$this->userLDAP->inProject( $projectname ) ) {
+		if ( !$this->userLDAP->inProject( $project ) ) {
 			$this->notInProject();
 			return false;
 		}
