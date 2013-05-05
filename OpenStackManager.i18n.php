@@ -2411,11 +2411,13 @@ $messages['bs'] = array(
 );
 
 /** Catalan (català)
+ * @author Luckas
  * @author පසිඳු කාවින්ද
  */
 $messages['ca'] = array(
 	'openstackmanager-name' => 'Nom',
 	'openstackmanager-deleteproject' => 'Esborrar',
+	'openstackmanager-securitygroupdescription' => 'Descripció',
 );
 
 /** Czech (česky)
@@ -2472,6 +2474,13 @@ $messages['cs'] = array(
 	'openstackmanager-removerule-action' => 'odstranit pravidlo',
 	'openstackmanager-sudoerusers' => 'Uživatelé',
 	'openstackmanager-puppetallprojects' => 'Všechny projekty',
+);
+
+/** Danish (dansk)
+ * @author Luckas
+ */
+$messages['da'] = array(
+	'openstackmanager-securitygroupdescription' => 'Beskrivelse',
 );
 
 /** German (Deutsch)
@@ -7181,6 +7190,7 @@ $messages['ko'] = array(
 	'novainstance' => '인스턴스 관리',
 	'novakey' => '공개 SSH 키 관리',
 	'novaproject' => 'OpenStack 프로젝트 관리',
+	'novaservicegroup' => '서비스 그룹 관리',
 	'novasecuritygroup' => '방화벽 보안 그룹 관리',
 	'novarole' => '전역 역할 관리',
 	'novavolume' => '저장소 볼륨 관리',
@@ -7252,7 +7262,7 @@ $messages['ko'] = array(
 	'openstackmanager-rebootinstancewithname' => '$1 ($2) 인스턴스 다시 시작',
 	'openstackmanager-rebootinstancequestion' => '"$1" 인스턴스를 다시 시작하겠습니까?',
 	'openstackmanager-rebootedinstance' => '$1 인스턴스를 다시 시작했습니다.',
-	'openstackmanager-rebootinstancefailed' => '인스턴스를 다시 시작하는 데 실패했습니다.',
+	'openstackmanager-rebootinstancefailed' => '$1 인스턴스를 다시 시작하는 데 실패했습니다.',
 	'openstackmanager-launchtime' => '실행 시간',
 	'openstackmanager-createinstance' => '인스턴스 추가',
 	'openstackmanager-createinstancepuppetwarning' => '경고: 인스턴스 만들기에 인형 설정을 추가하면 인스턴스가 구축에 실패할 수 있습니다.
@@ -7325,12 +7335,30 @@ $messages['ko'] = array(
 	'openstackmanager-removeprojectconfirm' => '정말 "$1" 프로젝트를 삭제하겠습니까?
 이 행동은 모든 VM에 영향을 미칩니다.
 이 행동을 가볍게 수행하지 마십시오!',
+	'openstackmanager-notinservicegroup' => '서비스 그룹에 속해 있지 않음',
+	'openstackmanager-needservicegroup' => '이 행동을 수행하려면 서비스 그룹의 구성원이어야 합니다.',
+	'openstackmanager-addservicegroup' => '서비스 그룹 추가',
+	'openstackmanager-servicegroupname' => '서비스 그룹 이름',
+	'openstackmanager-removeservicegroup' => '서비스 그룹 제거',
+	'openstackmanager-addservicegroupmember' => '서비스 그룹에 사용자 추가',
+	'openstackmanager-removeservicegroupmember' => '사용자 제거',
+	'openstackmanager-removeservicegroupconfirm' => '"$1" 서비스 그룹을 삭제하겠습니까?
+이 그룹을 사용하어 실행하는 도구나 봇이 비활성화될 수 있습니다.',
+	'openstackmanager-createservicegroupfailed' => '서비스 그룹을 만드는 데 실패했습니다.',
+	'openstackmanager-createdservicegroup' => '서비스 그룹을 만들었습니다.',
+	'openstackmanager-removedservicegroup' => '서비스 그룹을 삭제했습니다.',
+	'openstackmanager-removeservicegroupfailed' => '서비스 그룹을 삭제하는 데 실패했습니다.',
+	'openstackmanager-servicegroups' => '서비스 그룹',
+	'openstackmanager-nonexistentservicegroup' => '요청한 서비스 그룹이 존재하지 않습니다.',
 	'openstackmanager-configureproject' => '$1 프로젝트 설정',
 	'openstackmanager-configureproject-sharedhomedirs' => '인스턴스에서 홈 디렉토리 공유',
 	'openstackmanager-configureproject-sharedstorage' => '공유 프로젝트 저장소 만들기',
 	'openstackmanager-configureproject-volume' => '공유 저장소',
 	'openstackmanager-configureproject-failed' => '프로젝트 설정을 바꾸는 데 실패했습니다.',
 	'openstackmanager-configureproject-success' => '프로젝트 설정을 업데이트했습니다.',
+	'openstackmanager-configureproject-servicegroup' => '서비스 그룹',
+	'openstackmanager-configureproject-serviceuserhome' => '서비스 사용자 홈디렉토리 패턴',
+	'openstackmanager-configureproject-serviceuserinfo' => '(홈디렉토리 패턴에서 %u(은)는 "$1"(으)로 사용자 이름과 %p(으)로 바뀝니다.)',
 	'openstackmanager-createproject' => '프로젝트 추가',
 	'openstackmanager-projectname' => '프로젝트 이름',
 	'openstackmanager-members' => '구성원',
@@ -7403,8 +7431,9 @@ a-z로 시작해야 하고 a-z, 0-9와 - 문자만 포함할 수 있습니다.',
 	'openstackmanager-removedhost' => '성공적으로 $1(을)를 제거했습니다.',
 	'openstackmanager-removehostfailed' => '$1(을)를 제거하는 데 실패했습니다.',
 	'openstackmanager-nonexistenthost' => '요청한 호스트가 존재하지 않습니다',
+	'openstackmanager-nonexistentrole' => '요청한 역할이 존재하지 않습니다.',
 	'openstackmanager-needrole' => '$1 역할 필요',
-	'openstackmanager-needrole2' => '이 행동을 수행하려면 $1 역할의 구성원이어야 합니다.',
+	'openstackmanager-needrole2' => '이 작업을 수행하려면 $1 역할의 구성원이어야 합니다.',
 	'openstackmanager-createsecuritygroup' => '보안 그룹 만들기',
 	'openstackmanager-securitygroupname' => '보안 그룹 이름',
 	'openstackmanager-securitygroupdescription' => '설명',
@@ -7422,7 +7451,7 @@ a-z로 시작해야 하고 a-z, 0-9와 - 문자만 포함할 수 있습니다.',
 	'openstackmanager-securitygrouprule-fromport' => '포트 범위의 시작',
 	'openstackmanager-securitygrouprule-protocol' => '프로토콜',
 	'openstackmanager-securitygrouprule-ipranges' => 'CIDR 범위',
-	'openstackmanager-securitygrouprule-groups' => '소스 그룹',
+	'openstackmanager-securitygrouprule-groups' => '원본 그룹',
 	'openstackmanager-createnewsecuritygroup' => '그룹 추가',
 	'openstackmanager-addrule-action' => '규칙 추가',
 	'openstackmanager-removerule-action' => '규칙 제거',
@@ -7452,10 +7481,12 @@ a-z로 시작해야 하고 a-z, 0-9와 - 문자만 포함할 수 있습니다.',
 	'openstackmanager-commadelimiter' => '쉼표로 구분',
 	'openstackmanager-sudoerusers' => '사용자',
 	'openstackmanager-sudoerhosts' => '호스트',
+	'openstackmanager-sudoerrunas' => '다음 사용자로 실행 허용',
 	'openstackmanager-sudoercommands' => '명령',
 	'openstackmanager-requirepassword' => '인증 필요',
 	'openstackmanager-sudoeroptions' => '설정',
 	'openstackmanager-allmembers' => '모든 프로젝트 구성원',
+	'openstackmanager-membersofgroup' => '$1 그룹의 구성원',
 	'openstackmanager-deletesudoer' => 'Sudo 정책 삭제',
 	'openstackmanager-deletesudoer-confirm' => '$1 sudo 정책을 삭제하겠습니까?',
 	'openstackmanager-createsudoerfailed' => 'sudo 정책을 만드는 데 실패했습니다.',
