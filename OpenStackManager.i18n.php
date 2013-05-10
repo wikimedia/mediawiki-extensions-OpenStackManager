@@ -2420,6 +2420,13 @@ $messages['ca'] = array(
 	'openstackmanager-securitygroupdescription' => 'Descripció',
 );
 
+/** Chechen (нохчийн)
+ * @author Умар
+ */
+$messages['ce'] = array(
+	'openstackmanager-delete' => 'дӀаяккха',
+);
+
 /** Czech (česky)
  * @author Chmee2
  * @author Littledogboy
