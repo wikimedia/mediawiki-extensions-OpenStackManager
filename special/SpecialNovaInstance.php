@@ -823,7 +823,7 @@ class SpecialNovaInstance extends SpecialNova {
 			$instanceInfo[$puppetgroupname] = array(
 				'type' => 'info',
 				'section' => $section,
-				'label' => Html::element( 'h3', array(), "$puppetgroupname:" ),
+				'label-raw' => Html::element( 'h3', array(), "$puppetgroupname:" ),
 			);
 			$instanceInfo["${puppetgroupname}-puppetclasses"] = array(
 				'type' => 'multiselect',
