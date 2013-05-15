@@ -145,6 +145,7 @@ abstract class SpecialNova extends SpecialPage {
 		$projectFilterForm->setTitle( $this->getTitle() );
 		$projectFilterForm->setSubmitID( 'novaproject-form-setprojectfiltersubmit' );
 		$projectFilterForm->setSubmitCallback( array( $this, 'trySetProjectFilter' ) );
+		$projectFilterForm->setSubmitTextMsg( 'openstackmanager-projectfiltersubmit' );
 		$projectFilterForm->show();
 	}
 
