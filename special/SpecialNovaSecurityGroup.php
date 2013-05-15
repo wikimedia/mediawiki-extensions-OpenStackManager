@@ -173,13 +173,12 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		} else {
 			$projects = OpenStackNovaProject::getProjectsByName( $this->userLDAP->getProjects() );
 		}
+		$this->showProjectFilter( $projects );
 		$projectfilter = $this->getProjectFilter();
 		if ( !$projectfilter ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-setprojectfilter' );
-			$this->showProjectFilter( $projects, true );
 			return null;
 		}
-		$this->showProjectFilter( $projects );
 
 		$out = '';
 		foreach ( $projects as $project ) {

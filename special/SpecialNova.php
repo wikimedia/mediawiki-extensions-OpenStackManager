@@ -108,7 +108,7 @@ abstract class SpecialNova extends SpecialPage {
 		return array();
 	}
 
-	function showProjectFilter( $projects, $showbydefault=false, $tocmode=true ) {
+	function showProjectFilter( $projects ) {
 		if ( $this->getRequest()->wasPosted() && $this->getRequest()->getVal( 'action' ) !== 'setprojectfilter' ) {
 			return null;
 		}
@@ -121,14 +121,7 @@ abstract class SpecialNova extends SpecialPage {
 		$defaults = array();
 		foreach ( $projects as $project ) {
 			$projectName = $project->getProjectName();
-			if ( $tocmode && in_array( $projectName, $currentProjects ) ) {
-				# If the project is currently visible and toc mode is turned on,
-				#  link the filter entry to an appropriate anchor further on down
-				$projectLink = Html::element( 'a', array('href' => "#$projectName"), $projectName );
-			} else {
-				$projectLink = $projectName;
-			}
-			$project_keys[$projectLink] = $projectName;
+			$project_keys[$projectName] = $projectName;
 			if ( in_array( $projectName, $currentProjects ) ) {
 				$defaults[$projectName] = $projectName;
 			}
@@ -140,6 +133,7 @@ abstract class SpecialNova extends SpecialPage {
 			'section' => 'projectfilter',
 			'options' => $project_keys,
 			'default' => $defaults,
+			'cssclass' => 'mw-chosen',
 			'name' => 'projects',
 		);
 		$projectFilter['action'] = array(
@@ -149,13 +143,6 @@ abstract class SpecialNova extends SpecialPage {
 		);
 		$projectFilterForm = new HTMLForm( $projectFilter, 'openstackmanager-novaprojectfilter' );
 		$projectFilterForm->setTitle( $this->getTitle() );
-		if ( $showbydefault ) {
-			$classes = "mw-collapsible";
-		} else {
-			$classes = "mw-collapsible mw-collapsed";
-		}
-		$projectFilterForm->addHeaderText( '<div class="' . $classes .'" data-expandtext="Show project filter" data-collapsetext="Hide project filter">' );
-		$projectFilterForm->addFooterText( '</div>' );
 		$projectFilterForm->setSubmitID( 'novaproject-form-setprojectfiltersubmit' );
 		$projectFilterForm->setSubmitCallback( array( $this, 'trySetProjectFilter' ) );
 		$projectFilterForm->show();
@@ -306,12 +293,11 @@ abstract class SpecialNova extends SpecialPage {
 
 		if ( !$formData['projects'] ) {
 			$wgRequest->response()->setCookie( 'projectfilter', '', time() - 86400 );
-			$this->getOutput()->redirect( $this->getTitle()->getFullUrl() );
 		} else {
 			$projects = implode( ',', $formData['projects'] );
 			$wgRequest->response()->setCookie( 'projectfilter', $projects );
-			$this->getOutput()->redirect( $this->getTitle()->getFullUrl( 'showmsg=setfilter' ) );
 		}
+		$this->getOutput()->redirect( $this->getTitle()->getFullUrl() );
 
 		return true;
 	}
