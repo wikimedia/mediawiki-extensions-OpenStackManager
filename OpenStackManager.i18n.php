@@ -1422,13 +1422,13 @@ Parameters:
 * $1 - agent
 * $2 - project
 * $3 - instance',
-	'echo-pref-subscription-osm-instance-deleted' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable email notification for the osm-instance-deleted event.
+	'echo-category-title-osm-instance-deleted' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable email notification for the osm-instance-deleted event.
 
 Preceded by {{msg-mw|Prefs-emailsubscriptions}}.',
-	'echo-pref-subscription-osm-instance-build-completed' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable email notification for the osm-instance-build-completed event.
+	'echo-category-title-osm-instance-build-completed' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable email notification for the osm-instance-build-completed event.
 
 Preceded by {{msg-mw|Prefs-emailsubscriptions}}.',
-	'echo-pref-subscription-osm-instance-reboot-completed' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable email notification for the osm-instance-reboot-completed event.',
+	'echo-category-title-osm-instance-reboot-completed' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable email notification for the osm-instance-reboot-completed event.',
 	'prefs-openstack' => 'Title for a tab in Preferences for OpenStack related items',
 	'prefs-openstack-keys' => 'Subheading used in the Preferences -> OpenStack for a the public SSH key list',
 );
