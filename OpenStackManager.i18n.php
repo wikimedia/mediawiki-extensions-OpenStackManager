@@ -4174,9 +4174,9 @@ Il doit commencer par une lettre (a–z) et ne peut contenir que des lettres (a�
 	'notification-osm-instance-deleted' => "$1 a supprimé l’instance '$3' dans le projet [[$2]]",
 	'notification-osm-instance-build-completed' => '$1 a créé l’instance « $3 » dans le projet [[$2]]',
 	'notification-osm-instance-reboot-completed' => "$1 a redémarré l’instance '$3' dans le projet [[$2]]",
-	'echo-pref-subscription-osm-instance-deleted' => 'Supprime une instance d’un projet dont je suis un administrateur.',
-	'echo-pref-subscription-osm-instance-build-completed' => 'Construit une instance d’un projet dont je suis un administrateur.',
-	'echo-pref-subscription-osm-instance-reboot-completed' => 'Redémarre une instance.',
+	'echo-category-title-osm-instance-deleted' => 'Supprime une instance d’un projet dont je suis administrateur.',
+	'echo-category-title-osm-instance-build-completed' => 'Construit une instance d’un projet dont je suis administrateur.',
+	'echo-category-title-osm-instance-reboot-completed' => 'Redémarre une instance.',
 	'prefs-openstack' => 'OpenStack',
 	'prefs-openstack-keys' => 'Liste de clés',
 );
@@ -4883,9 +4883,9 @@ Debe comezar con letras do a ao z, e só pode conter caracteres a-z, 0-9 e "-".'
 	'notification-osm-instance-deleted' => '$1 borrou a instancia "$3" no proxecto [[$2]]',
 	'notification-osm-instance-build-completed' => '$1 construíu a instancia "$3" no proxecto [[$2]]',
 	'notification-osm-instance-reboot-completed' => '$1 reiniciou a instancia "$3" no proxecto [[$2]]',
-	'echo-pref-subscription-osm-instance-deleted' => 'Borre unha instancia nun proxecto no que son administrador.',
-	'echo-pref-subscription-osm-instance-build-completed' => 'Constrúa unha instancia nun proxecto no que son administrador.',
-	'echo-pref-subscription-osm-instance-reboot-completed' => 'Reinicie unha instancia.',
+	'echo-category-title-osm-instance-deleted' => 'Borre unha instancia nun proxecto no que son administrador.', # Fuzzy
+	'echo-category-title-osm-instance-build-completed' => 'Constrúa unha instancia nun proxecto no que son administrador.', # Fuzzy
+	'echo-category-title-osm-instance-reboot-completed' => 'Reinicie unha instancia.', # Fuzzy
 	'prefs-openstack' => 'OpenStack',
 	'prefs-openstack-keys' => 'Lista de claves',
 );
@@ -6490,9 +6490,9 @@ Deve iniziare con a-z e può contenere solo i caratteri a-z, 0-9 e -.',
 	'notification-osm-instance-deleted' => "$1 ha cancellato l'istanza '$3' dal progetto [[$2]]",
 	'notification-osm-instance-build-completed' => "$1 ha costruito l'istanza '$3' nel progetto [[$2]]",
 	'notification-osm-instance-reboot-completed' => "$1 ha riavviato l'istanza '$3' nel progetto [[$2]]",
-	'echo-pref-subscription-osm-instance-deleted' => "Cancellazione di un'istanza da un progetto di cui io sono un amministratore.",
-	'echo-pref-subscription-osm-instance-build-completed' => "Costruzione di un'istanza su un progetto di cui io sono un amministratore.",
-	'echo-pref-subscription-osm-instance-reboot-completed' => "Riavvio di un'istanza.",
+	'echo-category-title-osm-instance-deleted' => "Cancellazione di un'istanza da un progetto di cui io sono un amministratore.",
+	'echo-category-title-osm-instance-build-completed' => "Costruzione di un'istanza su un progetto di cui io sono un amministratore.",
+	'echo-category-title-osm-instance-reboot-completed' => "Riavvio di un'istanza.",
 	'prefs-openstack' => 'OpenStack',
 	'prefs-openstack-keys' => 'Elenco chiavi',
 );
@@ -9094,9 +9094,9 @@ Verwijder alle hostkoppelingen en ontkoppel het IP-adres voordat u het vrijgeeft
 	'notification-osm-instance-deleted' => '{{GENDER:$1|$1}} heeft de instantie "$3" in het project [[$2]] verwijderd',
 	'notification-osm-instance-build-completed' => '{{GENDER:$1|$1}} heeft de instantie "$3" in het project [[$2]] gebouwd',
 	'notification-osm-instance-reboot-completed' => '{{GENDER:$1|$1}} heeft de instantie "$3" in het project [[$2]] herstart',
-	'echo-pref-subscription-osm-instance-deleted' => 'Een instantie verwijdert van een project waar u beheerder bent.',
-	'echo-pref-subscription-osm-instance-build-completed' => 'Een instantie bouwt in een project waar u beheerder bent.',
-	'echo-pref-subscription-osm-instance-reboot-completed' => 'Een instantie herstart.',
+	'echo-category-title-osm-instance-deleted' => 'Een instantie verwijdert van een project waar u beheerder bent.', # Fuzzy
+	'echo-category-title-osm-instance-build-completed' => 'Een instantie bouwt in een project waar u beheerder bent.', # Fuzzy
+	'echo-category-title-osm-instance-reboot-completed' => 'Een instantie herstart.', # Fuzzy
 	'prefs-openstack' => 'OpenStack',
 	'prefs-openstack-keys' => 'Sleutellijst',
 );
@@ -10225,6 +10225,7 @@ $messages['roa-tara'] = array(
 	'openstackmanager' => 'OpenStackManager',
 	'openstackmanager-instance' => "Gestisce l'istanze",
 	'openstackmanager-title' => 'OpenStackManager',
+	'action-managednsdomain' => 'gestisce le dominie DNS',
 	'specialpages-group-nova' => 'Nova OpenStack',
 	'novaaddress' => 'Gestisce le indirizze IP pubbleche',
 	'novadomain' => 'Gestisce le dominie DNS',
@@ -10300,13 +10301,18 @@ $messages['roa-tara'] = array(
 	'openstackmanager-novavolume-volume' => 'Volume',
 	'openstackmanager-novavolume-info' => "'Mbormazione sus a 'u volume",
 	'openstackmanager-createdvolume' => 'Volume ccrejate $1.',
+	'openstackmanager-deletedvolume' => 'Volume scangellate.',
+	'openstackmanager-deletevolumefailed' => "Scangellazione d'u volume fallite.",
+	'openstackmanager-backvolumelist' => "Tuèrne a l'elenghe de le volume.",
 	'openstackmanager-attachvolume' => "Attacche 'u Volume",
 	'openstackmanager-device' => 'Despositive',
 	'openstackmanager-detachvolume' => "Stacche 'u Volume",
 	'openstackmanager-novapublickey' => 'Chièje pubbleche SSH',
+	'openstackmanager-prefs-novapublickey' => 'Chiave SSH pubbleche:',
 	'openstackmanager-deletekey' => "Scangelle 'a chiave pubbleche SSH",
 	'openstackmanager-keylist' => 'Elenghe de le chiave pubbleche SSH',
 	'openstackmanager-name' => 'Nome',
+	'openstackmanager-fingerprint' => "'Mbronde diggitale",
 	'openstackmanager-keys' => 'Chiave',
 	'openstackmanager-addmember' => 'Aggiunge membre',
 	'openstackmanager-removemember' => "Live 'nu membre",
@@ -10366,7 +10372,7 @@ $messages['roa-tara'] = array(
 	'openstackmanager-puppetvarposition' => 'Posizione variabbele',
 	'openstackmanager-puppetclassposition' => "Posizione d'a classe",
 	'openstackmanager-puppetgroup' => 'Gruppe de le Pupazzere',
-	'echo-pref-subscription-osm-instance-reboot-completed' => "Riavvie 'n'istanze.",
+	'echo-category-title-osm-instance-reboot-completed' => "Riavvie 'n'istanze.",
 );
 
 /** Russian (русский)
