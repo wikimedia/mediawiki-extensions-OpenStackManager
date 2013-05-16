@@ -2698,6 +2698,7 @@ Der Benutzer $1 muss das „<code>loginviashell</code>“-Recht haben.',
 	'openstackmanager-projects' => 'Projekte',
 	'openstackmanager-setprojects' => 'Der Projektfilter wurde erfolgreich gesetzt.',
 	'openstackmanager-setprojectfilter' => 'Bitte die über den Projektfilter anzuzeigenden Projekte auswählen.',
+	'openstackmanager-projectfiltersubmit' => 'Filter festlegen',
 	'openstackmanager-toggle' => 'Umschalten',
 	'openstackmanager-roles' => 'Rollen',
 	'openstackmanager-rolename' => 'Rolle',
@@ -2865,9 +2866,9 @@ Er fängt mit den Buchstaben (a-z) an und kann nur die Buchstaben (a-z), Zahlen 
 	'notification-osm-instance-deleted' => '$1 hat die Instanz „$3“ im Projekt [[$2]] gelöscht',
 	'notification-osm-instance-build-completed' => '$1 hat die Instanz „$3“ im Projekt [[$2]] erstellt',
 	'notification-osm-instance-reboot-completed' => '$1 hat die Instanz „$3“ im Projekt [[$2]] neu gestartet',
-	'echo-pref-subscription-osm-instance-deleted' => 'eine Instanz eines Projektes löscht, auf dem ich Administrator bin.',
-	'echo-pref-subscription-osm-instance-build-completed' => 'eine Instanz auf einem Projekt erstellt, auf dem ich Administrator bin.',
-	'echo-pref-subscription-osm-instance-reboot-completed' => 'eine Instanz neu startet.',
+	'echo-category-title-osm-instance-deleted' => 'eine Instanz eines Projektes löscht, auf dem ich Administrator bin.',
+	'echo-category-title-osm-instance-build-completed' => 'eine Instanz auf einem Projekt erstellt, auf dem ich Administrator bin.',
+	'echo-category-title-osm-instance-reboot-completed' => 'eine Instanz neu startet.',
 	'prefs-openstack' => 'OpenStack',
 	'prefs-openstack-keys' => 'Schlüsselliste',
 );
@@ -4007,6 +4008,7 @@ Cela nécessite $1 d'avoir le droit « <code>loginviashell</code> ».",
 	'openstackmanager-projects' => 'Projets',
 	'openstackmanager-setprojects' => 'Filtre de projet correctement paramétré.',
 	'openstackmanager-setprojectfilter' => "Veuillez sélectionner les projets à afficher à l'aide du filtre du projet.",
+	'openstackmanager-projectfiltersubmit' => 'Fixer le filtre',
 	'openstackmanager-toggle' => 'Basculer',
 	'openstackmanager-roles' => 'Rôles',
 	'openstackmanager-rolename' => 'Rôle',
@@ -6663,6 +6665,7 @@ $messages['ja'] = array(
 	'openstackmanager-failedtoremove' => '$1 の $2 からの除去に失敗しました。',
 	'openstackmanager-novaproject-project' => 'プロジェクトを追加',
 	'openstackmanager-projects' => 'プロジェクト',
+	'openstackmanager-projectfiltersubmit' => 'フィルターを設定',
 	'openstackmanager-toggle' => '切り替え',
 	'openstackmanager-roles' => '権限',
 	'openstackmanager-rolename' => '権限',
@@ -6793,9 +6796,9 @@ $messages['ja'] = array(
 	'notification-osm-instance-deleted' => '$1 がプロジェクト [[$2]] のインスタンス「$3」を削除しました',
 	'notification-osm-instance-build-completed' => '$1 がプロジェクト [[$2]] のインスタンス「$3」を構築しました',
 	'notification-osm-instance-reboot-completed' => '$1 がプロジェクト [[$2]] のインスタンス「$3」を再起動しました',
-	'echo-pref-subscription-osm-instance-deleted' => '自分が管理者のプロジェクトからインスタンスを削除したとき',
-	'echo-pref-subscription-osm-instance-build-completed' => '自分が管理者のプロジェクトでインスタンスを構築したとき',
-	'echo-pref-subscription-osm-instance-reboot-completed' => 'インスタンスを再起動したとき', # Fuzzy
+	'echo-category-title-osm-instance-deleted' => '自分が管理者のプロジェクトからインスタンスを削除したとき', # Fuzzy
+	'echo-category-title-osm-instance-build-completed' => '自分が管理者のプロジェクトでインスタンスを構築したとき', # Fuzzy
+	'echo-category-title-osm-instance-reboot-completed' => 'インスタンスを再起動したとき', # Fuzzy
 	'prefs-openstack' => 'OpenStack',
 	'prefs-openstack-keys' => 'キーの一覧',
 );
@@ -8072,6 +8075,7 @@ $messages['mk'] = array(
 	'openstackmanager-projects' => 'Проекти',
 	'openstackmanager-setprojects' => 'Успешно укажан филтерот на проекти.',
 	'openstackmanager-setprojectfilter' => 'Одберете проекти за приказ користејќи го филтерот.',
+	'openstackmanager-projectfiltersubmit' => 'Задај филтер',
 	'openstackmanager-toggle' => 'Префрли',
 	'openstackmanager-roles' => 'Улоги',
 	'openstackmanager-rolename' => 'Улога',
@@ -8239,9 +8243,9 @@ $messages['mk'] = array(
 	'notification-osm-instance-deleted' => '$1 избришан примерок „$3“ на проектот [[$2]]',
 	'notification-osm-instance-build-completed' => '$1 создаден примерок „$3“ на проектот [[$2]]',
 	'notification-osm-instance-reboot-completed' => '$1 одново пуштен примерок „$3“ на проектот [[$2]]',
-	'echo-pref-subscription-osm-instance-deleted' => 'Брише примерок од проект кајшто сум администратор.',
-	'echo-pref-subscription-osm-instance-build-completed' => 'Прави примерок на проект кајшто сум администратор.',
-	'echo-pref-subscription-osm-instance-reboot-completed' => 'Одново пушта примерок.',
+	'echo-category-title-osm-instance-deleted' => 'Брише примерок од проект кајшто сум администратор.',
+	'echo-category-title-osm-instance-build-completed' => 'Прави примерок на проект кајшто сум администратор.',
+	'echo-category-title-osm-instance-reboot-completed' => 'Одново пушта примерок.',
 	'prefs-openstack' => 'OpenStack',
 	'prefs-openstack-keys' => 'Список на клучеви',
 );
@@ -9261,6 +9265,7 @@ $messages['pfl'] = array(
  * @author Ankry
  * @author Beau
  * @author BeginaFelicysym
+ * @author Chrumps
  * @author Odder
  * @author Odie2
  * @author Olgak85
@@ -9339,7 +9344,7 @@ $messages['pl'] = array(
 	'openstackmanager-rebootinstancewithname' => 'Zresetuj instancję $1 ($2)',
 	'openstackmanager-rebootinstancequestion' => 'Jesteś {{GENDER:|pewien|pewna}}, że chcesz zrestartować instancję "$1"?',
 	'openstackmanager-rebootedinstance' => 'Zrestartowano instancję $1',
-	'openstackmanager-rebootinstancefailed' => 'Nie udało się zrestartować instancji.',
+	'openstackmanager-rebootinstancefailed' => 'Nie udało się zrestartować instancji.', # Fuzzy
 	'openstackmanager-launchtime' => 'Czas uruchomienia',
 	'openstackmanager-createinstance' => 'Dodaj instancję',
 	'openstackmanager-createinstancepuppetwarning' => 'Uwaga: Dodanie konfiguracji puppet podczas tworzenia instancji może spowodować niepowodzenie podczas budowania. Będziesz {{GENDER:|mógł|mogła}} skonfigurować instancję po zbudowaniu.',
@@ -9378,7 +9383,7 @@ $messages['pl'] = array(
 	'openstackmanager-addadditionalproject' => 'Dodaj inny projekt.',
 	'openstackmanager-novaproject-project' => 'Dodaj projekt',
 	'openstackmanager-roles' => 'Role',
-	'openstackmanager-rolename' => 'Nazwa roli',
+	'openstackmanager-rolename' => 'Rola',
 	'openstackmanager-removerolemember' => 'Usuń użytkownika',
 	'openstackmanager-addresslist' => 'Lista publicznych adresów IP',
 	'openstackmanager-address' => 'Publiczny adres IP',
