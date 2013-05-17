@@ -479,9 +479,13 @@ class SpecialNovaSudoer extends SpecialNova {
 			foreach ( $instances as $instance ) {
 				$host = $instance->getHost();
 				if ( $host ) {
-					$fqdn = $host->getFullyQualifiedHostName();
 					// $instanceNames will be output later with no change of escaping
+					$fqdn = $host->getFullyQualifiedHostName();
 					$instanceNames[$fqdn] = htmlentities( $instance->getInstanceName() . ' (' . $region . ')' );
+
+					// We might have stored this as a display rather than as i-xxxxx:
+					$displayfqdn = $host->getFullyQualifiedDisplayName();
+					$instanceNames[$displayfqdn] = htmlentities( $instance->getInstanceName() . ' (' . $region . ')' );
 				}
 			}
 		}
@@ -504,7 +508,9 @@ class SpecialNovaSudoer extends SpecialNova {
 			$sudoHostNames = array();
 			foreach ( $sudoHosts as $sudoHost ) {
 				if ( array_key_exists( $sudoHost, $instanceNames ) ) {
-					$sudoHostNames[] = $instanceNames[$sudoHost];
+					if ( ! in_array( $instanceNames[$sudoHost], $sudoHostNames ) ) {
+						$sudoHostNames[] = $instanceNames[$sudoHost];
+					}
 				}
 			}
 			if ( in_array( 'ALL', $sudoHosts ) ) {
