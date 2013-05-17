@@ -372,7 +372,6 @@ class OpenStackNovaUser {
 	 * @static
 	 * @param  $auth
 	 * @param  $attr
-	 * @param  $projectDN (optional)
 	 * @return mixed|string
 	 */
 	static function getNextIdNumber( $auth, $attr ) {
@@ -410,7 +409,7 @@ class OpenStackNovaUser {
 			$auth->printDebug( "Failed to get a result searching for next $attr", NONSENSITIVE );
 		}
 
-		if ( $projectDN && $highest > $wgOpenStackManagerIdRanges['service']['gid']['max']) {
+		if ( $highest > $wgOpenStackManagerIdRanges['service']['gid']['max']) {
 			$auth->printDebug( "Ran out of service group gids!", NONSENSITIVE );
 		}
 
@@ -428,14 +427,14 @@ class OpenStackNovaUser {
 	 */
 	static function RequestShellAccess( $auth, $username ) {
 
-		$auth->printDebug( "Autogenerating shell access request for " . $username );
+		$auth->printDebug( "Autogenerating shell access request for " . $username, NONSENSITIVE );
 
 		$titletext = "Shell_Request/" . $username;
 		$title = Title::newFromText( $titletext );
 		$article = WikiPage::factory( $title );
 
 		if ( $article->exists() ) {
-			$auth->printDebug( "shell request for " . $username . " already exists." );
+			$auth->printDebug( "shell request for " . $username . " already exists.", NONSENSITIVE );
 			return false;
 		}
 
