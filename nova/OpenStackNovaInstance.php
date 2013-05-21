@@ -206,12 +206,12 @@ class OpenStackNovaInstance {
 	 * @return array
 	 */
 	function getSecurityGroups() {
-		// Currently not implemented in the OpenStack API, so we're
-		// implementing it as metadata for now
-		$secgroup = OpenStackNovaController::_get_property( $this->instance->metadata, 'secgroup' );
+		$secgroups = OpenStackNovaController::_get_property( $this->instance, 'security_groups' );
 		$groups = array();
-		if ( $secgroup ) {
-			$groups = explode( ',', $secgroup );
+		if ( $secgroups ) {
+			foreach ( $secgroups as $secgroup ) {
+				$groups[] = OpenStackNovaController::_get_property( $secgroup, 'name' );
+			}
 		}
 		return $groups;
 	}
