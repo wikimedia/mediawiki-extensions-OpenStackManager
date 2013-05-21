@@ -2031,6 +2031,7 @@ $messages['bg'] = array(
 );
 
 /** Bengali (বাংলা)
+ * @author Aftab1995
  * @author Wikitanvir
  */
 $messages['bn'] = array(
@@ -2079,9 +2080,9 @@ $messages['bn'] = array(
 	'openstackmanager-attachvolume' => 'ভলিউম যোগ',
 	'openstackmanager-device' => 'ডিভাইম',
 	'openstackmanager-novapublickey' => 'পাবলিক এসএসএইচ কি',
-	'openstackmanager-deletekey' => 'কি অপসারণ',
+	'openstackmanager-deletekey' => 'কি অপসারণ', # Fuzzy
 	'openstackmanager-deletekeyconfirm' => 'আপনি কি নিশ্চিত যে আপনি ওপরের কি টা অপসারণ করতে ইচ্ছুক?',
-	'openstackmanager-keylist' => 'কি-এর তালিকা',
+	'openstackmanager-keylist' => 'কি-এর তালিকা', # Fuzzy
 	'openstackmanager-name' => 'নাম',
 	'openstackmanager-fingerprint' => 'ফিঙ্গারপ্রিন্ট',
 	'openstackmanager-keys' => 'কিসমূহ',
@@ -2098,8 +2099,9 @@ $messages['bn'] = array(
 	'openstackmanager-deletedproject' => 'সফলভাবে প্রকল্পটি অপসারণ করা হয়েছে।',
 	'openstackmanager-deleteprojectfailed' => 'প্রকল্প অপসারণ করতে ব্যর্থ হয়েছে।',
 	'openstackmanager-novaproject-project' => 'প্রকল্প', # Fuzzy
+	'openstackmanager-projectfiltersubmit' => 'ফিল্টার নির্ধারণ',
 	'openstackmanager-roles' => 'ভূমিকা',
-	'openstackmanager-rolename' => 'ভূমিকার নাম',
+	'openstackmanager-rolename' => 'ভূমিকার নাম', # Fuzzy
 	'openstackmanager-hostname' => 'হোস্ট নাম',
 	'openstackmanager-hostnames' => 'হোস্ট নামসমূহ',
 	'openstackmanager-addhost' => 'হোস্ট নাম যোগ করো',
@@ -4718,6 +4720,7 @@ O usuario $1 debe ter dereitos de "<code>loginviashell</code>".',
 	'openstackmanager-projects' => 'Proxectos',
 	'openstackmanager-setprojects' => 'O filtro de proxecto configurouse correctamente.',
 	'openstackmanager-setprojectfilter' => 'Seleccione os proxetos a mostrar ao usar o filtro de proxecto.',
+	'openstackmanager-projectfiltersubmit' => 'Establecer o filtro',
 	'openstackmanager-toggle' => 'Alternar',
 	'openstackmanager-roles' => 'Roles',
 	'openstackmanager-rolename' => 'Rol',
@@ -4885,9 +4888,9 @@ Debe comezar con letras do a ao z, e só pode conter caracteres a-z, 0-9 e "-".'
 	'notification-osm-instance-deleted' => '$1 borrou a instancia "$3" no proxecto [[$2]]',
 	'notification-osm-instance-build-completed' => '$1 construíu a instancia "$3" no proxecto [[$2]]',
 	'notification-osm-instance-reboot-completed' => '$1 reiniciou a instancia "$3" no proxecto [[$2]]',
-	'echo-category-title-osm-instance-deleted' => 'Borre unha instancia nun proxecto no que son administrador.', # Fuzzy
-	'echo-category-title-osm-instance-build-completed' => 'Constrúa unha instancia nun proxecto no que son administrador.', # Fuzzy
-	'echo-category-title-osm-instance-reboot-completed' => 'Reinicie unha instancia.', # Fuzzy
+	'echo-category-title-osm-instance-deleted' => 'Borre unha instancia nun proxecto no que son administrador.',
+	'echo-category-title-osm-instance-build-completed' => 'Constrúa unha instancia nun proxecto no que son administrador.',
+	'echo-category-title-osm-instance-reboot-completed' => 'Reinicie unha instancia.',
 	'prefs-openstack' => 'OpenStack',
 	'prefs-openstack-keys' => 'Lista de claves',
 );
@@ -5000,7 +5003,7 @@ $messages['he'] = array(
 	'openstackmanager-rebootinstancewithname' => 'אתחול מופע $1&lrm; ($2)',
 	'openstackmanager-rebootinstancequestion' => 'באמת לאתחל את המופע "$1"?',
 	'openstackmanager-rebootedinstance' => 'מופע $1 אותחל.',
-	'openstackmanager-rebootinstancefailed' => 'אתחול מופע נכשל.',
+	'openstackmanager-rebootinstancefailed' => 'אתחול מופע $1 נכשל.',
 	'openstackmanager-launchtime' => 'זמן הפעלה',
 	'openstackmanager-createinstance' => 'הוספת מופע',
 	'openstackmanager-createinstancepuppetwarning' => 'אזהרה: הוספת הגדרת puppet עם יצירת מופע יכולה לגרום לכשל בבניית המופע. לש להשתמש בהגדרה הזאת בזהירות. תהיה לך הזדמנות להגדיר את המופע בתום בנייתו.',
@@ -5089,6 +5092,7 @@ $messages['he'] = array(
 	'openstackmanager-projects' => 'פרויקטים',
 	'openstackmanager-setprojects' => 'מסנן פרויקטים הוגדר בהצלחה.',
 	'openstackmanager-setprojectfilter' => 'נא לבחור את הפרויקטים שיוצגו באמצעות מסנן הפרויקטים.',
+	'openstackmanager-projectfiltersubmit' => 'הגדרת מסנן',
 	'openstackmanager-toggle' => 'בחירה',
 	'openstackmanager-roles' => 'תפקידים',
 	'openstackmanager-rolename' => 'שם התפקיד', # Fuzzy
@@ -5244,8 +5248,8 @@ $messages['he'] = array(
 	'right-manageproject' => 'ניהול פרויקטים ותפקידים של OpenStack',
 	'action-manageproject' => 'ניהול פרויקטים ותפקידים של OpenStack',
 	'right-loginviashell' => 'כניסה דרך מסוף',
-	'echo-pref-subscription-osm-instance-deleted' => 'מחיקת מופע מפרוייקט שאני מנהל.',
-	'echo-pref-subscription-osm-instance-build-completed' => 'בונה מופע על פרויקט שאני מנהל.',
+	'echo-category-title-osm-instance-deleted' => 'מחיקת מופע מפרוייקט שאני מנהל.', # Fuzzy
+	'echo-category-title-osm-instance-build-completed' => 'בונה מופע על פרויקט שאני מנהל.', # Fuzzy
 );
 
 /** Hindi (हिन्दी)
@@ -5551,6 +5555,7 @@ $messages['hsb'] = array(
  * @author Dani
  * @author Dj
  * @author Misibacsi
+ * @author Tacsipacsi
  */
 $messages['hu'] = array(
 	'openstackmanager-desc' => 'Lehetővé teszi, hogy a felhasználók kezeljék a Novát és Swiftet',
@@ -5623,7 +5628,7 @@ $messages['hu'] = array(
 	'openstackmanager-rebootinstancewithname' => '$1 ($2) példány újraindítása',
 	'openstackmanager-rebootinstancequestion' => 'Biztos újra akarod indítani a "$1" példányt?',
 	'openstackmanager-rebootedinstance' => '$1 példány újraindítva.',
-	'openstackmanager-rebootinstancefailed' => 'Nem sikerült a példány újraindítása.',
+	'openstackmanager-rebootinstancefailed' => 'Nem sikerült $1 példány újraindítása.',
 	'openstackmanager-launchtime' => 'Indítás ideje',
 	'openstackmanager-createinstance' => 'Példány hozzáadása',
 	'openstackmanager-invaliddomain' => 'Kért tartomány érvénytelen.',
@@ -5669,9 +5674,9 @@ $messages['hu'] = array(
 	'openstackmanager-detachedvolume' => 'Kötet sikeresen leválasztva.',
 	'openstackmanager-detachvolumefailed' => 'Nem sikerült leválasztani a kötetet.',
 	'openstackmanager-novapublickey' => 'Nyilvános SSH-kulcs',
-	'openstackmanager-deletekey' => 'Kulcs törlése',
+	'openstackmanager-deletekey' => 'Kulcs törlése', # Fuzzy
 	'openstackmanager-deletekeyconfirm' => 'Valóban törölni akarod a fenti kulcsot?',
-	'openstackmanager-keylist' => 'Kulcslista',
+	'openstackmanager-keylist' => 'Kulcslista', # Fuzzy
 	'openstackmanager-name' => 'Név',
 	'openstackmanager-fingerprint' => 'Ujjlenyomat',
 	'openstackmanager-keys' => 'Kulcsok',
@@ -5679,8 +5684,6 @@ $messages['hu'] = array(
 	'openstackmanager-keypairimportfailed' => 'Nem sikerült importálni a kulcspárt.',
 	'openstackmanager-keypairimported' => 'Kulcspár importálva.',
 	'openstackmanager-keypairimportedfingerprint' => '$1 kulcspár $2 ujjlenyomattal importálva.',
-	'openstackmanager-backkeylist' => 'Vissza a kulcsok listájához',
-	'openstackmanager-addadditionalkey' => 'Új kulcs hozzáadása.',
 	'openstackmanager-deletedkey' => 'Kulcs sikeresen törölve.',
 	'openstackmanager-deletedkeyfailed' => 'Nem sikerült törölni a kulcsot.',
 	'openstackmanager-addmember' => 'Tag hozzáadása',
@@ -5704,7 +5707,7 @@ $messages['hu'] = array(
 	'openstackmanager-failedtoremove' => '$1 eltávolítása sikertelen innen: $2.',
 	'openstackmanager-novaproject-project' => '!Projekt hozzáadása',
 	'openstackmanager-roles' => 'Szerepkörök',
-	'openstackmanager-rolename' => 'Szerepkör neve',
+	'openstackmanager-rolename' => 'Szerepkör neve', # Fuzzy
 	'openstackmanager-removerolemember' => 'Tag eltávolítása',
 	'openstackmanager-addrolemember' => 'Tag hozzáadása',
 	'openstackmanager-rolelist' => 'Globális szereplista',
@@ -7677,7 +7680,7 @@ $messages['lb'] = array(
 	'openstackmanager-domainname' => 'Numm vum Domain',
 	'openstackmanager-location' => 'Plaz:',
 	'openstackmanager-novainstance-instance' => 'Instanz',
-	'openstackmanager-configureinstance' => 'Instanz astellen', # Fuzzy
+	'openstackmanager-configureinstance' => 'Instanz $1 ($2) astellen',
 	'openstackmanager-dnsdomain' => 'DNS-Domain',
 	'openstackmanager-novainstance-info' => "Informatioun iwwert d'Instanz",
 	'openstackmanager-novainstance-global' => 'Global Gruppen',
@@ -7686,13 +7689,14 @@ $messages['lb'] = array(
 	'openstackmanager-imageid' => 'Bild ID',
 	'openstackmanager-imagetype' => 'Bildtyp',
 	'openstackmanager-backinstancelist' => "Zréck op d'Lëscht vun den Instanzen",
-	'openstackmanager-deletekey' => 'Schlëssel läschen',
+	'openstackmanager-deletekey' => 'Ëffentlechen SSH-Schlëssel läschen',
 	'openstackmanager-name' => 'Numm',
 	'openstackmanager-fingerprint' => 'Fangerofdrock',
 	'openstackmanager-keys' => 'Schlësselen',
 	'openstackmanager-deletedkeyfailed' => 'De Schlëssel konnt net geläscht ginn.',
 	'openstackmanager-addmember' => 'Member derbäisetzen',
 	'openstackmanager-removemember' => 'Member ewechhuelen',
+	'openstackmanager-configureproject' => 'Projet "$1" astellen',
 	'openstackmanager-createproject' => 'Projet derbäisetzen',
 	'openstackmanager-projectname' => 'Numm vum Projet',
 	'openstackmanager-members' => 'Memberen',
@@ -7709,7 +7713,7 @@ $messages['lb'] = array(
 	'openstackmanager-novaproject-project' => 'Projet derbäisetzen',
 	'openstackmanager-projects' => 'Projeten',
 	'openstackmanager-roles' => 'Rollen',
-	'openstackmanager-rolename' => 'Numm vun der Roll',
+	'openstackmanager-rolename' => 'Roll',
 	'openstackmanager-removerolemember' => 'Member ewechhuelen',
 	'openstackmanager-addrolemember' => 'Member derbäisetzen',
 	'openstackmanager-rolelist' => 'Global Lëscht vun de Rollen',
