@@ -136,7 +136,7 @@ class OpenStackNovaSudoer {
 	}
 
 	/**
-	 * Modify a new sudoer based on users, hosts, commands, and options.
+	 * Modify a sudoer based on users, hosts, commands, and options.
 	 *
 	 * @param  $users
 	 * @param  $hosts
@@ -156,6 +156,14 @@ class OpenStackNovaSudoer {
 		$sudoer['sudohost'] = array();
 		foreach ( $hosts as $host ) {
 			$sudoer['sudohost'][] = $host;
+
+			// For good measure, put the display name in there too.
+			//  modern instances identify themselves that way.
+			list ( $name, $domain ) = explode( '.', $host );
+			$domainobj = OpenStackNovaDomain::getDomainByName( $domain );
+			$hostobj = OpenStackNovaHost::getHostByName( $name, $domainobj );
+			$displayfqdn = $hostobj->getFullyQualifiedDisplayName();
+			$sudoer['sudohost'][] = $displayfqdn;
 		}
 		$sudoer['sudorunasuser'] = array();
 		foreach ( $runasuser as $runas ) {
@@ -282,6 +290,14 @@ class OpenStackNovaSudoer {
 		}
 		foreach ( $hosts as $host ) {
 			$sudoer['sudohost'][] = $host;
+
+			// For good measure, put the display name in there too.
+			//  modern instances identify themselves that way.
+			list ( $name, $domain ) = explode( '.', $host );
+			$domainobj = new OpenStackNovaDomain( $domain );
+			$hostobj = OpenStackNovaHost::getHostByName( $name, $domainobj );
+			$displayfqdn = $hostobj->getFullyQualifiedDisplayName();
+			$sudoer['sudohost'][] = $displayfqdn;
 		}
 		foreach ( $runasuser as $runas ) {
 			$sudoer['sudorunasuser'][] = $runas;
