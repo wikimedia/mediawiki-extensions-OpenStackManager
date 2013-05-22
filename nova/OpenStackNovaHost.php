@@ -60,12 +60,41 @@ class OpenStackNovaHost {
 	}
 
 	/**
-	 * Return the host's short name
+	 *
+	 * Return i-<id> style hostname
 	 *
 	 * @return
 	 */
 	function getHostName() {
 		return $this->hostInfo[0]['dc'][0];
+	}
+
+	/**
+	 * Return the host's fully qualified display name
+	 *
+	 * @return string
+	 */
+	function getFullyQualifiedDisplayName() {
+		global $wgAuth;
+
+		if ( isset( $this->hostInfo[0]['associateddomain'] ) ) {
+			$domains = $this->hostInfo[0]['associateddomain'];
+			array_shift( $domains );
+			foreach ( $domains as $domain ) {
+				$pieces = explode( '.', $domain );
+				$name = $pieces[0];
+				if ( $name != $this->getHostName() ) {
+					# A leap of faith:  There should
+					# be two associated domains, one based on the id and
+					# one the display name.  So, if this one isn't the id,
+					# it must be the display.
+					return $domain;
+				}
+			}
+		}
+
+		$wgAuth->printDebug( "Error: Unable to determine instancename of " . $this->searchvalue, NONSENSITIVE );
+		return "";
 	}
 
 	/**
@@ -78,7 +107,18 @@ class OpenStackNovaHost {
 	}
 
 	/**
-	 * Return the host's fully qualified domain name
+	 * Return human-readable hostname
+	 *
+	 * @return string
+	 */
+	function getDisplayName() {
+		$pieces = explode( '.', $this->getFullyQualifiedDisplayName() );
+		return $pieces[0];
+	}
+
+	/**
+	 *
+	 * Return i-xxxxx.<domain>
 	 *
 	 * @return string
 	 */
