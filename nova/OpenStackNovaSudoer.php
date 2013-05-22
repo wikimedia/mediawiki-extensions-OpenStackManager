@@ -157,13 +157,19 @@ class OpenStackNovaSudoer {
 		foreach ( $hosts as $host ) {
 			$sudoer['sudohost'][] = $host;
 
-			// For good measure, put the display name in there too.
-			//  modern instances identify themselves that way.
-			list ( $name, $domain ) = explode( '.', $host );
-			$domainobj = OpenStackNovaDomain::getDomainByName( $domain );
-			$hostobj = OpenStackNovaHost::getHostByName( $name, $domainobj );
-			$displayfqdn = $hostobj->getFullyQualifiedDisplayName();
-			$sudoer['sudohost'][] = $displayfqdn;
+			if ( ( strcasecmp( $host, 'all' ) != 0 ) ) {
+				// For good measure, put the display name in there too.
+				//  modern instances identify themselves that way.
+				list ( $name, $domain ) = explode( '.', $host );
+				$domainobj = OpenStackNovaDomain::getDomainByName( $domain );
+				if ( $domainobj ) {
+					$hostobj = OpenStackNovaHost::getHostByName( $name, $domainobj );
+					if ( $hostobj ) {
+					    $displayfqdn = $hostobj->getFullyQualifiedDisplayName();
+					    $sudoer['sudohost'][] = $displayfqdn;
+					}
+				}
+			}
 		}
 		$sudoer['sudorunasuser'] = array();
 		foreach ( $runasuser as $runas ) {
@@ -291,13 +297,19 @@ class OpenStackNovaSudoer {
 		foreach ( $hosts as $host ) {
 			$sudoer['sudohost'][] = $host;
 
-			// For good measure, put the display name in there too.
-			//  modern instances identify themselves that way.
-			list ( $name, $domain ) = explode( '.', $host );
-			$domainobj = new OpenStackNovaDomain( $domain );
-			$hostobj = OpenStackNovaHost::getHostByName( $name, $domainobj );
-			$displayfqdn = $hostobj->getFullyQualifiedDisplayName();
-			$sudoer['sudohost'][] = $displayfqdn;
+			if ( ( strcasecmp( $host, 'all' ) != 0 ) ) {
+				// For good measure, put the display name in there too.
+				//  modern instances identify themselves that way.
+				list ( $name, $domain ) = explode( '.', $host );
+				$domainobj = OpenStackNovaDomain::getDomainByName( $domain );
+				if ( $domainobj ) {
+					$hostobj = OpenStackNovaHost::getHostByName( $name, $domainobj );
+					if ( $hostobj ) {
+					    $displayfqdn = $hostobj->getFullyQualifiedDisplayName();
+					    $sudoer['sudohost'][] = $displayfqdn;
+					}
+				}
+			}
 		}
 		foreach ( $runasuser as $runas ) {
 			$sudoer['sudorunasuser'][] = $runas;
