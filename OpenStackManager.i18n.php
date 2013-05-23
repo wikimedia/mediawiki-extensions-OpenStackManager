@@ -6328,6 +6328,7 @@ E\' necessario che l\'utente $1 abbia il permesso "<code>loginviashell</code>".'
 	'openstackmanager-projects' => 'Progetti',
 	'openstackmanager-setprojects' => 'Filtri di progetto impostati correttamente.',
 	'openstackmanager-setprojectfilter' => 'Seleziona i progetti da visualizzare utilizzando il filtro di progetto.',
+	'openstackmanager-projectfiltersubmit' => 'Imposta filtro',
 	'openstackmanager-toggle' => 'Mostra/nascondi',
 	'openstackmanager-roles' => 'Ruoli',
 	'openstackmanager-rolename' => 'Ruolo',
@@ -8934,6 +8935,7 @@ Hiervoor moet gebruiker $1 het recht "<code>loginviashell</code>" hebben.',
 	'openstackmanager-projects' => 'Projecten',
 	'openstackmanager-setprojects' => 'Het projectfilter is ingesteld.',
 	'openstackmanager-setprojectfilter' => 'Selecteer projecten om weer te geven met het projectfilter.',
+	'openstackmanager-projectfiltersubmit' => 'Filter instellen',
 	'openstackmanager-toggle' => 'In- of uitschakelen',
 	'openstackmanager-roles' => 'Rollen',
 	'openstackmanager-rolename' => 'Rol',
@@ -9102,9 +9104,9 @@ Verwijder alle hostkoppelingen en ontkoppel het IP-adres voordat u het vrijgeeft
 	'notification-osm-instance-deleted' => '{{GENDER:$1|$1}} heeft de instantie "$3" in het project [[$2]] verwijderd',
 	'notification-osm-instance-build-completed' => '{{GENDER:$1|$1}} heeft de instantie "$3" in het project [[$2]] gebouwd',
 	'notification-osm-instance-reboot-completed' => '{{GENDER:$1|$1}} heeft de instantie "$3" in het project [[$2]] herstart',
-	'echo-category-title-osm-instance-deleted' => 'Een instantie verwijdert van een project waar u beheerder bent.', # Fuzzy
-	'echo-category-title-osm-instance-build-completed' => 'Een instantie bouwt in een project waar u beheerder bent.', # Fuzzy
-	'echo-category-title-osm-instance-reboot-completed' => 'Een instantie herstart.', # Fuzzy
+	'echo-category-title-osm-instance-deleted' => 'Een instantie verwijdert van een project waar u beheerder bent.',
+	'echo-category-title-osm-instance-build-completed' => 'Een instantie bouwt in een project waar u beheerder bent.',
+	'echo-category-title-osm-instance-reboot-completed' => 'Een instantie herstart.',
 	'prefs-openstack' => 'OpenStack',
 	'prefs-openstack-keys' => 'Sleutellijst',
 );
