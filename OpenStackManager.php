@@ -250,6 +250,9 @@ function efEchoGetDefaultNotifiedUsers ( $event, &$users ) {
 		}
 	} elseif ( $event->getType() == 'osm-instance-reboot-completed' ) {
 		$users[$event->getAgent()->getId()] = $event->getAgent(); // Only notify the person who did it to say the reboot was completed.
+	} elseif ( $event->getType() == 'osm-projectmembers-add' ) {
+		$extra = $event->getExtra(); // PHP 5.3 back-compat...
+		$users[$extra['userAdded']] = User::newFromId( $extra['userAdded'] );
 	}
 	unset( $users[0] );
 	return true;
@@ -295,6 +298,17 @@ $wgEchoNotificationCategories['osm-instance-deleted'] = array(
 );
 $wgDefaultUserOptions["echo-subscriptions-web-osm-instance-deleted"] = true;
 $wgDefaultUserOptions["echo-subscriptions-email-osm-instance-deleted"] = true;
+
+$wgEchoNotifications['osm-projectmembers-add'] = array(
+	'formatter-class' => 'EchoBasicFormatter',
+	'category' => 'osm-projectmembers-add',
+	'title-message' => 'notification-osm-projectmember-added',
+	'title-params' => array( 'agent', 'title' ),
+	'icon' => 'placeholder',
+	'payload' => array( 'summary' )
+);
+$wgDefaultUserOptions["echo-subscriptions-web-osm-projectmembers-add"] = true;
+$wgDefaultUserOptions["echo-subscriptions-email-osm-projectmembers-add"] = true;
 
 /**
  * @param $updater DatabaseUpdater

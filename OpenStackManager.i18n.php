@@ -423,9 +423,11 @@ Choose one or the other, not both.',
 	'notification-osm-instance-deleted' => '$1 deleted instance \'$3\' in project [[$2]]',
 	'notification-osm-instance-build-completed' => '$1 built instance \'$3\' in project [[$2]]',
 	'notification-osm-instance-reboot-completed' => '$1 rebooted instance \'$3\' in project [[$2]]',
+	'notification-osm-projectmember-added' => '$1 added you to project [[$2]]',
 	'echo-category-title-osm-instance-deleted' => 'Deletes an instance from a project I\'m an admin on.',
 	'echo-category-title-osm-instance-build-completed' => 'Builds an instance on a project I\'m an admin on.',
 	'echo-category-title-osm-instance-reboot-completed' => 'Reboots an instance.',
+	'echo-category-title-osm-projectmembers-add' => 'Project membership addition',
 
 	'prefs-openstack' => 'OpenStack',
 	'prefs-openstack-keys' => 'Key list',
@@ -1424,6 +1426,9 @@ Parameters:
 * $1 - agent
 * $2 - project
 * $3 - instance',
+	'notification-osm-projectmember-added' => 'Title for the new project membership notification.
+* $1 - agent
+* $2 - project',
 	'echo-category-title-osm-instance-deleted' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable email notification for the osm-instance-deleted event.
 
 Preceded by {{msg-mw|Prefs-emailsubscriptions}}.',
@@ -1431,6 +1436,7 @@ Preceded by {{msg-mw|Prefs-emailsubscriptions}}.',
 
 Preceded by {{msg-mw|Prefs-emailsubscriptions}}.',
 	'echo-category-title-osm-instance-reboot-completed' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable email notification for the osm-instance-reboot-completed event.',
+	'echo-category-title-osm-projectmembers-add' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable email notification for the osm-projectmember-add event.',
 	'prefs-openstack' => 'Title for a tab in Preferences for OpenStack related items',
 	'prefs-openstack-keys' => 'Subheading used in the Preferences -> OpenStack for a the public SSH key list',
 );
