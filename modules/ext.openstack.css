@@ -33,3 +33,6 @@ display: inline-block;
 height: 20px;
 width: 20px;
 }
+.osm-consoleoutput {
+	white-space: pre-wrap;
+}

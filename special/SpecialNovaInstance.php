@@ -527,7 +527,7 @@ class SpecialNovaInstance extends SpecialNova {
 		foreach ( $instances as $instance ) {
 			$instanceRow = array();
 			$this->pushResourceColumn( $instanceRow, $instance->getInstanceName(), array( 'class' => 'novainstancename' ) );
-			$this->pushRawResourceColumn( $instanceRow, $this->createResourceLink( $instance->getInstanceId() ) );
+			$this->pushRawResourceColumn( $instanceRow, $this->createResourceLink( $instance->getInstanceId() ), array( 'class' => 'novainstanceid' ) );
 			$this->pushResourceColumn( $instanceRow, $instance->getInstanceState(), array( 'class' => 'novainstancestate' ) );
 			$this->pushRawResourceColumn( $instanceRow, $this->createResourceList( $instance->getInstancePrivateIPs() ) );
 			$this->pushRawResourceColumn( $instanceRow, $this->createResourceList( $instance->getInstancePublicIPs() ) );
@@ -546,7 +546,8 @@ class SpecialNovaInstance extends SpecialNova {
 			$this->pushResourceColumn( $instanceRow, $instance->getLaunchTime() );
 			$actions = array();
 			$instanceDataAttributes = array(
-				'data-id' => $instance->getInstanceOSId(),
+				'data-osid' => $instance->getInstanceOSId(),
+				'data-id' => $instance->getInstanceId(),
 				'data-name' => $instance->getInstanceName(),
 				'data-project' => $projectName,
 				'data-region' => $region,
@@ -585,10 +586,12 @@ class SpecialNovaInstance extends SpecialNova {
 					'openstackmanager-getconsoleoutput',
 					array(
 						'action' => 'consoleoutput',
-						'project' => $projectName,
 						'instanceid' => $instance->getInstanceOSId(),
+						'project' => $projectName,
 						'region' => $region
-					)
+					),
+					null,
+					$instanceDataAttributes
 				);
 			}
 			$this->pushRawResourceColumn( $instanceRow, $this->createResourceList( $actions ) );

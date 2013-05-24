@@ -134,6 +134,7 @@ You will have an opportunity to configure the instance after it is finished buil
 	'openstackmanager-deleteinstancefailed' => 'Failed to delete instance.',
 	'openstackmanager-consoleoutput' => 'Console output for $1 ($2)',
 	'openstackmanager-getconsoleoutput' => 'get console output',
+	'openstackmanager-getconsoleoutputfailed' => 'Failed to get console output for instance $1.',
 
 	'openstackmanager-createvolume' => 'Create volume',
 	'openstackmanager-volumename' => 'Volume name',
@@ -737,6 +738,10 @@ Parameters:
 * $1 - an alphanumeric instance id for the instance
 * $2 - the human-readable name for the same instance',
 	'openstackmanager-getconsoleoutput' => 'Used as action link label in Special:NovaInstance.',
+	'openstackmanager-getconsoleoutputfailed' => 'Notification shown when ajax call failed after the user clicks the openstackmanager-getconsonsoleoutput label.
+
+Parameters:
+* $1 - the human-readable name for the instance.',
 	'openstackmanager-createvolume' => 'Used as page title and as action link text, in Special:NovaVolume.',
 	'openstackmanager-volumename' => 'Used as label for input box and as heading cell in "resource" table, in Special:NovaVolume.',
 	'openstackmanager-volumeid' => '"ID" stands for "Identifier".',

@@ -19,6 +19,7 @@
 	"onevar": true,
 
 	/* Local */
+	"browser": true,
 	"predef": [
 		"mediaWiki",
 		"jQuery"

@@ -6,13 +6,13 @@ class ApiNovaInstance extends ApiBase {
 
 	public function canExecute() {
 		if ( ! $this->userLDAP->exists() ) {
-			$this->dieUsage( wfMessage( 'openstackmanager-nonovacred' )->escaped() );
+			$this->dieUsage( 'No credentials found for your account.', 'openstackmanager-nonovacred' );
 		}
 		if ( ! $this->userLDAP->inProject( $this->params['project'] ) ) {
-			$this->dieUsage( wfMessage( 'openstackmanager-noaccount', $this->params['project'] )->escaped() );
+			$this->dieUsage( 'User account is not in the project specified.', 'openstackmanager-noaccount' );
 		}
 		if ( ! $this->userLDAP->inRole( 'projectadmin', $this->params['project'] ) ) {
-			$this->dieUsage( wfMessage( 'openstackmanager-needrole', 'projectadmin', $this->params['project'] )->escaped() );
+			$this->dieUsage( 'User account is not in the projectadmin role.', 'openstackmanager-needrole' );
 		}
 	}
 
@@ -29,26 +29,25 @@ class ApiNovaInstance extends ApiBase {
 		case 'reboot':
 			$success = $this->userNova->rebootInstance( $this->params['instanceid'] );
 			if ( ! $success ) {
-				$this->dieUsage( wfMessage( 'openstackmanager-rebootinstancefailed', $this->params['instanceid'] )->escaped() );
+				$this->dieUsage( 'Failed to reboot instance.', 'openstackmanager-rebootinstancefailed' );
 			}
 			$this->getResult()->addValue( null, $this->getModuleName(), array ( 'instancestate' => 'rebooting' ) );
 			break;
+		case 'consoleoutput':
+			$output = $this->userNova->getConsoleOutput( $this->params['instanceid'] );
+			$this->getResult()->addValue( null, $this->getModuleName(), array ( 'consoleoutput' => $output ) );
+			break;
 		}
-	}
-
-	public function getPossibleErrors() {
-		return array(
-			array( 'openstackmanager-rebootinstancefailed', 'instance' ),
-			array( 'openstackmanager-noaccount' ),
-			array( 'openstackmanager-needrole' )
-		);
 	}
 
 	// Face parameter.
 	public function getAllowedParams() {
 		return array(
 			'subaction' => array (
-				ApiBase::PARAM_TYPE => 'string',
+				ApiBase::PARAM_TYPE => array(
+					'reboot',
+					'consoleoutput',
+				),
 				ApiBase::PARAM_REQUIRED => true
 			),
 			'instanceid' => array (
@@ -86,8 +85,10 @@ class ApiNovaInstance extends ApiBase {
 
 	public function getExamples() {
 		return array(
-			'api.php?action=novainstancereboot&instanceid=eb195097-8539-4e66-b0b5-be8347d8caec&project=testing&region=mars&token=aq9h9eh9eh98hebt89b'
+			'api.php?action=novainstance&subaction=reboot&instanceid=eb195097-8539-4e66-b0b5-be8347d8caec&project=testing&region=mars&token=123ABC'
 			=> 'Reboot instance id eb195097-8539-4e66-b0b5-be8347d8caec in project testing in region mars',
+			'api.php?action=novainstance&subaction=consoleoutput&instanceid=eb195097-8539-4e66-b0b5-be8347d8caec&project=testing&region=mars&token=123ABC'
+			=> 'Display console output for instance id eb195097-8539-4e66-b0b5-be8347d8caec in project testing in region mars',
 		);
 	}
 

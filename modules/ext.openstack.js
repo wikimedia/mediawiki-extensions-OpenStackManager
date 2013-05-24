@@ -20,7 +20,7 @@
 	OSIP.notifyStatus = function ( status, action ) {
 		var args = [].slice.call( arguments, 2 );
 
-		if ( this.notifications && this.notifications[action] ) {
+		if ( this.notifications && this.notifications[action] && this.notifications[action][status] ) {
 			this.notify.apply( this, [ this.notifications[action][status] ].concat( args ) );
 		}
 	};

@@ -231,8 +231,12 @@ $wgResourceModules['ext.openstack.Instance'] = array(
 		'ext.openstack',
 	),
 
-	'messages' => array( 'openstackmanager-rebootinstancefailed', 'openstackmanager-rebootedinstance' ),
-
+	'messages' => array(
+		'openstackmanager-rebootinstancefailed',
+		'openstackmanager-rebootedinstance',
+		'openstackmanager-consoleoutput',
+		'openstackmanager-getconsoleoutputfailed'
+	),
 	'scripts' => array(
 		'ext.openstack.Instance.js',
 	),
