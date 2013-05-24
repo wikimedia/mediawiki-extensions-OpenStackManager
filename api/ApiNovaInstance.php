@@ -31,7 +31,10 @@ class ApiNovaInstance extends ApiBase {
 			if ( ! $success ) {
 				$this->dieUsage( 'Failed to reboot instance.', 'openstackmanager-rebootinstancefailed' );
 			}
-			$this->getResult()->addValue( null, $this->getModuleName(), array ( 'instancestate' => 'rebooting' ) );
+			$instance = $this->userNova->getInstance( $this->params['instanceid'] );
+			if ( $instance ) {
+				$this->getResult()->addValue( null, $this->getModuleName(), array ( 'instancestate' => $instance->getInstanceState() ) );
+			}
 			break;
 		case 'consoleoutput':
 			$output = $this->userNova->getConsoleOutput( $this->params['instanceid'] );
