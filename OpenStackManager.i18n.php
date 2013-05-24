@@ -10794,6 +10794,7 @@ $messages['sl'] = array(
 );
 
 /** Serbian (Cyrillic script) (српски (ћирилица)‎)
+ * @author Milicevic01
  * @author Rancher
  * @author Михајло Анђелковић
  */
@@ -10845,7 +10846,7 @@ $messages['sr-ec'] = array(
 	'openstackmanager-rebootinstance' => 'Поново покрени примерак',
 	'openstackmanager-rebootinstancequestion' => 'Желите ли да поново покренете примерак „$1“?',
 	'openstackmanager-rebootedinstance' => 'Примерак $1 је поново покренут.',
-	'openstackmanager-rebootinstancefailed' => 'Не могу да поново покренем примерак.',
+	'openstackmanager-rebootinstancefailed' => 'Не могу да поново покренем примерак.', # Fuzzy
 	'openstackmanager-launchtime' => 'Време покретања',
 	'openstackmanager-createinstance' => 'Додавање примерка',
 	'openstackmanager-invaliddomain' => 'Захтевани домен је неисправан.',
@@ -10891,14 +10892,12 @@ $messages['sr-ec'] = array(
 	'openstackmanager-detachedvolume' => 'Јединица је успешно откачена.',
 	'openstackmanager-detachvolumefailed' => 'Не могу да откачим јединицу.',
 	'openstackmanager-novapublickey' => 'Јавни SSH кључ',
-	'openstackmanager-deletekey' => 'Брисање кључа',
+	'openstackmanager-deletekey' => 'Брисање кључа', # Fuzzy
 	'openstackmanager-deletekeyconfirm' => 'Желите ли да обришете горенаведени кључ?',
-	'openstackmanager-keylist' => 'Списак кључева',
+	'openstackmanager-keylist' => 'Списак кључева', # Fuzzy
 	'openstackmanager-name' => 'Назив',
 	'openstackmanager-fingerprint' => 'Отисак',
 	'openstackmanager-keys' => 'Кључеви',
-	'openstackmanager-backkeylist' => 'Назад на списак кључева',
-	'openstackmanager-addadditionalkey' => 'Додајте други кључ.',
 	'openstackmanager-deletedkey' => 'Кључ је успешно обрисан.',
 	'openstackmanager-deletedkeyfailed' => 'Не могу да обришем кључ.',
 	'openstackmanager-addmember' => 'Додавање члана',
@@ -10924,8 +10923,9 @@ $messages['sr-ec'] = array(
 	'openstackmanager-novaprojectfilter-projectfilter' => 'Филтер пројекта',
 	'openstackmanager-projects' => 'Пројекти',
 	'openstackmanager-setprojects' => 'Филтер пројекта је успешно постављен.',
+	'openstackmanager-projectfiltersubmit' => 'Постави филтер',
 	'openstackmanager-roles' => 'Улоге',
-	'openstackmanager-rolename' => 'Назив улоге',
+	'openstackmanager-rolename' => 'Назив улоге', # Fuzzy
 	'openstackmanager-removerolemember' => 'Уклони члана',
 	'openstackmanager-addrolemember' => 'Додај члана',
 	'openstackmanager-rolelist' => 'Списак глобалних улога',
@@ -10952,10 +10952,6 @@ $messages['sr-ec'] = array(
 	'openstackmanager-removedhost' => '$1 је успешно обрисан.',
 	'openstackmanager-removehostfailed' => 'Брисање $1 није успело.',
 	'openstackmanager-nonexistenthost' => 'Захтевани хост не постоји.',
-	'openstackmanager-needsysadminrole' => 'Морате бити системски администратор',
-	'openstackmanager-needsysadminrole2' => 'Морате бити системски администратор да бисте извршили ову радњу.',
-	'openstackmanager-neednetadminrole' => 'Морате бити мрежни администратор',
-	'openstackmanager-neednetadminrole2' => 'Морате бити мрежни администратор да бисте извршили ову радњу.',
 	'openstackmanager-createsecuritygroup' => 'Прављење бесбедносне групе',
 	'openstackmanager-securitygroupname' => 'Назив безбедносне групе',
 	'openstackmanager-securitygroupdescription' => 'Опис',
