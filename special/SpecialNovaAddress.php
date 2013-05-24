@@ -64,7 +64,7 @@ class SpecialNovaAddress extends SpecialNova {
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
 		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-			$this->notInRole( 'projectadmin' );
+			$this->notInRole( 'projectadmin', $project );
 			return false;
 		}
 		if ( !$this->getRequest()->wasPosted() ) {
@@ -106,7 +106,7 @@ class SpecialNovaAddress extends SpecialNova {
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
 		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-			$this->notInRole( 'projectadmin' );
+			$this->notInRole( 'projectadmin', $project );
 			return false;
 		}
 		$id = $this->getRequest()->getText( 'id' );
@@ -158,7 +158,7 @@ class SpecialNovaAddress extends SpecialNova {
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
 		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-			$this->notInRole( 'projectadmin' );
+			$this->notInRole( 'projectadmin', $project );
 			return false;
 		}
 		$instances = $this->userNova->getInstances();
@@ -219,7 +219,7 @@ class SpecialNovaAddress extends SpecialNova {
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
 		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-			$this->notInRole( 'projectadmin' );
+			$this->notInRole( 'projectadmin', $project );
 			return false;
 		}
 		$id = $this->getRequest()->getText( 'id' );
@@ -269,7 +269,7 @@ class SpecialNovaAddress extends SpecialNova {
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
 		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-			$this->notInRole( 'projectadmin' );
+			$this->notInRole( 'projectadmin', $project );
 			return false;
 		}
 		$id = $this->getRequest()->getText( 'id' );
@@ -333,7 +333,7 @@ class SpecialNovaAddress extends SpecialNova {
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
 		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-			$this->notInRole( 'projectadmin' );
+			$this->notInRole( 'projectadmin', $project );
 			return false;
 		}
 		$id = $this->getRequest()->getText( 'id' );

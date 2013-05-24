@@ -54,7 +54,7 @@ class SpecialNovaKey extends SpecialNova {
 			$keyname = $this->getRequest()->getVal( 'keyname' );
 			$project = $this->getRequest()->getVal( 'project' );
 			if ( $project && ! $this->userLDAP->inProject( $project ) ) {
-				$this->notInProject();
+				$this->notInProject( $project );
 				return true;
 			}
 			$keyInfo['keyname'] = array(

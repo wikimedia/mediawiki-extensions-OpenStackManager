@@ -61,7 +61,7 @@ class SpecialNovaProject extends SpecialNova {
 
 		$project = $this->getRequest()->getText( 'projectname' );
 		if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( 'projectadmin', $project ) ) {
-			$this->notInRole( 'projectadmin' );
+			$this->notInRole( 'projectadmin', $project );
 			return false;
 		}
 		$projectInfo = array();
@@ -100,7 +100,7 @@ class SpecialNovaProject extends SpecialNova {
 
 		$projectname = $this->getRequest()->getText( 'projectname' );
 		if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( 'projectadmin', $projectname ) ) {
-			$this->notInRole( 'projectadmin' );
+			$this->notInRole( 'projectadmin', $projectname );
 			return false;
 		}
 		$project = OpenStackNovaProject::getProjectByName( $projectname );
@@ -145,7 +145,7 @@ class SpecialNovaProject extends SpecialNova {
 
 		$project = $this->getRequest()->getText( 'projectname' );
 		if ( !$this->userLDAP->inProject( $project ) ) {
-			$this->notInProject();
+			$this->notInProject( $project );
 			return false;
 		}
 
@@ -185,7 +185,7 @@ class SpecialNovaProject extends SpecialNova {
 		$project = $this->getRequest()->getText( 'projectname' );
 
 		if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( 'projectadmin', $project ) ) {
-			$this->notInRole( 'projectadmin' );
+			$this->notInRole( 'projectadmin', $project );
 			return false;
 		}
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-removeservicegroup' ) );
@@ -412,7 +412,7 @@ class SpecialNovaProject extends SpecialNova {
 		$projectName = $this->getRequest()->getText( 'projectname' );
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-configureproject', $projectName ) );
 		if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( 'projectadmin', $projectName ) ) {
-			$this->notInRole( 'projectadmin' );
+			$this->notInRole( 'projectadmin', $projectName );
 			return false;
 		}
 		$project = OpenStackNovaProject::getProjectByName( $projectName );

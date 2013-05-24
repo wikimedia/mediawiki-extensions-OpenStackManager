@@ -58,8 +58,8 @@ Resource names start with a-z, and can only contain a-z, 0-9, and - characters.'
 	'openstackmanager-nonovacred' => 'No Nova credentials found for your account.',
 	'openstackmanager-nonovacred-admincreate' => 'There were no Nova credentials found for your user account.
 Please ask a Nova administrator to create credentials for you.',
-	'openstackmanager-noaccount' => 'Your account is not in the project requested.',
-	'openstackmanager-noaccount2' => 'You can not complete the action requested as your user account is not in the project requested.',
+	'openstackmanager-noaccount' => 'Your account is not in the project $1.',
+	'openstackmanager-noaccount2' => 'You can not complete the action requested as your user account is not in the project $1.',
 	'openstackmanager-nonexistentresource' => 'The specified resource does not exist.',
 	'openstackmanager-createdomain' => 'Create domain',
 
@@ -296,8 +296,8 @@ Please remove all host entries and disassociate the IP address before trying to 
 	'openstackmanager-nonexistenthost' => 'The requested host does not exist.',
 	'openstackmanager-nonexistentrole' => 'The requested role does not exist.',
 
-	'openstackmanager-needrole' => '$1 role required',
-	'openstackmanager-needrole2' => 'You must be a member of the $1 role to perform this action.',
+	'openstackmanager-needrole' => '$1 role required in project $2',
+	'openstackmanager-needrole2' => 'You must be a member of the $1 role in project $2 to perform this action.',
 
 	'openstackmanager-createsecuritygroup' => 'Create security group',
 	'openstackmanager-securitygroupname' => 'Security group name',
@@ -506,7 +506,11 @@ The page title for this message is {{msg-mw|Openstackmanager-notloggedin}}.',
 	'openstackmanager-nonovacred' => 'Used as page title in Special:Nova.
 
 The page body for this title is:
-* {{msg-mw|Openstackmanager-nonovacred-admincreate}}',
+* {{msg-mw|Openstackmanager-nonovacred-admincreate}}
+
+Parameters:
+* $1 The name of the project for which the account does not have permissions.',
+
 	'openstackmanager-nonovacred-admincreate' => 'Used in Special:Nova.
 
 The page title for this message is:
@@ -518,7 +522,11 @@ The page body for this title is:
 	'openstackmanager-noaccount2' => 'Used as page body in Special:Nova.
 
 The page title for this message is:
-* {{msg-mw|Openstackmanager-noaccount}}',
+* {{msg-mw|Openstackmanager-noaccount}}
+
+Parameters:
+* $1 The name of the project for which the account does not have permissions.
+',
 	'openstackmanager-nonexistentresource' => 'Used as error message in Special:NovaPuppetGroup.',
 	'openstackmanager-createdomain' => 'Page title',
 	'openstackmanager-deletedomain' => 'Used as page title in Special:NovaDomain.',

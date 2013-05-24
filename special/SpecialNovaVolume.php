@@ -43,25 +43,25 @@ class SpecialNovaVolume extends SpecialNova {
 
 		if ( $action === "create" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
-				$this->notInProject();
+				$this->notInProject( $project );
 				return;
 			}
 			$this->createVolume();
 		} elseif ( $action === "delete" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
-				$this->notInProject();
+				$this->notInProject( $project );
 				return;
 			}
 			$this->deleteVolume();
 		} elseif ( $action === "attach" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
-				$this->notInProject();
+				$this->notInProject( $project );
 				return;
 			}
 			$this->attachVolume();
 		} elseif ( $action === "detach" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
-				$this->notInProject();
+				$this->notInProject( $project );
 				return;
 			}
 			$this->detachVolume();
@@ -80,7 +80,7 @@ class SpecialNovaVolume extends SpecialNova {
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
 		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-			$this->notInRole( 'projectadmin' );
+			$this->notInRole( 'projectadmin', $project );
 			return false;
 		}
 		$volumeInfo = array();
@@ -140,7 +140,7 @@ class SpecialNovaVolume extends SpecialNova {
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
 		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-			$this->notInRole( 'projectadmin' );
+			$this->notInRole( 'projectadmin', $project );
 			return false;
 		}
 		$volumeid = $this->getRequest()->getText( 'volumeid' );
@@ -187,7 +187,7 @@ class SpecialNovaVolume extends SpecialNova {
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
 		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-			$this->notInRole( 'projectadmin' );
+			$this->notInRole( 'projectadmin', $project );
 			return false;
 		}
 		$instances = $this->userNova->getInstances();
@@ -266,7 +266,7 @@ class SpecialNovaVolume extends SpecialNova {
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
 		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-			$this->notInRole( 'projectadmin' );
+			$this->notInRole( 'projectadmin', $project );
 			return false;
 		}
 		$volumeInfo = array();

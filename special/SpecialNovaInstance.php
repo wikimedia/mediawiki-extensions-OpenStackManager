@@ -51,31 +51,31 @@ class SpecialNovaInstance extends SpecialNova {
 
 		if ( $action === "create" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
-				$this->notInProject();
+				$this->notInProject( $project );
 				return;
 			}
 			$this->createInstance();
 		} elseif ( $action === "delete" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
-				$this->notInProject();
+				$this->notInProject( $project );
 				return;
 			}
 			$this->deleteInstance();
 		} elseif ( $action === "configure" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
-				$this->notInProject();
+				$this->notInProject( $project );
 				return;
 			}
 			$this->configureInstance();
 		} elseif ( $action === "reboot" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
-				$this->notInProject();
+				$this->notInProject( $project );
 				return;
 			}
 			$this->rebootInstance();
 		} elseif ( $action === "consoleoutput" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
-				$this->notInProject();
+				$this->notInProject( $project );
 				return;
 			}
 			$this->getConsoleOutput();
@@ -101,7 +101,7 @@ class SpecialNovaInstance extends SpecialNova {
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
 		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-			$this->notInRole( 'projectadmin' );
+			$this->notInRole( 'projectadmin', $project );
 			return false;
 		}
 		$instanceInfo = array();
@@ -274,7 +274,7 @@ class SpecialNovaInstance extends SpecialNova {
 		}
 
 		if ( !$this->userLDAP->inRole( 'projectadmin', $instance->getProject() ) ) {
-			$this->notInRole( 'projectadmin' );
+			$this->notInRole( 'projectadmin', $instance->getProject() );
 			return false;
 		}
 
@@ -334,7 +334,7 @@ class SpecialNovaInstance extends SpecialNova {
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
 		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-			$this->notInRole( 'projectadmin' );
+			$this->notInRole( 'projectadmin', $project );
 			return false;
 		}
 		$instanceosid = $this->getRequest()->getText( 'instanceid' );
@@ -394,7 +394,7 @@ class SpecialNovaInstance extends SpecialNova {
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
 		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-			$this->notInRole( 'projectadmin' );
+			$this->notInRole( 'projectadmin', $project );
 			return false;
 		}
 		$instanceosid = $this->getRequest()->getText( 'instanceid' );
@@ -458,7 +458,7 @@ class SpecialNovaInstance extends SpecialNova {
 
 		$project = $this->getRequest()->getText( 'project' );
 		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-			$this->notInRole( 'projectadmin' );
+			$this->notInRole( 'projectadmin', $project );
 			return;
 		}
 		$consoleOutput = $this->userNova->getConsoleOutput( $instanceosid );

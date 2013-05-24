@@ -62,7 +62,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		if ( $project ) {
 			// Project specific
 			if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-				$this->notInRole( 'projectadmin' );
+				$this->notInRole( 'projectadmin', $project );
 				return false;
 			}
 		} else {
@@ -117,7 +117,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		if ( $project ) {
 			// Project specific
 			if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-				$this->notInRole( 'projectadmin' );
+				$this->notInRole( 'projectadmin', $project );
 				return false;
 			}
 		} else {
@@ -176,7 +176,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		if ( $project ) {
 			// Project specific
 			if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-				$this->notInRole( 'projectadmin' );
+				$this->notInRole( 'projectadmin', $project );
 				return false;
 			}
 		} else {
@@ -226,7 +226,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		if ( $project ) {
 			// Project specific
 			if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-				$this->notInRole( 'projectadmin' );
+				$this->notInRole( 'projectadmin', $project );
 				return false;
 			}
 		} else {
@@ -286,7 +286,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		if ( $project ) {
 			// Project specific
 			if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-				$this->notInRole( 'projectadmin' );
+				$this->notInRole( 'projectadmin', $project );
 				return false;
 			}
 		} else {
@@ -338,7 +338,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		if ( $project ) {
 			// Project specific
 			if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-				$this->notInRole( 'projectadmin' );
+				$this->notInRole( 'projectadmin', $project );
 				return false;
 			}
 		} else {
@@ -391,7 +391,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			}
 			$project = $newgroup->getProject();
 			if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-				$this->notInRole( 'projectadmin' );
+				$this->notInRole( 'projectadmin', $project );
 				return false;
 			}
 		}
@@ -403,7 +403,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		if ( $project ) {
 			// Project specific
 			if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-				$this->notInRole( 'projectadmin' );
+				$this->notInRole( 'projectadmin', $project );
 				return false;
 			}
 		} else {
@@ -467,7 +467,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			}
 			$project = $newgroup->getProject();
 			if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-				$this->notInRole( 'projectadmin' );
+				$this->notInRole( 'projectadmin', $project );
 				return false;
 			}
 		}
@@ -480,7 +480,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		if ( $project ) {
 			// Project specific
 			if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-				$this->notInRole( 'projectadmin' );
+				$this->notInRole( 'projectadmin', $project );
 				return false;
 			}
 		} else {
@@ -542,7 +542,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		if ( $project ) {
 			// Project specific
 			if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-				$this->notInRole( 'projectadmin' );
+				$this->notInRole( 'projectadmin', $project );
 				return false;
 			}
 		} else {

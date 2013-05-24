@@ -31,19 +31,19 @@ class SpecialNovaSudoer extends SpecialNova {
 		$this->project = OpenStackNovaProject::getProjectByName( $this->projectName );
 		if ( $action === "create" ) {
 			if ( ! $this->userLDAP->inProject( $this->projectName ) ) {
-				$this->notInProject();
+				$this->notInProject( $project );
 				return;
 			}
 			$this->createSudoer();
 		} elseif ( $action === "delete" ) {
 			if ( ! $this->userLDAP->inProject( $this->projectName ) ) {
-				$this->notInProject();
+				$this->notInProject( $project );
 				return;
 			}
 			$this->deleteSudoer();
 		} elseif ( $action === "modify" ) {
 			if ( ! $this->userLDAP->inProject( $this->projectName ) ) {
-				$this->notInProject();
+				$this->notInProject( $project );
 				return;
 			}
 			$this->modifySudoer();
@@ -59,7 +59,7 @@ class SpecialNovaSudoer extends SpecialNova {
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-modifysudoer' ) );
 		if ( ! $this->userLDAP->inRole( 'projectadmin', $this->projectName ) ) {
-			$this->notInRole( 'projectadmin' );
+			$this->notInRole( 'projectadmin', $this->projectName );
 			return false;
 		}
 
@@ -146,7 +146,7 @@ class SpecialNovaSudoer extends SpecialNova {
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-deletesudoer' ) );
 		if ( ! $this->userLDAP->inRole( 'projectadmin', $this->projectName ) ) {
-			$this->notInRole( 'projectadmin' );
+			$this->notInRole( 'projectadmin', $this->projectName );
 			return false;
 		}
 		$sudoername = $this->getRequest()->getText( 'sudoername' );
@@ -185,7 +185,7 @@ class SpecialNovaSudoer extends SpecialNova {
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-modifysudoer' ) );
 		if ( ! $this->userLDAP->inRole( 'projectadmin', $this->projectName ) ) {
-			$this->notInRole( 'projectadmin' );
+			$this->notInRole( 'projectadmin', $this->projectName );
 			return false;
 		}
 		$sudoername = $this->getRequest()->getText( 'sudoername' );

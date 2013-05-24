@@ -29,10 +29,10 @@ abstract class SpecialNova extends SpecialPage {
 	/**
 	 * @return void
 	 */
-	function notInProject() {
+	function notInProject( $project ) {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-noaccount' ) );
-		$this->getOutput()->addWikiMsg( 'openstackmanager-noaccount2' );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-noaccount', $project ) );
+		$this->getOutput()->addWikiMsg( 'openstackmanager-noaccount2', $project );
 	}
 
 	/**
@@ -48,10 +48,10 @@ abstract class SpecialNova extends SpecialPage {
 	 * @param  $role
 	 * @return void
 	 */
-	function notInRole( $role ) {
+	function notInRole( $role, $project ) {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-needrole', $role ) );
-		$this->getOutput()->addWikiMsg( 'openstackmanager-needrole2', $role );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-needrole', $role, $project ) );
+		$this->getOutput()->addWikiMsg( 'openstackmanager-needrole2', $role, $project );
 	}
 
 	function checkTwoFactor() {

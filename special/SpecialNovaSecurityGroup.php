@@ -64,7 +64,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
 		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-			$this->notInRole( 'projectadmin' );
+			$this->notInRole( 'projectadmin', $project );
 			return false;
 		}
 		$securityGroupInfo = array();
@@ -116,7 +116,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
 		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-			$this->notInRole( 'projectadmin' );
+			$this->notInRole( 'projectadmin', $project );
 			return false;
 		}
 		$securitygroupid = $this->getRequest()->getText( 'groupid' );
@@ -291,7 +291,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		$groupid = $this->getRequest()->getText( 'groupid' );
 
 		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-			$this->notInRole( 'projectadmin' );
+			$this->notInRole( 'projectadmin', $project );
 			return false;
 		}
 		$securitygroup = $this->userNova->getSecurityGroup( $groupid );
@@ -385,7 +385,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
 		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
-			$this->notInRole( 'projectadmin' );
+			$this->notInRole( 'projectadmin', $project );
 			return false;
 		}
 		$groupid = $this->getRequest()->getText( 'groupid' );

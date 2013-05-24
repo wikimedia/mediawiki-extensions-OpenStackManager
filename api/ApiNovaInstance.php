@@ -6,13 +6,13 @@ class ApiNovaInstance extends ApiBase {
 
 	public function canExecute() {
 		if ( ! $this->userLDAP->exists() ) {
-			$this->dieUsageMsg( 'openstackmanager-nonovacred' );
+			$this->dieUsage( wfMessage( 'openstackmanager-nonovacred' )->escaped() );
 		}
 		if ( ! $this->userLDAP->inProject( $this->params['project'] ) ) {
-			$this->dieUsageMsg( 'openstackmanager-noaccount' );
+			$this->dieUsage( wfMessage( 'openstackmanager-noaccount', $this->params['project'] )->escaped() );
 		}
 		if ( ! $this->userLDAP->inRole( 'projectadmin', $this->params['project'] ) ) {
-			$this->dieUsageMsg( 'openstackmanager-needrole' );
+			$this->dieUsage( wfMessage( 'openstackmanager-needrole', 'projectadmin', $this->params['project'] )->escaped() );
 		}
 	}
 
@@ -29,7 +29,7 @@ class ApiNovaInstance extends ApiBase {
 		case 'reboot':
 			$success = $this->userNova->rebootInstance( $this->params['instanceid'] );
 			if ( ! $success ) {
-				$this->dieUsageMsg( array( 'openstackmanager-rebootinstancefailed', $this->params['instanceid'] ) );
+				$this->dieUsage( wfMessage( 'openstackmanager-rebootinstancefailed', $this->params['instanceid'] )->escaped() );
 			}
 			$this->getResult()->addValue( null, $this->getModuleName(), array ( 'instancestate' => 'rebooting' ) );
 			break;
@@ -39,6 +39,8 @@ class ApiNovaInstance extends ApiBase {
 	public function getPossibleErrors() {
 		return array(
 			array( 'openstackmanager-rebootinstancefailed', 'instance' ),
+			array( 'openstackmanager-noaccount' ),
+			array( 'openstackmanager-needrole' )
 		);
 	}
 
