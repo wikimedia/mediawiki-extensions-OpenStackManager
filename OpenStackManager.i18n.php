@@ -303,6 +303,8 @@ Please remove all host entries and disassociate the IP address before trying to 
 	'openstackmanager-nonexistenthost' => 'The requested host does not exist.',
 	'openstackmanager-nonexistentrole' => 'The requested role does not exist.',
 
+	'openstackmanager-unknownerror' => 'An error occurred.',
+
 	'openstackmanager-needrole' => '$1 role required in project $2',
 	'openstackmanager-needrole2' => 'You must be a member of the $1 role in project $2 to perform this action.',
 
@@ -589,7 +591,8 @@ A simple label like [?] or (docs) that will link to a doc page about the associa
 Parameters:
 * $1 - an alphanumeric instance id for the instance to be deleted
 * $2 - the human-readable name for the same instance',
-	'openstackmanager-deleteinstance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
+'openstackmanager-deleteinstance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
+	'openstackmanager-unknownerror' => 'Used when an unknown error occurs in an Ajax request, catch-all for unforeseen cases.',
 	'openstackmanager-deleteinstancequestion' => 'Used in Special:NovaInstance.
 
 An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].

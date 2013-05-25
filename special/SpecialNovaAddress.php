@@ -390,7 +390,7 @@ class SpecialNovaAddress extends SpecialNova {
 	 */
 	function listAddresses() {
 		$this->setHeaders();
-		$this->getOutput()->addModuleStyles( 'ext.openstack' );
+		$this->getOutput()->addModules( 'ext.openstack.Address' );
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-addresslist' ) );
 
 		if ( $this->getUser()->isAllowed( 'listall' ) ) {
@@ -457,8 +457,12 @@ class SpecialNovaAddress extends SpecialNova {
 			if ( $instanceosid ) {
 				$instancename = $instances[$instanceosid]->getInstanceName();
 				$instanceid = $instances[$instanceosid]->getInstanceId();
-				$this->pushRawResourceColumn( $addressRow, $this->createResourceLink( $instanceid ) );
-				$this->pushResourceColumn( $addressRow, $instancename );
+				$this->pushRawResourceColumn( $addressRow, $this->createResourceLink( $instanceid ), array(
+					'class' => 'instance-id'
+				) );
+				$this->pushResourceColumn( $addressRow, $instancename, array(
+					'class' => 'instance-name'
+				) );
 			} else {
 				$this->pushResourceColumn( $addressRow, '' );
 				$this->pushResourceColumn( $addressRow, '' );
@@ -490,14 +494,39 @@ class SpecialNovaAddress extends SpecialNova {
 				$this->pushResourceColumn( $addressRow, '' );
 			}
 			$actions = array();
+
+			$addressDataAttributes = array(
+				'data-ip' => $ip,
+				'data-id' => $id,
+				'data-project' => $projectName,
+				'data-region' => $region,
+				'class' => 'novaaddressaction disassociate-link',
+			);
+
 			if ( $instanceosid ) {
 				$actions[] = $this->createActionLink(
 					'openstackmanager-reassociateaddress',
-					array( 'action' => 'associate', 'id' => $id, 'project' => $projectName, 'region' => $region )
+					array(
+						'action' => 'associate',
+						'id' => $id,
+						'project' => $projectName,
+						'region' => $region
+					),
+					null,
+					array(
+						'class' => 'reassociate-link'
+					)
 				);
 				$actions[] = $this->createActionLink(
 					'openstackmanager-disassociateaddress',
-					array( 'action' => 'disassociate', 'id' => $id, 'project' => $projectName, 'region' => $region )
+					array(
+						'action' => 'disassociate',
+						'id' => $id,
+						'project' => $projectName,
+						'region' => $region
+					),
+					null,
+					$addressDataAttributes
 				);
 			} else {
 				$actions[] = $this->createActionLink(

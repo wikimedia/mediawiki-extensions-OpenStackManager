@@ -4,6 +4,7 @@
 	var api = new mw.Api();
 
 	/**
+	 * @class mw.openStack.Instance
 	 * Represents an OpenStack Instance
 	 * @param {Object} descriptor An object with properties:
 	 * @param {String} descriptor.id OpenStack Instance ID.
@@ -15,6 +16,8 @@
 		$.extend( true, this, descriptor );
 	}
 
+	Instance.prototype = new mw.OpenStackInterface();
+
 	// A mapping of action names to [ success message, failure message ]:
 	Instance.prototype.notifications = {
 		reboot : {
@@ -22,15 +25,6 @@
 			failure : 'openstackmanager-rebootinstancefailed'
 		}
 	};
-
-	/**
-	 * Issue a notification about this instance's status.
-	 * @param {String} msg Message key; will get instance name as parameter.
-	 */
-	Instance.prototype.notify = function ( msg ) {
-		return mw.notify( mw.msg( msg, this.name ) );
-	};
-
 
 	/**
 	 * Make an 'action=novainstance' call to the MediaWiki API specifying this
@@ -54,16 +48,35 @@
 
 		if ( messages !== undefined ) {
 			req.then(
-				function () { self.notify( messages.success ); },
-				function () { self.notify( messages.failure ); }
+				this.succeed.bind( this, subaction, this.address ),
+				this.fail.bind( this, subaction, this.address )
 			);
 		}
 		return req;
 	};
 
 	// export
-	mw.openStack = {
-		Instance: Instance
-	};
+	mw.openStack.Instance = Instance;
 
+	$( '.novainstanceaction' ).on( 'click', function ( e ) {
+		var action = mw.util.getParamValue( 'action', this.href ),
+			$el = $( this ),
+			$spinner = $.createSpinner(),
+			instance = new mw.openStack.Instance( $el.data() );
+
+		if ( action !== 'reboot' ) {
+			// only reboot is supported right now.
+			return;
+		}
+
+		e.preventDefault();
+
+		$el.hide().after( $spinner );
+
+		instance.api( action )
+			.always( function () {
+				$spinner.remove();
+				$el.show();
+			} );
+	} );
 } ( mediaWiki, jQuery ) );

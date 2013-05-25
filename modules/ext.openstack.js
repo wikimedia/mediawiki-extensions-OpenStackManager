@@ -1,26 +1,69 @@
 ( function ( mw, $ ) {
 	'use strict';
 
-	$( '.novainstanceaction' ).on( 'click', function ( e ) {
-		var action = mw.util.getParamValue( 'action', this.href ),
-			$el = $( this ),
-			$spinner = $.createSpinner(),
-			instance = new mw.openStack.Instance( $el.data() );
+	/**
+	 * @class mw.OpenStackInterface
+	 * @abstract
+	 */
+	function OpenStackInterface() {
+	}
 
-		if ( action !== 'reboot' ) {
-			// only reboot is supported right now.
-			return;
+	var OSIP = OpenStackInterface.prototype;
+
+	/**
+	 * Issue a notification about this instance's status. Arguments are applied to mw.msg verbatim.
+	 */
+	OSIP.notify = function () {
+		return mw.notify( mw.msg.apply( mw, arguments ) );
+	};
+
+	OSIP.notifyStatus = function ( status, action ) {
+		var args = [].slice.call( arguments, 2 );
+
+		if ( this.notifications && this.notifications[action] ) {
+			this.notify.apply( this, [ this.notifications[action][status] ].concat( args ) );
+		}
+	};
+
+	OSIP.succeed = function () {
+		this.notifyStatus.bind( this, 'success' ).apply( this, arguments );
+	};
+
+	OSIP.fail = function () {
+		this.notifyStatus.bind( this, 'failure' ).apply( this, arguments );
+	};
+
+	/**
+	 * Confirmation dialog for an action.
+	 * @param {string} msg The text to put in the dialog (use mw.msg!)
+	 * @param {Function} ok
+	 * @param {Function} cancel
+	 * @param {string} titlemsg Optional title for the dialog
+	 */
+	OSIP.confirm = function ( msg, ok, cancel, titlemsg ) {
+		var $c = $( '<div>' );
+
+		if ( titlemsg ) {
+			$c.attr( 'title', titlemsg );
 		}
 
-		e.preventDefault();
+		$c.text( msg );
+		$c.dialog( {
+			buttons: {
+				Submit: function () {
+					$( this ).dialog( 'destroy' ).remove();
+					ok();
+				},
 
-		$el.hide().after( $spinner );
+				Cancel: function () {
+					$( this ).dialog( 'destroy' ).remove();
+					cancel();
+				}
+			}
+		} );
+	};
 
-		instance.api( action )
-			.always( function () {
-				$spinner.remove();
-				$el.show();
-			} );
-	} );
+	mw.openStack = {};
 
+	mw.OpenStackInterface = OpenStackInterface;
 } ( mediaWiki, jQuery ) );

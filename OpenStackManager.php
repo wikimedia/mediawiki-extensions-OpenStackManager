@@ -170,6 +170,7 @@ $wgAutoloadClasses['SpecialNovaSudoer'] = $dir . 'special/SpecialNovaSudoer.php'
 $wgAutoloadClasses['SpecialNovaPuppetGroup'] = $dir . 'special/SpecialNovaPuppetGroup.php';
 $wgAutoloadClasses['SpecialNova'] = $dir . 'special/SpecialNova.php';
 $wgAutoloadClasses['ApiNovaInstance'] = $dir . 'api/ApiNovaInstance.php';
+$wgAutoloadClasses['ApiNovaAddress'] = $dir . 'api/ApiNovaAddress.php';
 $wgAutoloadClasses['ApiNovaProjects'] = $dir . 'api/ApiNovaProjects.php';
 $wgAutoloadClasses['Spyc'] = $dir . 'Spyc.php';
 $wgAutoloadClasses['OpenStackManagerNotificationFormatter'] = $dir . 'OpenStackManagerNotificationFormatter.php';
@@ -213,18 +214,51 @@ $commonModuleInfo = array(
 
 $wgResourceModules['ext.openstack'] = array(
 	'styles' => 'ext.openstack.css',
+
 	'dependencies' => array(
 		'jquery.spinner',
 		'mediawiki.api',
+		'jquery.ui.dialog',
 	),
-	'messages' => array( 'openstackmanager-rebootinstancefailed', 'openstackmanager-rebootedinstance' ),
+
 	'scripts' => array(
-		'ext.openstack.Instance.js',
 		'ext.openstack.js',
 	),
 ) + $commonModuleInfo;
 
+$wgResourceModules['ext.openstack.Instance'] = array(
+	'dependencies' => array(
+		'ext.openstack',
+	),
+
+	'messages' => array( 'openstackmanager-rebootinstancefailed', 'openstackmanager-rebootedinstance' ),
+
+	'scripts' => array(
+		'ext.openstack.Instance.js',
+	),
+) + $commonModuleInfo;
+
+$wgResourceModules['ext.openstack.Address'] = array(
+	'dependencies' => array(
+		'ext.openstack',
+	),
+
+	'messages' => array(
+		'openstackmanager-disassociateaddressfailed',
+		'openstackmanager-disassociateaddress-confirm',
+		'openstackmanager-disassociatedaddress',
+		'openstackmanager-associateaddress',
+		'openstackmanager-releaseaddress',
+		'openstackmanager-unknownerror',
+	),
+
+	'scripts' => array(
+		'ext.openstack.Address.js',
+	),
+) + $commonModuleInfo;
+
 $wgAPIModules['novainstance'] = 'ApiNovaInstance';
+$wgAPIModules['novaaddress'] = 'ApiNovaAddress';
 $wgAPIModules['novaprojects'] = 'ApiNovaProjects';
 
 # Schema changes

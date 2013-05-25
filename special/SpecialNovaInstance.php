@@ -476,7 +476,7 @@ class SpecialNovaInstance extends SpecialNova {
 	 */
 	function listInstances() {
 		$this->setHeaders();
-		$this->getOutput()->addModules( 'ext.openstack' );
+		$this->getOutput()->addModules( 'ext.openstack.Instance' );
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-instancelist' ) );
 
 		if ( $this->getUser()->isAllowed( 'listall' ) ) {
