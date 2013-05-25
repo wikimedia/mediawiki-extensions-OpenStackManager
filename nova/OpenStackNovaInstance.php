@@ -274,11 +274,6 @@ RESOURCEINFO;
 		$puppetvars = '';
 		if ( $puppetinfo['puppetvar'] ) {
 			foreach ( $puppetinfo['puppetvar'] as $key => $val ) {
-				# Let's not leak user's email addresses; we know this
-				# will be set, since we are setting it.
-				if ( $key === 'instancecreator_email' ) {
-					continue;
-				}
 				$puppetvars .= $key . '=' . $val . ',';
 			}
 		}

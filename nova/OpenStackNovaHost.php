@@ -232,8 +232,7 @@ class OpenStackNovaHost {
 				$wgAuth->printDebug( "Checking for preexisting variables", NONSENSITIVE );
 				foreach ( $oldpuppetinfo['puppetvar'] as $variable => $value ) {
 					$wgAuth->printDebug( "Found $variable", NONSENSITIVE );
-					if ( $variable === "instancecreator_email" || $variable === "instancecreator_username"
-						|| $variable === "instancecreator_lang" || $variable === "instanceproject" || $variable === "instancename" ) {
+					if ( $variable === "instanceproject" || $variable === "instancename" ) {
 						$hostEntry['puppetvar'][] = $variable . '=' . $value;
 					}
 				}
@@ -611,7 +610,6 @@ class OpenStackNovaHost {
 	 * @return OpenStackNovaHost
 	 */
 	static function addHost( $instance, $domain, $puppetinfo = array() ) {
-		global $wgUser, $wgLang;
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPInstanceBaseDN, $wgOpenStackManagerPuppetOptions;
 
@@ -660,11 +658,6 @@ class OpenStackNovaHost {
 					}
 				}
 			}
-			if ( $wgUser->getEmail() ) {
-				$hostEntry['puppetvar'][] = 'instancecreator_email=' . $wgUser->getEmail();
-			}
-			$hostEntry['puppetvar'][] = 'instancecreator_username=' . $wgUser->getName();
-			$hostEntry['puppetvar'][] = 'instancecreator_lang=' . $wgLang->getCode();
 			$hostEntry['puppetvar'][] = 'instanceproject=' . $project;
 			$hostEntry['puppetvar'][] = 'instancename=' . $hostname;
 		}
