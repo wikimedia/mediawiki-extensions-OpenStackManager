@@ -10,6 +10,7 @@
 	 * @param {string} address
 	 * @param {string} region
 	 * @param {string} project
+	 * @param {jQuery} $row
 	 * @extends mw.OpenStackInterface
 	 */
 	function Address( ipAddr, addressId, region, project, $row ) {
@@ -36,7 +37,6 @@
 
 	/**
 	 * Change a link from one state to another.
-	 * @param {jQuery} $link
 	 * @param {string} fromClass
 	 * @param {string} toClass
 	 * @param {string} linkText Name of a message to use as the new link text

@@ -765,7 +765,7 @@ $this->getOutput();
 				}
 			} else {
 				# We need to remove the host entry
-				$success = OpenStackNovaHost::deleteHost( $hostname, $domain );
+				$success = $host->deleteHost();
 				if ( $success ) {
 					$outputPage->addWikiMsg( 'openstackmanager-removedhost', $hostname, $ip );
 				} else {

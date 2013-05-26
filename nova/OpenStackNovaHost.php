@@ -536,63 +536,21 @@ class OpenStackNovaHost {
 	}
 
 	/**
-	 * Delete a host based on the host's shortname, and its domain.
+	 * Delete this host
 	 *
-	 * @static
-	 * @param  $hostname String
-	 * @param  $domain OpenStackNovaDomain
-	 * @return bool
-	 */
-	static function deleteHost( $hostname, $domain ) {
-		global $wgAuth;
-
-		OpenStackNovaLdapConnection::connect();
-
-		$host = OpenStackNovaHost::getHostByName( $hostname, $domain );
-		if ( ! $host ) {
-			$wgAuth->printDebug( "Failed to delete host $hostname as the DNS entry does not exist", NONSENSITIVE );
-			return false;
-		}
-		$dn = $host->hostDN;
-
-		$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $dn );
-		if ( $success ) {
-			$domain->updateSOA();
-			$wgAuth->printDebug( "Successfully deleted host $hostname", NONSENSITIVE );
-			return true;
-		} else {
-			$wgAuth->printDebug( "Failed to delete host $hostname", NONSENSITIVE );
-			return false;
-		}
-	}
-
-	/**
-	 * Deletes a host based on its instanceid.
-	 *
-	 * @static
 	 * @param  $instanceid
 	 * @return bool
 	 */
-	static function deleteHostByInstanceId( $instanceid ) {
+	function deleteHost() {
 		global $wgAuth;
 
-		OpenStackNovaLdapConnection::connect();
-
-		$host = OpenStackNovaHost::getHostByInstanceId( $instanceid );
-		if ( ! $host ) {
-			$wgAuth->printDebug( "Failed to delete host $instanceid as the DNS entry does not exist", NONSENSITIVE );
-			return false;
-		}
-		$dn = $host->hostDN;
-		$domain = $host->getDomain();
-
-		$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $dn );
+		$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $this->hostDN );
 		if ( $success ) {
-			$domain->updateSOA();
-			$wgAuth->printDebug( "Successfully deleted host $instanceid", NONSENSITIVE );
+			$this->getDomain()->updateSOA();
+			$wgAuth->printDebug( "Successfully deleted host " . $this->getHostName(), NONSENSITIVE );
 			return true;
 		} else {
-			$wgAuth->printDebug( "Failed to delete host $instanceid", NONSENSITIVE );
+			$wgAuth->printDebug( "Failed to delete host " . $this->getHostName(), NONSENSITIVE );
 			return false;
 		}
 	}

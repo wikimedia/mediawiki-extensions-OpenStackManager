@@ -23,10 +23,14 @@ class OpenStackNovaInstance {
 	function __construct( $apiInstanceResponse, $loadhost = false ) {
 		$this->instance = $apiInstanceResponse;
 		if ( $loadhost ) {
-			$this->host = OpenStackNovaHost::getHostByInstanceId( $this->getInstanceId() );
+			$this->loadHost();
 		} else {
 			$this->host = null;
 		}
+	}
+
+	function loadHost() {
+		$this->host = OpenStackNovaHost::getHostByInstanceId( $this->getInstanceId() );
 	}
 
 	/**
@@ -302,6 +306,18 @@ RESOURCEINFO;
 
 	function deleteArticle() {
 		OpenStackNovaArticle::deleteArticle( $this->getInstanceId() );
+	}
+
+	function deleteInstance( $userNova ) {
+		global $wgUser;
+
+		$success = $userNova->terminateInstance( $this->getInstanceOsId() );
+		if ( !$success ) {
+			return false;
+		}
+		OpenStackManagerEvent::createDeletionEvent( $this->getInstanceName(), $this->getProject(), $wgUser );
+		$this->deleteArticle();
+		return true;
 	}
 
 }

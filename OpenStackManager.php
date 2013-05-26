@@ -235,7 +235,11 @@ $wgResourceModules['ext.openstack.Instance'] = array(
 		'openstackmanager-rebootinstancefailed',
 		'openstackmanager-rebootedinstance',
 		'openstackmanager-consoleoutput',
-		'openstackmanager-getconsoleoutputfailed'
+		'openstackmanager-getconsoleoutputfailed',
+		'openstackmanager-deletedinstance',
+		'openstackmanager-deleteinstancefailed',
+		'openstackmanager-deleteinstance',
+		'openstackmanager-deleteinstancequestion',
 	),
 	'scripts' => array(
 		'ext.openstack.Instance.js',

@@ -28,7 +28,7 @@ class ApiNovaInstance extends ApiBase {
 		switch( $this->params['subaction'] ) {
 		case 'reboot':
 			$success = $this->userNova->rebootInstance( $this->params['instanceid'] );
-			if ( ! $success ) {
+			if ( !$success ) {
 				$this->dieUsage( 'Failed to reboot instance.', 'openstackmanager-rebootinstancefailed' );
 			}
 			$instance = $this->userNova->getInstance( $this->params['instanceid'] );
@@ -40,6 +40,22 @@ class ApiNovaInstance extends ApiBase {
 			$output = $this->userNova->getConsoleOutput( $this->params['instanceid'] );
 			$this->getResult()->addValue( null, $this->getModuleName(), array ( 'consoleoutput' => $output ) );
 			break;
+		case 'delete':
+			$instanceOSID = $this->params['instanceid'];
+			$instance = $this->userNova->getInstance( $instanceOSID );
+			if ( !$instance ) {
+				$this->dieUsage( 'The instance requested does not exist.', 'openstackmanager-nonexistanthost' );
+			}
+			$instancename = $instance->getInstanceName();
+			$result = $instance->deleteInstance( $this->userNova );
+			if ( !$result ) {
+				$this->dieUsage( 'Failed to delete the instance.', 'openstackmanager-deleteinstancefailed' );
+			}
+			$host = $instance->getHost();
+			if ( $host ) {
+				$host->deleteHost();
+			}
+			break;
 		}
 	}
 
@@ -50,6 +66,7 @@ class ApiNovaInstance extends ApiBase {
 				ApiBase::PARAM_TYPE => array(
 					'reboot',
 					'consoleoutput',
+					'delete',
 				),
 				ApiBase::PARAM_REQUIRED => true
 			),

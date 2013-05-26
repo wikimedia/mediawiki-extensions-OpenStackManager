@@ -567,7 +567,10 @@ class SpecialNovaInstance extends SpecialNova {
 						'action' => 'delete',
 						'instanceid' => $instance->getInstanceOSId(),
 						'project' => $projectName,
-						'region' => $region )
+						'region' => $region
+					),
+					null,
+					$instanceDataAttributes
 				);
 				$actions[] = $this->createActionLink(
 					'openstackmanager-reboot',
@@ -645,7 +648,7 @@ class SpecialNovaInstance extends SpecialNova {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-createdinstance', $instance->getInstanceID(),
 					$imageName, $host->getFullyQualifiedHostName() );
 			} else {
-				$this->userNova->terminateInstance( $instance->getInstanceId() );
+				$instance->deleteInstance( $this->userNova );
 				$this->getOutput()->addWikiMsg( 'openstackmanager-createfailedldap' );
 			}
 			# TODO: also add puppet
@@ -669,26 +672,28 @@ class SpecialNovaInstance extends SpecialNova {
 	 * @return bool
 	 */
 	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
-		$instance = $this->userNova->getInstance( $formData['instanceid'] );
+		$instanceosid = $formData['instanceid'];
+		$instance = $this->userNova->getInstance( $instanceosid );
 		if ( ! $instance ) {
-			$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistanthost' );
-			return true;
+			return false;
 		}
 		$instancename = $instance->getInstanceName();
-		$instanceosid = $instance->getInstanceOSId();
-		$instanceproject = $instance->getProject();
 		$instanceid = $instance->getInstanceId();
-		$success = $this->userNova->terminateInstance( $instanceosid );
-		if ( $success ) {
-			OpenStackManagerEvent::createDeletionEvent( $instancename, $instanceproject, $this->getUser() );
-			$success = OpenStackNovaHost::deleteHostByInstanceId( $instanceid );
-			if ( $success ) {
-				$this->getOutput()->addWikiMsg( 'openstackmanager-deletedinstance', $instanceid );
+		$host = $instance->getHost();
+		$result = $instance->deleteInstance( $this->userNova );
+		if ( $result ) {
+			if ( $host ) {
+				$result = $host->deleteHost();
+				if ( $result ) {
+					$this->getOutput()->addWikiMsg( 'openstackmanager-deletedinstance', $instanceid, $instancename );
+				} else {
+					$this->getOutput()->addWikiMsg( 'openstackmanager-deletedinstance-faileddns', $instanceid, $instancename );
+				}
 			} else {
-				$this->getOutput()->addWikiMsg( 'openstackmanager-deletedinstance-faileddns', $instancename, $instanceid );
+				$this->getOutput()->addWikiMsg( 'openstackmanager-deletedinstance', $instanceid, $instancename );
 			}
 		} else {
-			$this->getOutput()->addWikiMsg( 'openstackmanager-deleteinstancefailed' );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-deleteinstancefailed', $instanceid, $instancename );
 		}
 
 		$out = '<br />';

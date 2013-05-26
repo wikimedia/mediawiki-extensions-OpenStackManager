@@ -12,6 +12,7 @@
 	 * @param {String} descriptor.name Instance name.
 	 * @param {String} descriptor.project Name of project.
 	 * @param {String} descriptor.region Instance's OpenStack region.
+	 * @param {jQuery} $row
 	 */
 	function Instance( descriptor, $row ) {
 		$.extend( true, this, descriptor );
@@ -26,8 +27,12 @@
 			success : 'openstackmanager-rebootedinstance',
 			failure : 'openstackmanager-rebootinstancefailed'
 		},
-		consoleoutput : {
-			failure : 'openstackmanager-getconsoleoutputfailed'
+		consoleoutput: {
+			failure: 'openstackmanager-getconsoleoutputfailed'
+		},
+		'delete': {
+			success: 'openstackmanager-deletedinstance',
+			failure: 'openstackmanager-deleteinstancefailed'
 		}
 	};
 
@@ -106,6 +111,31 @@
 		return deferred.promise();
 	};
 
+	Instance.prototype.deleteinstance = function ( params ) {
+		var deferred = $.Deferred(),
+			$table = this.$row.closest( 'table' );
+
+		this.confirm(
+			mw.msg( 'openstackmanager-deleteinstancequestion', this.name ),
+			function () {
+				this.api( 'delete', params )
+					.done(
+						function () {
+							this.$row.remove();
+							if ( $table.find( 'tr' ).length === 1 ) {
+								$table.remove();
+							}
+						}.bind( this ),
+						deferred.resolve
+					)
+					.fail( deferred.reject );
+			}.bind( this ),
+			deferred.reject
+		);
+
+		return deferred.promise();
+	};
+
 	/**
 	 * Make an 'action=novainstance' call to the MediaWiki API specifying this
 	 * instance and the requested subaction. If notification messages are
@@ -118,19 +148,19 @@
 		var self = this,
 			messages = self.notifications[subaction],
 			req = api.post( $.extend( {
-				format     : 'json',
-				action     : 'novainstance',
-				instanceid : self.osid,
-				project    : self.project,
-				region     : self.region,
-				token      : mw.user.tokens.get( 'editToken' ),
-				subaction  : subaction
+				format: 'json',
+				action: 'novainstance',
+				instanceid: self.osid,
+				project: self.project,
+				region: self.region,
+				token: mw.user.tokens.get( 'editToken' ),
+				subaction: subaction
 			}, params ) );
 
 		if ( messages !== undefined ) {
 			req.then(
-				this.succeed.bind( this, subaction, this.name ),
-				this.fail.bind( this, subaction, this.name )
+				this.succeed.bind( this, subaction, this.name, this.id ),
+				this.fail.bind( this, subaction, this.name, this.id )
 			);
 		}
 
@@ -147,6 +177,9 @@
 			$row = $el.closest( 'tr' ),
 			instance = new mw.openStack.Instance( $el.data(), $row );
 
+		if ( action === 'delete' ) {
+			action = 'deleteinstance';
+		}
 		if ( !$.isFunction( instance[action] ) ) {
 			// This action isn't supported!
 			return;

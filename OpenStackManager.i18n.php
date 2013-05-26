@@ -127,11 +127,11 @@ You will have an opportunity to configure the instance after it is finished buil
 	'openstackmanager-createfailedldap' => 'Failed to create instance as the host could not be added to LDAP.',
 	'openstackmanager-createinstancefailed' => 'Failed to create instance.',
 	'openstackmanager-backinstancelist' => 'Back to instance list',
-	'openstackmanager-deletedinstance' => 'Deleted instance $1.',
-	'openstackmanager-deletedinstance-faileddns' => 'Successfully deleted instance, but failed to remove $1 DNS entry.',
+	'openstackmanager-deletedinstance' => 'Deleted instance $1 ($2).',
+	'openstackmanager-deletedinstance-faileddns' => 'Successfully deleted instance $1 ($2), but failed to remove its DNS entry.',
 	'openstackmanager-modifiedinstance' => 'Successfully modified instance $1 ($2).',
 	'openstackmanager-modifyinstancefailed' => 'Failed to modify instance.',
-	'openstackmanager-deleteinstancefailed' => 'Failed to delete instance.',
+	'openstackmanager-deleteinstancefailed' => 'Failed to delete instance $1 ($2).',
 	'openstackmanager-consoleoutput' => 'Console output for $1 ($2)',
 	'openstackmanager-getconsoleoutput' => 'get console output',
 	'openstackmanager-getconsoleoutputfailed' => 'Failed to get console output for instance $1.',
@@ -692,6 +692,7 @@ An instance is a virtual machine. In this particular case, a clone of an image f
 
 Parameters:
 * $1 - instance ID
+* $2 - instance name
 
 See also:
 * {{msg-mw|Openstackmanager-deleteinstancefailed}}
@@ -703,7 +704,8 @@ Tells the user an instance has been deleted successfully, but the [[wikipedia:Do
 An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].
 
 Parameters:
-* $1 - the specific DNS name
+* $1 - instance ID
+* $1 - instance Name
 
 See also:
 * {{msg-mw|Openstackmanager-deletedinstance}}
@@ -728,6 +730,10 @@ See also:
 This message indicates the instance has been failed to delete.
 
 An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].
+
+Parameters:
+* $1 - the instance ID
+* $2 - the instance name
 
 See also:
 * {{msg-mw|Openstackmanager-deletedinstance}}
