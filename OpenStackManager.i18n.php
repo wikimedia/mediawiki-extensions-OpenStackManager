@@ -510,7 +510,6 @@ The page body for this title is:
 
 Parameters:
 * $1 The name of the project for which the account does not have permissions.',
-
 	'openstackmanager-nonovacred-admincreate' => 'Used in Special:Nova.
 
 The page title for this message is:
@@ -525,8 +524,7 @@ The page title for this message is:
 * {{msg-mw|Openstackmanager-noaccount}}
 
 Parameters:
-* $1 The name of the project for which the account does not have permissions.
-',
+* $1 The name of the project for which the account does not have permissions.',
 	'openstackmanager-nonexistentresource' => 'Used as error message in Special:NovaPuppetGroup.',
 	'openstackmanager-createdomain' => 'Page title',
 	'openstackmanager-deletedomain' => 'Used as page title in Special:NovaDomain.',
@@ -4965,8 +4963,8 @@ $messages['he'] = array(
 	'openstackmanager-mustbeloggedin' => 'צריך להיכנס לחשבון כדי לבצע את הפעולה הזאת.',
 	'openstackmanager-nonovacred' => 'לא נמצאו נתוני האמנה לחשבונך.',
 	'openstackmanager-nonovacred-admincreate' => 'לא נמצאו נתוני האמנה של Nova עבור חשבונך. נא לבקש ממנהל Nova ליצור לך נתוני האמנה.',
-	'openstackmanager-noaccount' => 'חשבונך לא נמצא בפרויקט המבוקש.',
-	'openstackmanager-noaccount2' => 'אינך יכול להשלים את הפעולה המבוקשת, מכיוון שחשבונך לא משויך לפרויקט המבוקש.',
+	'openstackmanager-noaccount' => 'חשבונך לא נמצא בפרויקט המבוקש.', # Fuzzy
+	'openstackmanager-noaccount2' => 'אינך יכול להשלים את הפעולה המבוקשת, מכיוון שחשבונך לא משויך לפרויקט המבוקש.', # Fuzzy
 	'openstackmanager-nonexistentresource' => 'המשאב שצוין אינו קיים.',
 	'openstackmanager-createdomain' => 'יצירת מתחם',
 	'openstackmanager-deletedomain' => 'מחיקת מתחם',
@@ -5594,7 +5592,7 @@ $messages['hu'] = array(
 	'openstackmanager-notloggedin' => 'Bejelentkezés szükséges',
 	'openstackmanager-mustbeloggedin' => 'A művelet végrehajtásához be kell jelentkezned.',
 	'openstackmanager-nonovacred' => 'Nem található Nova hitelesítő adat a fiókodban.',
-	'openstackmanager-noaccount' => 'A fiókod nincs a kért projektben.',
+	'openstackmanager-noaccount' => 'A fiókod nincs a kért projektben.', # Fuzzy
 	'openstackmanager-nonexistentresource' => 'A megadott erőforrás nem létezik.',
 	'openstackmanager-createdomain' => 'Domain létrehozása',
 	'openstackmanager-deletedomain' => 'Domain törlése',
@@ -6175,8 +6173,8 @@ $messages['it'] = array(
 	'openstackmanager-mustbeloggedin' => 'Devi autenticarti per eseguire questa azione.',
 	'openstackmanager-nonovacred' => 'Nessuna credenziale Nova trovata per il tuo account.',
 	'openstackmanager-nonovacred-admincreate' => 'Nessuna credenziale Nova trovata per il tuo account utente. Chiedi ad un amministratore Nova di creare le credenziali per te.',
-	'openstackmanager-noaccount' => 'Il tuo account non è nel progetto richiesto.',
-	'openstackmanager-noaccount2' => "Non è possibile completare l'azione richiesta poiché il tuo account non è nel progetto richiesto.",
+	'openstackmanager-noaccount' => 'Il tuo account non è nel progetto richiesto.', # Fuzzy
+	'openstackmanager-noaccount2' => "Non è possibile completare l'azione richiesta poiché il tuo account non è nel progetto richiesto.", # Fuzzy
 	'openstackmanager-nonexistentresource' => 'La risorsa indicata non esiste.',
 	'openstackmanager-createdomain' => 'Crea dominio',
 	'openstackmanager-deletedomain' => 'Cancella dominio',
@@ -6385,8 +6383,8 @@ Deve iniziare con a-z e può contenere solo i caratteri a-z, 0-9 e -.',
 	'openstackmanager-removehostfailed' => 'Errore durante la rimozione $1.',
 	'openstackmanager-nonexistenthost' => "L'host richiesto non esiste.",
 	'openstackmanager-nonexistentrole' => 'Il ruolo richiesto non esiste.',
-	'openstackmanager-needrole' => 'Ruolo $1 obbligatorio',
-	'openstackmanager-needrole2' => 'Devi essere un membro del ruolo $1 per eseguire questa azione.',
+	'openstackmanager-needrole' => 'Ruolo $1 obbligatorio', # Fuzzy
+	'openstackmanager-needrole2' => 'Devi essere un membro del ruolo $1 per eseguire questa azione.', # Fuzzy
 	'openstackmanager-createsecuritygroup' => 'Crea gruppo di sicurezza',
 	'openstackmanager-securitygroupname' => 'Nome gruppo di sicurezza',
 	'openstackmanager-securitygroupdescription' => 'Descrizione',
@@ -7680,7 +7678,7 @@ $messages['lb'] = array(
 	'openstackmanager-actions' => 'Aktiounen',
 	'openstackmanager-notloggedin' => 'Umeldung néideg',
 	'openstackmanager-mustbeloggedin' => 'Dir musst ageloggt si fir dës Aktioun maachen ze kënnen.',
-	'openstackmanager-noaccount' => 'Äre Benotzerkont ass net an deem gefrote Projet.',
+	'openstackmanager-noaccount' => 'Äre Benotzerkont ass net an deem gefrote Projet.', # Fuzzy
 	'openstackmanager-deletedomain' => 'Domain läschen',
 	'openstackmanager-novadomain-domain' => 'Domain derbäisetzen',
 	'openstackmanager-addadditionaldomain' => 'Nach en Domain derbäisetzen.',
@@ -8779,8 +8777,8 @@ $messages['nl'] = array(
 	'openstackmanager-mustbeloggedin' => 'U moet aangemeld zijn om deze handeling uit te voeren.',
 	'openstackmanager-nonovacred' => 'Er zijn geen Nova-referenties gevonden voor uw gebruiker.',
 	'openstackmanager-nonovacred-admincreate' => 'Er zijn geen Nova-referenties gevonden voor uw gebruiker. Vraag een Nova-beheerder om deze toe te voegen.',
-	'openstackmanager-noaccount' => 'Uw gebruiker is geen lid van het opgegeven project.',
-	'openstackmanager-noaccount2' => 'U kunt de gevraagde handeling niet uitvoeren met uw gebruiker omdat deze geen lid is van het project.',
+	'openstackmanager-noaccount' => 'Uw gebruiker is geen lid van het project $1.',
+	'openstackmanager-noaccount2' => 'U kunt de gevraagde handeling niet uitvoeren met uw gebruiker omdat deze geen lid is van het project $1.',
 	'openstackmanager-nonexistentresource' => 'De opgegeven resource bestaat niet.',
 	'openstackmanager-createdomain' => 'Domein aanmaken',
 	'openstackmanager-deletedomain' => 'Domein verwijderen',
@@ -8993,8 +8991,8 @@ Verwijder alle hostkoppelingen en ontkoppel het IP-adres voordat u het vrijgeeft
 	'openstackmanager-removehostfailed' => 'Het verwijderen van $1 is mislukt.',
 	'openstackmanager-nonexistenthost' => 'Het opgegeven host bestaat niet.',
 	'openstackmanager-nonexistentrole' => 'De opgegeven rol bestaat niet.',
-	'openstackmanager-needrole' => 'Rol "$1" is vereist',
-	'openstackmanager-needrole2' => 'U moet lid zijn van de rol "$1" om deze handeling uit te kunnen voeren.',
+	'openstackmanager-needrole' => 'Rol "$1" is vereist', # Fuzzy
+	'openstackmanager-needrole2' => 'U moet lid zijn van de rol "$1" om deze handeling uit te kunnen voeren.', # Fuzzy
 	'openstackmanager-createsecuritygroup' => 'Beveiligingsgroep aanmaken',
 	'openstackmanager-securitygroupname' => 'Beveiligingsgroepsnaam',
 	'openstackmanager-securitygroupdescription' => 'Beschrijving',
