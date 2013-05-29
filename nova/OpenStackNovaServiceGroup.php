@@ -191,7 +191,7 @@ class OpenStackNovaServiceGroup {
 	 * @param  $initialUser
 	 * @return null|OpenStackNovaServiceGroup
 	 */
-	static function createServiceGroup( $simpleGroupName, $project, $initialUser ) {
+	static function createServiceGroup( $inGroupName, $project, $initialUser ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser;
 		global $wgOpenStackManagerServiceGroupPrefix;
@@ -201,10 +201,13 @@ class OpenStackNovaServiceGroup {
 
 		# We don't want naming collisions between service groups and actual groups
 		# or users.  So, prepend $wgOpenStackManagerServiceGroupPrefix to the requested group name.
-		$groupName = $wgOpenStackManagerServiceGroupPrefix . $simpleGroupName;
-		if ( strpos( $simpleGroupName, $wgOpenStackManagerServiceGroupPrefix, 0 ) === 0 ) {
+		if ( strpos( $inGroupName, $wgOpenStackManagerServiceGroupPrefix, 0 ) === 0 ) {
 			# The user was clever and already added the prefix.
-			$groupName = $simpleGroupName;
+			$groupName = $inGroupName;
+			$simpleGroupName = substr( $inGroupName, strlen( $wgOpenStackManagerServiceGroupPrefix ) );
+		} else {
+			$groupName = $wgOpenStackManagerServiceGroupPrefix . $inGroupName;
+			$simpleGroupName = $inGroupName;
 		}
 
 		$user = new OpenStackNovaUser( $initialUser );
