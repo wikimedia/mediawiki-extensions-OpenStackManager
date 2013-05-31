@@ -43,6 +43,8 @@ class SpecialNovaProject extends SpecialNova {
 			$this->deleteMember();
 		} elseif ( $action === "configureproject" ) {
 			$this->configureProject();
+		} elseif ( $action === "displayquotas" ) {
+			$this->displayQuotas();
 		} elseif ( $action === "addservicegroup" ) {
 			$this->addServiceGroup();
 		} elseif ( $action === "removeservicegroup" ) {
@@ -351,6 +353,7 @@ class SpecialNovaProject extends SpecialNova {
 		$actions[] = $this->createActionLink( 'openstackmanager-removemember', array( 'action' => 'deletemember', 'projectname' => $projectName ) );
 		$actions[] = $this->createActionLink( 'openstackmanager-addservicegroup', array( 'action' => 'addservicegroup', 'projectname' => $projectName ) );
 		$actions[] = $this->createActionLink( 'openstackmanager-configure', array( 'action' => 'configureproject', 'projectname' => $projectName ) );
+		$actions[] = $this->createActionLink( 'openstackmanager-displayquotas-action', array( 'action' => 'displayquotas', 'projectname' => $projectName ) );
 		$this->pushRawResourceColumn( $projectRow,  $this->createResourceList( $actions ) );
 		$projectRows[] = $projectRow;
 		return $this->createResourceTable( $headers, $projectRows );
@@ -468,6 +471,40 @@ class SpecialNovaProject extends SpecialNova {
 		$projectForm->show();
 
 		return true;
+	}
+
+	/**
+	 * @return bool
+	 */
+	function displayQuotas() {
+		$this->setHeaders();
+		$projectName = $this->getRequest()->getText( 'projectname' );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-displayquotas', $projectName ) );
+		if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( 'projectadmin', $projectName ) ) {
+			$this->notInRole( 'projectadmin', $projectName );
+			return false;
+		}
+		# Change the connection to reference this project
+		$this->userNova->setProject( $projectName );
+		$regions = $this->userNova->getRegions( 'compute' );
+		foreach ( $regions as $region ) {
+			$this->userNova->setRegion( $region );
+			$limits = $this->userNova->getLimits();
+			$ram = $this->msg( 'openstackmanager-displayquotas-ram', $limits->getRamUsed(), $limits->getRamAvailable() );
+			$floatingIps = $this->msg( 'openstackmanager-displayquotas-floatingips', $limits->getFloatingIpsUsed(), $limits->getFloatingIpsAvailable() );
+			$cores = $this->msg( 'openstackmanager-displayquotas-cores', $limits->getCoresUsed(), $limits->getCoresAvailable() );
+			$instances = $this->msg( 'openstackmanager-displayquotas-instances', $limits->getInstancesUsed(), $limits->getInstancesAvailable() );
+			$secGroups = $this->msg( 'openstackmanager-displayquotas-securitygroups', $limits->getSecurityGroupsUsed(), $limits->getSecurityGroupsAvailable() );
+			$limitsOut = Html::element( 'li', array(), $cores );
+			$limitsOut .= Html::element( 'li', array(), $ram );
+			$limitsOut .= Html::element( 'li', array(), $floatingIps );
+			$limitsOut .= Html::element( 'li', array(), $cores );
+			$limitsOut .= Html::element( 'li', array(), $instances );
+			$limitsOut .= Html::element( 'li', array(), $secGroups );
+			$limitsOut = Html::rawElement( 'ul', array(), $limitsOut );
+			$limitsOut = Html::element( 'h2', array(), $region ) . $limitsOut;
+			$this->getOutput()->addHTML( $limitsOut );
+			}
 	}
 
 	/**

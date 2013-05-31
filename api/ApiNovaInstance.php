@@ -67,12 +67,12 @@ class ApiNovaInstance extends ApiBase {
 	}
  
 	public function getParamDescription() {
-		return array_merge( parent::getParamDescription(), array(
+		return array(
 			'subaction' => 'The subaction to perform.',
 			'instanceid' => 'The Nova instance ID to perform a subaction on',
 			'project' => 'The project in which the instance exists',
 			'region' => 'The region in which the instance exists',
-		) );
+		);
 	}
 
 	public function getDescription() {
