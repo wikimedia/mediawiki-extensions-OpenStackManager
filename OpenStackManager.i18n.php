@@ -3805,6 +3805,7 @@ Resurssin nimen ensimmäisen merkin on oltava a–z ja sallitut merkit ovat a–
 );
 
 /** French (français)
+ * @author Automatik
  * @author Boniface
  * @author Cquoi
  * @author Crochet.david
@@ -3854,8 +3855,8 @@ $messages['fr'] = array(
 	'openstackmanager-mustbeloggedin' => 'Vous devez être connecté pour effectuer cette action.',
 	'openstackmanager-nonovacred' => 'Aucune information d’identification Nova trouvée pour votre compte.',
 	'openstackmanager-nonovacred-admincreate' => 'Il n’y a aucune information d’identification Nova trouvée pour votre compte utilisateur. Veuillez demander à un administrateur de Nova de les créer pour vous.',
-	'openstackmanager-noaccount' => 'Votre compte ne fait pas partie du projet demandé.',
-	'openstackmanager-noaccount2' => 'Vous ne pouvez pas effectuer l’action demandée car votre compte d’utilisateur ne fait pas partie du projet demandé.',
+	'openstackmanager-noaccount' => 'Votre compte ne fait pas partie du projet $1.',
+	'openstackmanager-noaccount2' => 'Vous ne pouvez pas effectuer l’action demandée car votre compte d’utilisateur ne fait pas partie du projet$1.',
 	'openstackmanager-nonexistentresource' => "La ressource spécifiée n'existe pas.",
 	'openstackmanager-createdomain' => 'Créer le domaine',
 	'openstackmanager-deletedomain' => 'Supprimer le domaine',
@@ -4066,8 +4067,8 @@ Il doit commencer par une lettre (a–z) et ne peut contenir que des lettres (a�
 	'openstackmanager-removehostfailed' => 'Impossible de retirer $1.',
 	'openstackmanager-nonexistenthost' => 'L’hôte demandé n’existe pas.',
 	'openstackmanager-nonexistentrole' => "Le rôle demandé n'existe pas.",
-	'openstackmanager-needrole' => 'rôle $1 requis',
-	'openstackmanager-needrole2' => 'Vous devez être membre du rôle $1 pour effectuer cette action.',
+	'openstackmanager-needrole' => 'rôle $1 requis dans le projet $2',
+	'openstackmanager-needrole2' => 'Vous devez être membre du rôle $1 dans le projet $2 pour effectuer cette action.',
 	'openstackmanager-createsecuritygroup' => 'Créer un groupe de sécurité',
 	'openstackmanager-securitygroupname' => 'Nom du groupe de sécurité',
 	'openstackmanager-securitygroupdescription' => 'Description',
@@ -4563,8 +4564,8 @@ $messages['gl'] = array(
 	'openstackmanager-mustbeloggedin' => 'Cómpre acceder ao sistema para levar a cabo a acción.',
 	'openstackmanager-nonovacred' => 'Non se atoparon as credenciais Nova da súa conta.',
 	'openstackmanager-nonovacred-admincreate' => 'Non se atoparon as credenciais Nova da súa conta de usuario. Pida a un administrador de Nova que cree as súas credenciais.',
-	'openstackmanager-noaccount' => 'A súa conta non está no proxecto solicitado.',
-	'openstackmanager-noaccount2' => 'Non pode completar a acción solicitada dado que a súa conta de usuario non está no proxecto solicitado.',
+	'openstackmanager-noaccount' => 'A súa conta non está no proxecto $1.',
+	'openstackmanager-noaccount2' => 'Non pode completar a acción solicitada dado que a súa conta de usuario non está no proxecto $1.',
 	'openstackmanager-nonexistentresource' => 'O recurso especificado non existe.',
 	'openstackmanager-createdomain' => 'Crear un dominio',
 	'openstackmanager-deletedomain' => 'Borrar un dominio',
@@ -4776,8 +4777,8 @@ Debe comezar con letras do a ao z, e só pode conter caracteres a-z, 0-9 e "-".'
 	'openstackmanager-removehostfailed' => 'Erro ao eliminar $1.',
 	'openstackmanager-nonexistenthost' => 'O provedor de aloxamento solicitado non existe.',
 	'openstackmanager-nonexistentrole' => 'O rol solicitado non existe.',
-	'openstackmanager-needrole' => 'Cómpre o rol de $1',
-	'openstackmanager-needrole2' => 'Debe ser un membro do rol de $1 para realizar esta acción.',
+	'openstackmanager-needrole' => 'Cómpre o rol de $1 no proxecto $2',
+	'openstackmanager-needrole2' => 'Debe ser un membro do rol de $1 no proxecto $2 para realizar esta acción.',
 	'openstackmanager-createsecuritygroup' => 'Crear o grupo de seguridade',
 	'openstackmanager-securitygroupname' => 'Nome do grupo de seguridade',
 	'openstackmanager-securitygroupdescription' => 'Descrición',
@@ -4922,6 +4923,13 @@ $messages['gsw'] = array(
 	'openstackmanager-deletedproject' => 'S Projäkt isch glöscht worde.',
 	'openstackmanager-deleteprojectfailed' => 'Des Projäkt het nit chönne glöscht werde.',
 	'openstackmanager-cannotreleaseaddress' => 'IP-Adrässe mit DNS-Yytreg oder wu ere Inschtanz zuegordnet sin, chenne nit frejgee wäre. Vor eme nomolige Frejgabeversuech mien alli Hostyytreg un Zueornige zue IP-Adrässen uusegnuu wäre.',
+);
+
+/** Gujarati (ગુજરાતી)
+ * @author Ashok modhvadia
+ */
+$messages['gu'] = array(
+	'openstackmanager-projectfiltersubmit' => 'ગાળક ગોઠવો',
 );
 
 /** Hebrew (עברית)
@@ -9868,8 +9876,8 @@ $messages['pt'] = array(
 	'openstackmanager-mustbeloggedin' => 'Tem de estar autenticado para executar esta acção.',
 	'openstackmanager-nonovacred' => 'Não foram encontradas credenciais do Nova para a sua conta.',
 	'openstackmanager-nonovacred-admincreate' => 'Não foram encontradas credenciais do Nova para a sua conta. Solicite a um administrador do Nova que crie as suas credenciais, por favor.',
-	'openstackmanager-noaccount' => 'A sua conta não está no projecto solicitado.',
-	'openstackmanager-noaccount2' => 'Não pode concluir a acção solicitada porque a sua conta de utilizador não está no projecto solicitado.',
+	'openstackmanager-noaccount' => 'A sua conta não está no projecto solicitado.', # Fuzzy
+	'openstackmanager-noaccount2' => 'Não pode concluir a acção solicitada porque a sua conta de utilizador não está no projecto solicitado.', # Fuzzy
 	'openstackmanager-nonexistentresource' => 'O recurso especificado não existe.',
 	'openstackmanager-createdomain' => 'Criar domínio',
 	'openstackmanager-deletedomain' => 'Eliminar domínio',
@@ -9995,7 +10003,7 @@ $messages['pt'] = array(
 	'openstackmanager-failedtoadd' => 'Não foi possível adicionar $1 a $2.',
 	'openstackmanager-removedfrom' => '$1 foi removido de $2.',
 	'openstackmanager-failedtoremove' => 'Não foi possível remover $1 de $2.',
-	'openstackmanager-novaproject-project' => 'Projecto', # Fuzzy
+	'openstackmanager-novaproject-project' => 'Adicionar projeto',
 	'openstackmanager-roles' => 'Funções',
 	'openstackmanager-rolename' => 'Nome da função', # Fuzzy
 	'openstackmanager-removerolemember' => 'Remover um membro da função', # Fuzzy
@@ -10105,10 +10113,44 @@ $messages['pt'] = array(
  * @author Luckas
  */
 $messages['pt-br'] = array(
+	'openstackmanager-configure' => 'configurar',
+	'openstackmanager-modify' => 'modificar',
+	'openstackmanager-rename' => 'renomear',
+	'openstackmanager-reboot' => 'reiniciar',
+	'openstackmanager-actions' => 'Ações',
+	'openstackmanager-createdomain' => 'Criar domínio',
+	'openstackmanager-novadomain-domain' => 'Adicionar domínio',
+	'openstackmanager-novavolume-volume' => 'Volume',
+	'openstackmanager-name' => 'Nome',
+	'openstackmanager-keys' => 'Chaves',
 	'openstackmanager-addmember' => 'Adicionar membro',
 	'openstackmanager-removemember' => 'Remover membro',
+	'openstackmanager-removeservicegroupmember' => 'Remover usuário',
+	'openstackmanager-createproject' => 'Adicionar projeto',
 	'openstackmanager-projectname' => 'Nome do projeto',
+	'openstackmanager-members' => 'Membros',
+	'openstackmanager-member' => 'Membro',
+	'openstackmanager-action' => 'Ação',
+	'openstackmanager-novaproject-project' => 'Adicionar projeto',
+	'openstackmanager-novaprojectfilter-projectfilter' => 'Filtro de projeto',
+	'openstackmanager-projects' => 'Projetos',
+	'openstackmanager-removerolemember' => 'Remover membro',
+	'openstackmanager-addrolemember' => 'Adicionar membro',
 	'openstackmanager-securitygroupdescription' => 'Descrição',
+	'openstackmanager-sudoerusers' => 'Usuários',
+	'openstackmanager-sudoercommands' => 'Comandos',
+	'openstackmanager-sudoeroptions' => 'Opções',
+	'openstackmanager-allmembers' => 'Todos os membros do projeto',
+	'openstackmanager-membersofgroup' => 'Membros do grupo $1',
+	'openstackmanager-puppetallprojects' => 'Todos os projetos',
+	'openstackmanager-createpuppetgroup' => 'Adicionar grupo',
+	'openstackmanager-addpuppetclass' => 'Adicionar classe',
+	'openstackmanager-puppetclassname' => 'Nome de classe',
+	'openstackmanager-puppetvars' => 'Variáveis',
+	'openstackmanager-addpuppetvar' => 'Adicionar variável',
+	'openstackmanager-puppetvarname' => 'Nome da variável',
+	'openstackmanager-puppetvarposition' => 'Posição da variável',
+	'openstackmanager-puppetclassposition' => 'Posição da classe',
 );
 
 /** Romanian (română)
