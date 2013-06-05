@@ -498,7 +498,6 @@ class SpecialNovaProject extends SpecialNova {
 			$limitsOut = Html::element( 'li', array(), $cores );
 			$limitsOut .= Html::element( 'li', array(), $ram );
 			$limitsOut .= Html::element( 'li', array(), $floatingIps );
-			$limitsOut .= Html::element( 'li', array(), $cores );
 			$limitsOut .= Html::element( 'li', array(), $instances );
 			$limitsOut .= Html::element( 'li', array(), $secGroups );
 			$limitsOut = Html::rawElement( 'ul', array(), $limitsOut );
