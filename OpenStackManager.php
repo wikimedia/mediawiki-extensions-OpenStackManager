@@ -155,6 +155,7 @@ $wgAutoloadClasses['OpenStackNovaHostJob'] = $dir . 'nova/OpenStackNovaHostJob.p
 $wgAutoloadClasses['OpenStackNovaPuppetGroup'] = $dir . 'nova/OpenStackNovaPuppetGroup.php';
 $wgAutoloadClasses['OpenStackNovaLdapConnection'] = $dir . 'nova/OpenStackNovaLdapConnection.php';
 $wgAutoloadClasses['OpenStackNovaProject'] = $dir . 'nova/OpenStackNovaProject.php';
+$wgAutoloadClasses['OpenStackNovaProjectLimits'] = $dir . 'nova/OpenStackNovaProjectLimits.php';
 $wgAutoloadClasses['OpenStackNovaProjectGroup'] = $dir . 'nova/OpenStackNovaProjectGroup.php';
 $wgAutoloadClasses['SpecialNovaInstance'] = $dir . 'special/SpecialNovaInstance.php';
 $wgAutoloadClasses['SpecialNovaKey'] = $dir . 'special/SpecialNovaKey.php';

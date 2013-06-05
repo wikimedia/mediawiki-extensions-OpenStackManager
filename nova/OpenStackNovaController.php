@@ -599,6 +599,20 @@ class OpenStackNovaController {
 		return ( $ret['code'] === 202 );
 	}
 
+	function getLimits() {
+		$ret = $this->restCall( 'compute', '/limits', 'GET', array() );
+		if ( $ret['code'] !== 200 ) {
+			return null;
+		}
+		$limits = self::_get_property( $ret['body'], 'limits' );
+		if ( !$limits ) {
+			return null;
+		}
+		$limits = new OpenStackNovaProjectLimits( $limits );
+
+		return $limits;
+	}
+
 	function authenticate( $username, $password ) {
 		global $wgAuth;
 		global $wgMemc;

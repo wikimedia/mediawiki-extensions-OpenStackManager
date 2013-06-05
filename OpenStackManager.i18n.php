@@ -218,6 +218,13 @@ This may disable tools or bots that run using this group.',
 	'openstackmanager-configureproject-servicegroup' => 'Service groups',
 	'openstackmanager-configureproject-serviceuserhome' => 'Service user homedir pattern',
 	'openstackmanager-configureproject-serviceuserinfo' => '(In the homedir pattern, %u will be replaced by the username and %p with "$1".)',
+	'openstackmanager-displayquotas' => 'Quotas for project $1',
+	'openstackmanager-displayquotas-action' => 'Display Quotas',
+	'openstackmanager-displayquotas-ram' => 'Ram: $1/$2',
+	'openstackmanager-displayquotas-cores' => 'Cores: $1/$2',
+	'openstackmanager-displayquotas-floatingips' => 'Floating IPs: $1/$2',
+	'openstackmanager-displayquotas-instances' => 'Instances: $1/$2',
+	'openstackmanager-displayquotas-securitygroups' => 'Security Groups: $1/$2',
 	'openstackmanager-createproject' => 'Add project',
 	'openstackmanager-projectname' => 'Project name',
 	'openstackmanager-members' => 'Members',
@@ -894,6 +901,31 @@ See also:
 	'openstackmanager-configureproject-serviceuserhome' => 'Prompt for a text field.  The text field contains a pattern for the location of service user homedirs.',
 	'openstackmanager-configureproject-serviceuserinfo' => 'Caption explaining the usage of openstackmanager-configureproject-serviceuserhome.  Specifically, that field
 takes %u and %p which are substituted with a username and an arbitrary prefix, respectively.',
+	'openstackmanager-displayquotas' => 'Page title
+
+Parameters:
+* $1 - project name',
+	'openstackmanager-displayquotas-action' => 'Used on Special:NovaProject as an action to take on a project.',
+	'openstackmanager-displayquotas-ram' => 'Message used in a list item describing resources used in x out of y format x/y.
+Parameters:
+* $1 - ram used
+* $2 - ram available',
+	'openstackmanager-displayquotas-floatingips' => 'Message used in a list item describing resources used in x out of y format x/y.
+Parameters:
+* $1 - floating ips used
+* $2 - floating ips available',
+	'openstackmanager-displayquotas-cores' => 'Message used in a list item describing resources used in x out of y format x/y.
+Parameters:
+* $1 - cores used
+* $2 - cores available',
+	'openstackmanager-displayquotas-instances' => 'Message used in a list item describing resources used in x out of y format x/y.
+Parameters:
+* $1 - instances used
+* $2 - instances available',
+	'openstackmanager-displayquotas-securitygroups' => 'Message used in a list item describing resources used in x out of y format x/y.
+Parameters:
+* $1 - security groups used
+* $2 - security groups available',
 	'openstackmanager-createproject' => 'Page title',
 	'openstackmanager-projectname' => '{{Identical|Project name}}',
 	'openstackmanager-members' => '{{Identical|Member}}',
