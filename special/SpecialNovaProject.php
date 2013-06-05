@@ -691,6 +691,14 @@ class SpecialNovaProject extends SpecialNova {
 			$success = $project->addMember( $member );
 			if ( $success ) {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-addedto', $formData['member'], $formData['projectname'] );
+				if ( class_exists( 'EchoEvent' ) ) {
+					EchoEvent::create( array(
+						'type' => 'osm-projectmembers-add',
+						'title' => Title::newFromText( $formData['projectname'], NS_NOVA_RESOURCE ),
+						'agent' => $this->getUser(),
+						'extra' => array( 'userAdded' => $user->getId() ),
+					) );
+				}
 			} else {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoadd', $formData['member'], $formData['projectname'] );
 			}
