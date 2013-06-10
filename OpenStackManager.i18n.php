@@ -912,14 +912,14 @@ Parameters:
 Parameters:
 * $1 - ram used
 * $2 - ram available',
-	'openstackmanager-displayquotas-floatingips' => 'Message used in a list item describing resources used in x out of y format x/y.
-Parameters:
-* $1 - floating ips used
-* $2 - floating ips available',
 	'openstackmanager-displayquotas-cores' => 'Message used in a list item describing resources used in x out of y format x/y.
 Parameters:
 * $1 - cores used
 * $2 - cores available',
+	'openstackmanager-displayquotas-floatingips' => 'Message used in a list item describing resources used in x out of y format x/y.
+Parameters:
+* $1 - floating ips used
+* $2 - floating ips available',
 	'openstackmanager-displayquotas-instances' => 'Message used in a list item describing resources used in x out of y format x/y.
 Parameters:
 * $1 - instances used
@@ -12742,6 +12742,7 @@ $messages['zh-hans'] = array(
 
 /** Traditional Chinese (中文（繁體）‎)
  * @author Anakmalaysia
+ * @author Justincheng12345
  * @author Littletung
  * @author Oapbtommy
  * @author Simon Shek
@@ -12975,7 +12976,7 @@ $messages['zh-hant'] = array(
 	'openstackmanager-securitygrouprule-fromport' => '從端口', # Fuzzy
 	'openstackmanager-securitygrouprule-protocol' => '通訊協定',
 	'openstackmanager-securitygrouprule-ipranges' => 'CIDR範圍',
-	'openstackmanager-securitygrouprule-groups' => '安全組', # Fuzzy
+	'openstackmanager-securitygrouprule-groups' => '源組',
 	'openstackmanager-createnewsecuritygroup' => '增加組',
 	'openstackmanager-addrule-action' => '增加規則',
 	'openstackmanager-removerule-action' => '刪除規則',
