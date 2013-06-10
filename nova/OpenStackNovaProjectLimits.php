@@ -24,7 +24,7 @@ class OpenStackNovaProjectLimits {
 	}
 
 	/**
-	 * Return the amount of ram available
+	 * Return the amount of RAM available
 	 *
 	 * @return string
 	 */
@@ -33,7 +33,7 @@ class OpenStackNovaProjectLimits {
 	}
 
 	/**
-	 * Return the amount of ram used
+	 * Return the amount of RAM used
 	 *
 	 * @return string
 	 */
@@ -42,7 +42,7 @@ class OpenStackNovaProjectLimits {
 	}
 
 	/**
-	 * Return the number of floating ips available
+	 * Return the number of floating IPs available
 	 *
 	 * @return string
 	 */
@@ -51,7 +51,7 @@ class OpenStackNovaProjectLimits {
 	}
 
 	/**
-	 * Return the number of floating ips used
+	 * Return the number of floating IPs used
 	 *
 	 * @return string
 	 */
