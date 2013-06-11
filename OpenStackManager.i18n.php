@@ -907,27 +907,32 @@ takes %u and %p which are substituted with a username and an arbitrary prefix, r
 
 Parameters:
 * $1 - project name',
-	'openstackmanager-displayquotas-action' => 'Used on Special:NovaProject as an action to take on a project.',
+	'openstackmanager-displayquotas-action' => 'Used on [[Special:NovaProject]] as an action to take on a project.
+
+Used as action link text.',
 	'openstackmanager-displayquotas-ram' => 'Message used in a list item describing resources used in x out of y format x/y.
+
 Parameters:
-* $1 - ram used
-* $2 - ram available',
+* $1 - RAM which are used
+* $2 - RAM which are available',
 	'openstackmanager-displayquotas-cores' => 'Message used in a list item describing resources used in x out of y format x/y.
+
 Parameters:
-* $1 - cores used
-* $2 - cores available',
+* $1 - number of cores which are used
+* $2 - number of cores which are available',
 	'openstackmanager-displayquotas-floatingips' => 'Message used in a list item describing resources used in x out of y format x/y.
 Parameters:
-* $1 - floating ips used
-* $2 - floating ips available',
+* $1 - number of floating IPs which are used
+* $2 - number of floating IPs which are available',
 	'openstackmanager-displayquotas-instances' => 'Message used in a list item describing resources used in x out of y format x/y.
+
 Parameters:
-* $1 - instances used
-* $2 - instances available',
+* $1 - number of instances which are used
+* $2 - number of instances which are available',
 	'openstackmanager-displayquotas-securitygroups' => 'Message used in a list item describing resources used in x out of y format x/y.
 Parameters:
-* $1 - security groups used
-* $2 - security groups available',
+* $1 - number of security groups which are used
+* $2 - number of security groups which are available',
 	'openstackmanager-createproject' => 'Page title',
 	'openstackmanager-projectname' => '{{Identical|Project name}}',
 	'openstackmanager-members' => '{{Identical|Member}}',
@@ -2537,6 +2542,7 @@ $messages['da'] = array(
  * @author Kghbln
  * @author Metalhead64
  * @author Purodha
+ * @author Se4598
  */
 $messages['de'] = array(
 	'openstackmanager-desc' => 'Ermöglicht Benutzern die Verwaltung von Nova und Swift',
@@ -2714,6 +2720,13 @@ Dies deaktiviert Werkzeuge oder laufende Bots, die diese Gruppe verwenden.',
 	'openstackmanager-configureproject-servicegroup' => 'Dienstegruppen',
 	'openstackmanager-configureproject-serviceuserhome' => 'Dienstebenutzer-Homeverzeichnismuster',
 	'openstackmanager-configureproject-serviceuserinfo' => '(Im Homeverzeichnismuster wird %u durch den Benutzernamen und %p durch „$1“ ersetzt.)',
+	'openstackmanager-displayquotas' => 'Quoten für das Projekt $1',
+	'openstackmanager-displayquotas-action' => 'Quoten anzeigen',
+	'openstackmanager-displayquotas-ram' => 'RAM: $1/$2',
+	'openstackmanager-displayquotas-cores' => 'Kerne:  $1/$2',
+	'openstackmanager-displayquotas-floatingips' => 'Dynamische IPs: $1/$2',
+	'openstackmanager-displayquotas-instances' => 'Instanzen: $1/$2',
+	'openstackmanager-displayquotas-securitygroups' => 'Sicherheitsgruppen: $1/$2',
 	'openstackmanager-createproject' => 'Projekt hinzufügen',
 	'openstackmanager-projectname' => 'Projektname',
 	'openstackmanager-members' => 'Mitglieder',
@@ -2903,12 +2916,14 @@ Er fängt mit den Buchstaben (a-z) an und kann nur die Buchstaben (a-z), Zahlen 
 	'right-manageproject' => 'OpenStack-Projekte und Rollen verwalten',
 	'action-manageproject' => 'OpenStack-Projekte und Rollen zu verwalten',
 	'right-loginviashell' => 'Über Shell anmelden',
-	'notification-osm-instance-deleted' => '$1 hat die Instanz „$3“ im Projekt [[$2]] gelöscht',
-	'notification-osm-instance-build-completed' => '$1 hat die Instanz „$3“ im Projekt [[$2]] erstellt',
-	'notification-osm-instance-reboot-completed' => '$1 hat die Instanz „$3“ im Projekt [[$2]] neu gestartet',
+	'notification-osm-instance-deleted' => '$1 hat die Instanz „$3“ im Projekt [[$2]] {{GENDER:$1|gelöscht}}',
+	'notification-osm-instance-build-completed' => '$1 hat die Instanz „$3“ im Projekt [[$2]] {{GENDER:$1|erstellt}}',
+	'notification-osm-instance-reboot-completed' => '$1 hat die Instanz „$3“ im Projekt [[$2]] {{GENDER:$1|neu gestartet}}',
+	'notification-osm-projectmember-added' => '$1 hat dich zum Projekt [[$2]] {{GENDER:$1|hinzugefügt}}',
 	'echo-category-title-osm-instance-deleted' => 'eine Instanz eines Projektes löscht, auf dem ich Administrator bin.',
 	'echo-category-title-osm-instance-build-completed' => 'eine Instanz auf einem Projekt erstellt, auf dem ich Administrator bin.',
 	'echo-category-title-osm-instance-reboot-completed' => 'eine Instanz neu startet.',
+	'echo-category-title-osm-projectmembers-add' => 'Projektmitgliedschaft-Hinzufügungen',
 	'prefs-openstack' => 'OpenStack',
 	'prefs-openstack-keys' => 'Schlüsselliste',
 );
@@ -4022,6 +4037,13 @@ $messages['fr'] = array(
 	'openstackmanager-configureproject-servicegroup' => 'Groupes de service',
 	'openstackmanager-configureproject-serviceuserhome' => 'Modèle de service utilisateur homedir',
 	'openstackmanager-configureproject-serviceuserinfo' => '(Dans le modèle homedir, %u sera remplacé par le nom d\'utilisateur et %p avec "$1".)',
+	'openstackmanager-displayquotas' => 'Quotas pour le projet $1',
+	'openstackmanager-displayquotas-action' => 'Afficher les quotas',
+	'openstackmanager-displayquotas-ram' => 'Mémoire : $1/$2',
+	'openstackmanager-displayquotas-cores' => 'Cœurs : $1/$2',
+	'openstackmanager-displayquotas-floatingips' => 'IPs flottantes : $1/$2',
+	'openstackmanager-displayquotas-instances' => 'Instances : $1/$2',
+	'openstackmanager-displayquotas-securitygroups' => 'Groupes de sécurité : $1/$2',
 	'openstackmanager-createproject' => 'Ajouter un projet',
 	'openstackmanager-projectname' => 'Nom du projet',
 	'openstackmanager-members' => 'Membres',
@@ -4211,12 +4233,14 @@ Il doit commencer par une lettre (a–z) et ne peut contenir que des lettres (a�
 	'right-manageproject' => 'Gérer les rôles et projets Openstack',
 	'action-manageproject' => 'gérer les projets et les rôles OpenStack',
 	'right-loginviashell' => 'Connexion par le shell',
-	'notification-osm-instance-deleted' => "$1 a supprimé l’instance '$3' dans le projet [[$2]]",
-	'notification-osm-instance-build-completed' => '$1 a créé l’instance « $3 » dans le projet [[$2]]',
-	'notification-osm-instance-reboot-completed' => "$1 a redémarré l’instance '$3' dans le projet [[$2]]",
+	'notification-osm-instance-deleted' => "$1 {{GENDER:$1|a supprimé}} l’instance '$3' dans le projet [[$2]]",
+	'notification-osm-instance-build-completed' => '$1 {{GENDER:$1|a créé}} l’instance « $3 » dans le projet [[$2]]',
+	'notification-osm-instance-reboot-completed' => "$1 {{GENDER:$1|a redémarré}} l’instance '$3' dans le projet [[$2]]",
+	'notification-osm-projectmember-added' => '$1 vous {{GENDER:$1|a ajouté}} au projet [[$2]]',
 	'echo-category-title-osm-instance-deleted' => 'Supprime une instance d’un projet dont je suis administrateur.',
 	'echo-category-title-osm-instance-build-completed' => 'Construit une instance d’un projet dont je suis administrateur.',
 	'echo-category-title-osm-instance-reboot-completed' => 'Redémarre une instance.',
+	'echo-category-title-osm-projectmembers-add' => 'Ajout de membres au projet',
 	'prefs-openstack' => 'OpenStack',
 	'prefs-openstack-keys' => 'Liste de clés',
 );
@@ -6331,6 +6355,12 @@ Questo può disabilitare gli strumenti o i bot che vengono eseguiti utilizzando 
 	'openstackmanager-configureproject-failed' => 'Impossibile modificare le impostazioni del progetto.',
 	'openstackmanager-configureproject-success' => 'Impostazioni del progetto aggiornate.',
 	'openstackmanager-configureproject-servicegroup' => 'Gruppi di servizio',
+	'openstackmanager-displayquotas' => 'Quote per il progetto $1',
+	'openstackmanager-displayquotas-action' => 'Visualizzazione delle quote',
+	'openstackmanager-displayquotas-ram' => 'RAM: $1/$2',
+	'openstackmanager-displayquotas-cores' => 'Core: $1/$2',
+	'openstackmanager-displayquotas-instances' => 'Istanze: $1/$2',
+	'openstackmanager-displayquotas-securitygroups' => 'Gruppi di sicurezza: $1/$2',
 	'openstackmanager-createproject' => 'Aggiungi progetto',
 	'openstackmanager-projectname' => 'Nome progetto',
 	'openstackmanager-members' => 'Membri',
@@ -6520,9 +6550,10 @@ Deve iniziare con a-z e può contenere solo i caratteri a-z, 0-9 e -.',
 	'right-manageproject' => 'Gestire ruoli e progetti OpenStack',
 	'action-manageproject' => 'gestire ruoli e progetti OpenStack',
 	'right-loginviashell' => "effettua l'accesso tramite la shell",
-	'notification-osm-instance-deleted' => "$1 ha cancellato l'istanza '$3' dal progetto [[$2]]",
-	'notification-osm-instance-build-completed' => "$1 ha costruito l'istanza '$3' nel progetto [[$2]]",
-	'notification-osm-instance-reboot-completed' => "$1 ha riavviato l'istanza '$3' nel progetto [[$2]]",
+	'notification-osm-instance-deleted' => "$1 {{GENDER:$1|ha cancellato}} l'istanza '$3' dal progetto [[$2]]",
+	'notification-osm-instance-build-completed' => "$1 {{GENDER:$1|ha costruito}} l'istanza '$3' nel progetto [[$2]]",
+	'notification-osm-instance-reboot-completed' => "$1 {{GENDER:$1|ha riavviato}} l'istanza '$3' nel progetto [[$2]]",
+	'notification-osm-projectmember-added' => '$1 ti {{GENDER:$1|ha aggiunto}} al progetto [[$2]]',
 	'echo-category-title-osm-instance-deleted' => "Cancellazione di un'istanza da un progetto di cui io sono un amministratore.",
 	'echo-category-title-osm-instance-build-completed' => "Costruzione di un'istanza su un progetto di cui io sono un amministratore.",
 	'echo-category-title-osm-instance-reboot-completed' => "Riavvio di un'istanza.",
@@ -6676,6 +6707,10 @@ $messages['ja'] = array(
 	'openstackmanager-configureproject-failed' => 'プロジェクトの設定の変更に失敗しました。',
 	'openstackmanager-configureproject-success' => 'プロジェクトの設定を更新しました。',
 	'openstackmanager-configureproject-servicegroup' => 'サービス グループ',
+	'openstackmanager-displayquotas-ram' => 'RAM: $1/$2',
+	'openstackmanager-displayquotas-cores' => 'コア: $1/$2',
+	'openstackmanager-displayquotas-instances' => 'インスタンス: $1/$2',
+	'openstackmanager-displayquotas-securitygroups' => 'セキュリティ グループ: $1/$2',
 	'openstackmanager-createproject' => 'プロジェクトを追加',
 	'openstackmanager-projectname' => 'プロジェクト名',
 	'openstackmanager-members' => 'メンバー',
@@ -6824,9 +6859,10 @@ $messages['ja'] = array(
 	'right-manageproject' => 'OpenStack プロジェクトと権限を管理',
 	'action-manageproject' => 'OpenStack プロジェクトと権限の管理',
 	'right-loginviashell' => 'シェルでログイン',
-	'notification-osm-instance-deleted' => '$1 がプロジェクト [[$2]] のインスタンス「$3」を削除しました',
-	'notification-osm-instance-build-completed' => '$1 がプロジェクト [[$2]] のインスタンス「$3」を構築しました',
-	'notification-osm-instance-reboot-completed' => '$1 がプロジェクト [[$2]] のインスタンス「$3」を再起動しました',
+	'notification-osm-instance-deleted' => '$1 がプロジェクト [[$2]] のインスタンス「$3」を{{GENDER:$1|削除しました}}',
+	'notification-osm-instance-build-completed' => '$1 がプロジェクト [[$2]] のインスタンス「$3」を{{GENDER:$1|構築しました}}',
+	'notification-osm-instance-reboot-completed' => '$1 がプロジェクト [[$2]] のインスタンス「$3」を{{GENDER:$1|再起動させました}}',
+	'notification-osm-projectmember-added' => '$1 がプロジェクト [[$2]] にあなたを{{GENDER:$1|追加しました}}',
 	'echo-category-title-osm-instance-deleted' => '自分が管理者のプロジェクトからインスタンスを削除したとき', # Fuzzy
 	'echo-category-title-osm-instance-build-completed' => '自分が管理者のプロジェクトでインスタンスを構築したとき', # Fuzzy
 	'echo-category-title-osm-instance-reboot-completed' => 'インスタンスを再起動したとき', # Fuzzy
@@ -8068,6 +8104,13 @@ $messages['mk'] = array(
 	'openstackmanager-configureproject-servicegroup' => 'Службени групи',
 	'openstackmanager-configureproject-serviceuserhome' => 'Мостра за матичниот директориум на службениот корисник',
 	'openstackmanager-configureproject-serviceuserinfo' => '(Во мострата на матичниот директориум, %u ќе се замени со корисничкото име, а %p ќе се замени со „$1“.)',
+	'openstackmanager-displayquotas' => 'Квоти за проектот $1',
+	'openstackmanager-displayquotas-action' => 'Прикажи квоти',
+	'openstackmanager-displayquotas-ram' => 'RAM: $1/$2',
+	'openstackmanager-displayquotas-cores' => 'Јадра: $1/$2',
+	'openstackmanager-displayquotas-floatingips' => 'Динамични IP-адреси: $1/$2',
+	'openstackmanager-displayquotas-instances' => 'Примероци: $1/$2',
+	'openstackmanager-displayquotas-securitygroups' => 'Безбедносни групи: $1/$2',
 	'openstackmanager-createproject' => 'Додај проект',
 	'openstackmanager-projectname' => 'Име на проектот',
 	'openstackmanager-members' => 'Членови',
@@ -8257,12 +8300,14 @@ $messages['mk'] = array(
 	'right-manageproject' => 'Раководство со проекти и улоги на OpenStack',
 	'action-manageproject' => 'Раководство со проекти и улоги на OpenStack',
 	'right-loginviashell' => 'најавување преку обвивка',
-	'notification-osm-instance-deleted' => '$1 избришан примерок „$3“ на проектот [[$2]]',
-	'notification-osm-instance-build-completed' => '$1 создаден примерок „$3“ на проектот [[$2]]',
-	'notification-osm-instance-reboot-completed' => '$1 одново пуштен примерок „$3“ на проектот [[$2]]',
+	'notification-osm-instance-deleted' => '$1 {{GENDER:$1|избриша}} примерок „$3“ во проектот [[$2]]',
+	'notification-osm-instance-build-completed' => '$1 {{GENDER:$1|направи}} примерок „$3“ во проектот [[$2]]',
+	'notification-osm-instance-reboot-completed' => '$1 {{GENDER:$1|одново го пушти}} примерокот „$3“ во проектот [[$2]]',
+	'notification-osm-projectmember-added' => '$1 {{GENDER:$1|ве додаде}} во проектот [[$2]]',
 	'echo-category-title-osm-instance-deleted' => 'Брише примерок од проект кајшто сум администратор.',
 	'echo-category-title-osm-instance-build-completed' => 'Прави примерок на проект кајшто сум администратор.',
 	'echo-category-title-osm-instance-reboot-completed' => 'Одново пушта примерок.',
+	'echo-category-title-osm-projectmembers-add' => 'Додавање на членови во проектот',
 	'prefs-openstack' => 'OpenStack',
 	'prefs-openstack-keys' => 'Список на клучеви',
 );
@@ -8924,6 +8969,13 @@ Hierdoor kunnen hulpmiddelen of robots die onder deze groep draaien worden uitge
 	'openstackmanager-configureproject-servicegroup' => 'Servicegroepen',
 	'openstackmanager-configureproject-serviceuserhome' => 'Patroon voor homedirectory van servicegebruikers',
 	'openstackmanager-configureproject-serviceuserinfo' => '(in het patroon voor de homedirectory, wordt %u vervangen door de gebruikers en %p door "$1")',
+	'openstackmanager-displayquotas' => 'Quota voor project $1',
+	'openstackmanager-displayquotas-action' => 'Quota weergeven',
+	'openstackmanager-displayquotas-ram' => 'RAM: $1/$2',
+	'openstackmanager-displayquotas-cores' => 'Cores: $1/$2',
+	'openstackmanager-displayquotas-floatingips' => "Zwevende IP's: $1/$2",
+	'openstackmanager-displayquotas-instances' => 'Instanties: $1/$2',
+	'openstackmanager-displayquotas-securitygroups' => 'Beveiligingsgroepen: $1/$2',
 	'openstackmanager-createproject' => 'Project toevoegen',
 	'openstackmanager-projectname' => 'Projectnaam',
 	'openstackmanager-members' => 'Leden',
@@ -9114,9 +9166,10 @@ Verwijder alle hostkoppelingen en ontkoppel het IP-adres voordat u het vrijgeeft
 	'right-manageproject' => 'OpenStack-projecten en -rollen beheren',
 	'action-manageproject' => 'OpenStackprojecten en -rollen te beheren',
 	'right-loginviashell' => 'Aanmelden via shell',
-	'notification-osm-instance-deleted' => '{{GENDER:$1|$1}} heeft de instantie "$3" in het project [[$2]] verwijderd',
-	'notification-osm-instance-build-completed' => '{{GENDER:$1|$1}} heeft de instantie "$3" in het project [[$2]] gebouwd',
-	'notification-osm-instance-reboot-completed' => '{{GENDER:$1|$1}} heeft de instantie "$3" in het project [[$2]] herstart',
+	'notification-osm-instance-deleted' => '{{GENDER:$1|$1}} heeft de instantie "$3" in het project [[$2]] verwijderd', # Fuzzy
+	'notification-osm-instance-build-completed' => '{{GENDER:$1|$1}} heeft de instantie "$3" in het project [[$2]] gebouwd', # Fuzzy
+	'notification-osm-instance-reboot-completed' => '{{GENDER:$1|$1}} heeft de instantie "$3" in het project [[$2]] herstart', # Fuzzy
+	'notification-osm-projectmember-added' => '$1 heeft u toegevoegd aan het project [[$2]]', # Fuzzy
 	'echo-category-title-osm-instance-deleted' => 'Een instantie verwijdert van een project waar u beheerder bent.',
 	'echo-category-title-osm-instance-build-completed' => 'Een instantie bouwt in een project waar u beheerder bent.',
 	'echo-category-title-osm-instance-reboot-completed' => 'Een instantie herstart.',
@@ -10299,7 +10352,7 @@ $messages['roa-tara'] = array(
 	'openstackmanager-actions' => 'Aziune',
 	'openstackmanager-notloggedin' => "T'a collegà pe forze",
 	'openstackmanager-mustbeloggedin' => "Tu a trasè pe fà st'azione.",
-	'openstackmanager-noaccount' => "'U cunde tune non ges te jndr'à 'u proggette richieste.", # Fuzzy
+	'openstackmanager-noaccount' => "'U cunde tune non ge ste jndr'à 'u proggette $1.",
 	'openstackmanager-createdomain' => "Ccreje 'nu dominie",
 	'openstackmanager-deletedomain' => "Scangille 'nu dominie",
 	'openstackmanager-novadomain-domain' => "Aggiunge 'nu dominie",
@@ -10381,6 +10434,7 @@ $messages['roa-tara'] = array(
 	'openstackmanager-deleteproject' => 'Scangille',
 	'openstackmanager-novaproject-project' => "Aggiunge 'nu proggette",
 	'openstackmanager-projects' => 'Pruggette',
+	'openstackmanager-projectfiltersubmit' => "'Mboste 'u filtre",
 	'openstackmanager-roles' => 'Ruole',
 	'openstackmanager-rolename' => 'Ruole',
 	'openstackmanager-removerolemember' => "Live 'nu membre",
