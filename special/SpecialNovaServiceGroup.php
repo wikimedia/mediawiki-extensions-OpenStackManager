@@ -206,6 +206,9 @@ class SpecialNovaServiceGroup extends SpecialNova {
 
 		$out = '<br />';
 		$returnto = Title::newFromText( $formData['returnto'] );
+		if ( !$returnto ) {
+			$returnto = SpecialPage::getTitleFor( 'NovaProject' );
+		}
 		$out .= Linker::link(
 			$returnto,
 			$this->msg( 'openstackmanager-backprojectlist' )->escaped()
