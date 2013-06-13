@@ -1764,6 +1764,7 @@ $messages['as'] = array(
  */
 $messages['ast'] = array(
 	'openstackmanager-modify' => 'camudar',
+	'openstackmanager-displayquotas-ram' => 'RAM: $1/$2',
 );
 
 /** Azerbaijani (azərbaycanca)
