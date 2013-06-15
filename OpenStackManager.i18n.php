@@ -1765,6 +1765,10 @@ $messages['as'] = array(
 $messages['ast'] = array(
 	'openstackmanager-modify' => 'camudar',
 	'openstackmanager-displayquotas-ram' => 'RAM: $1/$2',
+	'notification-osm-instance-deleted' => '$1 {{GENDER:$1|desanició}} la instancia "$3" nel proyectu [[$2]]',
+	'notification-osm-instance-build-completed' => '$1 {{GENDER:$1|construyó}} la instancia "$3" nel proyectu [[$2]]',
+	'notification-osm-instance-reboot-completed' => '$1 {{GENDER:$1|reanició}} la instancia "$3" nel proyectu [[$2]]',
+	'notification-osm-projectmember-added' => '$1 {{GENDER:$1|amestó}}-y al proyectu [[$2]]',
 );
 
 /** Azerbaijani (azərbaycanca)
@@ -7748,6 +7752,8 @@ $messages['lb'] = array(
 	'openstackmanager-imageid' => 'Bild ID',
 	'openstackmanager-imagetype' => 'Bildtyp',
 	'openstackmanager-backinstancelist' => "Zréck op d'Lëscht vun den Instanzen",
+	'openstackmanager-novapublickey' => 'Ëffentlechen SSH-Schlëssel:',
+	'openstackmanager-prefs-novapublickey' => 'Ëffentlech SSH-Schlësselen:',
 	'openstackmanager-deletekey' => 'Ëffentlechen SSH-Schlëssel läschen',
 	'openstackmanager-name' => 'Numm',
 	'openstackmanager-fingerprint' => 'Fangerofdrock',
@@ -7756,6 +7762,7 @@ $messages['lb'] = array(
 	'openstackmanager-addmember' => 'Member derbäisetzen',
 	'openstackmanager-removemember' => 'Member ewechhuelen',
 	'openstackmanager-configureproject' => 'Projet "$1" astellen',
+	'openstackmanager-displayquotas-ram' => 'RAM: $1/$2',
 	'openstackmanager-createproject' => 'Projet derbäisetzen',
 	'openstackmanager-projectname' => 'Numm vum Projet',
 	'openstackmanager-members' => 'Memberen',
@@ -7771,6 +7778,7 @@ $messages['lb'] = array(
 	'openstackmanager-addedto' => '$1 gouf bäi $2 derbäigesat',
 	'openstackmanager-novaproject-project' => 'Projet derbäisetzen',
 	'openstackmanager-projects' => 'Projeten',
+	'openstackmanager-projectfiltersubmit' => 'Filter astellen',
 	'openstackmanager-roles' => 'Rollen',
 	'openstackmanager-rolename' => 'Roll',
 	'openstackmanager-removerolemember' => 'Member ewechhuelen',
@@ -7790,6 +7798,8 @@ $messages['lb'] = array(
 	'openstackmanager-securitygroupdescription' => 'Beschreiwung',
 	'openstackmanager-deletesecuritygroup-confirm' => 'Sidd Dir sécher datt Dir $1 läsche wëllt?',
 	'openstackmanager-securitygrouprule' => 'Regelen',
+	'openstackmanager-novasecuritygroup-singlerule' => 'Individuell Regel',
+	'openstackmanager-novasecuritygroup-group' => 'Grupperegel',
 	'openstackmanager-securitygrouprule-toport' => 'Ënn vun der Port-Range',
 	'openstackmanager-securitygrouprule-fromport' => 'Ufank vun der Port-Range',
 	'openstackmanager-securitygrouprule-protocol' => 'Protokoll',
@@ -10864,6 +10874,7 @@ $messages['si'] = array(
 );
 
 /** Slovenian (slovenščina)
+ * @author Dbc334
  * @author Irena Plahuta
  */
 $messages['sl'] = array(
@@ -10877,8 +10888,8 @@ $messages['sl'] = array(
 	'openstackmanager-notloggedin' => 'Zahteva se prijava.',
 	'openstackmanager-mustbeloggedin' => 'Za izvedbo tega dejanja se morate prijaviti.',
 	'openstackmanager-nonovacred-admincreate' => 'Za Vaš račun nismo našli nobene poverilnice. Prosimo, zaprosite administratorja Nove, da ustvari poverilnice za Vas.',
-	'openstackmanager-noaccount' => 'Na želenem projektu ni Vašega računa.', # Fuzzy
-	'openstackmanager-noaccount2' => 'Dejanja ne morete dokončati, saj na želenem projektu ni Vašega računa.', # Fuzzy
+	'openstackmanager-noaccount' => 'Vaš račun ni v projektu $1.',
+	'openstackmanager-noaccount2' => 'Dejanja ne morete dokončati, saj vaš račun ni v projektu $1.',
 	'openstackmanager-nonexistentresource' => 'Ta vir ne obstaja.',
 	'openstackmanager-createdomain' => 'Ustvarite domeno',
 	'openstackmanager-deletedomain' => 'Brisanje domene',
