@@ -165,7 +165,14 @@ class OpenStackNovaProject {
 	 */
 	function getMembers() {
 		global $wgAuth;
+		global $wgMemc;
 		global $wgOpenStackManagerLDAPDomain;
+
+		$key = wfMemcKey( 'openstackmanager', 'projectmembers', $this->projectname );
+		$members = $wgMemc->get( $key );
+		if ( is_array( $members ) ) {
+			return $members;
+		}
 
 		$members = array();
 		if ( isset( $this->projectInfo[0]['member'] ) ) {
@@ -179,7 +186,6 @@ class OpenStackNovaProject {
 				if ( $searchattr ) {
 					// We need to look up the search attr from the user entry
 					// this is expensive, but must be done.
-					// TODO: memcache this
 					$userInfo = $wgAuth->getUserInfoStateless( $memberdn );
 					$members[] = $userInfo[0][$searchattr][0];
 				} else {
@@ -190,6 +196,8 @@ class OpenStackNovaProject {
 				}
 			}
 		}
+
+		$wgMemc->set( $key, $members, '3600' );
 
 		return $members;
 	}
@@ -378,6 +386,10 @@ class OpenStackNovaProject {
 	 */
 	function deleteMember( $username ) {
 		global $wgAuth;
+		global $wgMemc;
+
+		$key = wfMemcKey( 'openstackmanager', 'projectmembers', $this->projectname );
+		$wgMemc->delete( $key );
 
 		if ( isset( $this->projectInfo[0]['member'] ) ) {
 			$members = $this->projectInfo[0]['member'];
@@ -480,6 +492,10 @@ class OpenStackNovaProject {
 	 */
 	function addMember( $username ) {
 		global $wgAuth;
+		global $wgMemc;
+
+		$key = wfMemcKey( 'openstackmanager', 'projectmembers', $this->projectname );
+		$wgMemc->delete( $key );
 
 		$members = array();
 		if ( isset( $this->projectInfo[0]['member'] ) ) {
