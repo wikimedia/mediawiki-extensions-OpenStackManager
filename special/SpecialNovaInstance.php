@@ -671,7 +671,6 @@ class SpecialNovaInstance extends SpecialNova {
 		$success = $this->userNova->terminateInstance( $instanceosid );
 		if ( $success ) {
 			OpenStackManagerEvent::createDeletionEvent( $instancename, $instanceproject, $this->getUser() );
-			$instance->deleteArticle();
 			$success = OpenStackNovaHost::deleteHostByInstanceId( $instanceid );
 			if ( $success ) {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-deletedinstance', $instanceid );
