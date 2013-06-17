@@ -159,22 +159,25 @@ class OpenStackNovaProject {
 	}
 
 	/**
-	 * Return all users who are a member of this project
+	 * Fill $this->members.
+	 *
+	 * $this->members uses the uid as index and the name as value.
 	 *
 	 * @return array
 	 */
-	function getMembers() {
+	function loadMembers() {
 		global $wgAuth;
 		global $wgMemc;
 		global $wgOpenStackManagerLDAPDomain;
 
-		$key = wfMemcKey( 'openstackmanager', 'projectmembers', $this->projectname );
-		$members = $wgMemc->get( $key );
-		if ( is_array( $members ) ) {
-			return $members;
+		$key = wfMemcKey( 'openstackmanager', 'projectuidsandmembers', $this->projectname );
+		$this->members = $wgMemc->get( $key );
+
+		if ( is_array( $this->members ) ) {
+			return;
 		}
 
-		$members = array();
+		$this->members = array();
 		if ( isset( $this->projectInfo[0]['member'] ) ) {
 			$memberdns = $this->projectInfo[0]['member'];
 			// The first element in the member list is the count
@@ -182,24 +185,51 @@ class OpenStackNovaProject {
 			// Shift it off.
 			array_shift( $memberdns );
 			foreach ( $memberdns as $memberdn ) {
+				$member = explode( '=', $memberdn );
+				$member = explode( ',', $member[1] );
+				$member = $member[0];
+
 				$searchattr = $wgAuth->getConf( 'SearchAttribute', $wgOpenStackManagerLDAPDomain );
 				if ( $searchattr ) {
 					// We need to look up the search attr from the user entry
 					// this is expensive, but must be done.
 					$userInfo = $wgAuth->getUserInfoStateless( $memberdn );
-					$members[] = $userInfo[0][$searchattr][0];
+					$this->members[$member] = $userInfo[0][$searchattr][0];
 				} else {
-					$member = explode( '=', $memberdn );
-					$member = explode( ',', $member[1] );
-					$member = $member[0];
-					$members[] = $member;
+					$this->members[$member] = $member;
 				}
 			}
 		}
 
-		$wgMemc->set( $key, $members, '3600' );
+		$wgMemc->set( $key, $this->members, '3600' );
+	}
 
-		return $members;
+	/**
+	 * Return UIDs for users who are a member of this project
+	 *
+	 * We need this for managing things related to sudoers; generating
+	 * the list is expensive and caching it here is a big speedup.
+	 *
+	 * @return array
+	 */
+	function getMemberUIDs() {
+		$this->loadMembers();
+		return array_keys( $this->members );
+	}
+
+	/**
+	 * Return all users who are a member of this project
+	 *
+	 * @return array
+	 */
+	function getMembers() {
+		$this->loadMembers();
+		return array_values( $this->members );
+	}
+
+	function memberForUid( $uid ) {
+		$this->loadMembers();
+		return $this->members[$uid];
 	}
 
 	/**
@@ -388,7 +418,7 @@ class OpenStackNovaProject {
 		global $wgAuth;
 		global $wgMemc;
 
-		$key = wfMemcKey( 'openstackmanager', 'projectmembers', $this->projectname );
+		$key = wfMemcKey( 'openstackmanager', 'projectuidsandmembers', $this->projectname );
 		$wgMemc->delete( $key );
 
 		if ( isset( $this->projectInfo[0]['member'] ) ) {
@@ -494,7 +524,7 @@ class OpenStackNovaProject {
 		global $wgAuth;
 		global $wgMemc;
 
-		$key = wfMemcKey( 'openstackmanager', 'projectmembers', $this->projectname );
+		$key = wfMemcKey( 'openstackmanager', 'projectuidsandmembers', $this->projectname );
 		$wgMemc->delete( $key );
 
 		$members = array();
