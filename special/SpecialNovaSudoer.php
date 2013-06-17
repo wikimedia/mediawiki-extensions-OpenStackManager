@@ -287,56 +287,40 @@ class SpecialNovaSudoer extends SpecialNova {
 		return true;
 	}
 
-	function getProjectMemberUids( $project) {
-		$projectmembers = $project->getMembers();
-		$uids = array();
-
-		foreach ( $projectmembers as $projectmember ) {
-			$user = new OpenStackNovaUser( $projectmember );
-			$uids[] = $user->getUid();
-		}
-
-		return $uids;
-	}
-
 	function getSudoUsers( $projectName, $sudoer=null ) {
 		$project = OpenStackNovaProject::getProjectByName( $projectName );
-		$projectmembers = $project->getMembers();
+		$projectuids = $project->getMemberUids();
 
-		array_unshift( $projectmembers, $this->msg( 'openstackmanager-allmembers' )->text() );
 		$sudomembers = array();
 		if ( $sudoer ) {
 			$sudomembers = $sudoer->getSudoerUsers();
 		}
 		$user_keys = array();
 		$user_defaults = array();
-		foreach ( $projectmembers as $projectmember ) {
 
-			$projectGroup = "%" . $project->getProjectGroup()->getProjectGroupName();
+		# Add the 'all project members' option to the top
+		$projectGroup = "%" . $project->getProjectGroup()->getProjectGroupName();
+		$all_members = $this->msg( 'openstackmanager-allmembers' )->text();
+		$user_keys[$all_members] = $all_members;
+		if ( in_array( 'ALL', $sudomembers ) || in_array ( $projectGroup, $sudomembers ) ) {
+			$user_defaults[$all_members] = $all_members;
+		}
 
-			if ( $projectmember == $this->msg( 'openstackmanager-allmembers' )->text() ) {
-				$userUid = $this->msg( 'openstackmanager-allmembers' )->text();
-				if ( in_array( 'ALL', $sudomembers ) || in_array ( $projectGroup, $sudomembers ) ) {
-					$user_defaults[$projectmember] = $userUid;
-				}
-			} else {
-				$user = new OpenStackNovaUser( $projectmember );
-				$userUid = $user->getUid();
-				if ( in_array( $userUid, $sudomembers ) ) {
-					$user_defaults[$projectmember] = $userUid;
-				}
-			}
+		foreach ( $projectuids as $userUid ) {
+			$projectmember = $project->memberForUid( $userUid );
 
 			$user_keys[$projectmember] = $userUid;
+			if ( in_array( $userUid, $sudomembers ) ) {
+				$user_defaults[$projectmember] = $userUid;
+			}
 		}
 		return array( 'keys' => $user_keys, 'defaults' => $user_defaults );
 	}
 
 	function getSudoRunAsUsers( $projectName, $sudoer=null ) {
 		$project = OpenStackNovaProject::getProjectByName( $projectName );
-		$projectmembers = $project->getMembers();
+		$projectuids = $project->getMemberUids();
 
-		array_unshift( $projectmembers, $this->msg( 'openstackmanager-allmembers' )->text() );
 		$runasmembers = array();
 		if ( $sudoer ) {
 			$runasmembers = $sudoer->getSudoerRunAsUsers();
@@ -344,24 +328,22 @@ class SpecialNovaSudoer extends SpecialNova {
 
 		$runas_keys = array();
 		$runas_defaults = array();
-		foreach ( $projectmembers as $projectmember ) {
 
-			$projectGroup = "%" . $project->getProjectGroup()->getProjectGroupName();
+		# Add the 'all project members' option to the top
+		$projectGroup = "%" . $project->getProjectGroup()->getProjectGroupName();
+		$all_members = $this->msg( 'openstackmanager-allmembers' )->text();
+		$runas_keys[$all_members] = $all_members;
+		if ( in_array( 'ALL', $runasmembers ) || in_array ( $projectGroup, $runasmembers ) ) {
+			$runas_defaults[$all_members] = $all_members;
+		}
 
-			if ( $projectmember == $this->msg( 'openstackmanager-allmembers' )->text() ) {
-				$userUid = $this->msg( 'openstackmanager-allmembers' )->text();
-				if ( in_array( 'ALL', $runasmembers ) || in_array ( $projectGroup, $runasmembers ) ) {
-					$runas_defaults[$projectmember] = $userUid;
-				}
-			} else {
-				$user = new OpenStackNovaUser( $projectmember );
-				$userUid = $user->getUid();
-				if ( in_array( $userUid, $runasmembers ) ) {
-					$runas_defaults[$projectmember] = $userUid;
-				}
-			}
+		foreach ( $projectuids as $userUid ) {
+			$projectmember = $project->memberForUid( $userUid );
 
 			$runas_keys[$projectmember] = $userUid;
+			if ( in_array( $userUid, $runasmembers ) ) {
+				$runas_defaults[$projectmember] = $userUid;
+			}
 		}
 		return array( 'keys' => $runas_keys, 'defaults' => $runas_defaults );
 	}
@@ -437,13 +419,12 @@ class SpecialNovaSudoer extends SpecialNova {
 	function makeHumanReadableUserlist( $userList, $project ) {
 		$HRList = array();
 
-		$projectmembers = $project->getMembers();
+		$projectuids = $project->getMemberUids();
 		$leftovers = $userList;
-		foreach ( $projectmembers as $member ) {
-			$user = new OpenStackNovaUser( $member );
-			$userIndex = array_search( $user->getUid(), $userList );
+		foreach ( $projectuids as $uid ) {
+			$userIndex = array_search( $uid, $userList );
 			if ( $userIndex !== false ) {
-				$HRList[] = $member;
+				$HRList[] = $project->memberForUid( $uid );
 				unset( $leftovers[$userIndex] );
 			}
 		}
@@ -650,7 +631,7 @@ class SpecialNovaSudoer extends SpecialNova {
 
 			$projectName = $formData['project'];
 			$project = OpenStackNovaProject::getProjectByName( $projectName );
-			$projectuids = $this->getProjectMemberUids( $project );
+			$projectuids = $project->getMemberUids();
 			$projectGroup = "%" . $project->getProjectGroup()->getProjectGroupName();
 
 			$users = $this->removeALLFromUserKeys($formData['users']);
