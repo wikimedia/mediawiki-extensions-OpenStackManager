@@ -265,7 +265,7 @@ This needs user $1 to have the "<code>loginviashell</code>" right.',
 	'openstackmanager-shellaccountname' => 'Instance shell account name',
 	'openstackmanager-shellaccountname-pref' => 'Instance shell account name:',
 	'openstackmanager-shellaccountnamehelp' => 'A shell account name is required.
-It must start with a-z, and can only contain a-z, 0-9, and - characters.',
+It must start with a-z, and can only contain lowercase a-z, 0-9, and - characters.',
 
 	'openstackmanager-addresslist' => 'Public IP address list',
 	'openstackmanager-address' => 'Public IP address',
