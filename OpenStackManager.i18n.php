@@ -591,8 +591,7 @@ A simple label like [?] or (docs) that will link to a doc page about the associa
 Parameters:
 * $1 - an alphanumeric instance id for the instance to be deleted
 * $2 - the human-readable name for the same instance',
-'openstackmanager-deleteinstance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
-	'openstackmanager-unknownerror' => 'Used when an unknown error occurs in an Ajax request, catch-all for unforeseen cases.',
+	'openstackmanager-deleteinstance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-deleteinstancequestion' => 'Used in Special:NovaInstance.
 
 An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].
@@ -1163,6 +1162,7 @@ See also:
 * {{msg-mw|Openstackmanager-removedhost|success message}}
 * {{msg-mw|Openstackmanager-removehostfailed|failure message}}',
 	'openstackmanager-nonexistentrole' => 'Appears when adding a user to a role but the role does not exist',
+	'openstackmanager-unknownerror' => 'Used when an unknown error occurs in an Ajax request, catch-all for unforeseen cases.',
 	'openstackmanager-needrole' => 'Used as page title for an error on special pages.
 Parameters:
 * $1 - the role the user needs. not localized. (e.g. projectadmin)

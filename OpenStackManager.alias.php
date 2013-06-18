@@ -43,6 +43,11 @@ $specialPageAliases['ko'] = array(
 	'OpenStackManageInstance' => array( '경우관리' ),
 );
 
+/** Luxembourgish (Lëtzebuergesch) */
+$specialPageAliases['lb'] = array(
+	'OpenStackManageInstance' => array( 'Instanz_geréieren' ),
+);
+
 /** Macedonian (македонски) */
 $specialPageAliases['mk'] = array(
 	'OpenStackManager' => array( 'РаководителСоOpenStack' ),
