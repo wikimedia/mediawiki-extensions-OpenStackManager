@@ -63,6 +63,10 @@ class ApiNovaInstance extends ApiBase {
 				ApiBase::PARAM_TYPE => 'string',
 				ApiBase::PARAM_REQUIRED => true
 			),
+			'token' => array(
+				ApiBase::PARAM_TYPE => 'string',
+				ApiBase::PARAM_REQUIRED => true
+			),
 		);
 	}
  
@@ -72,6 +76,7 @@ class ApiNovaInstance extends ApiBase {
 			'instanceid' => 'The Nova instance ID to perform a subaction on',
 			'project' => 'The project in which the instance exists',
 			'region' => 'The region in which the instance exists',
+			'token' => 'An edit token',
 		);
 	}
 
@@ -81,9 +86,21 @@ class ApiNovaInstance extends ApiBase {
 
 	public function getExamples() {
 		return array(
-			'api.php?action=novainstancereboot&instanceid=eb195097-8539-4e66-b0b5-be8347d8caec&project=testing&region=mars'
+			'api.php?action=novainstancereboot&instanceid=eb195097-8539-4e66-b0b5-be8347d8caec&project=testing&region=mars&token=aq9h9eh9eh98hebt89b'
 			=> 'Reboot instance id eb195097-8539-4e66-b0b5-be8347d8caec in project testing in region mars',
 		);
+	}
+
+	public function isWriteMode() {
+		return true;
+	}
+
+	public function needsToken() {
+		return true;
+	}
+
+	public function getTokenSalt() {
+		return '';
 	}
 
 	public function mustBePosted() {

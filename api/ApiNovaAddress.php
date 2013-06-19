@@ -66,18 +66,19 @@ class ApiNovaAddress extends ApiBase {
 				),
 				self::PARAM_REQUIRED => true,
 			),
-
 			'id' => array(
 				self::PARAM_TYPE => 'string',
 				self::PARAM_REQUIRED => true,
 			),
-
 			'project' => array(
 				self::PARAM_TYPE => 'string',
 				self::PARAM_REQUIRED => true,
 			),
-
 			'region' => array(
+				self::PARAM_TYPE => 'string',
+				self::PARAM_REQUIRED => true,
+			),
+			'token' => array(
 				self::PARAM_TYPE => 'string',
 				self::PARAM_REQUIRED => true,
 			),
@@ -102,6 +103,18 @@ class ApiNovaAddress extends ApiBase {
 			'api.php?action=novaaddress&subaction=disassociate&address=7&project=testing&region=mars'
 			=> 'Disassociate IP 208.80.153.198 in project testing',
 		);
+	}
+
+	public function isWriteMode() {
+		return true;
+	}
+
+	public function needsToken() {
+		return true;
+	}
+
+	public function getTokenSalt() {
+		return '';
 	}
 
 	public function mustBePosted() {
