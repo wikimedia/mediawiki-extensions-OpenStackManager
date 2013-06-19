@@ -1,7 +1,8 @@
 ( function ( mw, $ ) {
 	'use strict';
 
-	var api = new mw.Api();
+	var api = new mw.Api(),
+		ADDP;
 
 	/**
 	 * @class mw.openStack.Address
@@ -21,7 +22,7 @@
 
 	Address.prototype = new mw.OpenStackInterface();
 
-	var ADDP = Address.prototype;
+	ADDP = Address.prototype;
 
 	/**
 	 * @property {Object} notifications Message names for success and failure for different actions
@@ -126,6 +127,7 @@
 				project: this.project,
 				id: this.addressId,
 				region: this.region,
+				token: mw.user.tokens.get( 'editToken' ),
 				subaction: subaction
 			}, params ) );
 

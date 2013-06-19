@@ -43,6 +43,7 @@
 				instanceid : self.id,
 				project    : self.project,
 				region     : self.region,
+				token      : mw.user.tokens.get( 'editToken' ),
 				subaction  : subaction
 			}, params ) );
 
