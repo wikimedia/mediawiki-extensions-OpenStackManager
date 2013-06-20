@@ -39,7 +39,8 @@ require_once( "$IP/maintenance/Maintenance.php" );
 class PuppetValues extends Maintenance {
 	public function __construct() {
 		parent::__construct();
-		$this->addOption( 'instance', 'The instance hostname, e.g. i-00000001', true, true );
+		$this->addOption( 'instance', 'The instance hostname, e.g. i-00000001', false, true );
+		$this->addOption( 'all-instances', 'Run this command on every instance.', false, false );
 		$this->addOption( 'delete-var', 'The variable name to delete', false, true );
 		$this->addOption( 'delete-class', 'The class index to delete', false, true );
 		$this->addOption( 'delete-class-name', 'Class name to delete', false, true );
@@ -48,59 +49,91 @@ class PuppetValues extends Maintenance {
 
 	public function execute() {
 		global $wgAuth;
+		global $wgOpenStackManagerLDAPUsername;
+		global $wgOpenStackManagerLDAPUserPassword;
+
+		if ( $this->hasOption( 'all-instances' ) ) {
+			$instancelist = array();
+			$user = new OpenStackNovaUser( $wgOpenStackManagerLDAPUsername );
+			$userNova = OpenStackNovaController::newFromUser( $user );
+			$projects = OpenStackNovaProject::getAllProjects();
+			$userNova->setProject( 'bastion' );
+			$userNova->authenticate( $wgOpenStackManagerLDAPUsername, $wgOpenStackManagerLDAPUserPassword );
+			$regions = $userNova->getRegions( 'compute' );
+			foreach ( $regions as $region ) {
+				foreach ( $projects as $project ) {
+					$projectName = $project->getProjectName();
+					$userNova->setProject( $projectName );
+					$userNova->setRegion( $region );
+					$instances = $userNova->getInstances();
+					if ( $instances ) {
+						foreach ( $instances as $instance ) {
+							$id = $instance->getInstanceId();
+							$instancelist[] = $instance->getInstanceId();
+						}
+					}
+				}
+			}
+		} elseif ( $this->hasOption( 'instance' ) )  {
+			$instancelist = array( $this->getOption( 'instance' ) );
+		} else {
+			$this->error( "Must specify either --instance or --all-instances.\n", true );
+		}
 
 		if ( !class_exists( 'OpenStackNovaHost' ) ) {
 			$this->error( "Couldn't find OpenStackNovaHost class.\n", true );
 		}
 		OpenStackNovaLdapConnection::connect();
-		$instance = $this->getOption( 'instance' );
-		$host = OpenStackNovaHost::getHostByInstanceId( $instance );
-		$puppetconf = $host->getPuppetConfiguration();
-		$puppetclasses = $puppetconf['puppetclass'];
-		$puppetvars = $puppetconf['puppetvar'];
-		$deletevar = $this->getOption( 'delete-var' );
-		$deleteclass = $this->getOption( 'delete-class' );
-		$deleteclassname = $this->getOption( 'delete-class-name' );
-		$addclass = $this->getOption( 'add-class' );
-		if ( $deletevar !== null || $deleteclass !== null || $addclass !== null || $deleteclassname != null ) {
-			if ( $deletevar !== null ) {
-				unset( $puppetvars[$deletevar] );
-			}
-			if ( $deleteclass !== null ) {
-				$deleteclass = (int)$deleteclass;
-				unset( $puppetclasses[$deleteclass] );
-			}
-			if ( $deleteclassname !== null ) {
-				$deleteclassindex = array_search( $deleteclassname, $puppetclasses );
-				if ( $deleteclassindex === false ) {
-					$this->error( "Couldn't find class to delete $deleteclassname.\n", true );
+		foreach ( $instancelist as $instance ) {
+			print "\nFor instance $instance:\n\n";
+			$host = OpenStackNovaHost::getHostByInstanceId( $instance );
+			$puppetconf = $host->getPuppetConfiguration();
+			$puppetclasses = $puppetconf['puppetclass'];
+			$puppetvars = $puppetconf['puppetvar'];
+			$deletevar = $this->getOption( 'delete-var' );
+			$deleteclass = $this->getOption( 'delete-class' );
+			$deleteclassname = $this->getOption( 'delete-class-name' );
+			$addclass = $this->getOption( 'add-class' );
+			if ( $deletevar !== null || $deleteclass !== null || $addclass !== null || $deleteclassname != null ) {
+				if ( $deletevar !== null ) {
+					unset( $puppetvars[$deletevar] );
 				}
-				unset( $puppetclasses[$deleteclassindex] );
+				if ( $deleteclass !== null ) {
+					$deleteclass = (int)$deleteclass;
+					unset( $puppetclasses[$deleteclass] );
+				}
+				if ( $deleteclassname !== null ) {
+					$deleteclassindex = array_search( $deleteclassname, $puppetclasses );
+					if ( $deleteclassindex === false ) {
+						$this->error( "Couldn't find class to delete $deleteclassname.\n" );
+					}
+					unset( $puppetclasses[$deleteclassindex] );
+				}
+				if ( $addclass !== null ) {
+					$puppetclasses[] = $addclass;
+				}
+				$hostEntry = array();
+				foreach ( $puppetvars as $variable => $value ) {
+					$hostEntry['puppetvar'][] = $variable . '=' . $value;
+				}
+				foreach ( $puppetclasses as $class ) {
+					$hostEntry['puppetclass'][] = $class;
+				}
+				$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $host->hostDN, $hostEntry );
+				if ( $success ) {
+					print "Modified $instance.\r\n";
+				}
+			} else {
+				print "classes\r\n\r\n";
+				for ( $i=0; $i < count( $puppetclasses ); $i++ ) {
+					print "$i: " . $puppetclasses[$i] . "\r\n";
+				}
+				print "\r\n";
+				print "variables\r\n\r\n";
+				foreach ( $puppetvars as $variable => $value ) {
+					print "$variable: $value\r\n";
+				}
 			}
-			if ( $addclass !== null ) {
-				$puppetclasses[] = $addclass;
-			}
-			$hostEntry = array();
-			foreach ( $puppetvars as $variable => $value ) {
-				$hostEntry['puppetvar'][] = $variable . '=' . $value;
-			}
-			foreach ( $puppetclasses as $class ) {
-				$hostEntry['puppetclass'][] = $class;
-			}
-			$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $host->hostDN, $hostEntry );
-			if ( $success ) {
-				print "Modified $instance.\r\n";
-			}
-			return;
-		}
-		print "classes\r\n\r\n";
-		for ( $i=0; $i < count( $puppetclasses ); $i++ ) {
-			print "$i: " . $puppetclasses[$i] . "\r\n";
-		}
-		print "\r\n";
-		print "variables\r\n\r\n";
-		foreach ( $puppetvars as $variable => $value ) {
-			print "$variable: $value\r\n";
 		}
 	}
 }
