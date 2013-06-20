@@ -106,8 +106,9 @@ class PuppetValues extends Maintenance {
 					$deleteclassindex = array_search( $deleteclassname, $puppetclasses );
 					if ( $deleteclassindex === false ) {
 						$this->error( "Couldn't find class to delete $deleteclassname.\n" );
+					} else {
+						unset( $puppetclasses[$deleteclassindex] );
 					}
-					unset( $puppetclasses[$deleteclassindex] );
 				}
 				if ( $addclass !== null ) {
 					$puppetclasses[] = $addclass;
