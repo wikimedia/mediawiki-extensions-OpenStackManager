@@ -42,6 +42,8 @@ class PuppetValues extends Maintenance {
 		$this->addOption( 'instance', 'The instance hostname, e.g. i-00000001', true, true );
 		$this->addOption( 'delete-var', 'The variable name to delete', false, true );
 		$this->addOption( 'delete-class', 'The class index to delete', false, true );
+		$this->addOption( 'delete-class-name', 'Class name to delete', false, true );
+		$this->addOption( 'add-class', 'New class name to add', false, true );
 	}
 
 	public function execute() {
@@ -58,13 +60,25 @@ class PuppetValues extends Maintenance {
 		$puppetvars = $puppetconf['puppetvar'];
 		$deletevar = $this->getOption( 'delete-var' );
 		$deleteclass = $this->getOption( 'delete-class' );
-		if ( $deletevar !== null || $deleteclass !== null ) {
+		$deleteclassname = $this->getOption( 'delete-class-name' );
+		$addclass = $this->getOption( 'add-class' );
+		if ( $deletevar !== null || $deleteclass !== null || $addclass !== null || $deleteclassname != null ) {
 			if ( $deletevar !== null ) {
 				unset( $puppetvars[$deletevar] );
 			}
 			if ( $deleteclass !== null ) {
 				$deleteclass = (int)$deleteclass;
 				unset( $puppetclasses[$deleteclass] );
+			}
+			if ( $deleteclassname !== null ) {
+				$deleteclassindex = array_search( $deleteclassname, $puppetclasses );
+				if ( $deleteclassindex === false ) {
+					$this->error( "Couldn't find class to delete $deleteclassname.\n", true );
+				}
+				unset( $puppetclasses[$deleteclassindex] );
+			}
+			if ( $addclass !== null ) {
+				$puppetclasses[] = $addclass;
 			}
 			$hostEntry = array();
 			foreach ( $puppetvars as $variable => $value ) {
