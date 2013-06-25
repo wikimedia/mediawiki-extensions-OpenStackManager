@@ -2714,7 +2714,7 @@ $messages['de'] = array(
 	'openstackmanager-removeservicegroupconfirm' => 'Bist du sicher, dass die Dienstegruppe „$1“ gelöscht werden soll?
 Dies deaktiviert Werkzeuge oder laufende Bots, die diese Gruppe verwenden.',
 	'openstackmanager-createservicegroupfailed' => 'Dienstegruppe konnte nicht erstellt werden.',
-	'openstackmanager-createdservicegroup' => 'Erstellte Dienstegruppe.',
+	'openstackmanager-createdservicegroup' => 'Dienstegruppe erstellt.',
 	'openstackmanager-removedservicegroup' => 'Löschte Dienstegruppe.',
 	'openstackmanager-removeservicegroupfailed' => 'Dienstegruppe konnte nicht gelöscht werden.',
 	'openstackmanager-servicegroups' => 'Dienstegruppen',
@@ -2773,7 +2773,7 @@ Der Benutzer $1 muss das „<code>loginviashell</code>“-Recht haben.',
 	'openstackmanager-shellaccountname' => 'Benutzername der Instanz-Shell',
 	'openstackmanager-shellaccountname-pref' => 'Kontenname der Instanz-Shell:',
 	'openstackmanager-shellaccountnamehelp' => 'Es ist ein Benutzername der Instanz-Shell erforderlich.
-Er fängt mit den Buchstaben (a-z) an und kann nur die Buchstaben (a-z), Zahlen (0-9) sowie Striche enthalten.',
+Er fängt mit den Buchstaben (a-z) an und kann nur Kleinbuchstaben (a-z), Zahlen (0-9) sowie Striche (–) enthalten.',
 	'openstackmanager-addresslist' => 'Öffentliche IP-Adressliste',
 	'openstackmanager-address' => 'Öffentliche IP-Adresse',
 	'openstackmanager-allocateaddress' => 'IP zuweisen',
@@ -4090,8 +4090,8 @@ Cela nécessite $1 d'avoir le droit « <code>loginviashell</code> ».",
 	'openstackmanager-novarole-info' => 'Informations sur le rôle Nova',
 	'openstackmanager-shellaccountname' => "Nom du compte pour le ''shell'' de l’instance",
 	'openstackmanager-shellaccountname-pref' => 'Nom de compte de l’instance de shell:',
-	'openstackmanager-shellaccountnamehelp' => "Un nom de compte ''shell'' est obligatoire.
-Il doit commencer par une lettre (a–z) et ne peut contenir que des lettres (a–z), chiffres (0–9) et tirets (-).",
+	'openstackmanager-shellaccountnamehelp' => 'Un nom de compte de shell est obligatoire.
+Il doit commencer par une lettre (a–z) et ne peut contenir que des lettres en minuscules (a–z), des chiffres (0–9) et des tirets (-).',
 	'openstackmanager-addresslist' => 'Liste des adresses IP publiques',
 	'openstackmanager-address' => 'Adresse IP publique',
 	'openstackmanager-allocateaddress' => 'Allouer IP',
@@ -4803,7 +4803,7 @@ O usuario $1 debe ter dereitos de "<code>loginviashell</code>".',
 	'openstackmanager-shellaccountname' => 'Nome da conta shell da instancia',
 	'openstackmanager-shellaccountname-pref' => 'Nome da conta shell da instancia:',
 	'openstackmanager-shellaccountnamehelp' => 'Cómpre indicar o nome da conta shell.
-Debe comezar con letras do a ao z, e só pode conter caracteres a-z, 0-9 e "-".',
+Debe comezar con letras do a ao z, e só pode conter caracteres en minúsculas (a-z), números (0-9) e guións (-).',
 	'openstackmanager-addresslist' => 'Lista de enderezos IP públicos',
 	'openstackmanager-address' => 'Enderezo IP público',
 	'openstackmanager-allocateaddress' => 'Asignar un enderezo IP',
@@ -6419,7 +6419,7 @@ E\' necessario che l\'utente $1 abbia il permesso "<code>loginviashell</code>".'
 	'openstackmanager-shellaccountname' => "Nome per l'utenza di shell per l'istanza",
 	'openstackmanager-shellaccountname-pref' => "Nome per l'utenza di shell per l'istanza:",
 	'openstackmanager-shellaccountnamehelp' => 'È necessario indicare il nome utente per la shell.
-Deve iniziare con a-z e può contenere solo i caratteri a-z, 0-9 e -.',
+Deve iniziare con a-z e può contenere solo i caratteri a-z, 0-9 e -.', # Fuzzy
 	'openstackmanager-addresslist' => 'Elenco di indirizzi IP pubblici',
 	'openstackmanager-address' => 'Indirizzo IP pubblico',
 	'openstackmanager-allocateaddress' => 'Alloca IP',
@@ -7733,6 +7733,9 @@ $messages['lb'] = array(
 	'openstackmanager-desc' => 'Erméiglecht et de Benotzer fir Nova a Swift ze verwalten',
 	'openstackmanager' => 'OpenStack-Gestionnaire',
 	'novaaddress' => 'Ëffentlech IP-Adresse geréieren',
+	'novainstance' => 'Instanze geréieren',
+	'novakey' => 'Är ëffentlech SSH-Schlëssele geréieren',
+	'novaproject' => 'OpenStack Projete geréieren',
 	'openstackmanager-novakey' => 'Nova-Schlëssel',
 	'openstackmanager-novaproject' => 'Nova-Projet',
 	'openstackmanager-delete' => 'läschen',
@@ -7763,10 +7766,13 @@ $messages['lb'] = array(
 	'openstackmanager-imageid' => 'Bild ID',
 	'openstackmanager-imagetype' => 'Bildtyp',
 	'openstackmanager-backinstancelist' => "Zréck op d'Lëscht vun den Instanzen",
+	'openstackmanager-deletedinstance' => 'Geläschten Instanz $1.',
 	'openstackmanager-device' => 'Apparat',
 	'openstackmanager-novapublickey' => 'Ëffentlechen SSH-Schlëssel:',
 	'openstackmanager-prefs-novapublickey' => 'Ëffentlech SSH-Schlësselen:',
 	'openstackmanager-deletekey' => 'Ëffentlechen SSH-Schlëssel läschen',
+	'openstackmanager-keylist' => 'Lëscht vun ëffenlechen SSH-Schlësselen',
+	'openstackmanager-addkey' => 'Ëffentlechen SSH-Schlëssel derbäisetzen',
 	'openstackmanager-name' => 'Numm',
 	'openstackmanager-fingerprint' => 'Fangerofdrock',
 	'openstackmanager-keys' => 'Schlësselen',
@@ -7776,6 +7782,7 @@ $messages['lb'] = array(
 	'openstackmanager-configureproject' => 'Projet "$1" astellen',
 	'openstackmanager-displayquotas-action' => 'Quotae weisen',
 	'openstackmanager-displayquotas-ram' => 'RAM: $1/$2',
+	'openstackmanager-displayquotas-instances' => 'Instanzen: $1/$2',
 	'openstackmanager-createproject' => 'Projet derbäisetzen',
 	'openstackmanager-projectname' => 'Numm vum Projet',
 	'openstackmanager-members' => 'Memberen',
@@ -7809,6 +7816,7 @@ $messages['lb'] = array(
 	'openstackmanager-removehost' => 'Host ewechhuelen',
 	'openstackmanager-removedhost' => '$1 gouf ewechgeholl.',
 	'openstackmanager-removehostfailed' => '$1 konnt net ewechgeholl ginn.',
+	'openstackmanager-unknownerror' => 'Et ass e Feeler geschitt.',
 	'openstackmanager-securitygroupdescription' => 'Beschreiwung',
 	'openstackmanager-deletesecuritygroup-confirm' => 'Sidd Dir sécher datt Dir $1 läsche wëllt?',
 	'openstackmanager-securitygrouprule' => 'Regelen',
@@ -8187,7 +8195,7 @@ $messages['mk'] = array(
 	'openstackmanager-shellaccountname' => 'Име на сметката за лушпата на примерокот',
 	'openstackmanager-shellaccountname-pref' => 'Име на сметката за лушпата на примерокот:',
 	'openstackmanager-shellaccountnamehelp' => 'Името на сметката на лушпата е задолжително. 
-Мора да почнува со латинични букви (од a до z), и може да содржи само букви, бројки (од 0 до 9), како и знакот „-“.',
+Мора да почнува со латинични букви (од a до z), и може да содржи само букви, бројки (од 0 до 9), како и знакот „-“.', # Fuzzy
 	'openstackmanager-addresslist' => 'Список на јавни IP-адреси',
 	'openstackmanager-address' => 'Јавни IP-адреси',
 	'openstackmanager-allocateaddress' => 'Задај IP-адр.',
@@ -8611,7 +8619,7 @@ Oleh itu, $1 perlu membetulkan "<code>loginviashell</code>".',
 	'openstackmanager-shellaccountname-pref' => 'Nama akaun kekerang tika:',
 	'openstackmanager-shellaccountnamehelp' => 'Nama akaun kekerang diperlukan.
 
-Nama akaun bermula dengan a-z, dan mengandungi aksara-aksara a-z, 0-9, -, dan - sahaja.',
+Nama akaun bermula dengan a-z, dan mengandungi huruf kecil a-z, nombor 0-9, dan dan tanda - sahaja.',
 	'openstackmanager-addresslist' => 'Senarai alamat IP umum',
 	'openstackmanager-address' => 'Alamat IP umum',
 	'openstackmanager-allocateaddress' => 'Peruntukkan IP',
@@ -9936,6 +9944,7 @@ $messages['ps'] = array(
  * @author Alchimista
  * @author Hamilton Abreu
  * @author Luckas
+ * @author Malafaya
  * @author SandroHc
  * @author Waldir
  */
@@ -10093,7 +10102,7 @@ $messages['pt'] = array(
 	'openstackmanager-createdproject' => 'O projecto foi criado.', # Fuzzy
 	'openstackmanager-projectlist' => 'Lista de projectos',
 	'openstackmanager-backprojectlist' => 'Voltar à lista de projectos',
-	'openstackmanager-deleteproject' => 'Eliminar projecto', # Fuzzy
+	'openstackmanager-deleteproject' => 'Eliminar',
 	'openstackmanager-deletedproject' => 'O projecto foi eliminado.',
 	'openstackmanager-deleteprojectfailed' => 'Não foi possível eliminar o projecto.',
 	'openstackmanager-addedto' => '$1 foi adicionado a $2.',
