@@ -477,6 +477,7 @@ class OpenStackNovaUser {
 		$values['objectclass'][] = 'shadowaccount';
 		$uidnumber = OpenStackNovaUser::getNextIdNumber( $auth, 'uidnumber' );
 		if ( ! $uidnumber ) {
+			$auth->printDebug( "Unable to allocate a UID", NONSENSITIVE );
 			$result = false;
 			return false;
 		}
@@ -486,6 +487,7 @@ class OpenStackNovaUser {
 		}
 		$shellaccountname = $wgRequest->getText( 'shellaccountname' );
 		if ( ! preg_match( "/^[a-z][a-z0-9\-_]*$/", $shellaccountname ) ) {
+			$auth->printDebug( "Invalid shell name $shellaccountname", NONSENSITIVE );
 			$result = false;
 			return false;
 		}
