@@ -1189,25 +1189,27 @@ The page body for this page title is:
 Help message for the select box is:
 * {{msg-mw|Openstackmanager-securitygrouprule-groups-help}}',
 	'openstackmanager-createnewsecuritygroup' => '{{Identical|Add group}}',
-	'openstackmanager-addrule-action' => 'Used as action link text in Special:NovaSecurityGroup.',
-	'openstackmanager-removerule-action' => 'Used as action link text in Special:NovaSecurityGroup.',
+	'openstackmanager-addrule-action' => 'Used as action link text in [[Special:NovaSecurityGroup]].
+{{Identical|Add rule}}',
+	'openstackmanager-removerule-action' => 'Used as action link text in [[Special:NovaSecurityGroup]].
+{{Identical|Remove rule}}',
 	'openstackmanager-modifiedgroup' => 'Unused at this time.',
 	'openstackmanager-modifygroupfailed' => 'Unused at this time.',
 	'openstackmanager-nonexistantgroup' => 'Unused at this time.',
-	'openstackmanager-backsecuritygrouplist' => 'Used as link text in Special:NovaSecurityGroup.',
-	'openstackmanager-createdsecuritygroup' => 'Used as success message in Special:NovaSecurityGroup.
+	'openstackmanager-backsecuritygrouplist' => 'Used as link text in [[Special:NovaSecurityGroup]].',
+	'openstackmanager-createdsecuritygroup' => 'Used as success message in [[Special:NovaSecurityGroup]].
 
 See also:
 * {{msg-mw|openstackmanager-createsecuritygroupfailed}}',
-	'openstackmanager-createsecuritygroupfailed' => 'Used as failure message in Special:NovaSecurityGroup.
+	'openstackmanager-createsecuritygroupfailed' => 'Used as failure message in [[Special:NovaSecurityGroup]].
 
 See also:
 * {{msg-mw|openstackmanager-createdsecuritygroup}}',
-	'openstackmanager-nonexistantsecuritygroup' => "Used in Special:NovaSecurityGroup, when the security group doesn't exist.
+	'openstackmanager-nonexistantsecuritygroup' => "Used in [[Special:NovaSecurityGroup]], when the security group doesn't exist.
 
 If the security group exists, the following message is used:
 * {{msg-mw|Openstackmanager-removehost-confirm}}",
-	'openstackmanager-deletedsecuritygroup' => 'Used as success message in Special:NovaSecurityGroup.
+	'openstackmanager-deletedsecuritygroup' => 'Used as success message in [[Special:NovaSecurityGroup]].
 
 See also:
 * {{msg-mw|Openstackmanager-deletesecuritygroupfailed}}',
@@ -1215,7 +1217,8 @@ See also:
 
 See also:
 * {{msg-mw|Openstackmanager-deletedsecuritygroup}}',
-	'openstackmanager-removerule' => 'Used as page title in Special:NovaSecurityGroup.',
+	'openstackmanager-removerule' => 'Used as page title in [[Special:NovaSecurityGroup]].
+{{Identical|Remove rule}}',
 	'openstackmanager-removerule-confirm' => "Used in Special:NovaSecurityGroup. Parameters:
 * $1 - security group name
 If the security group doesn't exist, the following message is used:
@@ -1228,7 +1231,8 @@ See also:
 
 See also:
 * {{msg-mw|Openstackmanager-removedrule}}',
-	'openstackmanager-addrule' => 'Used as page title in Special:NovaSecurityGroup.',
+	'openstackmanager-addrule' => 'Used as page title in [[Special:NovaSecurityGroup]].
+{{Identical|Add rule}}',
 	'openstackmanager-securitygrouprule-ranges' => 'CIDR = Classless Inter-Domain Routing',
 	'openstackmanager-securitygrouprule-ranges-help' => 'CIDR = Classless Inter-Domain Routing',
 	'openstackmanager-securitygrouprule-groups-help' => 'Used as help message for the select box in Special:NovaSecurityGroup.
@@ -2929,9 +2933,9 @@ Er fängt mit den Buchstaben (a-z) an und kann nur Kleinbuchstaben (a-z), Zahlen
 	'notification-osm-instance-build-completed' => '$1 hat die Instanz „$3“ im Projekt [[$2]] {{GENDER:$1|erstellt}}',
 	'notification-osm-instance-reboot-completed' => '$1 hat die Instanz „$3“ im Projekt [[$2]] {{GENDER:$1|neu gestartet}}',
 	'notification-osm-projectmember-added' => '$1 hat dich zum Projekt [[$2]] {{GENDER:$1|hinzugefügt}}',
-	'echo-category-title-osm-instance-deleted' => 'eine Instanz eines Projektes löscht, auf dem ich Administrator bin.',
-	'echo-category-title-osm-instance-build-completed' => 'eine Instanz auf einem Projekt erstellt, auf dem ich Administrator bin.',
-	'echo-category-title-osm-instance-reboot-completed' => 'eine Instanz neu startet.',
+	'echo-category-title-osm-instance-deleted' => 'Instanzlöschung (wo du Projektadmin bist)',
+	'echo-category-title-osm-instance-build-completed' => 'Instanzerstellung (wo du Projektadmin bist)',
+	'echo-category-title-osm-instance-reboot-completed' => 'Abschluss eines Instanzneustarts',
 	'echo-category-title-osm-projectmembers-add' => 'Projektmitgliedschaft-Hinzufügungen',
 	'prefs-openstack' => 'OpenStack',
 	'prefs-openstack-keys' => 'Schlüsselliste',
@@ -4247,9 +4251,9 @@ Il doit commencer par une lettre (a–z) et ne peut contenir que des lettres en 
 	'notification-osm-instance-build-completed' => '$1 {{GENDER:$1|a créé}} l’instance « $3 » dans le projet [[$2]]',
 	'notification-osm-instance-reboot-completed' => "$1 {{GENDER:$1|a redémarré}} l’instance '$3' dans le projet [[$2]]",
 	'notification-osm-projectmember-added' => '$1 vous {{GENDER:$1|a ajouté}} au projet [[$2]]',
-	'echo-category-title-osm-instance-deleted' => 'Supprime une instance d’un projet dont je suis administrateur.',
-	'echo-category-title-osm-instance-build-completed' => 'Construit une instance d’un projet dont je suis administrateur.',
-	'echo-category-title-osm-instance-reboot-completed' => 'Redémarre une instance.',
+	'echo-category-title-osm-instance-deleted' => 'Supprime une instance d’un projet dont je suis administrateur.', # Fuzzy
+	'echo-category-title-osm-instance-build-completed' => 'Construit une instance d’un projet dont je suis administrateur.', # Fuzzy
+	'echo-category-title-osm-instance-reboot-completed' => 'Redémarre une instance.', # Fuzzy
 	'echo-category-title-osm-projectmembers-add' => 'Ajout de membres au projet',
 	'prefs-openstack' => 'OpenStack',
 	'prefs-openstack-keys' => 'Liste de clés',
@@ -4959,9 +4963,9 @@ Debe comezar con letras do a ao z, e só pode conter caracteres en minúsculas (
 	'notification-osm-instance-build-completed' => '$1 {{GENDER:$1|construíu}} a instancia "$3" no proxecto [[$2]]',
 	'notification-osm-instance-reboot-completed' => '$1 {{GENDER:$1|reiniciou}} a instancia "$3" no proxecto [[$2]]',
 	'notification-osm-projectmember-added' => '$1 {{GENDER:$1|engadiu}} a vostede ao proxecto [[$2]]',
-	'echo-category-title-osm-instance-deleted' => 'Borre unha instancia nun proxecto no que son administrador.',
-	'echo-category-title-osm-instance-build-completed' => 'Constrúa unha instancia nun proxecto no que son administrador.',
-	'echo-category-title-osm-instance-reboot-completed' => 'Reinicie unha instancia.',
+	'echo-category-title-osm-instance-deleted' => 'Borre unha instancia nun proxecto no que son administrador.', # Fuzzy
+	'echo-category-title-osm-instance-build-completed' => 'Constrúa unha instancia nun proxecto no que son administrador.', # Fuzzy
+	'echo-category-title-osm-instance-reboot-completed' => 'Reinicie unha instancia.', # Fuzzy
 	'echo-category-title-osm-projectmembers-add' => 'Adición de membros ao proxecto',
 	'prefs-openstack' => 'OpenStack',
 	'prefs-openstack-keys' => 'Lista de claves',
@@ -6575,9 +6579,9 @@ Deve iniziare con a-z e può contenere solo i caratteri a-z, 0-9 e -.', # Fuzzy
 	'notification-osm-instance-build-completed' => "$1 {{GENDER:$1|ha costruito}} l'istanza '$3' nel progetto [[$2]]",
 	'notification-osm-instance-reboot-completed' => "$1 {{GENDER:$1|ha riavviato}} l'istanza '$3' nel progetto [[$2]]",
 	'notification-osm-projectmember-added' => '$1 ti {{GENDER:$1|ha aggiunto}} al progetto [[$2]]',
-	'echo-category-title-osm-instance-deleted' => "Cancellazione di un'istanza da un progetto di cui io sono un amministratore.",
-	'echo-category-title-osm-instance-build-completed' => "Costruzione di un'istanza su un progetto di cui io sono un amministratore.",
-	'echo-category-title-osm-instance-reboot-completed' => "Riavvio di un'istanza.",
+	'echo-category-title-osm-instance-deleted' => "Cancellazione di un'istanza da un progetto di cui io sono un amministratore.", # Fuzzy
+	'echo-category-title-osm-instance-build-completed' => "Costruzione di un'istanza su un progetto di cui io sono un amministratore.", # Fuzzy
+	'echo-category-title-osm-instance-reboot-completed' => "Riavvio di un'istanza.", # Fuzzy
 	'prefs-openstack' => 'OpenStack',
 	'prefs-openstack-keys' => 'Elenco chiavi',
 );
@@ -6791,11 +6795,17 @@ $messages['ja'] = array(
 	'openstackmanager-deletesecuritygroup' => 'セキュリティ グループの削除',
 	'openstackmanager-deletesecuritygroup-confirm' => '$1 を本当に削除しますか?',
 	'openstackmanager-securitygrouplist' => 'セキュリティ グループ一覧',
+	'openstackmanager-securitygrouprule' => 'ルール',
+	'openstackmanager-novasecuritygroup-rule' => 'セキュリティ グループ ルール',
+	'openstackmanager-novasecuritygroup-singlerule' => '個別ルール',
+	'openstackmanager-novasecuritygroup-group' => 'グループ ルール',
 	'openstackmanager-securitygrouprule-toport' => 'ポート範囲の終点',
 	'openstackmanager-securitygrouprule-fromport' => 'ポート範囲の始点',
 	'openstackmanager-securitygrouprule-protocol' => 'プロトコル',
 	'openstackmanager-securitygrouprule-ipranges' => 'CIDR の範囲',
 	'openstackmanager-createnewsecuritygroup' => 'グループを追加',
+	'openstackmanager-addrule-action' => 'ルールを追加',
+	'openstackmanager-removerule-action' => 'ルールを除去',
 	'openstackmanager-modifiedgroup' => 'セキュリティ グループを変更しました。',
 	'openstackmanager-modifygroupfailed' => 'セキュリティ グループの変更に失敗しました。',
 	'openstackmanager-nonexistantgroup' => '指定したセキュリティ グループは存在しません。',
@@ -6805,6 +6815,8 @@ $messages['ja'] = array(
 	'openstackmanager-nonexistantsecuritygroup' => '削除しようとしたセキュリティ グループは存在しません。',
 	'openstackmanager-deletedsecuritygroup' => 'セキュリティ グループを削除しました。',
 	'openstackmanager-deletesecuritygroupfailed' => 'セキュリティ グループの削除に失敗しました。',
+	'openstackmanager-removerule' => 'ルールの除去',
+	'openstackmanager-addrule' => 'ルールの追加',
 	'openstackmanager-securitygrouprule-ranges' => 'CIDR の範囲',
 	'openstackmanager-securitygrouprule-ranges-help' => 'CIDR の範囲は、範囲をカンマ区切りした列挙です。',
 	'openstackmanager-createsudoer' => 'sudo ポリシーを作成',
@@ -8195,7 +8207,7 @@ $messages['mk'] = array(
 	'openstackmanager-shellaccountname' => 'Име на сметката за лушпата на примерокот',
 	'openstackmanager-shellaccountname-pref' => 'Име на сметката за лушпата на примерокот:',
 	'openstackmanager-shellaccountnamehelp' => 'Името на сметката на лушпата е задолжително. 
-Мора да почнува со латинични букви (од a до z), и може да содржи само букви, бројки (од 0 до 9), како и знакот „-“.', # Fuzzy
+Мора да почнува со латинични букви (од a до z), и може да содржи само мали латинични букви, бројки (од 0 до 9), како и знакот „-“.',
 	'openstackmanager-addresslist' => 'Список на јавни IP-адреси',
 	'openstackmanager-address' => 'Јавни IP-адреси',
 	'openstackmanager-allocateaddress' => 'Задај IP-адр.',
@@ -8351,9 +8363,9 @@ $messages['mk'] = array(
 	'notification-osm-instance-build-completed' => '$1 {{GENDER:$1|направи}} примерок „$3“ во проектот [[$2]]',
 	'notification-osm-instance-reboot-completed' => '$1 {{GENDER:$1|одново го пушти}} примерокот „$3“ во проектот [[$2]]',
 	'notification-osm-projectmember-added' => '$1 {{GENDER:$1|ве додаде}} во проектот [[$2]]',
-	'echo-category-title-osm-instance-deleted' => 'Брише примерок од проект кајшто сум администратор.',
-	'echo-category-title-osm-instance-build-completed' => 'Прави примерок на проект кајшто сум администратор.',
-	'echo-category-title-osm-instance-reboot-completed' => 'Одново пушта примерок.',
+	'echo-category-title-osm-instance-deleted' => 'Брише примерок од проект кајшто сум администратор.', # Fuzzy
+	'echo-category-title-osm-instance-build-completed' => 'Прави примерок на проект кајшто сум администратор.', # Fuzzy
+	'echo-category-title-osm-instance-reboot-completed' => 'Одново пушта примерок.', # Fuzzy
 	'echo-category-title-osm-projectmembers-add' => 'Додавање на членови во проектот',
 	'prefs-openstack' => 'OpenStack',
 	'prefs-openstack-keys' => 'Список на клучеви',
@@ -8775,9 +8787,9 @@ Nama akaun bermula dengan a-z, dan mengandungi huruf kecil a-z, nombor 0-9, dan 
 	'notification-osm-instance-build-completed' => "$1 telah mewujudkan tika '$3' di projek [[$2]]",
 	'notification-osm-instance-reboot-completed' => "$1 telah mengebut semula tika '$3' di projek [[$2]]",
 	'notification-osm-projectmember-added' => '$1 {{GENDER:$1|menambahkan}} anda ke dalam projek [[$2]]',
-	'echo-category-title-osm-instance-deleted' => 'Menghapuskan tika dari projek di mana saya menjadi pentadbir.',
-	'echo-category-title-osm-instance-build-completed' => 'Mewujudkan tika pada projek di mana saya menjadi pentadbir.',
-	'echo-category-title-osm-instance-reboot-completed' => 'Menghidupkan semula tika.',
+	'echo-category-title-osm-instance-deleted' => 'Menghapuskan tika dari projek di mana saya menjadi pentadbir.', # Fuzzy
+	'echo-category-title-osm-instance-build-completed' => 'Mewujudkan tika pada projek di mana saya menjadi pentadbir.', # Fuzzy
+	'echo-category-title-osm-instance-reboot-completed' => 'Menghidupkan semula tika.', # Fuzzy
 	'echo-category-title-osm-projectmembers-add' => 'Penambahan ahli projek',
 	'prefs-openstack' => 'OpenStack',
 	'prefs-openstack-keys' => 'Senarai kunci',
