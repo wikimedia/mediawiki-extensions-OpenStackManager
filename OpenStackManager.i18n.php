@@ -446,6 +446,7 @@ Choose one or the other, not both.',
  * @author EugeneZelenko
  * @author Kghbln
  * @author Krenair
+ * @author Mormegil
  * @author Nemo bis
  * @author Nike
  * @author Platonides
@@ -1484,7 +1485,7 @@ Parameters:
 Preceded by {{msg-mw|Prefs-emailsubscriptions}}.',
 	'echo-category-title-osm-instance-build-completed' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable notifications for the osm-instance-build-completed event.
 
-Preceded by {{msg-mw|Prefs-emailsubscriptions}}.',
+Preceded by {{msg-mw|prefs-echosubscriptions}}.',
 	'echo-category-title-osm-instance-reboot-completed' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable notifications for the osm-instance-reboot-completed event.',
 	'echo-category-title-osm-projectmembers-add' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable notifications for the osm-projectmember-add event.',
 	'prefs-openstack' => 'Title for a tab in Preferences for OpenStack related items',
@@ -2489,6 +2490,7 @@ $messages['ce'] = array(
 /** Czech (česky)
  * @author Chmee2
  * @author Littledogboy
+ * @author Mormegil
  * @author Vks
  */
 $messages['cs'] = array(
@@ -2536,10 +2538,15 @@ $messages['cs'] = array(
 	'openstackmanager-removerolemember' => 'Odebrat člena',
 	'openstackmanager-addrolemember' => 'Přidat člena',
 	'openstackmanager-rolelist' => 'Globální seznam rolí',
+	'openstackmanager-shellaccountnamehelp' => 'Je vyžadováno jméno účtu v shellu.
+Musí začínat písmenem a–z a může obsahovat jen malé znaky a–z, 0–9 a -.',
 	'openstackmanager-addrule-action' => 'přidat pravidlo',
 	'openstackmanager-removerule-action' => 'odstranit pravidlo',
 	'openstackmanager-sudoerusers' => 'Uživatelé',
 	'openstackmanager-puppetallprojects' => 'Všechny projekty',
+	'echo-category-title-osm-instance-deleted' => 'smazání instance (tam, kde jsem projektový správce)',
+	'echo-category-title-osm-instance-build-completed' => 'vytvoření instance (tam, kde jsem projektový správce)',
+	'echo-category-title-osm-instance-reboot-completed' => 'dokončení restartu instance',
 );
 
 /** Danish (dansk)
@@ -8788,9 +8795,9 @@ Nama akaun bermula dengan a-z, dan mengandungi huruf kecil a-z, nombor 0-9, dan 
 	'notification-osm-instance-build-completed' => "$1 telah mewujudkan tika '$3' di projek [[$2]]",
 	'notification-osm-instance-reboot-completed' => "$1 telah mengebut semula tika '$3' di projek [[$2]]",
 	'notification-osm-projectmember-added' => '$1 {{GENDER:$1|menambahkan}} anda ke dalam projek [[$2]]',
-	'echo-category-title-osm-instance-deleted' => 'Menghapuskan tika dari projek di mana saya menjadi pentadbir.', # Fuzzy
-	'echo-category-title-osm-instance-build-completed' => 'Mewujudkan tika pada projek di mana saya menjadi pentadbir.', # Fuzzy
-	'echo-category-title-osm-instance-reboot-completed' => 'Menghidupkan semula tika.', # Fuzzy
+	'echo-category-title-osm-instance-deleted' => 'Penghapusan tika (di mana anda adalah penyelia projek)',
+	'echo-category-title-osm-instance-build-completed' => 'Penghasilan tika (di mana anda adalah penyelia projek)',
+	'echo-category-title-osm-instance-reboot-completed' => 'Menyiapkan pengaktifan semula tika',
 	'echo-category-title-osm-projectmembers-add' => 'Penambahan ahli projek',
 	'prefs-openstack' => 'OpenStack',
 	'prefs-openstack-keys' => 'Senarai kunci',
