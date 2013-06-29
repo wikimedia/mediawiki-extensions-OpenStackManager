@@ -460,7 +460,9 @@ Choose one or the other, not both.',
  */
 $messages['qqq'] = array(
 	'openstackmanager-desc' => '{{desc|name=Open Stack Manager|url=http://www.mediawiki.org/wiki/Extension:OpenStackManager}}',
+	'openstackmanager' => '{{Identical|OpenStackManager}}',
 	'openstackmanager-instance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
+	'openstackmanager-title' => '{{Identical|OpenStackManager}}',
 	'openstackmanager-badresourcename' => 'Used as error message in Special:NovaAddress, Special:NovaInstance, SpecialNova:Project, Special:NovaPuppetGroup and Special:NovaVolume.
 
 This error is the result of the form validation about the following elements: host name, instance name, project name, puppet group name and volume name.
