@@ -89,7 +89,7 @@ class OpenStackNovaServiceGroup {
 	 * @return bool
 	 */
 	function isMember( $username ) {
-		return in_array( $username, $this->getMembers() );
+		return in_array( strtolower( $username ), array_map( 'strtolower', $this->getMembers() ) );
 	}
 
 	/**
