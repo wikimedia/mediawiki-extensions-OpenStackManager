@@ -756,6 +756,7 @@ Parameters:
 	'openstackmanager-deletevolumequestion' => 'Used in Special:NovaVolume. Parameters:
 * $1 - volume ID',
 	'openstackmanager-volumelist' => 'Used as page title in Special:NovaVolume.',
+	'openstackmanager-novavolume-volume' => '{{Identical|Volume}}',
 	'openstackmanager-createdvolume' => 'Used as success message in Special:NovaVolume.
 
 This message indicates the volume has been created successfully.
@@ -6432,7 +6433,7 @@ E\' necessario che l\'utente $1 abbia il permesso "<code>loginviashell</code>".'
 	'openstackmanager-shellaccountname' => "Nome per l'utenza di shell per l'istanza",
 	'openstackmanager-shellaccountname-pref' => "Nome per l'utenza di shell per l'istanza:",
 	'openstackmanager-shellaccountnamehelp' => 'È necessario indicare il nome utente per la shell.
-Deve iniziare con a-z e può contenere solo i caratteri a-z, 0-9 e -.', # Fuzzy
+Deve iniziare con a-z e può contenere solo lettere minuscole, 0-9 e -.',
 	'openstackmanager-addresslist' => 'Elenco di indirizzi IP pubblici',
 	'openstackmanager-address' => 'Indirizzo IP pubblico',
 	'openstackmanager-allocateaddress' => 'Alloca IP',
@@ -6588,9 +6589,9 @@ Deve iniziare con a-z e può contenere solo i caratteri a-z, 0-9 e -.', # Fuzzy
 	'notification-osm-instance-build-completed' => "$1 {{GENDER:$1|ha costruito}} l'istanza '$3' nel progetto [[$2]]",
 	'notification-osm-instance-reboot-completed' => "$1 {{GENDER:$1|ha riavviato}} l'istanza '$3' nel progetto [[$2]]",
 	'notification-osm-projectmember-added' => '$1 ti {{GENDER:$1|ha aggiunto}} al progetto [[$2]]',
-	'echo-category-title-osm-instance-deleted' => "Cancellazione di un'istanza da un progetto di cui io sono un amministratore.", # Fuzzy
-	'echo-category-title-osm-instance-build-completed' => "Costruzione di un'istanza su un progetto di cui io sono un amministratore.", # Fuzzy
-	'echo-category-title-osm-instance-reboot-completed' => "Riavvio di un'istanza.", # Fuzzy
+	'echo-category-title-osm-instance-deleted' => "Cancellazione di un'istanza (da un progetto di cui io sono un amministratore).",
+	'echo-category-title-osm-instance-build-completed' => "Costruzione di un'istanza (su un progetto di cui io sono un amministratore).",
+	'echo-category-title-osm-instance-reboot-completed' => "Riavvio di un'istanza completato.",
 	'prefs-openstack' => 'OpenStack',
 	'prefs-openstack-keys' => 'Elenco chiavi',
 );
@@ -9093,7 +9094,7 @@ Hiervoor moet gebruiker $1 het recht "<code>loginviashell</code>" hebben.',
 	'openstackmanager-shellaccountname' => 'Shellgebruikersnaam voor instantie',
 	'openstackmanager-shellaccountname-pref' => 'Shellgebruikersnaam voor instantie:',
 	'openstackmanager-shellaccountnamehelp' => 'Een naam voor de shellgebruikersnaam is verplicht.
-Deze moet beginnen met a-z en kan alleen de tekens a-z, 0-9 en - bevatten.',
+Deze moet beginnen met a-z en kan alleen de tekens a-z, 0-9 en - bevatten.', # Fuzzy
 	'openstackmanager-addresslist' => 'Publieke IP-adressenlijst',
 	'openstackmanager-address' => 'Publiek IP-adres',
 	'openstackmanager-allocateaddress' => 'IP-adres toewijzen',
@@ -9129,6 +9130,7 @@ Verwijder alle hostkoppelingen en ontkoppel het IP-adres voordat u het vrijgeeft
 	'openstackmanager-removehostfailed' => 'Het verwijderen van $1 is mislukt.',
 	'openstackmanager-nonexistenthost' => 'Het opgegeven host bestaat niet.',
 	'openstackmanager-nonexistentrole' => 'De opgegeven rol bestaat niet.',
+	'openstackmanager-unknownerror' => 'Er is een fout opgetreden.',
 	'openstackmanager-needrole' => 'Rol "$1" is vereist in project $2',
 	'openstackmanager-needrole2' => 'U moet lid zijn van de rol "$1" in project $2 om deze handeling uit te kunnen voeren.',
 	'openstackmanager-createsecuritygroup' => 'Beveiligingsgroep aanmaken',
@@ -9249,9 +9251,9 @@ Verwijder alle hostkoppelingen en ontkoppel het IP-adres voordat u het vrijgeeft
 	'notification-osm-instance-build-completed' => '{{GENDER:$1|$1}} heeft de instantie "$3" in het project [[$2]] gebouwd',
 	'notification-osm-instance-reboot-completed' => '{{GENDER:$1|$1}} heeft de instantie "$3" in het project [[$2]] herstart',
 	'notification-osm-projectmember-added' => '$1 heeft u toegevoegd aan het project [[$2]]',
-	'echo-category-title-osm-instance-deleted' => 'Een instantie verwijdert van een project waar u beheerder bent.',
-	'echo-category-title-osm-instance-build-completed' => 'Een instantie bouwt in een project waar u beheerder bent.',
-	'echo-category-title-osm-instance-reboot-completed' => 'Een instantie herstart.',
+	'echo-category-title-osm-instance-deleted' => 'Een instantie verwijdert van een project waar u beheerder bent.', # Fuzzy
+	'echo-category-title-osm-instance-build-completed' => 'Een instantie bouwt in een project waar u beheerder bent.', # Fuzzy
+	'echo-category-title-osm-instance-reboot-completed' => 'Een instantie herstart.', # Fuzzy
 	'prefs-openstack' => 'OpenStack',
 	'prefs-openstack-keys' => 'Sleutellijst',
 );
