@@ -4703,6 +4703,7 @@ $messages['gl'] = array(
 	'openstackmanager-deleteinstancefailed' => 'Erro ao borrar a instancia.',
 	'openstackmanager-consoleoutput' => 'Saída da consola para $1 ($2)',
 	'openstackmanager-getconsoleoutput' => 'obter a saída da consola',
+	'openstackmanager-getconsoleoutputfailed' => 'Houbo un erro ao obter a saída da consola para a instancia "$1".',
 	'openstackmanager-createvolume' => 'Crear un volume',
 	'openstackmanager-volumename' => 'Nome do volume',
 	'openstackmanager-volumeid' => 'ID do volume',
@@ -6208,10 +6209,12 @@ $messages['ia'] = array(
 );
 
 /** Indonesian (Bahasa Indonesia)
+ * @author Iwan Novirion
  * @author පසිඳු කාවින්ද
  */
 $messages['id'] = array(
 	'openstackmanager-location' => 'Lokasi',
+	'openstackmanager-getconsoleoutputfailed' => 'Gagal untuk mendapatkan output konsol misalnya $1.',
 	'openstackmanager-device' => 'Peranti',
 	'openstackmanager-name' => 'Nama',
 	'openstackmanager-securitygroupdescription' => 'Deskripsi',
@@ -8110,6 +8113,7 @@ $messages['mk'] = array(
 	'openstackmanager-deleteinstancefailed' => 'Не успеав да го избришам примерокот.',
 	'openstackmanager-consoleoutput' => 'Извод на управувачката табла за $1 ($2)',
 	'openstackmanager-getconsoleoutput' => 'дај извод на управувачката табла',
+	'openstackmanager-getconsoleoutputfailed' => 'Не можев да го добијат конзолниот извод за примерокот $1.',
 	'openstackmanager-createvolume' => 'Создај носач на податоци',
 	'openstackmanager-volumename' => 'Име на носачот',
 	'openstackmanager-volumeid' => 'Назнака на носачот',
@@ -8534,6 +8538,7 @@ Nama sumber bermula dengan a-z, dan mengandungi aksara-aksara a-z, 0-9, -, dan -
 	'openstackmanager-deleteinstancefailed' => 'Tika gagal dihapuskan.',
 	'openstackmanager-consoleoutput' => 'Keluaran Konsol untuk  $1 ($2)',
 	'openstackmanager-getconsoleoutput' => 'dapatkan keluaran konsol',
+	'openstackmanager-getconsoleoutputfailed' => 'Output konsol gagal diperoleh untuk tika $1.',
 	'openstackmanager-createvolume' => 'Wujudkan Jilid',
 	'openstackmanager-volumename' => 'Nama Jilid',
 	'openstackmanager-volumeid' => 'ID Jilid',
