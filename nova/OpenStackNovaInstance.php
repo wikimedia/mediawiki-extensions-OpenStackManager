@@ -136,7 +136,16 @@ class OpenStackNovaInstance {
 	 * @return string
 	 */
 	function getInstanceState() {
-		return OpenStackNovaController::_get_property( $this->instance, 'OS-EXT-STS:vm_state' );
+		return OpenStackNovaController::_get_property( $this->instance, 'status' );
+	}
+
+	/**
+	 * Return the task state in which this instance currently exists
+	 *
+	 * @return string
+	 */
+	function getInstanceTaskState() {
+		return OpenStackNovaController::_get_property( $this->instance, 'OS-EXT-STS:task_state' );
 	}
 
 	/**

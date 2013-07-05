@@ -528,7 +528,14 @@ class SpecialNovaInstance extends SpecialNova {
 			$instanceRow = array();
 			$this->pushResourceColumn( $instanceRow, $instance->getInstanceName(), array( 'class' => 'novainstancename' ) );
 			$this->pushRawResourceColumn( $instanceRow, $this->createResourceLink( $instance->getInstanceId() ), array( 'class' => 'novainstanceid' ) );
-			$this->pushResourceColumn( $instanceRow, $instance->getInstanceState(), array( 'class' => 'novainstancestate' ) );
+			$state = $instance->getInstanceState();
+			$taskState = $instance->getInstanceTaskState();
+			if ( $taskState ) {
+				$stateDisplay = "$state ($taskState)";
+			} else {
+				$stateDisplay = $state;
+			}
+			$this->pushResourceColumn( $instanceRow, $stateDisplay, array( 'class' => 'novainstancestate' ) );
 			$this->pushRawResourceColumn( $instanceRow, $this->createResourceList( $instance->getInstancePrivateIPs() ) );
 			$this->pushRawResourceColumn( $instanceRow, $this->createResourceList( $instance->getInstancePublicIPs() ) );
 			$this->pushRawResourceColumn( $instanceRow, $this->createResourceList( $instance->getSecurityGroups() ) );
