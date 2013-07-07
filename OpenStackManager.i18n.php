@@ -59,13 +59,13 @@ Resource names start with a-z, and can only contain a-z, 0-9, and - characters.'
 	'openstackmanager-nonovacred-admincreate' => 'There were no Nova credentials found for your user account.
 Please ask a Nova administrator to create credentials for you.',
 	'openstackmanager-noaccount' => 'Your account is not in the project $1.',
-	'openstackmanager-noaccount2' => 'You can not complete the action requested as your user account is not in the project $1.',
+	'openstackmanager-noaccount2' => 'You cannot complete the action requested as your user account is not in the project $1.',
 	'openstackmanager-nonexistentresource' => 'The specified resource does not exist.',
 	'openstackmanager-createdomain' => 'Create domain',
 
 	'openstackmanager-deletedomain' => 'Delete domain',
 	'openstackmanager-deletedomain-confirm' => 'Are you sure you wish to delete domain "$1"?
-This action has reprecusions on all VMs.
+This action has repercussions on all VMs.
 Do not take this action lightly!',
 	'openstackmanager-novadomain-domain' => 'Add domain',
 
@@ -165,7 +165,7 @@ You will have an opportunity to configure the instance after it is finished buil
 	'openstackmanager-attachvolumefailed' => 'Failed to attach volume.',
 	'openstackmanager-detachvolume' => 'Detach volume',
 	'openstackmanager-forcedetachment' => 'Force detachment of volume',
-	'openstackmanager-forcedetachmenthelp' => 'Forced detachment is only recommended if the volume can not be detached normally.
+	'openstackmanager-forcedetachmenthelp' => 'Forced detachment is only recommended if the volume cannot be detached normally.
 It can result in volume corruption and data loss.',
 	'openstackmanager-detachedvolume' => 'Successfully detached volume.',
 	'openstackmanager-detachvolumefailed' => 'Failed to detach volume.',
@@ -191,7 +191,7 @@ It can result in volume corruption and data loss.',
 	'openstackmanager-addmember' => 'Add member',
 	'openstackmanager-removemember' => 'Remove member',
 	'openstackmanager-removeprojectconfirm' => 'Are you sure you wish to delete project "$1"?
-This action has reprecusions on all VMs.
+This action has repercussions on all VMs.
 Do not take this action lightly!',
 
 	'openstackmanager-notinservicegroup' => 'Not in service group',
