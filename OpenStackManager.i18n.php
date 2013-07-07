@@ -543,7 +543,7 @@ Parameters:
 	'openstackmanager-nonexistentresource' => 'Used as error message in Special:NovaPuppetGroup.',
 	'openstackmanager-createdomain' => 'Page title',
 	'openstackmanager-deletedomain' => 'Used as page title in Special:NovaDomain.',
-	'openstackmanager-deletedomain-confirm' => 'Used in Special:NovaAdmin.
+	'openstackmanager-deletedomain-confirm' => 'Used in [[Special:NovaAdmin]].
 
 Parameters:
 * $1 - domain name',
@@ -5475,7 +5475,7 @@ $messages['hsb'] = array(
 	'openstackmanager-actions' => 'Akcije',
 	'openstackmanager-notloggedin' => 'Přizjewjenje trěbne',
 	'openstackmanager-mustbeloggedin' => 'Dyrbiš přizjewjeny być, zo by tutu akciju wuwjedł.',
-	'openstackmanager-noaccount' => 'Twoje konto w požadanym projekće njeje.', # Fuzzy
+	'openstackmanager-noaccount' => 'Twoje konto w projekće $1 njeje.',
 	'openstackmanager-nonexistentresource' => 'Podata resursa njeeksistuje.',
 	'openstackmanager-createdomain' => 'Domenu wutworić',
 	'openstackmanager-deletedomain' => 'Domenu zhašeć',
@@ -5570,7 +5570,7 @@ $messages['hsb'] = array(
 	'openstackmanager-setprojects' => 'Projektowy filter je so wuspěšnje stajił.',
 	'openstackmanager-toggle' => 'Přepinać',
 	'openstackmanager-roles' => 'Róle',
-	'openstackmanager-rolename' => 'Rólowe mjeno', # Fuzzy
+	'openstackmanager-rolename' => 'Róla',
 	'openstackmanager-removerolemember' => 'Čłona wotstronić',
 	'openstackmanager-addrolemember' => 'Čłona přidać',
 	'openstackmanager-rolelist' => 'Lisćina globalnych rólow',
