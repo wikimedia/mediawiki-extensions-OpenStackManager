@@ -174,6 +174,8 @@ $wgAutoloadClasses['SpecialNova'] = $dir . 'special/SpecialNova.php';
 $wgAutoloadClasses['ApiNovaInstance'] = $dir . 'api/ApiNovaInstance.php';
 $wgAutoloadClasses['ApiNovaAddress'] = $dir . 'api/ApiNovaAddress.php';
 $wgAutoloadClasses['ApiNovaProjects'] = $dir . 'api/ApiNovaProjects.php';
+$wgAutoloadClasses['ApiNovaProjectLimits'] = $dir . 'api/ApiNovaProjectLimits.php';
+$wgAutoloadClasses['ApiNovaServiceGroups'] = $dir . 'api/ApiNovaServiceGroups.php';
 $wgAutoloadClasses['Spyc'] = $dir . 'Spyc.php';
 $wgAutoloadClasses['OpenStackManagerNotificationFormatter'] = $dir . 'OpenStackManagerNotificationFormatter.php';
 $wgAutoloadClasses['OpenStackManagerEvent'] = $dir . 'OpenStackManagerEvent.php';
@@ -270,6 +272,8 @@ $wgResourceModules['ext.openstack.Address'] = array(
 $wgAPIModules['novainstance'] = 'ApiNovaInstance';
 $wgAPIModules['novaaddress'] = 'ApiNovaAddress';
 $wgAPIModules['novaprojects'] = 'ApiNovaProjects';
+$wgAPIModules['novaservicegroups'] = 'ApiNovaServiceGroups';
+$wgAPIModules['novaprojectlimits'] = 'ApiNovaProjectLimits';
 
 # Schema changes
 $wgHooks['LoadExtensionSchemaUpdates'][] = 'efOpenStackSchemaUpdates';

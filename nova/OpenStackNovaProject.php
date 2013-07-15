@@ -46,6 +46,9 @@ class OpenStackNovaProject {
 		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN,
 								'(&(cn=' . $this->projectname . ')(objectclass=groupofnames))' );
 		$this->projectInfo = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
+		if ( $this->projectInfo['count'] === 0 ) {
+			return;
+		}
 		$this->projectDN = $this->projectInfo[0]['dn'];
 		$this->roles = array();
 		foreach ( self::$rolenames as $rolename ) {

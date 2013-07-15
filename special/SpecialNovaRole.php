@@ -44,7 +44,7 @@ class SpecialNovaRole extends SpecialNova {
 		$rolename = $this->getRequest()->getText( 'rolename' );
 		$projectname = $this->getRequest()->getText( 'projectname' );
 		if ( $projectname ) {
-			if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( $rolename, $projectname, true ) ) {
+			if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( $rolename, $projectname ) ) {
 				$this->displayRestrictionError();
 				return false;
 			}
@@ -112,7 +112,7 @@ class SpecialNovaRole extends SpecialNova {
 		$rolename = $this->getRequest()->getText( 'rolename' );
 		$projectname = $this->getRequest()->getText( 'projectname' );
 		if ( $projectname ) {
-			if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( $rolename, $projectname, true ) ) {
+			if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( $rolename, $projectname ) ) {
 				$this->displayRestrictionError();
 				return false;
 			}

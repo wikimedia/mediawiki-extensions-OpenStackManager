@@ -60,6 +60,36 @@ class OpenStackNovaServiceGroup {
 	/**
 	 * @return array
 	 */
+	function getUidMembers() {
+		global $wgAuth;
+		global $wgOpenStackManagerLDAPDomain;
+
+		$members = array();
+		if ( isset( $this->groupInfo[0]['member'] ) ) {
+			$memberdns = $this->groupInfo[0]['member'];
+			if ( $memberdns['count'] === 0 ) {
+				return $members;
+			}
+			array_shift( $memberdns );
+			foreach ( $memberdns as $memberdn ) {
+				$info = explode( ',', $memberdn );
+				$info = explode( '=', $info[0] );
+				$attr = $info[0];
+				$member = $info[1];
+				if ( $attr === 'uid' ) {
+					$members[] = $member;
+				} else {
+					$userInfo = $wgAuth->getUserInfoStateless( $memberdn );
+					$members[] = $userInfo[0]['uid'][0];
+				}
+			}
+		}
+		return $members;
+	}
+
+	/**
+	 * @return array
+	 */
 	function getMembers() {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPDomain;
