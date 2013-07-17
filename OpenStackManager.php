@@ -130,6 +130,8 @@ $wgSshKeygen = 'ssh-keygen';
  * Path to the puttygen utility. Used for converting ssh key formats. False to disable its use.
  */
 $wgPuttygen = 'puttygen';
+// Custom namespace for projects
+$wgOpenStackManagerProjectNamespace = NS_NOVA_RESOURCE;
 
 $dir = dirname( __FILE__ ) . '/';
 
