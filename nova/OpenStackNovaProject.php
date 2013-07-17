@@ -865,7 +865,7 @@ class OpenStackNovaProject {
 	}
 
 	function editArticle() {
-		global $wgOpenStackManagerCreateProjectSALPages;
+		global $wgOpenStackManagerCreateProjectSALPages, $wgOpenStackManagerProjectNamespace;
 
 		if ( ! OpenStackNovaArticle::canCreatePages() ) {
 			return;
@@ -897,10 +897,10 @@ RESOURCEINFO;
 			implode( ',', $admins ),
 			implode( ',', $members )
 		);
-		OpenStackNovaArticle::editArticle( $this->getProjectName(), $text );
+		OpenStackNovaArticle::editArticle( $this->getProjectName(), $text, $wgOpenStackManagerProjectNamespace );
 		if ( $wgOpenStackManagerCreateProjectSALPages ) {
 			$pagename = $this->getProjectName() . "/SAL";
-			$id = Title::newFromText( $pagename, NS_NOVA_RESOURCE )->getArticleId();
+			$id = Title::newFromText( $pagename, $wgOpenStackManagerProjectNamespace )->getArticleId();
 			$article = Article::newFromId( $id );
 			$content = '';
 			if ( $article ) {
@@ -908,12 +908,13 @@ RESOURCEINFO;
 			}
 			$text = "{{SAL|Project Name=" . $this->getProjectName() . "}}";
 			if ( !strstr( $content, $text ) ) {
-				OpenStackNovaArticle::editArticle( $pagename, $text );
+				OpenStackNovaArticle::editArticle( $pagename, $text, $wgOpenStackManagerProjectNamespace );
 			}
 		}
 	}
 
 	function deleteArticle() {
-		OpenStackNovaArticle::deleteArticle( $this->getProjectName() );
+		global $wgOpenStackManagerProjectNamespace;
+		OpenStackNovaArticle::deleteArticle( $this->getProjectName(), $wgOpenStackManagerProjectNamespace );
 	}
 }

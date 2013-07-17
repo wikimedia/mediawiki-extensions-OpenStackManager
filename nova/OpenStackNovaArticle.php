@@ -14,23 +14,23 @@ class OpenStackNovaArticle {
 		return $wgOpenStackManagerCreateResourcePages;
 	}
 
-	public static function editArticle( $titletext, $text ) {
-		$title = Title::newFromText( $titletext, NS_NOVA_RESOURCE );
+	public static function editArticle( $titletext, $text, $namespace=NS_NOVA_RESOURCE ) {
+		$title = Title::newFromText( $titletext, $namespace );
 		$article = WikiPage::factory( $title );
 		$article->doEdit( $text, '' );
 	}
 
-	public static function getText( $titletext ) {
-		$title = Title::newFromText( $titletext, NS_NOVA_RESOURCE );
+	public static function getText( $titletext, $namespace=NS_NOVA_RESOURCE ) {
+		$title = Title::newFromText( $titletext, $namespace );
 		$article = WikiPage::factory( $title );
 		return $article->getText();
 	}
 
-	public static function deleteArticle( $titletext ) {
+	public static function deleteArticle( $titletext, $namespace=NS_NOVA_RESOURCE ) {
 		if ( ! OpenStackNovaArticle::canCreatePages() ) {
 			return;
 		}
-		$title = Title::newFromText( $titletext, NS_NOVA_RESOURCE );
+		$title = Title::newFromText( $titletext, $namespace );
 		$article = WikiPage::factory( $title );
 		$article->doDeleteArticle( '' );
 	}
