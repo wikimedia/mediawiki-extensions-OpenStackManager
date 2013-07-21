@@ -2564,6 +2564,14 @@ Musí začínat písmenem a–z a může obsahovat jen malé znaky a–z, 0–9 
 	'echo-category-title-osm-instance-reboot-completed' => 'dokončení restartu instance',
 );
 
+/** Church Slavic (словѣ́ньскъ / ⰔⰎⰑⰂⰡⰐⰠⰔⰍⰟ)
+ * @author ОйЛ
+ */
+$messages['cu'] = array(
+	'openstackmanager-name' => 'имѧ',
+	'openstackmanager-sudoerusers' => 'польꙃєватєлє',
+);
+
 /** Danish (dansk)
  * @author Luckas
  */
