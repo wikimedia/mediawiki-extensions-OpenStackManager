@@ -2500,6 +2500,7 @@ $messages['ca'] = array(
 $messages['ce'] = array(
 	'openstackmanager-delete' => 'дӀаяккха',
 	'openstackmanager-notloggedin' => 'Хьай цӀарца чугӀо',
+	'openstackmanager-members' => 'Декъашхо',
 );
 
 /** Czech (česky)
@@ -6333,11 +6334,11 @@ $messages['it'] = array(
 	'openstackmanager-createfailedldap' => "Errore durante la creazione dell'istanza ed il nome host non può essere aggiunto a LDAP.",
 	'openstackmanager-createinstancefailed' => "Errore durante la creazione dell'istanza.",
 	'openstackmanager-backinstancelist' => "Ritorna all'elenco delle istanze",
-	'openstackmanager-deletedinstance' => 'Istanza cancellata $1.',
-	'openstackmanager-deletedinstance-faileddns' => 'Cancellazione istanza riuscita, ma errore durante la rimozione della voce DNS $1.',
+	'openstackmanager-deletedinstance' => 'Istanza cancellata $1 ($2).',
+	'openstackmanager-deletedinstance-faileddns' => 'Cancellazione istanza $1 ($2) riuscita, ma errore durante la rimozione della sua voce DNS.',
 	'openstackmanager-modifiedinstance' => "Modifica riuscita per l'istanza $1 ($2).",
 	'openstackmanager-modifyinstancefailed' => "Errore durante la modifica dell'istanza.",
-	'openstackmanager-deleteinstancefailed' => "Errore durante la cancellazione dell'istanza.",
+	'openstackmanager-deleteinstancefailed' => "Errore durante la cancellazione dell'istanza $1 ($2).",
 	'openstackmanager-consoleoutput' => 'Output della console per $1 ($2)',
 	'openstackmanager-getconsoleoutput' => 'ottieni output della console',
 	'openstackmanager-createvolume' => 'Crea volume',
