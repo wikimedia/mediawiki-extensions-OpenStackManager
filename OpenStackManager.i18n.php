@@ -2499,8 +2499,10 @@ $messages['ca'] = array(
  */
 $messages['ce'] = array(
 	'openstackmanager-delete' => 'дӀаяккха',
+	'openstackmanager-actions' => 'Дийраш',
 	'openstackmanager-notloggedin' => 'Хьай цӀарца чугӀо',
 	'openstackmanager-members' => 'Декъашхо',
+	'openstackmanager-action' => 'Дийраш',
 );
 
 /** Czech (česky)
