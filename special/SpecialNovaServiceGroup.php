@@ -60,16 +60,37 @@ class SpecialNovaServiceGroup extends SpecialNova {
 					$member_keys[$projectmember] = $projectmember;
 				}
 			}
-			if ( ! $member_keys ) {
+
+			$servicemembers = $project->getServiceUsers();
+			$groupName = $this->getRequest()->getText( 'servicegroupname' );
+			foreach ( $servicemembers as $servicemember ) {
+				if ( $servicemember != $groupName ) {
+					if ( ! in_array( $servicemember, $groupmembers ) ) {
+						$servicemember_keys[$servicemember] = $servicemember;
+					}
+				}
+			}
+
+			if ( ( ! $member_keys ) and ( ! $servicemember_keys ) ) {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-nomemberstoadd' );
 				return true;
 			}
-			$groupInfo['members'] = array(
-				'type' => 'multiselect',
-				'label-message' => 'openstackmanager-member',
-				'options' => $member_keys,
-				'name' => 'members',
-			);
+			if ( $member_keys ) {
+				$groupInfo['members'] = array(
+					'type' => 'multiselect',
+					'label-message' => 'openstackmanager-member',
+					'options' => $member_keys,
+					'name' => 'members',
+				);
+			}
+			if ( $servicemember_keys ) {
+				$groupInfo['servicemembers'] = array(
+					'type' => 'multiselect',
+					'label-message' => 'openstackmanager-serviceuser',
+					'options' => $servicemember_keys,
+					'name' => 'servicemembers',
+				);
+			}
 		} else {
 			//TODO: display error
 		}
@@ -129,20 +150,38 @@ class SpecialNovaServiceGroup extends SpecialNova {
 					$member_keys[$projectmember] = $projectmember;
 				}
 			}
+
+			$servicemembers = $project->getServiceUsers();
+			foreach ( $servicemembers as $servicemember ) {
+				if ( in_array( $servicemember, $groupMembers ) ) {
+					$servicemember_keys[$servicemember] = $servicemember;
+				}
+			}
+
 		} else {
 			//TODO: display error
 		}
-		if ( ! $member_keys ) {
+		if ( ( ! $member_keys ) and ( ! $servicemember_keys ) ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-nomemberstoremove' );
 			return true;
 		}
 		$groupInfo = array();
-		$groupInfo['members'] = array(
-			'type' => 'multiselect',
-			'label-message' => 'openstackmanager-member',
-			'options' => $member_keys,
-			'name' => 'members',
-		);
+		if ( $member_keys ) {
+			$groupInfo['members'] = array(
+				'type' => 'multiselect',
+				'label-message' => 'openstackmanager-member',
+				'options' => $member_keys,
+				'name' => 'members',
+			);
+		}
+		if ( $servicemember_keys ) {
+			$groupInfo['servicemembers'] = array(
+				'type' => 'multiselect',
+				'label-message' => 'openstackmanager-serviceuser',
+				'options' => $servicemember_keys,
+				'name' => 'servicemembers',
+			);
+		}
 		$groupInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'deletemember',
@@ -188,6 +227,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 			}
 			$group = OpenStackNovaServiceGroup::getServiceGroupByName( $formData['servicegroupname'], $project );
 			$members = $formData['members'];
+			$servicemembers = $formData['servicemembers'];
 		} else {
 			//TODO: display error
 		}
@@ -201,6 +241,15 @@ class SpecialNovaServiceGroup extends SpecialNova {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-addedto', $member, $formData['servicegroupname'] );
 			} else {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoadd', $member, $formData['servicegroupname'] );
+			}
+		}
+
+		foreach ( $servicemembers as $servicemember ) {
+			$success = $group->addServiceMember( $servicemember );
+			if ( $success ) {
+				$this->getOutput()->addWikiMsg( 'openstackmanager-addedto', $servicemember, $formData['servicegroupname'] );
+			} else {
+				$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoadd', $servicemember, $formData['servicegroupname'] );
 			}
 		}
 
@@ -245,6 +294,14 @@ class SpecialNovaServiceGroup extends SpecialNova {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-removedfrom', $member, $formData['servicegroupname'] );
 			} else {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoremove', $member, $formData['servicegroupname'] );
+			}
+		}
+		foreach ( $formData['servicemembers'] as $servicemember ) {
+			$success = $group->deleteServiceMember( $servicemember );
+			if ( $success ) {
+				$this->getOutput()->addWikiMsg( 'openstackmanager-removedfrom', $servicemember, $formData['servicegroupname'] );
+			} else {
+				$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoremove', $servicemember, $formData['servicegroupname'] );
 			}
 		}
 

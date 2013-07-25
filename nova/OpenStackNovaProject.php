@@ -87,6 +87,23 @@ class OpenStackNovaProject {
 		} else {
 			$this->serviceGroups = array();
 		}
+
+		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn,
+				$this->getServiceUserOUDN(),
+				'(objectclass=person)' );
+
+		if ( $result ) {
+			$this->serviceUsers = array();
+			$userList = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
+			if ( isset( $userList ) ) {
+				array_shift( $userList );
+				foreach ( $userList as $userEntry ) {
+					$this->serviceUsers[] = $userEntry['cn'][0];
+				}
+			}
+		} else {
+			$this->serviceUsers = array();
+		}
 	}
 
 	/**
@@ -156,6 +173,14 @@ class OpenStackNovaProject {
 	 */
 	function getServiceGroups() {
 		return $this->serviceGroups;
+	}
+
+	/**
+	 * Return all service users for this project
+	 * @return array
+	 */
+	function getServiceUsers() {
+		return $this->serviceUsers;
 	}
 
 	/**

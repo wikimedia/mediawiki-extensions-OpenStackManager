@@ -209,6 +209,7 @@ This may disable tools or bots that run using this group.',
 	'openstackmanager-removedservicegroup' => 'Deleted service group.',
 	'openstackmanager-removeservicegroupfailed' => 'Failed to delete service group.',
 	'openstackmanager-servicegroups' => 'Service groups',
+	'openstackmanager-serviceuser' => 'Service user',
 	'openstackmanager-nonexistentservicegroup' => 'The requested service group does not exist.',
 	'openstackmanager-configureproject' => 'Configure project $1',
 	'openstackmanager-configureproject-sharedhomedirs' => 'Share home directories across instances',
@@ -897,6 +898,7 @@ The page title for this message is {{msg-mw|Openstackmanager-notinservicegroup}}
 	'openstackmanager-removeservicegroupfailed' => 'Informs that deletion of a service group failed',
 	'openstackmanager-servicegroups' => 'Column header for a set of service groups and their related info.
 {{Identical|Service group}}',
+	'openstackmanager-serviceuser' => 'Label for a group of checkboxes.  A service user is a special member of a service group, used for running tools.',
 	'openstackmanager-nonexistentservicegroup' => 'Appears when adding a user to a service group but the group does not exist',
 	'openstackmanager-configureproject' => 'Used as page title in Special:NovaProject. Parameters:
 * $1 - project name',

@@ -135,6 +135,71 @@ class OpenStackNovaServiceGroup {
 	}
 
 	/**
+	 * @param  $serviceusername
+	 * @return bool
+	 */
+	function deleteServiceMember( $serviceUserName ) {
+		global $wgAuth;
+
+		if ( isset( $this->groupInfo[0]['member'] ) ) {
+			$members = $this->groupInfo[0]['member'];
+			array_shift( $members );
+
+			$userDN = "uid=" . $serviceUserName . "," . $this->usersDN ;
+			$index = array_search( $userDN, $members );
+			if ( $index === false ) {
+				$wgAuth->printDebug( "Failed to find $userDN in member list", NONSENSITIVE );
+				return false;
+			}
+			unset( $members[$index] );
+			$values = array();
+			$values['member'] = array();
+			foreach ( $members as $member ) {
+				$values['member'][] = $member;
+			}
+			$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->groupDN, $values );
+			if ( $success ) {
+				$this->fetchGroupInfo();
+				$wgAuth->printDebug( "Successfully removed $userDN from $this->groupDN", NONSENSITIVE );
+				return true;
+			} else {
+				$wgAuth->printDebug( "Failed to remove $userDN from $this->groupDN", NONSENSITIVE );
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * @param  $serviceUserName
+	 * @return bool
+	 */
+	function addServiceMember( $serviceUserName ) {
+		global $wgAuth;
+
+		$members = array();
+		if ( isset( $this->groupInfo[0]['member'] ) ) {
+			$members = $this->groupInfo[0]['member'];
+			array_shift( $members );
+		}
+
+		$userDN = "uid=" . $serviceUserName . "," . $this->usersDN ;
+		$members[] = $userDN;
+		$values = array();
+		$values['member'] = $members;
+		$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->groupDN, $values );
+		if ( $success ) {
+			$this->fetchGroupInfo();
+			$wgAuth->printDebug( "Successfully added $userDN to $this->groupDN", NONSENSITIVE );
+			return true;
+		} else {
+			$wgAuth->printDebug( "Failed to add $userDN to $this->groupDN", NONSENSITIVE );
+			return false;
+		}
+	}
+
+	/**
 	 * @param  $username
 	 * @return bool
 	 */
