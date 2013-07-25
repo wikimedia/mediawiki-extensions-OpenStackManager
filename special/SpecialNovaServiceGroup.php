@@ -89,6 +89,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 					'label-message' => 'openstackmanager-serviceuser',
 					'options' => $servicemember_keys,
 					'name' => 'servicemembers',
+					'help-message' => 'openstackmanager-servicegrouprecursewarning',
 				);
 			}
 		} else {

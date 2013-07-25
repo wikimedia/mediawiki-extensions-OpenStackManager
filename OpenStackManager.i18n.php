@@ -204,6 +204,9 @@ Do not take this action lightly!',
 	'openstackmanager-removeservicegroupmember' => 'Remove user',
 	'openstackmanager-removeservicegroupconfirm' => 'Are you sure you wish to delete service group "$1"?
 This may disable tools or bots that run using this group.',
+	'openstackmanager-servicegrouprecursewarning' => 'Beware!  Adding a service user to this group will allow all members of that group to access this group. 
+It will also allow access to members of any group added to that group, and so on.  Make sure you trust everyone
+and know what you are doing before selecting anything in the Service User section.',
 	'openstackmanager-createservicegroupfailed' => 'Failed to create service group.',
 	'openstackmanager-createdservicegroup' => 'Created service group.',
 	'openstackmanager-removedservicegroup' => 'Deleted service group.',
@@ -892,6 +895,7 @@ The page title for this message is {{msg-mw|Openstackmanager-notinservicegroup}}
 	'openstackmanager-addservicegroupmember' => 'Text of link that allows addition of a user to a service group',
 	'openstackmanager-removeservicegroupmember' => 'Text of link that allows removal of a user from a service group',
 	'openstackmanager-removeservicegroupconfirm' => 'Text of page that confirms deletion of a service group',
+	'openstackmanager-servicegrouprecursewarning' => 'Warning about the risk of adding service users to service groups',
 	'openstackmanager-createservicegroupfailed' => 'Informs user that creation of a service group has failed',
 	'openstackmanager-createdservicegroup' => 'Informs user that creation of a service group succeeded',
 	'openstackmanager-removedservicegroup' => 'Informs user that deletion of a service group succeeded',
