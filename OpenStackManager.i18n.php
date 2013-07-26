@@ -2757,6 +2757,9 @@ $messages['de'] = array(
 	'openstackmanager-removeservicegroupmember' => 'Benutzer entfernen',
 	'openstackmanager-removeservicegroupconfirm' => 'Bist du sicher, dass die Dienstegruppe „$1“ gelöscht werden soll?
 Dies deaktiviert Werkzeuge oder laufende Bots, die diese Gruppe verwenden.',
+	'openstackmanager-servicegrouprecursewarning' => 'Vorsicht! Das Hinzufügen eines Dienstebenutzers zu dieser Gruppe erlaubt allen Mitgliedern dieser Gruppe den Zugriff auf diese Gruppe.
+Es wird auch den Zugriff auf Mitgliedern einer beliebigen Gruppe ermöglichen, die zu dieser Gruppe hinzugefügt wurden usw. Stelle sicher, dass du jedem
+vertraust und dass du weißt, was du tust, bevor du etwas in den Dienstebenutzerabschnitt auswählst.',
 	'openstackmanager-createservicegroupfailed' => 'Dienstegruppe konnte nicht erstellt werden.',
 	'openstackmanager-createdservicegroup' => 'Dienstegruppe erstellt.',
 	'openstackmanager-removedservicegroup' => 'Löschte Dienstegruppe.',
@@ -4077,11 +4080,15 @@ $messages['fr'] = array(
 	'openstackmanager-addservicegroupmember' => "Ajouter l'utilisateur au groupe service",
 	'openstackmanager-removeservicegroupmember' => "Supprimer l'utilisateur",
 	'openstackmanager-removeservicegroupconfirm' => 'Êtes-vous sûr de vouloir supprimer le groupe de service " $1 "? !N !Cela risque de désactiver des outils ou des robots nécessitant ce groupe pour fonctionner.',
+	'openstackmanager-servicegrouprecursewarning' => 'Attention ! Ajouter un utilisateur de service à ce groupe autorisera tous les membres de ce groupe à y accéder.
+Cela permettra aussi d’accéder à tous les membres d’un groupe quelconque ajouté à ce groupe, et ainsi de suite. Soyez sûr de pouvoir faire confiance à tout le monde
+et comprenez ce que vous faites avant de sélectionner quoi que ce soit dans la section Utilisateur de service.',
 	'openstackmanager-createservicegroupfailed' => 'Impossible de créer le groupe de sécurité.',
 	'openstackmanager-createdservicegroup' => 'Groupe de service créé.',
 	'openstackmanager-removedservicegroup' => 'Groupe de service supprimé.',
 	'openstackmanager-removeservicegroupfailed' => 'Impossible de supprimer le groupe de sécurité.',
 	'openstackmanager-servicegroups' => 'Groupes de service',
+	'openstackmanager-serviceuser' => 'Utilisateur de service',
 	'openstackmanager-nonexistentservicegroup' => "Le groupe de service demandé n'existe pas.",
 	'openstackmanager-configureproject' => 'Configurer le projet $1',
 	'openstackmanager-configureproject-sharedhomedirs' => 'Partager les répertoires personnels entre les instances',
@@ -6766,11 +6773,15 @@ $messages['ja'] = array(
 	'openstackmanager-removeservicegroupmember' => '利用者を除去',
 	'openstackmanager-removeservicegroupconfirm' => 'サービス グループ「$1」を本当に削除しますか?
 削除すると、このグループで実行するツールやボットが無効になる場合があります。',
+	'openstackmanager-servicegrouprecursewarning' => 'ご注意ください! このグループにサービス利用者を追加すると、グループのすべてのメンバーがこのグループにアクセスできるようになります。
+It will also allow access to members of any group added to that group, and so on.  Make sure you trust everyone
+and know what you are doing before selecting anything in the Service User section.', # Fuzzy
 	'openstackmanager-createservicegroupfailed' => 'サービス グループの作成に失敗しました。',
 	'openstackmanager-createdservicegroup' => 'サービス グループを作成しました。',
 	'openstackmanager-removedservicegroup' => 'サービス グループを削除しました。',
 	'openstackmanager-removeservicegroupfailed' => 'サービス グループの削除に失敗しました。',
 	'openstackmanager-servicegroups' => 'サービス グループ',
+	'openstackmanager-serviceuser' => 'サービス利用者',
 	'openstackmanager-nonexistentservicegroup' => '指定したサービス グループは存在しません。',
 	'openstackmanager-configureproject-sharedhomedirs' => 'ホームディレクトリを複数のインスタンス間で共有する',
 	'openstackmanager-configureproject-sharedstorage' => 'プロジェクト共有ストレージを作成する',
@@ -8200,11 +8211,15 @@ $messages['mk'] = array(
 	'openstackmanager-removeservicegroupmember' => 'Отстрани корисник',
 	'openstackmanager-removeservicegroupconfirm' => 'Дали сте сигурни дека сакате да ја избришете службената група „$1“?
 Со ова може да ги исклучите алатките или ботовите што работат преку неа.',
+	'openstackmanager-servicegrouprecursewarning' => 'Внимавајте! Додавајќи службен корисни на групава ќе им овозможи пристап до групава на сите од таа група.
+Со тоа пристап ќе имаат и членовите на групата додадени во таа група и така натаму. Проверете дали сите лица се доверливи
+и дека знаете што правите пред да правите било што во одделот Службен корисник.',
 	'openstackmanager-createservicegroupfailed' => 'Не успеав да ја создадам службената група.',
 	'openstackmanager-createdservicegroup' => 'Службената група е созадена.',
 	'openstackmanager-removedservicegroup' => 'Службената група е избришана.',
 	'openstackmanager-removeservicegroupfailed' => 'Не успеав да ја избришам службената група.',
 	'openstackmanager-servicegroups' => 'Службени групи',
+	'openstackmanager-serviceuser' => 'Службен корисник',
 	'openstackmanager-nonexistentservicegroup' => 'Побараната службена група не постои.',
 	'openstackmanager-configureproject' => 'Поставување на проектот $1',
 	'openstackmanager-configureproject-sharedhomedirs' => 'Споделувај матични директориуми кај сите примероци',
@@ -10520,9 +10535,9 @@ $messages['roa-tara'] = array(
 	'openstackmanager-createinstance' => "Aggiunge 'n'istanze",
 	'openstackmanager-invaliddomain' => "'U dominie cercate jè invalide.",
 	'openstackmanager-backinstancelist' => "Tuèrne a l'elenghe de le istanze",
-	'openstackmanager-deletedinstance' => 'Istanze $1 scangellate.',
+	'openstackmanager-deletedinstance' => 'Istanze $1 scangellate ($2).',
 	'openstackmanager-modifyinstancefailed' => "Non g'ète state possibbele cangià l'istanze.",
-	'openstackmanager-deleteinstancefailed' => "Non g'ète state possibbele scangellà l'istanze.",
+	'openstackmanager-deleteinstancefailed' => "Non g'ha state possibbile scangellà l'istanze $1 ($2).",
 	'openstackmanager-createvolume' => "Ccreje 'nu Volume",
 	'openstackmanager-volumename' => "Nome d'u Volume",
 	'openstackmanager-volumeid' => "ID d'u Volume",
