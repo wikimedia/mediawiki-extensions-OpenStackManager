@@ -4797,11 +4797,15 @@ $messages['gl'] = array(
 	'openstackmanager-removeservicegroupmember' => 'Eliminar o usuario',
 	'openstackmanager-removeservicegroupconfirm' => 'Está seguro de querer borrar o grupo de servizo "$1"?
 Isto pode desactivar as ferramentas ou os bots que necesitan este grupo para funcionar.',
+	'openstackmanager-servicegrouprecursewarning' => 'Atención! Engadir un usuario de servizo a este grupo ha permitir a todos os membros dese grupo acceder a este grupo.
+Tamén dará acceso aos membros de calquera grupo engadido a ese grupo e así sucesivamente. Asegúrese de que confía en todos
+e de que sabe o que fai antes de seleccionar nada na sección "Usuario de servizo".',
 	'openstackmanager-createservicegroupfailed' => 'Erro ao crear o grupo de servizo.',
 	'openstackmanager-createdservicegroup' => 'Creouse o grupo de servizo.',
 	'openstackmanager-removedservicegroup' => 'Borrouse o grupo de servizo.',
 	'openstackmanager-removeservicegroupfailed' => 'Erro ao borrar o grupo de servizo.',
 	'openstackmanager-servicegroups' => 'Grupos de servizo',
+	'openstackmanager-serviceuser' => 'Usuario de servizo',
 	'openstackmanager-nonexistentservicegroup' => 'O grupo de servizo solicitado non existe.',
 	'openstackmanager-configureproject' => 'Configurar o proxecto $1',
 	'openstackmanager-configureproject-sharedhomedirs' => 'Compartir os directorios de inicio entre as instancias',
@@ -10037,7 +10041,7 @@ $messages['pt'] = array(
 	'openstackmanager' => 'OpenStackManager',
 	'openstackmanager-instance' => 'Gerir instância',
 	'openstackmanager-title' => 'OpenStackManager',
-	'openstackmanager-badresourcename' => 'O nome do recurso está incorrecto. Os nomes dos recursos começam por um carácter a-z, e só podem conter os caracteres a-z, 0-9. "-" e "_".',
+	'openstackmanager-badresourcename' => 'O nome do recurso está incorreto. Os nomes dos recursos começam por um caractere a-z, e só podem conter os caracteres a-z, 0-9. "-" e "_".',
 	'action-listall' => 'exibir as informações de todos os recursos',
 	'action-managednsdomain' => 'Gerir domínios DNS',
 	'action-manageglobalpuppet' => 'gerir informações globais de Puppet',
