@@ -10219,7 +10219,7 @@ $messages['pt'] = array(
 	'openstackmanager-allocateaddressfailed' => 'Não foi possível atribuir um endereço IP público novo.',
 	'openstackmanager-allocatedaddress' => 'Foi atribuído o endereço IP público novo: $1',
 	'openstackmanager-backaddresslist' => 'Voltar à lista de endereços',
-	'openstackmanager-allocateaddress-confirm' => 'Tem a certeza de que pretende atribuir um endereço IP público novo no projecto $1?',
+	'openstackmanager-allocateaddress-confirm' => 'Tem a certeza de que pretende atribuir um endereço IP público novo no projeto $1?',
 	'openstackmanager-releasedaddress' => 'Foi libertado o endereço: $1',
 	'openstackmanager-releaseaddressfailed' => 'Não foi possível libertar o endereço: $1',
 	'openstackmanager-cannotreleaseaddress' => 'Não é possível libertar um endereço que tenha entradas DNS ou esteja associado a uma instância. Remova todas as entradas do servidor e desassocie o endereço IP antes de tentar libertá-lo novamente, por favor.',
@@ -10300,7 +10300,7 @@ $messages['pt'] = array(
 	'openstackmanager-nonexistantsudoer' => 'A política sudo solicitada não existe.',
 	'openstackmanager-email-subject' => 'A sua instância está pronta para receber ligações.',
 	'openstackmanager-email-body' => 'A seguinte instância foi criada e está pronta para receber ligações:',
-	'right-manageproject' => 'Gerir os projectos e funções Openstack',
+	'right-manageproject' => 'Gerir os projetos e funções Openstack',
 );
 
 /** Brazilian Portuguese (português do Brasil)
