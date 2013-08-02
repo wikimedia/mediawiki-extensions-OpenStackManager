@@ -3247,6 +3247,7 @@ $messages['eo'] = array(
 /** Spanish (español)
  * @author Armando-Martin
  * @author Bernardom
+ * @author Fitoschido
  * @author Imre
  * @author Platonides
  * @author Vivaelcelta
@@ -3317,14 +3318,14 @@ $messages['es'] = array(
 	'openstackmanager-deleteinstancequestion' => '¿Está seguro de que desea eliminar la instancia "$1"?',
 	'openstackmanager-instancelist' => 'Lista de instancias',
 	'openstackmanager-instancename' => 'Nombre de la instancia',
-	'openstackmanager-instanceid' => 'ID de la instancia',
+	'openstackmanager-instanceid' => 'Id. de la instancia',
 	'openstackmanager-instancestate' => 'Estado de la instancia',
 	'openstackmanager-instancetype' => 'Tipo de instancia',
 	'openstackmanager-instanceip' => 'Dirección IP de la instancia',
 	'openstackmanager-instancepublicip' => 'IP flotante de la instancia',
 	'openstackmanager-securitygroups' => 'Grupos de seguridad',
 	'openstackmanager-availabilityzone' => 'Zona de disponibilidad',
-	'openstackmanager-imageid' => 'ID de imagen',
+	'openstackmanager-imageid' => 'Id. de la imagen',
 	'openstackmanager-imagetype' => 'Tipo de imagen',
 	'openstackmanager-instancetypelabel' => '{{PLURAL:$1|$1 procesador|$1 procesadores}}, $2 MB de RAM, $3 GB de partición raíz, $4 GB de almacenamiento',
 	'openstackmanager-rebootinstance' => 'Reiniciar instancia',
@@ -3340,16 +3341,16 @@ $messages['es'] = array(
 	'openstackmanager-createfailedldap' => 'Error al crear la instancia. El servidor no se pudo agregar a LDAP.',
 	'openstackmanager-createinstancefailed' => 'No se pudo crear la instancia.',
 	'openstackmanager-backinstancelist' => 'Volver a lista de instancias',
-	'openstackmanager-deletedinstance' => 'Borrada la instancia $1',
-	'openstackmanager-deletedinstance-faileddns' => 'Se ha eliminado correctamente la instancia, pero no se logró eliminar la entrada de DNS $1',
+	'openstackmanager-deletedinstance' => 'Borrada la instancia $1', # Fuzzy
+	'openstackmanager-deletedinstance-faileddns' => 'Se ha eliminado correctamente la instancia, pero no se logró eliminar la entrada de DNS $1', # Fuzzy
 	'openstackmanager-modifiedinstance' => 'Instancia modificada con éxito $1 ($2).',
 	'openstackmanager-modifyinstancefailed' => 'Error al modificar la instancia.',
-	'openstackmanager-deleteinstancefailed' => 'Falló el borrado de la instancia.',
+	'openstackmanager-deleteinstancefailed' => 'Falló el borrado de la instancia.', # Fuzzy
 	'openstackmanager-consoleoutput' => 'Salida de la consola para $1 ($2)',
 	'openstackmanager-getconsoleoutput' => 'obtener la salida de la consola',
 	'openstackmanager-createvolume' => 'Crear volumen',
 	'openstackmanager-volumename' => 'Nombre del volumen',
-	'openstackmanager-volumeid' => 'Id de volumen',
+	'openstackmanager-volumeid' => 'Id. del volumen',
 	'openstackmanager-volumedescription' => 'Descripción del volumen',
 	'openstackmanager-volumestate' => 'Estado del volumen',
 	'openstackmanager-volumeattachmentinstance' => 'Asociado a la instancia',
