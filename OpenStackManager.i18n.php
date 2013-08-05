@@ -206,7 +206,7 @@ Do not take this action lightly!',
 This may disable tools or bots that run using this group.',
 	'openstackmanager-servicegrouprecursewarning' => 'Beware!  Adding a service user to this group will allow all members of that group to access this group. 
 It will also allow access to members of any group added to that group, and so on.  Make sure you trust everyone
-and know what you are doing before selecting anything in the Service User section.',
+and know what you are doing before selecting anything in the "{{int:openstackmanager-serviceuser}}" section.',
 	'openstackmanager-createservicegroupfailed' => 'Failed to create service group.',
 	'openstackmanager-createdservicegroup' => 'Created service group.',
 	'openstackmanager-removedservicegroup' => 'Deleted service group.',
