@@ -233,6 +233,42 @@ class OpenStackNovaServiceGroup {
 	 * @param  $username
 	 * @return bool
 	 */
+	function setMembers( $usernames, $serviceUsernames=array() ) {
+		global $wgAuth;
+
+		$members = array();
+		foreach ( $usernames as $username ) {
+			$userDN = "";
+			$user = new OpenStackNovaUser( $username );
+			if ( ! $user->userDN ) {
+				$wgAuth->printDebug( "Failed to find userDN in setMembers", NONSENSITIVE );
+				return false;
+			}
+			$userDN = $user->userDN;
+
+			$members[] = $userDN;
+		}
+		foreach ( $serviceUsernames as $serviceUsername ) {
+			$userDN = "uid=" . $serviceUsername . "," . $this->usersDN;
+			$members[] = $userDN;
+		}
+		$values = array();
+		$values['member'] = $members;
+		$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->groupDN, $values );
+		if ( $success ) {
+			$this->fetchGroupInfo();
+			$wgAuth->printDebug( "Successfully set members for $this->groupDN", NONSENSITIVE );
+			return true;
+		} else {
+			$wgAuth->printDebug( "Failed to set members for $this->groupDN", NONSENSITIVE );
+			return false;
+		}
+	}
+
+	/**
+	 * @param  $username
+	 * @return bool
+	 */
 	function addMember( $username ) {
 		global $wgAuth;
 

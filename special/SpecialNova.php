@@ -213,7 +213,7 @@ abstract class SpecialNova extends SpecialPage {
 			}
 			$table .= Html::rawElement( 'tr', array(), $rowOut );
 		}
-		return Html::rawElement( 'table', array( 'class' => 'wikitable sortable collapsible' ), $table );
+		return Html::rawElement( 'table', array( 'class' => 'wikitable sortable' ), $table );
 	}
 
 	/**
@@ -230,26 +230,23 @@ abstract class SpecialNova extends SpecialPage {
 		$actions = array();
 		foreach ( $actionsByRole as $role => $roleActions ) {
 			foreach ( $roleActions as $action ) {
-				if ( $this->userLDAP->inRole( $role, $projectName ) ) {
+				if ( !$role || $this->userLDAP->inRole( $role, $projectName ) ) {
 					$actions[] = $action;
 				}
 			}
 		}
 		if ( $actions ) {
 			$actions = implode( ', ', $actions );
-			$actions = '<a class="mw-customtoggle-' . htmlentities( $projectName ) .
-				' osm-remotetoggle">' . $this->msg( 'openstackmanager-toggle' )->escaped() . '</a>, ' . $actions;
-			$actionOut = Html::rawElement( 'span', array( 'id' => 'novaaction' ), "[$actions]" );
+			$actions = "[$actions]";
 		} else {
-			$actions = '<a class="mw-customtoggle-' . htmlentities( $projectName ) .
-				' osm-remotetoggle">' . $this->msg( 'openstackmanager-toggle' )->escaped() . '</a>';
-			$actionOut = Html::rawElement( 'span', array( 'id' => 'novaaction' ), "[$actions]" );
+			$actions = "";
 		}
+		$actionOut = Html::rawElement( 'span', array( 'id' => 'novaaction' ), $actions );
 		$projectNameOut = $this->createResourceLink( $projectName );
 		# Mark this element with an id so that we can #link to it from elsewhere.
 		$elementWithId = "h2 id=\"$projectName\"";
 		$out = Html::rawElement( $elementWithId, array(), "$projectNameOut $actionOut" );
-		$out .= Html::rawElement( 'div', array( 'class' => 'mw-collapsible', 'id' => 'mw-customcollapsible-' . $projectName ), $data );
+		$out .= Html::rawElement( 'div', array(), $data );
 
 		return $out;
 	}
@@ -277,14 +274,12 @@ abstract class SpecialNova extends SpecialPage {
 		$escapedregion = htmlentities( $region );
 		if ( $actions ) {
 			$actions = implode( ', ', $actions );
-			$actions = '<a class="mw-customtoggle-' . $escapedregion . ' osm-remotetoggle">' .
-				$this->msg( 'openstackmanager-toggle' )->escaped() . '</a>, ' . $actions;
 			$actionOut = Html::rawElement( 'span', array( 'id' => 'novaaction' ), "[$actions]" );
 		} else {
 			$actionOut = '';
 		}
 		$out = Html::rawElement( 'h3', array(), "$escapedregion $actionOut" );
-		$out .= Html::rawElement( 'div', array( 'class' => 'mw-collapsible', 'id' => 'mw-customcollapsible-' . $region ), $data );
+		$out .= Html::rawElement( 'div', array(), $data );
 
 		return $out;
 	}
