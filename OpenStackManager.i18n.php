@@ -6781,8 +6781,8 @@ $messages['ja'] = array(
 	'openstackmanager-removeservicegroupconfirm' => 'サービス グループ「$1」を本当に削除しますか?
 削除すると、このグループで実行するツールやボットが無効になる場合があります。',
 	'openstackmanager-servicegrouprecursewarning' => 'ご注意ください! このグループにサービス利用者を追加すると、グループのすべてのメンバーがこのグループにアクセスできるようになります。
-It will also allow access to members of any group added to that group, and so on.  Make sure you trust everyone
-and know what you are doing before selecting anything in the Service User section.', # Fuzzy
+It will also allow access to members of any group added to that group, and so on.
+Make sure you trust everyone and know what you are doing before selecting anything in the "{{int:openstackmanager-serviceuser}}" section.', # Fuzzy
 	'openstackmanager-createservicegroupfailed' => 'サービス グループの作成に失敗しました。',
 	'openstackmanager-createdservicegroup' => 'サービス グループを作成しました。',
 	'openstackmanager-removedservicegroup' => 'サービス グループを削除しました。',
@@ -8495,6 +8495,14 @@ $messages['ml'] = array(
 	'openstackmanager-sudoerusers' => 'ഉപയോക്താക്കൾ',
 	'openstackmanager-sudoeroptions' => 'ഐച്ഛികങ്ങൾ',
 	'openstackmanager-puppetallprojects' => 'എല്ലാ പദ്ധതികളും',
+);
+
+/** Marathi (मराठी)
+ * @author V.narsikar
+ */
+$messages['mr'] = array(
+	'openstackmanager-servicegrouprecursewarning' => 'सावधान! या गटास सेवा-सदस्य जोडल्याने,त्या गटाच्या सर्व सदस्यास या गटात पोच करता येईल.
+कोणत्याही गटाच्या सदस्यास पोहोच देण्यास ते परवानगी देईल व याप्रमाणे पुढे."{{int:openstackmanager-serviceuser}}" हा विभागातील काहीही निवडण्यापूर्वी याची खात्री करा कि सर्व सदस्य विश्वासपात्र आहेत व आपण काय करीत आहात याचे आपणास भान आहे.',
 );
 
 /** Malay (Bahasa Melayu)
