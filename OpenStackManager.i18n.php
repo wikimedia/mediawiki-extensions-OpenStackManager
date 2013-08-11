@@ -7930,6 +7930,7 @@ $messages['lb'] = array(
 	'openstackmanager-removerulefailed' => "D'Regel konnt net ewechgeholl ginn.",
 	'openstackmanager-addrule' => 'Regel derbäisetzen',
 	'openstackmanager-addedrule' => 'Regel gouf derbäigesat.',
+	'openstackmanager-commadelimiter' => 'Kommagetrennt',
 	'openstackmanager-sudoerusers' => 'Benotzer',
 	'openstackmanager-sudoeroptions' => 'Optiounen',
 	'openstackmanager-allmembers' => 'All Membere vum Projet',
