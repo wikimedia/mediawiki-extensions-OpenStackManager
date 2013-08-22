@@ -576,8 +576,12 @@ class OpenStackNovaHost {
 		$hostname = $instance->getInstanceName();
 		$instanceid = $instance->getInstanceId();
 		$project = $instance->getProject();
-		$ip = $instance->getInstancePrivateIPs();
-		$ip = $ip[0];
+		$tmpip = $instance->getInstancePrivateIPs();
+		if ( $tmpip && isset( $tmpip[0] ) ) {
+			$ip = $tmpip[0];
+		} else {
+			$ip = null;
+		}
 		$domainname = $domain->getFullyQualifiedDomainName();
 		$host = OpenStackNovaHost::getHostByName( $hostname, $domain );
 		if ( $host ) {
@@ -590,7 +594,9 @@ class OpenStackNovaHost {
 		$hostEntry['objectclass'][] = 'domainrelatedobject';
 		$hostEntry['dc'] = $instanceid;
 		# $hostEntry['l'] = $instance->getInstanceAvailabilityZone();
-		$hostEntry['arecord'] = $ip;
+		if ( $ip ) {
+			$hostEntry['arecord'] = $ip;
+		}
 		$hostEntry['associateddomain'][] = $instanceid . '.' . $domainname;
 		$hostEntry['associateddomain'][] = $hostname . '.' . $domainname;
 		$hostEntry['l'] = $domain->getLocation();

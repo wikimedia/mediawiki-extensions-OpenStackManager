@@ -60,6 +60,36 @@ class OpenStackNovaServiceGroup {
 	/**
 	 * @return array
 	 */
+	function getUidMembers() {
+		global $wgAuth;
+		global $wgOpenStackManagerLDAPDomain;
+
+		$members = array();
+		if ( isset( $this->groupInfo[0]['member'] ) ) {
+			$memberdns = $this->groupInfo[0]['member'];
+			if ( $memberdns['count'] === 0 ) {
+				return $members;
+			}
+			array_shift( $memberdns );
+			foreach ( $memberdns as $memberdn ) {
+				$info = explode( ',', $memberdn );
+				$info = explode( '=', $info[0] );
+				$attr = $info[0];
+				$member = $info[1];
+				if ( $attr === 'uid' ) {
+					$members[] = $member;
+				} else {
+					$userInfo = $wgAuth->getUserInfoStateless( $memberdn );
+					$members[] = $userInfo[0]['uid'][0];
+				}
+			}
+		}
+		return $members;
+	}
+
+	/**
+	 * @return array
+	 */
 	function getMembers() {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPDomain;
@@ -195,6 +225,42 @@ class OpenStackNovaServiceGroup {
 			return true;
 		} else {
 			$wgAuth->printDebug( "Failed to add $userDN to $this->groupDN", NONSENSITIVE );
+			return false;
+		}
+	}
+
+	/**
+	 * @param  $username
+	 * @return bool
+	 */
+	function setMembers( $usernames, $serviceUsernames=array() ) {
+		global $wgAuth;
+
+		$members = array();
+		foreach ( $usernames as $username ) {
+			$userDN = "";
+			$user = new OpenStackNovaUser( $username );
+			if ( ! $user->userDN ) {
+				$wgAuth->printDebug( "Failed to find userDN in setMembers", NONSENSITIVE );
+				return false;
+			}
+			$userDN = $user->userDN;
+
+			$members[] = $userDN;
+		}
+		foreach ( $serviceUsernames as $serviceUsername ) {
+			$userDN = "uid=" . $serviceUsername . "," . $this->usersDN;
+			$members[] = $userDN;
+		}
+		$values = array();
+		$values['member'] = $members;
+		$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->groupDN, $values );
+		if ( $success ) {
+			$this->fetchGroupInfo();
+			$wgAuth->printDebug( "Successfully set members for $this->groupDN", NONSENSITIVE );
+			return true;
+		} else {
+			$wgAuth->printDebug( "Failed to set members for $this->groupDN", NONSENSITIVE );
 			return false;
 		}
 	}

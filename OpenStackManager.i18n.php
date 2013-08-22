@@ -200,8 +200,8 @@ Do not take this action lightly!',
 	'openstackmanager-addservicegroup' => 'Add service group',
 	'openstackmanager-servicegroupname' => 'Service group name',
 	'openstackmanager-removeservicegroup' => 'Remove service group',
-	'openstackmanager-addservicegroupmember' => 'Add user to service group',
-	'openstackmanager-removeservicegroupmember' => 'Remove user',
+	'openstackmanager-manageservicegroupmembers-title' => 'Manage service group membership',
+	'openstackmanager-manageservicegroupmembers' => 'Manage members',
 	'openstackmanager-removeservicegroupconfirm' => 'Are you sure you wish to delete service group "$1"?
 This may disable tools or bots that run using this group.',
 	'openstackmanager-servicegrouprecursewarning' => 'Beware!  Adding a service user to this group will allow all members of that group to access this group.
@@ -220,9 +220,11 @@ Make sure you trust everyone and know what you are doing before selecting anythi
 	'openstackmanager-configureproject-volume' => 'Shared storage',
 	'openstackmanager-configureproject-failed' => 'Failed to change project settings.',
 	'openstackmanager-configureproject-success' => 'Project settings updated.',
+	'openstackmanager-servicegrouplist' => 'Service group list',
 	'openstackmanager-configureproject-servicegroup' => 'Service groups',
 	'openstackmanager-configureproject-serviceuserhome' => 'Service user homedir pattern',
 	'openstackmanager-configureproject-serviceuserinfo' => '(In the homedir pattern, %u will be replaced by the username and %p with "$1".)',
+	'openstackmanager-backservicegrouplist' => 'Back to service group list',
 	'openstackmanager-displayquotas' => 'Quotas for project $1',
 	'openstackmanager-displayquotas-action' => 'Display Quotas',
 	'openstackmanager-displayquotas-ram' => 'RAM: $1/$2',
@@ -245,6 +247,8 @@ Make sure you trust everyone and know what you are doing before selecting anythi
 	'openstackmanager-deleteprojectfailed' => 'Failed to delete project.',
 	'openstackmanager-addedto' => 'Successfully added $1 to $2.',
 	'openstackmanager-failedtoadd' => 'Failed to add $1 to $2.',
+	'openstackmanager-setgroupmembers' => 'Successfully set group members for $1',
+	'openstackmanager-failedtosetgroupmembers' => 'Failed to set group members for $1',
 	'openstackmanager-failedtoaddneedsloginright' => 'Failed to add $1 to $2.
 This needs user $1 to have the "<code>loginviashell</code>" right.',
 	'openstackmanager-removedfrom' => 'Successfully removed $1 from $2.',
@@ -882,6 +886,7 @@ See also:
 * $1 - project name
 The title (page title) for this message is:
 * {{msg-mw|Openstackmanager-deleteproject}}',
+	'openstackmanager-servicegrouplist' => 'Used as page title in Special:NovaServiceGroup.',
 	'openstackmanager-notinservicegroup' => 'Page title for a special page [[Special:NovaServiceGroup]]; security refusal when a user does not belong to a service group.
 
 The page body for this title is the following message:
@@ -892,8 +897,8 @@ The page title for this message is {{msg-mw|Openstackmanager-notinservicegroup}}
 	'openstackmanager-addservicegroup' => 'Text of link that allows creation of a service group',
 	'openstackmanager-servicegroupname' => 'Used as a column header.  A service group is a set of users with access to a particular service in toollabs.',
 	'openstackmanager-removeservicegroup' => 'Text of link that allows deletion of service group',
-	'openstackmanager-addservicegroupmember' => 'Text of link that allows addition of a user to a service group',
-	'openstackmanager-removeservicegroupmember' => 'Text of link that allows removal of a user from a service group',
+	'openstackmanager-manageservicegroupmembers-title' => 'Used as page title in Special:NovaServiceGroup',
+	'openstackmanager-manageservicegroupmembers' => 'Text of link that allows addition of a user to a service group',
 	'openstackmanager-removeservicegroupconfirm' => 'Text of page that confirms deletion of a service group',
 	'openstackmanager-servicegrouprecursewarning' => 'Warning about the risk of adding service users to service groups',
 	'openstackmanager-createservicegroupfailed' => 'Informs user that creation of a service group has failed',
@@ -926,6 +931,7 @@ See also:
 	'openstackmanager-configureproject-serviceuserhome' => 'Prompt for a text field.  The text field contains a pattern for the location of service user homedirs.',
 	'openstackmanager-configureproject-serviceuserinfo' => 'Caption explaining the usage of openstackmanager-configureproject-serviceuserhome.  Specifically, that field
 takes %u and %p which are substituted with a username and an arbitrary prefix, respectively.',
+	'openstackmanager-backservicegrouplist' => 'Used as link text in Special:NovaServiceGroup.',
 	'openstackmanager-displayquotas' => 'Page title
 
 Parameters:
@@ -974,7 +980,7 @@ This message indicates the project has been created successfully.
 See also:
 * {{msg-mw|Openstackmanager-createprojectfailed}}',
 	'openstackmanager-projectlist' => 'Used as page title in Special:NovaProject.',
-	'openstackmanager-backprojectlist' => 'Used as link text in Special:Project and Special:Role.',
+	'openstackmanager-backprojectlist' => 'Used as link text in Special:NovaProject and Special:NovaRole.',
 	'openstackmanager-addadditionalproject' => 'Used as link text in Special:NovaProject.',
 	'openstackmanager-deleteproject' => 'Used as page title and as action link title, in Special:NovaProject.
 {{Identical|Delete}}',
@@ -1006,6 +1012,14 @@ Parameters:
 
 See also:
 * {{msg-mw|Openstackmanager-addedto}}',
+	'openstackmanager-setgroupmembers' => 'Used as success message in Special:NovaServiceGroup.
+
+Parameters:
+* $1 - project name or role name',
+	'openstackmanager-failedtosetgroupmembers' => 'Used as success message in Special:NovaServiceGroup.
+
+Parameters:
+* $1 - project name or role name',
 	'openstackmanager-failedtoaddneedsloginright' => 'Used as failure message in Special:NovaProject.
 
 Parameters:

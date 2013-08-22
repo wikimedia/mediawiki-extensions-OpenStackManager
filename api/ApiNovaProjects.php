@@ -1,24 +1,7 @@
 <?php
 class ApiNovaProjects extends ApiBase {
 	var $userLDAP;
-	var $userNova;
 	var $params;
-
-	public function canExecute( $rights=array() ) {
-		if ( ! $this->userLDAP->exists() ) {
-			$this->dieUsage( wfMessage( 'openstackmanager-nonovacred' )->escaped() );
-		}
-		if ( in_array( 'inproject', $rights ) || in_array( 'isprojectadmin', $rights ) ) {
-			if ( ! $this->userLDAP->inProject( $this->params['project'] ) ) {
-				$this->dieUsage( wfMessage( 'openstackmanager-noaccount', $this->params['project'] )->escaped() );
-			}
-		}
-		if ( in_array( 'isprojectadmin', $rights ) ) {
-			if ( ! $this->userLDAP->inRole( 'projectadmin', $this->params['project'] ) ) {
-				$this->dieUsage( wfMessage( 'openstackmanager-needrole', 'projectadmin', $this->params['project'] )->escaped() );
-			}
-		}
-	}
 
 	function execute() {
 		$this->params = $this->extractRequestParams();
@@ -26,46 +9,57 @@ class ApiNovaProjects extends ApiBase {
 
 		switch( $this->params['subaction'] ) {
 		case 'getall':
-			$projects = OpenStackNovaProject::getAllProjects();
-			foreach ( $projects as $project ) {
-				$projectNames[] = $project->getProjectName();
+			if ( isset( $this->params['project'] ) ) {
+				$projects = array( OpenStackNovaProject::getProjectByName( $this->params['project'] ) );
+			} else {
+				$projects = OpenStackNovaProject::getAllProjects();
 			}
-			$this->getResult()->setIndexedTagName( $projectNames, 'project' );
-			$this->getResult()->addValue( null, $this->getModuleName(), $projectNames );
+			$data = array();
+			foreach ( $projects as $project ) {
+				$project->fetchProjectInfo();
+				if ( !$project->loaded ) {
+					continue;
+				}
+				$projectName = $project->getProjectName();
+				$data[$projectName]['members'] = $project->getMembers();
+				$data[$projectName]['roles'] = array();
+				foreach ( $project->getRoles() as $role ) {
+					$roleName = $role->getRoleName();
+					$data[$projectName]['roles'][$roleName] = array( 'members' => $role->getMembers() );
+					$this->getResult()->setIndexedTagName( $data[$projectName]['roles'][$roleName]['members'], 'member' );
+				}
+				$this->getResult()->setIndexedTagName( $data[$projectName]['members'], 'member' );
+				$this->getResult()->setIndexedTagName( $data[$projectName]['roles'], 'roles' );
+			}
+			$this->getResult()->addValue( null, $this->getModuleName(), $data );
 			break;
 		case 'getuser':
-			$this->canExecute();
-			$projectNames = $this->userLDAP->getProjects();
-			$this->getResult()->setIndexedTagName( $projectNames, 'project' );
-			$this->getResult()->addValue( null, $this->getModuleName(), $projectNames );
-			break;
-		case 'limits':
-			$this->canExecute( array( 'isprojectadmin' ) );
-			$this->userNova = OpenStackNovaController::newFromUser( $this->userLDAP );
-			$this->userNova->setProject( $this->params['project'] );
-			if ( isset( $this->params['region'] ) ) {
-				$regions = array( $this->params['region'] );
+			$data = array();
+			if ( $this->params['username'] ) {
+				$user = new OpenStackNovaUser( $this->params['username'] );
 			} else {
-				$regions = $this->userNova->getRegions( 'compute' );
+				$user = $this->userLDAP;
 			}
-			$limitsOut = array();
-			foreach ( $regions as $region ) {
-				$this->userNova->setRegion( $region );
-				$limits = $this->userNova->getLimits();
-				$limitsRegion = array();
-				$limitsRegion["maxTotalRAMSize"] = $limits->getRamAvailable();
-				$limitsRegion["totalRAMUsed"] = $limits->getRamUsed();
-				$limitsRegion["maxTotalFloatingIps"] = $limits->getFloatingIpsAvailable();
-				$limitsRegion["totalFloatingIpsUsed"] = $limits->getFloatingIpsUsed();
-				$limitsRegion["maxTotalCores"] = $limits->getCoresAvailable();
-				$limitsRegion["totalCoresUsed"] = $limits->getCoresUsed();
-				$limitsRegion["maxTotalInstances"] = $limits->getInstancesAvailable();
-				$limitsRegion["totalInstancesUsed"] = $limits->getInstancesUsed();
-				$limitsRegion["maxSecurityGroups"] = $limits->getSecurityGroupsAvailable();
-				$limitsRegion["totalSecurityGroupsUsed"] = $limits->getSecurityGroupsUsed();
-				$limitsOut[$region] = array( 'absolute' => $limitsRegion );
+			$projectNames = $user->getProjects();
+			foreach ( $projectNames as $projectName ) {
+				$project = OpenStackNovaProject::getProjectByName( $projectName );
+				$project->fetchProjectInfo();
+				if ( !$project->loaded ) {
+					continue;
+				}
+				$projectName = $project->getProjectName();
+				$data[$projectName] = array();
+				$data[$projectName]['roles'] = array();
+				foreach ( $project->getRoles() as $role ) {
+					if ( $role->userInRole( $user ) ) {
+						$data[$projectName]['roles'][] = $role->getRoleName();
+					}
+				}
+				$this->getResult()->setIndexedTagName( $data[$projectName]['roles'], 'role' );
 			}
-			$this->getResult()->addValue( null, $this->getModuleName(), array( 'regions' => $limitsOut ) );
+			$this->getResult()->setIndexedTagName( $data, 'project' );
+			$this->getResult()->addValue( null, $this->getModuleName(), $data );
+			break;
 		}
 
 	}
@@ -84,7 +78,6 @@ class ApiNovaProjects extends ApiBase {
 				ApiBase::PARAM_TYPE => array(
 					'getall',
 					'getuser',
-					'limits',
 				),
 				ApiBase::PARAM_REQUIRED => true
 			),
@@ -92,7 +85,7 @@ class ApiNovaProjects extends ApiBase {
 				ApiBase::PARAM_TYPE => 'string',
 				ApiBase::PARAM_REQUIRED => false
 			),
-			'region' => array (
+			'username' => array (
 				ApiBase::PARAM_TYPE => 'string',
 				ApiBase::PARAM_REQUIRED => false
 			),
@@ -103,7 +96,7 @@ class ApiNovaProjects extends ApiBase {
 		return array_merge( parent::getParamDescription(), array(
 			'subaction' => 'The subaction to perform.',
 			'project' => 'The project to perform the subaction upon',
-			'region' => 'The region to perform the subaction upon',
+			'username' => 'The username to get information about',
 		) );
 	}
 
@@ -113,14 +106,12 @@ class ApiNovaProjects extends ApiBase {
 
 	public function getExamples() {
 		return array(
-			'api.php?action=novaproject&subaction=getall'
+			'api.php?action=novaprojects&subaction=getall'
 			=> 'Get all projects',
-			'api.php?action=novaproject&subaction=getuser'
-			=> 'Get all projects for the logged-in user',
-			'api.php?action=novaproject&subaction=limits&project=testing'
-			=> 'Get limits for all regions for the testing project',
-			'api.php?action=novaproject&subaction=limits&project=testing&region=A'
-			=> 'Get limits for region A for the testing project',
+			'api.php?action=novaprojects&subaction=getuser'
+			=> 'Get all projects and role info for the logged-in user',
+			'api.php?action=novaprojects&subaction=getuser&username=testuser'
+			=> 'Get all projects and role info for testuser',
 		);
 	}
 

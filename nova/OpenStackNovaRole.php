@@ -31,6 +31,9 @@ class OpenStackNovaRole {
 		global $wgAuth;
 
 		$dn = $this->project->projectDN;
+		if ( !$dn ) {
+			return;
+		}
 		$query = '(cn=' . $this->rolename . ')';
 		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $dn, $query );
 		$this->roleInfo = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
@@ -171,6 +174,17 @@ class OpenStackNovaRole {
 		$wgMemc->delete( $key );
 		$key = wfMemcKey( 'openstackmanager', 'roles', $user->getUsername() );
 		$wgMemc->delete( $key );
+	}
+
+	/**
+	 * @param $userLDAP
+	 * @return bool
+	 */
+	function userInRole( $userLDAP ) {
+		if ( !$userLDAP ) {
+			return false;
+		}
+		return in_array( $userLDAP->userDN, $this->roleInfo[0]['roleoccupant'] );
 	}
 
 	/**

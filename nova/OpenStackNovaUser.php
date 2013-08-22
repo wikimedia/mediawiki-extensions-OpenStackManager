@@ -73,6 +73,9 @@ class OpenStackNovaUser {
 	 * @return string
 	 */
 	static function loadToken( $user ) {
+		if ( !$user ) {
+			return null;
+		}
 		$user_id = $user->getId();
 		if ( $user_id != 0 ) {
 			$dbr = wfGetDB( DB_SLAVE );
@@ -249,10 +252,9 @@ class OpenStackNovaUser {
 	/**
 	 * @param $role
 	 * @param string $projectname
-	 * @param bool $strict
 	 * @return bool
 	 */
-	function inRole( $role, $projectname, $strict=false ) {
+	function inRole( $role, $projectname ) {
 		global $wgAuth;
 		global $wgMemc;
 
@@ -526,7 +528,6 @@ class OpenStackNovaUser {
 			}
 		}
 		$auth->printDebug( "User account's objectclasses: ", NONSENSITIVE, $values['objectclass'] );
-		$auth->printDebug( "User account's attributes: ", HIGHLYSENSITIVE, $values );
 
 		OpenStackNovaUser::RequestShellAccess( $auth, $username );
 
