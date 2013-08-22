@@ -1,4 +1,4 @@
-<?
+<?php
 class ApiNovaAddress extends ApiBase {
 	var $userLDAP;
 	var $userNova;
