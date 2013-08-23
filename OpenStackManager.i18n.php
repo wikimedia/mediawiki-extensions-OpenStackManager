@@ -886,7 +886,6 @@ See also:
 * $1 - project name
 The title (page title) for this message is:
 * {{msg-mw|Openstackmanager-deleteproject}}',
-	'openstackmanager-servicegrouplist' => 'Used as page title in Special:NovaServiceGroup.',
 	'openstackmanager-notinservicegroup' => 'Page title for a special page [[Special:NovaServiceGroup]]; security refusal when a user does not belong to a service group.
 
 The page body for this title is the following message:
@@ -897,8 +896,9 @@ The page title for this message is {{msg-mw|Openstackmanager-notinservicegroup}}
 	'openstackmanager-addservicegroup' => 'Text of link that allows creation of a service group',
 	'openstackmanager-servicegroupname' => 'Used as a column header.  A service group is a set of users with access to a particular service in toollabs.',
 	'openstackmanager-removeservicegroup' => 'Text of link that allows deletion of service group',
-	'openstackmanager-manageservicegroupmembers-title' => 'Used as page title in Special:NovaServiceGroup',
-	'openstackmanager-manageservicegroupmembers' => 'Text of link that allows addition of a user to a service group',
+	'openstackmanager-manageservicegroupmembers-title' => 'Used as page title in [[Special:NovaServiceGroup]].',
+	'openstackmanager-manageservicegroupmembers' => 'Text of link that allows addition of a user to a service group.
+{{Identical|Manage member}}',
 	'openstackmanager-removeservicegroupconfirm' => 'Text of page that confirms deletion of a service group',
 	'openstackmanager-servicegrouprecursewarning' => 'Warning about the risk of adding service users to service groups',
 	'openstackmanager-createservicegroupfailed' => 'Informs user that creation of a service group has failed',
@@ -926,12 +926,13 @@ This message indicates the project settings has been updated successfully.
 
 See also:
 * {{msg-mw|Openstackmanager-configureproject-failed}}',
+	'openstackmanager-servicegrouplist' => 'Used as page title in Special:NovaServiceGroup.',
 	'openstackmanager-configureproject-servicegroup' => 'form section title.
 {{Identical|Service group}}',
 	'openstackmanager-configureproject-serviceuserhome' => 'Prompt for a text field.  The text field contains a pattern for the location of service user homedirs.',
 	'openstackmanager-configureproject-serviceuserinfo' => 'Caption explaining the usage of openstackmanager-configureproject-serviceuserhome.  Specifically, that field
 takes %u and %p which are substituted with a username and an arbitrary prefix, respectively.',
-	'openstackmanager-backservicegrouplist' => 'Used as link text in Special:NovaServiceGroup.',
+	'openstackmanager-backservicegrouplist' => 'Used as link text in [[Special:NovaServiceGroup]].',
 	'openstackmanager-displayquotas' => 'Page title
 
 Parameters:
@@ -1012,11 +1013,11 @@ Parameters:
 
 See also:
 * {{msg-mw|Openstackmanager-addedto}}',
-	'openstackmanager-setgroupmembers' => 'Used as success message in Special:NovaServiceGroup.
+	'openstackmanager-setgroupmembers' => 'Used as success message in [[Special:NovaServiceGroup]].
 
 Parameters:
 * $1 - project name or role name',
-	'openstackmanager-failedtosetgroupmembers' => 'Used as success message in Special:NovaServiceGroup.
+	'openstackmanager-failedtosetgroupmembers' => 'Used as failure message in [[Special:NovaServiceGroup]].
 
 Parameters:
 * $1 - project name or role name',
@@ -2767,8 +2768,8 @@ $messages['de'] = array(
 	'openstackmanager-addservicegroup' => 'Dienstegruppe hinzufügen',
 	'openstackmanager-servicegroupname' => 'Dienstegruppenname',
 	'openstackmanager-removeservicegroup' => 'Dienstegruppe entfernen',
-	'openstackmanager-addservicegroupmember' => 'Benutzer zur Dienstegruppe hinzufügen',
-	'openstackmanager-removeservicegroupmember' => 'Benutzer entfernen',
+	'openstackmanager-manageservicegroupmembers-title' => 'Dienstegruppenmitgliedschaft verwalten',
+	'openstackmanager-manageservicegroupmembers' => 'Mitglieder verwalten',
 	'openstackmanager-removeservicegroupconfirm' => 'Bist du sicher, dass die Dienstegruppe „$1“ gelöscht werden soll?
 Dies deaktiviert Werkzeuge oder laufende Bots, die diese Gruppe verwenden.',
 	'openstackmanager-servicegrouprecursewarning' => 'Vorsicht! Das Hinzufügen eines Dienstebenutzers zu dieser Gruppe erlaubt allen Mitgliedern dieser Gruppe den Zugriff auf diese Gruppe.
@@ -2787,9 +2788,11 @@ vertraust und dass du weißt, was du tust, bevor du etwas in den Dienstebenutzer
 	'openstackmanager-configureproject-volume' => 'Gemeinsamer Speicher',
 	'openstackmanager-configureproject-failed' => 'Projekteinstellungen konnten nicht geändert werden.',
 	'openstackmanager-configureproject-success' => 'Projekteinstellungen aktualisiert.',
+	'openstackmanager-servicegrouplist' => 'Dienstegruppenliste',
 	'openstackmanager-configureproject-servicegroup' => 'Dienstegruppen',
 	'openstackmanager-configureproject-serviceuserhome' => 'Dienstebenutzer-Homeverzeichnismuster',
 	'openstackmanager-configureproject-serviceuserinfo' => '(Im Homeverzeichnismuster wird %u durch den Benutzernamen und %p durch „$1“ ersetzt.)',
+	'openstackmanager-backservicegrouplist' => 'Zurück zur Dienstegruppenliste',
 	'openstackmanager-displayquotas' => 'Quoten für das Projekt $1',
 	'openstackmanager-displayquotas-action' => 'Quoten anzeigen',
 	'openstackmanager-displayquotas-ram' => 'RAM: $1/$2',
@@ -2812,6 +2815,8 @@ vertraust und dass du weißt, was du tust, bevor du etwas in den Dienstebenutzer
 	'openstackmanager-deleteprojectfailed' => 'Das Projekt konnte nicht gelöscht werden.',
 	'openstackmanager-addedto' => '$1 wurde erfolgreich zu $2 hinzugefügt.',
 	'openstackmanager-failedtoadd' => '$1 konnte nicht zu $2 hinzugefügt werden.',
+	'openstackmanager-setgroupmembers' => 'Gruppenmitglieder für $1 erfolgreich festgelegt',
+	'openstackmanager-failedtosetgroupmembers' => 'Festlegen der Gruppenmitglieder für $1 fehlgeschlagen',
 	'openstackmanager-failedtoaddneedsloginright' => 'Benutzer $1 konnte nicht zum Projekt $2 hinzugefügt werden.
 Der Benutzer $1 muss das „<code>loginviashell</code>“-Recht haben.',
 	'openstackmanager-removedfrom' => '$1 wurde erfolgreich von $2 entfernt.',
@@ -4092,8 +4097,8 @@ $messages['fr'] = array(
 	'openstackmanager-addservicegroup' => 'Ajouter un groupe de service',
 	'openstackmanager-servicegroupname' => 'Nom du groupe de service',
 	'openstackmanager-removeservicegroup' => 'Supprimer le groupe de service',
-	'openstackmanager-addservicegroupmember' => "Ajouter l'utilisateur au groupe service",
-	'openstackmanager-removeservicegroupmember' => "Supprimer l'utilisateur",
+	'openstackmanager-manageservicegroupmembers-title' => 'Gérer l’appartenance au groupe de service',
+	'openstackmanager-manageservicegroupmembers' => 'Gérer les membres',
 	'openstackmanager-removeservicegroupconfirm' => 'Êtes-vous sûr de vouloir supprimer le groupe de service " $1 "? !N !Cela risque de désactiver des outils ou des robots nécessitant ce groupe pour fonctionner.',
 	'openstackmanager-servicegrouprecursewarning' => 'Attention ! Ajouter un utilisateur de service à ce groupe autorisera tous les membres de ce groupe à y accéder.
 Cela permettra aussi d’accéder à tous les membres d’un groupe quelconque ajouté à ce groupe, et ainsi de suite. Soyez sûr de pouvoir faire confiance à tout le monde
@@ -4111,9 +4116,11 @@ et comprenez ce que vous faites avant de sélectionner quoi que ce soit dans la 
 	'openstackmanager-configureproject-volume' => 'Stockage partagé',
 	'openstackmanager-configureproject-failed' => 'Échec de modification des paramètres du projet.',
 	'openstackmanager-configureproject-success' => 'Paramètres du projet mis à jour.',
+	'openstackmanager-servicegrouplist' => 'Liste du groupe de service',
 	'openstackmanager-configureproject-servicegroup' => 'Groupes de service',
 	'openstackmanager-configureproject-serviceuserhome' => 'Modèle de service utilisateur homedir',
 	'openstackmanager-configureproject-serviceuserinfo' => '(Dans le modèle homedir, %u sera remplacé par le nom d\'utilisateur et %p avec "$1".)',
+	'openstackmanager-backservicegrouplist' => 'Retour à la liste du groupe de service',
 	'openstackmanager-displayquotas' => 'Quotas pour le projet $1',
 	'openstackmanager-displayquotas-action' => 'Afficher les quotas',
 	'openstackmanager-displayquotas-ram' => 'Mémoire : $1/$2',
@@ -4136,6 +4143,8 @@ et comprenez ce que vous faites avant de sélectionner quoi que ce soit dans la 
 	'openstackmanager-deleteprojectfailed' => 'Échec de la suppression de projet.',
 	'openstackmanager-addedto' => '$1 ajouté à $2 avec succès.',
 	'openstackmanager-failedtoadd' => "Impossible d'ajouter $1 à $2.",
+	'openstackmanager-setgroupmembers' => 'Membres du groupe bien ajoutés pour $1',
+	'openstackmanager-failedtosetgroupmembers' => 'Échec d’ajout des membres du groupe pour $1',
 	'openstackmanager-failedtoaddneedsloginright' => "Impossible d'ajouter $1 à $2.
 Cela nécessite $1 d'avoir le droit « <code>loginviashell</code> ».",
 	'openstackmanager-removedfrom' => '$1 supprimé de $2 avec succès.',
@@ -6791,8 +6800,7 @@ $messages['ja'] = array(
 	'openstackmanager-addservicegroup' => 'サービス グループを追加',
 	'openstackmanager-servicegroupname' => 'サービス グループ名',
 	'openstackmanager-removeservicegroup' => 'サービス グループを除去',
-	'openstackmanager-addservicegroupmember' => '利用者をサービス グループに追加',
-	'openstackmanager-removeservicegroupmember' => '利用者を除去',
+	'openstackmanager-manageservicegroupmembers' => 'メンバーを管理',
 	'openstackmanager-removeservicegroupconfirm' => 'サービス グループ「$1」を本当に削除しますか?
 削除すると、このグループで実行するツールやボットが無効になる場合があります。',
 	'openstackmanager-servicegrouprecursewarning' => 'ご注意ください! このグループにサービス利用者を追加すると、グループのすべてのメンバーがこのグループにアクセスできるようになります。
@@ -6810,7 +6818,9 @@ Make sure you trust everyone and know what you are doing before selecting anythi
 	'openstackmanager-configureproject-volume' => '共有ストレージ',
 	'openstackmanager-configureproject-failed' => 'プロジェクトの設定の変更に失敗しました。',
 	'openstackmanager-configureproject-success' => 'プロジェクトの設定を更新しました。',
+	'openstackmanager-servicegrouplist' => 'サービス グループ一覧',
 	'openstackmanager-configureproject-servicegroup' => 'サービス グループ',
+	'openstackmanager-backservicegrouplist' => 'サービス グループ一覧に戻る',
 	'openstackmanager-displayquotas-ram' => 'RAM: $1/$2',
 	'openstackmanager-displayquotas-cores' => 'コア: $1/$2',
 	'openstackmanager-displayquotas-instances' => 'インスタンス: $1/$2',
@@ -6829,6 +6839,8 @@ Make sure you trust everyone and know what you are doing before selecting anythi
 	'openstackmanager-deleteprojectfailed' => 'プロジェクトの削除に失敗しました。',
 	'openstackmanager-addedto' => '$1 を $2 に追加しました。',
 	'openstackmanager-failedtoadd' => '$1 の $2 への追加に失敗しました。',
+	'openstackmanager-setgroupmembers' => '$1 のグループ メンバーを設定しました',
+	'openstackmanager-failedtosetgroupmembers' => '$1 のグループ メンバーを設定できませんでした',
 	'openstackmanager-failedtoaddneedsloginright' => '$1 を $2 に追加するのに失敗しました。
 この操作は「<code>loginviashell</code>」権限を持つ利用者のみが実行できます。',
 	'openstackmanager-removedfrom' => '$1 を $2 から除去しました。',
@@ -7526,8 +7538,8 @@ $messages['ko'] = array(
 	'openstackmanager-addservicegroup' => '서비스 그룹 추가',
 	'openstackmanager-servicegroupname' => '서비스 그룹 이름',
 	'openstackmanager-removeservicegroup' => '서비스 그룹 제거',
-	'openstackmanager-addservicegroupmember' => '서비스 그룹에 사용자 추가',
-	'openstackmanager-removeservicegroupmember' => '사용자 제거',
+	'openstackmanager-manageservicegroupmembers-title' => '서비스 그룹 구성원 관리',
+	'openstackmanager-manageservicegroupmembers' => '구성원 관리',
 	'openstackmanager-removeservicegroupconfirm' => '"$1" 서비스 그룹을 삭제하겠습니까?
 이 그룹을 사용하어 실행하는 도구나 봇이 비활성화될 수 있습니다.',
 	'openstackmanager-servicegrouprecursewarning' => '주의하세요! 이 그룹에 서비스 사용자를 추가하면 해당 그룹의 모든 구성원이 이 그룹에 접근할 수 있습니다.
@@ -7546,9 +7558,11 @@ $messages['ko'] = array(
 	'openstackmanager-configureproject-volume' => '공유 저장소',
 	'openstackmanager-configureproject-failed' => '프로젝트 설정을 바꾸는 데 실패했습니다.',
 	'openstackmanager-configureproject-success' => '프로젝트 설정을 업데이트했습니다.',
+	'openstackmanager-servicegrouplist' => '서비스 그룹 목록',
 	'openstackmanager-configureproject-servicegroup' => '서비스 그룹',
 	'openstackmanager-configureproject-serviceuserhome' => '서비스 사용자 홈디렉토리 패턴',
 	'openstackmanager-configureproject-serviceuserinfo' => '(홈디렉토리 패턴에서 %u(은)는 "$1"(으)로 사용자 이름과 %p(으)로 바뀝니다.)',
+	'openstackmanager-backservicegrouplist' => '서비스 그룹 목록으로 돌아가기',
 	'openstackmanager-displayquotas' => '$1 프로젝트에 대한 할당량',
 	'openstackmanager-displayquotas-action' => '할당량 보기',
 	'openstackmanager-displayquotas-ram' => 'RAM: $1/$2',
@@ -7571,6 +7585,8 @@ $messages['ko'] = array(
 	'openstackmanager-deleteprojectfailed' => '프로젝트를 삭제하는 데 실패했습니다.',
 	'openstackmanager-addedto' => '$1 구성원을 $2에 추가했습니다.',
 	'openstackmanager-failedtoadd' => '$1 구성원을 $2에 추가하는 데 실패했습니다.',
+	'openstackmanager-setgroupmembers' => '$1에 대한 그룹 구성원을 성공적으로 설정했습니다',
+	'openstackmanager-failedtosetgroupmembers' => '$1에 대한 그룹 구성원을 설정하는 데 실패했습니다',
 	'openstackmanager-failedtoaddneedsloginright' => '$1 구성원을 $2에 추가하는 데 실패했습니다.
 "<code>loginviashell</code>" 권한을 가진 $1 사용자가 필요합니다.',
 	'openstackmanager-removedfrom' => '성공적으로 $1 구성원을 $2에서 제거했습니다.',
@@ -8246,8 +8262,8 @@ $messages['mk'] = array(
 	'openstackmanager-addservicegroup' => 'Додај службена група',
 	'openstackmanager-servicegroupname' => 'Име на службената група',
 	'openstackmanager-removeservicegroup' => 'Отстрани службена група',
-	'openstackmanager-addservicegroupmember' => 'Стави го корисникот во службена група',
-	'openstackmanager-removeservicegroupmember' => 'Отстрани корисник',
+	'openstackmanager-manageservicegroupmembers-title' => 'Раководење со членови во службена група',
+	'openstackmanager-manageservicegroupmembers' => 'Раководење со членови',
 	'openstackmanager-removeservicegroupconfirm' => 'Дали сте сигурни дека сакате да ја избришете службената група „$1“?
 Со ова може да ги исклучите алатките или ботовите што работат преку неа.',
 	'openstackmanager-servicegrouprecursewarning' => 'Внимавајте! Додавајќи службен корисни на групава ќе им овозможи пристап до групава на сите од таа група.
@@ -8266,9 +8282,11 @@ $messages['mk'] = array(
 	'openstackmanager-configureproject-volume' => 'Заедничко складиште',
 	'openstackmanager-configureproject-failed' => 'Не можев да ги изменам проектните поставки.',
 	'openstackmanager-configureproject-success' => 'Проектните поставки се изменети.',
+	'openstackmanager-servicegrouplist' => 'Список на службени групи',
 	'openstackmanager-configureproject-servicegroup' => 'Службени групи',
 	'openstackmanager-configureproject-serviceuserhome' => 'Мостра за матичниот директориум на службениот корисник',
 	'openstackmanager-configureproject-serviceuserinfo' => '(Во мострата на матичниот директориум, %u ќе се замени со корисничкото име, а %p ќе се замени со „$1“.)',
+	'openstackmanager-backservicegrouplist' => 'Назад на списокот',
 	'openstackmanager-displayquotas' => 'Квоти за проектот $1',
 	'openstackmanager-displayquotas-action' => 'Прикажи квоти',
 	'openstackmanager-displayquotas-ram' => 'RAM: $1/$2',
@@ -8291,6 +8309,8 @@ $messages['mk'] = array(
 	'openstackmanager-deleteprojectfailed' => 'Не успеав да го избришам проектот.',
 	'openstackmanager-addedto' => 'Успешно го додадов $1 во $2.',
 	'openstackmanager-failedtoadd' => 'Не успеав да го додадам $1 во $2.',
+	'openstackmanager-setgroupmembers' => 'Успешно укажавте групни членови за $1',
+	'openstackmanager-failedtosetgroupmembers' => 'Не успеав да укажам групни членови за $1',
 	'openstackmanager-failedtoaddneedsloginright' => 'Не успеав да го додадам членот $1 на $2. 
 За ова, на корисникот $1 му е потребно правото „<code>loginviashell</code>“ (најава преку обвивка).',
 	'openstackmanager-removedfrom' => '$1 е успешно отстрането од $2.',
@@ -12458,8 +12478,6 @@ $messages['uk'] = array(
 	'openstackmanager-addservicegroup' => 'Додати службову групу',
 	'openstackmanager-servicegroupname' => 'Назва службової групи',
 	'openstackmanager-removeservicegroup' => 'Видалити службову групу',
-	'openstackmanager-addservicegroupmember' => 'Додати користувача до службової групи',
-	'openstackmanager-removeservicegroupmember' => 'Видалити користувача',
 	'openstackmanager-removeservicegroupconfirm' => 'Ви впевнені, що бажаєте видалити служби групи " $1 "?
 Це може вимкнути засоби або роботів, які виконуються за допомогою цієї групи.',
 	'openstackmanager-servicegrouprecursewarning' => 'Будьте обережні!  Додавання службового користувача до цієї групи дозволить всім членам цієї групи отримати доступ до неї.
