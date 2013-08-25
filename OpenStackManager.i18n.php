@@ -537,17 +537,20 @@ Parameters:
 
 The page title for this message is:
 * {{msg-mw|Openstackmanager-nonovacred}}',
-	'openstackmanager-noaccount' => 'Used as page title in Special:Nova.
+	'openstackmanager-noaccount' => 'Used as page title in [[Special:Nova]].
 
 The page body for this title is:
-* {{msg-mw|Openstackmanager-noaccount2}}',
-	'openstackmanager-noaccount2' => 'Used as page body in Special:Nova.
+* {{msg-mw|Openstackmanager-noaccount2}}
+
+Parameters:
+* $1 - project name',
+	'openstackmanager-noaccount2' => 'Used as page body in [[Special:Nova]].
 
 The page title for this message is:
 * {{msg-mw|Openstackmanager-noaccount}}
 
 Parameters:
-* $1 The name of the project for which the account does not have permissions.',
+* $1 - the name of the project for which the account does not have permissions',
 	'openstackmanager-nonexistentresource' => 'Used as error message in Special:NovaPuppetGroup.',
 	'openstackmanager-createdomain' => 'Page title',
 	'openstackmanager-deletedomain' => 'Used as page title in Special:NovaDomain.',
@@ -630,12 +633,18 @@ Parameters:
 Parameters:
 * $1 - an alphanumeric instance id for the instance to be rebooted
 * $2 - the human-readable name for the same instance',
-	'openstackmanager-rebootinstancequestion' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
-	'openstackmanager-rebootedinstance' => 'Used as success message in Special:NovaInstance.
+	'openstackmanager-rebootinstancequestion' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].
+
+Parameters:
+* $1 - instance ID',
+	'openstackmanager-rebootedinstance' => 'Used as success message in [[Special:NovaInstance]].
 
 This message indicates the instance has been rebooted successfully.
 
 An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].
+
+Parameters:
+* $1 - instance ID
 
 See also:
 * {{msg-mw|Openstackmanager-rebootinstancefailed}}',
@@ -899,7 +908,8 @@ The page title for this message is {{msg-mw|Openstackmanager-notinservicegroup}}
 	'openstackmanager-manageservicegroupmembers-title' => 'Used as page title in [[Special:NovaServiceGroup]].',
 	'openstackmanager-manageservicegroupmembers' => 'Text of link that allows addition of a user to a service group.
 {{Identical|Manage member}}',
-	'openstackmanager-removeservicegroupconfirm' => 'Text of page that confirms deletion of a service group',
+	'openstackmanager-removeservicegroupconfirm' => 'Text of page that confirms deletion of a service group. Parameters:
+* $1 - group name',
 	'openstackmanager-servicegrouprecursewarning' => 'Warning about the risk of adding service users to service groups',
 	'openstackmanager-createservicegroupfailed' => 'Informs user that creation of a service group has failed',
 	'openstackmanager-createdservicegroup' => 'Informs user that creation of a service group succeeded',
@@ -930,8 +940,12 @@ See also:
 	'openstackmanager-configureproject-servicegroup' => 'form section title.
 {{Identical|Service group}}',
 	'openstackmanager-configureproject-serviceuserhome' => 'Prompt for a text field.  The text field contains a pattern for the location of service user homedirs.',
-	'openstackmanager-configureproject-serviceuserinfo' => 'Caption explaining the usage of openstackmanager-configureproject-serviceuserhome.  Specifically, that field
-takes %u and %p which are substituted with a username and an arbitrary prefix, respectively.',
+	'openstackmanager-configureproject-serviceuserinfo' => 'Caption explaining the usage of {{msg-mw|Openstackmanager-configureproject-serviceuserhome}}.
+
+Specifically, that field takes %u and %p which are substituted with a username and an arbitrary prefix, respectively.
+
+Parameters:
+* $1 - value of <code>$wgOpenStackManagerServiceGroupPrefix</code>; default value: "local-"',
 	'openstackmanager-backservicegrouplist' => 'Used as link text in [[Special:NovaServiceGroup]].',
 	'openstackmanager-displayquotas' => 'Page title
 
@@ -3639,8 +3653,8 @@ $messages['et'] = array(
 	'openstackmanager-createnewsecuritygroup' => 'Lisa rühm',
 	'openstackmanager-addrule-action' => 'lisa reegel',
 	'openstackmanager-removerule-action' => 'eemalda reegel',
-	'openstackmanager-removerule' => 'Eemalda reegel',
-	'openstackmanager-addrule' => 'Lisa reegel',
+	'openstackmanager-removerule' => 'Reegli eemaldamine',
+	'openstackmanager-addrule' => 'Reegli lisamine',
 	'openstackmanager-addedrule' => 'Reegli lisamine õnnestus.',
 	'openstackmanager-addrulefailed' => 'Reegli lisamine nurjus.',
 	'openstackmanager-commadelimiter' => 'Komaga eraldatud',
@@ -6820,6 +6834,8 @@ Make sure you trust everyone and know what you are doing before selecting anythi
 	'openstackmanager-configureproject-success' => 'プロジェクトの設定を更新しました。',
 	'openstackmanager-servicegrouplist' => 'サービス グループ一覧',
 	'openstackmanager-configureproject-servicegroup' => 'サービス グループ',
+	'openstackmanager-configureproject-serviceuserhome' => 'サービス利用者ホームディレクトリ パターン',
+	'openstackmanager-configureproject-serviceuserinfo' => '(ホームディレクトリ パターンでは、%u は利用者名に、%p は「$1」に置換されます。)',
 	'openstackmanager-backservicegrouplist' => 'サービス グループ一覧に戻る',
 	'openstackmanager-displayquotas-ram' => 'RAM: $1/$2',
 	'openstackmanager-displayquotas-cores' => 'コア: $1/$2',
@@ -10135,7 +10151,7 @@ $messages['pt'] = array(
 	'openstackmanager-delete' => 'eliminar',
 	'openstackmanager-configure' => 'configurar',
 	'openstackmanager-modify' => 'modificar',
-	'openstackmanager-rename' => 'mudar o nome',
+	'openstackmanager-rename' => 'renomear',
 	'openstackmanager-reboot' => 'reiniciar',
 	'openstackmanager-actions' => 'Ações',
 	'openstackmanager-notloggedin' => 'Autenticação necessária',
@@ -12478,6 +12494,8 @@ $messages['uk'] = array(
 	'openstackmanager-addservicegroup' => 'Додати службову групу',
 	'openstackmanager-servicegroupname' => 'Назва службової групи',
 	'openstackmanager-removeservicegroup' => 'Видалити службову групу',
+	'openstackmanager-manageservicegroupmembers-title' => 'Управління членством у службових групах',
+	'openstackmanager-manageservicegroupmembers' => 'Управління членами',
 	'openstackmanager-removeservicegroupconfirm' => 'Ви впевнені, що бажаєте видалити служби групи " $1 "?
 Це може вимкнути засоби або роботів, які виконуються за допомогою цієї групи.',
 	'openstackmanager-servicegrouprecursewarning' => 'Будьте обережні!  Додавання службового користувача до цієї групи дозволить всім членам цієї групи отримати доступ до неї.
@@ -12496,9 +12514,11 @@ $messages['uk'] = array(
 	'openstackmanager-configureproject-volume' => 'Спільне сховище',
 	'openstackmanager-configureproject-failed' => 'Не вдалося змінити налаштування проекту.',
 	'openstackmanager-configureproject-success' => 'Оновлено параметри проекту.',
+	'openstackmanager-servicegrouplist' => 'Список службових груп',
 	'openstackmanager-configureproject-servicegroup' => 'Службові групи',
 	'openstackmanager-configureproject-serviceuserhome' => 'Шаблон домашнього каталогу службового користувача',
 	'openstackmanager-configureproject-serviceuserinfo' => '(У шаблоні домашнього каталогу %u буде замінено на ім\'я користувача і %p з "$1".)',
+	'openstackmanager-backservicegrouplist' => 'Повернутися до списку службових груп',
 	'openstackmanager-displayquotas' => 'Квоти для проекту $1',
 	'openstackmanager-displayquotas-action' => 'Відображати квоти',
 	'openstackmanager-displayquotas-ram' => 'ОП: $1/$2',
@@ -12521,6 +12541,8 @@ $messages['uk'] = array(
 	'openstackmanager-deleteprojectfailed' => 'Не вдалося вилучити проект.',
 	'openstackmanager-addedto' => 'Успішно додано $1 до $2.',
 	'openstackmanager-failedtoadd' => 'Не вдалося додати $1 до $2.',
+	'openstackmanager-setgroupmembers' => 'Успішно встановлено членів групи для $1',
+	'openstackmanager-failedtosetgroupmembers' => 'Не вдалося встановити членів групи для $1',
 	'openstackmanager-failedtoaddneedsloginright' => 'Не вдалося додати  $1  до $2.
 Це вимагає наявності прав користувача $1 на "<code>вхід через оболонку</code>".',
 	'openstackmanager-removedfrom' => 'Успішно вилучено $1 з $2.',
