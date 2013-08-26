@@ -31,19 +31,19 @@ class SpecialNovaSudoer extends SpecialNova {
 		$this->project = OpenStackNovaProject::getProjectByName( $this->projectName );
 		if ( $action === "create" ) {
 			if ( ! $this->userLDAP->inProject( $this->projectName ) ) {
-				$this->notInProject( $project );
+				$this->notInProject( $this->project );
 				return;
 			}
 			$this->createSudoer();
 		} elseif ( $action === "delete" ) {
 			if ( ! $this->userLDAP->inProject( $this->projectName ) ) {
-				$this->notInProject( $project );
+				$this->notInProject( $this->project );
 				return;
 			}
 			$this->deleteSudoer();
 		} elseif ( $action === "modify" ) {
 			if ( ! $this->userLDAP->inProject( $this->projectName ) ) {
-				$this->notInProject( $project );
+				$this->notInProject( $this->project );
 				return;
 			}
 			$this->modifySudoer();
