@@ -738,7 +738,7 @@ class OpenStackNovaUser {
 					$keyRow = array();
 					SpecialNova::pushResourceColumn( $keyRow, $keypair->getKeyName() );
 					SpecialNova::pushResourceColumn( $keyRow, $keypair->getKeyFingerprint() );
-					$keyRows[] = $kewRow;
+					$keyRows[] = $keyRow;
 				}
 				$out .= SpecialNova::createResourceTable( $headers, $keyRows );
 			}
