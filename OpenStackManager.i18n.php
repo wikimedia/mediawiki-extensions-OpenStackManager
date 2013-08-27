@@ -526,13 +526,10 @@ The page body for this message is:
 	'openstackmanager-mustbeloggedin' => 'Used as page body in Special:Nova.
 
 The page title for this message is {{msg-mw|Openstackmanager-notloggedin}}.',
-	'openstackmanager-nonovacred' => 'Used as page title in Special:Nova.
+	'openstackmanager-nonovacred' => 'Used as page title in [[Special:Nova]].
 
 The page body for this title is:
-* {{msg-mw|Openstackmanager-nonovacred-admincreate}}
-
-Parameters:
-* $1 The name of the project for which the account does not have permissions.',
+* {{msg-mw|Openstackmanager-nonovacred-admincreate}}',
 	'openstackmanager-nonovacred-admincreate' => 'Used in Special:Nova.
 
 The page title for this message is:
@@ -4831,8 +4828,8 @@ $messages['gl'] = array(
 	'openstackmanager-addservicegroup' => 'Engadir un grupo de servizo',
 	'openstackmanager-servicegroupname' => 'Nome do grupo de servizo',
 	'openstackmanager-removeservicegroup' => 'Eliminar o grupo de servizo',
-	'openstackmanager-addservicegroupmember' => 'Engadir o usuario ao grupo de servizo',
-	'openstackmanager-removeservicegroupmember' => 'Eliminar o usuario',
+	'openstackmanager-manageservicegroupmembers-title' => 'Xestionar os membros do grupo de servizo',
+	'openstackmanager-manageservicegroupmembers' => 'Xestionar os membros',
 	'openstackmanager-removeservicegroupconfirm' => 'Está seguro de querer borrar o grupo de servizo "$1"?
 Isto pode desactivar as ferramentas ou os bots que necesitan este grupo para funcionar.',
 	'openstackmanager-servicegrouprecursewarning' => 'Atención! Engadir un usuario de servizo a este grupo ha permitir a todos os membros dese grupo acceder a este grupo.
@@ -4851,9 +4848,11 @@ e de que sabe o que fai antes de seleccionar nada na sección "Usuario de serviz
 	'openstackmanager-configureproject-volume' => 'Almacenamento compartido',
 	'openstackmanager-configureproject-failed' => 'Erro ao modificar a configuración do proxecto.',
 	'openstackmanager-configureproject-success' => 'Actualizáronse as configuracións do proxecto.',
+	'openstackmanager-servicegrouplist' => 'Lista do grupo de servizo',
 	'openstackmanager-configureproject-servicegroup' => 'Grupos de servizo',
 	'openstackmanager-configureproject-serviceuserhome' => 'Patrón para o directorio raíz do usuario de servizo',
 	'openstackmanager-configureproject-serviceuserinfo' => '(No patrón do directorio raíz, "%u" ha substituírse polo nome de usuario e "%p" por "$1".)',
+	'openstackmanager-backservicegrouplist' => 'Volver á lista do grupo de servizo',
 	'openstackmanager-displayquotas' => 'Cotas do proxecto $1',
 	'openstackmanager-displayquotas-action' => 'Mostrar as cotas',
 	'openstackmanager-displayquotas-ram' => 'RAM: $1/$2',
@@ -4876,6 +4875,8 @@ e de que sabe o que fai antes de seleccionar nada na sección "Usuario de serviz
 	'openstackmanager-deleteprojectfailed' => 'Erro ao borrar o proxecto.',
 	'openstackmanager-addedto' => '$1 engadiuse correctamente a $2.',
 	'openstackmanager-failedtoadd' => 'Erro ao engadir a $1 a $2.',
+	'openstackmanager-setgroupmembers' => 'Estableceu correctamente os membros do grupo para $1',
+	'openstackmanager-failedtosetgroupmembers' => 'Erro ao establecer os membros do grupo para $1',
 	'openstackmanager-failedtoaddneedsloginright' => 'Erro ao engadir a $1 a $2.
 O usuario $1 debe ter dereitos de "<code>loginviashell</code>".',
 	'openstackmanager-removedfrom' => '$1 eliminouse correctamente de $2.',
@@ -6525,8 +6526,6 @@ Chiedi ad un amministratore Nova di creare le credenziali per te.',
 	'openstackmanager-addservicegroup' => 'Aggiungi gruppo di servizio',
 	'openstackmanager-servicegroupname' => 'Nome gruppo di servizio',
 	'openstackmanager-removeservicegroup' => 'Rimuovi gruppo di servizio',
-	'openstackmanager-addservicegroupmember' => 'Aggiungi utente al gruppo di servizio',
-	'openstackmanager-removeservicegroupmember' => 'Rimuovi utente',
 	'openstackmanager-removeservicegroupconfirm' => 'Sei sicuro di voler cancellare il gruppo di servizio "$1"?
 Questo può disabilitare gli strumenti o i bot che vengono eseguiti utilizzando questo gruppo.',
 	'openstackmanager-createservicegroupfailed' => 'Errore durante la creazione del gruppo di servizio.',
@@ -6534,6 +6533,7 @@ Questo può disabilitare gli strumenti o i bot che vengono eseguiti utilizzando 
 	'openstackmanager-removedservicegroup' => 'Gruppo di servizio cancellato.',
 	'openstackmanager-removeservicegroupfailed' => 'Errore durante la cancellazione del gruppo di servizio.',
 	'openstackmanager-servicegroups' => 'Gruppi di servizio',
+	'openstackmanager-serviceuser' => 'Utente di servizio',
 	'openstackmanager-nonexistentservicegroup' => 'Il gruppo di servizio richiesto non esiste.',
 	'openstackmanager-configureproject' => 'Configura progetto $1',
 	'openstackmanager-configureproject-sharedhomedirs' => 'Condividi la directory home tra le istanze',
@@ -6541,6 +6541,7 @@ Questo può disabilitare gli strumenti o i bot che vengono eseguiti utilizzando 
 	'openstackmanager-configureproject-volume' => 'Memoria condivisa',
 	'openstackmanager-configureproject-failed' => 'Impossibile modificare le impostazioni del progetto.',
 	'openstackmanager-configureproject-success' => 'Impostazioni del progetto aggiornate.',
+	'openstackmanager-servicegrouplist' => 'Elenco gruppi di servizio',
 	'openstackmanager-configureproject-servicegroup' => 'Gruppi di servizio',
 	'openstackmanager-displayquotas' => 'Quote per il progetto $1',
 	'openstackmanager-displayquotas-action' => 'Visualizzazione delle quote',
@@ -12871,7 +12872,7 @@ Các tên tài nguyên phải bắt đầu với chữ a–z và chỉ được 
 	'novaaddress' => 'Quản lý các địa chỉ IP công khai',
 	'novadomain' => 'Quản lý các tên miền DNS',
 	'novainstance' => 'Quản lý các thực thể',
-	'novakey' => 'Quản lý các khóa SSH công cộng',
+	'novakey' => 'Quản lý các chìa khóa SSH công cộng',
 	'novaproject' => 'Quản lý các dự án OpenStack',
 	'novasecuritygroup' => 'Quản lý các nhóm bảo mật cho tường lửa',
 	'novarole' => 'Quản lý các vai trò toàn cầu',
@@ -12933,11 +12934,11 @@ Các tên tài nguyên phải bắt đầu với chữ a–z và chỉ được 
 	'openstackmanager-createdinstance' => 'Đã tạo thực thể $1 dùng hình $2 và tên máy chủ $3.',
 	'openstackmanager-createinstancefailed' => 'Không thể tạo thực thể.',
 	'openstackmanager-backinstancelist' => 'Trở về danh sách thực thể',
-	'openstackmanager-deletedinstance' => 'Đã xóa thực thể $1.',
-	'openstackmanager-deletedinstance-faileddns' => 'Đã xóa thực thể thành công nhưng không thể xóa mục DNS $1.',
+	'openstackmanager-deletedinstance' => 'Đã xóa thực thể $1.', # Fuzzy
+	'openstackmanager-deletedinstance-faileddns' => 'Đã xóa thực thể thành công nhưng không thể xóa mục DNS $1.', # Fuzzy
 	'openstackmanager-modifiedinstance' => 'Đã sửa đổi thành công thực thể $1 ($2).',
 	'openstackmanager-modifyinstancefailed' => 'Không thể sửa đổi thực thể.',
-	'openstackmanager-deleteinstancefailed' => 'Không thể xóa thực thể.',
+	'openstackmanager-deleteinstancefailed' => 'Không thể xóa thực thể.', # Fuzzy
 	'openstackmanager-volumeattachmentinstance' => 'Đã gắn vào thực thể',
 	'openstackmanager-volumeattachmentdevice' => 'Đã gắn như thiết bị',
 	'openstackmanager-volumeattachmentstatus' => 'Trạng thái gắn',
@@ -12945,10 +12946,10 @@ Các tên tài nguyên phải bắt đầu với chữ a–z và chỉ được 
 	'openstackmanager-attach' => 'gắn',
 	'openstackmanager-detach' => 'gỡ',
 	'openstackmanager-device' => 'Thiết bị',
-	'openstackmanager-novapublickey' => 'Khóa SSH công cộng',
-	'openstackmanager-deletekey' => 'Xóa khóa SSH công cộng',
+	'openstackmanager-novapublickey' => 'Chìa khóa SSH công cộng',
+	'openstackmanager-deletekey' => 'Xóa chìa khóa SSH công cộng',
 	'openstackmanager-deletekeyconfirm' => 'Bạn có chắc chắn muốn xóa khóa ở trên?',
-	'openstackmanager-keylist' => 'Danh sách khóa SSH công cộng',
+	'openstackmanager-keylist' => 'Danh sách chìa khóa SSH công cộng',
 	'openstackmanager-name' => 'Tên',
 	'openstackmanager-keys' => 'Khóa',
 	'openstackmanager-deletedkey' => 'Đã xóa thành công khóa.',
@@ -12989,7 +12990,7 @@ Các tên tài nguyên phải bắt đầu với chữ a–z và chỉ được 
 	'openstackmanager-novarole-info' => 'Thông tin vai trò Nova',
 	'openstackmanager-shellaccountname' => 'Tên tài khoản trên dòng lệnh của thực thể',
 	'openstackmanager-shellaccountnamehelp' => 'Cần nhập tên tài khoản trên dòng lệnh.
-Tên phải bắt đầu với chữ a–z và chỉ được có các chữ a–z, số 0–9, và dấu gạch ngang “-”.',
+Tên phải bắt đầu với chữ a–z và chỉ được có các chữ a–z, số 0–9, và dấu gạch ngang “-”.', # Fuzzy
 	'openstackmanager-addresslist' => 'Danh sách địa chỉ IP công cộng',
 	'openstackmanager-address' => 'Địa chỉ IP công cộng',
 	'openstackmanager-allocateaddress' => 'Cấp phát địa chỉ IP',
