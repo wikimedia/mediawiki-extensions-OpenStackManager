@@ -1,4 +1,4 @@
-<?
+<?php
 class ApiNovaServiceGroups extends ApiBase {
 	var $userLDAP;
 	var $params;
