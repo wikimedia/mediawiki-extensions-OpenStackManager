@@ -711,7 +711,7 @@ Parameters:
 See also:
 * {{msg-mw|Openstackmanager-deleteinstancefailed}}
 * {{msg-mw|Openstackmanager-deletedinstance-faileddns}}',
-	'openstackmanager-deletedinstance-faileddns' => 'Used in Special:NovaInstance.
+	'openstackmanager-deletedinstance-faileddns' => 'Used in [[Special:NovaInstance]].
 
 Tells the user an instance has been deleted successfully, but the [[wikipedia:Domain Name System|DNS]] entry has been failed to remove.
 
@@ -719,8 +719,7 @@ An instance is a virtual machine. In this particular case, a clone of an image f
 
 Parameters:
 * $1 - instance ID
-* $1 - instance Name
-
+* $2 - instance Name
 See also:
 * {{msg-mw|Openstackmanager-deletedinstance}}
 * {{msg-mw|Openstackmanager-deleteinstancefailed}}',
@@ -1213,15 +1212,20 @@ See also:
 	'openstackmanager-needrole' => 'Used as page title for an error on special pages.
 Parameters:
 * $1 - the role the user needs. not localized. (e.g. projectadmin)
+* $2 - project name
 The page body for this page title is:
 * {{msg-mw|Openstackmanager-needrole2}}',
 	'openstackmanager-needrole2' => 'Error message on special pages. Parameters:
-* $1 - the role the user needs, not localized (e.g. projectadmin).',
+* $1 - the role the user needs, not localized (e.g. projectadmin)
+* $2 - project name',
 	'openstackmanager-createsecuritygroup' => 'Used as page title in Special:NovaSecurityGroup.',
 	'openstackmanager-securitygroupname' => 'Used as label for "security group name" input box in "create security group" form, in Special:NovaSecurityGroup.',
 	'openstackmanager-securitygroupdescription' => '{{Identical|Description}}',
 	'openstackmanager-deletesecuritygroup' => 'Used as page title in Special:NovaSecurityGroup.',
-	'openstackmanager-deletesecuritygroup-confirm' => '*$1 - security group name',
+	'openstackmanager-deletesecuritygroup-confirm' => 'Parameters:
+* $1 - security group name
+See also:
+* {{msg-mw|Openstackmanager-nonexistantsecuritygroup}}',
 	'openstackmanager-securitygrouplist' => 'Used as page title in Special:NovaSecurityGroup.',
 	'openstackmanager-securitygrouprule' => 'Used as heading cell in "resource" table, in Special:NovaSecurityGroup.
 {{Identical|Rule}}',
@@ -1254,8 +1258,10 @@ See also:
 * {{msg-mw|openstackmanager-createdsecuritygroup}}',
 	'openstackmanager-nonexistantsecuritygroup' => "Used in [[Special:NovaSecurityGroup]], when the security group doesn't exist.
 
-If the security group exists, the following message is used:
-* {{msg-mw|Openstackmanager-removehost-confirm}}",
+See also:
+* {{msg-mw|Openstackmanager-removehost-confirm}}
+* {{msg-mw|Openstackmanager-removerule-confirm}}
+* {{msg-mw|Openstackmanager-deletesecuritygroup-confirm}}",
 	'openstackmanager-deletedsecuritygroup' => 'Used as success message in [[Special:NovaSecurityGroup]].
 
 See also:
@@ -1313,7 +1319,10 @@ The multi-select box has a list of the users.',
 	'openstackmanager-allmembers' => 'Label for a checkbox that includes all project members in a sudo policy',
 	'openstackmanager-membersofgroup' => 'Column entry for sudo policies; indicates a rule applies to all members of a given user group. $1 is the group name.',
 	'openstackmanager-deletesudoer' => 'Used as page title in Special:NovaSudoer.',
-	'openstackmanager-deletesudoer-confirm' => '*$1 - sudo policy name',
+	'openstackmanager-deletesudoer-confirm' => 'The page title for this message is {{msg-mw|Openstackmanager-deletesudoer}}.
+
+Parameters:
+* $1 - sudo policy name',
 	'openstackmanager-createsudoerfailed' => 'Used as failure message in Special:NovaSudoer.
 
 See also:
