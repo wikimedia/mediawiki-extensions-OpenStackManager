@@ -3805,6 +3805,7 @@ $messages['fa'] = array(
  * @author Nedergard
  * @author Nike
  * @author Olli
+ * @author Samoasambia
  * @author Silvonen
  * @author VezonThunder
  */
@@ -3834,8 +3835,8 @@ Resurssin nimen ensimmäisen merkin on oltava a–z ja sallitut merkit ovat a–
 	'openstackmanager-mustbeloggedin' => 'Sinun täytyy kirjautua sisään, jotta voisit suorittaa tämän toiminnon.',
 	'openstackmanager-nonovacred' => 'Käyttäjätunnusta vastaavia Nova-kirjautumistietoja ei löytynyt.',
 	'openstackmanager-nonovacred-admincreate' => 'Käyttäjätunnukselle ei löytynyt Nova-kirjautumistietoja. Pyydä Nova-ylläpitäjää luomaan sisäänkirjautumistiedot.',
-	'openstackmanager-noaccount' => 'Käyttäjätunnuksesi ei ole pyydetyssä projektissa.', # Fuzzy
-	'openstackmanager-noaccount2' => 'Et voi suorittaa tätä toimintoa, koska käyttäjätunnuksesi ei ole pyydetyssä projektissa.', # Fuzzy
+	'openstackmanager-noaccount' => 'Käyttäjätunnuksesi ei ole projektissa $1.',
+	'openstackmanager-noaccount2' => 'Et voi suorittaa tätä toimintoa, koska käyttäjätunnuksesi ei ole projektissa $1.',
 	'openstackmanager-createdomain' => 'Luo domain',
 	'openstackmanager-deletedomain' => 'Poista domain',
 	'openstackmanager-novadomain-domain' => 'Domain', # Fuzzy
@@ -3875,8 +3876,6 @@ Resurssin nimen ensimmäisen merkin on oltava a–z ja sallitut merkit ovat a–
 	'openstackmanager-addservicegroup' => 'Lisää palveluryhmä',
 	'openstackmanager-servicegroupname' => 'Palveluryhmän nimi',
 	'openstackmanager-removeservicegroup' => 'Poista palveluryhmä',
-	'openstackmanager-addservicegroupmember' => 'Lisää käyttäjä palveluryhmään',
-	'openstackmanager-removeservicegroupmember' => 'Poista käyttäjä',
 	'openstackmanager-servicegroups' => 'Palveluryhmät',
 	'openstackmanager-configureproject-servicegroup' => 'Palveluryhmät',
 	'openstackmanager-createproject' => 'Lisää projekti',
@@ -6535,6 +6534,8 @@ Chiedi ad un amministratore Nova di creare le credenziali per te.',
 	'openstackmanager-addservicegroup' => 'Aggiungi gruppo di servizio',
 	'openstackmanager-servicegroupname' => 'Nome gruppo di servizio',
 	'openstackmanager-removeservicegroup' => 'Rimuovi gruppo di servizio',
+	'openstackmanager-manageservicegroupmembers-title' => 'Gestione appartenenza al gruppo di servizio',
+	'openstackmanager-manageservicegroupmembers' => 'Gestisci membri',
 	'openstackmanager-removeservicegroupconfirm' => 'Sei sicuro di voler cancellare il gruppo di servizio "$1"?
 Questo può disabilitare gli strumenti o i bot che vengono eseguiti utilizzando questo gruppo.',
 	'openstackmanager-createservicegroupfailed' => 'Errore durante la creazione del gruppo di servizio.',
@@ -6552,10 +6553,12 @@ Questo può disabilitare gli strumenti o i bot che vengono eseguiti utilizzando 
 	'openstackmanager-configureproject-success' => 'Impostazioni del progetto aggiornate.',
 	'openstackmanager-servicegrouplist' => 'Elenco gruppi di servizio',
 	'openstackmanager-configureproject-servicegroup' => 'Gruppi di servizio',
+	'openstackmanager-backservicegrouplist' => "Torna all'elenco dei gruppo di servizio",
 	'openstackmanager-displayquotas' => 'Quote per il progetto $1',
 	'openstackmanager-displayquotas-action' => 'Visualizzazione delle quote',
 	'openstackmanager-displayquotas-ram' => 'RAM: $1/$2',
 	'openstackmanager-displayquotas-cores' => 'Core: $1/$2',
+	'openstackmanager-displayquotas-floatingips' => 'IP dinamici: $1/$2',
 	'openstackmanager-displayquotas-instances' => 'Istanze: $1/$2',
 	'openstackmanager-displayquotas-securitygroups' => 'Gruppi di sicurezza: $1/$2',
 	'openstackmanager-createproject' => 'Aggiungi progetto',
