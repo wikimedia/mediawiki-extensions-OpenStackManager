@@ -906,14 +906,21 @@ The page title for this message is {{msg-mw|Openstackmanager-notinservicegroup}}
 {{Identical|Manage member}}',
 	'openstackmanager-removeservicegroupconfirm' => 'Text of page that confirms deletion of a service group. Parameters:
 * $1 - group name',
-	'openstackmanager-servicegrouprecursewarning' => 'Warning about the risk of adding service users to service groups',
+	'openstackmanager-servicegrouprecursewarning' => 'Warning about the risk of adding service users to service groups.
+
+Refers to {{msg-mw|Openstackmanager-serviceuser}}.',
 	'openstackmanager-createservicegroupfailed' => 'Informs user that creation of a service group has failed',
 	'openstackmanager-createdservicegroup' => 'Informs user that creation of a service group succeeded',
 	'openstackmanager-removedservicegroup' => 'Informs user that deletion of a service group succeeded',
 	'openstackmanager-removeservicegroupfailed' => 'Informs that deletion of a service group failed',
 	'openstackmanager-servicegroups' => 'Column header for a set of service groups and their related info.
 {{Identical|Service group}}',
-	'openstackmanager-serviceuser' => 'Label for a group of checkboxes.  A service user is a special member of a service group, used for running tools.',
+	'openstackmanager-serviceuser' => 'Label for a group of checkboxes. A service user is a special member of a service group, used for running tools.
+
+Followed by the checkbox help:
+* {{msg-mw|Openstackmanager-servicegrouprecursewarning}}.
+
+Preceded by another checkbox-label {{msg-mw|Openstackmanager-member}}.',
 	'openstackmanager-nonexistentservicegroup' => 'Appears when adding a user to a service group but the group does not exist',
 	'openstackmanager-configureproject' => 'Used as page title in Special:NovaProject. Parameters:
 * $1 - project name',
@@ -976,7 +983,8 @@ Parameters:
 	'openstackmanager-createproject' => 'Page title',
 	'openstackmanager-projectname' => '{{Identical|Project name}}',
 	'openstackmanager-members' => '{{Identical|Member}}',
-	'openstackmanager-member' => '{{Identical|Member}}',
+	'openstackmanager-member' => 'Used as label for the input box and for the multi-select checkboxes.
+{{Identical|Member}}',
 	'openstackmanager-action' => '{{Identical|Action}}',
 	'openstackmanager-createprojectfailed' => 'Used as failure message in Special:NovaProject.
 
@@ -6374,6 +6382,7 @@ $messages['id'] = array(
 /** Italian (italiano)
  * @author Beta16
  * @author Darth Kule
+ * @author Davio
  * @author F. Cosoleto
  * @author Nemo bis
  * @author Raoli
@@ -6767,7 +6776,7 @@ Deve iniziare con a-z e può contenere solo lettere minuscole, 0-9 e -.',
 	'echo-category-title-osm-instance-deleted' => "Cancellazione di un'istanza (da un progetto di cui io sono un amministratore).",
 	'echo-category-title-osm-instance-build-completed' => "Costruzione di un'istanza (su un progetto di cui io sono un amministratore).",
 	'echo-category-title-osm-instance-reboot-completed' => "Riavvio di un'istanza completato.",
-	'echo-category-title-osm-projectmembers-add' => 'Aggiunta menbri al progetto',
+	'echo-category-title-osm-projectmembers-add' => 'Aggiunta membri al progetto',
 	'prefs-openstack' => 'OpenStack',
 	'prefs-openstack-keys' => 'Elenco chiavi',
 );
