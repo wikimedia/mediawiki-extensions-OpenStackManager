@@ -593,7 +593,7 @@ Parameters:
 * $2 - the human-readable name for the same instance',
 	'openstackmanager-nonexistanthost' => 'Used as error message in Special:NovaInstance.',
 	'openstackmanager-dnsdomain' => 'Used as label for select box in Special:NovaAddress.',
-	'openstackmanager-puppetclasses' => 'Used as <code>&lt;h4&gt;</code> heading in [[Special:NovaPuppetGroup]].
+	'openstackmanager-puppetclasses' => 'Used as <code><nowiki><h4></nowiki></code> heading in [[Special:NovaPuppetGroup]].
 {{Identical|Class}}',
 	'openstackmanager-puppetdoclink' => '{{Optional}}
 A simple label like [?] or (docs) that will link to a doc page about the associated puppet class',
@@ -1366,7 +1366,7 @@ See also:
 * {{msg-mw|Openstackmanager-modifysudoerfailed}}',
 	'openstackmanager-novapuppetgroup' => 'Used as title for the form in Special:NovaPuppetGroup.',
 	'openstackmanager-puppetgrouplist' => 'Used as page title in Special:NovaPuppetGroup.',
-	'openstackmanager-puppetallprojects' => 'Used as <code>&lt;h2&gt;</code> heading in Special:NovaPuppetGroup.
+	'openstackmanager-puppetallprojects' => 'Used as <code><nowiki><h2></nowiki></code> heading in [[Special:NovaPuppetGroup]].
 
 This message is followed by the action link {{msg-mw|Openstackmanager-createpuppetgroup}} (if enabled).
 {{Identical|All projects}}',
@@ -1429,7 +1429,7 @@ This message indicates the puppet group has been failed to modify.
 
 See also:
 * {{msg-mw|Openstackmanager-modifiedpuppetgroup}}',
-	'openstackmanager-puppetvars' => 'Used as <code>&lt;h4&gt;</code> heading in Special:NovaPuppetGroup.
+	'openstackmanager-puppetvars' => 'Used as <code><nowiki><h4></nowiki></code> heading in [[Special:NovaPuppetGroup]].
 
 This message is followed by the action link {{msg-mw|Openstackmanager-addpuppetvar}} (if enabled).
 {{Identical|Variable}}',
@@ -10820,6 +10820,7 @@ $messages['roa-tara'] = array(
  * @author Eleferen
  * @author Haffman
  * @author Kaganer
+ * @author Okras
  * @author Александр Сигачёв
  * @author Тест
  */
@@ -10856,7 +10857,7 @@ $messages['ru'] = array(
 	'openstackmanager-deletedvolume' => 'Удаление тома.',
 	'openstackmanager-device' => 'Устройство',
 	'openstackmanager-deletekey' => 'Удалить ключ', # Fuzzy
-	'openstackmanager-keylist' => 'Список ключей', # Fuzzy
+	'openstackmanager-keylist' => 'Список публичных SSH-ключей',
 	'openstackmanager-name' => 'Имя',
 	'openstackmanager-keys' => 'Ключи',
 	'openstackmanager-addmember' => 'Добавить участника',
@@ -10870,7 +10871,7 @@ $messages['ru'] = array(
 	'openstackmanager-deleteproject' => 'Удалить',
 	'openstackmanager-novaproject-project' => 'Добавить проект',
 	'openstackmanager-projects' => 'Проекты',
-	'openstackmanager-rolename' => 'Имя роли', # Fuzzy
+	'openstackmanager-rolename' => 'Роль',
 	'openstackmanager-removerolemember' => 'Удалить участника',
 	'openstackmanager-addrolemember' => 'Добавить участника',
 	'openstackmanager-addresslist' => 'Список публичных IP-адресов',
@@ -12356,10 +12357,12 @@ $messages['tly'] = array(
 );
 
 /** Turkish (Türkçe)
+ * @author Incelemeelemani
  * @author Suelnur
  */
 $messages['tr'] = array(
 	'openstackmanager-delete' => 'sil',
+	'openstackmanager-location' => 'Konum',
 	'openstackmanager-name' => 'Ad',
 	'openstackmanager-addmember' => 'Üye ekle',
 	'openstackmanager-createproject' => 'Proje ekle',
