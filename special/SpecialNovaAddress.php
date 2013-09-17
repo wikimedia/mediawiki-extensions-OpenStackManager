@@ -337,7 +337,7 @@ class SpecialNovaAddress extends SpecialNova {
 			return false;
 		}
 		$id = $this->getRequest()->getText( 'id' );
-		$domain = $this->getRequest()->getText( 'domain' );
+		$fqdn = $this->getRequest()->getText( 'fqdn' );
 		$hostname = $this->getRequest()->getText( 'hostname' );
 		if ( ! $this->getRequest()->wasPosted() ) {
 			$address = $this->userNova->getAddress( $id );
@@ -360,10 +360,10 @@ class SpecialNovaAddress extends SpecialNova {
 			'default' => $id,
 			'name' => 'id',
 		);
-		$addressInfo['domain'] = array(
+		$addressInfo['fqdn'] = array(
 			'type' => 'hidden',
-			'default' => $domain,
-			'name' => 'domain',
+			'default' => $fqdn,
+			'name' => 'fqdn',
 		);
 		$addressInfo['hostname'] = array(
 			'type' => 'hidden',
@@ -467,27 +467,23 @@ class SpecialNovaAddress extends SpecialNova {
 				$this->pushResourceColumn( $addressRow, '' );
 				$this->pushResourceColumn( $addressRow, '' );
 			}
-			$hosts = OpenStackNovaHost::getHostsByIP( $ip );
-			if ( $hosts ) {
-				$hostArr = array();
-				foreach ( $hosts as $host ) {
-					$domain = $host->getDomain();
-					$fqdns = $host->getAssociatedDomains();
-					foreach ( $fqdns as $fqdn ) {
-						$hostname = explode( '.', $fqdn );
-						$hostname = $hostname[0];
-						$link = $this->createActionLink(
-							'openstackmanager-removehost-action',
-							array(
-								'action' => 'removehost',
-								'id' => $id, 'project' => $projectName,
-								'region' => $region,
-								'domain' => $domain->getDomainName(),
-								'hostname' => $hostname
-							)
-						);
-						$hostArr[] = htmlentities( $fqdn ) . ' ' . $link;
-					}
+			$host = OpenStackNovaHost::getHostByPublicIP( $ip );
+			if ( $host ) {
+				$fqdns = $host->getAssociatedDomains();
+				foreach ( $fqdns as $fqdn ) {
+					$hostname = explode( '.', $fqdn );
+					$hostname = $hostname[0];
+					$link = $this->createActionLink(
+						'openstackmanager-removehost-action',
+						array(
+							'action' => 'removehost',
+							'id' => $id, 'project' => $projectName,
+							'region' => $region,
+							'fqdn' => $fqdn,
+							'hostname' => $hostname
+						)
+					);
+					$hostArr[] = htmlentities( $fqdn ) . ' ' . $link;
 				}
 				$this->pushRawResourceColumn( $addressRow, $this->createResourceList( $hostArr ) );
 			} else {
@@ -592,8 +588,8 @@ class SpecialNovaAddress extends SpecialNova {
 			$outputPage->addWikiMsg( 'openstackmanager-cannotreleaseaddress', $ip );
 			return true;
 		}
-		$hosts = OpenStackNovaHost::getHostsByIP( $ip );
-		if ( $hosts ) {
+		$host = OpenStackNovaHost::getHostByPublicIP( $ip );
+		if ( $host ) {
 			$outputPage->addWikiMsg( 'openstackmanager-cannotreleaseaddress', $ip );
 			return true;
 		}
@@ -696,18 +692,9 @@ class SpecialNovaAddress extends SpecialNova {
 		$hostname = $formData['hostname'];
 		$domain = $formData['domain'];
 		$domain = OpenStackNovaDomain::getDomainByName( $domain );
-		$hostbyname = OpenStackNovaHost::getHostByName( $hostname, $domain );
-		$hostbyip = OpenStackNovaHost::getHostByIP( $ip );
+		$hostbyip = OpenStackNovaHost::getHostByPublicIP( $ip );
 
-		if ( $hostbyname ) {
-			# We need to add an arecord, if the arecord doesn't already exist
-			$success = $hostbyname->addARecord( $ip );
-			if ( $success ) {
-				$outputPage->addWikiMsg( 'openstackmanager-addedhost', $hostname, $ip );
-			} else {
-				$outputPage->addWikiMsg( 'openstackmanager-addhostfailed', $hostname, $ip );
-			}
-		} elseif ( $hostbyip ) {
+		if ( $hostbyip ) {
 			# We need to add an associateddomain, if the associateddomain doesn't already exist
 			$success = $hostbyip->addAssociatedDomain( $hostname . '.' . $domain->getFullyQualifiedDomainName() );
 			if ( $success ) {
@@ -749,11 +736,9 @@ $this->getOutput();
 		}
 		$ip = $address->getPublicIp();
 		$hostname = $formData['hostname'];
-		$domain = $formData['domain'];
-		$domain = OpenStackNovaDomain::getDomainByName( $domain );
-		$host = OpenStackNovaHost::getHostByName( $hostname, $domain );
+		$fqdn = $formData['fqdn'];
+		$host = OpenStackNovaHost::getHostByPublicIP( $ip );
 		if ( $host ) {
-			$fqdn = $hostname . '.' . $domain->getFullyQualifiedDomainName();
 			$records = $host->getAssociatedDomains();
 			if ( count( $records ) > 1 ) {
 				# We need to keep the host, but remove the fqdn

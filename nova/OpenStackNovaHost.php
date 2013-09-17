@@ -8,16 +8,25 @@
  */
 
 class OpenStackNovaHost {
+	/**
+	 * @var bool
+	 */
+	var $private;
 
 	/**
 	 * @var string
 	 */
-	var $searchvalue;
+	var $hostname;
 
 	/**
 	 * @var string
 	 */
 	var $hostDN;
+
+	/**
+	 * @var string
+	 */
+	var $ip;
 
 	/**
 	 * @var mixed
@@ -27,15 +36,20 @@ class OpenStackNovaHost {
 	/**
 	 * @var OpenStackNovaDomain
 	 */
-	var $domain;
+	var $domainCache;
 
 	/**
-	 * @param  $hostname
-	 * @param  $domain
+	 * @param  $instanceid
+	 * @param  $ip
+	 *  (specify $instanceid for private, $ip for public)
 	 */
-	function __construct( $hostname, $domain ) {
-		$this->searchvalue = $hostname;
-		$this->domain = $domain;
+	function __construct( $private, $instanceid, $ip ) {
+		global $wgAuth;
+
+		$this->private = $private;
+		$this->hostname = $instanceid;
+		$this->domainCache = null;
+		$this->ip = $ip;
 		OpenStackNovaLdapConnection::connect();
 		$this->fetchHostInfo();
 	}
@@ -47,10 +61,16 @@ class OpenStackNovaHost {
 	 */
 	function fetchHostInfo() {
 		global $wgAuth;
+		global $wgOpenStackManagerLDAPInstanceBaseDN;
 
-		$this->searchvalue = $wgAuth->getLdapEscapedString( $this->searchvalue );
-		$fqdn = $this->searchvalue . '.' . $this->domain->getFullyQualifiedDomainName();
-		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $this->domain->domainDN, '(|(associateddomain=' . $fqdn . ')(cnamerecord=' . $fqdn . ')(dc=' . $this->searchvalue . '))' );
+		$this->hostname = $wgAuth->getLdapEscapedString( $this->hostname );
+		if ( $this->private ) {
+			$fqdn = $this->hostname . '.' . $this->getDomain()->getFullyQualifiedDomainName();
+			$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, '(dc=' . $fqdn . '))' );
+		} else {
+			$this->ip = $wgAuth->getLdapEscapedString( $this->ip );
+			$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, '(dc=' . $this->ip . ')' );
+		}
 		$this->hostInfo = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
 		if ( $this->hostInfo["count"] == "0" ) {
 			$this->hostInfo = null;
@@ -103,7 +123,19 @@ class OpenStackNovaHost {
 	 * @return OpenStackNovaDomain
 	 */
 	function getDomain() {
-		return $this->domain;
+		global $wgAuth;
+
+		if ( ! $this->domainCache ) {
+			if ( $this->private ) {
+				$this->domainCache = OpenStackNovaDomain::getDomainByInstanceId( $this->hostname );
+			} else {
+				$this->domainCache = OpenStackNovaDomain::getDomainByHostIP( $this->ip );
+			}
+		}
+		if (! $this->domainCache ) {
+		    $wgAuth->printDebug( "Looked up domain but domainCache is still empty.", NONSENSITIVE );
+		}
+		return $this->domainCache;
 	}
 
 	/**
@@ -123,7 +155,7 @@ class OpenStackNovaHost {
 	 * @return string
 	 */
 	function getFullyQualifiedHostName() {
-		return $this->getHostName() . '.' . $this->domain->getFullyQualifiedDomainName();
+		return $this->getHostName() . '.' . $this->getDomain()->getFullyQualifiedDomainName();
 	}
 
 	/**
@@ -269,7 +301,7 @@ class OpenStackNovaHost {
 			array_shift( $associateddomains );
 			$index = array_search( $fqdn, $associateddomains );
 			if ( $index === false ) {
-				$wgAuth->printDebug( "Failed to find ip address in arecords list", NONSENSITIVE );
+				$wgAuth->printDebug( "Failed to find $fqdn in associateddomain list", NONSENSITIVE );
 				return false;
 			}
 			unset( $associateddomains[$index] );
@@ -281,7 +313,7 @@ class OpenStackNovaHost {
 			$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->hostDN, $values );
 			if ( $success ) {
 				$wgAuth->printDebug( "Successfully removed $fqdn from $this->hostDN", NONSENSITIVE );
-				$this->domain->updateSOA();
+				$this->getDomain()->updateSOA();
 				$this->fetchHostInfo();
 				return true;
 			} else {
@@ -319,7 +351,7 @@ class OpenStackNovaHost {
 			$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->hostDN, $values );
 			if ( $success ) {
 				$wgAuth->printDebug( "Successfully removed $ip from $this->hostDN", NONSENSITIVE );
-				$this->domain->updateSOA();
+				$this->getDomain()->updateSOA();
 				$this->fetchHostInfo();
 				return true;
 			} else {
@@ -351,7 +383,7 @@ class OpenStackNovaHost {
 		$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->hostDN, $values );
 		if ( $success ) {
 			$wgAuth->printDebug( "Successfully added $fqdn to $this->hostDN", NONSENSITIVE );
-			$this->domain->updateSOA();
+			$this->getDomain()->updateSOA();
 			$this->fetchHostInfo();
 			return true;
 		} else {
@@ -380,7 +412,7 @@ class OpenStackNovaHost {
 		$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->hostDN, $values );
 		if ( $success ) {
 			$wgAuth->printDebug( "Successfully added $ip to $this->hostDN", NONSENSITIVE );
-			$this->domain->updateSOA();
+			$this->getDomain()->updateSOA();
 			$this->fetchHostInfo();
 			return true;
 		} else {
@@ -402,7 +434,7 @@ class OpenStackNovaHost {
 		$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->hostDN, $values );
 		if ( $success ) {
 			$wgAuth->printDebug( "Successfully set $ip on $this->hostDN", NONSENSITIVE );
-			$this->domain->updateSOA();
+			$this->getDomain()->updateSOA();
 			$this->fetchHostInfo();
 			return true;
 		} else {
@@ -420,8 +452,27 @@ class OpenStackNovaHost {
 	 * @param  $domain
 	 * @return OpenStackNovaHost
 	 */
-	static function getHostByName( $hostname, $domain ) {
-		$host = new OpenStackNovaHost( $hostname, $domain );
+	static function getPrivateHost( $hostname ) {
+		$host = new OpenStackNovaHost( true, $hostname, null );
+		if ( $host->hostInfo ) {
+			return $host;
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * Get a public host by the host's ip. Returns
+	 * null if the entry does not exist.
+	 *
+	 * @static
+	 * @param  $ip
+	 * @return OpenStackNovaHost
+	 */
+	static function getHostByPublicIP( $ip ) {
+		global $wgAuth;
+
+		$host = new OpenStackNovaHost( false, null, $ip );
 		if ( $host->hostInfo ) {
 			return $host;
 		} else {
@@ -437,72 +488,30 @@ class OpenStackNovaHost {
 	 * @return OpenStackNovaHost
 	 */
 	static function getHostByInstanceId( $instanceid ) {
-		$domain = OpenStackNovaDomain::getDomainByInstanceId( $instanceid );
-		if ( $domain ) {
-			return self::getHostByName( $instanceid, $domain );
-		} else {
-			return null;
-		}
+		return self::getPrivateHost( $instanceid );
 	}
 
 	/**
-	 * Get a host by ip address and an OpenStackNovaDomain. Returns null if
-	 * the entry does not exist.
-	 *
-	 * @static
-	 * @param  $ip
-	 * @return null|OpenStackNovaHost
-	 */
-	static function getHostByIP( $ip ) {
-		global $wgAuth;
-		global $wgOpenStackManagerLDAPInstanceBaseDN;
-
-		$domain = OpenStackNovaDomain::getDomainByHostIP( $ip );
-		if ( ! $domain ) {
-			return null;
-		}
-		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, '(arecord=' . $ip . ')' );
-		$hostInfo = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
-		if ( $hostInfo["count"] == "0" ) {
-			return null;
-		} else {
-			array_shift( $hostInfo );
-			$hostname = $hostInfo[0]['dc'][0];
-			$host = OpenStackNovaHost::getHostByName( $hostname, $domain );
-			return $host;
-		}
-	}
-
-	/**
-	 * Get all host entries that have the specified IP address assigned. Returns
-	 * an empty array if none are found.
+	 * Get private host entries that has the specified IP address assigned. Returns
+	 * null if none is found.
 	 *
 	 * @static
 	 * @param  $ip
 	 * @return array
 	 */
-	static function getHostsByIP( $ip ) {
+	static function getHostByPrivateIP( $ip ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
 
 		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, '(arecord=' . $ip . ')' );
-		$hostsInfo = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
-		if ( $hostsInfo["count"] == "0" ) {
-			return array();
+		$hostInfo = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
+		if ( $hostInfo["count"] == "0" ) {
+			return null;
 		} else {
-			$hosts = array();
-			array_shift( $hostsInfo );
-			foreach ( $hostsInfo as $host ) {
-				$hostname = $host['dc'][0];
-				$domainname = explode( '.', $host['associateddomain'][0] );
-				$domainname = $domainname[1];
-				$domain = OpenStackNovaDomain::getDomainByName( $domainname );
-				$hostObject = OpenStackNovaHost::getHostByName( $hostname, $domain );
-				if ( $hostObject ) {
-					$hosts[] = $hostObject;
-				}
-			}
-			return $hosts;
+			$host = $hotsInfo[0];
+			$hostname = $host['dc'][0];
+			$hostObject = OpenStackNovaHost::getHostByInstanceId( $hostname );
+			return $hostObject;
 		}
 	}
 
@@ -527,7 +536,7 @@ class OpenStackNovaHost {
 				# First entry is always a count
 				array_shift( $entries );
 				foreach ( $entries as $entry ) {
-					$hosts[] = new OpenStackNovaHost( $entry['dc'][0], $domain );
+					$hosts[] = new OpenStackNovaHost( true, $entry['dc'][0], null );
 				}
 			}
 		}
@@ -544,9 +553,12 @@ class OpenStackNovaHost {
 	function deleteHost() {
 		global $wgAuth;
 
+		# Grab the domain now, before we delete the entry and it's no longer there to grab.
+		$domain = $this->getDomain();
+
 		$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $this->hostDN );
 		if ( $success ) {
-			$this->getDomain()->updateSOA();
+			$domain->updateSOA();
 			$wgAuth->printDebug( "Successfully deleted host " . $this->getHostName(), NONSENSITIVE );
 			return true;
 		} else {
@@ -583,7 +595,8 @@ class OpenStackNovaHost {
 			$ip = null;
 		}
 		$domainname = $domain->getFullyQualifiedDomainName();
-		$host = OpenStackNovaHost::getHostByName( $hostname, $domain );
+		$fqdn = $instanceid . '.' . $domainname;
+		$host = OpenStackNovaHost::getHostByInstanceId( $instanceid );
 		if ( $host ) {
 			$wgAuth->printDebug( "Failed to add host $hostname as the DNS entry already exists", NONSENSITIVE );
 			return null;
@@ -592,7 +605,7 @@ class OpenStackNovaHost {
 		$hostEntry['objectclass'][] = 'dcobject';
 		$hostEntry['objectclass'][] = 'dnsdomain';
 		$hostEntry['objectclass'][] = 'domainrelatedobject';
-		$hostEntry['dc'] = $instanceid;
+		$hostEntry['dc'] = $fqdn;
 		# $hostEntry['l'] = $instance->getInstanceAvailabilityZone();
 		if ( $ip ) {
 			$hostEntry['arecord'] = $ip;
@@ -625,15 +638,15 @@ class OpenStackNovaHost {
 			$hostEntry['puppetvar'][] = 'instanceproject=' . $project;
 			$hostEntry['puppetvar'][] = 'instancename=' . $hostname;
 		}
-		$dn = 'dc=' . $instanceid . ',dc=' . $domain->getDomainName() . ',' . $wgOpenStackManagerLDAPInstanceBaseDN;
+		$dn = 'dc=' . $fqdn . ',' . $wgOpenStackManagerLDAPInstanceBaseDN;
 
 		$success = LdapAuthenticationPlugin::ldap_add( $wgAuth->ldapconn, $dn, $hostEntry );
 		if ( $success ) {
 			$domain->updateSOA();
 			$wgAuth->printDebug( "Successfully added host $hostname", NONSENSITIVE );
-			return new OpenStackNovaHost( $hostname, $domain );
+			return new OpenStackNovaHost( false, $hostname, null );
 		} else {
-			$wgAuth->printDebug( "Failed to add host $hostname", NONSENSITIVE );
+			$wgAuth->printDebug( "Failed to add host $hostname with dn of $dn", NONSENSITIVE );
 			return null;
 		}
 	}
@@ -656,7 +669,7 @@ class OpenStackNovaHost {
 		OpenStackNovaLdapConnection::connect();
 
 		$domainname = $domain->getFullyQualifiedDomainName();
-		$host = OpenStackNovaHost::getHostByName( $hostname, $domain );
+		$host = OpenStackNovaHost::getHostByPublicIP( $ip );
 		if ( $host ) {
 			$wgAuth->printDebug( "Failed to add public host $hostname as the DNS entry already exists", NONSENSITIVE );
 			return null;
@@ -665,18 +678,18 @@ class OpenStackNovaHost {
 		$hostEntry['objectclass'][] = 'dcobject';
 		$hostEntry['objectclass'][] = 'dnsdomain';
 		$hostEntry['objectclass'][] = 'domainrelatedobject';
-		$hostEntry['dc'] = $hostname;
+		$hostEntry['dc'] = $ip;
 		$hostEntry['arecord'] = $ip;
 		$hostEntry['associateddomain'][] = $hostname . '.' . $domainname;
-		$dn = 'dc=' . $hostname . ',dc=' . $domain->getDomainName() . ',' . $wgOpenStackManagerLDAPInstanceBaseDN;
+		$dn = 'dc=' . $ip . ',' . $wgOpenStackManagerLDAPInstanceBaseDN;
 
 		$success = LdapAuthenticationPlugin::ldap_add( $wgAuth->ldapconn, $dn, $hostEntry );
 		if ( $success ) {
 			$domain->updateSOA();
 			$wgAuth->printDebug( "Successfully added public host $hostname", NONSENSITIVE );
-			return new OpenStackNovaHost( $hostname, $domain );
+			return new OpenStackNovaHost( false, null, $ip );
 		} else {
-			$wgAuth->printDebug( "Failed to add public host $hostname", NONSENSITIVE );
+			$wgAuth->printDebug( "Failed to add public host $hostname with dn = $dn", NONSENSITIVE );
 			return null;
 		}
 	}
