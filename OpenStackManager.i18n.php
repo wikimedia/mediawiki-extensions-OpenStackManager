@@ -7966,6 +7966,7 @@ $messages['ku-latn'] = array(
 
 /** Luxembourgish (Lëtzebuergesch)
  * @author Robby
+ * @author Soued031
  */
 $messages['lb'] = array(
 	'openstackmanager-desc' => 'Erméiglecht et de Benotzer fir Nova a Swift ze verwalten',
@@ -7997,7 +7998,7 @@ $messages['lb'] = array(
 	'openstackmanager-configureinstance' => 'Instanz $1 ($2) astellen',
 	'openstackmanager-dnsdomain' => 'DNS-Domain',
 	'openstackmanager-puppetclasses' => 'Klassen',
-	'openstackmanager-novainstance-info' => "Informatioun iwwert d'Instanz",
+	'openstackmanager-novainstance-info' => "Informatioun iwwer d'Instanz",
 	'openstackmanager-novainstance-project' => 'Projektspezifesch Gruppen',
 	'openstackmanager-novainstance-global' => 'Global Gruppen',
 	'openstackmanager-instancename' => 'Numm vun der Instanz',
