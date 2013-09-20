@@ -48,7 +48,7 @@ class SpecialNovaAddress extends SpecialNova {
 		} elseif ( $action === "addhost" ) {
 			$this->addHost();
 		} elseif ( $action === "removehost" ) {
-			$this->removehost();
+			$this->removeHost();
 		} else {
 			$this->listAddresses();
 		}
