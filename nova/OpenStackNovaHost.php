@@ -16,7 +16,7 @@ class OpenStackNovaHost {
 	/**
 	 * @var string
 	 */
-	var $hostname;
+	var $instanceid;
 
 	/**
 	 * @var string
@@ -47,7 +47,7 @@ class OpenStackNovaHost {
 		global $wgAuth;
 
 		$this->private = $private;
-		$this->hostname = $instanceid;
+		$this->instanceid = $instanceid;
 		$this->domainCache = null;
 		$this->ip = $ip;
 		OpenStackNovaLdapConnection::connect();
@@ -63,9 +63,9 @@ class OpenStackNovaHost {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
 
-		$this->hostname = $wgAuth->getLdapEscapedString( $this->hostname );
+		$this->instanceid = $wgAuth->getLdapEscapedString( $this->instanceid );
 		if ( $this->private ) {
-			$fqdn = $this->hostname . '.' . $this->getDomain()->getFullyQualifiedDomainName();
+			$fqdn = $this->instanceid . '.' . $this->getDomain()->getFullyQualifiedDomainName();
 			$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, '(dc=' . $fqdn . '))' );
 		} else {
 			$this->ip = $wgAuth->getLdapEscapedString( $this->ip );
@@ -80,22 +80,21 @@ class OpenStackNovaHost {
 	}
 
 	/**
+	 * Return a private host's host's fully qualified display name
 	 *
-	 * Return i-<id> style hostname
-	 *
-	 * @return
-	 */
-	function getHostName() {
-		return $this->hostInfo[0]['dc'][0];
-	}
-
-	/**
-	 * Return the host's fully qualified display name
+	 * (Note that calling this for a public host doesn't make sense since public
+	 *  host entries have multiple FQDNs.)
 	 *
 	 * @return string
 	 */
 	function getFullyQualifiedDisplayName() {
 		global $wgAuth;
+
+		if ( $this->public ) {
+			$wgAuth->printDebug( "getFullyQualifiedDisplayName called on public host, so this will probably break.", NONSENSITIVE );
+		}
+
+		$wgAuth->printDebug( "Error: Unable to determine instancename of " . $this->searchvalue, NONSENSITIVE );
 
 		if ( isset( $this->hostInfo[0]['associateddomain'] ) ) {
 			$domains = $this->hostInfo[0]['associateddomain'];
@@ -103,7 +102,7 @@ class OpenStackNovaHost {
 			foreach ( $domains as $domain ) {
 				$pieces = explode( '.', $domain );
 				$name = $pieces[0];
-				if ( $name != $this->getHostName() ) {
+				if ( $name != $this->instanceid ) {
 					# A leap of faith:  There should
 					# be two associated domains, one based on the id and
 					# one the display name.  So, if this one isn't the id,
@@ -127,13 +126,16 @@ class OpenStackNovaHost {
 
 		if ( ! $this->domainCache ) {
 			if ( $this->private ) {
-				$this->domainCache = OpenStackNovaDomain::getDomainByInstanceId( $this->hostname );
+				$this->domainCache = OpenStackNovaDomain::getDomainByInstanceId( $this->instanceid );
+				if (! $this->domainCache ) {
+		    		$wgAuth->printDebug( "Looked up domain for id $this->instanceid but domainCache is still empty.", NONSENSITIVE );
+				}
 			} else {
 				$this->domainCache = OpenStackNovaDomain::getDomainByHostIP( $this->ip );
+				if (! $this->domainCache ) {
+		    		$wgAuth->printDebug( "Looked up domain for ip $this->ip but domainCache is still empty.", NONSENSITIVE );
+				}
 			}
-		}
-		if (! $this->domainCache ) {
-		    $wgAuth->printDebug( "Looked up domain but domainCache is still empty.", NONSENSITIVE );
 		}
 		return $this->domainCache;
 	}
@@ -150,12 +152,21 @@ class OpenStackNovaHost {
 
 	/**
 	 *
-	 * Return i-xxxxx.<domain>
+	 * Return i-xxxxx.<domain> for a private host
+	 *
+	 * (Note that calling this for a public host doesn't make sense since public
+	 *  host entries have multiple FQDNs.)
 	 *
 	 * @return string
 	 */
 	function getFullyQualifiedHostName() {
-		return $this->getHostName() . '.' . $this->getDomain()->getFullyQualifiedDomainName();
+		global $wgAuth;
+
+		if ( $this->public ) {
+			$wgAuth->printDebug( "getFullyQualifiedDisplayName called on a public host; this will probably break.", NONSENSITIVE );
+		}
+
+		return $this->instanceid . '.' . $this->getDomain()->getFullyQualifiedDomainName();
 	}
 
 	/**
@@ -448,12 +459,12 @@ class OpenStackNovaHost {
 	 * null if the entry does not exist.
 	 *
 	 * @static
-	 * @param  $hostname
+	 * @param  $instanceid
 	 * @param  $domain
 	 * @return OpenStackNovaHost
 	 */
-	static function getPrivateHost( $hostname ) {
-		$host = new OpenStackNovaHost( true, $hostname, null );
+	static function getPrivateHost( $instanceid ) {
+		$host = new OpenStackNovaHost( true, $instanceid, null );
 		if ( $host->hostInfo ) {
 			return $host;
 		} else {
@@ -509,8 +520,8 @@ class OpenStackNovaHost {
 			return null;
 		} else {
 			$host = $hotsInfo[0];
-			$hostname = $host['dc'][0];
-			$hostObject = OpenStackNovaHost::getHostByInstanceId( $hostname );
+			$instanceid = $host['dc'][0];
+			$hostObject = OpenStackNovaHost::getHostByInstanceId( $instanceid );
 			return $hostObject;
 		}
 	}
@@ -559,10 +570,10 @@ class OpenStackNovaHost {
 		$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $this->hostDN );
 		if ( $success ) {
 			$domain->updateSOA();
-			$wgAuth->printDebug( "Successfully deleted host " . $this->getHostName(), NONSENSITIVE );
+			$wgAuth->printDebug( "Successfully deleted host " . $this->instanceid, NONSENSITIVE );
 			return true;
 		} else {
-			$wgAuth->printDebug( "Failed to delete host " . $this->getHostName(), NONSENSITIVE );
+			$wgAuth->printDebug( "Failed to delete host " . $this->instanceid, NONSENSITIVE );
 			return false;
 		}
 	}
