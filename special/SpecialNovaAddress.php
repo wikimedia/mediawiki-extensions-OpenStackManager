@@ -450,6 +450,7 @@ class SpecialNovaAddress extends SpecialNova {
 		 */
 		foreach ( $addresses as $address ) {
 			$addressRow = array();
+			$hostArr = array();
 			$ip = $address->getPublicIP();
 			$id = $address->getAddressId();
 			$instanceosid = $address->getInstanceId();
