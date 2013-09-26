@@ -65,7 +65,13 @@ class OpenStackNovaHost {
 
 		$this->instanceid = $wgAuth->getLdapEscapedString( $this->instanceid );
 		if ( $this->private ) {
-			$fqdn = $this->instanceid . '.' . $this->getDomain()->getFullyQualifiedDomainName();
+			if ($this->getDomain()) {
+				$fqdn = $this->instanceid . '.' . $this->getDomain()->getFullyQualifiedDomainName();
+			} else {
+				# No domain means no instance!
+				$this->hostInfo = null;
+				return;
+			}
 			$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, '(dc=' . $fqdn . '))' );
 		} else {
 			$this->ip = $wgAuth->getLdapEscapedString( $this->ip );
