@@ -72,7 +72,7 @@ class OpenStackNovaHost {
 				$this->hostInfo = null;
 				return;
 			}
-			$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, '(dc=' . $fqdn . '))' );
+			$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, '(dc=' . $fqdn . ')' );
 		} else {
 			$this->ip = $wgAuth->getLdapEscapedString( $this->ip );
 			$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, '(dc=' . $this->ip . ')' );
