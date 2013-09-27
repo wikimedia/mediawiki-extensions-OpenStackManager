@@ -661,7 +661,7 @@ class OpenStackNovaHost {
 		if ( $success ) {
 			$domain->updateSOA();
 			$wgAuth->printDebug( "Successfully added host $hostname", NONSENSITIVE );
-			return new OpenStackNovaHost( false, $hostname, null );
+			return new OpenStackNovaHost( true, $hostname, null );
 		} else {
 			$wgAuth->printDebug( "Failed to add host $hostname with dn of $dn", NONSENSITIVE );
 			return null;
