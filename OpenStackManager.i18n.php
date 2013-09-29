@@ -10177,11 +10177,11 @@ A dev ancaminé con a-z, e a peul mach conten-e ij caràter a-z, 0-9, e -.",
  * @author Ahmed-Najib-Biabani-Ibrahimkhel
  */
 $messages['ps'] = array(
-	'openstackmanager-delete' => 'ړنګول',
+	'openstackmanager-delete' => 'ړنگول',
 	'openstackmanager-rename' => 'نوم بدلول',
 	'openstackmanager-actions' => 'چارې',
 	'openstackmanager-createdomain' => 'شپول جوړول',
-	'openstackmanager-deletedomain' => 'شپول ړنګول',
+	'openstackmanager-deletedomain' => 'شپول ړنگول',
 	'openstackmanager-novadomain-domain' => 'شپول ورګډول',
 	'openstackmanager-domainlist' => 'د شپول لړليک',
 	'openstackmanager-domainname' => 'شپول نوم',
@@ -10197,7 +10197,7 @@ $messages['ps'] = array(
 	'openstackmanager-projectname' => 'د پروژې نوم',
 	'openstackmanager-members' => 'غړي',
 	'openstackmanager-member' => 'غړی',
-	'openstackmanager-deleteproject' => 'ړنګول',
+	'openstackmanager-deleteproject' => 'ړنگول',
 	'openstackmanager-novaproject-project' => 'پروژه ورګډول',
 	'openstackmanager-projects' => 'پروژې',
 	'openstackmanager-addrolemember' => 'غړی ورګډول',
