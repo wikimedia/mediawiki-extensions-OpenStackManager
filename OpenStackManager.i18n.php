@@ -12960,18 +12960,18 @@ Các tên tài nguyên phải bắt đầu với chữ a–z và chỉ được 
 	'openstackmanager-rebootinstance' => 'Khởi động lại thực thể',
 	'openstackmanager-rebootinstancequestion' => 'Bạn có chắc chắn muốn khởi động lại thực thể “$1”?',
 	'openstackmanager-rebootedinstance' => 'Đã khởi động lại thực thể “$1”.',
-	'openstackmanager-rebootinstancefailed' => 'Không thể khởi động lại thực thể.', # Fuzzy
+	'openstackmanager-rebootinstancefailed' => 'Không thể khởi động lại thực thể $1.',
 	'openstackmanager-launchtime' => 'Lúc khởi động',
 	'openstackmanager-createinstance' => 'Thêm thực thể',
 	'openstackmanager-invaliddomain' => 'Tên miền yêu cầu không hợp lệ.',
 	'openstackmanager-createdinstance' => 'Đã tạo thực thể $1 dùng hình $2 và tên máy chủ $3.',
 	'openstackmanager-createinstancefailed' => 'Không thể tạo thực thể.',
 	'openstackmanager-backinstancelist' => 'Trở về danh sách thực thể',
-	'openstackmanager-deletedinstance' => 'Đã xóa thực thể $1.', # Fuzzy
-	'openstackmanager-deletedinstance-faileddns' => 'Đã xóa thực thể thành công nhưng không thể xóa mục DNS $1.', # Fuzzy
+	'openstackmanager-deletedinstance' => 'Đã xóa thực thể $1 ($2).',
+	'openstackmanager-deletedinstance-faileddns' => 'Đã xóa thành công thực thể $1 ($2) nhưng không thể xóa mục DNS của nó.',
 	'openstackmanager-modifiedinstance' => 'Đã sửa đổi thành công thực thể $1 ($2).',
 	'openstackmanager-modifyinstancefailed' => 'Không thể sửa đổi thực thể.',
-	'openstackmanager-deleteinstancefailed' => 'Không thể xóa thực thể.', # Fuzzy
+	'openstackmanager-deleteinstancefailed' => 'Không thể xóa thực thể $1 ($2).',
 	'openstackmanager-volumeattachmentinstance' => 'Đã gắn vào thực thể',
 	'openstackmanager-volumeattachmentdevice' => 'Đã gắn như thiết bị',
 	'openstackmanager-volumeattachmentstatus' => 'Trạng thái gắn',
@@ -13023,7 +13023,7 @@ Các tên tài nguyên phải bắt đầu với chữ a–z và chỉ được 
 	'openstackmanager-novarole-info' => 'Thông tin vai trò Nova',
 	'openstackmanager-shellaccountname' => 'Tên tài khoản trên dòng lệnh của thực thể',
 	'openstackmanager-shellaccountnamehelp' => 'Cần nhập tên tài khoản trên dòng lệnh.
-Tên phải bắt đầu với chữ a–z và chỉ được có các chữ a–z, số 0–9, và dấu gạch ngang “-”.', # Fuzzy
+Tên phải bắt đầu với chữ a–z và chỉ được có các chữ thường a–z, số 0–9, và dấu gạch ngang “-”.',
 	'openstackmanager-addresslist' => 'Danh sách địa chỉ IP công cộng',
 	'openstackmanager-address' => 'Địa chỉ IP công cộng',
 	'openstackmanager-allocateaddress' => 'Cấp phát địa chỉ IP',
@@ -13158,6 +13158,7 @@ $messages['yi'] = array(
 /** Simplified Chinese (中文（简体）‎)
  * @author Anakmalaysia
  * @author Hydra
+ * @author Hzy980512
  * @author Linforest
  * @author Qiyue2001
  * @author Simon Shek
@@ -13323,8 +13324,6 @@ $messages['zh-hans'] = array(
 	'openstackmanager-addservicegroup' => '添加服务组',
 	'openstackmanager-servicegroupname' => '服务组名称',
 	'openstackmanager-removeservicegroup' => '移除服务组',
-	'openstackmanager-addservicegroupmember' => '添加用户到服务组',
-	'openstackmanager-removeservicegroupmember' => '移除用户',
 	'openstackmanager-createservicegroupfailed' => '创建服务组失败。',
 	'openstackmanager-createdservicegroup' => '已创建服务组。',
 	'openstackmanager-removedservicegroup' => '已删除服务组。',
@@ -13363,6 +13362,7 @@ $messages['zh-hans'] = array(
 	'openstackmanager-projects' => '项目',
 	'openstackmanager-setprojects' => '设置项目筛选器成功。',
 	'openstackmanager-setprojectfilter' => '请选择项目以使用该项目过滤器显示。',
+	'openstackmanager-projectfiltersubmit' => '设置过滤器',
 	'openstackmanager-toggle' => '切换',
 	'openstackmanager-roles' => '作用',
 	'openstackmanager-rolename' => '角色',
@@ -13411,6 +13411,7 @@ $messages['zh-hans'] = array(
 	'openstackmanager-removedhost' => '删除$1成功。',
 	'openstackmanager-removehostfailed' => '删除$1失败。',
 	'openstackmanager-nonexistenthost' => '请求的主机不存在。',
+	'openstackmanager-unknownerror' => '发生错误。',
 	'openstackmanager-needrole2' => '您必须成为$1管理员才能执行此操作。', # Fuzzy
 	'openstackmanager-createsecuritygroup' => '创建安全组',
 	'openstackmanager-securitygroupname' => '安全组名称',
@@ -13458,6 +13459,7 @@ $messages['zh-hans'] = array(
 	'openstackmanager-commadelimiter' => '逗号分隔',
 	'openstackmanager-sudoerusers' => '用户',
 	'openstackmanager-sudoerhosts' => '主机',
+	'openstackmanager-sudoerrunas' => '允许运行为',
 	'openstackmanager-sudoercommands' => '命令',
 	'openstackmanager-requirepassword' => '需要验证身份',
 	'openstackmanager-sudoeroptions' => '选项',
@@ -13520,6 +13522,7 @@ $messages['zh-hans'] = array(
 	'openstackmanager-email-subject' => '您的实例已经准备登入。',
 	'openstackmanager-email-body' => '以下的实例已经创建好，并可以登入：',
 	'right-manageproject' => '管理OpenStack项目及作用',
+	'right-loginviashell' => '通过shell登录',
 );
 
 /** Traditional Chinese (中文（繁體）‎)
