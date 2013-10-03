@@ -96,11 +96,9 @@ class OpenStackNovaHost {
 	function getFullyQualifiedDisplayName() {
 		global $wgAuth;
 
-		if ( $this->public ) {
+		if ( ! $this->private ) {
 			$wgAuth->printDebug( "getFullyQualifiedDisplayName called on public host, so this will probably break.", NONSENSITIVE );
 		}
-
-		$wgAuth->printDebug( "Error: Unable to determine instancename of " . $this->searchvalue, NONSENSITIVE );
 
 		if ( isset( $this->hostInfo[0]['associateddomain'] ) ) {
 			$domains = $this->hostInfo[0]['associateddomain'];
@@ -118,7 +116,7 @@ class OpenStackNovaHost {
 			}
 		}
 
-		$wgAuth->printDebug( "Error: Unable to determine instancename of " . $this->searchvalue, NONSENSITIVE );
+		$wgAuth->printDebug( "Error: Unable to determine instancename of " . $this->instanceid, NONSENSITIVE );
 		return "";
 	}
 
@@ -168,7 +166,7 @@ class OpenStackNovaHost {
 	function getFullyQualifiedHostName() {
 		global $wgAuth;
 
-		if ( $this->public ) {
+		if ( ! $this->private ) {
 			$wgAuth->printDebug( "getFullyQualifiedDisplayName called on a public host; this will probably break.", NONSENSITIVE );
 		}
 
