@@ -2552,6 +2552,7 @@ $messages['ce'] = array(
 	'openstackmanager-notloggedin' => 'Хьай цӀарца чугӀо',
 	'openstackmanager-members' => 'Декъашхо',
 	'openstackmanager-action' => 'Дийраш',
+	'openstackmanager-projects' => 'Проекташ',
 );
 
 /** Czech (česky)
@@ -3959,6 +3960,7 @@ Resurssin nimen ensimmäisen merkin on oltava a–z ja sallitut merkit ovat a–
  * @author Hashar
  * @author Hello71
  * @author IAlex
+ * @author Ltrlg
  * @author Metroitendo
  * @author Peter17
  * @author Tititou36
@@ -4350,7 +4352,7 @@ Il doit commencer par une lettre (a–z) et ne peut contenir que des lettres en 
 	'notification-osm-instance-reboot-completed' => "$1 {{GENDER:$1|a redémarré}} l’instance '$3' dans le projet [[$2]]",
 	'notification-osm-projectmember-added' => '$1 vous {{GENDER:$1|a ajouté}} au projet [[$2]]',
 	'echo-category-title-osm-instance-deleted' => 'Suppression d’une instance (où vous êtes administrateur de projet)',
-	'echo-category-title-osm-instance-build-completed' => 'Construction d&une instance (où vous êtes administrateur de projet)',
+	'echo-category-title-osm-instance-build-completed' => 'Construction d’une instance (où vous êtes administrateur de projet)',
 	'echo-category-title-osm-instance-reboot-completed' => 'Fin du redémarrage de l’instance',
 	'echo-category-title-osm-projectmembers-add' => 'Ajout de membres au projet',
 	'prefs-openstack' => 'OpenStack',
