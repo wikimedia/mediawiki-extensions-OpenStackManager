@@ -13155,6 +13155,7 @@ $messages['yi'] = array(
  * @author Hydra
  * @author Hzy980512
  * @author Linforest
+ * @author Liuxinyu970226
  * @author Qiyue2001
  * @author Simon Shek
  * @author Xiaomingyan
@@ -13324,6 +13325,7 @@ $messages['zh-hans'] = array(
 	'openstackmanager-removedservicegroup' => '已删除服务组。',
 	'openstackmanager-removeservicegroupfailed' => '删除服务组失败。',
 	'openstackmanager-servicegroups' => '服务组',
+	'openstackmanager-serviceuser' => '服务用户',
 	'openstackmanager-nonexistentservicegroup' => '请求的服务组不存在。',
 	'openstackmanager-configureproject' => '配置项目$1',
 	'openstackmanager-configureproject-sharedhomedirs' => '不同实例间分享主目录',
@@ -13518,6 +13520,7 @@ $messages['zh-hans'] = array(
 	'openstackmanager-email-body' => '以下的实例已经创建好，并可以登入：',
 	'right-manageproject' => '管理OpenStack项目及作用',
 	'right-loginviashell' => '通过shell登录',
+	'prefs-openstack-keys' => '密钥列表',
 );
 
 /** Traditional Chinese (中文（繁體）‎)
