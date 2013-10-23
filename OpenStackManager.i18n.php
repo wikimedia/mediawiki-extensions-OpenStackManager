@@ -11853,6 +11853,7 @@ Detta måste ha användare $1 till att ha "<code>loginviashell</code>" korrekt.'
 	'notification-osm-projectmember-added' => '$1 {{GENDER:$1|lagt till}} dig till projekt [[$2]]',
 	'echo-category-title-osm-instance-deleted' => 'Borttagning av instans (där du är projektetadministratör)',
 	'echo-category-title-osm-instance-build-completed' => 'Instans byggd (där du är projektadministratör)',
+	'prefs-openstack-keys' => 'Nyckellista',
 );
 
 /** Tamil (தமிழ்)
