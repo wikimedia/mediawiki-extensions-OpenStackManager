@@ -41,7 +41,7 @@ $specialPageAliases['it'] = array(
 /** Korean (한국어) */
 $specialPageAliases['ko'] = array(
 	'OpenStackManager' => array( '오픈스택관리자' ),
-	'OpenStackManageInstance' => array( '경우관리' ),
+	'OpenStackManageInstance' => array( '경우관리', '경우_관리' ),
 );
 
 /** Luxembourgish (Lëtzebuergesch) */
