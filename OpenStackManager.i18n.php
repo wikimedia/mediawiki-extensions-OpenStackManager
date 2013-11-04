@@ -3700,6 +3700,7 @@ $messages['eu'] = array(
 );
 
 /** Persian (فارسی)
+ * @author Ebraminio
  * @author Huji
  * @author Mjbmr
  * @author ZxxZxxZ
@@ -3743,7 +3744,7 @@ $messages['fa'] = array(
 	'openstackmanager-securitygroups' => 'گروه‌های امنیتی',
 	'openstackmanager-imageid' => 'شناسهٔ تصویر',
 	'openstackmanager-imagetype' => 'نوع تصویر',
-	'openstackmanager-instancetypelabel' => '{{PLURAL:$1|تک پردازنده|$1 پردازنده}}، $2 مگابایت رم، $3 گیگابایت هارددیسک', # Fuzzy
+	'openstackmanager-instancetypelabel' => '{{PLURAL:$1|تک پردازنده|$1 پردازنده}}، $2 مگابایت رم، $3 تقسیم‌بندی ریشه، $4 گیگابایت حافظه',
 	'openstackmanager-createinstance' => 'افزودن نمونه',
 	'openstackmanager-attach' => 'پیوست',
 	'openstackmanager-device' => 'دستگاه',
@@ -3783,11 +3784,11 @@ $messages['fa'] = array(
 	'openstackmanager-deletesecuritygroup' => 'حذف گروه امنیتی',
 	'openstackmanager-securitygrouprule' => 'قوانین',
 	'openstackmanager-novasecuritygroup-group' => 'قانون گروه',
-	'openstackmanager-securitygrouprule-toport' => 'به درگاه', # Fuzzy
-	'openstackmanager-securitygrouprule-fromport' => 'از درگاه', # Fuzzy
+	'openstackmanager-securitygrouprule-toport' => 'پایان محدودهٔ درگاه',
+	'openstackmanager-securitygrouprule-fromport' => 'آغاز محدودهٔ درگاه',
 	'openstackmanager-securitygrouprule-protocol' => 'پروتکل',
 	'openstackmanager-securitygrouprule-ipranges' => 'محدودهٔ CIDR',
-	'openstackmanager-securitygrouprule-groups' => 'گروه‌های امنیتی', # Fuzzy
+	'openstackmanager-securitygrouprule-groups' => 'گروه منبع',
 	'openstackmanager-createnewsecuritygroup' => 'افزودن گروه',
 	'openstackmanager-addrule-action' => 'افزودن قانون',
 	'openstackmanager-removerule-action' => 'حذف قانون',
