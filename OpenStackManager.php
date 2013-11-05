@@ -65,6 +65,10 @@ $wgOpenStackManagerServiceGroupPrefix = 'local-';
 // %u is username, %p is $wgOpenStackManagerServiceGroupPrefix.
 $wgOpenStackManagerServiceGroupHomedirPattern = '/home/%p%u/';
 
+// For the moment the instance proxy only lives in one place.
+$wgOpenStackManagerProxyServiceRegion = '';
+$wgOpenStackManagerProxyGateway = '';
+
 $wgOpenStackManagerIdRanges = array(
 	'service' => array(
 		'gid' => array( 'min' => 40000, 'max' => 49999 ),
@@ -152,6 +156,7 @@ $wgAutoloadClasses['OpenStackNovaRole'] = $dir . 'nova/OpenStackNovaRole.php';
 $wgAutoloadClasses['OpenStackNovaServiceGroup'] = $dir . 'nova/OpenStackNovaServiceGroup.php';
 $wgAutoloadClasses['OpenStackNovaVolume'] = $dir . 'nova/OpenStackNovaVolume.php';
 $wgAutoloadClasses['OpenStackNovaSudoer'] = $dir . 'nova/OpenStackNovaSudoer.php';
+$wgAutoloadClasses['OpenStackNovaProxy'] = $dir . 'nova/OpenStackNovaProxy.php';
 $wgAutoloadClasses['OpenStackNovaArticle'] = $dir . 'nova/OpenStackNovaArticle.php';
 $wgAutoloadClasses['OpenStackNovaHostJob'] = $dir . 'nova/OpenStackNovaHostJob.php';
 $wgAutoloadClasses['OpenStackNovaPuppetGroup'] = $dir . 'nova/OpenStackNovaPuppetGroup.php';
@@ -169,6 +174,7 @@ $wgAutoloadClasses['SpecialNovaRole'] = $dir . 'special/SpecialNovaRole.php';
 $wgAutoloadClasses['SpecialNovaServiceGroup'] = $dir . 'special/SpecialNovaServiceGroup.php';
 $wgAutoloadClasses['SpecialNovaVolume'] = $dir . 'special/SpecialNovaVolume.php';
 $wgAutoloadClasses['SpecialNovaSudoer'] = $dir . 'special/SpecialNovaSudoer.php';
+$wgAutoloadClasses['SpecialNovaProxy'] = $dir . 'special/SpecialNovaProxy.php';
 $wgAutoloadClasses['SpecialNovaPuppetGroup'] = $dir . 'special/SpecialNovaPuppetGroup.php';
 $wgAutoloadClasses['SpecialNova'] = $dir . 'special/SpecialNova.php';
 $wgAutoloadClasses['ApiNovaInstance'] = $dir . 'api/ApiNovaInstance.php';
@@ -199,6 +205,8 @@ $wgSpecialPages['NovaVolume'] = 'SpecialNovaVolume';
 $wgSpecialPageGroups['NovaVolume'] = 'nova';
 $wgSpecialPages['NovaSudoer'] = 'SpecialNovaSudoer';
 $wgSpecialPageGroups['NovaSudoer'] = 'nova';
+$wgSpecialPages['NovaProxy'] = 'SpecialNovaProxy';
+$wgSpecialPageGroups['NovaProxy'] = 'nova';
 $wgJobClasses['addDNSHostToLDAP'] = 'OpenStackNovaHostJob';
 $wgSpecialPageGroups['NovaPuppetGroup'] = 'nova';
 $wgSpecialPages['NovaPuppetGroup'] = 'SpecialNovaPuppetGroup';

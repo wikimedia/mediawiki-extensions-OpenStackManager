@@ -155,6 +155,83 @@ class OpenStackNovaController {
 		return null;
 	}
 
+	function createProxy( $fqdn, $backendHost, $backendPort ) {
+		$data = array( 'domain' => $fqdn, 'backends' => array ( $backendHost . ':' . $backendPort ) );
+		$ret = $this->restCall( 'proxy', '/mapping', 'PUT', $data );
+
+		if ( $ret['code'] !== 200 ) {
+			return null;
+		}
+
+		$proxyObj = new OpenStackNovaProxy( $this->project, $fqdn, $backendHost, $backendPort );
+		return $proxyObj;
+	}
+
+	function deleteProxy( $fqdn ) {
+		$ret = $this->restCall( 'proxy', '/mapping/' . $fqdn, 'DELETE' );
+
+		if ( $ret['code'] !== 200 ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * @return array
+	 */
+	function getProxiesForProject() {
+		global $wgAuth;
+
+		$proxyarr = array();
+		$ret = $this->restCall( 'proxy', '/mapping', 'GET' );
+		$proxies = self::_get_property( $ret['body'], 'routes' );
+		if ( !$proxies ) {
+			return $proxyarr;
+		}
+		foreach ( $proxies as $proxy ) {
+			$domain = self::_get_property( $proxy, 'domain' );
+			$backends = self::_get_property( $proxy, 'backends' );
+
+			if ( (count( $backends ) ) > 1 ) {
+				$wgAuth->printDebug( "Warning!  proxy $domain has multiple backends but we only support one backend per proxy.", NONSENSITIVE );
+			}
+			$backend = $backends[0];
+			$backendarray = explode(  ':', $backends[0] );
+
+			if ( strpos( $backend, "http" ) === 0 ) {
+				if ( ( count( $backendarray ) < 2 ) or ( count( $backendarray ) > 3 ) ) {
+					$wgAuth->printDebug( "Unable to parse backend $backend, discarding.", NONSENSITIVE );
+				} elseif ( count( $backendarray ) == 2 ) {
+					$backendHost = $backend;
+					$backendPort = null;
+				} else {
+					$backendHost = $backendarray[0] . ":" . $backendarray[1];
+					$backendPort = $backendarray[2];
+				}
+			} else {
+				if ( ( count( $backendarray ) < 1 ) or ( count( $backendarray ) > 2 ) ) {
+					$wgAuth->printDebug( "Unable to parse backend $backend, discarding.", NONSENSITIVE );
+				} elseif ( count( $backendarray ) == 1 ) {
+					$backendHost = $backend;
+					$backendPort = null;
+				} else {
+					$backendHost = $backendarray[0];
+					$backendPort = $backendarray[1];
+				}
+			}
+
+			if ( $backendPort ) {
+				$proxyObj = new OpenStackNovaProxy( $this->project, $domain, $backendHost, $backendPort );
+			} else {
+				$proxyObj = new OpenStackNovaProxy( $this->project, $domain, $backendHost );
+			}
+
+			$proxyarr[] = $proxyObj;
+		}
+		return $proxyarr;
+	}
+
 	/**
 	 * @return array
 	 */
