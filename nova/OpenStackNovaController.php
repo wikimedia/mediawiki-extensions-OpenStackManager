@@ -156,7 +156,7 @@ class OpenStackNovaController {
 	}
 
 	function createProxy( $fqdn, $backendHost, $backendPort ) {
-		$data = array( 'domain' => $fqdn, 'backends' => array ( $backendHost . ':' . $backendPort ) );
+		$data = array( 'domain' => $fqdn, 'backends' => array ( 'http://' . $backendHost . ':' . $backendPort ) );
 		$ret = $this->restCall( 'proxy', '/mapping', 'PUT', $data );
 
 		if ( $ret['code'] !== 200 ) {
