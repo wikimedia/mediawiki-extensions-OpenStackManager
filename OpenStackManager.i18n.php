@@ -1340,7 +1340,8 @@ See also:
 	'openstackmanager-sudoerrunas' => 'Used as label for multi-select box and as heading cell in "resource" table in [[Special:NovaSudoer]].
 
 The multi-select box has a list of the users.',
-	'openstackmanager-sudoercommands' => 'Used as label for textarea and as heading cell in "resource" table, in Special:NovaSudoer.',
+	'openstackmanager-sudoercommands' => 'Used as label for textarea and as heading cell in "resource" table, in [[Special:NovaSudoer]].
+{{Identical|Command}}',
 	'openstackmanager-requirepassword' => 'When this option is checked, sudo will require the user password',
 	'openstackmanager-sudoeroptions' => '{{Identical|Options}}',
 	'openstackmanager-allmembers' => 'Label for a checkbox that includes all project members in a sudo policy',
@@ -2590,6 +2591,8 @@ $messages['ce'] = array(
 	'openstackmanager-members' => 'Декъашхо',
 	'openstackmanager-action' => 'Дийраш',
 	'openstackmanager-projects' => 'Проекташ',
+	'openstackmanager-deleteproxy' => 'ДӀаяккха прокси',
+	'openstackmanager-deleteproxyfailed' => 'Прокси $1 дӀаяккха цаелира',
 );
 
 /** Czech (česky)
@@ -8171,6 +8174,7 @@ $messages['lb'] = array(
 	'openstackmanager-sudoeroptions' => 'Optiounen',
 	'openstackmanager-allmembers' => 'All Membere vum Projet',
 	'openstackmanager-membersofgroup' => 'Membere vum Grupp $1',
+	'openstackmanager-deleteproxy' => 'Proxy läschen',
 	'openstackmanager-puppetallprojects' => 'All Projeten',
 	'openstackmanager-createpuppetgroup' => 'Grupp derbäisetzen',
 	'openstackmanager-addpuppetclass' => 'Klass derbäisetzen',
@@ -10927,6 +10931,7 @@ $messages['roa-tara'] = array(
  * @author Тест
  */
 $messages['ru'] = array(
+	'novaproxy' => 'Управление экземпляром прокси',
 	'openstackmanager-delete' => 'удалить',
 	'openstackmanager-configure' => 'настроить',
 	'openstackmanager-modify' => 'изменить',
@@ -11000,6 +11005,17 @@ $messages['ru'] = array(
 	'openstackmanager-securitygrouprule' => 'Правила',
 	'openstackmanager-securitygrouprule-ipranges' => 'Диапазоны CIDR',
 	'openstackmanager-sudoerusers' => 'Пользователи',
+	'openstackmanager-createproxy' => 'Создать прокси',
+	'openstackmanager-deleteproxy' => 'Удалить прокси',
+	'openstackmanager-deleteproxyfailed' => 'Не удалось удалить прокси $1',
+	'openstackmanager-deleteproxy-confirm' => 'Вы уверены, что хотели бы удалить прокси $1?',
+	'openstackmanager-proxyname' => 'DNS-имя узла',
+	'openstackmanager-proxybackend' => 'Экземпляр',
+	'openstackmanager-proxyport' => 'Порт экземпляра',
+	'openstackmanager-novaproxy-frontend' => 'Новый интерфейс прокси',
+	'openstackmanager-createproxyfailed' => 'Не удалось создать новый прокси $1.',
+	'openstackmanager-createdproxy' => 'Успешно создан новый прокси $1 для $2.',
+	'openstackmanager-backproxylist' => 'Вернуться к списку прокси',
 	'openstackmanager-addpuppetclass' => 'Добавить класс',
 	'openstackmanager-puppetclassname' => 'Имя класса',
 	'prefs-openstack-keys' => 'Список ключей',
@@ -13767,6 +13783,7 @@ $messages['zh-hans'] = array(
 	'openstackmanager-deleteproxysuccess' => '已在$1删除代理',
 	'openstackmanager-deleteproxyfailed' => '在$1删除代理失败',
 	'openstackmanager-proxyname' => 'DNS主机名',
+	'openstackmanager-createproxyfailed' => '创建新代理$1失败。',
 	'openstackmanager-novapuppetgroup' => 'Nova 傀儡组',
 	'openstackmanager-puppetgrouplist' => '傀儡组列表',
 	'openstackmanager-puppetallprojects' => '所有项目',
