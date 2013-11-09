@@ -571,6 +571,29 @@ class OpenStackNovaUser {
 		return true;
 	}
 
+	static function AbortNewAccount( $user, &$message ) {
+		global $wgRequest;
+		global $wgAuth;
+
+		$shellaccountname = $wgRequest->getText( 'shellaccountname' );
+		if ( ! preg_match( "/^[a-z][a-z0-9\-_]*$/", $shellaccountname ) ) {
+			$wgAuth->printDebug( "Invalid shell name $shellaccountname", NONSENSITIVE );
+			$message = wfMessage( 'openstackmanager-shellaccountvalidationfail' )->parse();
+			return false;
+		}
+
+		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $base, "(uid=$shellaccountname)" );
+		if ( $result ) {
+			$entries = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
+			if ( (int)$entries['count'] > 0 ) {
+				$wgAuth->printDebug( "User $shellaccountname already exists.", NONSENSITIVE );
+				$message = wfMessage( 'openstackmanager-shellaccountexists' )->parse();
+				return false;
+			}
+		}
+		return true;
+	}
+
 	/**
 	 * @static
 	 * @param $user
