@@ -12074,6 +12074,7 @@ Välj en eller den andra, inte båda.',
 	'openstackmanager-modifysudoerfailed' => 'Det gick inte att ändra sudo-policyn.',
 	'openstackmanager-modifiedsudoer' => 'Sudo-policyn har ändrats.',
 	'openstackmanager-nonexistantsudoer' => 'Den begärda sudo-policyn finns inte.',
+	'openstackmanager-createproxy' => 'Skapa proxy',
 	'openstackmanager-puppetallprojects' => 'Alla projekt',
 	'openstackmanager-createpuppetgroup' => 'Lägg till grupp',
 	'openstackmanager-addpuppetclass' => 'Lägg till klass',
@@ -12620,6 +12621,13 @@ $messages['tr'] = array(
 	'openstackmanager-deletepuppetgroup' => 'Kukla grubunu sil',
 	'openstackmanager-deletedpuppetgroup' => 'Silinen kukla grubu.',
 	'openstackmanager-puppetgroupname' => 'Kukla grubu adı',
+);
+
+/** Central Atlas Tamazight (ⵜⴰⵎⴰⵣⵉⵖⵜ)
+ * @author Tifinaghes
+ */
+$messages['tzm'] = array(
+	'openstackmanager-deleteproxy' => 'ⵓⴽⵓⵙ ⵏ proxy',
 );
 
 /** Uyghur (Arabic script) (ئۇيغۇرچە)
