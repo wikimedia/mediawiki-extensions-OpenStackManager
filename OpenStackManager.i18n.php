@@ -903,7 +903,8 @@ This message indicates the key has been failed to delete.
 
 See also:
 * {{msg-mw|Openstackmanager-deletedkey}}',
-	'openstackmanager-addmember' => 'Used as page title and as action link title, in Special:NovaProject and in Special:NovaRole.',
+	'openstackmanager-addmember' => 'Used as page title and as action link title, in [[Special:NovaProject]] and in [[Special:NovaRole]].
+{{Identical|Add member}}',
 	'openstackmanager-removemember' => 'Used as page title and as action link text, in Special:NovaProject.',
 	'openstackmanager-removeprojectconfirm' => 'Used in Special:NovaProject. Parameters:
 * $1 - project name
@@ -1093,7 +1094,8 @@ See also:
 	'openstackmanager-roles' => '{{Identical|Role}}',
 	'openstackmanager-rolename' => '{{Identical|Role}}',
 	'openstackmanager-removerolemember' => 'Used as page title and as action link text, in Special:NovaRole.',
-	'openstackmanager-addrolemember' => 'Used as action link text in Special:NovaProject.',
+	'openstackmanager-addrolemember' => 'Used as action link text in [[Special:NovaProject]].
+{{Identical|Add member}}',
 	'openstackmanager-rolelist' => 'It is a list of roles that are assigned to all instances (i.e. global).',
 	'openstackmanager-nomemberstoadd' => 'Used in Special:NovaRole.
 
@@ -1408,7 +1410,7 @@ See also:
 
 This message is followed by the action link {{msg-mw|Openstackmanager-createpuppetgroup}} (if enabled).
 {{Identical|All projects}}',
-	'openstackmanager-createpuppetgroup' => 'Used as page title and as action link text, in Special:NovaPuppetGroup.
+	'openstackmanager-createpuppetgroup' => 'Used as page title and as action link text, in [[Special:NovaPuppetGroup]].
 {{Identical|Add group}}',
 	'openstackmanager-createdpuppetgroup' => 'Used as success message in Special:PuppetGroup.
 
