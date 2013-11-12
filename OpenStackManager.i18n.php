@@ -276,7 +276,9 @@ This needs user $1 to have the "<code>loginviashell</code>" right.',
 	'openstackmanager-shellaccountname-pref' => 'Instance shell account name:',
 	'openstackmanager-shellaccountnamehelp' => 'A shell account name is required.
 It must start with a-z, and can only contain lowercase a-z, 0-9, and - characters.',
-
+	'openstackmanager-shellaccountvalidationfail' => 'Your shell account name is invalid.
+It must start with a-z, and can only contain lowercase a-z, 0-9, and - characters.',
+	'openstackmanager-shellaccountexists' => 'That shell account name is already in use.',
 	'openstackmanager-addresslist' => 'Public IP address list',
 	'openstackmanager-address' => 'Public IP address',
 	'openstackmanager-allocateaddress' => 'Allocate IP',
@@ -1116,6 +1118,8 @@ See also:
 See also:
 * {{msg-mw|Openstackmanager-shellaccountname|without colon}}",
 	'openstackmanager-shellaccountnamehelp' => 'Used as help text for the input box which is labeled {{msg-mw|Openstackmanager-shellaccountname}}.',
+	'openstackmanager-shellaccountvalidationfail' => 'Failure message if user has an invalid character in shell name.',
+	'openstackmanager-shellaccountexists' => 'Failure message if user requests a shell name already in user.',
 	'openstackmanager-addresslist' => 'Used as page title in Special:NovaAddress.',
 	'openstackmanager-address' => 'Used as heading cell in "resource" table, in Special:NovaAddress.',
 	'openstackmanager-allocateaddress' => 'Used as page title and as action link title, in Special:NovaAddress.',
