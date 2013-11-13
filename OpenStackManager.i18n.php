@@ -2917,6 +2917,9 @@ Der Benutzer $1 muss das „<code>loginviashell</code>“-Recht haben.',
 	'openstackmanager-shellaccountname-pref' => 'Kontenname der Instanz-Shell:',
 	'openstackmanager-shellaccountnamehelp' => 'Es ist ein Benutzername der Instanz-Shell erforderlich.
 Er fängt mit den Buchstaben (a-z) an und kann nur Kleinbuchstaben (a-z), Zahlen (0-9) sowie Striche (–) enthalten.',
+	'openstackmanager-shellaccountvalidationfail' => 'Dein Shell-Kontenname ist ungültig.
+Er muss mit a–z beginnen und kann nur Kleinbuchstaben, Ziffern (0–9) und Bindestriche (-) enthalten.',
+	'openstackmanager-shellaccountexists' => 'Dieser Shell-Kontenname ist bereits in Verwendung.',
 	'openstackmanager-addresslist' => 'Öffentliche IP-Adressliste',
 	'openstackmanager-address' => 'Öffentliche IP-Adresse',
 	'openstackmanager-allocateaddress' => 'IP zuweisen',
@@ -4259,6 +4262,9 @@ Cela nécessite $1 d'avoir le droit « <code>loginviashell</code> ».",
 	'openstackmanager-shellaccountname-pref' => 'Nom de compte de l’instance de shell:',
 	'openstackmanager-shellaccountnamehelp' => 'Un nom de compte de shell est obligatoire.
 Il doit commencer par une lettre (a–z) et ne peut contenir que des lettres en minuscules (a–z), des chiffres (0–9) et des tirets (-).',
+	'openstackmanager-shellaccountvalidationfail' => 'Votre nom de compte shell n’est pas valide.
+Il doit commencer par a-z, et ne peut contenir que les caractères lettre minuscule a-z, 0-9 et -.',
+	'openstackmanager-shellaccountexists' => 'Ce nom de compte shell est déjà utilisé.',
 	'openstackmanager-addresslist' => 'Liste des adresses IP publiques',
 	'openstackmanager-address' => 'Adresse IP publique',
 	'openstackmanager-allocateaddress' => 'Allouer IP',
@@ -6696,6 +6702,9 @@ E\' necessario che l\'utente $1 abbia il permesso "<code>loginviashell</code>".'
 	'openstackmanager-shellaccountname-pref' => "Nome per l'utenza di shell per l'istanza:",
 	'openstackmanager-shellaccountnamehelp' => 'È necessario indicare il nome utente per la shell.
 Deve iniziare con a-z e può contenere solo lettere minuscole, 0-9 e -.',
+	'openstackmanager-shellaccountvalidationfail' => 'Il nome utente per la shell non è valido.
+Deve iniziare con a-z e può contenere solo lettere minuscole, 0-9 e -.',
+	'openstackmanager-shellaccountexists' => 'Il nome utente per la shell è già in uso.',
 	'openstackmanager-addresslist' => 'Elenco di indirizzi IP pubblici',
 	'openstackmanager-address' => 'Indirizzo IP pubblico',
 	'openstackmanager-allocateaddress' => 'Alloca IP',
@@ -7066,6 +7075,7 @@ Make sure you trust everyone and know what you are doing before selecting anythi
 	'openstackmanager-novarole-info' => 'Nova 権限の情報',
 	'openstackmanager-shellaccountname' => 'インスタンスのシェルのアカウント名',
 	'openstackmanager-shellaccountname-pref' => 'インスタンスのシェルのアカウント名:',
+	'openstackmanager-shellaccountexists' => '指定したシェル アカウント名は既に使用されています。',
 	'openstackmanager-addresslist' => '公開 IP アドレス一覧',
 	'openstackmanager-address' => '公開 IP アドレス',
 	'openstackmanager-allocateaddress' => 'IP を割り当て',
@@ -8556,6 +8566,7 @@ $messages['mk'] = array(
 	'openstackmanager-shellaccountname-pref' => 'Име на сметката за лушпата на примерокот:',
 	'openstackmanager-shellaccountnamehelp' => 'Името на сметката на лушпата е задолжително. 
 Мора да почнува со латинични букви (од a до z), и може да содржи само мали латинични букви, бројки (од 0 до 9), како и знакот „-“.',
+	'openstackmanager-shellaccountexists' => 'Тоа корисничко име за школка е зафатено.',
 	'openstackmanager-addresslist' => 'Список на јавни IP-адреси',
 	'openstackmanager-address' => 'Јавни IP-адреси',
 	'openstackmanager-allocateaddress' => 'Задај IP-адр.',
@@ -9459,6 +9470,9 @@ Hiervoor moet gebruiker $1 het recht "<code>loginviashell</code>" hebben.',
 	'openstackmanager-shellaccountname-pref' => 'Shellgebruikersnaam voor instantie:',
 	'openstackmanager-shellaccountnamehelp' => 'Een naam voor de shellgebruikersnaam is verplicht.
 Deze moet beginnen met a-z en kan alleen de onderkasttekens a-z, 0-9 en - bevatten.',
+	'openstackmanager-shellaccountvalidationfail' => 'Uw shellaccountnaam is ongeldig.
+Deze moet beginnen met a-z en mag alleen kleine letter, 0-9 en het teken "-" bevatten.',
+	'openstackmanager-shellaccountexists' => 'Die shelaccountnaam is al in gebruik.',
 	'openstackmanager-addresslist' => 'Publieke IP-adressenlijst',
 	'openstackmanager-address' => 'Publiek IP-adres',
 	'openstackmanager-allocateaddress' => 'IP-adres toewijzen',
@@ -12928,6 +12942,9 @@ $messages['uk'] = array(
 	'openstackmanager-shellaccountname-pref' => 'Назва облікового запису примірника оболонки:',
 	'openstackmanager-shellaccountnamehelp' => 'Потрібна назва облікового запису оболонки.
 Вона має починатися з a-z та містити лише малі букви a-z, цифри 0-9 і символи „-“.',
+	'openstackmanager-shellaccountvalidationfail' => 'Назва облікового запису оболонки - невірна.
+Вона має починатися з a-z та містити лише малі букви a-z, цифри 0-9 і символи „-“.',
+	'openstackmanager-shellaccountexists' => "Це ім'я облікового запису оболонки уже використовується.",
 	'openstackmanager-addresslist' => 'Список публічних IP-адрес',
 	'openstackmanager-address' => 'Публічна IP адреса',
 	'openstackmanager-allocateaddress' => 'Присвоїти IP',
