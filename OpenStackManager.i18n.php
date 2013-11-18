@@ -5221,6 +5221,7 @@ $messages['he'] = array(
 	'novarole' => 'ניהול תפקידים כלליים',
 	'novavolume' => 'ניהול כרכי אחסון',
 	'novasudoer' => 'ניהול מדיניות sudo',
+	'novaproxy' => 'ניהול שרתי פרוקסי של מופעים',
 	'novapuppetgroup' => 'ניהול קבוצות Puppet',
 	'openstackmanager-novadomain' => 'מתחם Nova',
 	'openstackmanager-novainstance' => 'מופע Nova',
@@ -5431,6 +5432,9 @@ $messages['he'] = array(
 	'openstackmanager-shellaccountname-pref' => 'שם החשבון לחשבון מסוף במופע:',
 	'openstackmanager-shellaccountnamehelp' => 'שם חשבון מסוף נדרש.
 הוא צריך להתחיל באות a-z ויכול להכיל רק את האותיות a-z, הספרות 0-9, ואת התווים -, _.',
+	'openstackmanager-shellaccountvalidationfail' => 'שם חשבון המסוף שלך אינו תקין.
+הוא חייב להתחיל עם אותיות מ־a עד z ויכול להכיל רק אותיות קטנוית מ־a עד z, ספרות מ־0 עד 9 ותווי -.',
+	'openstackmanager-shellaccountexists' => 'שם חשבון המסוף הזה כבר בשימוש.',
 	'openstackmanager-addresslist' => 'רשימת כתובות IP ציבוריות',
 	'openstackmanager-address' => 'כתובת IP ציבורית',
 	'openstackmanager-allocateaddress' => 'הקצאת IP',
@@ -5533,6 +5537,20 @@ $messages['he'] = array(
 	'openstackmanager-modifysudoerfailed' => 'כשל בשינוי מדיניות sudo',
 	'openstackmanager-modifiedsudoer' => 'שינוי מדיניות sudo הצליח.',
 	'openstackmanager-nonexistantsudoer' => 'מדיניות ה־sudo המבוקשת אינה קיימת.',
+	'openstackmanager-proxylist' => 'רשימת שרתי פרוקסי של מופעים',
+	'openstackmanager-createproxy' => 'יצירת שרת פרוקסי',
+	'openstackmanager-deleteproxy' => 'מחיקת שרת פרוקסי',
+	'openstackmanager-deleteproxysuccess' => 'מחק את שרת הפרוקסי $1',
+	'openstackmanager-deleteproxyfailed' => 'מחיקת שרת הפרקוסי $1 נכשלה',
+	'openstackmanager-deleteproxy-confirm' => 'האם ברצונך באמת למחוק את הפרוקסי $1?',
+	'openstackmanager-proxyname' => 'שם השרת ב־DNS',
+	'openstackmanager-proxybackend' => 'מופע',
+	'openstackmanager-proxyport' => 'פתחת מופע',
+	'openstackmanager-novaproxy-frontend' => 'פרוקסי צד לקוח חדש',
+	'openstackmanager-novaproxy-backend' => 'פרוקסי צד שרת חדש',
+	'openstackmanager-createproxyfailed' => 'יצירת הפרוקסי החדש $1 נכשלה.',
+	'openstackmanager-createdproxy' => 'יצירת הפרוקסי החדש $1 לשרת $2 הצליחה.',
+	'openstackmanager-backproxylist' => 'חזרה לרשימת שרתי הפרוקסי',
 	'openstackmanager-novapuppetgroup' => 'קבוצת Puppet של Nova',
 	'openstackmanager-puppetgrouplist' => 'רשימת קבוצות Puppet',
 	'openstackmanager-puppetallprojects' => 'כל הפרויקטים',
@@ -9243,6 +9261,7 @@ $messages['nds'] = array(
 );
 
 /** Dutch (Nederlands)
+ * @author McDutchie
  * @author Romaine
  * @author SPQRobin
  * @author Saruman
@@ -9255,7 +9274,7 @@ $messages['nl'] = array(
 	'openstackmanager-instance' => 'Instantie beheren',
 	'openstackmanager-title' => 'OpenStack-beheer',
 	'openstackmanager-badresourcename' => 'Er is een onjuiste bronnaam opgegeven. Bronnamen beginnen met a-z en kunnen alleen de tekens a-z, 0-9 en - bevatten.',
-	'action-listall' => 'alle brongegevens weer te geven',
+	'action-listall' => 'alle hulpbrongegevens weer te geven',
 	'action-managednsdomain' => 'DNS-domeinen te beheren',
 	'action-manageglobalpuppet' => 'globale puppetgegevens te beheren',
 	'specialpages-group-nova' => 'OpenStack Nova',
