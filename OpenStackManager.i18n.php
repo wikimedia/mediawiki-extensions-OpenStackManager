@@ -205,7 +205,7 @@ Do not take this action lightly!',
 	'openstackmanager-manageservicegroupmembers' => 'Manage members',
 	'openstackmanager-removeservicegroupconfirm' => 'Are you sure you wish to delete service group "$1"?
 This may disable tools or bots that run using this group.',
-	'openstackmanager-servicegrouprecursewarning' => 'Beware!  Adding a service user to this group will allow all members of that group to access this group.
+	'openstackmanager-servicegrouprecursewarning' => 'Beware! Adding a service user to this group will allow all members of that group to access this group.
 It will also allow access to members of any group added to that group, and so on.
 Make sure you trust everyone and know what you are doing before selecting anything in the "{{int:openstackmanager-serviceuser}}" section.',
 	'openstackmanager-createservicegroupfailed' => 'Failed to create service group.',
