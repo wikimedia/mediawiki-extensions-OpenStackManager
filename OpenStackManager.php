@@ -176,6 +176,7 @@ $wgAutoloadClasses['SpecialNovaVolume'] = $dir . 'special/SpecialNovaVolume.php'
 $wgAutoloadClasses['SpecialNovaSudoer'] = $dir . 'special/SpecialNovaSudoer.php';
 $wgAutoloadClasses['SpecialNovaProxy'] = $dir . 'special/SpecialNovaProxy.php';
 $wgAutoloadClasses['SpecialNovaPuppetGroup'] = $dir . 'special/SpecialNovaPuppetGroup.php';
+$wgAutoloadClasses['SpecialNovaResources'] = $dir . 'special/SpecialNovaResources.php';
 $wgAutoloadClasses['SpecialNova'] = $dir . 'special/SpecialNova.php';
 $wgAutoloadClasses['ApiNovaInstance'] = $dir . 'api/ApiNovaInstance.php';
 $wgAutoloadClasses['ApiNovaAddress'] = $dir . 'api/ApiNovaAddress.php';
@@ -210,6 +211,8 @@ $wgSpecialPageGroups['NovaProxy'] = 'nova';
 $wgJobClasses['addDNSHostToLDAP'] = 'OpenStackNovaHostJob';
 $wgSpecialPageGroups['NovaPuppetGroup'] = 'nova';
 $wgSpecialPages['NovaPuppetGroup'] = 'SpecialNovaPuppetGroup';
+$wgSpecialPageGroups['NovaResources'] = 'nova';
+$wgSpecialPages['NovaResources'] = 'SpecialNovaResources';
 
 $wgHooks['LDAPSetCreationValues'][] = 'OpenStackNovaUser::LDAPSetCreationValues';
 $wgHooks['LDAPRetrySetCreationValues'][] = 'OpenStackNovaUser::LDAPRetrySetCreationValues';

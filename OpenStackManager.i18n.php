@@ -48,6 +48,9 @@ Resource names start with a-z, and can only contain a-z, 0-9, and - characters.'
 	'openstackmanager-novakey' => 'Nova key',
 	'openstackmanager-novaproject' => 'Nova project',
 
+	'openstackmanager-ownedprojects' => 'You are an administrator for these projects:',
+	'openstackmanager-ownedinstances' =>  'You created these instances:',
+
 	'openstackmanager-delete' => 'delete',
 	'openstackmanager-configure' => 'configure',
 	'openstackmanager-modify' => 'modify',
@@ -119,6 +122,7 @@ Leave blank for public zones.',
 	'openstackmanager-rebootinstancefailed' => 'Failed to reboot instance $1.',
 
 	'openstackmanager-launchtime' => 'Launch time',
+	'openstackmanager-instancecreator' => 'Instance creator',
 	'openstackmanager-createinstance' => 'Add instance',
 	'openstackmanager-createinstancepuppetwarning' => 'Warning: Adding Puppet configuration on instance creation can cause the instance to fail to build.
 Use this configuration with caution.
@@ -517,6 +521,8 @@ The following special pages are listed as members of this group:
 	'novainstance' => '{{doc-special|NovaInstance}}
 An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].
 {{Identical|Manage instance}}',
+	'openstackmanager-ownedprojects' => 'Precedes a list of projects in which the user has the projectadmin role.',
+	'openstackmanager-ownedinstances' =>  'Precedes a list of instances created by the user.',
 	'novakey' => '{{doc-special|NovaKey}}',
 	'novaproject' => '{{doc-special|NovaProject}}',
 	'novaservicegroup' => '{{doc-special|NovaServiceGroup}}',
@@ -679,6 +685,7 @@ Parameters:
 See also:
 * {{msg-mw|Openstackmanager-rebootedinstance}}',
 	'openstackmanager-launchtime' => 'Used as heading cell in "resource" table, in Special:NovaInstance.',
+	'openstackmanager-creator' => 'Used as heading cell in "resource" table, in Special:NovaResources.',
 	'openstackmanager-createinstance' => 'Used as page title and as action link title, in Special:NovaInstance.',
 	'openstackmanager-createinstancepuppetwarning' => 'Used in Special:NovaInstance.
 

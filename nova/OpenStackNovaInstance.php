@@ -123,6 +123,15 @@ class OpenStackNovaInstance {
 	}
 
 	/**
+	 * Get ID of the instance creator
+	 *
+	 * @return string
+	 */
+	function getInstanceCreator() {
+		return OpenStackNovaController::_get_property( $this->instance, 'user_id' );
+	}
+
+	/**
 	 * Get a human friendly name + id of this instance
 	 *
 	 * @return string
