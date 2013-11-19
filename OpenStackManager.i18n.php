@@ -488,7 +488,8 @@ Choose one or the other, not both.',
 $messages['qqq'] = array(
 	'openstackmanager-desc' => '{{desc|name=Open Stack Manager|url=http://www.mediawiki.org/wiki/Extension:OpenStackManager}}',
 	'openstackmanager' => '{{Identical|OpenStackManager}}',
-	'openstackmanager-instance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
+	'openstackmanager-instance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].
+{{Identical|Manage instance}}',
 	'openstackmanager-title' => '{{Identical|OpenStackManager}}',
 	'openstackmanager-badresourcename' => 'Used as error message in Special:NovaAddress, Special:NovaInstance, SpecialNova:Project, Special:NovaPuppetGroup and Special:NovaVolume.
 
@@ -514,7 +515,8 @@ The following special pages are listed as members of this group:
 	'novaaddress' => '{{doc-special|NovaAddress}}',
 	'novadomain' => '{{doc-special|NovaDomain}}',
 	'novainstance' => '{{doc-special|NovaInstance}}
-An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
+An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].
+{{Identical|Manage instance}}',
 	'novakey' => '{{doc-special|NovaKey}}',
 	'novaproject' => '{{doc-special|NovaProject}}',
 	'novaservicegroup' => '{{doc-special|NovaServiceGroup}}',
@@ -637,7 +639,7 @@ Parameters:
 	'openstackmanager-instancetype' => 'Used as label for select box in Special:NovaInstance.',
 	'openstackmanager-instanceip' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-instancepublicip' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
-	'openstackmanager-securitygroups' => 'Used as label for multi-select box and as heading cell in "resource" table, in Special:NovaInstance.',
+	'openstackmanager-securitygroups' => 'Used as label for multi-select box and as heading cell in "resource" table, in [[Special:NovaInstance]].',
 	'openstackmanager-imageid' => '"ID" stands for "Identifier".',
 	'openstackmanager-instancetypelabel' => 'Used in Special:NovaInstance. Parameters:
 * $1 - number of CPUs
@@ -1252,14 +1254,14 @@ The page body for this page title is:
 * $1 - the role the user needs, not localized (e.g. projectadmin)
 * $2 - project name',
 	'openstackmanager-createsecuritygroup' => 'Used as page title in Special:NovaSecurityGroup.',
-	'openstackmanager-securitygroupname' => 'Used as label for "security group name" input box in "create security group" form, in Special:NovaSecurityGroup.',
+	'openstackmanager-securitygroupname' => 'Used as label for "security group name" input box in "create security group" form, in [[Special:NovaSecurityGroup]].',
 	'openstackmanager-securitygroupdescription' => '{{Identical|Description}}',
 	'openstackmanager-deletesecuritygroup' => 'Used as page title in Special:NovaSecurityGroup.',
 	'openstackmanager-deletesecuritygroup-confirm' => 'Parameters:
 * $1 - security group name
 See also:
 * {{msg-mw|Openstackmanager-nonexistantsecuritygroup}}',
-	'openstackmanager-securitygrouplist' => 'Used as page title in Special:NovaSecurityGroup.',
+	'openstackmanager-securitygrouplist' => 'Used as page title in [[Special:NovaSecurityGroup]].',
 	'openstackmanager-securitygrouprule' => 'Used as heading cell in "resource" table, in Special:NovaSecurityGroup.
 {{Identical|Rule}}',
 	'openstackmanager-novasecuritygroup-group' => 'Unused at this time.',
@@ -6914,16 +6916,16 @@ $messages['ja'] = array(
 	'action-managednsdomain' => 'DNS ドメインの管理',
 	'action-manageglobalpuppet' => 'グローバル パペット情報の管理',
 	'specialpages-group-nova' => 'OpenStack Nova',
-	'novaaddress' => '公開 IP アドレスを管理',
+	'novaaddress' => '公開IPアドレスの管理',
 	'novadomain' => 'DNS ドメインを管理',
-	'novainstance' => 'インスタンスを管理',
-	'novakey' => 'SSH 公開鍵を管理',
-	'novaproject' => 'OpenStack プロジェクトを管理',
+	'novainstance' => 'インスタンスの管理',
+	'novakey' => 'SSH公開鍵の管理',
+	'novaproject' => 'OpenStackプロジェクトの管理',
 	'novaservicegroup' => 'サービスグループの管理',
 	'novasecuritygroup' => 'ファイアウォール セキュリティ グループを管理',
-	'novarole' => 'グローバル権限を管理',
+	'novarole' => 'グローバル権限の管理',
 	'novavolume' => 'ストレージボリュームの管理',
-	'novasudoer' => 'sudo ポリシーを管理',
+	'novasudoer' => 'sudoポリシーの管理',
 	'novaproxy' => 'インスタンスのプロキシの管理',
 	'novapuppetgroup' => 'パペット グループを管理',
 	'openstackmanager-novadomain' => 'Nova ドメイン',
@@ -8182,6 +8184,7 @@ $messages['lb'] = array(
 	'openstackmanager-nomemberstoadd' => 'Et gëtt keng Benotzer fir bei dëse Grupp dobäizesetzen.',
 	'openstackmanager-nomemberstoremove' => 'Et gëtt keng Membere fir vun dësem Grupp ewechzehuelen..',
 	'openstackmanager-novarole-role' => 'Nova-Roll',
+	'openstackmanager-shellaccountexists' => 'Dëse Shell-Kontennumm gëtt scho benotzt.',
 	'openstackmanager-addresslist' => 'Ëffentlech Lëscht vun IP-Adressen',
 	'openstackmanager-address' => 'Ëffentlech IP-Adress',
 	'openstackmanager-allocateaddress' => 'Eng IP-Adress zoudeelen',
@@ -10977,6 +10980,7 @@ $messages['roa-tara'] = array(
  * @author Тест
  */
 $messages['ru'] = array(
+	'openstackmanager-desc' => 'Позволяет пользователям управлять Nova и Swift',
 	'novaproxy' => 'Управление экземпляром прокси',
 	'openstackmanager-delete' => 'удалить',
 	'openstackmanager-configure' => 'настроить',
