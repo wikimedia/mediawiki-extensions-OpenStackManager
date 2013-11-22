@@ -107,6 +107,7 @@ class SpecialNovaProxy extends SpecialNova {
 			'label-message' => 'openstackmanager-dnsdomain',
 			'section' => 'frontend',
 			'name' => 'domain',
+			'default' => 'wmflabs'
 		);
 		$proxyInfo['backendhost'] = array(
 			'type' => 'select',
