@@ -19,12 +19,12 @@ class SpecialNovaResources extends SpecialNova {
 	/**
 	 * @var OpenStackNovaController
 	 */
-	var $userNova;
+	private $userNova;
 
 	/**
 	 * @var OpenStackNovaUser
 	 */
-	var $userLDAP;
+	private $userLDAP;
 
 	function __construct() {
 		parent::__construct( 'NovaResources' );
@@ -144,8 +144,7 @@ class SpecialNovaResources extends SpecialNova {
 		}
 		if ( $instanceRows ) {
 			return $this->createResourceTable( $headers, $instanceRows );
-		} else {
-			return '';
-		}
+		} 
+		return '';
 	}
 }
