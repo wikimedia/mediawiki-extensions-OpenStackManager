@@ -57,60 +57,71 @@ class SpecialNovaResources extends SpecialNova {
 	function listInstances() {
 		$this->setHeaders();
 		$this->getOutput()->addModules( 'ext.openstack.Instance' );
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-ownedprojects' ) );
 
 		$projects = OpenStackNovaProject::getProjectsByName( $this->userLDAP->getProjects() );
 
 		$instanceOut = '';
 		$ownedProjects = array();
+		$instanceCount = 0;
 		foreach ( $projects as $project ) {
 			$projectName = $project->getProjectName();
+			$instancesInProject = 0;
 			if ( $this->userLDAP->inRole( 'projectadmin', $projectName ) ) {
 				$ownedProjects[] = $projectName;
 			}
 			$projectactions = array( 'projectadmin' => array() );
 			$regions = '';
 			$this->userNova->setProject( $projectName );
-			$hasInstances = false;
 			foreach ( $this->userNova->getRegions( 'compute' ) as $region ) {
-				$regionactions = null;
-				$instances = $this->getInstances( $projectName, $region );
-				if ( $instances ) {
-					$hasInstances = true;
+				$regionactions = array();
+				$thisCount = 0;
+				$instances = $this->getInstances( $projectName, $region, $thisCount );
+				$instancesInProject += $thisCount;
+				if ( $thisCount > 0 ) {
+					$regions .= $this->createRegionSection( $region, $projectName, $regionactions, $instances );
 				}
-				$regions .= $this->createRegionSection( $region, $projectName, $regionactions, $instances );
 			}
-			if ( $hasInstances ) {
-			    $instanceOut .= $this->createProjectSection( $projectName, $projectactions, $regions );
+			if ( $instancesInProject ) {
+				$instanceOut .= $this->createProjectSection( $projectName, $projectactions, $regions );
+				$instanceCount += $instancesInProject;
+			} else {
 			}
 		}
 
 		$out = '';
 
-		foreach ( $ownedProjects as $ownedProject ) {
-			$projectNameOut = $this->createResourceLink( $ownedProject );
-			$out .= $projectNameOut . " ";
+		if ( $ownedProjects ) {
+			$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-ownedprojects', count( $ownedProjects ) ) );
+			foreach ( $ownedProjects as $ownedProject ) {
+				$projectNameOut = $this->createResourceLink( $ownedProject );
+				$out .= $projectNameOut . " ";
+			}
+		} else {
+			$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-noownedprojects' ) );
 		}
 
-		$out .= Html::rawElement( 'h1', array(), $this->msg( 'openstackmanager-ownedinstances' )->text() );
-		$out .= $instanceOut;
-
+		if ( $instanceCount ) {
+			$out .= Html::rawElement( 'h1', array(), $this->msg( 'openstackmanager-ownedinstances', $instanceCount )->text() );
+			$out .= $instanceOut;
+		} else {
+			$out .= Html::rawElement( 'h1', array(), $this->msg( 'openstackmanager-noownedinstances' )->text() );
+		}
 
 		$this->getOutput()->addHTML( $out );
 	}
 
-	function getInstances( $projectName, $region ) {
+	function getInstances( $projectName, $region, &$instanceCount ) {
 		global $wgMemc;
 
 		$this->userNova->setRegion( $region );
 		$headers = array( 'openstackmanager-instancename', 'openstackmanager-instanceid', 'openstackmanager-instancestate', 'openstackmanager-instanceip', 'openstackmanager-projectname', 'openstackmanager-launchtime', 'openstackmanager-instancecreator' );
 		$instances = $this->userNova->getInstances();
 		$instanceRows = array();
+		$instanceCount = 0;
 		/**
 		 * @var $instance OpenStackNovaInstance
 		 */
 		foreach ( $instances as $instance ) {
-
 			# Only display instances created by the current user.
 			if ( $instance->getInstanceCreator() != $this->userLDAP->getUid() ) {
 				continue;
@@ -141,6 +152,7 @@ class SpecialNovaResources extends SpecialNova {
 				'class' => 'novainstanceaction',
 			);
 			$instanceRows[] = $instanceRow;
+			$instanceCount += 1;
 		}
 		if ( $instanceRows ) {
 			return $this->createResourceTable( $headers, $instanceRows );

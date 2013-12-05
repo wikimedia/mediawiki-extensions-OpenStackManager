@@ -48,8 +48,10 @@ Resource names start with a-z, and can only contain a-z, 0-9, and - characters.'
 	'openstackmanager-novakey' => 'Nova key',
 	'openstackmanager-novaproject' => 'Nova project',
 
-	'openstackmanager-ownedprojects' => 'You are an administrator for these projects:',
-	'openstackmanager-ownedinstances' =>  'You created these instances:',
+	'openstackmanager-noownedprojects' => 'You are not administrator for any projects.',
+	'openstackmanager-ownedprojects' => 'You are an administrator for {{PLURAL:$1|this project|these projects}}:',
+	'openstackmanager-noownedinstances' =>  'You have not created any existing instances.',
+	'openstackmanager-ownedinstances' =>  'You created {{PLURAL:$1|this instance|these instances}}:',
 
 	'openstackmanager-delete' => 'delete',
 	'openstackmanager-configure' => 'configure',
@@ -521,8 +523,10 @@ The following special pages are listed as members of this group:
 	'novainstance' => '{{doc-special|NovaInstance}}
 An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].
 {{Identical|Manage instance}}',
-	'openstackmanager-ownedprojects' => 'Precedes a list of projects in which the user has the projectadmin role.',
-	'openstackmanager-ownedinstances' =>  'Precedes a list of instances created by the user.',
+	'openstackmanager-noownedprojects' => 'Page title when user is not admin of any projects.',
+	'openstackmanager-ownedprojects' => 'Precedes a list of projects in which the user has the projectadmin role. $1 an integer used for plural vs. singular',
+	'openstackmanager-noownedinstances' =>  'Section header if user has created no current instances.',
+	'openstackmanager-ownedinstances' =>  'Precedes a list of instances created by the user. $1 an integer used for plural vs. singular',
 	'novakey' => '{{doc-special|NovaKey}}',
 	'novaproject' => '{{doc-special|NovaProject}}',
 	'novaservicegroup' => '{{doc-special|NovaServiceGroup}}',
