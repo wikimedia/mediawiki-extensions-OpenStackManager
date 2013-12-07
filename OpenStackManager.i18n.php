@@ -523,10 +523,6 @@ The following special pages are listed as members of this group:
 	'novainstance' => '{{doc-special|NovaInstance}}
 An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].
 {{Identical|Manage instance}}',
-	'openstackmanager-noownedprojects' => 'Page title when user is not admin of any projects.',
-	'openstackmanager-ownedprojects' => 'Precedes a list of projects in which the user has the projectadmin role. $1 an integer used for plural vs. singular',
-	'openstackmanager-noownedinstances' =>  'Section header if user has created no current instances.',
-	'openstackmanager-ownedinstances' =>  'Precedes a list of instances created by the user. $1 an integer used for plural vs. singular',
 	'novakey' => '{{doc-special|NovaKey}}',
 	'novaproject' => '{{doc-special|NovaProject}}',
 	'novaservicegroup' => '{{doc-special|NovaServiceGroup}}',
@@ -540,6 +536,22 @@ An instance is a virtual machine. In this particular case, a clone of an image f
 	'openstackmanager-novainstance' => 'An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].',
 	'openstackmanager-novakey' => 'Used as title for the form in Special:NovaKey.',
 	'openstackmanager-novaproject' => 'Used as title for the form in Special:NovaProject.',
+	'openstackmanager-noownedprojects' => 'Page title when user is not admin of any projects.
+
+See also:
+* {{msg-mw|Openstackmanager-ownedprojects}}',
+	'openstackmanager-ownedprojects' => 'Precedes a list of projects in which the user has the projectadmin role. Parameters:
+* $1 - number of project, used for PLURAL
+See also:
+* {{msg-mw|Openstackmanager-noownedprojects}}',
+	'openstackmanager-noownedinstances' => 'Section header if user has created no current instances.
+
+See also:
+* {{msg-mw|Openstackmanager-ownedinstances}} - one or more instances',
+	'openstackmanager-ownedinstances' => 'Precedes a list of instances created by the user. Parameters:
+* $1 - number of instances, used for PLURAL
+If there are no instances, the following message is used:
+* {{msg-mw|Openstackmanager-noownedinstances}}',
 	'openstackmanager-delete' => 'Used as action link text in several Special pages.
 {{Identical|Delete}}',
 	'openstackmanager-configure' => 'Used as action link text in Special:NovaInstance and Special:NovaProject.
@@ -689,7 +701,9 @@ Parameters:
 See also:
 * {{msg-mw|Openstackmanager-rebootedinstance}}',
 	'openstackmanager-launchtime' => 'Used as heading cell in "resource" table, in Special:NovaInstance.',
-	'openstackmanager-creator' => 'Used as heading cell in "resource" table, in Special:NovaResources.',
+	'openstackmanager-instancecreator' => 'Used as header in the table.
+
+This means "user who created instance".',
 	'openstackmanager-createinstance' => 'Used as page title and as action link title, in Special:NovaInstance.',
 	'openstackmanager-createinstancepuppetwarning' => 'Used in Special:NovaInstance.
 
@@ -1792,7 +1806,7 @@ $messages['af'] = array(
 	'openstackmanager-removerulefailed' => 'Kan reël te verwyder.',
 	'openstackmanager-addrule' => 'Voeg reël',
 	'openstackmanager-securitygrouprule-ranges' => 'CIDR reekse',
-	'openstackmanager-securitygrouprule-ranges-help' => "CIDR reekse is 'n komma geskei lys van reekse.",
+	'openstackmanager-securitygrouprule-ranges-help' => "CIDR reekse is 'n komma geskei lys van reekse.", # Fuzzy
 	'openstackmanager-securitygrouprule-groups-help' => 'Gevalle in die sekuriteit groepe sal toegelaat word om die invloei van alle poorte en protokolle.',
 	'openstackmanager-addedrule' => 'Bygevoeg reël.',
 	'openstackmanager-addrulefailed' => 'Kan reël by te voeg.',
@@ -2158,7 +2172,7 @@ $messages['be-tarask'] = array(
 	'openstackmanager-removerulefailed' => 'Немагчыма выдаліць правіла.',
 	'openstackmanager-addrule' => 'Дадаць правіла',
 	'openstackmanager-securitygrouprule-ranges' => 'Дыяпазоны CIDR',
-	'openstackmanager-securitygrouprule-ranges-help' => 'Дыяпазоны CIDR — падзелены коскамі сьпіс дыяпазонаў.',
+	'openstackmanager-securitygrouprule-ranges-help' => 'Дыяпазоны CIDR — падзелены коскамі сьпіс дыяпазонаў.', # Fuzzy
 	'openstackmanager-securitygrouprule-groups-help' => 'Для экзэмпляраў у дададзеных групах бясьпекі будзе дазволены доступ да ўсіх партоў і пратаколаў.',
 	'openstackmanager-addedrule' => 'Правіла дададзенае пасьпяхова.',
 	'openstackmanager-addrulefailed' => 'Немагчыма дадаць правіла.',
@@ -2517,7 +2531,7 @@ $messages['br'] = array(
 	'openstackmanager-removerulefailed' => "N'eus ket bet gallet lemel ar reolenn.",
 	'openstackmanager-addrule' => 'Ouzhpennañ ar reolenn',
 	'openstackmanager-securitygrouprule-ranges' => 'Renkoù CIDR',
-	'openstackmanager-securitygrouprule-ranges-help' => 'Ar renkoù CIDR zo anezho ur roll renkoù dispartiet dre skejoù.',
+	'openstackmanager-securitygrouprule-ranges-help' => 'Ar renkoù CIDR zo anezho ur roll renkoù dispartiet dre skejoù.', # Fuzzy
 	'openstackmanager-securitygrouprule-groups-help' => 'Aotreet e vo an urzhiataerioù galloudel er strolladoù surentez da vont tre en holl borzhioù ha protokoloù.',
 	'openstackmanager-addedrule' => 'Ouzhpennet eo bet ar reolenn ervat.',
 	'openstackmanager-addrulefailed' => "N'eus ket bet gallet ouzhpennañ ur reolenn.",
@@ -2615,7 +2629,7 @@ $messages['ce'] = array(
 	'openstackmanager-deleteproxyfailed' => 'Прокси $1 дӀаяккха цаелира',
 );
 
-/** Czech (česky)
+/** Czech (čeština)
  * @author Chmee2
  * @author Littledogboy
  * @author Mormegil
@@ -2677,7 +2691,7 @@ Musí začínat písmenem a–z a může obsahovat jen malé znaky a–z, 0–9 
 	'echo-category-title-osm-instance-reboot-completed' => 'dokončení restartu instance',
 );
 
-/** Church Slavic (словѣ́ньскъ / ⰔⰎⰑⰂⰡⰐⰠⰔⰍⰟ)
+/** Church Slavic (словѣньскъ / ⰔⰎⰑⰂⰡⰐⰠⰔⰍⰟ)
  * @author ОйЛ
  */
 $messages['cu'] = array(
@@ -2725,6 +2739,10 @@ $messages['de'] = array(
 	'openstackmanager-novainstance' => 'Nova-Instanz',
 	'openstackmanager-novakey' => 'Nova-Schlüssel',
 	'openstackmanager-novaproject' => 'Nova-Projekt',
+	'openstackmanager-noownedprojects' => 'Du bist auf keinem Projekt Administrator.',
+	'openstackmanager-ownedprojects' => 'Du bist Administrator auf {{PLURAL:$1|diesem Projekt|diesen Projekten}}:',
+	'openstackmanager-noownedinstances' => 'Du hast keine vorhandenen Instanzen erstellt.',
+	'openstackmanager-ownedinstances' => 'Du hast diese {{PLURAL:$1|Instanz|Instanzen}} erstellt:',
 	'openstackmanager-delete' => 'löschen',
 	'openstackmanager-configure' => 'konfigurieren',
 	'openstackmanager-modify' => 'ändern',
@@ -2786,6 +2804,7 @@ $messages['de'] = array(
 	'openstackmanager-rebootedinstance' => 'Die Instanz $1 wurde neu gestartet.',
 	'openstackmanager-rebootinstancefailed' => 'Die Instanz „$1“ konnte nicht neu gestartet werden.',
 	'openstackmanager-launchtime' => 'Startzeit',
+	'openstackmanager-instancecreator' => 'Ersteller der Instanz',
 	'openstackmanager-createinstance' => 'Instanz hinzufügen',
 	'openstackmanager-createinstancepuppetwarning' => 'Warnung: Das Hinzufügen einer Puppet-Konfiguration während der Instanzerstellung kann die deren Erstellung scheitern lassen. Diese Konfiguration ist mit Vorsicht durchzuführen. Die Instanz kann auch nach deren Erstellung noch konfiguriert werden.',
 	'openstackmanager-invaliddomain' => 'Die angeforderte Domain ist ungültig.',
@@ -3625,7 +3644,7 @@ $messages['es'] = array(
 	'openstackmanager-removerulefailed' => 'No se pudo quitar la regla.',
 	'openstackmanager-addrule' => 'Agregar regla',
 	'openstackmanager-securitygrouprule-ranges' => 'Rangos CIDR',
-	'openstackmanager-securitygrouprule-ranges-help' => 'Rangos CIDR es una lista de rangos separados por comas.',
+	'openstackmanager-securitygrouprule-ranges-help' => 'Rangos CIDR es una lista de rangos separados por comas.', # Fuzzy
 	'openstackmanager-securitygrouprule-groups-help' => 'Los casos en los grupos de seguridad añadidos serán autorizados para entrar en  todos los puertos y protocolos.',
 	'openstackmanager-addedrule' => 'La regla se agregó correctamente.',
 	'openstackmanager-addrulefailed' => 'No se pudo agregar la regla.',
@@ -4072,6 +4091,10 @@ $messages['fr'] = array(
 	'openstackmanager-novainstance' => 'Instance Nova',
 	'openstackmanager-novakey' => 'Clé Nova',
 	'openstackmanager-novaproject' => 'Projet Nova',
+	'openstackmanager-noownedprojects' => 'Vous n’êtes administrateur pour aucun projet.',
+	'openstackmanager-ownedprojects' => 'Vous êtes un administrateur pour {{PLURAL:$1|ce projet|ces projets}} :',
+	'openstackmanager-noownedinstances' => 'Vous n’avez créé aucune instance existante.',
+	'openstackmanager-ownedinstances' => 'Vous avez créé {{PLURAL:$1|cette instance|ces instances}} :',
 	'openstackmanager-delete' => 'supprimer',
 	'openstackmanager-configure' => 'configurer',
 	'openstackmanager-modify' => 'modifier',
@@ -4132,6 +4155,7 @@ $messages['fr'] = array(
 	'openstackmanager-rebootedinstance' => 'Instance $1 redémarrée',
 	'openstackmanager-rebootinstancefailed' => "Impossible de redémarrer l'instance $1.",
 	'openstackmanager-launchtime' => 'Heure de démarrage',
+	'openstackmanager-instancecreator' => 'Créateur de l’instance',
 	'openstackmanager-createinstance' => 'Ajouter une instance',
 	'openstackmanager-createinstancepuppetwarning' => "Avertissement : l’ajout d’une configuration de ''puppet'' lors de la création d’une instance peut faire échouer la construction de l’instance. Utilisez cette configuration avec prudence. Vous aurez la possibilité de configurer l’instance après la fin de sa construction.",
 	'openstackmanager-invaliddomain' => 'Le domaine demandé est invalide.',
@@ -4693,7 +4717,7 @@ Dêt comenciér per na lètra (a–z) et pués pôt contegnir ren que des lètre
 	'openstackmanager-removerulefailed' => 'Empossiblo d’enlevar la règlla.',
 	'openstackmanager-addrule' => 'Apondre una règlla',
 	'openstackmanager-securitygrouprule-ranges' => 'Plages CIDR',
-	'openstackmanager-securitygrouprule-ranges-help' => 'Les plages CIDR sont una lista de plages sèparâs per des virgules.',
+	'openstackmanager-securitygrouprule-ranges-help' => 'Les plages CIDR sont una lista de plages sèparâs per des virgules.', # Fuzzy
 	'openstackmanager-securitygrouprule-groups-help' => 'Les enstances dens les tropes de sècuritât apondues seront ôtorisâs a entrar per tôs los pôrts et protocolos.',
 	'openstackmanager-addedrule' => 'Règlla apondua avouéc reusséta.',
 	'openstackmanager-addrulefailed' => 'Empossiblo d’apondre la règlla.',
@@ -5086,7 +5110,7 @@ Debe comezar con letras do a ao z, e só pode conter caracteres en minúsculas (
 	'openstackmanager-removerulefailed' => 'Erro ao eliminar a regra.',
 	'openstackmanager-addrule' => 'Engadir unha regra',
 	'openstackmanager-securitygrouprule-ranges' => 'Rangos CIDR',
-	'openstackmanager-securitygrouprule-ranges-help' => 'Os rangos CIDR son unha lista de rangos separados por comas.',
+	'openstackmanager-securitygrouprule-ranges-help' => 'Os rangos CIDR son unha lista de rangos separados por comas.', # Fuzzy
 	'openstackmanager-securitygrouprule-groups-help' => 'As instancias nos grupos de seguridade engadidos terán permitido o ingreso en todos os portos e protocolos.',
 	'openstackmanager-addedrule' => 'A regra engadiuse correctamente.',
 	'openstackmanager-addrulefailed' => 'Erro ao engadir a regra.',
@@ -6408,7 +6432,7 @@ Illo debe comenciar con a-z, e pote solmente continer le characteres a-z, 0-9 e 
 	'openstackmanager-removerulefailed' => 'Remotion del regula fallite.',
 	'openstackmanager-addrule' => 'Adder regula',
 	'openstackmanager-securitygrouprule-ranges' => 'Gammas CIDR',
-	'openstackmanager-securitygrouprule-ranges-help' => 'Gammas CIDR es un lista de gammas separate con commas.',
+	'openstackmanager-securitygrouprule-ranges-help' => 'Gammas CIDR es un lista de gammas separate con commas.', # Fuzzy
 	'openstackmanager-securitygrouprule-groups-help' => 'Le instantias in gruppos de securitate addite habera le permission de ingresso in tote le portos e protocollos.',
 	'openstackmanager-addedrule' => 'Regula addite con successo.',
 	'openstackmanager-addrulefailed' => 'Addition del regula fallite.',
@@ -6528,6 +6552,10 @@ $messages['it'] = array(
 	'openstackmanager-novainstance' => 'Istanza Nova',
 	'openstackmanager-novakey' => 'Chiave Nova',
 	'openstackmanager-novaproject' => 'Progetto Nova',
+	'openstackmanager-noownedprojects' => 'Non sei amministratore di alcun progetto.',
+	'openstackmanager-ownedprojects' => 'Sei amministratore di {{PLURAL:$1|questo progetto|questi progetti}}:',
+	'openstackmanager-noownedinstances' => 'Non hai creato alcuna istanza esistente.',
+	'openstackmanager-ownedinstances' => 'Hai creato {{PLURAL:$1|questa istanza|queste istanze}}:',
 	'openstackmanager-delete' => 'cancella',
 	'openstackmanager-configure' => 'configura',
 	'openstackmanager-modify' => 'modifica',
@@ -6589,6 +6617,7 @@ Chiedi ad un amministratore Nova di creare le credenziali per te.',
 	'openstackmanager-rebootedinstance' => 'Istanza riavviata $1.',
 	'openstackmanager-rebootinstancefailed' => "Errore durante il riavvio dell'istanza $1.",
 	'openstackmanager-launchtime' => 'Ora di lancio',
+	'openstackmanager-instancecreator' => 'Creatore istanza',
 	'openstackmanager-createinstance' => 'Aggiungi istanza',
 	'openstackmanager-createinstancepuppetwarning' => "Attenzione: aggiungendo una configurazione Puppet durante la creazione dell'istanza può causare errori in fase di costruzione. Usa questa configurazione con cautela. Potrai configurare l'istanza dopo il termine della costruzione.",
 	'openstackmanager-invaliddomain' => 'Il dominio richiesto non è valido.',
@@ -6943,6 +6972,10 @@ $messages['ja'] = array(
 	'openstackmanager-novainstance' => 'Nova インスタンス',
 	'openstackmanager-novakey' => 'Nova キー',
 	'openstackmanager-novaproject' => 'Nova プロジェクト',
+	'openstackmanager-noownedprojects' => 'あなたはどのプロジェクトの管理者でもありません。',
+	'openstackmanager-ownedprojects' => 'あなたは{{PLURAL:$1|以下のプロジェクト|以下のプロジェクト群}}の管理者です:',
+	'openstackmanager-noownedinstances' => 'あなたが作成したインスタンスはありません。',
+	'openstackmanager-ownedinstances' => 'あなたは{{PLURAL:$1|以下のインスタンス}}を作成しました:',
 	'openstackmanager-delete' => '削除',
 	'openstackmanager-configure' => '設定',
 	'openstackmanager-modify' => '改変',
@@ -6995,6 +7028,7 @@ $messages['ja'] = array(
 	'openstackmanager-rebootinstancequestion' => 'インスタンス「$1」を本当に再起動しますか?',
 	'openstackmanager-rebootedinstance' => 'インスタンス $1 を再起動しました。',
 	'openstackmanager-rebootinstancefailed' => 'インスタンス $1 の再起動に失敗しました。',
+	'openstackmanager-instancecreator' => 'インスタンス作成者',
 	'openstackmanager-createinstance' => 'インスタンスを追加',
 	'openstackmanager-invaliddomain' => '指定したドメインは無効です。',
 	'openstackmanager-createinstancefailed' => 'インスタンスの作成に失敗しました。',
@@ -7445,7 +7479,7 @@ $messages['jv'] = array(
 	'openstackmanager-removerulefailed' => 'Gagal mbusak aturan.',
 	'openstackmanager-addrule' => 'Tambah aturan',
 	'openstackmanager-securitygrouprule-ranges' => 'Jangkahan CIDR',
-	'openstackmanager-securitygrouprule-ranges-help' => 'Jangkahan CIDR yakuwi daptar jangkahan sing kapisahaké koma.',
+	'openstackmanager-securitygrouprule-ranges-help' => 'Jangkahan CIDR yakuwi daptar jangkahan sing kapisahaké koma.', # Fuzzy
 	'openstackmanager-addedrule' => 'Suksès nambahaké aturan.',
 	'openstackmanager-addrulefailed' => 'Gagal nambahaké aturan.',
 	'openstackmanager-createsudoer' => 'Gawé Kabijakan Sudo',
@@ -7945,7 +7979,7 @@ a-z로 시작해야 하고 소문자 a-z, 0-9와 - 문자만 포함할 수 있�
 	'openstackmanager-removerulefailed' => '규칙을 제거하는 데 실패했습니다.',
 	'openstackmanager-addrule' => '규칙 추가',
 	'openstackmanager-securitygrouprule-ranges' => 'CIDR 범위',
-	'openstackmanager-securitygrouprule-ranges-help' => 'CIDR 범위는 범위를 쉼표로 구분한 목록입니다​​.',
+	'openstackmanager-securitygrouprule-ranges-help' => 'CIDR 범위는 범위를 쉼표로 구분한 목록입니다​​.', # Fuzzy
 	'openstackmanager-securitygrouprule-groups-help' => '추가한 보안 그룹의 인스턴스는 모든 포트와 프로토콜의 들어가기를 허용합니다.',
 	'openstackmanager-addedrule' => '성공적으로 규칙을 추가했습니다.',
 	'openstackmanager-addrulefailed' => '규칙을 추가하는 데 실패했습니다.',
@@ -8088,7 +8122,7 @@ $messages['ksh'] = array(
 	'openstackmanager-removerulefailed' => 'Met kunnte di Rääjel nit fott nämme.',
 	'openstackmanager-addrule' => 'En Rääjel dobei donn',
 	'openstackmanager-securitygrouprule-ranges' => '<i lang="en">CIDR</i>-Berette',
-	'openstackmanager-securitygrouprule-ranges-help' => '<i lang="en">CIDR</i>-Berette wääde als en Leß vun einzel Berette aanjejovve, met Kommas derzwesche',
+	'openstackmanager-securitygrouprule-ranges-help' => '<i lang="en">CIDR</i>-Berette wääde als en Leß vun einzel Berette aanjejovve, met Kommas derzwesche', # Fuzzy
 	'openstackmanager-addedrule' => 'Di Rääjel es jäz dobei jekumme.',
 	'openstackmanager-addrulefailed' => 'Di Rääjel dobeizedonn es donävve jejange.',
 	'openstackmanager-commadelimiter' => 'Met Kommas dozwesche',
@@ -8674,7 +8708,7 @@ $messages['mk'] = array(
 	'openstackmanager-removerulefailed' => 'Не успеав да го отстранам правилото.',
 	'openstackmanager-addrule' => 'Додај правило',
 	'openstackmanager-securitygrouprule-ranges' => 'CIDR-опсези',
-	'openstackmanager-securitygrouprule-ranges-help' => 'CIDR-опсезите се список на опсези одделени со запирка.',
+	'openstackmanager-securitygrouprule-ranges-help' => 'Содржи список на CIDR-опсези одделени со запирка.',
 	'openstackmanager-securitygrouprule-groups-help' => 'На примероците во додадените безбедносни групи ќе им се дозволи пристап на сите порти и протоколи.',
 	'openstackmanager-addedrule' => 'Правилото е успешно додадено.',
 	'openstackmanager-addrulefailed' => 'Не успеав да го додадам правилото.',
@@ -9122,7 +9156,7 @@ Nama akaun bermula dengan a-z, dan mengandungi huruf kecil a-z, nombor 0-9, dan 
 	'openstackmanager-removerulefailed' => 'Peraturan gagal dipadamkan.',
 	'openstackmanager-addrule' => 'Tambahkan peraturan',
 	'openstackmanager-securitygrouprule-ranges' => 'Julat CIDR',
-	'openstackmanager-securitygrouprule-ranges-help' => 'Julat CIDR ialah senarai julat yang terpisah dengan koma.',
+	'openstackmanager-securitygrouprule-ranges-help' => 'Julat CIDR ialah senarai julat yang terpisah dengan koma.', # Fuzzy
 	'openstackmanager-securitygrouprule-groups-help' => 'Tika dalam kumpulan keselamatan yang ditambahkan akan diberi hak masuk ke semua port dan protokol.',
 	'openstackmanager-addedrule' => 'Peraturan berjaya ditambahkan.',
 	'openstackmanager-addrulefailed' => 'Peraturan gagal ditambahkan.',
@@ -9302,11 +9336,16 @@ $messages['nl'] = array(
 	'novarole' => 'Globale rollen beheren',
 	'novavolume' => 'Opslagvolumes beheren',
 	'novasudoer' => 'Sudo-beleid beheren',
+	'novaproxy' => "Instantieproxy's beheren",
 	'novapuppetgroup' => 'Puppetgroepen beheren',
 	'openstackmanager-novadomain' => 'Nova-domein',
 	'openstackmanager-novainstance' => 'Nova-instantie',
 	'openstackmanager-novakey' => 'Nova-sleutel',
 	'openstackmanager-novaproject' => 'Nova-project',
+	'openstackmanager-noownedprojects' => 'U beheert geen enkel project.',
+	'openstackmanager-ownedprojects' => 'U bent beheerder voor {{PLURAL:$1|dit project|deze projecten}}:',
+	'openstackmanager-noownedinstances' => 'U hebt geen bestaande instanties aangemaakt.',
+	'openstackmanager-ownedinstances' => 'U hebt deze {{PLURAL:$1|instantie|instanties}} aangemaakt:',
 	'openstackmanager-delete' => 'verwijderen',
 	'openstackmanager-configure' => 'instellen',
 	'openstackmanager-modify' => 'wijzigen',
@@ -9367,6 +9406,7 @@ $messages['nl'] = array(
 	'openstackmanager-rebootedinstance' => 'De instantie $1 is herstart.',
 	'openstackmanager-rebootinstancefailed' => 'Het herstarten van de instantie $1 is mislukt.',
 	'openstackmanager-launchtime' => 'Begintijd',
+	'openstackmanager-instancecreator' => 'Instantie aanmaken',
 	'openstackmanager-createinstance' => 'Instantie toevoegen',
 	'openstackmanager-createinstancepuppetwarning' => 'Waarschuwing: door puppetinstellingen toe te voegen tijdens het aanmaken van de instantie, is het mogelijk dat het opbouwen mislukt. Gebruik deze instelling met mate. U kunt de instantie configureren nadat deze is gebouwd.',
 	'openstackmanager-invaliddomain' => 'Het opgegeven domein is ongeldig.',
@@ -9439,6 +9479,8 @@ $messages['nl'] = array(
 	'openstackmanager-addservicegroup' => 'Servicegroep toevoegen',
 	'openstackmanager-servicegroupname' => 'Naam servicegroep',
 	'openstackmanager-removeservicegroup' => 'Servicegroep verwijderen',
+	'openstackmanager-manageservicegroupmembers-title' => 'Lidmaatschap dienstengroep beheren',
+	'openstackmanager-manageservicegroupmembers' => 'Leden beheren',
 	'openstackmanager-removeservicegroupconfirm' => 'Weet u zeker dat u de servicegroep "$1" wilt verwijderen?
 Hierdoor kunnen hulpmiddelen of robots die onder deze groep draaien worden uitgeschakeld.',
 	'openstackmanager-servicegrouprecursewarning' => 'Pas op! Door een servicegebruiker toe te voegen aan deze groep hebben alle leden van die groep toegang hebben tot deze groep.
@@ -9457,6 +9499,7 @@ Zorg ervoor dat u iedereen vertrouwt en weet wat u doet voordat u iets selecteer
 	'openstackmanager-configureproject-volume' => 'Gedeelde opslag',
 	'openstackmanager-configureproject-failed' => 'Het wijzigen van de projectinstellingen is mislukt.',
 	'openstackmanager-configureproject-success' => 'De projectinstellingen zijn bijgewerkt.',
+	'openstackmanager-servicegrouplist' => 'Dienstengroeplijst',
 	'openstackmanager-configureproject-servicegroup' => 'Servicegroepen',
 	'openstackmanager-configureproject-serviceuserhome' => 'Patroon voor homedirectory van servicegebruikers',
 	'openstackmanager-configureproject-serviceuserinfo' => '(in het patroon voor de homedirectory, wordt %u vervangen door de gebruikers en %p door "$1")',
@@ -9582,7 +9625,7 @@ Verwijder alle hostkoppelingen en ontkoppel het IP-adres voordat u het vrijgeeft
 	'openstackmanager-removerulefailed' => 'Het verwijderen van de regel is mislukt.',
 	'openstackmanager-addrule' => 'Regel toevoegen',
 	'openstackmanager-securitygrouprule-ranges' => 'CIDR-reeksen',
-	'openstackmanager-securitygrouprule-ranges-help' => 'CIDR-reeksen bevat een lijst van kommagescheiden reeksen.',
+	'openstackmanager-securitygrouprule-ranges-help' => 'Bevat een kommagescheiden lijst met CIDR-reeksen.',
 	'openstackmanager-securitygrouprule-groups-help' => 'Instanties in toegevoegde beveiligingsgroepen mogen verkeer ontvangen via alle poorten en protocollen.',
 	'openstackmanager-addedrule' => 'De regel is toegevoegd.',
 	'openstackmanager-addrulefailed' => 'Het toevoegen van de regel is mislukt.',
@@ -9612,6 +9655,20 @@ Verwijder alle hostkoppelingen en ontkoppel het IP-adres voordat u het vrijgeeft
 	'openstackmanager-modifysudoerfailed' => 'Het wijzigen van het sudo-beleid is mislukt.',
 	'openstackmanager-modifiedsudoer' => 'Het sudo-beleid is aangepast.',
 	'openstackmanager-nonexistantsudoer' => 'Het opgegeven sudobeleid bestaat niet.',
+	'openstackmanager-proxylist' => "List van instantieproxy's",
+	'openstackmanager-createproxy' => 'Proxy aanmaken',
+	'openstackmanager-deleteproxy' => 'Proxy verwijderen',
+	'openstackmanager-deleteproxysuccess' => 'Proxy voor $1 verwijderen',
+	'openstackmanager-deleteproxyfailed' => 'Het verwijderen van de proxy voor $1 is mislukt',
+	'openstackmanager-deleteproxy-confirm' => 'Weet u zeker dat u de proxy voor $1 wilt verwijderen?',
+	'openstackmanager-proxyname' => 'DNS-hostnaam',
+	'openstackmanager-proxybackend' => 'Instantie',
+	'openstackmanager-proxyport' => 'Instantiepoort',
+	'openstackmanager-novaproxy-frontend' => 'Nieuwe proxy frontend',
+	'openstackmanager-novaproxy-backend' => 'Nieuwe proxy backend',
+	'openstackmanager-createproxyfailed' => 'Het maken van de nieuwe proxy $1 is mislukt',
+	'openstackmanager-createdproxy' => 'De proxy $1 voor backend $2 is aangemaakt',
+	'openstackmanager-backproxylist' => 'Terug naar proxylijst',
 	'openstackmanager-novapuppetgroup' => 'Nova Puppetgroep',
 	'openstackmanager-puppetgrouplist' => 'Puppet groepenlijst',
 	'openstackmanager-puppetallprojects' => 'All projecten',
@@ -10262,7 +10319,7 @@ A dev ancaminé con a-z, e a peul mach conten-e ij caràter a-z, 0-9, e -.", # F
 	'openstackmanager-removerulefailed' => 'Falì a gavé un ròl.',
 	'openstackmanager-addrule' => 'Gionté na régola',
 	'openstackmanager-securitygrouprule-ranges' => 'Antërvaj CIDR',
-	'openstackmanager-securitygrouprule-ranges-help' => "J'antërvaj CIDR a son na lista d'antërvaj separà da dle vìrgole.",
+	'openstackmanager-securitygrouprule-ranges-help' => "J'antërvaj CIDR a son na lista d'antërvaj separà da dle vìrgole.", # Fuzzy
 	'openstackmanager-securitygrouprule-groups-help' => "A j'istanse ant le partìe ëd sicurëssa giontà a sarà përmetùa l'intrada ëd tute le pòrte e ij protocòj.",
 	'openstackmanager-addedrule' => 'Régola giontà për da bin.',
 	'openstackmanager-addrulefailed' => 'falì a gionté un ròl.',
@@ -10626,7 +10683,7 @@ $messages['pt'] = array(
 	'openstackmanager-removerulefailed' => 'Não foi possível remover a regra.',
 	'openstackmanager-addrule' => 'Adicionar regra',
 	'openstackmanager-securitygrouprule-ranges' => 'Gamas CIDR',
-	'openstackmanager-securitygrouprule-ranges-help' => 'As gamas CIDR são uma lista de gamas separadas por vírgulas.',
+	'openstackmanager-securitygrouprule-ranges-help' => 'As gamas CIDR são uma lista de gamas separadas por vírgulas.', # Fuzzy
 	'openstackmanager-securitygrouprule-groups-help' => 'Às instâncias que estão nos grupos de segurança adicionados será permitido o ingresso em todas as portas e protocolos.',
 	'openstackmanager-addedrule' => 'A regra foi adicionada.',
 	'openstackmanager-addrulefailed' => 'Não foi possível adicionar a regra.',
@@ -11605,7 +11662,7 @@ $messages['sr-ec'] = array(
 	'openstackmanager-removerulefailed' => 'Брисање правила није успело.',
 	'openstackmanager-addrule' => 'Додавање правила',
 	'openstackmanager-securitygrouprule-ranges' => 'CIDR опсези',
-	'openstackmanager-securitygrouprule-ranges-help' => 'CIDR опсези се наводе као опсези раздвојени запетама.',
+	'openstackmanager-securitygrouprule-ranges-help' => 'CIDR опсези се наводе као опсези раздвојени запетама.', # Fuzzy
 	'openstackmanager-securitygrouprule-groups-help' => 'Инстанцама у додатим безбедносним групама ће бити дозвољен приступ свим портовима и протоколима.',
 	'openstackmanager-addedrule' => 'Правило је успешно додато.',
 	'openstackmanager-addrulefailed' => 'Додавање правила није било успешно.',
@@ -11803,7 +11860,7 @@ $messages['sr-el'] = array(
 	'openstackmanager-removerulefailed' => 'Brisanje pravila nije uspelo.',
 	'openstackmanager-addrule' => 'Dodavanje pravila',
 	'openstackmanager-securitygrouprule-ranges' => 'CIDR opsezi',
-	'openstackmanager-securitygrouprule-ranges-help' => 'CIDR opsezi se navode kao opsezi razdvojeni zapetama.',
+	'openstackmanager-securitygrouprule-ranges-help' => 'CIDR opsezi se navode kao opsezi razdvojeni zapetama.', # Fuzzy
 	'openstackmanager-securitygrouprule-groups-help' => 'Instancama u dodatim bezbednosnim grupama će biti dozvoljen pristup svim portovima i protokolima.',
 	'openstackmanager-addedrule' => 'Pravilo je uspešno dodato.',
 	'openstackmanager-addrulefailed' => 'Dodavanje pravila nije bilo uspešno.',
@@ -12105,7 +12162,7 @@ Välj en eller den andra, inte båda.',
 	'openstackmanager-removerulefailed' => 'Misslyckades att ta bort regel.',
 	'openstackmanager-addrule' => 'Lägg till regel',
 	'openstackmanager-securitygrouprule-ranges' => 'CIDR-intervall',
-	'openstackmanager-securitygrouprule-ranges-help' => 'Ett CIDR-intervall är en kommaseparerad lista av intervall.',
+	'openstackmanager-securitygrouprule-ranges-help' => 'Ett CIDR-intervall är en kommaseparerad lista av intervall.', # Fuzzy
 	'openstackmanager-securitygrouprule-groups-help' => 'Instanser i tillagda säkerhetsgrupper kommer att få åtkomst till alla portar och protokoll.',
 	'openstackmanager-addedrule' => 'Lade framgångsrikt till regel.',
 	'openstackmanager-addrulefailed' => 'Misslyckades att lägga till regel.',
@@ -12579,7 +12636,7 @@ $messages['tl'] = array(
 	'openstackmanager-removerulefailed' => 'Nabigo sa pagtanggal ng tuntunin.',
 	'openstackmanager-addrule' => 'Idagdag ang tuntunin',
 	'openstackmanager-securitygrouprule-ranges' => 'Mga saklaw ng CIDR',
-	'openstackmanager-securitygrouprule-ranges-help' => 'Ang mga saklaw ng CIDR ay isang tala ng mga sakop na pinaghihiwa-hiwalay ng kuwit.',
+	'openstackmanager-securitygrouprule-ranges-help' => 'Ang mga saklaw ng CIDR ay isang tala ng mga sakop na pinaghihiwa-hiwalay ng kuwit.', # Fuzzy
 	'openstackmanager-securitygrouprule-groups-help' => 'Ang mga pagkakataon na nasa loob ng idinagdag na mga pangkat pangkaligtasan ay papayagang dumaang papasok sa lahat ng mga daungan at mga protokol.',
 	'openstackmanager-addedrule' => 'Matagumpay na naidagdag ang tuntunin.',
 	'openstackmanager-addrulefailed' => 'Nabigo sa pagdagdag ng tuntunin.',
@@ -13449,7 +13506,7 @@ Tên phải bắt đầu với chữ a–z và chỉ được có các chữ th�
 	'openstackmanager-removerulefailed' => 'Không thể xóa chính sách.',
 	'openstackmanager-addrule' => 'Thêm chính sách',
 	'openstackmanager-securitygrouprule-ranges' => 'Dãy CIDR',
-	'openstackmanager-securitygrouprule-ranges-help' => 'Hãy phân cách các dãy CIDR trong danh sách bằng dấu phẩy.',
+	'openstackmanager-securitygrouprule-ranges-help' => 'Hãy phân cách các dãy CIDR trong danh sách bằng dấu phẩy.', # Fuzzy
 	'openstackmanager-securitygrouprule-groups-help' => 'Các thực thể trong các nhóm bảo mật được thêm vào sẽ có phép vào tất cả các cổng và giao thức.',
 	'openstackmanager-addedrule' => 'Đã thêm thành công chính sách.',
 	'openstackmanager-addrulefailed' => 'Không thể thêm chính sách.',
@@ -13821,7 +13878,7 @@ $messages['zh-hans'] = array(
 	'openstackmanager-removerulefailed' => '删除规则失败。',
 	'openstackmanager-addrule' => '添加规则',
 	'openstackmanager-securitygrouprule-ranges' => 'CIDR范围',
-	'openstackmanager-securitygrouprule-ranges-help' => 'CIDR范围是一个逗号分隔的范围列表。',
+	'openstackmanager-securitygrouprule-ranges-help' => '包含一个用逗号分隔的CIDR范围列表。',
 	'openstackmanager-securitygrouprule-groups-help' => '添加安全组中的实例，将被允许将所有端口及协议入口。',
 	'openstackmanager-addedrule' => '添加规则成功。',
 	'openstackmanager-addrulefailed' => '添加规则失败。',
@@ -14160,7 +14217,7 @@ $messages['zh-hant'] = array(
 	'openstackmanager-removerulefailed' => '刪除規則失敗。',
 	'openstackmanager-addrule' => '新增規則',
 	'openstackmanager-securitygrouprule-ranges' => 'CIDR範圍',
-	'openstackmanager-securitygrouprule-ranges-help' => 'CIDR範圍是一個逗號分隔的範圍列表。',
+	'openstackmanager-securitygrouprule-ranges-help' => 'CIDR範圍是一個逗號分隔的範圍列表。', # Fuzzy
 	'openstackmanager-securitygrouprule-groups-help' => '添加安全組中的實例，將被允許將所有端口及協議入口。',
 	'openstackmanager-addedrule' => '增加規則成功。',
 	'openstackmanager-addrulefailed' => '增加規則失敗。',
