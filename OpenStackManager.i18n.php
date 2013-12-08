@@ -125,6 +125,7 @@ Leave blank for public zones.',
 
 	'openstackmanager-launchtime' => 'Launch time',
 	'openstackmanager-instancecreator' => 'Instance creator',
+	'openstackmanager-puppetstatus' => 'Puppet status',
 	'openstackmanager-createinstance' => 'Add instance',
 	'openstackmanager-createinstancepuppetwarning' => 'Warning: Adding Puppet configuration on instance creation can cause the instance to fail to build.
 Use this configuration with caution.
@@ -704,6 +705,7 @@ See also:
 	'openstackmanager-instancecreator' => 'Used as header in the table.
 
 This means "user who created instance".',
+	'openstackmanager-puppetstatus' => 'Used as header cell in "resource" table, in Special:NovaResources.  Reports if an instance is running puppet without errors.',
 	'openstackmanager-createinstance' => 'Used as page title and as action link title, in Special:NovaInstance.',
 	'openstackmanager-createinstancepuppetwarning' => 'Used in Special:NovaInstance.
 

@@ -131,6 +131,18 @@ class OpenStackNovaInstance {
 		return OpenStackNovaController::_get_property( $this->instance, 'user_id' );
 	}
 
+	function getPuppetStatus() {
+		$metadata = OpenStackNovaController::_get_property( $this->instance, 'metadata' );
+		if ( ! property_exists( $metadata, 'puppetstatus' ) ) {
+			return 'unknown';
+		}
+		$status = $metadata->puppetstatus;
+		if ( $status == 'changed' ) {
+			return 'ok';
+		}
+		return $status;
+	}
+
 	/**
 	 * Get a human friendly name + id of this instance
 	 *

@@ -114,7 +114,7 @@ class SpecialNovaResources extends SpecialNova {
 		global $wgMemc;
 
 		$this->userNova->setRegion( $region );
-		$headers = array( 'openstackmanager-instancename', 'openstackmanager-instanceid', 'openstackmanager-instancestate', 'openstackmanager-instanceip', 'openstackmanager-projectname', 'openstackmanager-launchtime', 'openstackmanager-instancecreator' );
+		$headers = array( 'openstackmanager-instancename', 'openstackmanager-instanceid', 'openstackmanager-instancestate', 'openstackmanager-puppetstatus', 'openstackmanager-instanceip', 'openstackmanager-projectname', 'openstackmanager-launchtime', 'openstackmanager-instancecreator' );
 		$instances = $this->userNova->getInstances();
 		$instanceRows = array();
 		$instanceCount = 0;
@@ -138,6 +138,7 @@ class SpecialNovaResources extends SpecialNova {
 				$stateDisplay = $state;
 			}
 			$this->pushResourceColumn( $instanceRow, $stateDisplay, array( 'class' => 'novainstancestate' ) );
+			$this->pushResourceColumn( $instanceRow, $instance->getPuppetStatus() );
 			$this->pushRawResourceColumn( $instanceRow, $this->createResourceList( $instance->getInstancePrivateIPs() ) );
 			$this->pushResourceColumn( $instanceRow, $projectName );
 			$this->pushResourceColumn( $instanceRow, $instance->getLaunchTime() );
