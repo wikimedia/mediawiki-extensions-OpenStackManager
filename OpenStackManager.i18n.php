@@ -2807,6 +2807,7 @@ $messages['de'] = array(
 	'openstackmanager-rebootinstancefailed' => 'Die Instanz „$1“ konnte nicht neu gestartet werden.',
 	'openstackmanager-launchtime' => 'Startzeit',
 	'openstackmanager-instancecreator' => 'Ersteller der Instanz',
+	'openstackmanager-puppetstatus' => 'Puppet-Status',
 	'openstackmanager-createinstance' => 'Instanz hinzufügen',
 	'openstackmanager-createinstancepuppetwarning' => 'Warnung: Das Hinzufügen einer Puppet-Konfiguration während der Instanzerstellung kann die deren Erstellung scheitern lassen. Diese Konfiguration ist mit Vorsicht durchzuführen. Die Instanz kann auch nach deren Erstellung noch konfiguriert werden.',
 	'openstackmanager-invaliddomain' => 'Die angeforderte Domain ist ungültig.',
