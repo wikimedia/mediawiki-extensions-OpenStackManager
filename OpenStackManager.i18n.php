@@ -705,7 +705,7 @@ See also:
 	'openstackmanager-instancecreator' => 'Used as header in the table.
 
 This means "user who created instance".',
-	'openstackmanager-puppetstatus' => 'Used as header cell in "resource" table, in Special:NovaResources.  Reports if an instance is running puppet without errors.',
+	'openstackmanager-puppetstatus' => 'Used as header cell in "resource" table, in [[Special:NovaResources]].  Reports if an instance is running puppet without errors.',
 	'openstackmanager-createinstance' => 'Used as page title and as action link title, in Special:NovaInstance.',
 	'openstackmanager-createinstancepuppetwarning' => 'Used in Special:NovaInstance.
 
@@ -4159,6 +4159,7 @@ $messages['fr'] = array(
 	'openstackmanager-rebootinstancefailed' => "Impossible de redémarrer l'instance $1.",
 	'openstackmanager-launchtime' => 'Heure de démarrage',
 	'openstackmanager-instancecreator' => 'Créateur de l’instance',
+	'openstackmanager-puppetstatus' => 'État du pantin',
 	'openstackmanager-createinstance' => 'Ajouter une instance',
 	'openstackmanager-createinstancepuppetwarning' => "Avertissement : l’ajout d’une configuration de ''puppet'' lors de la création d’une instance peut faire échouer la construction de l’instance. Utilisez cette configuration avec prudence. Vous aurez la possibilité de configurer l’instance après la fin de sa construction.",
 	'openstackmanager-invaliddomain' => 'Le domaine demandé est invalide.',
@@ -5249,7 +5250,7 @@ $messages['he'] = array(
 שמות המשאבים מתחילים בתווים a-z ויכולים להכיל רק את התווים a-z‏, 0-9‏, ו־_.',
 	'action-listall' => 'להציג את כל המידע על המשאב',
 	'action-managednsdomain' => 'לנהל מתחמי dns',
-	'action-manageglobalpuppet' => 'לנהל מידע puppet גלובלי',
+	'action-manageglobalpuppet' => 'לנהל מידע Puppet גלובלי',
 	'specialpages-group-nova' => 'OpenStack Nova',
 	'novaaddress' => 'ניהול כתובות IP ציבוריות',
 	'novadomain' => 'ניהול מתחמי DNS',
@@ -5332,8 +5333,9 @@ $messages['he'] = array(
 	'openstackmanager-rebootinstancefailed' => 'אתחול מופע $1 נכשל.',
 	'openstackmanager-launchtime' => 'זמן הפעלה',
 	'openstackmanager-instancecreator' => 'יוצר מופעים',
+	'openstackmanager-puppetstatus' => 'מצב Puppet',
 	'openstackmanager-createinstance' => 'הוספת מופע',
-	'openstackmanager-createinstancepuppetwarning' => 'אזהרה: הוספת הגדרת puppet עם יצירת מופע יכולה לגרום לכשל בבניית המופע. לש להשתמש בהגדרה הזאת בזהירות. תהיה לך הזדמנות להגדיר את המופע בתום בנייתו.',
+	'openstackmanager-createinstancepuppetwarning' => 'אזהרה: הוספת הגדרת Puppet עם יצירת מופע יכולה לגרום לכשל בבניית המופע. לש להשתמש בהגדרה הזאת בזהירות. תהיה לך הזדמנות להגדיר את המופע בתום בנייתו.',
 	'openstackmanager-invaliddomain' => 'המתחם המבוקש אינו תקין.',
 	'openstackmanager-createdinstance' => 'נוצר מופע $1 עם התמונה $2 ועם שם המארח $3.',
 	'openstackmanager-createfailedldap' => 'יצירת המופע נכשלה, כי לא ניתן היה להוסיף את המארח ל־LDAP.',
@@ -5604,7 +5606,7 @@ $messages['he'] = array(
 	'openstackmanager-createpuppetgroupfailed' => 'יצירת קבוצת Puppet נכשלה.',
 	'openstackmanager-backpuppetgrouplist' => 'חזרה לרשימת קבוצות Puppet.',
 	'openstackmanager-addpuppetclass' => 'הוספת מחלקה',
-	'openstackmanager-addedpuppetclass' => 'נוספה מחלקת puppet.',
+	'openstackmanager-addedpuppetclass' => 'נוספה מחלקת Puppet.',
 	'openstackmanager-failedtoaddpuppetclass' => 'הוספת מחלקת Puppet נכשלה.',
 	'openstackmanager-puppetclassname' => 'שם המחלקה',
 	'openstackmanager-removepuppetgroupconfirm' => 'באמת למחוק את קבוצת ה־Puppet הזאת?',
@@ -5630,14 +5632,14 @@ $messages['he'] = array(
 	'openstackmanager-puppetclassposition' => 'מיקום מחלקה',
 	'openstackmanager-puppetgroup' => 'קבוצת Puppet',
 	'openstackmanager-modifiedpuppetclass' => 'מחלקת Puppet שונתה.',
-	'openstackmanager-removepuppetclass' => 'מחיקת מחלקת puppet.',
-	'openstackmanager-removepuppetclassconfirm' => 'האם ברצונך באמת למחוק את מחלקת ה־puppet הזאת?',
-	'openstackmanager-deletedpuppetclass' => 'מחלקת puppet נחמקה.',
-	'openstackmanager-failedtodeletepuppetclass' => 'מחיקת מחלקת puppet נכשלה.',
-	'openstackmanager-removepuppetvar' => 'מחיקת משתנה puppet',
-	'openstackmanager-removepuppetvarconfirm' => 'האם ברצונך באמת למחוק את משתנה ה־puppet הזה?',
-	'openstackmanager-deletedpuppetvar' => 'משתנה puppet נמחק.',
-	'openstackmanager-failedtodeletepuppetvar' => 'מחיקת משתנה puppet נכשלה',
+	'openstackmanager-removepuppetclass' => 'מחיקת מחלקת Puppet.',
+	'openstackmanager-removepuppetclassconfirm' => 'האם ברצונך באמת למחוק את מחלקת ה־Puppet הזאת?',
+	'openstackmanager-deletedpuppetclass' => 'מחלקת Puppet נחמקה.',
+	'openstackmanager-failedtodeletepuppetclass' => 'מחיקת מחלקת Puppet נכשלה.',
+	'openstackmanager-removepuppetvar' => 'מחיקת משתנה Puppet',
+	'openstackmanager-removepuppetvarconfirm' => 'האם ברצונך באמת למחוק את משתנה ה־Puppet הזה?',
+	'openstackmanager-deletedpuppetvar' => 'משתנה Puppet נמחק.',
+	'openstackmanager-failedtodeletepuppetvar' => 'מחיקת משתנה Puppet נכשלה',
 	'openstackmanager-email-subject' => 'המופע שלך מוכן לכניסה לחשבון.',
 	'openstackmanager-email-body' => 'המופע הבא נוצר ואפשר להיכנס בו לחשבון:',
 	'openstackmanager-twofactorrequired' => 'נדרש אימות דו־רכיבי',
@@ -6542,7 +6544,7 @@ $messages['it'] = array(
 	'openstackmanager-badresourcename' => 'Nome della risorsa non valido. I nomi delle risorse iniziano con a-z e possono contenere solo i caratteri a-z, 0-9 e -.',
 	'action-listall' => 'visualizzare tutte le informazioni sulle risorse',
 	'action-managednsdomain' => 'gestire domini DNS',
-	'action-manageglobalpuppet' => 'gestire le informazioni globali sulle utenze multiple',
+	'action-manageglobalpuppet' => 'gestire le informazioni globali sulle utenze Puppet',
 	'specialpages-group-nova' => 'OpenStack Nova',
 	'novaaddress' => 'Gestisci indirizzi IP pubblici',
 	'novadomain' => 'Gestisci domini DNS',
@@ -6626,6 +6628,7 @@ Chiedi ad un amministratore Nova di creare le credenziali per te.',
 	'openstackmanager-rebootinstancefailed' => "Errore durante il riavvio dell'istanza $1.",
 	'openstackmanager-launchtime' => 'Ora di lancio',
 	'openstackmanager-instancecreator' => 'Creatore istanza',
+	'openstackmanager-puppetstatus' => 'Stato Puppet',
 	'openstackmanager-createinstance' => 'Aggiungi istanza',
 	'openstackmanager-createinstancepuppetwarning' => "Attenzione: aggiungendo una configurazione Puppet durante la creazione dell'istanza può causare errori in fase di costruzione. Usa questa configurazione con cautela. Potrai configurare l'istanza dopo il termine della costruzione.",
 	'openstackmanager-invaliddomain' => 'Il dominio richiesto non è valido.',
@@ -7037,6 +7040,7 @@ $messages['ja'] = array(
 	'openstackmanager-rebootedinstance' => 'インスタンス $1 を再起動しました。',
 	'openstackmanager-rebootinstancefailed' => 'インスタンス $1 の再起動に失敗しました。',
 	'openstackmanager-instancecreator' => 'インスタンス作成者',
+	'openstackmanager-puppetstatus' => 'パペットの状態',
 	'openstackmanager-createinstance' => 'インスタンスを追加',
 	'openstackmanager-invaliddomain' => '指定したドメインは無効です。',
 	'openstackmanager-createinstancefailed' => 'インスタンスの作成に失敗しました。',
@@ -8501,6 +8505,7 @@ $messages['mk'] = array(
 	'openstackmanager-rebootinstancefailed' => 'Не успеав повторно да го покренам примерокот $1.',
 	'openstackmanager-launchtime' => 'Време на пуштање',
 	'openstackmanager-instancecreator' => 'Создавач на примероци',
+	'openstackmanager-puppetstatus' => 'Статус на марионетата',
 	'openstackmanager-createinstance' => 'Создај примерок',
 	'openstackmanager-createinstancepuppetwarning' => 'Предупредување: Додавајќи марионетските поставки може да предизвикате примерокот да не се состави. Користете ги овие поставки мошне внимателно. Ќе имате можност да ги наместите поставките на примерокот откако ќе се состави.',
 	'openstackmanager-invaliddomain' => 'Побараниот домен е неважечки.',
@@ -9319,6 +9324,13 @@ $messages['nds'] = array(
 	'openstackmanager-action' => 'Akschoon',
 	'openstackmanager-deleteproject' => 'Wegdoon',
 	'openstackmanager-sudoerusers' => 'Brukers',
+);
+
+/** Nepali (नेपाली)
+ * @author सरोज कुमार ढकाल
+ */
+$messages['ne'] = array(
+	'openstackmanager-puppetstatus' => 'पपेट स्थिती',
 );
 
 /** Dutch (Nederlands)
@@ -12911,6 +12923,7 @@ $messages['uk'] = array(
 	'openstackmanager-rebootinstancefailed' => 'Не вдалося перевантажити примірник $1.',
 	'openstackmanager-launchtime' => 'Час запуску',
 	'openstackmanager-instancecreator' => 'Творець примірника',
+	'openstackmanager-puppetstatus' => 'Маріонетковий статус',
 	'openstackmanager-createinstance' => 'Додати примірник',
 	'openstackmanager-createinstancepuppetwarning' => 'Увага: Додавання конфігурації маріонетки при створення примірника може викликати невдалу побудову примірника.
 Використовуйте цю конфігурацію з обережністю.
