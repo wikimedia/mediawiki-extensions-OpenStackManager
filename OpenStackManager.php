@@ -137,6 +137,10 @@ $wgPuttygen = 'puttygen';
 // Custom namespace for projects
 $wgOpenStackManagerProjectNamespace = NS_NOVA_RESOURCE;
 
+// Puppetstatus interval in minutes.  After this much time puppet status
+// will be deemed stale
+$wgPuppetInterval = 1440;
+
 $dir = dirname( __FILE__ ) . '/';
 
 $wgExtensionMessagesFiles['OpenStackManager'] = $dir . 'OpenStackManager.i18n.php';
