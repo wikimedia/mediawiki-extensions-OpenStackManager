@@ -45,4 +45,12 @@ class OpenStackNovaImage {
 		return $this->image->status;
 	}
 
+	/**
+	 * Return the value of the metadata key requested
+	 *
+	 * @return string
+	 */
+	function getImageMetadata( $key ) {
+		return OpenStackNovaController::_get_property( $this->image->metadata, $key );
+	}
 }

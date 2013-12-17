@@ -108,10 +108,6 @@ $wgOpenStackManagerInstanceUserData = array(
 	);
 // Default security rules to add to a project when created
 $wgOpenStackManagerDefaultSecurityGroupRules = array();
-// Image ID to default to in the instance creation interface
-$wgOpenStackManagerInstanceDefaultImage = "";
-// List of image IDs to not display on instance creation interface
-$wgOpenStackManagerInstanceBannedImages = array();
 // List of instance type names to not display on instance creation interface
 $wgOpenStackManagerInstanceBannedInstanceTypes = array();
 // Whether resource pages should be managed on instance/project creation/deletion

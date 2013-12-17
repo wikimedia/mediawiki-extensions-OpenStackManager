@@ -93,7 +93,6 @@ class SpecialNovaInstance extends SpecialNova {
 		global $wgOpenStackManagerPuppetOptions;
 		global $wgOpenStackManagerInstanceBannedInstanceTypes;
 		global $wgOpenStackManagerInstanceDefaultImage;
-		global $wgOpenStackManagerInstanceBannedImages;
 
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-createinstance' ) );
@@ -157,11 +156,13 @@ class SpecialNovaInstance extends SpecialNova {
 			if ( $imageName === '' ) {
 				continue;
 			}
-			if ( in_array( $image->getImageId(), $wgOpenStackManagerInstanceBannedImages ) ) {
+			$showImage = $image->getImageMetadata( 'show' );
+			if ( !$showImage ) {
 				continue;
 			}
 			$imageLabel = $imageName;
-			if ( $image->getImageId() === $wgOpenStackManagerInstanceDefaultImage ) {
+			$isDefault = $image->getImageMetadata( 'default' );
+			if ( $isDefault ) {
 				$default = $imageLabel;
 			}
 			$image_keys[$imageLabel] = $image->getImageId();
