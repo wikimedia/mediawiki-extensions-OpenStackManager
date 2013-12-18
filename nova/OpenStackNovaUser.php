@@ -427,16 +427,16 @@ class OpenStackNovaUser {
 	 * @param  $username
 	 * @return bool
 	 */
-	static function RequestShellAccess( $auth, $username ) {
-
-		$auth->printDebug( "Autogenerating shell access request for " . $username, NONSENSITIVE );
+	static function RequestShellAccess( $user, $_byEmail ) {
+		global $wgAuth;
+		$username = $user->getName();
 
 		$titletext = "Shell_Request/" . $username;
 		$title = Title::newFromText( $titletext );
 		$article = WikiPage::factory( $title );
 
 		if ( $article->exists() ) {
-			$auth->printDebug( "shell request for " . $username . " already exists.", NONSENSITIVE );
+			$wgAuth->printDebug( "shell request for " . $username . " already exists.", NONSENSITIVE );
 			return false;
 		}
 
@@ -447,7 +447,7 @@ class OpenStackNovaUser {
 
 		$logbot = User::newFromName( 'labslogbot' );
 		if ( ! $logbot ) {
-			$auth->printDebug( "Failed to get 'labslogbot' user, so unable to create shell request.", NONSENSITIVE );
+			$wgAuth->printDebug( "Failed to get 'labslogbot' user, so unable to create shell request.", NONSENSITIVE );
 		} else {
 			$article->doEdit( $text, 'auto request', 0, false, $logbot );
 		}
@@ -528,8 +528,6 @@ class OpenStackNovaUser {
 			}
 		}
 		$auth->printDebug( "User account's objectclasses: ", NONSENSITIVE, $values['objectclass'] );
-
-		OpenStackNovaUser::RequestShellAccess( $auth, $username );
 
 		return true;
 	}
