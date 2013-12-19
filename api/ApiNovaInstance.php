@@ -47,11 +47,11 @@ class ApiNovaInstance extends ApiBase {
 				$this->dieUsage( 'The instance requested does not exist.', 'openstackmanager-nonexistanthost' );
 			}
 			$instancename = $instance->getInstanceName();
+			$host = $instance->getHost();
 			$result = $instance->deleteInstance( $this->userNova );
 			if ( !$result ) {
 				$this->dieUsage( 'Failed to delete the instance.', 'openstackmanager-deleteinstancefailed' );
 			}
-			$host = $instance->getHost();
 			if ( $host ) {
 				$host->deleteHost();
 			}
