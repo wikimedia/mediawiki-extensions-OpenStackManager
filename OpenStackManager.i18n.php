@@ -9432,6 +9432,7 @@ $messages['nl'] = array(
 	'openstackmanager-rebootinstancefailed' => 'Het herstarten van de instantie $1 is mislukt.',
 	'openstackmanager-launchtime' => 'Begintijd',
 	'openstackmanager-instancecreator' => 'Instantie aanmaken',
+	'openstackmanager-puppetstatus' => 'Puppetstatus',
 	'openstackmanager-createinstance' => 'Instantie toevoegen',
 	'openstackmanager-createinstancepuppetwarning' => 'Waarschuwing: door puppetinstellingen toe te voegen tijdens het aanmaken van de instantie, is het mogelijk dat het opbouwen mislukt. Gebruik deze instelling met mate. U kunt de instantie configureren nadat deze is gebouwd.',
 	'openstackmanager-invaliddomain' => 'Het opgegeven domein is ongeldig.',
