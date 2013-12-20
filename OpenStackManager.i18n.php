@@ -13549,7 +13549,7 @@ Tên phải bắt đầu với chữ a–z và chỉ được có các chữ th�
 	'openstackmanager-removerulefailed' => 'Không thể xóa chính sách.',
 	'openstackmanager-addrule' => 'Thêm chính sách',
 	'openstackmanager-securitygrouprule-ranges' => 'Dãy CIDR',
-	'openstackmanager-securitygrouprule-ranges-help' => 'Hãy phân cách các dãy CIDR trong danh sách bằng dấu phẩy.', # Fuzzy
+	'openstackmanager-securitygrouprule-ranges-help' => 'Có các dãy CIDR được phân cách bằng dấu phẩy.',
 	'openstackmanager-securitygrouprule-groups-help' => 'Các thực thể trong các nhóm bảo mật được thêm vào sẽ có phép vào tất cả các cổng và giao thức.',
 	'openstackmanager-addedrule' => 'Đã thêm thành công chính sách.',
 	'openstackmanager-addrulefailed' => 'Không thể thêm chính sách.',
