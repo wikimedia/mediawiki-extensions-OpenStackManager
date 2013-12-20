@@ -222,6 +222,7 @@ $wgHooks['LDAPUpdateUser'][] = 'OpenStackNovaUser::LDAPUpdateUser';
 $wgHooks['DynamicSidebarGetGroups'][] = 'OpenStackNovaUser::DynamicSidebarGetGroups';
 $wgHooks['ChainAuth'][] = 'OpenStackNovaUser::ChainAuth';
 $wgHooks['GetPreferences'][] = 'OpenStackNovaUser::novaUserPreferences';
+$wgHooks['AddNewAccount'][] = 'OpenStackNovaUser::RequestShellAccess';
 
 $commonModuleInfo = array(
 	'localBasePath' => dirname( __FILE__ ) . '/modules',
