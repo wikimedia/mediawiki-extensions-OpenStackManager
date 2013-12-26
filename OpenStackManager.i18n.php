@@ -2623,6 +2623,7 @@ $messages['ce'] = array(
 	'openstackmanager-delete' => 'дӀаяккха',
 	'openstackmanager-actions' => 'Дийраш',
 	'openstackmanager-notloggedin' => 'Хьай цӀарца чугӀо',
+	'openstackmanager-volumedescription' => 'Томах лаьцна',
 	'openstackmanager-deletedvolume' => 'Том дӀаяккхар.',
 	'openstackmanager-members' => 'Декъашхо',
 	'openstackmanager-action' => 'Дийраш',
