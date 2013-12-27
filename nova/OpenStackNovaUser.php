@@ -63,7 +63,11 @@ class OpenStackNovaUser {
 	 */
 	function getCredentials( $project='' ) {
 		$userNova = OpenStackNovaController::newFromUser( $this );
-		$token = $userNova->getProjectToken( $project );
+		if ( $project ) {
+			$token = $userNova->getProjectToken( $project );
+		} else {
+			$token = $userNova->getUnscopedToken();
+		}
 
 		return array( 'token' => $token );
 	}
