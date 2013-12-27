@@ -129,7 +129,12 @@ class SpecialNovaResources extends SpecialNova {
 
 			$instanceRow = array();
 			$this->pushResourceColumn( $instanceRow, $instance->getInstanceName(), array( 'class' => 'novainstancename' ) );
-			$this->pushRawResourceColumn( $instanceRow, $this->createResourceLink( $instance->getInstanceId() ), array( 'class' => 'novainstanceid' ) );
+			$host = $instance->getHost();
+			if ( $host ) {
+				$this->pushRawResourceColumn( $instanceRow, $this->createResourceLink( $host->getFullyQualifiedHostName() ), array( 'class' => 'novainstanceid' ) );
+			} else {
+				$this->pushResourceColumn( $instanceRow, $instance->getInstanceId(), array( 'class' => 'novainstanceid' ) );
+			}
 			$state = $instance->getInstanceState();
 			$taskState = $instance->getInstanceTaskState();
 			if ( $taskState ) {

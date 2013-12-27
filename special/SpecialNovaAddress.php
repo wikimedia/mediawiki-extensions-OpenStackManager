@@ -477,9 +477,16 @@ class SpecialNovaAddress extends SpecialNova {
 			if ( $instanceosid ) {
 				$instancename = $instances[$instanceosid]->getInstanceName();
 				$instanceid = $instances[$instanceosid]->getInstanceId();
-				$this->pushRawResourceColumn( $addressRow, $this->createResourceLink( $instanceid ), array(
-					'class' => 'instance-id'
-				) );
+				$host = $instances[$instanceosid]->getHost();
+				if ( $host ) {
+					$this->pushRawResourceColumn( $addressRow, $this->createResourceLink( $host->getFullyQualifiedHostName() ), array(
+						'class' => 'instance-id'
+					) );
+				} else {
+					$this->pushResourceColumn( $addressRow, $instanceid, array(
+						'class' => 'instance-id'
+					) );
+				}
 				$this->pushResourceColumn( $addressRow, $instancename, array(
 					'class' => 'instance-name'
 				) );
