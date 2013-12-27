@@ -407,7 +407,7 @@ class SpecialNovaVolume extends SpecialNova {
 
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backvolumelist' )->escaped()
 		);
 
@@ -436,7 +436,7 @@ class SpecialNovaVolume extends SpecialNova {
 
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backvolumelist' )->escaped()
 		);
 
@@ -459,7 +459,7 @@ class SpecialNovaVolume extends SpecialNova {
 
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backvolumelist' )->escaped()
 		);
 
@@ -487,7 +487,7 @@ class SpecialNovaVolume extends SpecialNova {
 
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backvolumelist' )->escaped()
 		);
 

@@ -148,7 +148,7 @@ class SpecialNovaDomain extends SpecialNova {
 
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-addadditionaldomain' )->escaped()
 		);
 		$this->getOutput()->addHTML( $out );
@@ -171,7 +171,7 @@ class SpecialNovaDomain extends SpecialNova {
 
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backdomainlist' )->escaped()
 		);
 		$this->getOutput()->addHTML( $out );

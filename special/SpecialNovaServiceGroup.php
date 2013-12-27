@@ -286,7 +286,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backservicegrouplist' )->escaped()
 		);
 		$this->getOutput()->addHTML( $out );
@@ -363,7 +363,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backservicegrouplist' )->escaped()
 		);
 		$this->getOutput()->addHTML( $out );

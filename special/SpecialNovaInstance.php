@@ -464,7 +464,7 @@ class SpecialNovaInstance extends SpecialNova {
 		}
 		$consoleOutput = $this->userNova->getConsoleOutput( $instanceosid );
 		$out = Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backinstancelist' )->escaped()
 		);
 		$out .= Html::element( 'pre', array(), $consoleOutput );
@@ -660,7 +660,7 @@ class SpecialNovaInstance extends SpecialNova {
 
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backinstancelist' )->escaped()
 		);
 
@@ -700,7 +700,7 @@ class SpecialNovaInstance extends SpecialNova {
 
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backinstancelist' )->escaped()
 		);
 
@@ -725,7 +725,7 @@ class SpecialNovaInstance extends SpecialNova {
 
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backinstancelist' )->escaped()
 		);
 
@@ -755,7 +755,7 @@ class SpecialNovaInstance extends SpecialNova {
 
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backinstancelist' )->escaped()
 		);
 

@@ -469,7 +469,7 @@ class SpecialNovaProject extends SpecialNova {
 
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-addadditionalproject' )->escaped()
 		);
 		$this->getOutput()->addHTML( $out );
@@ -494,7 +494,7 @@ class SpecialNovaProject extends SpecialNova {
 
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backprojectlist' )->escaped()
 		);
 		$this->getOutput()->addHTML( $out );
@@ -538,7 +538,7 @@ class SpecialNovaProject extends SpecialNova {
 
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backprojectlist' )->escaped()
 		);
 		$this->getOutput()->addHTML( $out );
@@ -568,7 +568,7 @@ class SpecialNovaProject extends SpecialNova {
 		$out = '<br />';
 
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backprojectlist' )->escaped()
 		);
 		$this->getOutput()->addHTML( $out );
@@ -607,7 +607,7 @@ class SpecialNovaProject extends SpecialNova {
 		}
 
 		$out = Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backprojectlist' )->escaped()
 		);
 		$this->getOutput()->addHTML( $out );
