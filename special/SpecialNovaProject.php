@@ -216,7 +216,9 @@ class SpecialNovaProject extends SpecialNova {
 			$roleRow = array();
 			$roleName = $role->getRoleName();
 			$this->pushResourceColumn( $roleRow, $roleName );
-			$this->pushRawResourceColumn( $roleRow, $this->createResourceList( $role->getMembers() ) );
+			$roleMembers = $role->getMembers();
+			natcasesort( $roleMembers );
+			$this->pushRawResourceColumn( $roleRow, $this->createResourceList( $roleMembers ) );
 			$actions = array();
 			$specialRoleTitle = Title::newFromText( 'Special:NovaRole' );
 			$actions[] = $this->createActionLink( 'openstackmanager-addrolemember',
