@@ -12,6 +12,11 @@ class OpenStackNovaInstance {
 	var $instance;
 
 	/**
+	 * @var string
+	 */
+	var $region;
+
+	/**
 	 * @var OpenStackNovaHost
 	 */
 	var $host;
@@ -20,8 +25,9 @@ class OpenStackNovaInstance {
 	 * @param  $apiInstanceResponse
 	 * @param bool $loadhost, optional
 	 */
-	function __construct( $apiInstanceResponse, $loadhost = false ) {
+	function __construct( $apiInstanceResponse, $region, $loadhost = false ) {
 		$this->instance = $apiInstanceResponse;
+		$this->region = $region;
 		if ( $loadhost ) {
 			$this->loadHost();
 		} else {
@@ -30,7 +36,7 @@ class OpenStackNovaInstance {
 	}
 
 	function loadHost() {
-		$this->host = OpenStackNovaHost::getHostByInstanceId( $this->getInstanceId() );
+		$this->host = OpenStackNovaHost::getHostByInstanceId( $this->getInstanceId(), $this->region );
 	}
 
 	/**

@@ -149,7 +149,7 @@ class OpenStackNovaController {
 		if ( $ret['code'] === 200 ) {
 			$server = self::_get_property( $ret['body'], 'server' );
 			if ( $server ) {
-				return new OpenStackNovaInstance( $server, true );
+				return new OpenStackNovaInstance( $server, $this->getRegion(), true );
 			}
 		}
 		return null;
@@ -243,7 +243,7 @@ class OpenStackNovaController {
 			return $instancesarr;
 		}
 		foreach ( $instances as $instance ) {
-			$instance = new OpenStackNovaInstance( $instance, true );
+			$instance = new OpenStackNovaInstance( $instance, $this->getRegion(), true );
 			$id = $instance->getInstanceOSId();
 			$instancesarr[$id] = $instance;
 		}
@@ -457,7 +457,7 @@ class OpenStackNovaController {
 		if ( $ret['code'] !== 202 ) {
 			return null;
 		}
-		$instance = new OpenStackNovaInstance( $ret['body']->server );
+		$instance = new OpenStackNovaInstance( $ret['body']->server, $this->getRegion() );
 
 		return $instance;
 	}

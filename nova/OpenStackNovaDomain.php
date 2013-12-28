@@ -190,34 +190,21 @@ class OpenStackNovaDomain {
 	}
 
 	/**
-	 * Get a domain by an instance's ID. Return null if the instance ID entry
+	 * Get a domain by a region. Return null if the region
 	 * does not exist.
 	 *
 	 * @static
 	 * @param  $instanceid
 	 * @return null|OpenStackNovaDomain
 	 */
-	static function getDomainByInstanceId( $instanceid ) {
-		global $wgAuth;
-		global $wgOpenStackManagerLDAPInstanceBaseDN;
-
-		OpenStackNovaLdapConnection::connect();
-
-		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN,
-								'(associateddomain=' . $instanceid . '.*)' );
-		$hostInfo = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
-		if ( $hostInfo['count'] == "0" ) {
-			return null;
+	static function getDomainByRegion( $region ) {
+		$domain = OpenStackNovaDomain::getDomainByName( $region );
+		if ( $domain ) {
+			if ( $domain->getLocation() ) {
+				return $domain;
+			}
 		}
-		$fqdn = $hostInfo[0]['associateddomain'][0];
-		$domainname = explode( '.', $fqdn );
-		$domainname = $domainname[1];
-		$domain = new OpenStackNovaDomain( $domainname );
-		if ( $domain->domainInfo ) {
-			return $domain;
-		} else {
-			return null;
-		}
+		return null;
 	}
 
 	# TODO: Allow generic domains; get rid of config set base name

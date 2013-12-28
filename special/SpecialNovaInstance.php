@@ -654,7 +654,7 @@ class SpecialNovaInstance extends SpecialNova {
 			$instance = $this->userNova->getInstance( $instanceId );
 		}
 		if ( $instance ) {
-			$host = OpenStackNovaHost::addHost( $instance, $domain, $this->getPuppetInfo( $formData ) );
+			$host = OpenStackNovaHost::addHostFromInstance( $instance, $domain, $this->getPuppetInfo( $formData ) );
 
 			if ( $host ) {
 				$instance->setHost( $host );
