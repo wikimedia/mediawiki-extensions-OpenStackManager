@@ -564,7 +564,7 @@ class SpecialNovaAddress extends SpecialNova {
 		$this->getOutput()->addWikiMsg( 'openstackmanager-allocatedaddress', $ip );
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backaddresslist' )->escaped()
 		);
 		$this->getOutput()->addHTML( $out );
@@ -603,7 +603,7 @@ class SpecialNovaAddress extends SpecialNova {
 
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backaddresslist' )->escaped()
 		);
 		$outputPage->addHTML( $out );
@@ -640,7 +640,7 @@ class SpecialNovaAddress extends SpecialNova {
 
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backaddresslist' )->escaped()
 		);
 		$outputPage->addHTML( $out );
@@ -668,7 +668,7 @@ class SpecialNovaAddress extends SpecialNova {
 
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backaddresslist' )->escaped()
 		);
 		$outputPage->addHTML( $out );
@@ -715,7 +715,7 @@ class SpecialNovaAddress extends SpecialNova {
 $this->getOutput();
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backaddresslist' )->escaped()
 		);
 		$outputPage->addHTML( $out );
@@ -763,7 +763,7 @@ $this->getOutput();
 		}
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backaddresslist' )->escaped()
 		);
 		$outputPage->addHTML( $out );

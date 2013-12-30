@@ -142,7 +142,7 @@ abstract class SpecialNova extends SpecialPage {
 			'name' => 'action',
 		);
 		$projectFilterForm = new HTMLForm( $projectFilter, 'openstackmanager-novaprojectfilter' );
-		$projectFilterForm->setTitle( $this->getTitle() );
+		$projectFilterForm->setTitle( $this->getPageTitle() );
 		$projectFilterForm->setSubmitID( 'novaproject-form-setprojectfiltersubmit' );
 		$projectFilterForm->setSubmitCallback( array( $this, 'trySetProjectFilter' ) );
 		$projectFilterForm->setSubmitTextMsg( 'openstackmanager-projectfiltersubmit' );
@@ -157,7 +157,7 @@ abstract class SpecialNova extends SpecialPage {
 
 	function createActionLink( $msg, $params, $title = null, $attribs=array() ) {
 		if ( !$title ) {
-			$title = $this->getTitle();
+			$title = $this->getPageTitle();
 		}
 		return Linker::link( $title, $this->msg( $msg )->escaped(), $attribs, $params );
 	}
@@ -293,7 +293,7 @@ abstract class SpecialNova extends SpecialPage {
 			$projects = implode( ',', $formData['projects'] );
 			$wgRequest->response()->setCookie( 'projectfilter', $projects );
 		}
-		$this->getOutput()->redirect( $this->getTitle()->getFullUrl() );
+		$this->getOutput()->redirect( $this->getPageTitle()->getFullUrl() );
 
 		return true;
 	}

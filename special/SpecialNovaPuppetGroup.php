@@ -768,7 +768,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backpuppetgrouplist' )->escaped()
 		);
 		$this->getOutput()->addHTML( $out );
@@ -791,7 +791,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backpuppetgrouplist' )->escaped()
 		);
 		$this->getOutput()->addHTML( $out );
@@ -814,7 +814,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backpuppetgrouplist' )->escaped()
 		);
 		$this->getOutput()->addHTML( $out );
@@ -837,7 +837,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		$out = '<br />';
 
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backpuppetgrouplist' )->escaped()
 		);
 		$this->getOutput()->addHTML( $out );
@@ -860,7 +860,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backpuppetgrouplist' )->escaped()
 		);
 		$this->getOutput()->addHTML( $out );
@@ -883,7 +883,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		$out = '<br />';
 
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backpuppetgrouplist' )->escaped()
 		);
 		$this->getOutput()->addHTML( $out );
@@ -906,7 +906,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		$out = '<br />';
 
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backpuppetgrouplist' )->escaped()
 		);
 		$this->getOutput()->addHTML( $out );
@@ -929,7 +929,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		$out = '<br />';
 
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backpuppetgrouplist' )->escaped()
 		);
 		$this->getOutput()->addHTML( $out );
@@ -952,7 +952,7 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 		$out = '<br />';
 
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backpuppetgrouplist' )->escaped()
 		);
 		$this->getOutput()->addHTML( $out );

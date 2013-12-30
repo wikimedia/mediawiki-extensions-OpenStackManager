@@ -573,7 +573,7 @@ class SpecialNovaSudoer extends SpecialNova {
 
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backsudoerlist' )->escaped()
 		);
 		$this->getOutput()->addHTML( $out );
@@ -597,7 +597,7 @@ class SpecialNovaSudoer extends SpecialNova {
 
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backsudoerlist' )->escaped()
 		);
 		$this->getOutput()->addHTML( $out );
@@ -667,7 +667,7 @@ class SpecialNovaSudoer extends SpecialNova {
 
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backsudoerlist' )->escaped()
 		);
 		$this->getOutput()->addHTML( $out );

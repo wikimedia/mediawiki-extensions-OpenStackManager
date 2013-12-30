@@ -452,7 +452,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backsecuritygrouplist' )->escaped()
 		);
 
@@ -477,7 +477,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backsecuritygrouplist' )->escaped()
 		);
 
@@ -515,7 +515,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backsecuritygrouplist' )->escaped()
 		);
 
@@ -540,7 +540,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 
 		$out = '<br />';
 		$out .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backsecuritygrouplist' )->escaped()
 		);
 

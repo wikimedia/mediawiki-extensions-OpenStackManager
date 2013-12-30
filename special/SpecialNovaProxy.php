@@ -308,7 +308,7 @@ class SpecialNovaProxy extends SpecialNova {
 		$fqdn = $formData['proxyfqdn'];
 		$goback = '<br />';
 		$goback .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backproxylist' )->escaped()
 		);
 
@@ -341,7 +341,7 @@ class SpecialNovaProxy extends SpecialNova {
 		$gatewayIP = $wgOpenStackManagerProxyGateway;
 		$goback = '<br />';
 		$goback .= Linker::link(
-			$this->getTitle(),
+			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backproxylist' )->escaped()
 		);
 
