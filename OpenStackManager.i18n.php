@@ -3804,6 +3804,7 @@ $messages['eu'] = array(
  * @author Ebraminio
  * @author Huji
  * @author Mjbmr
+ * @author Reza1615
  * @author ZxxZxxZ
  * @author جواد
  */
@@ -3834,6 +3835,7 @@ $messages['fa'] = array(
 	'openstackmanager-failedeletedomain' => 'دامنه حذف نشد.',
 	'openstackmanager-domainname' => 'نام دامنه',
 	'openstackmanager-location' => 'مکان',
+	'openstackmanager-novainstance-info' => 'نمونهٔ اطلاعات',
 	'openstackmanager-novainstance-global' => 'گروه‌های سراسری',
 	'openstackmanager-instancelist' => 'فهرست نمونه',
 	'openstackmanager-instancename' => 'نام نمونه',
@@ -3854,11 +3856,13 @@ $messages['fa'] = array(
 	'openstackmanager-keys' => 'کلیدها',
 	'openstackmanager-addmember' => 'افزودن عضو',
 	'openstackmanager-removemember' => 'حذف عضو',
+	'openstackmanager-manageservicegroupmembers' => 'مدیریت اعضا',
 	'openstackmanager-createproject' => 'افزودن پروژه',
 	'openstackmanager-projectname' => 'نام پروژه',
 	'openstackmanager-members' => 'اعضا',
 	'openstackmanager-member' => 'عضو',
 	'openstackmanager-action' => 'عمل',
+	'openstackmanager-projectlist' => 'فهرست پروژه',
 	'openstackmanager-addadditionalproject' => 'پروژهٔ دیگری بیفزایید.',
 	'openstackmanager-deleteproject' => 'حذف',
 	'openstackmanager-addedto' => '$1 را با موفقیت به $2 افزود.',
@@ -3866,6 +3870,7 @@ $messages['fa'] = array(
 	'openstackmanager-novaproject-project' => 'افزودن پروژه',
 	'openstackmanager-novaprojectfilter-projectfilter' => 'پالایش پروژه',
 	'openstackmanager-projects' => 'پروژه‌ها',
+	'openstackmanager-rolename' => 'نقش',
 	'openstackmanager-removerolemember' => 'حذف عضو',
 	'openstackmanager-addrolemember' => 'افزودن عضو',
 	'openstackmanager-allocateaddress' => 'اختصاص دادن آی‌پی',
@@ -3879,6 +3884,7 @@ $messages['fa'] = array(
 	'openstackmanager-removedhost' => '$1 با موفقیت حذف شد.',
 	'openstackmanager-removehostfailed' => 'نتوانست $1 را حذف کند.',
 	'openstackmanager-nonexistenthost' => 'میزبان خواسته‌شده موجود نیست.',
+	'openstackmanager-unknownerror' => 'خطایی رخ داد.',
 	'openstackmanager-createsecuritygroup' => 'ایجاد گروه امنیتی',
 	'openstackmanager-securitygroupname' => 'نام گروه امنیتی',
 	'openstackmanager-securitygroupdescription' => 'توضیحات',
