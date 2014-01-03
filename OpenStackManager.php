@@ -56,7 +56,9 @@ $wgOpenStackManagerLDAPUserPassword = '';
 // DN location of projects
 $wgOpenStackManagerLDAPProjectBaseDN = '';
 // DN location of hosts/instances
-$wgOpenStackManagerLDAPInstanceBaseDN = '';
+$wgOpenStackManagerLDAPProjectBaseDN = '';
+// DN location of service groups
+$wgOpenStackManagerLDAPServiceGroupBaseDN = '';
 // Service groups will be automatically prefaced with this;
 // e.g. if the user asks for 'fancytool' the group will be called
 // 'local-fancytool'.
