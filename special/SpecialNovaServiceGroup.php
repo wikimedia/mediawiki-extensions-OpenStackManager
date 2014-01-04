@@ -275,12 +275,6 @@ class SpecialNovaServiceGroup extends SpecialNova {
 	function tryCreateServiceGroupSubmit( $formData, $entryPoint = 'internal' ) {
 		$project = OpenStackNovaProject::getProjectByName( $formData['projectname'] );
 		$username = $this->userLDAP->getUsername();
-		$groupname = $formData['servicegroupname'];
-		if ( ! preg_match( "/^[a-z][a-z0-9\-_]*$/i", $groupname ) ) {
-			$wgAuth->printDebug( "Invalid service group name $groupname", NONSENSITIVE );
-			$this->getOutput()->addWikiMsg( 'openstackmanager-servicegroupvalidationfail' );
-			return false;
-		}
 
 		$success = $project->addServiceGroup( $formData['servicegroupname'], $username );
 		if ( ! $success ) {

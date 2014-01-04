@@ -220,8 +220,6 @@ Make sure you trust everyone and know what you are doing before selecting anythi
 	'openstackmanager-removedservicegroup' => 'Deleted service group.',
 	'openstackmanager-removeservicegroupfailed' => 'Failed to delete service group.',
 	'openstackmanager-servicegroups' => 'Service groups',
-	'openstackmanager-servicegroupvalidationfail' => 'That group name cannot be used.
-Service group names must start with a-z, and can only contain a-z, 0-9, -, and _ characters.',
 	'openstackmanager-serviceuser' => 'Service user',
 	'openstackmanager-nonexistentservicegroup' => 'The requested service group does not exist.',
 	'openstackmanager-configureproject' => 'Configure project $1',
@@ -967,7 +965,6 @@ Refers to {{msg-mw|Openstackmanager-serviceuser}}.',
 	'openstackmanager-removeservicegroupfailed' => 'Informs that deletion of a service group failed',
 	'openstackmanager-servicegroups' => 'Column header for a set of service groups and their related info.
 {{Identical|Service group}}',
-	'openstackmanager-servicegroupvalidationfail' => 'Failure message when user tries to create a service group with invalid characters in the name',
 	'openstackmanager-serviceuser' => 'Label for a group of checkboxes. A service user is a special member of a service group, used for running tools.
 
 Followed by the checkbox help:
