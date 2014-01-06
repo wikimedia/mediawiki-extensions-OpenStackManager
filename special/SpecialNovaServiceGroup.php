@@ -352,14 +352,6 @@ class SpecialNovaServiceGroup extends SpecialNova {
 		} else {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-removeservicegroupfailed' );
 		}
-		foreach ( $formData['servicemembers'] as $servicemember ) {
-			$success = $group->deleteServiceMember( $servicemember );
-			if ( $success ) {
-				$this->getOutput()->addWikiMsg( 'openstackmanager-removedfrom', $servicemember, $formData['servicegroupname'] );
-			} else {
-				$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoremove', $servicemember, $formData['servicegroupname'] );
-			}
-		}
 
 		$out = '<br />';
 		$out .= Linker::link(
