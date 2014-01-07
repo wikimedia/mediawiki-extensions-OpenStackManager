@@ -96,8 +96,11 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 			'name' => 'action',
 		);
 
-		$securityGroupForm = new HTMLForm( $securityGroupInfo, 'openstackmanager-novasecuritygroup' );
-		$securityGroupForm->setTitle( SpecialPage::getTitleFor( 'NovaSecurityGroup' ) );
+		$securityGroupForm = new HTMLForm(
+			$securityGroupInfo,
+			$this->getContext(),
+			'openstackmanager-novasecuritygroup'
+		);
 		$securityGroupForm->setSubmitID( 'openstackmanager-novainstance-createsecuritygroupsubmit' );
 		$securityGroupForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
 		$securityGroupForm->show();
@@ -151,8 +154,11 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 			'default' => 'delete',
 			'name' => 'action',
 		);
-		$securityGroupForm = new HTMLForm( $securityGroupInfo, 'openstackmanager-novasecuritygroup' );
-		$securityGroupForm->setTitle( SpecialPage::getTitleFor( 'NovaSecurityGroup' ) );
+		$securityGroupForm = new HTMLForm(
+			$securityGroupInfo,
+			$this->getContext(),
+			'openstackmanager-novasecuritygroup'
+		);
 		$securityGroupForm->setSubmitID( 'novainstance-form-deletesecuritygroupsubmit' );
 		$securityGroupForm->setSubmitCallback( array( $this, 'tryDeleteSubmit' ) );
 		$securityGroupForm->show();
@@ -365,8 +371,11 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 			'default' => 'addrule',
 			'name' => 'action',
 		);
-		$securityGroupForm = new HTMLForm( $securityGroupInfo, 'openstackmanager-novasecuritygroup' );
-		$securityGroupForm->setTitle( SpecialPage::getTitleFor( 'NovaSecurityGroup' ) );
+		$securityGroupForm = new HTMLForm(
+			$securityGroupInfo,
+			$this->getContext(),
+			'openstackmanager-novasecuritygroup'
+		);
 		$securityGroupForm->addHeaderText( $this->msg( 'openstackmanager-securitygrouprule-group-exclusive' )->text(), 'rule' );
 		$securityGroupForm->setSubmitID( 'novainstance-form-removerulesubmit' );
 		$securityGroupForm->setSubmitCallback( array( $this, 'tryAddRuleSubmit' ) );
@@ -426,8 +435,11 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 			'default' => 'removerule',
 			'name' => 'action',
 		);
-		$securityGroupForm = new HTMLForm( $securityGroupInfo, 'openstackmanager-novasecuritygroup' );
-		$securityGroupForm->setTitle( SpecialPage::getTitleFor( 'NovaSecurityGroup' ) );
+		$securityGroupForm = new HTMLForm(
+			$securityGroupInfo,
+			$this->getContext(),
+			'openstackmanager-novasecuritygroup'
+		);
 		$securityGroupForm->setSubmitID( 'novainstance-form-removerulesubmit' );
 		$securityGroupForm->setSubmitCallback( array( $this, 'tryRemoveRuleSubmit' ) );
 		$securityGroupForm->show();

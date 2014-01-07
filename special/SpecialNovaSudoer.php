@@ -130,8 +130,11 @@ class SpecialNovaSudoer extends SpecialNova {
 			'name' => 'requirepassword',
 		);
 
-		$sudoerForm = new HTMLForm( $sudoerInfo, 'openstackmanager-novasudoer' );
-		$sudoerForm->setTitle( SpecialPage::getTitleFor( 'NovaSudoer' ) );
+		$sudoerForm = new HTMLForm(
+			$sudoerInfo,
+			$this->getContext(),
+			'openstackmanager-novasudoer'
+		);
 		$sudoerForm->setSubmitID( 'novasudoer-form-createsudoersubmit' );
 		$sudoerForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
 		$sudoerForm->show();
@@ -169,8 +172,11 @@ class SpecialNovaSudoer extends SpecialNova {
 			'default' => 'delete',
 			'name' => 'action',
 		);
-		$sudoerForm = new HTMLForm( $sudoerInfo, 'openstackmanager-novasudoer' );
-		$sudoerForm->setTitle( SpecialPage::getTitleFor( 'NovaSudoer' ) );
+		$sudoerForm = new HTMLForm(
+			$sudoerInfo,
+			$this->getContext(),
+			'openstackmanager-novasudoer'
+		);
 		$sudoerForm->setSubmitID( 'novasudoer-form-deletesudoersubmit' );
 		$sudoerForm->setSubmitCallback( array( $this, 'tryDeleteSubmit' ) );
 		$sudoerForm->show();
@@ -278,8 +284,11 @@ class SpecialNovaSudoer extends SpecialNova {
 			'name' => 'requirepassword',
 		);
 
-		$sudoerForm = new HTMLForm( $sudoerInfo, 'openstackmanager-novasudoer' );
-		$sudoerForm->setTitle( SpecialPage::getTitleFor( 'NovaSudoer' ) );
+		$sudoerForm = new HTMLForm(
+			$sudoerInfo,
+			$this->getContext(),
+			'openstackmanager-novasudoer'
+		);
 		$sudoerForm->setSubmitID( 'novasudoer-form-createsudoersubmit' );
 		$sudoerForm->setSubmitCallback( array( $this, 'tryModifySubmit' ) );
 		$sudoerForm->show();

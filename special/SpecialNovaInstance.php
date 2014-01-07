@@ -245,8 +245,11 @@ class SpecialNovaInstance extends SpecialNova {
 			'name' => 'action',
 		);
 
-		$instanceForm = new HTMLForm( $instanceInfo, 'openstackmanager-novainstance' );
-		$instanceForm->setTitle( SpecialPage::getTitleFor( 'NovaInstance' ) );
+		$instanceForm = new HTMLForm(
+			$instanceInfo,
+			$this->getContext(),
+			'openstackmanager-novainstance'
+		);
 		$instanceForm->addHeaderText( $this->msg( 'openstackmanager-createinstancepuppetwarning' )->text() .
 			'<div class="mw-collapsible mw-collapsed">', 'puppetinfo' );
 		$instanceForm->addFooterText( '</div>', 'puppetinfo' );
@@ -316,8 +319,11 @@ class SpecialNovaInstance extends SpecialNova {
 			'name' => 'action',
 		);
 
-		$instanceForm = new HTMLForm( $instanceInfo, 'openstackmanager-novainstance' );
-		$instanceForm->setTitle( SpecialPage::getTitleFor( 'NovaInstance' ) );
+		$instanceForm = new HTMLForm(
+			$instanceInfo,
+			$this->getContext(),
+			'openstackmanager-novainstance'
+		);
 		$instanceForm->setSubmitID( 'novainstance-form-configureinstancesubmit' );
 		$instanceForm->setSubmitCallback( array( $this, 'tryConfigureSubmit' ) );
 		$instanceForm->show();
@@ -376,8 +382,11 @@ class SpecialNovaInstance extends SpecialNova {
 			'default' => 'delete',
 			'name' => 'action',
 		);
-		$instanceForm = new HTMLForm( $instanceInfo, 'openstackmanager-novainstance' );
-		$instanceForm->setTitle( SpecialPage::getTitleFor( 'NovaInstance' ) );
+		$instanceForm = new HTMLForm(
+			$instanceInfo,
+			$this->getContext(),
+			'openstackmanager-novainstance'
+		);
 		$instanceForm->setSubmitID( 'novainstance-form-deleteinstancesubmit' );
 		$instanceForm->setSubmitCallback( array( $this, 'tryDeleteSubmit' ) );
 		$instanceForm->show();
@@ -436,8 +445,11 @@ class SpecialNovaInstance extends SpecialNova {
 			'default' => 'reboot',
 			'name' => 'action',
 		);
-		$instanceForm = new HTMLForm( $instanceInfo, 'openstackmanager-novainstance' );
-		$instanceForm->setTitle( SpecialPage::getTitleFor( 'NovaInstance' ) );
+		$instanceForm = new HTMLForm(
+			$instanceInfo,
+			$this->getContext(),
+			'openstackmanager-novainstance'
+		);
 		$instanceForm->setSubmitID( 'novainstance-form-deleteinstancesubmit' );
 		$instanceForm->setSubmitCallback( array( $this, 'tryRebootSubmit' ) );
 		$instanceForm->show();

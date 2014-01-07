@@ -134,8 +134,11 @@ class SpecialNovaProxy extends SpecialNova {
 			'name' => 'project',
 		);
 
-		$proxyForm = new HTMLForm( $proxyInfo, 'openstackmanager-novaproxy' );
-		$proxyForm->setTitle( SpecialPage::getTitleFor( 'NovaProxy' ) );
+		$proxyForm = new HTMLForm(
+			$proxyInfo,
+			$this->getContext(),
+			'openstackmanager-novaproxy'
+		);
 		$proxyForm->setSubmitID( 'novaproxy-form-createproxysubmit' );
 		$proxyForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
 		$proxyForm->show();
@@ -173,8 +176,11 @@ class SpecialNovaProxy extends SpecialNova {
 			'default' => 'delete',
 			'name' => 'action',
 		);
-		$proxyForm = new HTMLForm( $proxyInfo, 'openstackmanager-novaproxy' );
-		$proxyForm->setTitle( SpecialPage::getTitleFor( 'NovaProxy' ) );
+		$proxyForm = new HTMLForm(
+			$proxyInfo,
+			$this->getContext(),
+			'openstackmanager-novaproxy'
+		);
 		$proxyForm->setSubmitID( 'novaproxy-form-deleteproxysubmit' );
 		$proxyForm->setSubmitCallback( array( $this, 'tryDeleteSubmit' ) );
 		$proxyForm->show();

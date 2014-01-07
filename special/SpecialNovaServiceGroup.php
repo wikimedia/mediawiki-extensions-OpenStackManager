@@ -113,8 +113,11 @@ class SpecialNovaServiceGroup extends SpecialNova {
 			'name' => 'returnto',
 		);
 
-		$groupForm = new HTMLForm( $groupInfo, 'openstackmanager-novaservicegroup' );
-		$groupForm->setTitle( SpecialPage::getTitleFor( 'NovaServiceGroup' ) );
+		$groupForm = new HTMLForm(
+			$groupInfo,
+			$this->getContext(),
+			'openstackmanager-novaservicegroup'
+		);
 		$groupForm->setSubmitID( 'novaservicegroup-form-managememberssubmit' );
 		$groupForm->setSubmitCallback( array( $this, 'tryManageMembersSubmit' ) );
 		$groupForm->show();
@@ -154,8 +157,11 @@ class SpecialNovaServiceGroup extends SpecialNova {
 			'name' => 'action',
 		);
 
-		$projectForm = new HTMLForm( $projectInfo, 'openstackmanager-addservicegroup' );
-		$projectForm->setTitle( SpecialPage::getTitleFor( 'NovaServiceGroup' ) );
+		$projectForm = new HTMLForm(
+			$projectInfo,
+			$this->getContext(),
+			'openstackmanager-addservicegroup'
+		);
 		$projectForm->setSubmitID( 'novaproject-form-createservicegroupsubmit' );
 		$projectForm->setSubmitCallback( array( $this, 'tryCreateServiceGroupSubmit' ) );
 		$projectForm->show();
@@ -196,8 +202,11 @@ class SpecialNovaServiceGroup extends SpecialNova {
 			'default' => 'removeservicegroup',
 			'name' => 'action',
 		);
-		$projectForm = new HTMLForm( $projectInfo, 'openstackmanager-novaproject' );
-		$projectForm->setTitle( SpecialPage::getTitleFor( 'NovaServiceGroup' ) );
+		$projectForm = new HTMLForm(
+			$projectInfo,
+			$this->getContext(),
+			'openstackmanager-novaproject'
+		);
 		$projectForm->setSubmitID( 'novaproject-form-removeservicegroupsubmit' );
 		$projectForm->setSubmitCallback( array( $this, 'tryRemoveServiceGroupSubmit' ) );
 		$projectForm->show();

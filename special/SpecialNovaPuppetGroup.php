@@ -92,8 +92,11 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			'name' => 'action',
 		);
 
-		$puppetGroupForm = new HTMLForm( $puppetGroupInfo, 'openstackmanager-novapuppetgroup' );
-		$puppetGroupForm->setTitle( SpecialPage::getTitleFor( 'NovaPuppetGroup' ) );
+		$puppetGroupForm = new HTMLForm(
+			$puppetGroupInfo,
+			$this->getContext(),
+			'openstackmanager-novapuppetgroup'
+		);
 		$puppetGroupForm->setSubmitID( 'novapuppetgroup-form-createpuppetgroupsubmit' );
 		$puppetGroupForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
 		$puppetGroupForm->show();
@@ -151,8 +154,11 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			'name' => 'puppetgroupid',
 		);
 
-		$puppetGroupForm = new HTMLForm( $puppetGroupInfo, 'openstackmanager-novapuppetgroup' );
-		$puppetGroupForm->setTitle( SpecialPage::getTitleFor( 'NovaPuppetGroup' ) );
+		$puppetGroupForm = new HTMLForm(
+			$puppetGroupInfo,
+			$this->getContext(),
+			'openstackmanager-novapuppetgroup'
+		);
 		$puppetGroupForm->setSubmitID( 'novapuppetgroup-form-addclasssubmit' );
 		$puppetGroupForm->setSubmitCallback( array( $this, 'tryAddClassSubmit' ) );
 		$puppetGroupForm->show();
@@ -201,8 +207,11 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			'name' => 'action',
 		);
 
-		$puppetGroupForm = new HTMLForm( $puppetGroupInfo, 'openstackmanager-novapuppetgroup' );
-		$puppetGroupForm->setTitle( SpecialPage::getTitleFor( 'NovaPuppetGroup' ) );
+		$puppetGroupForm = new HTMLForm(
+			$puppetGroupInfo,
+			$this->getContext(),
+			'openstackmanager-novapuppetgroup'
+		);
 		$puppetGroupForm->setSubmitID( 'novapuppetgroup-form-deletepuppetclasssubmit' );
 		$puppetGroupForm->setSubmitCallback( array( $this, 'tryDeleteClassSubmit' ) );
 		$puppetGroupForm->show();
@@ -261,8 +270,11 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			'name' => 'action',
 		);
 
-		$puppetGroupForm = new HTMLForm( $puppetGroupInfo, 'openstackmanager-novapuppetgroup' );
-		$puppetGroupForm->setTitle( SpecialPage::getTitleFor( 'NovaPuppetGroup' ) );
+		$puppetGroupForm = new HTMLForm(
+			$puppetGroupInfo,
+			$this->getContext(),
+			'openstackmanager-novapuppetgroup'
+		);
 		$puppetGroupForm->setSubmitID( 'novapuppetGroup-form-addvarsubmit' );
 		$puppetGroupForm->setSubmitCallback( array( $this, 'tryAddVarSubmit' ) );
 		$puppetGroupForm->show();
@@ -313,8 +325,11 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			'name' => 'action',
 		);
 
-		$puppetGroupForm = new HTMLForm( $puppetGroupInfo, 'openstackmanager-novapuppetgroup' );
-		$puppetGroupForm->setTitle( SpecialPage::getTitleFor( 'NovaPuppetGroup' ) );
+		$puppetGroupForm = new HTMLForm(
+			$puppetGroupInfo,
+			$this->getContext(),
+			'openstackmanager-novapuppetgroup'
+		);
 		$puppetGroupForm->setSubmitID( 'novapuppetgroup-form-deletepuppetvarsubmit' );
 		$puppetGroupForm->setSubmitCallback( array( $this, 'tryDeleteVarSubmit' ) );
 		$puppetGroupForm->show();
@@ -363,8 +378,11 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			'default' => 'delete',
 			'name' => 'action',
 		);
-		$puppetGroupForm = new HTMLForm( $puppetGroupInfo, 'openstackmanager-novapuppetgroup' );
-		$puppetGroupForm->setTitle( SpecialPage::getTitleFor( 'NovaPuppetGroup' ) );
+		$puppetGroupForm = new HTMLForm(
+			$puppetGroupInfo,
+			$this->getContext(),
+			'openstackmanager-novapuppetgroup'
+		);
 		$puppetGroupForm->setSubmitID( 'novapuppetGroup-form-deletepuppetgroupsubmit' );
 		$puppetGroupForm->setSubmitCallback( array( $this, 'tryDeleteSubmit' ) );
 		$puppetGroupForm->show();
@@ -439,8 +457,11 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			'name' => 'action',
 		);
 
-		$puppetGroupForm = new HTMLForm( $puppetGroupInfo, 'openstackmanager-novapuppetgroup' );
-		$puppetGroupForm->setTitle( SpecialPage::getTitleFor( 'NovaPuppetGroup' ) );
+		$puppetGroupForm = new HTMLForm(
+			$puppetGroupInfo,
+			$this->getContext(),
+			'openstackmanager-novapuppetgroup'
+		);
 		$puppetGroupForm->setSubmitID( 'novapuppetgroup-form-modifypuppetclasssubmit' );
 		$puppetGroupForm->setSubmitCallback( array( $this, 'tryModifyClassSubmit' ) );
 		$puppetGroupForm->show();
@@ -516,8 +537,11 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			'name' => 'action',
 		);
 
-		$puppetGroupForm = new HTMLForm( $puppetGroupInfo, 'openstackmanager-novapuppetgroup' );
-		$puppetGroupForm->setTitle( SpecialPage::getTitleFor( 'NovaPuppetGroup' ) );
+		$puppetGroupForm = new HTMLForm(
+			$puppetGroupInfo,
+			$this->getContext(),
+			'openstackmanager-novapuppetgroup'
+		);
 		$puppetGroupForm->setSubmitID( 'novapuppetgroup-form-modifypuppetvarsubmit' );
 		$puppetGroupForm->setSubmitCallback( array( $this, 'tryModifyVarSubmit' ) );
 		$puppetGroupForm->show();
@@ -570,8 +594,11 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 			'name' => 'action',
 		);
 
-		$puppetGroupForm = new HTMLForm( $puppetGroupInfo, 'openstackmanager-novapuppetgroup' );
-		$puppetGroupForm->setTitle( SpecialPage::getTitleFor( 'NovaPuppetGroup' ) );
+		$puppetGroupForm = new HTMLForm(
+			$puppetGroupInfo,
+			$this->getContext(),
+			'openstackmanager-novapuppetgroup'
+		);
 		$puppetGroupForm->setSubmitID( 'novapuppetgroup-form-modifypuppetgroupsubmit' );
 		$puppetGroupForm->setSubmitCallback( array( $this, 'tryModifyGroupSubmit' ) );
 		$puppetGroupForm->show();
@@ -650,8 +677,8 @@ class SpecialNovaPuppetGroup extends SpecialNova {
 						'puppetgroupid' => $puppetGroupId,
 						'returnto' => 'Special:NovaPuppetGroup' )
 				);
-				//$action = Html::rawElement( 'span', array( 'id' => 'novaaction' ), "[$modify, $delete]" ); 
-				$action = Html::rawElement( 'span', array( 'id' => 'novaaction' ), "[$delete]" ); 
+				//$action = Html::rawElement( 'span', array( 'id' => 'novaaction' ), "[$modify, $delete]" );
+				$action = Html::rawElement( 'span', array( 'id' => 'novaaction' ), "[$delete]" );
 				$out .= Html::rawElement( 'h3', array(), "$puppetGroupName $action" );
 			}
 			$action = '';

@@ -80,8 +80,11 @@ class SpecialNovaProject extends SpecialNova {
 			'name' => 'projectname',
 		);
 
-		$projectForm = new HTMLForm( $projectInfo, 'openstackmanager-novaproject' );
-		$projectForm->setTitle( SpecialPage::getTitleFor( 'NovaProject' ) );
+		$projectForm = new HTMLForm(
+			$projectInfo,
+			$this->getContext(),
+			'openstackmanager-novaproject'
+		);
 		$projectForm->setSubmitID( 'novaproject-form-addmembersubmit' );
 		$projectForm->setSubmitCallback( array( $this, 'tryAddMemberSubmit' ) );
 		$projectForm->show();
@@ -125,8 +128,11 @@ class SpecialNovaProject extends SpecialNova {
 			'name' => 'projectname',
 		);
 
-		$projectForm = new HTMLForm( $projectInfo, 'openstackmanager-novaproject' );
-		$projectForm->setTitle( SpecialPage::getTitleFor( 'NovaProject' ) );
+		$projectForm = new HTMLForm(
+			$projectInfo,
+			$this->getContext(),
+			'openstackmanager-novaproject'
+		);
 		$projectForm->setSubmitID( 'novaproject-form-deletemembersubmit' );
 		$projectForm->setSubmitCallback( array( $this, 'tryDeleteMemberSubmit' ) );
 		$projectForm->show();
@@ -160,8 +166,11 @@ class SpecialNovaProject extends SpecialNova {
 			'default' => 'delete',
 			'name' => 'action',
 		);
-		$projectForm = new HTMLForm( $projectInfo, 'openstackmanager-novaproject' );
-		$projectForm->setTitle( SpecialPage::getTitleFor( 'NovaProject' ) );
+		$projectForm = new HTMLForm(
+			$projectInfo,
+			$this->getContext(),
+			'openstackmanager-novaproject'
+		);
 		$projectForm->setSubmitID( 'novaproject-form-deleteprojectsubmit' );
 		$projectForm->setSubmitCallback( array( $this, 'tryDeleteSubmit' ) );
 		$projectForm->show();
@@ -285,8 +294,11 @@ class SpecialNovaProject extends SpecialNova {
 			'name' => 'action',
 		);
 
-		$projectForm = new HTMLForm( $projectInfo, 'openstackmanager-novaproject' );
-		$projectForm->setTitle( SpecialPage::getTitleFor( 'NovaProject' ) );
+		$projectForm = new HTMLForm(
+			$projectInfo,
+			$this->getContext(),
+			'openstackmanager-novaproject'
+		);
 		$projectForm->setSubmitID( 'novaproject-form-createprojectsubmit' );
 		$projectForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
 		$projectForm->show();
@@ -351,8 +363,11 @@ class SpecialNovaProject extends SpecialNova {
 			'name' => 'projectname',
 		);
 
-		$projectForm = new HTMLForm( $formInfo, 'openstackmanager-configureproject' );
-		$projectForm->setTitle( SpecialPage::getTitleFor( 'NovaProject' ) );
+		$projectForm = new HTMLForm(
+			$formInfo,
+			$this->getContext(),
+			'openstackmanager-configureproject'
+		);
 		$projectForm->setSubmitID( 'novaproject-form-configuresubmit' );
 		$projectForm->setSubmitCallback( array( $this, 'tryConfigureProjectSubmit' ) );
 		$projectForm->show();
