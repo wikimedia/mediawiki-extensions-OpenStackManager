@@ -87,8 +87,11 @@ class SpecialNovaAddress extends SpecialNova {
 			'name' => 'action',
 		);
 
-		$addressForm = new HTMLForm( $addressInfo, 'openstackmanager-novaaddress' );
-		$addressForm->setTitle( SpecialPage::getTitleFor( 'NovaAddress' ) );
+		$addressForm = new HTMLForm(
+			$addressInfo,
+			$this->getContext(),
+			'openstackmanager-novaaddress'
+		);
 		$addressForm->setSubmitID( 'novaaddress-form-allocateaddresssubmit' );
 		$addressForm->setSubmitCallback( array( $this, 'tryAllocateSubmit' ) );
 		$addressForm->show();
@@ -136,8 +139,11 @@ class SpecialNovaAddress extends SpecialNova {
 			'default' => 'release',
 			'name' => 'action',
 		);
-		$addressForm = new HTMLForm( $addressInfo, 'openstackmanager-novaaddress' );
-		$addressForm->setTitle( SpecialPage::getTitleFor( 'NovaAddress' ) );
+		$addressForm = new HTMLForm(
+			$addressInfo,
+			$this->getContext(),
+			'openstackmanager-novaaddress'
+		);
 		$addressForm->setSubmitID( 'novaaddress-form-releaseaddresssubmit' );
 		$addressForm->setSubmitCallback( array( $this, 'tryReleaseSubmit' ) );
 		$addressForm->setSubmitText( 'confirm' );
@@ -200,8 +206,11 @@ class SpecialNovaAddress extends SpecialNova {
 			'default' => 'associate',
 			'name' => 'action',
 		);
-		$addressForm = new HTMLForm( $addressInfo, 'openstackmanager-novaaddress' );
-		$addressForm->setTitle( SpecialPage::getTitleFor( 'NovaAddress' ) );
+		$addressForm = new HTMLForm(
+			$addressInfo,
+			$this->getContext(),
+			'openstackmanager-novaaddress'
+		);
 		$addressForm->setSubmitID( 'novaaddress-form-releaseaddresssubmit' );
 		$addressForm->setSubmitCallback( array( $this, 'tryAssociateSubmit' ) );
 		$addressForm->show();
@@ -249,8 +258,11 @@ class SpecialNovaAddress extends SpecialNova {
 			'default' => 'disassociate',
 			'name' => 'action',
 		);
-		$addressForm = new HTMLForm( $addressInfo, 'openstackmanager-novaaddress' );
-		$addressForm->setTitle( SpecialPage::getTitleFor( 'NovaAddress' ) );
+		$addressForm = new HTMLForm(
+			$addressInfo,
+			$this->getContext(),
+			'openstackmanager-novaaddress'
+		);
 		$addressForm->setSubmitID( 'novaaddress-form-disassociateaddresssubmit' );
 		$addressForm->setSubmitCallback( array( $this, 'tryDisassociateSubmit' ) );
 		$addressForm->setSubmitText( 'confirm' );
@@ -313,7 +325,11 @@ class SpecialNovaAddress extends SpecialNova {
 			'default' => 'addhost',
 			'name' => 'action',
 		);
-		$addressForm = new HTMLForm( $addressInfo, 'openstackmanager-novaaddress' );
+		$addressForm = new HTMLForm(
+			$addressInfo,
+			$this->getContext(),
+			'openstackmanager-novaaddress'
+		);
 		$addressForm->setTitle( SpecialPage::getTitleFor( 'NovaAddress' ) );
 		$addressForm->setSubmitID( 'novaaddress-form-addhostsubmit' );
 		$addressForm->setSubmitCallback( array( $this, 'tryAddHostSubmit' ) );
@@ -375,8 +391,11 @@ class SpecialNovaAddress extends SpecialNova {
 			'default' => 'removehost',
 			'name' => 'action',
 		);
-		$addressForm = new HTMLForm( $addressInfo, 'openstackmanager-novaaddress' );
-		$addressForm->setTitle( SpecialPage::getTitleFor( 'NovaAddress' ) );
+		$addressForm = new HTMLForm(
+			$addressInfo,
+			$this->getContext(),
+			'openstackmanager-novaaddress'
+		);
 		$addressForm->setSubmitID( 'novaaddress-form-removehostsubmit' );
 		$addressForm->setSubmitCallback( array( $this, 'tryRemoveHostSubmit' ) );
 		$addressForm->setSubmitText( 'confirm' );

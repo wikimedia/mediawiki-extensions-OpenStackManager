@@ -121,8 +121,11 @@ class SpecialNovaVolume extends SpecialNova {
 			'name' => 'action',
 		);
 
-		$volumeForm = new HTMLForm( $volumeInfo, 'openstackmanager-novavolume' );
-		$volumeForm->setTitle( SpecialPage::getTitleFor( 'NovaVolume' ) );
+		$volumeForm = new HTMLForm(
+			$volumeInfo,
+			$this->getContext(),
+			'openstackmanager-novavolume'
+		);
 		$volumeForm->setSubmitID( 'openstackmanager-novavolume-createvolumesubmit' );
 		$volumeForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
 		$volumeForm->show();
@@ -168,8 +171,11 @@ class SpecialNovaVolume extends SpecialNova {
 			'default' => 'delete',
 			'name' => 'action',
 		);
-		$volumeForm = new HTMLForm( $volumeInfo, 'openstackmanager-novavolume' );
-		$volumeForm->setTitle( SpecialPage::getTitleFor( 'NovaVolume' ) );
+		$volumeForm = new HTMLForm(
+			$volumeInfo,
+			$this->getContext(),
+			'openstackmanager-novavolume'
+		);
 		$volumeForm->setSubmitID( 'novavolume-form-deletevolumesubmit' );
 		$volumeForm->setSubmitCallback( array( $this, 'tryDeleteSubmit' ) );
 		$volumeForm->show();
@@ -247,8 +253,11 @@ class SpecialNovaVolume extends SpecialNova {
 			'default' => 'attach',
 			'name' => 'action',
 		);
-		$volumeForm = new HTMLForm( $volumeInfo, 'openstackmanager-novavolume' );
-		$volumeForm->setTitle( SpecialPage::getTitleFor( 'NovaVolume' ) );
+		$volumeForm = new HTMLForm(
+			$volumeInfo,
+			$this->getContext(),
+			'openstackmanager-novavolume'
+		);
 		$volumeForm->setSubmitID( 'novavolume-form-attachvolumesubmit' );
 		$volumeForm->setSubmitCallback( array( $this, 'tryAttachSubmit' ) );
 		$volumeForm->show();
@@ -304,8 +313,11 @@ class SpecialNovaVolume extends SpecialNova {
 			'default' => 'detach',
 			'name' => 'action',
 		);
-		$volumeForm = new HTMLForm( $volumeInfo, 'openstackmanager-novavolume' );
-		$volumeForm->setTitle( SpecialPage::getTitleFor( 'NovaVolume' ) );
+		$volumeForm = new HTMLForm(
+			$volumeInfo,
+			$this->getContext(),
+			'openstackmanager-novavolume'
+		);
 		$volumeForm->setSubmitID( 'novavolume-form-detachvolumesubmit' );
 		$volumeForm->setSubmitCallback( array( $this, 'tryDetachSubmit' ) );
 		$volumeForm->show();

@@ -60,8 +60,11 @@ class SpecialNovaDomain extends SpecialNova {
 			'default' => 'delete',
 			'name' => 'action',
 		);
-		$domainForm = new HTMLForm( $domainInfo, 'openstackmanager-novadomain' );
-		$domainForm->setTitle( SpecialPage::getTitleFor( 'NovaDomain' ) );
+		$domainForm = new HTMLForm(
+			$domainInfo,
+			$this->getContext(),
+			'openstackmanager-novadomain'
+		);
 		$domainForm->setSubmitID( 'novadomain-form-deletedomainsubmit' );
 		$domainForm->setSubmitCallback( array( $this, 'tryDeleteSubmit' ) );
 		$domainForm->show();
@@ -106,8 +109,11 @@ class SpecialNovaDomain extends SpecialNova {
 			'name' => 'action',
 		);
 
-		$domainForm = new HTMLForm( $domainInfo, 'openstackmanager-novadomain' );
-		$domainForm->setTitle( SpecialPage::getTitleFor( 'NovaDomain' ) );
+		$domainForm = new HTMLForm(
+			$domainInfo,
+			$this->getContext(),
+			'openstackmanager-novadomain'
+		);
 		$domainForm->setSubmitID( 'novadomain-form-createdomainsubmit' );
 		$domainForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
 		$domainForm->show();

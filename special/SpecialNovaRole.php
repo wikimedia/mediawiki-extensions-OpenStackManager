@@ -94,8 +94,11 @@ class SpecialNovaRole extends SpecialNova {
 			'name' => 'returnto',
 		);
 
-		$roleForm = new HTMLForm( $roleInfo, 'openstackmanager-novarole' );
-		$roleForm->setTitle( SpecialPage::getTitleFor( 'NovaRole' ) );
+		$roleForm = new HTMLForm(
+			$roleInfo,
+			$this->getContext(),
+			'openstackmanager-novarole'
+		);
 		$roleForm->setSubmitID( 'novarole-form-addmembersubmit' );
 		$roleForm->setSubmitCallback( array( $this, 'tryAddMemberSubmit' ) );
 		$roleForm->show();
@@ -164,8 +167,11 @@ class SpecialNovaRole extends SpecialNova {
 			'name' => 'returnto',
 		);
 
-		$roleForm = new HTMLForm( $roleInfo, 'openstackmanager-novarole' );
-		$roleForm->setTitle( SpecialPage::getTitleFor( 'NovaRole' ) );
+		$roleForm = new HTMLForm(
+			$roleInfo,
+			$this->getContext(),
+			'openstackmanager-novarole'
+		);
 		$roleForm->setSubmitID( 'novarole-form-deletemembersubmit' );
 		$roleForm->setSubmitCallback( array( $this, 'tryDeleteMemberSubmit' ) );
 		$roleForm->show();
