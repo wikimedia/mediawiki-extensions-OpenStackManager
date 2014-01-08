@@ -6449,7 +6449,7 @@ Illo debe comenciar con a-z, e pote solmente continer le characteres a-z, 0-9 e 
 	'openstackmanager-removerulefailed' => 'Remotion del regula fallite.',
 	'openstackmanager-addrule' => 'Adder regula',
 	'openstackmanager-securitygrouprule-ranges' => 'Gammas CIDR',
-	'openstackmanager-securitygrouprule-ranges-help' => 'Gammas CIDR es un lista de gammas separate con commas.', # Fuzzy
+	'openstackmanager-securitygrouprule-ranges-help' => 'Contine un lista de gammas CIDR separate con commas.',
 	'openstackmanager-securitygrouprule-groups-help' => 'Le instantias in gruppos de securitate addite habera le permission de ingresso in tote le portos e protocollos.',
 	'openstackmanager-addedrule' => 'Regula addite con successo.',
 	'openstackmanager-addrulefailed' => 'Addition del regula fallite.',
@@ -11116,7 +11116,7 @@ $messages['ru'] = array(
 	'openstackmanager-novainstance-global' => 'Глобальные группы',
 	'openstackmanager-imageid' => 'ID фотографии',
 	'openstackmanager-imagetype' => 'Тип изображения',
-	'openstackmanager-instancetypelabel' => '{{PLURAL:$1|$1 процессор|$1 процессоров|$1 процессора}}, $2 Мб оперативной памяти, $3 Гб в корневом разделе, $4 Гб хранилища', # Fuzzy
+	'openstackmanager-instancetypelabel' => '{{PLURAL:$1|$1 процессор|$1 процессоров|$1 процессора}}, $2 Мб оперативной памяти, $3 Гб в корневом разделе, $4 Гб хранилища',
 	'openstackmanager-launchtime' => 'Время запуска',
 	'openstackmanager-createvolume' => 'Создать том',
 	'openstackmanager-volumename' => 'Имя тома',
