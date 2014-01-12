@@ -1618,12 +1618,16 @@ Parameters:
 * $2 - project',
 	'echo-category-title-osm-instance-deleted' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable notifications for the osm-instance-deleted event.
 
-Preceded by {{msg-mw|Prefs-emailsubscriptions}}.',
+Preceded by {{msg-mw|Prefs-emailsubscriptions}}.
+{{Related|Echo-category-title}}',
 	'echo-category-title-osm-instance-build-completed' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable notifications for the osm-instance-build-completed event.
 
-Preceded by {{msg-mw|prefs-echosubscriptions}}.',
-	'echo-category-title-osm-instance-reboot-completed' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable notifications for the osm-instance-reboot-completed event.',
-	'echo-category-title-osm-projectmembers-add' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable notifications for the osm-projectmember-add event.',
+Preceded by {{msg-mw|prefs-echosubscriptions}}.
+{{Related|Echo-category-title}}',
+	'echo-category-title-osm-instance-reboot-completed' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable notifications for the osm-instance-reboot-completed event.
+{{Related|Echo-category-title}}',
+	'echo-category-title-osm-projectmembers-add' => 'Used by the Echo extension in the Preferences -> Notifications tab as a label to enable notifications for the osm-projectmember-add event.
+{{Related|Echo-category-title}}',
 	'prefs-openstack' => 'Title for a tab in Preferences for OpenStack related items',
 	'prefs-openstack-keys' => 'Subheading used in the Preferences -> OpenStack for a the public SSH key list',
 );
@@ -10034,6 +10038,8 @@ $messages['pl'] = array(
 	'openstackmanager-detach' => 'odłącz',
 	'openstackmanager-device' => 'Urządzenie',
 	'openstackmanager-novapublickey' => 'Klucz publiczny SSH',
+	'openstackmanager-addkey' => 'Dodaj publiczny klucz SSH',
+	'openstackmanager-keys' => 'Klucze',
 	'openstackmanager-createproject' => 'Dodaj projekt',
 	'openstackmanager-projectname' => 'Nazwa projektu',
 	'openstackmanager-members' => 'Użytkownicy',
@@ -10097,6 +10103,7 @@ $messages['pl'] = array(
 	'openstackmanager-email-body' => 'Ta maszyna została utworzona i jest gotowa do zalogowania:',
 	'right-manageproject' => 'Zarządzanie projektami i uprawnieniami OpenStack',
 	'action-manageproject' => 'zarządzaj projektami i uprawnieniami OpenStock',
+	'prefs-openstack-keys' => 'Lista kluczy',
 );
 
 /** Piedmontese (Piemontèis)
