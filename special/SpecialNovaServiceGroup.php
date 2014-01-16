@@ -255,7 +255,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 		if ( $serviceGroups ) {
 			$headers = array( 'openstackmanager-servicegroupname', 'openstackmanager-members', 'openstackmanager-actions' );
 			foreach ( $serviceGroups as $group) {
-				$groupName = $group->getGroupName();
+				$groupName = $group->groupName;
 				$groupRow = array();
 				$this->pushResourceColumn( $groupRow, $groupName );
 				$this->pushRawResourceColumn( $groupRow, $this->createResourceList( $group->getMembers() ) );
@@ -355,7 +355,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 	function tryRemoveServiceGroupSubmit( $formData, $entryPoint = 'internal' ) {
 		$project = OpenStackNovaProject::getProjectByName( $formData['projectname'] );
 
-		$success = $project->deleteServiceGroup( $formData['groupname'], $project );
+		$success = $project->deleteServiceGroup( $formData['groupname'] );
 		if ( $success ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-removedservicegroup' );
 		} else {
