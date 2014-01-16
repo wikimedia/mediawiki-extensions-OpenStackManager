@@ -55,6 +55,9 @@ class OpenStackNovaInstance {
 	 * @return null|OpenStackNovaHost
 	 */
 	function getHost() {
+		if ( ! $this->host ) {
+			$this->loadHost();
+		}
 		return $this->host;
 	}
 
