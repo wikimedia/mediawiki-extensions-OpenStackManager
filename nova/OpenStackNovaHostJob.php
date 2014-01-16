@@ -60,7 +60,7 @@ class OpenStackNovaHostJob extends Job {
 			$job->insert();
 			return true;
 		}
-		$host = OpenStackNovaHost::getHostByInstanceId( $instanceid );
+		$host = OpenStackNovaHost::getHostByInstanceId( $instanceid, $region );
 		if ( ! $host ) {
 			$wgAuth->printDebug( "Host record doesn't exist for $instanceid", NONSENSITIVE );
 			return true;
