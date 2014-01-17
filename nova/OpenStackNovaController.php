@@ -92,7 +92,7 @@ class OpenStackNovaController {
 		$regions = array();
 		if ( $serviceCatalog ) {
 			foreach ( $serviceCatalog as $entry ) {
-				if ( $entry->type === "compute" ) {
+				if ( $entry->type === "identity" ) {
 					foreach ( $entry->endpoints as $endpoint ) {
 						$regions[] = $endpoint->region;
 					}
@@ -716,16 +716,10 @@ class OpenStackNovaController {
 		return $this->token;
 	}
 
-	function getProjectToken( $project ) {
+	function getUnscopedToken() {
 		global $wgMemc;
 
-		// Try to fetch the project token
-		$projectkey = wfMemcKey( 'openstackmanager', "fulltoken-$project", $this->username );
-		$projecttoken = $wgMemc->get( $projectkey );
-		if ( is_string( $projecttoken ) ) {
-			return $projecttoken;
-		}
-		// Try to fetch the non-project token
+		$token = '';
 		$key = wfMemcKey( 'openstackmanager', "fulltoken", $this->username );
 		$fulltoken = $wgMemc->get( $key );
 		if ( is_string( $fulltoken ) ) {
@@ -735,14 +729,30 @@ class OpenStackNovaController {
 				$wikiuser = User::newFromName( $this->user->getUsername() );
 				$token = OpenStackNovaUser::loadToken( $wikiuser );
 				if ( !$token ) {
-					// If there's no non-project token, there's nothing to do, the
-					// user will need to re-authenticate.
 					return '';
 				}
 				$wgMemc->set( $key, $token );
 			} else {
 				$token = $this->token;
 			}
+		}
+		return $token;
+	}
+
+	function getProjectToken( $project ) {
+		global $wgMemc;
+
+		// Try to fetch the project token
+		$projectkey = wfMemcKey( 'openstackmanager', "fulltoken-$project", $this->username );
+		$projecttoken = $wgMemc->get( $projectkey );
+		if ( is_string( $projecttoken ) ) {
+			return $projecttoken;
+		}
+		$token = $this->getUnscopedToken();
+		if ( !$token ) {
+			// If there's no non-project token, there's nothing to do, the
+			// user will need to re-authenticate.
+			return '';
 		}
 		$headers = array(
 			'Accept: application/json',
@@ -773,7 +783,9 @@ class OpenStackNovaController {
 		if ( $serviceCatalog ) {
 			foreach ( $serviceCatalog as $entry ) {
 				if ( $entry->type === $service ) {
-					$endpoints[] = $entry->endpoints;
+					foreach ( $entry->endpoints as $endpoint ) {
+						$endpoints[] = $endpoint;
+					}
 				}
 			}
 		}
@@ -809,8 +821,8 @@ class OpenStackNovaController {
 		} else {
 			$endpoints = $this->getEndpoints( $service );
 			foreach ( $endpoints as $endpoint ) {
-				if ( $endpoint[0]->region === $this->getRegion() ) {
-					$endpointURL = $endpoint[0]->publicURL;
+				if ( $endpoint->region === $this->getRegion() ) {
+					$endpointURL = $endpoint->publicURL;
 				}
 			}
 		}
