@@ -303,7 +303,7 @@ class SpecialNovaInstance extends SpecialNova {
 		);
 
 		if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
-			$host = OpenStackNovaHost::getHostByInstanceId( $instanceid );
+			$host = OpenStackNovaHost::getHostByInstanceId( $instanceid, $region );
 			if ( ! $host ) {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistenthost' );
 				return false;
