@@ -40,6 +40,7 @@ class PuppetValues extends Maintenance {
 	public function __construct() {
 		parent::__construct();
 		$this->addOption( 'instance', 'The instance hostname, e.g. i-00000001', false, true );
+		$this->addOption( 'region', 'The instance region, e.g. pmtpa', false, true );
 		$this->addOption( 'all-instances', 'Run this command on every instance.', false, false );
 		$this->addOption( 'delete-var', 'The variable name to delete', false, true );
 		$this->addOption( 'delete-class', 'The class index to delete', false, true );
@@ -53,6 +54,9 @@ class PuppetValues extends Maintenance {
 		global $wgOpenStackManagerLDAPUserPassword;
 
 		if ( $this->hasOption( 'all-instances' ) ) {
+			if ( $this->hasOption( 'region' ) ) {
+				$this->error( "--all-instances cannot be used with --region.\n", true );
+			}
 			$instancelist = array();
 			$user = new OpenStackNovaUser( $wgOpenStackManagerLDAPUsername );
 			$userNova = OpenStackNovaController::newFromUser( $user );
@@ -69,13 +73,16 @@ class PuppetValues extends Maintenance {
 					if ( $instances ) {
 						foreach ( $instances as $instance ) {
 							$id = $instance->getInstanceId();
-							$instancelist[] = $instance->getInstanceId();
+							$instancelist[] = array( $instance->getInstanceId(), $region );
 						}
 					}
 				}
 			}
 		} elseif ( $this->hasOption( 'instance' ) )  {
-			$instancelist = array( $this->getOption( 'instance' ) );
+			if ( ! $this->hasOption( 'region' ) ) {
+				$this->error( "--instance requires --region.\n", true );
+			}
+			$instancelist = array( array( $this->getOption( 'instance' ), $this->getOption( 'region' ) ) );
 		} else {
 			$this->error( "Must specify either --instance or --all-instances.\n", true );
 		}
@@ -84,9 +91,15 @@ class PuppetValues extends Maintenance {
 			$this->error( "Couldn't find OpenStackNovaHost class.\n", true );
 		}
 		OpenStackNovaLdapConnection::connect();
-		foreach ( $instancelist as $instance ) {
-			print "\nFor instance $instance:\n\n";
-			$host = OpenStackNovaHost::getHostByInstanceId( $instance );
+		foreach ( $instancelist as $instancepair ) {
+			$instance = $instancepair[0];
+			$instanceregion = $instancepair[1];
+			$host = OpenStackNovaHost::getHostByInstanceId( $instance, $instanceregion );
+			if ( ! $host ) {
+				print "Skipping $instance.$instanceregion; not found.\n";
+				continue;
+			}
+			print "\nFor instance $instance in region $instanceregion:\n\n";
 			$puppetconf = $host->getPuppetConfiguration();
 			$puppetclasses = $puppetconf['puppetclass'];
 			$puppetvars = $puppetconf['puppetvar'];
