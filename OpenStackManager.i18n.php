@@ -7711,6 +7711,7 @@ $messages['ka'] = array(
 );
 
 /** Korean (한국어)
+ * @author Priviet
  * @author 아라
  */
 $messages['ko'] = array(
@@ -8027,7 +8028,7 @@ a-z로 시작해야 하고 소문자 a-z, 0-9와 - 문자만 포함할 수 있�
 	'openstackmanager-removerulefailed' => '규칙을 제거하는 데 실패했습니다.',
 	'openstackmanager-addrule' => '규칙 추가',
 	'openstackmanager-securitygrouprule-ranges' => 'CIDR 범위',
-	'openstackmanager-securitygrouprule-ranges-help' => 'CIDR 범위는 범위를 쉼표로 구분한 목록입니다​​.', # Fuzzy
+	'openstackmanager-securitygrouprule-ranges-help' => '쉼표로 구분된 CIDR 범위 목록을 포함하고 있습니다.',
 	'openstackmanager-securitygrouprule-groups-help' => '추가한 보안 그룹의 인스턴스는 모든 포트와 프로토콜의 들어가기를 허용합니다.',
 	'openstackmanager-addedrule' => '성공적으로 규칙을 추가했습니다.',
 	'openstackmanager-addrulefailed' => '규칙을 추가하는 데 실패했습니다.',
