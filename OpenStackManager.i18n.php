@@ -26,6 +26,7 @@ $messages['en'] = array(
 Resource names start with a-z, and can only contain a-z, 0-9, and - characters.',
 
 	'action-listall' => 'display all resource information',
+	'right-listall' => 'Display all resource information',
 	'action-managednsdomain' => 'manage DNS domains',
 	'action-manageglobalpuppet' => 'manage global Puppet information',
 
@@ -504,6 +505,7 @@ This error is the result of the form validation about the following elements: ho
 
 "Resource name(s)" in this message probably refers the above-mentioned "*name" elements.',
 	'action-listall' => '{{doc-action|listall}}',
+	'right-listall' => '{{doc-right|listall}}',
 	'action-managednsdomain' => '{{doc-action|managednsdomain}}',
 	'action-manageglobalpuppet' => '{{doc-action|manageglobalpuppet}}',
 	'specialpages-group-nova' => '{{doc-special-group|that=are related to OpenStack Nova|like=[[Special:NovaInstance]], [[Special:NovaKey]], [[Special:NovaProject]], [[Special:NovaDomain]], [[Special:NovaAddress]], [[Special:NovaSecurityGroup]], [[Special:NovaServiceGroup]],[[Special:NovaRole]], [[Special:NovaVolume]], [[Special:NovaSudoer]], [[Special:NovaPuppetGroup]]}}
