@@ -18,6 +18,9 @@ class OpenStackNovaProject {
 	// list of roles
 	static $rolenames = array( 'projectadmin' );
 
+	// short-lived cache of project objects
+	static $projectCache = array();
+
 	/**
 	 * @param  $projectname
 	 * @param bool $load
@@ -645,8 +648,12 @@ class OpenStackNovaProject {
 	 * @return null|OpenStackNovaProject
 	 */
 	static function getProjectByName( $projectname ) {
+		if ( isset( self::$projectCache[ $projectname ] ) ) {
+			return self::$projectCache[ $projectname ];
+		}
 		$project = new OpenStackNovaProject( $projectname );
 		if ( $project->projectInfo ) {
+			self::$projectCache[ $projectname ] = $project;
 			return $project;
 		} else {
 			return null;
@@ -656,8 +663,8 @@ class OpenStackNovaProject {
 	static function getProjectsByName( $projectnames ) {
 		$projects = array();
 		foreach ( $projectnames as $projectname ) {
-			$project = new OpenStackNovaProject( $projectname );
-			if ( $project->projectInfo ) {
+			$project = self::getProjectByName( $projectname );
+			if ( $project ) {
 				$projects[] = $project;
 			}
 		}
