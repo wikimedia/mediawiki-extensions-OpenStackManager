@@ -160,8 +160,10 @@ class OpenStackNovaSudoer {
 			if ( ( strcasecmp( $host, 'all' ) != 0 ) ) {
 				// For good measure, put the display name in there too.
 				//  modern instances identify themselves that way.
-				list ( $name, $domain ) = explode( '.', $host );
-				$hostobj = OpenStackNovaHost::getHostByInstanceId( $name );
+				list ( $name, $domainname ) = explode( '.', $host );
+				$domain = OpenStackNovaDomain::getDomainByName( $domainname );
+		                $region = $domain->getLocation();
+				$hostobj = OpenStackNovaHost::getHostByInstanceId( $name, $region );
 				if ( $hostobj ) {
 				    $displayfqdn = $hostobj->getFullyQualifiedDisplayName();
 				    $sudoer['sudohost'][] = $displayfqdn;
@@ -300,7 +302,8 @@ class OpenStackNovaSudoer {
 				list ( $name, $domain ) = explode( '.', $host );
 				$domainobj = OpenStackNovaDomain::getDomainByName( $domain );
 				if ( $domainobj ) {
-					$hostobj = OpenStackNovaHost::getHostByInstanceId( $name );
+		                	$region = $domainobj->getLocation();
+					$hostobj = OpenStackNovaHost::getHostByInstanceId( $name, $region );
 					if ( $hostobj ) {
 					    $displayfqdn = $hostobj->getFullyQualifiedDisplayName();
 					    $sudoer['sudohost'][] = $displayfqdn;
