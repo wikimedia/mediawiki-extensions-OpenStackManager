@@ -20,6 +20,7 @@ class OpenStackNovaProject {
 
 	// short-lived cache of project objects
 	static $projectCache = array();
+	static $projectCacheMaxSize = 200;
 
 	/**
 	 * @param  $projectname
@@ -653,6 +654,9 @@ class OpenStackNovaProject {
 		}
 		$project = new OpenStackNovaProject( $projectname );
 		if ( $project->projectInfo ) {
+			if ( count( self::$projectCache ) >= self::projectCacheMaxSize ) {
+				array_shift( self::$projectCache );
+			}
 			self::$projectCache[ $projectname ] = $project;
 			return $project;
 		} else {
