@@ -3401,6 +3401,7 @@ $messages['eo'] = array(
 /** Spanish (español)
  * @author Armando-Martin
  * @author Bernardom
+ * @author Carlitosag
  * @author Fitoschido
  * @author Imre
  * @author Platonides
@@ -3413,6 +3414,7 @@ $messages['es'] = array(
 	'openstackmanager-title' => 'OpenStackManager',
 	'openstackmanager-badresourcename' => 'Nombre de recurso incorrecto. Los nombres de recursos deben comenzar con a-z y sólo pueden contener los caracteres a-z, 0-9, - y _.', # Fuzzy
 	'action-listall' => 'mostrar toda la información',
+	'right-listall' => 'Mostrar información sobre todos los recursos',
 	'action-managednsdomain' => 'Gestionar los dominios DNS',
 	'action-manageglobalpuppet' => 'administrar la información global de los "puppets"',
 	'specialpages-group-nova' => 'OpenStack Nova',
@@ -7170,6 +7172,7 @@ $messages['ja'] = array(
 	'openstackmanager-instance' => 'インスタンスを管理',
 	'openstackmanager-title' => 'OpenStackManager',
 	'action-listall' => 'すべてのリソース情報の閲覧',
+	'right-listall' => 'リソース情報をすべて表示',
 	'action-managednsdomain' => 'DNS ドメインの管理',
 	'action-manageglobalpuppet' => 'グローバル パペット情報の管理',
 	'specialpages-group-nova' => 'OpenStack Nova',
