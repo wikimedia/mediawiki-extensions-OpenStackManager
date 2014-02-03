@@ -3824,6 +3824,7 @@ $messages['fa'] = array(
 	'openstackmanager-instance' => 'مدیریت نمونه',
 	'openstackmanager-title' => 'اپن‌استاک‌منیجر',
 	'action-listall' => 'نمایش همهٔ اطلاعات منبع',
+	'right-listall' => 'نمایش همهٔ اطلاعات منبع',
 	'action-managednsdomain' => 'مدیریت دامنه‌های دی‌ان‌اس',
 	'novaaddress' => 'مدیریت نشانی‌های عمومی آی‌پی',
 	'novadomain' => 'مدیریت دامنه‌های دی‌ان‌اس',
