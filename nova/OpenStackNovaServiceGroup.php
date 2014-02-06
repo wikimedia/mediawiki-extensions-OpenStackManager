@@ -542,7 +542,7 @@ class OpenStackNovaServiceGroup {
 				array( $groupName ),
 				array( 'ALL' ),
 				array(),
-				array( 'chown -R ' . $groupName . ':' . $groupName . ' ' . $homeDir ),
+				array( '/bin/chown -R ' . $groupName . '\:' . $groupName . ' ' . $homeDir ),
 				array( '!authenticate' ) ) ) {
 			$wgAuth->printDebug( "Successfully created chmod sudo policy for $groupName",
 				NONSENSITIVE );
@@ -656,7 +656,7 @@ class OpenStackNovaServiceGroup {
 				array( $groupName ),
 				array( 'ALL' ),
 				array(),
-				array( 'chown -R ' . $groupName . ':' . $groupName . ' ' . $homeDir ),
+				array( '/bin/chown -R ' . $groupName . '\:' . $groupName . ' ' . $homeDir ),
 				array( '!authenticate' ) ) ) {
 			$wgAuth->printDebug( "Successfully created chmod sudo policy for $groupName",
 				NONSENSITIVE );
