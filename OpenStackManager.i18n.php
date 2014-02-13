@@ -8169,7 +8169,7 @@ $messages['ko'] = array(
 	'openstackmanager-shellaccountnamehelp' => '셸 계정 이름은 필수입니다.
 a-z로 시작해야 하고 소문자 a-z, 0-9와 - 문자만 포함할 수 있습니다.',
 	'openstackmanager-shellaccountvalidationfail' => '셸 계정 이름이 유효하지 않습니다. 알파벳(a-z)로 시작해야 하며 소문자 알파벳, 0-9, - 문자만 포함할 수 있습니다.',
-	'openstackmanager-shellaccountexists' => '쉘 계정이 이미 사용 중 입니다.',
+	'openstackmanager-shellaccountexists' => '쉘 계정이 이미 사용 중입니다.',
 	'openstackmanager-addresslist' => '공개 IP 주소 목록',
 	'openstackmanager-address' => '공개 IP 주소',
 	'openstackmanager-allocateaddress' => 'IP 할당',
