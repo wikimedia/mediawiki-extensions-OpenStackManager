@@ -654,7 +654,7 @@ class OpenStackNovaProject {
 		}
 		$project = new OpenStackNovaProject( $projectname );
 		if ( $project->projectInfo ) {
-			if ( count( self::$projectCache ) >= self::projectCacheMaxSize ) {
+			if ( count( self::$projectCache ) >= self::$projectCacheMaxSize ) {
 				array_shift( self::$projectCache );
 			}
 			self::$projectCache[ $projectname ] = $project;
