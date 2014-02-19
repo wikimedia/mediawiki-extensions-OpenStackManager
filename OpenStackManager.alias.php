@@ -21,6 +21,12 @@ $specialPageAliases['ar'] = array(
 	'OpenStackManageInstance' => array( 'التحكم_بها' ),
 );
 
+/** Egyptian Spoken Arabic (مصرى) */
+$specialPageAliases['arz'] = array(
+	'OpenStackManager' => array( 'مدير_ستاك_مفتوح' ),
+	'OpenStackManageInstance' => array( 'التحكم_بالانستانس' ),
+);
+
 /** German (Deutsch) */
 $specialPageAliases['de'] = array(
 	'OpenStackManager' => array( 'OpenStack-Verwaltung' ),

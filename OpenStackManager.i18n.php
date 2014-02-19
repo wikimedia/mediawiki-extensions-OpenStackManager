@@ -8439,6 +8439,7 @@ $messages['ksh'] = array(
 	'openstackmanager-sudoercommands' => 'Kommandos',
 	'openstackmanager-sudoeroptions' => 'Ennshtällunge',
 	'openstackmanager-createpuppetgroup' => 'En Jropp derbei donn',
+	'prefs-openstack' => '<i lang="en" xml:lang="en">OpenStack</i>',
 );
 
 /** Kurdish (Latin script) (Kurdî (latînî)‎)
@@ -14286,6 +14287,7 @@ $messages['zh-hans'] = array(
 	'openstackmanager-requirepassword' => '需要验证身份',
 	'openstackmanager-sudoeroptions' => '选项',
 	'openstackmanager-allmembers' => '所有项目',
+	'openstackmanager-membersofgroup' => '组$1的成员',
 	'openstackmanager-deletesudoer' => '删除sudo策略',
 	'openstackmanager-deletesudoer-confirm' => '您确定要删除$1 sudo策略吗？',
 	'openstackmanager-createsudoerfailed' => '创建sudo策略失败。',
@@ -14304,7 +14306,10 @@ $messages['zh-hans'] = array(
 	'openstackmanager-deleteproxysuccess' => '已在$1删除代理',
 	'openstackmanager-deleteproxyfailed' => '在$1删除代理失败',
 	'openstackmanager-proxyname' => 'DNS主机名',
+	'openstackmanager-proxybackend' => '实例',
+	'openstackmanager-proxyport' => '实例接口',
 	'openstackmanager-createproxyfailed' => '创建新代理$1失败。',
+	'openstackmanager-backproxylist' => '回到代理列表',
 	'openstackmanager-novapuppetgroup' => 'Nova 傀儡组',
 	'openstackmanager-puppetgrouplist' => '傀儡组列表',
 	'openstackmanager-puppetallprojects' => '所有项目',
