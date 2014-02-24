@@ -12340,6 +12340,7 @@ $messages['sr-el'] = array(
  * @author Ainali
  * @author Eihpossophie
  * @author Jopparn
+ * @author Lokal Profil
  * @author Skalman
  * @author WikiPhoenix
  */
@@ -12628,7 +12629,7 @@ Välj en eller den andra, inte båda.',
 	'openstackmanager-removerulefailed' => 'Misslyckades att ta bort regel.',
 	'openstackmanager-addrule' => 'Lägg till regel',
 	'openstackmanager-securitygrouprule-ranges' => 'CIDR-intervall',
-	'openstackmanager-securitygrouprule-ranges-help' => 'Ett CIDR-intervall är en kommaseparerad lista av intervall.', # Fuzzy
+	'openstackmanager-securitygrouprule-ranges-help' => 'Innehåller en kommaseparerad lista av CIDR-intervall.',
 	'openstackmanager-securitygrouprule-groups-help' => 'Instanser i tillagda säkerhetsgrupper kommer att få åtkomst till alla portar och protokoll.',
 	'openstackmanager-addedrule' => 'Lade framgångsrikt till regel.',
 	'openstackmanager-addrulefailed' => 'Misslyckades att lägga till regel.',
