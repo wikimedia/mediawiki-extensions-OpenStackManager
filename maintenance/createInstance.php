@@ -45,26 +45,59 @@ class CreateInstance extends Maintenance {
 		$this->addOption( 'image', 'The image ID to use when creating', true, true );
 		$this->addOption( 'flavor', 'The flavor of the new instance, e.g. m1.small', true, true );
 		$this->addOption( 'securitygroups', 'Comma-separated list of security groups for new instance', false, true );
-		$this->addOption( 'puppetclasses', 'Comma-separated list of security groups for new instance', false, true );
+		$this->addOption( 'copypuppet', 'Instance id to copy puppet settings from', false, true );
+		$this->addOption( 'copypuppetregion', 'Region for copypuppet instance.', false, true );
 	}
 
 	public function execute() {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUsername;
 		global $wgOpenStackManagerLDAPUserPassword;
+		global $wgOpenStackManagerPuppetOptions;
 
 
+		$region = $this->getOption( 'region' );
 		if ( $this->hasOption( 'securitygroups' ) ) {
 			$secGroups = explode(',', $this->getOption( 'securitygroups' ) );
 		} else {
 			$secGroups = array();
 		}
-		if ( $this->hasOption( 'puppetclasses' ) ) {
-			$pupClasses = explode(',', $this->getOption( 'puppetclasses' ) );
+		if ( $this->hasOption( 'copypuppetregion' ) ) {
+			$copypuppetregion = $this->getOption( 'copypuppetregion' );
 		} else {
-			$pupClasses = array();
+			$copypuppetregion = $region;
 		}
-		$region = $this->getOption( 'region' );
+		$puppetinfo = array();
+		if ( $this->hasOption( 'copypuppet' ) ) {
+			$puppetsource = OpenStackNovaHost::getHostByInstanceId( $this->getOption( 'copypuppet' ), $copypuppetregion );
+			$info = $puppetsource->getPuppetConfiguration();
+			if ( isset( $info['puppetclass'] ) ) {
+				$puppetinfo['classes'] = array();
+				foreach ( $info['puppetclass'] as $class ) {
+					if ( ! ( in_array( $class, $wgOpenStackManagerPuppetOptions['defaultclasses'] ) ) ) {
+						$puppetinfo['classes'][] = $class;
+					}
+				}
+			}
+			if ( isset( $info['puppetvar'] ) ) {
+				$puppetinfo['variables'] = array();
+				foreach ( $info['puppetvar'] as $key => $value ) {
+					if ( $key == 'instanceproject' ) {
+						continue;
+					}
+					if ( $key == 'instancename' ) {
+						continue;
+					}
+					if ( $key == 'realm' ) {
+						continue;
+					}
+					if ( ! ( in_array( $key, $wgOpenStackManagerPuppetOptions['defaultvariables'] ) ) ) {
+						$puppetinfo['variables'][$key] = $value;
+					}
+				}
+			}
+		}
+
 		$flavor = $this->getOption( 'flavor' );
 		$image = $this->getOption( 'image' );
 		$instance = $this->getOption( 'instance' );
@@ -90,7 +123,7 @@ class CreateInstance extends Maintenance {
 			$instance = $this->userNova->getInstance( $instanceId );
 		}
 		if ( $instance ) {
-			$host = OpenStackNovaHost::addHostFromInstance( $instance, $domain, $pupClasses );
+			$host = OpenStackNovaHost::addHostFromInstance( $instance, $domain, $puppetinfo );
 
 			if ( $host ) {
 				$instance->setHost( $host );
