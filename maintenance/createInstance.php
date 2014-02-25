@@ -105,7 +105,7 @@ class CreateInstance extends Maintenance {
 
 		$this->user = new OpenStackNovaUser( $wgOpenStackManagerLDAPUsername );
 		$this->userNova = OpenStackNovaController::newFromUser( $this->user );
-		$this->userNova->setProject( 'testlabs' );
+		$this->userNova->setProject( $project );
 		$this->userNova->authenticate( $wgOpenStackManagerLDAPUsername, $wgOpenStackManagerLDAPUserPassword );
 
 		$this->userNova->setRegion( $region );
