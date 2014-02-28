@@ -62,6 +62,7 @@ Resource names start with a-z, and can only contain a-z, 0-9, and - characters.'
 	'openstackmanager-actions' => 'Actions',
 	'openstackmanager-notloggedin' => 'Login required',
 	'openstackmanager-mustbeloggedin' => 'You must be logged in to perform this action.',
+	'openstackmanager-creationdisabled' => 'Creation is disabled',
 	'openstackmanager-nonovacred' => 'No Nova credentials found for your account.',
 	'openstackmanager-nonovacred-admincreate' => 'There were no Nova credentials found for your user account.
 Please ask a Nova administrator to create credentials for you.',
@@ -572,6 +573,7 @@ The page body for this message is:
 	'openstackmanager-mustbeloggedin' => 'Used as page body in Special:Nova.
 
 The page title for this message is {{msg-mw|Openstackmanager-notloggedin}}.',
+	'openstackmanager-creationdisabled' => 'Displayed in place of a "create" link.',
 	'openstackmanager-nonovacred' => 'Used as page title in [[Special:Nova]].
 
 The page body for this title is:

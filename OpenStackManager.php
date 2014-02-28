@@ -143,6 +143,9 @@ $wgPuppetInterval = 1440;
 // A list of regions restricted to a group by right
 $wgOpenStackManagerRestrictedRegions = array();
 
+// A list of regions which are visible yet disabled (e.g. instance creation forbidden)
+$wgOpenStackManagerReadOnlyRegions = array();
+
 $dir = dirname( __FILE__ ) . '/';
 
 $wgExtensionMessagesFiles['OpenStackManager'] = $dir . 'OpenStackManager.i18n.php';

@@ -408,6 +408,8 @@ class SpecialNovaAddress extends SpecialNova {
 	 * @return bool
 	 */
 	function listAddresses() {
+		global $wgOpenStackManagerReadOnlyRegions;
+
 		$this->setHeaders();
 		$this->getOutput()->addModules( 'ext.openstack.Address' );
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-addresslist' ) );
@@ -435,18 +437,22 @@ class SpecialNovaAddress extends SpecialNova {
 			$regions = '';
 			$this->userNova->setProject( $projectName );
 			foreach ( $this->userNova->getRegions( 'compute' ) as $region ) {
-				$regionactions = array(
-					'projectadmin' => array(
-						$this->createActionLink(
-							'openstackmanager-allocateaddress',
-							array(
-								'action' => 'allocate',
-								'project' => $projectName,
-								'region' => $region
+				if ( in_array( $region, $wgOpenStackManagerReadOnlyRegions ) ) {
+					$regionactions = array( 'projectadmin' => array( $this->msg( 'openstackmanager-creationdisabled' ) ) );
+				} else {
+					$regionactions = array(
+						'projectadmin' => array(
+							$this->createActionLink(
+								'openstackmanager-allocateaddress',
+								array(
+									'action' => 'allocate',
+									'project' => $projectName,
+									'region' => $region
+								)
 							)
 						)
-					)
-				);
+					);
+				}
 				$addresses = $this->getAddresses( $projectName, $region );
 				$regions .= $this->createRegionSection( $region, $projectName, $regionactions, $addresses );
 			}

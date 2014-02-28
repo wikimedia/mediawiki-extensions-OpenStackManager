@@ -488,6 +488,7 @@ class SpecialNovaInstance extends SpecialNova {
 	 * @return void
 	 */
 	function listInstances() {
+		global $wgOpenStackManagerReadOnlyRegions;
 		$this->setHeaders();
 		$this->getOutput()->addModules( 'ext.openstack.Instance' );
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-instancelist' ) );
@@ -514,7 +515,11 @@ class SpecialNovaInstance extends SpecialNova {
 			$regions = '';
 			$this->userNova->setProject( $projectName );
 			foreach ( $this->userNova->getRegions( 'compute' ) as $region ) {
-				$regionactions = array( 'projectadmin' => array( $this->createActionLink( 'openstackmanager-createinstance', array( 'action' => 'create', 'project' => $projectName, 'region' => $region ) ) ) );
+				if ( in_array( $region, $wgOpenStackManagerReadOnlyRegions ) ) {
+					$regionactions = array( 'projectadmin' => array( $this->msg( 'openstackmanager-creationdisabled' ) ) );
+				} else {
+					$regionactions = array( 'projectadmin' => array( $this->createActionLink( 'openstackmanager-createinstance', array( 'action' => 'create', 'project' => $projectName, 'region' => $region ) ) ) );
+				}
 				$instances = $this->getInstances( $projectName, $region );
 				$regions .= $this->createRegionSection( $region, $projectName, $regionactions, $instances );
 			}
