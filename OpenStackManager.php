@@ -37,6 +37,7 @@ $wgAvailableRights[] = 'manageproject';
 $wgAvailableRights[] = 'managednsdomain';
 $wgAvailableRights[] = 'manageglobalpuppet';
 $wgAvailableRights[] = 'loginviashell';
+$wgAvailableRights[] = 'accessrestrictedregions';
 
 $wgHooks['UserRights'][] = 'OpenStackNovaUser::manageShellAccess';
 
@@ -138,6 +139,9 @@ $wgOpenStackManagerProjectNamespace = NS_NOVA_RESOURCE;
 // Puppetstatus interval in minutes.  After this much time puppet status
 // will be deemed stale
 $wgPuppetInterval = 1440;
+
+// A list of regions restricted to a group by right
+$wgOpenStackManagerRestrictedRegions = array();
 
 $dir = dirname( __FILE__ ) . '/';
 

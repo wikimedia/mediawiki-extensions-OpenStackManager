@@ -83,6 +83,8 @@ class OpenStackNovaController {
 
 	function getRegions( $service ) {
 		global $wgMemc;
+		global $wgUser;
+		global $wgOpenStackManagerRestrictedRegions;
 
 		// We need to ensure the project token has been
 		// fetched before we can get the regions.
@@ -94,6 +96,9 @@ class OpenStackNovaController {
 			foreach ( $serviceCatalog as $entry ) {
 				if ( $entry->type === "identity" ) {
 					foreach ( $entry->endpoints as $endpoint ) {
+						if ( !$wgUser->isAllowed( 'accessrestrictedregions' ) && in_array( $endpoint->region, $wgOpenStackManagerRestrictedRegions ) ) {
+							continue;
+						}
 						$regions[] = $endpoint->region;
 					}
 				}
