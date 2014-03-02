@@ -2215,6 +2215,7 @@ $messages['be-tarask'] = array(
 
 /** Bulgarian (български)
  * @author DCLXVI
+ * @author Mitzev
  * @author පසිඳු කාවින්ද
  */
 $messages['bg'] = array(
@@ -2224,6 +2225,7 @@ $messages['bg'] = array(
 	'openstackmanager-rename' => 'преименуване',
 	'openstackmanager-reboot' => 'рестартиране',
 	'openstackmanager-actions' => 'Действия',
+	'openstackmanager-creationdisabled' => 'Създаване е забранено',
 	'openstackmanager-location' => 'Местоположение',
 	'openstackmanager-name' => 'Име',
 	'openstackmanager-action' => 'Действие',
@@ -2764,6 +2766,7 @@ $messages['de'] = array(
 	'openstackmanager-actions' => 'Aktionen',
 	'openstackmanager-notloggedin' => 'Anmeldung erforderlich',
 	'openstackmanager-mustbeloggedin' => 'Um diese Aktion ausführen zu können, muss man angemeldet sein.',
+	'openstackmanager-creationdisabled' => 'Die Erstellung wurde deaktiviert',
 	'openstackmanager-nonovacred' => 'Zu diesem Benutzerkonto wurden keine Anmeldedaten für Nova gefunden.',
 	'openstackmanager-nonovacred-admincreate' => 'Zu diesem Benutzerkonto wurden keine Anmeldedaten für Nova gefunden. Bitte einen Administrator bitten, die benötigten Anmeldedaten zu erzeugen.',
 	'openstackmanager-noaccount' => 'Das Benutzerkonto gehört nicht zum Projekt $1.',
@@ -3168,7 +3171,7 @@ $messages['diq'] = array(
 	'openstackmanager-members' => 'Ezay',
 	'openstackmanager-member' => 'Eza',
 	'openstackmanager-action' => 'Kerdış',
-	'openstackmanager-deleteproject' => 'Besterne',
+	'openstackmanager-deleteproject' => 'Bestere',
 	'openstackmanager-novaproject-project' => 'Proce cı ke',
 	'openstackmanager-projects' => 'Procey',
 	'openstackmanager-toggle' => 'Toggle',
@@ -3236,6 +3239,13 @@ $messages['el'] = array(
 	'openstackmanager-addpuppetvar' => 'Προσθήκη μεταβλητής',
 	'openstackmanager-puppetvarname' => 'Όνομα μεταβλητής',
 	'openstackmanager-puppetvarposition' => 'Θέση μεταβλητής',
+);
+
+/** British English (British English)
+ * @author Felicilijonas
+ */
+$messages['en-gb'] = array(
+	'openstackmanager-creationdisabled' => 'Kūrimas yra išjungtas',
 );
 
 /** Esperanto (Esperanto)
@@ -3861,6 +3871,7 @@ $messages['fa'] = array(
 	'openstackmanager-actions' => 'اقدامات',
 	'openstackmanager-notloggedin' => 'ورود به سامانه لازم است',
 	'openstackmanager-mustbeloggedin' => 'شما برای انجام این عمل باید به سامانه وارد شوید.',
+	'openstackmanager-creationdisabled' => 'ایجاد غیرفعال است',
 	'openstackmanager-nonovacred' => 'هیچ اعتبار نوایی برای حساب شما پیدا نشد.',
 	'openstackmanager-nonovacred-admincreate' => 'هیچ اغتبار جدیدی برای حساب کاربری شما وجود ندارد.
 لطفاً برای ایجاد ایجاد اعتبارنامه‌هایی برای خود،  سرپرست جدیدی درخواست کنید.',
@@ -10319,6 +10330,7 @@ $messages['pfl'] = array(
  * @author Beau
  * @author BeginaFelicysym
  * @author Chrumps
+ * @author Jacenty359
  * @author Odder
  * @author Odie2
  * @author Olgak85
@@ -10355,6 +10367,7 @@ Nazwa zasobu musi się zaczynać literą od a do z oraz może zawierać jedynie 
 	'openstackmanager-actions' => 'Akcje',
 	'openstackmanager-notloggedin' => 'Wymagane logowanie',
 	'openstackmanager-mustbeloggedin' => 'Użytkownik musi być zalogowany do wykonania tej operacji.',
+	'openstackmanager-creationdisabled' => 'Tworzenie jest wyłączone',
 	'openstackmanager-nonovacred' => 'Brak uprawnień Nova dla twojego konta.',
 	'openstackmanager-nonovacred-admincreate' => 'Dla twojego konta użytkownika nie znaleziono uprawnień Nova. Poproś administratora Nova o nadanie ci uprawnień.',
 	'openstackmanager-noaccount' => 'Twojego konta nie ma w projekcie $1.',
@@ -10899,6 +10912,7 @@ $messages['ps'] = array(
 /** Portuguese (português)
  * @author Alchimista
  * @author Hamilton Abreu
+ * @author Imperadeiro98
  * @author Luckas
  * @author Malafaya
  * @author SandroHc
