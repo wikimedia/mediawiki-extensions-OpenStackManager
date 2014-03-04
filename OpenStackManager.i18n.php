@@ -8061,6 +8061,7 @@ $messages['ka'] = array(
 );
 
 /** Korean (한국어)
+ * @author Hym411
  * @author Priviet
  * @author 아라
  */
@@ -8104,6 +8105,7 @@ $messages['ko'] = array(
 	'openstackmanager-actions' => '행동',
 	'openstackmanager-notloggedin' => '로그인 필요',
 	'openstackmanager-mustbeloggedin' => '이 행동을 수행하려면 로그인해야 합니다.',
+	'openstackmanager-creationdisabled' => '생성이 비활성되어 있습니다.',
 	'openstackmanager-nonovacred' => '계정에 대한 Nova 자격 증명을 찾을 수 없습니다.',
 	'openstackmanager-nonovacred-admincreate' => '사용자 계정에 대한 Nova 자격 증명을 찾았습니다.
 자격 증명을 만드려면 Nova 관리자에게 문의하세요.',
@@ -9753,6 +9755,7 @@ $messages['ne'] = array(
  * @author SPQRobin
  * @author Saruman
  * @author Siebrand
+ * @author Sjoerddebruin
  * @author Wiki13
  */
 $messages['nl'] = array(
@@ -9762,6 +9765,7 @@ $messages['nl'] = array(
 	'openstackmanager-title' => 'OpenStack-beheer',
 	'openstackmanager-badresourcename' => 'Er is een onjuiste bronnaam opgegeven. Bronnamen beginnen met a-z en kunnen alleen de tekens a-z, 0-9 en - bevatten.',
 	'action-listall' => 'alle hulpbrongegevens weer te geven',
+	'right-listall' => 'Alle brongegevens weergeven',
 	'action-managednsdomain' => 'DNS-domeinen te beheren',
 	'action-manageglobalpuppet' => 'globale puppetgegevens te beheren',
 	'specialpages-group-nova' => 'OpenStack Nova',
@@ -11638,6 +11642,13 @@ $messages['sa'] = array(
 	'openstackmanager-sudoerusers' => 'योजकः',
 );
 
+/** Scots (Scots)
+ * @author John Reid
+ */
+$messages['sco'] = array(
+	'openstackmanager-creationdisabled' => 'Cræftin is disabled',
+);
+
 /** Sinhala (සිංහල)
  * @author Singhalawap
  * @author පසිඳු කාවින්ද
@@ -12808,6 +12819,7 @@ $messages['ta'] = array(
 
 /** Telugu (తెలుగు)
  * @author Chaduvari
+ * @author Ravichandra
  * @author Veeven
  */
 $messages['te'] = array(
@@ -12817,27 +12829,27 @@ $messages['te'] = array(
 	'openstackmanager-notloggedin' => 'ప్రవేశం తప్పనిసరి',
 	'openstackmanager-device' => 'పరికరం',
 	'openstackmanager-name' => 'పేరు',
-	'openstackmanager-addmember' => 'ప్రాజెక్టులోకి సభ్యుని చేర్చు', # Fuzzy
-	'openstackmanager-removemember' => 'ప్రాజెక్టు సభ్యుని తీసివెయ్యి', # Fuzzy
+	'openstackmanager-addmember' => 'సభ్యుని చేర్చు',
+	'openstackmanager-removemember' => 'సభ్యుని తీసివెయ్యి',
 	'openstackmanager-removeprojectconfirm' => 'ప్రాజెక్టు "$1" ని తొలగించాలనే నిశ్చయించుకున్నారా? ఈ చర్య పర్యవసానాలు అన్ని VM ల మీదా ఉంటాయి. దీన్ని అంత తేలిగ్గా తీసుకోకండి!',
-	'openstackmanager-createproject' => 'ఓ కొత్త ప్రాజెక్టును సృష్టించండి', # Fuzzy
+	'openstackmanager-createproject' => 'ప్రాజెక్టును చేర్చండి',
 	'openstackmanager-projectname' => 'ప్రాజెక్టు పేరు',
 	'openstackmanager-members' => 'సభ్యులు',
 	'openstackmanager-member' => 'సభ్యుడు',
 	'openstackmanager-action' => 'చర్య',
 	'openstackmanager-createprojectfailed' => 'ప్రాజెక్టును సృష్టించడంలో విఫలమయ్యాం.',
-	'openstackmanager-createdproject' => 'ప్రాజెక్టును సృష్టించాం.', # Fuzzy
+	'openstackmanager-createdproject' => 'ప్రాజెక్టును సృష్టించాం.',
 	'openstackmanager-projectlist' => 'ప్రాజెక్టు జాబితా',
 	'openstackmanager-backprojectlist' => 'తిరిగి ప్రాజెక్టు జాబితాకు',
 	'openstackmanager-addadditionalproject' => 'మరో ప్రాజెక్టును చేర్చండి.',
-	'openstackmanager-deleteproject' => 'ప్రాజెక్టును తొలగించు', # Fuzzy
+	'openstackmanager-deleteproject' => 'తొలగించు',
 	'openstackmanager-deletedproject' => 'ప్రాజెక్టును జయప్రదంగా తొలగించాం.',
 	'openstackmanager-deleteprojectfailed' => 'ప్రాజెక్టును తొలగించడంలో విఫలమయ్యాం.',
 	'openstackmanager-addedto' => '$1 ను $2 కు చేర్చడం జయప్రదమైంది.',
 	'openstackmanager-failedtoadd' => '$1 ను $2 కు చేర్చడం విఫలమైంది.',
 	'openstackmanager-removedfrom' => '$2 నుండి $1ను జయప్రదంగా తీసేసాం.',
 	'openstackmanager-failedtoremove' => '$2 నుండి $1 ను తీసెయ్యడంలో విఫలమయ్యాం.',
-	'openstackmanager-novaproject-project' => 'ప్రాజెక్టు', # Fuzzy
+	'openstackmanager-novaproject-project' => 'ప్రాజెక్టును చేర్చండి',
 	'openstackmanager-projects' => 'ప్రాజెక్టులు',
 	'openstackmanager-roles' => 'పాత్రలు',
 	'openstackmanager-rolename' => 'పాత్ర',
@@ -12850,11 +12862,11 @@ $messages['te'] = array(
 	'openstackmanager-novarole-info' => 'నోవా పాత్ర సమాచారం',
 	'openstackmanager-addresslist' => 'బహిరంగ ఐపీ అడ్రసుల జాబితా',
 	'openstackmanager-address' => 'బహిరంగ ఐపీ అడ్రసు',
-	'openstackmanager-allocateaddress' => 'ఓ కొత్త ఐపీ అడ్రసును కేటాయించు', # Fuzzy
-	'openstackmanager-releaseaddress' => 'ఐపీ అడ్రసును విడుదల చెయ్యి', # Fuzzy
-	'openstackmanager-associateaddress' => 'ఐపీ అడ్రసును అనుబంధించు', # Fuzzy
-	'openstackmanager-reassociateaddress' => 'ఐపీ అడ్రసును తిరిగి అనుబంధించు', # Fuzzy
-	'openstackmanager-disassociateaddress' => 'ఐపీ అడ్రసు అనుబంధాన్ని తీసెయ్యి', # Fuzzy
+	'openstackmanager-allocateaddress' => 'ఐపీ అడ్రసును కేటాయించు',
+	'openstackmanager-releaseaddress' => 'ఐపీ అడ్రసును విముక్తి చెయ్యి',
+	'openstackmanager-associateaddress' => 'ఐపీ అడ్రసును అనుసంధానించు',
+	'openstackmanager-reassociateaddress' => 'ఐపీ అడ్రసును తిరిగి అనుసంధానించు',
+	'openstackmanager-disassociateaddress' => 'ఐపీ అడ్రసు అనుబంధాన్ని తీసెయ్యి',
 	'openstackmanager-allocatedaddress' => 'కొత్త బహిరంగ ఐపీ అడ్రసును కేటాయించు: $1',
 	'openstackmanager-backaddresslist' => 'తిరిగి అడ్రసుల జాబితాకు',
 	'openstackmanager-allocateaddress-confirm' => 'ప్రాజెక్టు $1 లో ఓ కొత్త బహిరంగ ఐపీ అడ్రసును కేటాయించాలనే నిశ్చయించుకున్నారా?',
