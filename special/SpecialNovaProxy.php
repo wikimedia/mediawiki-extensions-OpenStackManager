@@ -16,7 +16,6 @@ class SpecialNovaProxy extends SpecialNova {
 	}
 
 	function execute( $par ) {
-		global $wgOpenStackManagerProxyServiceRegion;
 		if ( !$this->getUser()->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return;
@@ -32,7 +31,7 @@ class SpecialNovaProxy extends SpecialNova {
 		$this->projectName = $this->getRequest()->getText( 'project' );
 		$this->project = OpenStackNovaProject::getProjectByName( $this->projectName );
 
-		$region = $wgOpenStackManagerProxyServiceRegion;
+		$region = $this->getRequest()->getVal( 'region' );
 		$this->userNova = OpenStackNovaController::newFromUser( $this->userLDAP );
 		$this->userNova->setProject( $this->projectName );
 		$this->userNova->setRegion( $region );
@@ -71,15 +70,13 @@ class SpecialNovaProxy extends SpecialNova {
 			return false;
 		}
 		$instance_keys = array();
-		$regions = $this->userNova->getRegions( 'compute' );
-		foreach ( $regions as $region ) {
-			$this->userNova->setRegion( $region );
-			$instances = $this->userNova->getInstances();
-			foreach ( $instances as $instance ) {
-				if ( $instance->getProject() === $this->projectName ) {
-					$instancename = $instance->getHost()->getFullyQualifiedDisplayName();
-					$instance_keys[$instancename] = $instancename;
-				}
+		$region = $this->getRequest()->getText( 'region' );
+		$this->userNova->setRegion( $region );
+		$instances = $this->userNova->getInstances();
+		foreach ( $instances as $instance ) {
+			if ( $instance->getProject() === $this->projectName ) {
+				$instancename = $instance->getHost()->getFullyQualifiedDisplayName();
+				$instance_keys[$instancename] = $instancename;
 			}
 		}
 		ksort( $instance_keys );
@@ -128,6 +125,11 @@ class SpecialNovaProxy extends SpecialNova {
 			'default' => 'create',
 			'name' => 'action',
 		);
+		$proxyInfo['region'] = array(
+			'type' => 'hidden',
+			'default' => $region,
+			'name' => 'region',
+		);
 		$proxyInfo['project'] = array(
 			'type' => 'hidden',
 			'default' => $this->projectName,
@@ -157,6 +159,7 @@ class SpecialNovaProxy extends SpecialNova {
 			return false;
 		}
 		$proxyfqdn = $this->getRequest()->getText( 'proxyfqdn' );
+		$region = $this->getRequest()->getText( 'region' );
 		if ( ! $this->getRequest()->wasPosted() ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-deleteproxy-confirm', $proxyfqdn );
 		}
@@ -175,6 +178,11 @@ class SpecialNovaProxy extends SpecialNova {
 			'type' => 'hidden',
 			'default' => 'delete',
 			'name' => 'action',
+		);
+		$proxyInfo['region'] = array(
+			'type' => 'hidden',
+			'default' => $region,
+			'name' => 'region',
 		);
 		$proxyForm = new HTMLForm(
 			$proxyInfo,
@@ -215,16 +223,21 @@ class SpecialNovaProxy extends SpecialNova {
 			if ( !in_array( $projectName, $projectfilter ) ) {
 				continue;
 			}
-			$actions = array( 'projectadmin' => array() );
-			$actions['projectadmin'][] = $this->createActionLink( 'openstackmanager-createproxy', array( 'action' => 'create', 'project' => $projectName ) );
-			$out .= $this->createProjectSection( $projectName, $actions, $this->getProxies( $projectName ) );
+			$this->userNova->setProject( $projectName );
+			foreach ( $this->userNova->getRegions( 'proxy' ) as $region ) {
+				$actions = array( 'projectadmin' => array() );
+				$actions['projectadmin'][] = $this->createActionLink( 'openstackmanager-createproxy', array( 'action' => 'create', 'project' => $projectName, 'region' => $region ) );
+				$regions .= $this->createRegionSection( $region, $projectName, $actions, $this->getProxies( $projectName, $region ) );
+			}
+			$out .= $this->createProjectSection( $projectName, $actions, $regions );
 		}
 
 		$this->getOutput()->addHTML( $out );
 	}
 
-	function getProxies( $projectName ) {
+	function getProxies( $projectName, $region ) {
 		$this->userNova->setProject( $projectName );
+		$this->userNova->setRegion( $region );
 		$proxies = $this->userNova->getProxiesForProject();
 		$proxyRows = array();
 		foreach ( $proxies as $proxy ) {
@@ -236,7 +249,7 @@ class SpecialNovaProxy extends SpecialNova {
 
 	            $actions = array();
 	            $actions[] = $this->createActionLink( 'openstackmanager-delete',
-							                array( 'action' => 'delete', 'proxyfqdn' => $fqdn, 'project' => $projectName ) );
+							                array( 'action' => 'delete', 'proxyfqdn' => $fqdn, 'project' => $projectName, 'region' => $region ) );
 	            $this->pushRawResourceColumn( $proxyRow, $this->createResourceList( $actions ) );
 
 
@@ -308,10 +321,11 @@ class SpecialNovaProxy extends SpecialNova {
 	 * @return bool
 	 */
 	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOpenStackManagerProxyGateway;
+		global $wgOpenStackManagerProxyGateways;
 
 		$outputPage = $this->getOutput();
 		$fqdn = $formData['proxyfqdn'];
+		$region = $formData['region'];
 		$goback = '<br />';
 		$goback .= Linker::link(
 			$this->getPageTitle(),
@@ -320,7 +334,7 @@ class SpecialNovaProxy extends SpecialNova {
 
 		$success =  $this->userNova->deleteProxy( $fqdn );
 		if ( $success ) {
-			$success = $this->deleteHost( $fqdn, $wgOpenStackManagerProxyGateway );
+			$success = $this->deleteHost( $fqdn, $wgOpenStackManagerProxyGateways[$region] );
 			if ( ! $success ) {
 				$outputPage->addWikiMsg( 'openstackmanager-removehostfailed', $fqdn );
 			}
@@ -343,8 +357,7 @@ class SpecialNovaProxy extends SpecialNova {
 	 * @return bool
 	 */
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOpenStackManagerProxyGateway;
-		$gatewayIP = $wgOpenStackManagerProxyGateway;
+		global $wgOpenStackManagerProxyGateways;
 		$goback = '<br />';
 		$goback .= Linker::link(
 			$this->getPageTitle(),
@@ -354,6 +367,8 @@ class SpecialNovaProxy extends SpecialNova {
 		$project = $formData['project'];
 		$backendPort = $formData['backendport'];
 		$backendHost = $formData['backendhost'];
+		$region = $formData['region'];
+		$gatewayIP = $wgOpenStackManagerProxyGateways[$region];
 
 		$proxyName = $formData['proxyname'];
 		$proxyDomain = $formData['domain'];

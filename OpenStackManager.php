@@ -68,9 +68,8 @@ $wgOpenStackManagerServiceGroupPrefix = 'local-';
 // %u is username, %p is $wgOpenStackManagerServiceGroupPrefix.
 $wgOpenStackManagerServiceGroupHomedirPattern = '/home/%p%u/';
 
-// For the moment the instance proxy only lives in one place.
-$wgOpenStackManagerProxyServiceRegion = '';
-$wgOpenStackManagerProxyGateway = '';
+// Key/value pairs like array( 'region1' => '10.4.0.11', 'region2' => '10.68.1.35' )
+$wgOpenStackManagerProxyGateways = array();
 
 $wgOpenStackManagerIdRanges = array(
 	'service' => array(
