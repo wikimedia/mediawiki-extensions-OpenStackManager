@@ -200,6 +200,7 @@ class SpecialNovaProxy extends SpecialNova {
 	 * @return void
 	 */
 	function listProxies() {
+		global $wgOpenStackManagerReadOnlyRegions;
 		$this->setHeaders();
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-proxylist' ) );
@@ -227,7 +228,11 @@ class SpecialNovaProxy extends SpecialNova {
 			$projectactions = array( 'projectadmin' => array() );
 			foreach ( $this->userNova->getRegions( 'proxy' ) as $region ) {
 				$actions = array( 'projectadmin' => array() );
-				$actions['projectadmin'][] = $this->createActionLink( 'openstackmanager-createproxy', array( 'action' => 'create', 'project' => $projectName, 'region' => $region ) );
+				if ( in_array( $region, $wgOpenStackManagerReadOnlyRegions ) ) {
+					$actions['projectadmin'][] = array( $this->msg( 'openstackmanager-creationdisabled' ) );
+				} else {
+					$actions['projectadmin'][] = $this->createActionLink( 'openstackmanager-createproxy', array( 'action' => 'create', 'project' => $projectName, 'region' => $region ) );
+				}
 				$regions .= $this->createRegionSection( $region, $projectName, $actions, $this->getProxies( $projectName, $region ) );
 			}
 			$out .= $this->createProjectSection( $projectName, $projectactions, $regions );
