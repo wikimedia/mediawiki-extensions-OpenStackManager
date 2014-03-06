@@ -374,23 +374,20 @@ class SpecialNovaProxy extends SpecialNova {
 		$backendPort = $formData['backendport'];
 		$backendHost = $formData['backendhost'];
 		$region = $formData['region'];
+		$proxyName = $formData['proxyname'];
+		$proxyDomain = $formData['domain'];
+		$outputPage = $this->getOutput();
 
-		if ( ! ( in_array ( $region, $wgOpenStackManagerProxyGateways ) ) ) {
+		if ( ! ( array_key_exists( $region, $wgOpenStackManagerProxyGateways ) ) ) {
 			$outputPage->addWikiMsg( 'openstackmanager-addhostfailed', $proxyName, $gatewayIP );
 			$outputPage->addHTML( $goback );
 			return true;
 		}
 		$gatewayIP = $wgOpenStackManagerProxyGateways[$region];
 
-		$proxyName = $formData['proxyname'];
-		$proxyDomain = $formData['domain'];
-
 		$domain = OpenStackNovaDomain::getDomainByName( $proxyDomain );
 		$gatewayhostbyip = OpenStackNovaHost::getHostByPublicIP( $gatewayIP );
 		$fqdn = $proxyName . '.' . $domain->getFullyQualifiedDomainName();
-
-		$outputPage = $this->getOutput();
-
 		$dnsSuccess = $this->addHost( $proxyName, $proxyDomain, $gatewayIP );
 		if ( $dnsSuccess ) {
 			$outputPage->addWikiMsg( 'openstackmanager-addedhost', $proxyName, $gatewayIP );
