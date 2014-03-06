@@ -229,7 +229,7 @@ class SpecialNovaProxy extends SpecialNova {
 			foreach ( $this->userNova->getRegions( 'proxy' ) as $region ) {
 				$actions = array( 'projectadmin' => array() );
 				if ( in_array( $region, $wgOpenStackManagerReadOnlyRegions ) ) {
-					$actions['projectadmin'][] = array( $this->msg( 'openstackmanager-creationdisabled' ) );
+					$actions['projectadmin'][] = $this->msg( 'openstackmanager-creationdisabled' );
 				} else {
 					$actions['projectadmin'][] = $this->createActionLink( 'openstackmanager-createproxy', array( 'action' => 'create', 'project' => $projectName, 'region' => $region ) );
 				}
@@ -374,6 +374,12 @@ class SpecialNovaProxy extends SpecialNova {
 		$backendPort = $formData['backendport'];
 		$backendHost = $formData['backendhost'];
 		$region = $formData['region'];
+
+		if ( ! ( in_array ( $region, $wgOpenStackManagerProxyGateways ) ) ) {
+			$outputPage->addWikiMsg( 'openstackmanager-addhostfailed', $proxyName, $gatewayIP );
+			$outputPage->addHTML( $goback );
+			return true;
+		}
 		$gatewayIP = $wgOpenStackManagerProxyGateways[$region];
 
 		$proxyName = $formData['proxyname'];
