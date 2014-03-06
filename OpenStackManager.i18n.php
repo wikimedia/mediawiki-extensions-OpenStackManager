@@ -14489,6 +14489,7 @@ $messages['zh-hans'] = array(
 	'right-manageproject' => '管理OpenStack项目及作用',
 	'right-loginviashell' => '通过shell登录',
 	'notification-osm-projectmember-added' => '$1将您加入到[[$2]]项目',
+	'echo-category-title-osm-projectmembers-add' => '计划成员加入',
 	'prefs-openstack-keys' => '密钥列表',
 );
 
