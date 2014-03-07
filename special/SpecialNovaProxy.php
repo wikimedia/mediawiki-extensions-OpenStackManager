@@ -224,12 +224,13 @@ class SpecialNovaProxy extends SpecialNova {
 				continue;
 			}
 			$this->userNova->setProject( $projectName );
+			$projectactions = array( 'projectadmin' => array() );
 			foreach ( $this->userNova->getRegions( 'proxy' ) as $region ) {
 				$actions = array( 'projectadmin' => array() );
 				$actions['projectadmin'][] = $this->createActionLink( 'openstackmanager-createproxy', array( 'action' => 'create', 'project' => $projectName, 'region' => $region ) );
 				$regions .= $this->createRegionSection( $region, $projectName, $actions, $this->getProxies( $projectName, $region ) );
 			}
-			$out .= $this->createProjectSection( $projectName, $actions, $regions );
+			$out .= $this->createProjectSection( $projectName, $projectactions, $regions );
 		}
 
 		$this->getOutput()->addHTML( $out );
