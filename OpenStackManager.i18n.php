@@ -4245,7 +4245,7 @@ $messages['fa'] = array(
 	'openstackmanager-email-subject' => 'نمونهٔ شما آماده برای ورود به سامانه است.',
 	'openstackmanager-email-body' => 'نمونهٔ زیر ایجاد شده‌است، و برای ورود آماده است:',
 	'openstackmanager-twofactorrequired' => 'دو فاکتور اعتبارنامهٔ مورد نیاز',
-	'openstackmanager-twofactorrequired2' => 'دو فاکتور اعتبارنامه مورد نیاز است. لطفا آن را فعال کنید و دوباره امتحان کنید.',
+	'openstackmanager-twofactorrequired2' => 'دو فاکتور اعتبارنامه مورد نیاز است. لطفاً آن را فعال کنید و دوباره امتحان کنید.',
 	'right-manageproject' => 'مدیریت پروژه‌های اُپن‌استک و نقش‌ها',
 	'action-manageproject' => 'مدیریت پروژه‌های اُپن‌استک و نقش‌ها',
 	'right-loginviashell' => 'ورود از طریق پوسته',
@@ -9690,7 +9690,17 @@ $messages['mt'] = array(
 	'openstackmanager-title' => 'OpenStackManager',
 );
 
+/** Neapolitan (Napulitano)
+ * @author C.R.
+ */
+$messages['nap'] = array(
+	'notification-osm-instance-deleted' => '$1 {{GENDER:$1|scancellaje}} l\'istanza "$3" int&#39;\'o pruggietto [[$2]]',
+	'notification-osm-instance-build-completed' => '$1 {{GENDER:$1|custruette}} l\'istanza "$3" int&#39;\'o pruggietto [[$2]]',
+	'notification-osm-instance-reboot-completed' => '$1 {{GENDER:$1|riabbiaje}} l\'istanza "$3" int&#39;\'o pruggietto [[$2]]',
+);
+
 /** Norwegian Bokmål (norsk bokmål)
+ * @author Danmichaelo
  * @author Event
  * @author Nghtwlkr
  */
@@ -9726,6 +9736,8 @@ $messages['nb'] = array(
 	'openstackmanager-dnsdomain' => 'DNS-domene',
 	'openstackmanager-puppetclasses' => 'Klasser',
 	'openstackmanager-novainstance-info' => 'Instansinformasjon',
+	'notification-osm-instance-deleted' => '$1 {{GENDER:$1|slettet}} instansen «$3» i prosjekt [[$2]]',
+	'notification-osm-instance-build-completed' => '$1 {{GENDER:$1|bygget}} instans «$3» i prosjekt [[$2]]',
 );
 
 /** Low German (Plattdüütsch)
@@ -10959,6 +10971,7 @@ $messages['pt'] = array(
 	'openstackmanager-actions' => 'Ações',
 	'openstackmanager-notloggedin' => 'Autenticação necessária',
 	'openstackmanager-mustbeloggedin' => 'Tem de estar autenticado para executar esta ação.',
+	'openstackmanager-creationdisabled' => 'Criação está desativada',
 	'openstackmanager-nonovacred' => 'Não foram encontradas credenciais do Nova para a sua conta.',
 	'openstackmanager-nonovacred-admincreate' => 'Não foram encontradas credenciais do Nova para a sua conta. Solicite a um administrador do Nova que crie as suas credenciais, por favor.',
 	'openstackmanager-noaccount' => 'A sua conta não está no projeto $1.',
@@ -11090,9 +11103,9 @@ $messages['pt'] = array(
 	'openstackmanager-failedtoremove' => 'Não foi possível remover $1 de $2.',
 	'openstackmanager-novaproject-project' => 'Adicionar projeto',
 	'openstackmanager-roles' => 'Funções',
-	'openstackmanager-rolename' => 'Nome da função', # Fuzzy
-	'openstackmanager-removerolemember' => 'Remover um membro da função', # Fuzzy
-	'openstackmanager-addrolemember' => 'Adicionar um membro à função', # Fuzzy
+	'openstackmanager-rolename' => 'Função',
+	'openstackmanager-removerolemember' => 'Remover um membro',
+	'openstackmanager-addrolemember' => 'Adicionar um membro',
 	'openstackmanager-rolelist' => 'Lista de funções globais',
 	'openstackmanager-nomemberstoadd' => 'Não há membros para adicionar a este grupo.',
 	'openstackmanager-nomemberstoremove' => 'Não há membros para remover deste grupo.',
@@ -13343,6 +13356,7 @@ $messages['uk'] = array(
 	'openstackmanager-actions' => 'Дії',
 	'openstackmanager-notloggedin' => 'Необхідно увійти до системи',
 	'openstackmanager-mustbeloggedin' => 'Ви повинні увійти в систему для виконання цієї дії.',
+	'openstackmanager-creationdisabled' => 'Створення вимкнено',
 	'openstackmanager-nonovacred' => 'Облікових даних sudo не знайдено для вашого облікового запису.',
 	'openstackmanager-nonovacred-admincreate' => 'Для вашого облікового запису не знайдено облікових даних Nova. Будь ласка, попросіть адміністратора Nova створити облікові дані для вас.',
 	'openstackmanager-noaccount' => 'Ваш обліковий запис не є у проекті  $1.',
