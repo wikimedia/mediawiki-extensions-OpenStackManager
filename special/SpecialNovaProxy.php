@@ -220,6 +220,7 @@ class SpecialNovaProxy extends SpecialNova {
 		$out = '';
 
 		foreach ( $projects as $project ) {
+			$regions = '';
 			$projectName = $project->getProjectName();
 			if ( !in_array( $projectName, $projectfilter ) ) {
 				continue;
