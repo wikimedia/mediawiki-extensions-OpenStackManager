@@ -2641,6 +2641,7 @@ $messages['ce'] = array(
 	'openstackmanager-projects' => 'Проекташ',
 	'openstackmanager-deleteproxy' => 'ДӀаяккха прокси',
 	'openstackmanager-deleteproxyfailed' => 'Прокси $1 дӀаяккха цаелира',
+	'notification-osm-instance-deleted' => "$1 {{GENDER:$1|дӀаяьккхина}} хӀума '$3' [[$2]] проектехь",
 );
 
 /** Czech (čeština)
@@ -5207,6 +5208,7 @@ $messages['gl'] = array(
 	'openstackmanager-actions' => 'Accións',
 	'openstackmanager-notloggedin' => 'Cómpre acceder ao sistema',
 	'openstackmanager-mustbeloggedin' => 'Cómpre acceder ao sistema para levar a cabo a acción.',
+	'openstackmanager-creationdisabled' => 'A creación está desactivada',
 	'openstackmanager-nonovacred' => 'Non se atoparon as credenciais Nova da súa conta.',
 	'openstackmanager-nonovacred-admincreate' => 'Non se atoparon as credenciais Nova da súa conta de usuario. Pida a un administrador de Nova que cree as súas credenciais.',
 	'openstackmanager-noaccount' => 'A súa conta non está no proxecto $1.',
@@ -6043,6 +6045,7 @@ $messages['he'] = array(
 );
 
 /** Hindi (हिन्दी)
+ * @author Adithyavr
  * @author Ansumang
  */
 $messages['hi'] = array(
@@ -6134,6 +6137,7 @@ $messages['hi'] = array(
 	'openstackmanager-puppetgroup' => 'पपेट दल',
 	'openstackmanager-modifiedpuppetclass' => 'पपेट कक्ष को बदला गया ।',
 	'openstackmanager-removepuppetclass' => 'पपेट कक्ष हटाया गया',
+	'notification-osm-instance-reboot-completed' => '$1 {{GENDER:$1|rebooted}} इंस्टेंस " $3 " परियोजना में [[ $2 ]]', # Fuzzy
 );
 
 /** Upper Sorbian (hornjoserbsce)
@@ -14163,6 +14167,7 @@ $messages['zh-hans'] = array(
 	'openstackmanager-actions' => '动作',
 	'openstackmanager-notloggedin' => '需要登录',
 	'openstackmanager-mustbeloggedin' => '您必须登录才能执行此操作。',
+	'openstackmanager-creationdisabled' => '创建已被禁用',
 	'openstackmanager-nonovacred' => '未找到您账号的 Nova 凭证。',
 	'openstackmanager-nonovacred-admincreate' => '未找到您账号的 Nova 凭证。请向 Nova 管理员申请为您创建凭证。',
 	'openstackmanager-noaccount' => '您的账号没有在项目$1中。',
@@ -14454,6 +14459,7 @@ $messages['zh-hans'] = array(
 	'openstackmanager-modifysudoerfailed' => '修改sudo策略失败。',
 	'openstackmanager-modifiedsudoer' => '修改sudo策略成功。',
 	'openstackmanager-nonexistantsudoer' => '请求的sudo策略不存在。',
+	'openstackmanager-proxylist' => '实例代理列表',
 	'openstackmanager-createproxy' => '创建代理',
 	'openstackmanager-deleteproxy' => '删除代理',
 	'openstackmanager-deleteproxysuccess' => '已在$1删除代理',
@@ -14461,6 +14467,8 @@ $messages['zh-hans'] = array(
 	'openstackmanager-proxyname' => 'DNS主机名',
 	'openstackmanager-proxybackend' => '实例',
 	'openstackmanager-proxyport' => '实例接口',
+	'openstackmanager-novaproxy-frontend' => '新代理前端',
+	'openstackmanager-novaproxy-backend' => '新代理后端',
 	'openstackmanager-createproxyfailed' => '创建新代理$1失败。',
 	'openstackmanager-backproxylist' => '回到代理列表',
 	'openstackmanager-novapuppetgroup' => 'Nova 傀儡组',
@@ -14509,6 +14517,9 @@ $messages['zh-hans'] = array(
 	'openstackmanager-email-body' => '以下的实例已经创建好，并可以登入：',
 	'right-manageproject' => '管理OpenStack项目及作用',
 	'right-loginviashell' => '通过shell登录',
+	'notification-osm-instance-deleted' => '$1已在项目[[$2]]删除实例“$3”',
+	'notification-osm-instance-build-completed' => '$1已在项目[[$2]]建立实例“$3”',
+	'notification-osm-instance-reboot-completed' => '$1已在项目[[$2]]重启实例“$3”',
 	'notification-osm-projectmember-added' => '$1将您加入到[[$2]]项目',
 	'echo-category-title-osm-projectmembers-add' => '计划成员加入',
 	'prefs-openstack-keys' => '密钥列表',
