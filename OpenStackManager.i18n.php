@@ -2632,6 +2632,7 @@ $messages['ca'] = array(
  */
 $messages['ce'] = array(
 	'openstackmanager-delete' => 'дӀаяккха',
+	'openstackmanager-modify' => 'хийцам бе',
 	'openstackmanager-actions' => 'Дийраш',
 	'openstackmanager-notloggedin' => 'Хьай цӀарца чугӀо',
 	'openstackmanager-volumedescription' => 'Томах лаьцна',
@@ -2642,6 +2643,7 @@ $messages['ce'] = array(
 	'openstackmanager-deleteproxy' => 'ДӀаяккха прокси',
 	'openstackmanager-deleteproxyfailed' => 'Прокси $1 дӀаяккха цаелира',
 	'notification-osm-instance-deleted' => "$1 {{GENDER:$1|дӀаяьккхина}} хӀума '$3' [[$2]] проектехь",
+	'notification-osm-instance-reboot-completed' => "$1 {{GENDER:$1|дӀаяьккхина}} хӀума '$3' [[$2]] проектехь",
 );
 
 /** Czech (čeština)
