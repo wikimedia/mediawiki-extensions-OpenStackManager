@@ -703,19 +703,12 @@ class SpecialNovaInstance extends SpecialNova {
 		}
 		$instancename = $instance->getInstanceName();
 		$instanceid = $instance->getInstanceId();
-		$host = $instance->getHost();
 		$result = $instance->deleteInstance( $this->userNova );
 		if ( $result ) {
-			if ( $host ) {
-				$result = $host->deleteHost();
-				if ( $result ) {
-					$this->getOutput()->addWikiMsg( 'openstackmanager-deletedinstance', $instanceid, $instancename );
-				} else {
-					$this->getOutput()->addWikiMsg( 'openstackmanager-deletedinstance-faileddns', $instanceid, $instancename );
-				}
-			} else {
-				$this->getOutput()->addWikiMsg( 'openstackmanager-deletedinstance', $instanceid, $instancename );
-			}
+			$title = Title::newFromText( $this->getOutput()->getPageTitle() );
+			$job = new OpenStackNovaHostDeleteJob( $title, array( 'instanceid' => $instance->getInstanceId(), 'instanceosid' => $instance->getInstanceOSId(), 'project' => $formData['project'], 'region' => $formData['region'] ) );
+			JobQueueGroup::singleton()->push( $job );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-deletedinstance', $instanceid, $instancename );
 		} else {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-deleteinstancefailed', $instanceid, $instancename );
 		}
