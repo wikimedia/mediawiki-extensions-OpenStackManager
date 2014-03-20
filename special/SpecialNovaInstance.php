@@ -706,7 +706,7 @@ class SpecialNovaInstance extends SpecialNova {
 		$result = $instance->deleteInstance( $this->userNova );
 		if ( $result ) {
 			$title = Title::newFromText( $this->getOutput()->getPageTitle() );
-			$job = new OpenStackNovaHostDeleteJob( $title, array( 'instanceid' => $instance->getInstanceId(), 'instanceosid' => $instance->getInstanceOSId(), 'project' => $formData['project'], 'region' => $formData['region'] ) );
+			$job = new OpenStackNovaHostDeleteJob( $title, array( 'instanceid' => $instance->getInstanceId(), 'region' => $formData['region'] ) );
 			JobQueueGroup::singleton()->push( $job );
 			$this->getOutput()->addWikiMsg( 'openstackmanager-deletedinstance', $instanceid, $instancename );
 		} else {

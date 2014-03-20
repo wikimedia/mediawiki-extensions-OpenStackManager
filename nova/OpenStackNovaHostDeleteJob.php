@@ -26,8 +26,6 @@ class OpenStackNovaHostDeleteJob extends Job {
 	 */
 	public function run() {
 		global $wgAuth;
-		global $wgOpenStackManagerLDAPUsername;
-		global $wgOpenStackManagerLDAPUserPassword;
 
 		if ( array_key_exists( 'count', $this->params ) ) {
 			$this->params['count'] += 1;
@@ -42,23 +40,10 @@ class OpenStackNovaHostDeleteJob extends Job {
 
 		$count = $this->params['count'];
 		$instanceid = $this->params['instanceid'];
-		$instanceosid = $this->params['instanceosid'];
-		$project = $this->params['project'];
 		$region = $this->params['region'];
 		$wgAuth->printDebug( "Running DNS delete job for $instanceid, attempt number $count", NONSENSITIVE );
 
-		$user = new OpenStackNovaUser( $wgOpenStackManagerLDAPUsername );
-		$userNova = OpenStackNovaController::newFromUser( $user );
-		$userNova->setProject( $project );
-		$userNova->setRegion( $region );
-		$userNova->authenticate( $wgOpenStackManagerLDAPUsername, $wgOpenStackManagerLDAPUserPassword );
-		$instance = $userNova->getInstance( $instanceosid );
-		if ( ! $instance ) {
-			$wgAuth->printDebug( "Instance doesn't exist for $instanceosid", NONSENSITIVE );
-			# Instance no longer exists
-			return true;
-		}
-		$host = $instance->getHost();
+		$host = OpenStackNovaHost::getHostByInstanceId( $instanceid, $region );
 		if ( ! $host ) {
 			$wgAuth->printDebug( "Host entry doesn't exist for $instanceosid", NONSENSITIVE );
 			return true;
