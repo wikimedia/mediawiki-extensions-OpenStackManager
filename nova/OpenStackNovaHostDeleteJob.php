@@ -70,7 +70,7 @@ class OpenStackNovaHostDeleteJob extends Job {
 			# re-add to queue
 			$wgAuth->printDebug( "Readding host deletion job for $instanceid", NONSENSITIVE );
 			$job = new OpenStackNovaHostDeleteJob( $this->title, $this->params );
-			$job->insert();
+			JobQueueGroup::singleton()->push( $job );
 			return true;
 		}
 
