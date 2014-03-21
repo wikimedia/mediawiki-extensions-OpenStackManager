@@ -33,6 +33,11 @@ $specialPageAliases['de'] = array(
 	'OpenStackManageInstance' => array( 'Instanz_verwalten' ),
 );
 
+/** Zazaki (Zazaki) */
+$specialPageAliases['diq'] = array(
+	'OpenStackManager' => array( 'İdaroğaOpenStacki' ),
+);
+
 /** Interlingua (interlingua) */
 $specialPageAliases['ia'] = array(
 	'OpenStackManager' => array( 'Gerentia_de_OpenStack' ),
