@@ -9840,6 +9840,7 @@ $messages['nl'] = array(
 	'openstackmanager-actions' => 'Handelingen',
 	'openstackmanager-notloggedin' => 'Aanmelden verplicht',
 	'openstackmanager-mustbeloggedin' => 'U moet aangemeld zijn om deze handeling uit te voeren.',
+	'openstackmanager-creationdisabled' => 'Aanmaken is uitgeschakeld',
 	'openstackmanager-nonovacred' => 'Er zijn geen Nova-referenties gevonden voor uw gebruiker.',
 	'openstackmanager-nonovacred-admincreate' => 'Er zijn geen Nova-referenties gevonden voor uw gebruiker. Vraag een Nova-beheerder om deze toe te voegen.',
 	'openstackmanager-noaccount' => 'Uw gebruiker is geen lid van het project $1.',
