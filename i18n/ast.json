@@ -1,0 +1,13 @@
+{
+    "@metadata": {
+        "authors": [
+            "Xuacu"
+        ]
+    },
+    "openstackmanager-modify": "camudar",
+    "openstackmanager-displayquotas-ram": "RAM: $1/$2",
+    "notification-osm-instance-deleted": "$1 {{GENDER:$1|desanició}} la instancia \"$3\" nel proyectu [[$2]]",
+    "notification-osm-instance-build-completed": "$1 {{GENDER:$1|construyó}} la instancia \"$3\" nel proyectu [[$2]]",
+    "notification-osm-instance-reboot-completed": "$1 {{GENDER:$1|reanició}} la instancia \"$3\" nel proyectu [[$2]]",
+    "notification-osm-projectmember-added": "$1 {{GENDER:$1|amestó}}-y al proyectu [[$2]]"
+}

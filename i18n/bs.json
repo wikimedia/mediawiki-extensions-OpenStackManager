@@ -1,0 +1,36 @@
+{
+    "@metadata": {
+        "authors": [
+            "CERminator"
+        ]
+    },
+    "openstackmanager-desc": "Daje mogućnost korisnicima da upravljaju sa Nova i Swift",
+    "openstackmanager-novaproject": "Nova projekat",
+    "openstackmanager-delete": "obriši",
+    "openstackmanager-configure": "podesi",
+    "openstackmanager-modify": "izmijeni",
+    "openstackmanager-rename": "preimenuj",
+    "openstackmanager-reboot": "pokreni ponovo",
+    "openstackmanager-actions": "Akcije",
+    "openstackmanager-notloggedin": "Potrebno je prijavljivanje",
+    "openstackmanager-novadomain-domain": "Domena",
+    "openstackmanager-domainlist": "Spisak domena",
+    "openstackmanager-domainname": "Naziv domene",
+    "openstackmanager-location": "Lokacija",
+    "openstackmanager-dnsdomain": "DNS domena",
+    "openstackmanager-imageid": "ID slike",
+    "openstackmanager-attach": "dodaj",
+    "openstackmanager-detach": "otrgni",
+    "openstackmanager-deletevolume": "Obriši nosač",
+    "openstackmanager-deletevolumequestion": "Da li ste sigurni da želite obrisati nosač \"$1\"?",
+    "openstackmanager-device": "Uređaj",
+    "openstackmanager-deletekey": "Brisanje ključa",
+    "openstackmanager-deletekeyconfirm": "Da li ste sigurni da želite obrisati gornji ključ?",
+    "openstackmanager-keylist": "Spisak ključeva",
+    "openstackmanager-name": "Naziv",
+    "openstackmanager-fingerprint": "Otisak prsta",
+    "openstackmanager-keys": "Ključevi",
+    "openstackmanager-projectname": "Naslov projekta",
+    "openstackmanager-members": "Članovi",
+    "openstackmanager-member": "Član"
+}

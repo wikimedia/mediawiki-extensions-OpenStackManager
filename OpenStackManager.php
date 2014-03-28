@@ -21,7 +21,7 @@ $wgExtensionCredits['other'][] = array(
 	'path' => __FILE__,
 	'name' => 'OpenStackManager',
 	'author' => 'Ryan Lane',
-	'version' => '2.1',
+	'version' => '2.2.0',
 	'url' => 'http://mediawiki.org/wiki/Extension:OpenStackManager',
 	'descriptionmsg' => 'openstackmanager-desc',
 );
@@ -145,8 +145,9 @@ $wgOpenStackManagerRestrictedRegions = array();
 // A list of regions which are visible yet disabled (e.g. instance creation forbidden)
 $wgOpenStackManagerReadOnlyRegions = array();
 
-$dir = dirname( __FILE__ ) . '/';
+$dir = __DIR__ . '/';
 
+$wgMessagesDirs['OpenStackManager'] = __DIR__ . '/i18n';
 $wgExtensionMessagesFiles['OpenStackManager'] = $dir . 'OpenStackManager.i18n.php';
 $wgExtensionMessagesFiles['OpenStackManagerAlias'] = $dir . 'OpenStackManager.alias.php';
 $wgAutoloadClasses['OpenStackNovaInstance'] = $dir . 'nova/OpenStackNovaInstance.php';

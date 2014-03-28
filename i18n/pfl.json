@@ -1,0 +1,15 @@
+{
+    "@metadata": {
+        "authors": [
+            "Manuae"
+        ]
+    },
+    "openstackmanager-delete": "lesche",
+    "openstackmanager-modify": "änere",
+    "openstackmanager-reboot": "nai schdarde",
+    "openstackmanager-attach": "oihänge",
+    "openstackmanager-detach": "aushänge",
+    "openstackmanager-deletevolume": "Dadetreescha lesche",
+    "openstackmanager-deleteproject": "Lesche",
+    "openstackmanager-securitygrouprule": "Reschle"
+}

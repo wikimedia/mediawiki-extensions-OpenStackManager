@@ -1,0 +1,11 @@
+{
+    "@metadata": {
+        "authors": [
+            "Luckas",
+            "පසිඳු කාවින්ද"
+        ]
+    },
+    "openstackmanager-name": "Nom",
+    "openstackmanager-deleteproject": "Esborrar",
+    "openstackmanager-securitygroupdescription": "Descripció"
+}

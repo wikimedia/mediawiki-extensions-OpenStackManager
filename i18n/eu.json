@@ -1,0 +1,20 @@
+{
+    "@metadata": {
+        "authors": [
+            "පසිඳු කාවින්ද"
+        ]
+    },
+    "openstackmanager-delete": "ezabatu",
+    "openstackmanager-rename": "Berrizendatu",
+    "openstackmanager-location": "Kokapena",
+    "openstackmanager-device": "Gailua",
+    "openstackmanager-name": "Izena",
+    "openstackmanager-members": "Kideak",
+    "openstackmanager-member": "Kidea",
+    "openstackmanager-action": "Ekintza",
+    "openstackmanager-deleteproject": "Ezabatu",
+    "openstackmanager-projects": "Proiektuak",
+    "openstackmanager-securitygroupdescription": "Deskribapen",
+    "openstackmanager-sudoerusers": "Erabiltzaileak",
+    "openstackmanager-sudoeroptions": "Aukerak"
+}

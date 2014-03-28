@@ -1,0 +1,20 @@
+{
+    "@metadata": {
+        "authors": [
+            "DCLXVI",
+            "Mitzev",
+            "පසිඳු කාවින්ද"
+        ]
+    },
+    "openstackmanager-delete": "изтриване",
+    "openstackmanager-configure": "конфигуриране",
+    "openstackmanager-modify": "промяна",
+    "openstackmanager-rename": "преименуване",
+    "openstackmanager-reboot": "рестартиране",
+    "openstackmanager-actions": "Действия",
+    "openstackmanager-creationdisabled": "Създаване е забранено",
+    "openstackmanager-location": "Местоположение",
+    "openstackmanager-name": "Име",
+    "openstackmanager-action": "Действие",
+    "openstackmanager-deleteproject": "Изтрий"
+}

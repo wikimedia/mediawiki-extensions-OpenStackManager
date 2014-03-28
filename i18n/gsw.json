@@ -1,0 +1,23 @@
+{
+    "@metadata": {
+        "authors": [
+            "Als-Chlämens",
+            "Als-Holder"
+        ]
+    },
+    "novasecuritygroup": "Firewall-Sicherheitsgruppe verwalte",
+    "novarole": "Wältwyti Rolle verwalte",
+    "openstackmanager-createproject": "Nej Projäkt aalege",
+    "openstackmanager-projectname": "Projäktname",
+    "openstackmanager-members": "Mitgliider",
+    "openstackmanager-member": "Mitgliid",
+    "openstackmanager-action": "Aktion",
+    "openstackmanager-createprojectfailed": "Des Projäkt het nit chönne erstellt werde.",
+    "openstackmanager-createdproject": "S Projäkt isch erstellt worde.",
+    "openstackmanager-projectlist": "Projäktlischt",
+    "openstackmanager-backprojectlist": "Zrugg zur Projektlischt",
+    "openstackmanager-deleteproject": "Projäkt lesche",
+    "openstackmanager-deletedproject": "S Projäkt isch glöscht worde.",
+    "openstackmanager-deleteprojectfailed": "Des Projäkt het nit chönne glöscht werde.",
+    "openstackmanager-cannotreleaseaddress": "IP-Adrässe mit DNS-Yytreg oder wu ere Inschtanz zuegordnet sin, chenne nit frejgee wäre. Vor eme nomolige Frejgabeversuech mien alli Hostyytreg un Zueornige zue IP-Adrässen uusegnuu wäre."
+}
