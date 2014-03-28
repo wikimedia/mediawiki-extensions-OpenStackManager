@@ -206,7 +206,7 @@
     "openstackmanager-failedtoadd": "Misslyckades att lägga till $1 till $2.",
     "openstackmanager-setgroupmembers": "Angav framgångsrikt gruppmedlemmar för $1",
     "openstackmanager-failedtosetgroupmembers": "Misslyckades att ange gruppmedlemmar för $1",
-    "openstackmanager-failedtoaddneedsloginright": "Misslyckades att lägga till $1 till $2.\nDetta måste ha användare $1 till att ha \"<code>loginviashell</code>\" korrekt.",
+    "openstackmanager-failedtoaddneedsloginright": "Misslyckades att lägga till $1 till $2.\nDetta måste ha användare $1 till att ha \"\u003Ccode\u003Eloginviashell\u003C/code\u003E\" korrekt.",
     "openstackmanager-removedfrom": "Tog framgångsrikt bort $1 från $2.",
     "openstackmanager-failedtoremove": "Misslyckades att ta bort $1 från $2.",
     "openstackmanager-novaproject-project": "Lägg till projekt",

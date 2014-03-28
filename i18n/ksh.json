@@ -4,11 +4,11 @@
             "Purodha"
         ]
     },
-    "openstackmanager-desc": "Määd et müjjelesch föt Metmaacher, <i lang=\"en\">Nova</i> un <i lang=\"en\">Swift</i> ze verwallde.",
-    "openstackmanager": "De <i lang=\"en\">OpenStack</i> Verwaldong",
-    "openstackmanager-title": "<i lang=\"en\" xml:lang=\"en\">OpenStackManager</i>",
+    "openstackmanager-desc": "Määd et müjjelesch föt Metmaacher, \u003Ci lang=\"en\"\u003ENova\u003C/i\u003E un \u003Ci lang=\"en\"\u003ESwift\u003C/i\u003E ze verwallde.",
+    "openstackmanager": "De \u003Ci lang=\"en\"\u003EOpenStack\u003C/i\u003E Verwaldong",
+    "openstackmanager-title": "\u003Ci lang=\"en\" xml:lang=\"en\"\u003EOpenStackManager\u003C/i\u003E",
     "action-managednsdomain": "Domähne em DNS verwallde",
-    "specialpages-group-nova": "<i lang=\"en\" xml:lang=\"en\">OpenStack Nova</i>",
+    "specialpages-group-nova": "\u003Ci lang=\"en\" xml:lang=\"en\"\u003EOpenStack Nova\u003C/i\u003E",
     "novadomain": "Domähne em DNS verwallde",
     "novaservicegroup": "Deensjroppe verwallde",
     "novarole": "Jlobahle Rolle verwallde",
@@ -37,8 +37,8 @@
     "openstackmanager-failedeletedomainduplicates": "Di Domähn hät sesch nit fott schmiiße lohße, weil se Onger-Endrääsch hät.",
     "openstackmanager-failedeletedomainnotfound": "Di Domähn hät sesch nit fott schmiiße lohße, weil et se nit ze jävve schingk.",
     "openstackmanager-nonexistanthost": "Dä nohjefroochte Rääschner jidd_et nit.",
-    "openstackmanager-dnsdomain": "de <i lang=\"en\">domain</i> em <i lang=\"en\">DNS</i>",
-    "openstackmanager-deletedinstance-faileddns": "Dat Denge es jäz fott, ävver dä Endraach „$1“ em <i lang=\"en\">Domain Name System</i> es övverisch jeblevve.",
+    "openstackmanager-dnsdomain": "de \u003Ci lang=\"en\"\u003Edomain\u003C/i\u003E em \u003Ci lang=\"en\"\u003EDNS\u003C/i\u003E",
+    "openstackmanager-deletedinstance-faileddns": "Dat Denge es jäz fott, ävver dä Endraach „$1“ em \u003Ci lang=\"en\"\u003EDomain Name System\u003C/i\u003E es övverisch jeblevve.",
     "openstackmanager-attach": "aanhange",
     "openstackmanager-detach": "afhange",
     "openstackmanager-device": "Jeräht",
@@ -74,8 +74,8 @@
     "openstackmanager-removedrule": "Die Rääjel es jäz fott.",
     "openstackmanager-removerulefailed": "Met kunnte di Rääjel nit fott nämme.",
     "openstackmanager-addrule": "En Rääjel dobei donn",
-    "openstackmanager-securitygrouprule-ranges": "<i lang=\"en\">CIDR</i>-Berette",
-    "openstackmanager-securitygrouprule-ranges-help": "<i lang=\"en\">CIDR</i>-Berette wääde als en Leß vun einzel Berette aanjejovve, met Kommas derzwesche",
+    "openstackmanager-securitygrouprule-ranges": "\u003Ci lang=\"en\"\u003ECIDR\u003C/i\u003E-Berette",
+    "openstackmanager-securitygrouprule-ranges-help": "\u003Ci lang=\"en\"\u003ECIDR\u003C/i\u003E-Berette wääde als en Leß vun einzel Berette aanjejovve, met Kommas derzwesche",
     "openstackmanager-addedrule": "Di Rääjel es jäz dobei jekumme.",
     "openstackmanager-addrulefailed": "Di Rääjel dobeizedonn es donävve jejange.",
     "openstackmanager-commadelimiter": "Met Kommas dozwesche",
@@ -84,5 +84,5 @@
     "openstackmanager-sudoercommands": "Kommandos",
     "openstackmanager-sudoeroptions": "Ennshtällunge",
     "openstackmanager-createpuppetgroup": "En Jropp derbei donn",
-    "prefs-openstack": "<i lang=\"en\" xml:lang=\"en\">OpenStack</i>"
+    "prefs-openstack": "\u003Ci lang=\"en\" xml:lang=\"en\"\u003EOpenStack\u003C/i\u003E"
 }

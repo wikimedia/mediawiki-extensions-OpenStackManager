@@ -220,7 +220,7 @@
     "openstackmanager-failedtoadd": "Не вдалося додати $1 до $2.",
     "openstackmanager-setgroupmembers": "Успішно встановлено членів групи для $1",
     "openstackmanager-failedtosetgroupmembers": "Не вдалося встановити членів групи для $1",
-    "openstackmanager-failedtoaddneedsloginright": "Не вдалося додати  $1  до $2.\nЦе вимагає наявності прав користувача $1 на \"<code>вхід через оболонку</code>\".",
+    "openstackmanager-failedtoaddneedsloginright": "Не вдалося додати  $1  до $2.\nЦе вимагає наявності прав користувача $1 на \"\u003Ccode\u003Eвхід через оболонку\u003C/code\u003E\".",
     "openstackmanager-removedfrom": "Успішно вилучено $1 з $2.",
     "openstackmanager-failedtoremove": "Не вдалося вилучити $1 з $2.",
     "openstackmanager-novaproject-project": "Додати проект",

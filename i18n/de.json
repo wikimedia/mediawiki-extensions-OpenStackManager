@@ -220,7 +220,7 @@
     "openstackmanager-failedtoadd": "$1 konnte nicht zu $2 hinzugefügt werden.",
     "openstackmanager-setgroupmembers": "Gruppenmitglieder für $1 erfolgreich festgelegt",
     "openstackmanager-failedtosetgroupmembers": "Festlegen der Gruppenmitglieder für $1 fehlgeschlagen",
-    "openstackmanager-failedtoaddneedsloginright": "Benutzer $1 konnte nicht zum Projekt $2 hinzugefügt werden.\nDer Benutzer $1 muss das „<code>loginviashell</code>“-Recht haben.",
+    "openstackmanager-failedtoaddneedsloginright": "Benutzer $1 konnte nicht zum Projekt $2 hinzugefügt werden.\nDer Benutzer $1 muss das „\u003Ccode\u003Eloginviashell\u003C/code\u003E“-Recht haben.",
     "openstackmanager-removedfrom": "$1 wurde erfolgreich von $2 entfernt.",
     "openstackmanager-failedtoremove": "$1 konnte nicht aus $2 entfernt werden.",
     "openstackmanager-novaproject-project": "Projekt hinzufügen",

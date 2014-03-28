@@ -221,7 +221,7 @@
     "openstackmanager-failedtoadd": "عدم موفقیت اضافه کردن $1 به $2.",
     "openstackmanager-setgroupmembers": "اعضای گروه برای $1 با موفقیت تنطیم شدند.",
     "openstackmanager-failedtosetgroupmembers": "عدم موفقیت تنظیم اعضای گروه برای $1.",
-    "openstackmanager-failedtoaddneedsloginright": "عدم موفقیت در افزودن  $1 به $2 .\nاین نیاز دارد کاربر $1، حق \" <code>loginviashell</code> \" را داشته باشد.",
+    "openstackmanager-failedtoaddneedsloginright": "عدم موفقیت در افزودن  $1 به $2 .\nاین نیاز دارد کاربر $1، حق \" \u003Ccode\u003Eloginviashell\u003C/code\u003E \" را داشته باشد.",
     "openstackmanager-removedfrom": "$1 از $2 با موفقیت حذف شد.",
     "openstackmanager-failedtoremove": "عدم موفقیت حذف $1 از $2.",
     "openstackmanager-novaproject-project": "افزودن پروژه",

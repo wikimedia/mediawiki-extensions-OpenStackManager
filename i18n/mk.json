@@ -216,7 +216,7 @@
     "openstackmanager-failedtoadd": "Не успеав да го додадам $1 во $2.",
     "openstackmanager-setgroupmembers": "Успешно укажавте групни членови за $1",
     "openstackmanager-failedtosetgroupmembers": "Не успеав да укажам групни членови за $1",
-    "openstackmanager-failedtoaddneedsloginright": "Не успеав да го додадам членот $1 на $2. \nЗа ова, на корисникот $1 му е потребно правото „<code>loginviashell</code>“ (најава преку обвивка).",
+    "openstackmanager-failedtoaddneedsloginright": "Не успеав да го додадам членот $1 на $2. \nЗа ова, на корисникот $1 му е потребно правото „\u003Ccode\u003Eloginviashell\u003C/code\u003E“ (најава преку обвивка).",
     "openstackmanager-removedfrom": "$1 е успешно отстрането од $2.",
     "openstackmanager-failedtoremove": "Не успеав да го отстранам $1 од $2.",
     "openstackmanager-novaproject-project": "Додај проект",

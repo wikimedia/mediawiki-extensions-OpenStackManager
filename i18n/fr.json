@@ -229,7 +229,7 @@
     "openstackmanager-failedtoadd": "Impossible d'ajouter $1 à $2.",
     "openstackmanager-setgroupmembers": "Membres du groupe bien ajoutés pour $1",
     "openstackmanager-failedtosetgroupmembers": "Échec d’ajout des membres du groupe pour $1",
-    "openstackmanager-failedtoaddneedsloginright": "Impossible d'ajouter $1 à $2.\nCela nécessite $1 d'avoir le droit « <code>loginviashell</code> ».",
+    "openstackmanager-failedtoaddneedsloginright": "Impossible d'ajouter $1 à $2.\nCela nécessite $1 d'avoir le droit « \u003Ccode\u003Eloginviashell\u003C/code\u003E ».",
     "openstackmanager-removedfrom": "$1 supprimé de $2 avec succès.",
     "openstackmanager-failedtoremove": "Impossible de supprimer $1 de $2.",
     "openstackmanager-novaproject-project": "Ajouter un projet",

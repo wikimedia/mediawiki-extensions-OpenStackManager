@@ -217,7 +217,7 @@
     "openstackmanager-failedtoadd": "$1 구성원을 $2에 추가하는 데 실패했습니다.",
     "openstackmanager-setgroupmembers": "$1에 대한 그룹 구성원을 성공적으로 설정했습니다",
     "openstackmanager-failedtosetgroupmembers": "$1에 대한 그룹 구성원을 설정하는 데 실패했습니다",
-    "openstackmanager-failedtoaddneedsloginright": "$1 구성원을 $2에 추가하는 데 실패했습니다.\n\"<code>loginviashell</code>\" 권한을 가진 $1 사용자가 필요합니다.",
+    "openstackmanager-failedtoaddneedsloginright": "$1 구성원을 $2에 추가하는 데 실패했습니다.\n\"\u003Ccode\u003Eloginviashell\u003C/code\u003E\" 권한을 가진 $1 사용자가 필요합니다.",
     "openstackmanager-removedfrom": "성공적으로 $1 구성원을 $2에서 제거했습니다.",
     "openstackmanager-failedtoremove": "$1 구성원을 $2에서 제거하는 데 실패했습니다.",
     "openstackmanager-novaproject-project": "프로젝트 추가",
