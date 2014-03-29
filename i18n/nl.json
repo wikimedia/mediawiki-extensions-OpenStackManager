@@ -221,7 +221,7 @@
     "openstackmanager-failedtoadd": "Het toevoegen van $1 aan $2 is mislukt.",
     "openstackmanager-setgroupmembers": "Groepsleden voor $1 zijn ingesteld",
     "openstackmanager-failedtosetgroupmembers": "Het instellen van groepsleden voor $1 is mislukt",
-    "openstackmanager-failedtoaddneedsloginright": "Het toevoegen van $1 aan $2 is mislukt.\nHiervoor moet gebruiker $1 het recht \"\u003Ccode\u003Eloginviashell\u003C/code\u003E\" hebben.",
+    "openstackmanager-failedtoaddneedsloginright": "Het toevoegen van $1 aan $2 is mislukt.\nHiervoor moet gebruiker $1 het recht \"<code>loginviashell</code>\" hebben.",
     "openstackmanager-removedfrom": "$1 is uit $2 verwijderd.",
     "openstackmanager-failedtoremove": "Het verwijderen van $1 uit $2 is mislukt.",
     "openstackmanager-novaproject-project": "Project toevoegen",
