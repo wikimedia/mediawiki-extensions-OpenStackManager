@@ -350,6 +350,7 @@
     "openstackmanager-deleteproxy": "删除代理",
     "openstackmanager-deleteproxysuccess": "已在$1删除代理",
     "openstackmanager-deleteproxyfailed": "在$1删除代理失败",
+    "openstackmanager-deleteproxy-confirm": "您确信要删除在$1的代理么？",
     "openstackmanager-proxyname": "DNS主机名",
     "openstackmanager-proxybackend": "实例",
     "openstackmanager-proxyport": "实例接口",
@@ -409,6 +410,8 @@
     "notification-osm-instance-build-completed": "$1已在项目[[$2]]建立实例“$3”",
     "notification-osm-instance-reboot-completed": "$1已在项目[[$2]]重启实例“$3”",
     "notification-osm-projectmember-added": "$1将您加入到[[$2]]项目",
+    "echo-category-title-osm-instance-deleted": "实例删除（在您是项目管理员时）",
+    "echo-category-title-osm-instance-build-completed": "实例建立（在您是项目管理员时）",
     "echo-category-title-osm-projectmembers-add": "计划成员加入",
     "prefs-openstack-keys": "密钥列表"
 }
