@@ -2,10 +2,12 @@
     "@metadata": {
         "authors": [
             "Luckas",
-            "පසිඳු කාවින්ද"
+            "පසිඳු කාවින්ද",
+            "Fitoschido"
         ]
     },
     "openstackmanager-name": "Nom",
     "openstackmanager-deleteproject": "Esborrar",
+    "openstackmanager-unknownerror": "S’ha produït un error.",
     "openstackmanager-securitygroupdescription": "Descripció"
 }
