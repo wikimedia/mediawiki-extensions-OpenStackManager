@@ -412,6 +412,7 @@
     "notification-osm-projectmember-added": "$1将您加入到[[$2]]项目",
     "echo-category-title-osm-instance-deleted": "实例删除（在您是项目管理员时）",
     "echo-category-title-osm-instance-build-completed": "实例建立（在您是项目管理员时）",
+    "echo-category-title-osm-instance-reboot-completed": "实例重启完成",
     "echo-category-title-osm-projectmembers-add": "计划成员加入",
     "prefs-openstack-keys": "密钥列表"
 }
