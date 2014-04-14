@@ -279,6 +279,7 @@
     "openstackmanager-nonexistenthost": "请求的主机不存在。",
     "openstackmanager-nonexistentrole": "请求的角色不存在。",
     "openstackmanager-unknownerror": "发生错误。",
+    "openstackmanager-needrole": "需要在项目$2完成的任务$1",
     "openstackmanager-needrole2": "您必须成为$2计划中$1角色的成员才能执行此操作。",
     "openstackmanager-createsecuritygroup": "创建安全组",
     "openstackmanager-securitygroupname": "安全组名称",
