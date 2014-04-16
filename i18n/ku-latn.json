@@ -1,12 +1,12 @@
 {
-    "@metadata": {
-        "authors": [
-            "George Animal"
-        ]
-    },
-    "openstackmanager-name": "Nav",
-    "openstackmanager-projectname": "Navê projeyê",
-    "openstackmanager-members": "Endam",
-    "openstackmanager-member": "Endam",
-    "openstackmanager-projectlist": "Lîsteya projeyan"
+	"@metadata": {
+		"authors": [
+			"George Animal"
+		]
+	},
+	"openstackmanager-name": "Nav",
+	"openstackmanager-projectname": "Navê projeyê",
+	"openstackmanager-members": "Endam",
+	"openstackmanager-member": "Endam",
+	"openstackmanager-projectlist": "Lîsteya projeyan"
 }

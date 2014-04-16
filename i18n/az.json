@@ -1,17 +1,17 @@
 {
-    "@metadata": {
-        "authors": [
-            "AZISS",
-            "Cekli829"
-        ]
-    },
-    "openstackmanager-delete": "sil",
-    "openstackmanager-location": "Yerləşdiyi yer",
-    "openstackmanager-novavolume-volume": "Cild",
-    "openstackmanager-name": "Ad",
-    "openstackmanager-keys": "Açar",
-    "openstackmanager-members": "İştirakçılar",
-    "openstackmanager-member": "Üzv",
-    "openstackmanager-novaproject-project": "Layihə",
-    "openstackmanager-sudoerusers": "İstifadəçilər"
+	"@metadata": {
+		"authors": [
+			"AZISS",
+			"Cekli829"
+		]
+	},
+	"openstackmanager-delete": "sil",
+	"openstackmanager-location": "Yerləşdiyi yer",
+	"openstackmanager-novavolume-volume": "Cild",
+	"openstackmanager-name": "Ad",
+	"openstackmanager-keys": "Açar",
+	"openstackmanager-members": "İştirakçılar",
+	"openstackmanager-member": "Üzv",
+	"openstackmanager-novaproject-project": "Layihə",
+	"openstackmanager-sudoerusers": "İstifadəçilər"
 }

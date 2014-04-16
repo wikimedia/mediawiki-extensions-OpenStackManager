@@ -1,13 +1,13 @@
 {
-    "@metadata": {
-        "authors": [
-            "Iwan Novirion",
-            "පසිඳු කාවින්ද"
-        ]
-    },
-    "openstackmanager-location": "Lokasi",
-    "openstackmanager-getconsoleoutputfailed": "Gagal untuk mendapatkan output konsol misalnya $1.",
-    "openstackmanager-device": "Peranti",
-    "openstackmanager-name": "Nama",
-    "openstackmanager-securitygroupdescription": "Deskripsi"
+	"@metadata": {
+		"authors": [
+			"Iwan Novirion",
+			"පසිඳු කාවින්ද"
+		]
+	},
+	"openstackmanager-location": "Lokasi",
+	"openstackmanager-getconsoleoutputfailed": "Gagal untuk mendapatkan output konsol misalnya $1.",
+	"openstackmanager-device": "Peranti",
+	"openstackmanager-name": "Nama",
+	"openstackmanager-securitygroupdescription": "Deskripsi"
 }

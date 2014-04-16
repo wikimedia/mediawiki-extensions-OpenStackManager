@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Felicilijonas"
-        ]
-    },
-    "openstackmanager-creationdisabled": "Kūrimas yra išjungtas"
+	"@metadata": {
+		"authors": [
+			"Felicilijonas"
+		]
+	},
+	"openstackmanager-creationdisabled": "Kūrimas yra išjungtas"
 }

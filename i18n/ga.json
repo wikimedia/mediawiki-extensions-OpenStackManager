@@ -1,12 +1,12 @@
 {
-    "@metadata": {
-        "authors": [
-            "පසිඳු කාවින්ද"
-        ]
-    },
-    "openstackmanager-delete": "Scrios",
-    "openstackmanager-name": "Ainm",
-    "openstackmanager-action": "Gníomh",
-    "openstackmanager-deleteproject": "Scrios",
-    "openstackmanager-sudoerusers": "Úsáideoirí"
+	"@metadata": {
+		"authors": [
+			"පසිඳු කාවින්ද"
+		]
+	},
+	"openstackmanager-delete": "Scrios",
+	"openstackmanager-name": "Ainm",
+	"openstackmanager-action": "Gníomh",
+	"openstackmanager-deleteproject": "Scrios",
+	"openstackmanager-sudoerusers": "Úsáideoirí"
 }

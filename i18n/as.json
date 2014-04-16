@@ -1,17 +1,17 @@
 {
-    "@metadata": {
-        "authors": [
-            "Bishnu Saikia"
-        ]
-    },
-    "openstackmanager-delete": "বিলোপ কৰক",
-    "openstackmanager-location": "অৱস্থান",
-    "openstackmanager-name": "নাম",
-    "openstackmanager-members": "সদস্যবৃন্দ",
-    "openstackmanager-member": "সদস্য",
-    "openstackmanager-securitygroupdescription": "বিৱৰণ",
-    "openstackmanager-sudoerusers": "সদস্যসকল",
-    "openstackmanager-sudoerhosts": "অতিথিবৃন্দ",
-    "openstackmanager-sudoercommands": "নিৰ্দেশসমূহ",
-    "openstackmanager-sudoeroptions": "বিকল্পসমূহ"
+	"@metadata": {
+		"authors": [
+			"Bishnu Saikia"
+		]
+	},
+	"openstackmanager-delete": "বিলোপ কৰক",
+	"openstackmanager-location": "অৱস্থান",
+	"openstackmanager-name": "নাম",
+	"openstackmanager-members": "সদস্যবৃন্দ",
+	"openstackmanager-member": "সদস্য",
+	"openstackmanager-securitygroupdescription": "বিৱৰণ",
+	"openstackmanager-sudoerusers": "সদস্যসকল",
+	"openstackmanager-sudoerhosts": "অতিথিবৃন্দ",
+	"openstackmanager-sudoercommands": "নিৰ্দেশসমূহ",
+	"openstackmanager-sudoeroptions": "বিকল্পসমূহ"
 }

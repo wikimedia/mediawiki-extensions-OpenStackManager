@@ -1,31 +1,31 @@
 {
-    "@metadata": {
-        "authors": [
-            "Erdemaslancan",
-            "Mirzali"
-        ]
-    },
-    "specialpages-group-nova": "OpenStack Nova",
-    "openstackmanager-delete": "bestere",
-    "openstackmanager-configure": "awan ke",
-    "openstackmanager-actions": "Kerdışi",
-    "openstackmanager-location": "Lokasyon",
-    "openstackmanager-novavolume-volume": "Venge",
-    "openstackmanager-device": "Cihaz",
-    "openstackmanager-name": "Name",
-    "openstackmanager-keys": "Kıliti",
-    "openstackmanager-members": "Ezay",
-    "openstackmanager-member": "Eza",
-    "openstackmanager-action": "Kerdış",
-    "openstackmanager-deleteproject": "Bestere",
-    "openstackmanager-novaproject-project": "Proce cı ke",
-    "openstackmanager-projects": "Procey",
-    "openstackmanager-toggle": "Toggle",
-    "openstackmanager-roles": "Roli",
-    "openstackmanager-rolename": "Namey roler",
-    "openstackmanager-removerolemember": "Ezay hewad",
-    "openstackmanager-addrolemember": "Eza deke",
-    "openstackmanager-sudoerusers": "Karberi",
-    "openstackmanager-sudoerhosts": "Wêrêkeyi",
-    "openstackmanager-sudoeroptions": "Weçinegi"
+	"@metadata": {
+		"authors": [
+			"Erdemaslancan",
+			"Mirzali"
+		]
+	},
+	"specialpages-group-nova": "OpenStack Nova",
+	"openstackmanager-delete": "bestere",
+	"openstackmanager-configure": "awan ke",
+	"openstackmanager-actions": "Kerdışi",
+	"openstackmanager-location": "Lokasyon",
+	"openstackmanager-novavolume-volume": "Venge",
+	"openstackmanager-device": "Cihaz",
+	"openstackmanager-name": "Name",
+	"openstackmanager-keys": "Kıliti",
+	"openstackmanager-members": "Ezay",
+	"openstackmanager-member": "Eza",
+	"openstackmanager-action": "Kerdış",
+	"openstackmanager-deleteproject": "Bestere",
+	"openstackmanager-novaproject-project": "Proce cı ke",
+	"openstackmanager-projects": "Procey",
+	"openstackmanager-toggle": "Toggle",
+	"openstackmanager-roles": "Roli",
+	"openstackmanager-rolename": "Namey roler",
+	"openstackmanager-removerolemember": "Ezay hewad",
+	"openstackmanager-addrolemember": "Eza deke",
+	"openstackmanager-sudoerusers": "Karberi",
+	"openstackmanager-sudoerhosts": "Wêrêkeyi",
+	"openstackmanager-sudoeroptions": "Weçinegi"
 }

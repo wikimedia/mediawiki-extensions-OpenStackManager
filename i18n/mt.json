@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": [
-            "Chrisportelli"
-        ]
-    },
-    "openstackmanager": "OpenStackManager",
-    "openstackmanager-title": "OpenStackManager"
+	"@metadata": {
+		"authors": [
+			"Chrisportelli"
+		]
+	},
+	"openstackmanager": "OpenStackManager",
+	"openstackmanager-title": "OpenStackManager"
 }

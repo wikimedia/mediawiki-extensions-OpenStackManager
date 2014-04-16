@@ -1,16 +1,16 @@
 {
-    "@metadata": {
-        "authors": [
-            "Joachim Mos"
-        ]
-    },
-    "openstackmanager-delete": "wegsmieten",
-    "openstackmanager-actions": "Akschonen",
-    "openstackmanager-name": "Naam",
-    "openstackmanager-projectname": "Projektnaam",
-    "openstackmanager-members": "Liddmaten",
-    "openstackmanager-member": "Liddmaat",
-    "openstackmanager-action": "Akschoon",
-    "openstackmanager-deleteproject": "Wegdoon",
-    "openstackmanager-sudoerusers": "Brukers"
+	"@metadata": {
+		"authors": [
+			"Joachim Mos"
+		]
+	},
+	"openstackmanager-delete": "wegsmieten",
+	"openstackmanager-actions": "Akschonen",
+	"openstackmanager-name": "Naam",
+	"openstackmanager-projectname": "Projektnaam",
+	"openstackmanager-members": "Liddmaten",
+	"openstackmanager-member": "Liddmaat",
+	"openstackmanager-action": "Akschoon",
+	"openstackmanager-deleteproject": "Wegdoon",
+	"openstackmanager-sudoerusers": "Brukers"
 }

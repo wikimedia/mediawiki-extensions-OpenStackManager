@@ -1,24 +1,24 @@
 {
-    "@metadata": {
-        "authors": [
-            "Incelemeelemani",
-            "Suelnur"
-        ]
-    },
-    "openstackmanager-delete": "sil",
-    "openstackmanager-location": "Konum",
-    "openstackmanager-name": "Ad",
-    "openstackmanager-addmember": "Üye ekle",
-    "openstackmanager-createproject": "Proje ekle",
-    "openstackmanager-members": "Üyeler",
-    "openstackmanager-projectlist": "Proje listesi",
-    "openstackmanager-deleteproject": "Sil",
-    "openstackmanager-novaproject-project": "Proje ekle",
-    "openstackmanager-addrolemember": "Üye ekle",
-    "openstackmanager-addrule-action": "kural ekle",
-    "openstackmanager-sudoerusers": "Kullanıcılar",
-    "openstackmanager-puppetallprojects": "Tüm projeler",
-    "openstackmanager-deletepuppetgroup": "Kukla grubunu sil",
-    "openstackmanager-deletedpuppetgroup": "Silinen kukla grubu.",
-    "openstackmanager-puppetgroupname": "Kukla grubu adı"
+	"@metadata": {
+		"authors": [
+			"Incelemeelemani",
+			"Suelnur"
+		]
+	},
+	"openstackmanager-delete": "sil",
+	"openstackmanager-location": "Konum",
+	"openstackmanager-name": "Ad",
+	"openstackmanager-addmember": "Üye ekle",
+	"openstackmanager-createproject": "Proje ekle",
+	"openstackmanager-members": "Üyeler",
+	"openstackmanager-projectlist": "Proje listesi",
+	"openstackmanager-deleteproject": "Sil",
+	"openstackmanager-novaproject-project": "Proje ekle",
+	"openstackmanager-addrolemember": "Üye ekle",
+	"openstackmanager-addrule-action": "kural ekle",
+	"openstackmanager-sudoerusers": "Kullanıcılar",
+	"openstackmanager-puppetallprojects": "Tüm projeler",
+	"openstackmanager-deletepuppetgroup": "Kukla grubunu sil",
+	"openstackmanager-deletedpuppetgroup": "Silinen kukla grubu.",
+	"openstackmanager-puppetgroupname": "Kukla grubu adı"
 }

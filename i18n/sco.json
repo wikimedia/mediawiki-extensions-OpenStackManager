@@ -1,11 +1,11 @@
 {
-    "@metadata": {
-        "authors": [
-            "John Reid"
-        ]
-    },
-    "openstackmanager-creationdisabled": "Cræftin is disabled",
-    "notification-osm-instance-deleted": "$1 {{GENDER:$1|delytit}} instance \"$3\" in waurk [[$2]]",
-    "notification-osm-instance-build-completed": "$1 {{GENDER:$1|biggit}} instance \"$3\" in waurk [[$2]]",
-    "notification-osm-instance-reboot-completed": "$1 {{GENDER:$1|rebuitit}} instance \"$3\" in waurk [[$2]]"
+	"@metadata": {
+		"authors": [
+			"John Reid"
+		]
+	},
+	"openstackmanager-creationdisabled": "Cræftin is disabled",
+	"notification-osm-instance-deleted": "$1 {{GENDER:$1|delytit}} instance \"$3\" in waurk [[$2]]",
+	"notification-osm-instance-build-completed": "$1 {{GENDER:$1|biggit}} instance \"$3\" in waurk [[$2]]",
+	"notification-osm-instance-reboot-completed": "$1 {{GENDER:$1|rebuitit}} instance \"$3\" in waurk [[$2]]"
 }

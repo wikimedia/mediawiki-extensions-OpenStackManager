@@ -1,16 +1,16 @@
 {
-    "@metadata": {
-        "authors": [
-            "Admresdeserv.",
-            "GreenZeb"
-        ]
-    },
-    "openstackmanager-delete": "dzēst",
-    "openstackmanager-configure": "konfigurēt",
-    "openstackmanager-modify": "mainīt",
-    "openstackmanager-rename": "pārdēvēt",
-    "openstackmanager-reboot": "atsāknēt",
-    "openstackmanager-actions": "Darbības",
-    "openstackmanager-sudoerrunas": "Atļaut darbību ka",
-    "openstackmanager-membersofgroup": "Dala no grupas $1"
+	"@metadata": {
+		"authors": [
+			"Admresdeserv.",
+			"GreenZeb"
+		]
+	},
+	"openstackmanager-delete": "dzēst",
+	"openstackmanager-configure": "konfigurēt",
+	"openstackmanager-modify": "mainīt",
+	"openstackmanager-rename": "pārdēvēt",
+	"openstackmanager-reboot": "atsāknēt",
+	"openstackmanager-actions": "Darbības",
+	"openstackmanager-sudoerrunas": "Atļaut darbību ka",
+	"openstackmanager-membersofgroup": "Dala no grupas $1"
 }

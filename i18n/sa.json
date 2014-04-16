@@ -1,15 +1,15 @@
 {
-    "@metadata": {
-        "authors": [
-            "Ansumang"
-        ]
-    },
-    "openstackmanager-delete": "विलुप्यताम्",
-    "openstackmanager-novainstance-instance": "उदाहरणम्",
-    "openstackmanager-novavolume-volume": "खंड",
-    "openstackmanager-name": "नामन्",
-    "openstackmanager-member": "सदस्य",
-    "openstackmanager-deleteproject": "विलुप्यताम्",
-    "openstackmanager-securitygroupdescription": "वर्णन",
-    "openstackmanager-sudoerusers": "योजकः"
+	"@metadata": {
+		"authors": [
+			"Ansumang"
+		]
+	},
+	"openstackmanager-delete": "विलुप्यताम्",
+	"openstackmanager-novainstance-instance": "उदाहरणम्",
+	"openstackmanager-novavolume-volume": "खंड",
+	"openstackmanager-name": "नामन्",
+	"openstackmanager-member": "सदस्य",
+	"openstackmanager-deleteproject": "विलुप्यताम्",
+	"openstackmanager-securitygroupdescription": "वर्णन",
+	"openstackmanager-sudoerusers": "योजकः"
 }
