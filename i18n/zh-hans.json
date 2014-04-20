@@ -20,6 +20,7 @@
 	"openstackmanager-title": "OpenStackManager",
 	"openstackmanager-badresourcename": "提供了无效资源名称。\n\n资源名称以 a-z 开头并且只能包含 a-z、0-9、- 和 _ 字符。",
 	"action-listall": "显示所有资源信息",
+	"right-listall": "显示所有资源信息",
 	"action-managednsdomain": "管理DNS域",
 	"action-manageglobalpuppet": "管理全局Puppet信息",
 	"specialpages-group-nova": "OpenStack Nova",
