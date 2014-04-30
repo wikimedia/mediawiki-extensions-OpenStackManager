@@ -5,7 +5,8 @@
 			"Justincheng12345",
 			"Littletung",
 			"Oapbtommy",
-			"Simon Shek"
+			"Simon Shek",
+			"Cwlin0416"
 		]
 	},
 	"openstackmanager-desc": "允許用戶管理 Nova 及 Swift",
@@ -148,6 +149,7 @@
 	"openstackmanager-addmember": "增加成員",
 	"openstackmanager-removemember": "刪除成員",
 	"openstackmanager-removeprojectconfirm": "您確定要刪除「$1」項目嗎？此操作對所有的虛擬機有帶來反響，切勿輕率執行！",
+	"openstackmanager-manageservicegroupmembers": "管理成員",
 	"openstackmanager-configureproject": "設定計劃$1",
 	"openstackmanager-configureproject-sharedstorage": "建立共享計劃儲存",
 	"openstackmanager-configureproject-volume": "共享儲存",
