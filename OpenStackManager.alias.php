@@ -102,4 +102,5 @@ $specialPageAliases['zh-hans'] = array(
 /** Traditional Chinese (中文（繁體）‎) */
 $specialPageAliases['zh-hant'] = array(
 	'OpenStackManager' => array( '啟用堆疊組管理' ),
+	'OpenStackManageInstance' => array( '管理實例' ),
 );
