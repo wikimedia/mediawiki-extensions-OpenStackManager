@@ -7,7 +7,8 @@
 			"Luckas",
 			"Malafaya",
 			"SandroHc",
-			"Waldir"
+			"Waldir",
+			"Vitorvicentevalente"
 		]
 	},
 	"openstackmanager-desc": "Permite que os utilizadores façam a gestão do controlador Nova e do armazenamento Swift",
@@ -105,7 +106,7 @@
 	"openstackmanager-modifiedinstance": "A instância $1 ($2) foi modificada.",
 	"openstackmanager-modifyinstancefailed": "Não foi possível modificar a instância.",
 	"openstackmanager-deleteinstancefailed": "Não foi possível eliminar a instância $1 ($2).",
-	"openstackmanager-consoleoutput": "Saída da Consola",
+	"openstackmanager-consoleoutput": "Saída da consola para $1 ($2)",
 	"openstackmanager-getconsoleoutput": "obter saída da consola",
 	"openstackmanager-createvolume": "Criar Volume",
 	"openstackmanager-volumename": "Nome do volume",
@@ -140,9 +141,9 @@
 	"openstackmanager-detachedvolume": "O volume foi desligado.",
 	"openstackmanager-detachvolumefailed": "Não foi possível desligar o volume.",
 	"openstackmanager-novapublickey": "Chave SSH pública",
-	"openstackmanager-deletekey": "Eliminar a chave",
+	"openstackmanager-deletekey": "Eliminar a chave pública SSH",
 	"openstackmanager-deletekeyconfirm": "Tem a certeza de que pretende eliminar a chave acima?",
-	"openstackmanager-keylist": "Lista de chaves",
+	"openstackmanager-keylist": "Lista de chaves públicas SSH",
 	"openstackmanager-name": "Nome",
 	"openstackmanager-fingerprint": "Impressão digital",
 	"openstackmanager-keys": "Chaves",
