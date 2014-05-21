@@ -353,5 +353,6 @@
 	"openstackmanager-twofactorrequired2": "Se requiere autenticación de dos factores. Actívalo y vuelve a intentarlo.",
 	"right-manageproject": "Gestionar proyectos y funciones de OpenStack",
 	"action-manageproject": "Gestionar proyectos y funciones de OpenStack",
-	"right-loginviashell": "Inicio de sesión mediante shell"
+	"right-loginviashell": "Inicio de sesión mediante shell",
+	"prefs-openstack-keys": "Lista de claves"
 }
