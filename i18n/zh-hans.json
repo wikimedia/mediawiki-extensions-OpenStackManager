@@ -180,6 +180,7 @@
 	"openstackmanager-removeservicegroup": "移除服务组",
 	"openstackmanager-manageservicegroupmembers-title": "管理服务组成员",
 	"openstackmanager-manageservicegroupmembers": "管理成员",
+	"openstackmanager-removeservicegroupconfirm": "您确信要删除服务组“$1”么？\n这可能会禁用使用此组运作的工具或机器人。",
 	"openstackmanager-createservicegroupfailed": "创建服务组失败。",
 	"openstackmanager-createdservicegroup": "已创建服务组。",
 	"openstackmanager-removedservicegroup": "已删除服务组。",
