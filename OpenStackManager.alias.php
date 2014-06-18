@@ -13,6 +13,20 @@ $specialPageAliases = array();
 $specialPageAliases['en'] = array(
 	'OpenStackManager' => array( 'OpenStackManager' ),
 	'OpenStackManageInstance' => array( 'Manage Instance' ),
+	'Nova' => array( 'Nova', 'Nova' ),
+	'NovaAddress' => array( 'NovaAddress', 'Nova Address' ),
+	'NovaDomain' => array( 'NovaDomain', 'Nova Domain' ),
+	'NovaInstance' => array( 'NovaInstance', 'Nova Instance' ),
+	'NovaKey' => array( 'NovaKey', 'Nova Key' ),
+	'NovaProject' => array( 'NovaProject', 'Nova Project' ),
+	'NovaProxy' => array( 'NovaProxy', 'Nova Proxy' ),
+	'NovaPuppetGroup' => array( 'NovaPuppetGroup', 'Nova Puppet Group' ),
+	'NovaResources' => array( 'NovaResources', 'Nova Resources' ),
+	'NovaRole' => array( 'NovaRole', 'Nova Role' ),
+	'NovaSecurityGroup' => array( 'NovaSecurityGroup', 'Nova Security Group' ),
+	'NovaServiceGroup' => array( 'NovaServiceGroup', 'Nova Service Group' ),
+	'NovaSudoer' => array( 'NovaSudoer', 'Nova Sudoer' ),
+	'NovaVolume' => array( 'NovaVolume', 'Nova Volume' ),
 );
 
 /** Arabic (العربية) */
