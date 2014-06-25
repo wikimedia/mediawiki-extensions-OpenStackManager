@@ -45,6 +45,19 @@ $specialPageAliases['arz'] = array(
 $specialPageAliases['de'] = array(
 	'OpenStackManager' => array( 'OpenStack-Verwaltung' ),
 	'OpenStackManageInstance' => array( 'Instanz_verwalten' ),
+	'NovaAddress' => array( 'Nova-Adresse' ),
+	'NovaDomain' => array( 'Nova-Domäne' ),
+	'NovaInstance' => array( 'Nova-Instanz' ),
+	'NovaKey' => array( 'Nova-Schlüssel' ),
+	'NovaProject' => array( 'Nova-Projekt' ),
+	'NovaProxy' => array( 'Nova-Proxy' ),
+	'NovaPuppetGroup' => array( 'Nova-Puppengruppe' ),
+	'NovaResources' => array( 'Nova-Ressourcen' ),
+	'NovaRole' => array( 'Nova-Rolle' ),
+	'NovaSecurityGroup' => array( 'Nova-Sicherheitsgruppe' ),
+	'NovaServiceGroup' => array( 'Nova-Dienstgruppe' ),
+	'NovaSudoer' => array( 'Nova-Sudoer' ),
+	'NovaVolume' => array( 'Nova-Datenträger' ),
 );
 
 /** Zazaki (Zazaki) */
