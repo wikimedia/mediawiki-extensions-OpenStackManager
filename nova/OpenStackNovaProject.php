@@ -66,20 +66,12 @@ class OpenStackNovaProject {
 		$this->loaded = true;
 	}
 
-	function hasServiceGroupOU() {
-		global $wgAuth;
-
-		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn,
-				$this->getServiceGroupOUDN(),
-				'(objectclass=organizationalunit)' );
-
-		return $result;
-	}
-
 	function fetchServiceGroups() {
 		global $wgAuth;
+		global $wgOpenStackManagerLDAPServiceGroupBaseDN;
+
 		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn,
-				$this->getServiceGroupOUDN(),
+				$wgOpenStackManagerLDAPServiceGroupBaseDN,
 				'(objectclass=groupofnames)' );
 
 		if ( $result ) {
@@ -88,15 +80,20 @@ class OpenStackNovaProject {
 			if ( isset( $groupList ) ) {
 				array_shift( $groupList );
 				foreach ( $groupList as $groupEntry ) {
-					$this->serviceGroups[] = new OpenStackNovaServiceGroup( $groupEntry['cn'][0], $this );
+					# Now we have every group.  Check if this one belongs to us.
+					$matchstring = $this->projectname . ".";
+					if ( strpos($groupEntry['cn'][0], $matchstring) === 0 ) {
+						$this->serviceGroups[] = new OpenStackNovaServiceGroup( $groupEntry['cn'][0], $this );
+					}
 				}
 			}
 		} else {
 			$this->serviceGroups = array();
 		}
 
+		$serviceUserBaseDN = "ou=people" . "," . $wgOpenStackManagerLDAPServiceGroupBaseDN;
 		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn,
-				$this->getServiceUserOUDN(),
+				$serviceUserBaseDN,
 				'(objectclass=person)' );
 
 		if ( $result ) {
@@ -105,7 +102,12 @@ class OpenStackNovaProject {
 			if ( isset( $userList ) ) {
 				array_shift( $userList );
 				foreach ( $userList as $userEntry ) {
-					$this->serviceUsers[] = $userEntry['cn'][0];
+					# Now we have every user.  Check if this one belongs to us.
+					$matchstring = $this->projectname . ".";
+					if ( strpos($userEntry['cn'][0], $matchstring) === 0 ) {
+						$wgAuth->printDebug( "adding " . $userEntry['cn'][0], NONSENSITIVE );
+						$this->serviceUsers[] = $userEntry['cn'][0];
+					}
 				}
 			}
 		} else {
@@ -432,14 +434,6 @@ class OpenStackNovaProject {
 		return 'ou=sudoers,' . $this->projectDN;
 	}
 
-	function getServiceGroupOUDN() {
-		return 'ou=groups,' . $this->projectDN;
-	}
-
-	function getServiceUserOUDN() {
-		return 'ou=people,' . $this->projectDN;
-	}
-
 	/**
 	 * Remove a member from the project based on username
 	 *
@@ -514,12 +508,6 @@ class OpenStackNovaProject {
 	 */
 	function addServiceGroup( $groupName, $initialUser ) {
 		global $wgAuth;
-
-		# This might be an old project that doesn't know about service groups.
-		if ( !$this->hasServiceGroupOU() ) {
-			OpenStackNovaProject::createServiceGroupOUs( $this->projectname );
-			$this->fetchServiceGroups();
-		}
 
 		$group = OpenStackNovaServiceGroup::createServiceGroup( $groupName, $this, $initialUser );
 		if ( ! $group ) {
@@ -880,18 +868,6 @@ class OpenStackNovaProject {
 			} else {
 				$wgAuth->printDebug( "Failed to delete servie group " . $groupName, NONSENSITIVE );
 			}
-		}
-		$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $project->getServiceGroupOUDN() );
-		if ( $success ) {
-			$wgAuth->printDebug( "Successfully deleted service groups ou " .  $project->getServiceGroupOUDN(), NONSENSITIVE );
-		} else {
-			$wgAuth->printDebug( "Failed to delete service groups ou " .  $project->getServiceGroupOUDN(), NONSENSITIVE );
-		}
-		$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $project->getServiceUserOUDN() );
-		if ( $success ) {
-			$wgAuth->printDebug( "Successfully deleted service users ou " .  $project->getServiceUserOUDN(), NONSENSITIVE );
-		} else {
-			$wgAuth->printDebug( "Failed to delete service users ou " .  $project->getServiceUserOUDN(), NONSENSITIVE );
 		}
 		$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $dn );
 		if ( $success ) {
