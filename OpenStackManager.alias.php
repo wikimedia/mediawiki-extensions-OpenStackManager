@@ -124,6 +124,14 @@ $specialPageAliases['vi'] = array(
 $specialPageAliases['zh-hans'] = array(
 	'OpenStackManager' => array( '打开堆栈管理器' ),
 	'OpenStackManageInstance' => array( '管理实例' ),
+	'NovaAddress' => array( 'Nova地址' ),
+	'NovaDomain' => array( 'Nova域名' ),
+	'NovaKey' => array( 'Nova密钥' ),
+	'NovaProject' => array( 'Nova项目' ),
+	'NovaProxy' => array( 'Nova代理' ),
+	'NovaPuppetGroup' => array( 'Nova傀儡组' ),
+	'NovaSecurityGroup' => array( 'Nova安全组' ),
+	'NovaServiceGroup' => array( 'Nova服务组' ),
 );
 
 /** Traditional Chinese (中文（繁體）‎) */
