@@ -126,12 +126,16 @@ $specialPageAliases['zh-hans'] = array(
 	'OpenStackManageInstance' => array( '管理实例' ),
 	'NovaAddress' => array( 'Nova地址' ),
 	'NovaDomain' => array( 'Nova域名' ),
+	'NovaInstance' => array( 'Nova实例' ),
 	'NovaKey' => array( 'Nova密钥' ),
 	'NovaProject' => array( 'Nova项目' ),
 	'NovaProxy' => array( 'Nova代理' ),
 	'NovaPuppetGroup' => array( 'Nova傀儡组' ),
+	'NovaResources' => array( 'Nova资源' ),
+	'NovaRole' => array( 'Nova角色' ),
 	'NovaSecurityGroup' => array( 'Nova安全组' ),
 	'NovaServiceGroup' => array( 'Nova服务组' ),
+	'NovaVolume' => array( 'Nova容量' ),
 );
 
 /** Traditional Chinese (中文（繁體）‎) */

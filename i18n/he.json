@@ -238,7 +238,7 @@
 	"openstackmanager-novarole-role": "תפקיד Nova",
 	"openstackmanager-novarole-info": "מידע על תפקיד Nova",
 	"openstackmanager-shellaccountname": "שם חשבון מסוף במופע",
-	"openstackmanager-shellaccountname-pref": "שם החשבון לחשבון מסוף במופע:",
+	"openstackmanager-shellaccountname-pref": "שם חשבון המסוף במופע:",
 	"openstackmanager-shellaccountnamehelp": "שם חשבון מסוף נדרש.\nהוא צריך להתחיל באות a-z ויכול להכיל רק את האותיות a-z, הספרות 0-9, ואת התווים -, _.",
 	"openstackmanager-shellaccountvalidationfail": "שם חשבון המסוף שלך אינו תקין.\nהוא חייב להתחיל עם אותיות מ־a עד z ויכול להכיל רק אותיות קטנוית מ־a עד z, ספרות מ־0 עד 9 ותווי -.",
 	"openstackmanager-shellaccountexists": "שם חשבון המסוף הזה כבר בשימוש.",
