@@ -584,6 +584,7 @@ class OpenStackNovaUser {
 			return false;
 		}
 
+                $base = USERDN;
 		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $base, "(uid=$shellaccountname)" );
 		if ( $result ) {
 			$entries = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
