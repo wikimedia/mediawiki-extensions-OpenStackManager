@@ -96,6 +96,20 @@ $specialPageAliases['lb'] = array(
 $specialPageAliases['mk'] = array(
 	'OpenStackManager' => array( 'РаководителСоOpenStack' ),
 	'OpenStackManageInstance' => array( 'РаководиСоПримерок' ),
+	'Nova' => array( 'Nova' ),
+	'NovaAddress' => array( 'NovaАдреса' ),
+	'NovaDomain' => array( 'NovaДомен' ),
+	'NovaInstance' => array( 'NovaПримерок' ),
+	'NovaKey' => array( 'NovaКлуч' ),
+	'NovaProject' => array( 'NovaПроект' ),
+	'NovaProxy' => array( 'NovaЗастапник' ),
+	'NovaPuppetGroup' => array( 'NovaМарионетскаГрупа' ),
+	'NovaResources' => array( 'NovaРесурси' ),
+	'NovaRole' => array( 'NovaУлога' ),
+	'NovaSecurityGroup' => array( 'NovaБезбедноснаГрупа' ),
+	'NovaServiceGroup' => array( 'NovaСлужбенаГрупа' ),
+	'NovaSudoer' => array( 'NovaНаткориснички' ),
+	'NovaVolume' => array( 'NovaОбем' ),
 );
 
 /** Low Saxon (Netherlands) (Nedersaksies) */
