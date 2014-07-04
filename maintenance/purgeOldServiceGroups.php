@@ -6,7 +6,7 @@ if ( getenv( 'MW_INSTALL_PATH' ) ) {
 }
 require_once "$IP/maintenance/Maintenance.php";
 
-class OpenStackNovaTransitionServiceGroups extends Maintenance {
+class OpenStackNovaPurgeOldServiceGroups extends Maintenance {
 	public function __construct() {
 		parent::__construct();
 		$this->mDescription = "Delete all service users and groups of the form n=local-<servicegroup>,ou=groups,cn=<project>,ou=projects,dc=wikimedia,dc=org";
@@ -14,7 +14,6 @@ class OpenStackNovaTransitionServiceGroups extends Maintenance {
 
 	public function execute() {
 		global $wgOpenStackManagerLDAPUsername;
-		global $wgOpenStackManagerServiceGroupPrefix;
 		global $wgAuth;
 
 		$user     = new OpenStackNovaUser( $wgOpenStackManagerLDAPUsername );
@@ -120,5 +119,5 @@ class OpenStackNovaTransitionServiceGroups extends Maintenance {
 	}
 }
 
-$maintClass = "OpenStackNovaTransitionServiceGroups";
+$maintClass = "OpenStackNovaPurgeOldServiceGroups";
 require_once( RUN_MAINTENANCE_IF_MAIN );

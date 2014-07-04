@@ -10,8 +10,8 @@
 class OpenStackNovaHostJob extends Job {
 
 	/**
-	 * @param  $title
-	 * @param  $params
+	 * @param Title $title
+	 * @param array $params
 	 */
 	public function __construct( $title, $params ) {
 		// Replace synchroniseThreadArticleData with the an identifier for your job.

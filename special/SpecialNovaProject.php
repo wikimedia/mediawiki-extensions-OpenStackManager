@@ -409,7 +409,8 @@ class SpecialNovaProject extends SpecialNova {
 			$limitsOut = Html::rawElement( 'ul', array(), $limitsOut );
 			$limitsOut = Html::element( 'h2', array(), $region ) . $limitsOut;
 			$this->getOutput()->addHTML( $limitsOut );
-			}
+		}
+		return true;
 	}
 
 	/**

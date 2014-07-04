@@ -380,13 +380,13 @@ class SpecialNovaProxy extends SpecialNova {
 		$proxyName = $formData['proxyname'];
 		$proxyDomain = $formData['domain'];
 		$outputPage = $this->getOutput();
+		$gatewayIP = $wgOpenStackManagerProxyGateways[$region];
 
 		if ( ! ( array_key_exists( $region, $wgOpenStackManagerProxyGateways ) ) ) {
 			$outputPage->addWikiMsg( 'openstackmanager-addhostfailed', $proxyName, $gatewayIP );
 			$outputPage->addHTML( $goback );
 			return true;
 		}
-		$gatewayIP = $wgOpenStackManagerProxyGateways[$region];
 
 		$domain = OpenStackNovaDomain::getDomainByName( $proxyDomain );
 		$gatewayhostbyip = OpenStackNovaHost::getHostByPublicIP( $gatewayIP );
