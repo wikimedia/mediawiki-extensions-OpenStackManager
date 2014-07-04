@@ -29,9 +29,18 @@ class OpenStackNovaHostJob extends Job {
 	 * @return bool
 	 */
 	public function run() {
+		global $wgUser;
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPUsername;
 		global $wgOpenStackManagerLDAPUserPassword;
+
+		$user = isset( $this->params['user'] )
+			? User::newFromName( $this->params['user'] )
+			: User::newFromName( 'OpenStackManager Extension' );
+		if ( !$user instanceof User ) {
+			$user = User::newFromName( 'OpenStackManager Extension' );
+		}
+		$wgUser = $user;
 
 		$instanceid = $this->params['instanceid'];
 		$instanceosid = $this->params['instanceosid'];

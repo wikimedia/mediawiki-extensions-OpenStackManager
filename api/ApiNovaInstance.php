@@ -17,6 +17,7 @@ class ApiNovaInstance extends ApiBase {
 	}
 
 	function execute() {
+		global $wgUser;
 		$this->params = $this->extractRequestParams();
 
 		$this->userLDAP = new OpenStackNovaUser();
@@ -53,7 +54,8 @@ class ApiNovaInstance extends ApiBase {
 			}
 
 			$title = Title::newMainPage();
-			$params = array( 'instanceid' => $instance->getInstanceId(), 'region' => $this->params['region'] );
+			$params = array( 'instanceid' => $instance->getInstanceId(), 'region' => $this->params['region'],
+                                         'user' => $wgUser->getName() );
 			$job = new OpenStackNovaHostDeleteJob( $title, $params );
 			JobQueueGroup::singleton()->push( $job );
 

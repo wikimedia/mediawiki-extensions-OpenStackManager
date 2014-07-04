@@ -644,6 +644,8 @@ class SpecialNovaInstance extends SpecialNova {
 	 * @return bool
 	 */
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
+		global $wgUser;
+
 		$domain = OpenStackNovaDomain::getDomainByName( $formData['region'] );
 		$project = $formData['project'];
 		$region = $formData['region'];
@@ -665,7 +667,7 @@ class SpecialNovaInstance extends SpecialNova {
 				$instance->setHost( $host );
 				OpenStackManagerEvent::storeEventInfo( 'build', $this->getUser(), $instance, $project );
 				$title = Title::newFromText( $this->getOutput()->getPageTitle() );
-				$job = new OpenStackNovaHostJob( $title, array( 'instanceid' => $instance->getInstanceId(), 'instanceosid' => $instance->getInstanceOSId(), 'project' => $project, 'region' => $region ) );
+				$job = new OpenStackNovaHostJob( $title, array( 'instanceid' => $instance->getInstanceId(), 'instanceosid' => $instance->getInstanceOSId(), 'project' => $project, 'region' => $region, 'user' => $wgUser->getName() ) );
 				$job->insert();
 				$image = $this->userNova->getImage( $instance->getImageId() );
 				$imageName = $image->getImageName();
@@ -696,6 +698,7 @@ class SpecialNovaInstance extends SpecialNova {
 	 * @return bool
 	 */
 	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
+		global $wgUser;
 		$instanceosid = $formData['instanceid'];
 		$instance = $this->userNova->getInstance( $instanceosid );
 		if ( ! $instance ) {
@@ -706,7 +709,7 @@ class SpecialNovaInstance extends SpecialNova {
 		$result = $instance->deleteInstance( $this->userNova );
 		if ( $result ) {
 			$title = Title::newFromText( $this->getOutput()->getPageTitle() );
-			$job = new OpenStackNovaHostDeleteJob( $title, array( 'instanceid' => $instance->getInstanceId(), 'region' => $formData['region'] ) );
+			$job = new OpenStackNovaHostDeleteJob( $title, array( 'instanceid' => $instance->getInstanceId(), 'region' => $formData['region'], 'user' => $wgUser->getName() ) );
 			JobQueueGroup::singleton()->push( $job );
 			$this->getOutput()->addWikiMsg( 'openstackmanager-deletedinstance', $instanceid, $instancename );
 		} else {

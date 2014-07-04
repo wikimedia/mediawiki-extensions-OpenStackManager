@@ -26,6 +26,7 @@ class OpenStackNovaHostDeleteJob extends Job {
 	 */
 	public function run() {
 		global $wgAuth;
+		global $wgUser;
 
 		if ( array_key_exists( 'count', $this->params ) ) {
 			$this->params['count'] += 1;
@@ -37,6 +38,14 @@ class OpenStackNovaHostDeleteJob extends Job {
 			$wgAuth->printDebug( "DNS delete job for $instanceid failed many times, giving up.", NONSENSITIVE );
 			return true;
 		}
+
+		$user = isset( $this->params['user'] )
+			? User::newFromName( $this->params['user'] )
+			: User::newFromName( 'OpenStackManager Extension' );
+		if ( !$user instanceof User ) {
+			$user = User::newFromName( 'OpenStackManager Extension' );
+		}
+		$wgUser = $user;
 
 		$count = $this->params['count'];
 		$instanceid = $this->params['instanceid'];
