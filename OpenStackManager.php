@@ -304,103 +304,6 @@ $wgAPIModules['novaprojectlimits'] = 'ApiNovaProjectLimits';
 # Schema changes
 $wgHooks['LoadExtensionSchemaUpdates'][] = 'efOpenStackSchemaUpdates';
 
-$wgHooks['EchoGetDefaultNotifiedUsers'][] = 'efEchoGetDefaultNotifiedUsers';
-
-/**
- * Handler for EchoGetDefaultNotifiedUsers hook.
- * @param $event EchoEvent to get implicitly subscribed users for
- * @param &$users array to append implicitly subscribed users to.
- * @return bool true in all cases
- */
-function efEchoGetDefaultNotifiedUsers ( $event, &$users ) {
-	if ( $event->getType() == 'osm-instance-build-completed' || $event->getType() == 'osm-instance-deleted' ) {
-		$extra = $event->getExtra(); // Sigh. PHP 5.3 compatability.
-		foreach ( OpenStackNovaProject::getProjectByName( $extra['projectName'] )->getRoles() as $role ) {
-			if ( $role->getRoleName() == 'projectadmin' ) {
-				foreach ( $role->getMembers() as $roleMember ) {
-					$roleMemberUser = User::newFromName( $roleMember );
-					$users[$roleMemberUser->getId()] = $roleMemberUser;
-				}
-			}
-		}
-	} elseif ( $event->getType() == 'osm-instance-reboot-completed' ) {
-		$users[$event->getAgent()->getId()] = $event->getAgent(); // Only notify the person who did it to say the reboot was completed.
-	} elseif ( $event->getType() == 'osm-projectmembers-add' ) {
-		$extra = $event->getExtra(); // PHP 5.3 back-compat...
-		$users[$extra['userAdded']] = User::newFromId( $extra['userAdded'] );
-	}
-	unset( $users[0] );
-	return true;
-}
-
-$wgEchoNotifications['osm-instance-build-completed'] = array(
-	'formatter-class' => 'OpenStackManagerNotificationFormatter',
-	'category' => 'osm-instance-build-completed',
-	'title-message' => 'notification-osm-instance-build-completed',
-	'title-params' => array( 'agent', 'title', 'instance' ),
-	'icon' => 'placeholder',
-	'payload' => array( 'summary' ),
-	'email-subject-message' => 'notification-osm-instance-build-completed-email-subject',
-	'email-subject-params' => array( 'instance' ),
-	'email-body-batch-message' => 'notification-osm-instance-build-completed-email-body-batch',
-	'email-body-batch-params' => array( 'agent', 'title', 'instance' ),
-);
-$wgEchoNotificationCategories['osm-instance-build-completed'] = array(
-	'priority' => 10
-);
-$wgDefaultUserOptions["echo-subscriptions-web-osm-instance-build-completed"] = true;
-$wgDefaultUserOptions["echo-subscriptions-email-osm-instance-build-completed"] = true;
-
-$wgEchoNotifications['osm-instance-reboot-completed'] = array(
-	'formatter-class' => 'OpenStackManagerNotificationFormatter',
-	'category' => 'osm-instance-reboot-completed',
-	'title-message' => 'notification-osm-instance-reboot-completed',
-	'title-params' => array( 'agent', 'title', 'instance' ),
-	'icon' => 'placeholder',
-	'payload' => array( 'summary' ),
-	'email-subject-message' => 'notification-osm-instance-reboot-completed-email-subject',
-	'email-subject-params' => array( 'instance' ),
-	'email-body-batch-message' => 'notification-osm-instance-reboot-completed-email-body-batch',
-	'email-body-batch-params' => array( 'agent', 'title', 'instance' ),
-);
-$wgEchoNotificationCategories['osm-instance-reboot-completed'] = array(
-	'priority' => 10
-);
-$wgDefaultUserOptions["echo-subscriptions-web-osm-instance-reboot-completed"] = true;
-
-$wgEchoNotifications['osm-instance-deleted'] = array(
-	'formatter-class' => 'OpenStackManagerNotificationFormatter',
-	'category' => 'osm-instance-deleted',
-	'title-message' => 'notification-osm-instance-deleted',
-	'title-params' => array( 'agent', 'title', 'instance' ),
-	'icon' => 'trash',
-	'payload' => array( 'summary' ),
-	'email-subject-message' => 'notification-osm-instance-deleted-email-subject',
-	'email-subject-params' => array( 'instance' ),
-	'email-body-batch-message' => 'notification-osm-instance-deleted-email-body-batch',
-	'email-body-batch-params' => array( 'agent', 'title', 'instance' ),
-);
-$wgEchoNotificationCategories['osm-instance-deleted'] = array(
-	'priority' => 10
-);
-$wgDefaultUserOptions["echo-subscriptions-web-osm-instance-deleted"] = true;
-$wgDefaultUserOptions["echo-subscriptions-email-osm-instance-deleted"] = true;
-
-$wgEchoNotifications['osm-projectmembers-add'] = array(
-	'formatter-class' => 'EchoBasicFormatter',
-	'category' => 'osm-projectmembers-add',
-	'title-message' => 'notification-osm-projectmember-added',
-	'title-params' => array( 'agent', 'title' ),
-	'icon' => 'placeholder',
-	'payload' => array( 'summary' ),
-	'email-subject-message' => 'notification-osm-projectmember-added-email-subject',
-	'email-subject-params' => array(),
-	'email-body-batch-message' => 'notification-osm-projectmember-added-email-body-batch',
-	'email-body-batch-params' => array( 'agent', 'title' ),
-);
-$wgDefaultUserOptions["echo-subscriptions-web-osm-projectmembers-add"] = true;
-$wgDefaultUserOptions["echo-subscriptions-email-osm-projectmembers-add"] = true;
-
 /**
  * @param $updater DatabaseUpdater
  * @return bool
@@ -425,6 +328,112 @@ function efOpenStackSchemaUpdates( $updater ) {
 		$updater->addExtensionUpdate( array( 'addIndex', 'openstack_puppet_classes', 'class_group_id', "$base/schema-changes/openstack_add_name_indexes.sql", true ) );
 		break;
 	}
+	return true;
+}
+
+# Echo integration
+$wgHooks['BeforeCreateEchoEvent'][] = 'efOpenStackOnBeforeCreateEchoEvent';
+$wgHooks['EchoGetDefaultNotifiedUsers'][] = 'efOpenStackGetDefaultNotifiedUsers';
+$wgDefaultUserOptions['echo-subscriptions-web-osm-instance-build-completed'] = true;
+$wgDefaultUserOptions['echo-subscriptions-email-osm-instance-build-completed'] = true;
+$wgDefaultUserOptions['echo-subscriptions-web-osm-instance-reboot-completed'] = true;
+$wgDefaultUserOptions['echo-subscriptions-web-osm-instance-deleted'] = true;
+$wgDefaultUserOptions['echo-subscriptions-email-osm-instance-deleted'] = true;
+$wgDefaultUserOptions['echo-subscriptions-web-osm-projectmembers-add'] = true;
+$wgDefaultUserOptions['echo-subscriptions-email-osm-projectmembers-add'] = true;
+
+/**
+ * Add OSM events to Echo.
+ *
+ * @param array $notifications Echo notifications
+ * @param array $notificationCategories Echo notification categories
+ */
+function efOpenStackOnBeforeCreateEchoEvent(
+	&$notifications, &$notificationCategories
+) {
+	$notifications['osm-instance-build-completed'] = array(
+		'formatter-class' => 'OpenStackManagerNotificationFormatter',
+		'category' => 'osm-instance-build-completed',
+		'title-message' => 'notification-osm-instance-build-completed',
+		'title-params' => array( 'agent', 'title', 'instance' ),
+		'icon' => 'placeholder',
+		'payload' => array( 'summary' ),
+		'email-subject-message' => 'notification-osm-instance-build-completed-email-subject',
+		'email-subject-params' => array( 'instance' ),
+		'email-body-batch-message' => 'notification-osm-instance-build-completed-email-body-batch',
+		'email-body-batch-params' => array( 'agent', 'title', 'instance' ),
+	);
+
+	$notifications['osm-instance-reboot-completed'] = array(
+		'formatter-class' => 'OpenStackManagerNotificationFormatter',
+		'category' => 'osm-instance-reboot-completed',
+		'title-message' => 'notification-osm-instance-reboot-completed',
+		'title-params' => array( 'agent', 'title', 'instance' ),
+		'icon' => 'placeholder',
+		'payload' => array( 'summary' ),
+		'email-subject-message' => 'notification-osm-instance-reboot-completed-email-subject',
+		'email-subject-params' => array( 'instance' ),
+		'email-body-batch-message' => 'notification-osm-instance-reboot-completed-email-body-batch',
+		'email-body-batch-params' => array( 'agent', 'title', 'instance' ),
+	);
+
+	$notifications['osm-instance-deleted'] = array(
+		'formatter-class' => 'OpenStackManagerNotificationFormatter',
+		'category' => 'osm-instance-deleted',
+		'title-message' => 'notification-osm-instance-deleted',
+		'title-params' => array( 'agent', 'title', 'instance' ),
+		'icon' => 'trash',
+		'payload' => array( 'summary' ),
+		'email-subject-message' => 'notification-osm-instance-deleted-email-subject',
+		'email-subject-params' => array( 'instance' ),
+		'email-body-batch-message' => 'notification-osm-instance-deleted-email-body-batch',
+		'email-body-batch-params' => array( 'agent', 'title', 'instance' ),
+	);
+
+	$notifications['osm-projectmembers-add'] = array(
+		'formatter-class' => 'EchoBasicFormatter',
+		'category' => 'osm-projectmembers-add',
+		'title-message' => 'notification-osm-projectmember-added',
+		'title-params' => array( 'agent', 'title' ),
+		'icon' => 'placeholder',
+		'payload' => array( 'summary' ),
+		'email-subject-message' => 'notification-osm-projectmember-added-email-subject',
+		'email-subject-params' => array(),
+		'email-body-batch-message' => 'notification-osm-projectmember-added-email-body-batch',
+		'email-body-batch-params' => array( 'agent', 'title' ),
+	);
+
+	return true;
+}
+
+/**
+ * Define who gets notifications for an event.
+ *
+ * @param $event EchoEvent to get implicitly subscribed users for
+ * @param &$users array to append implicitly subscribed users to.
+ * @return bool true in all cases
+ */
+function efOpenStackGetDefaultNotifiedUsers ( $event, &$users ) {
+	if ( $event->getType() == 'osm-instance-build-completed' ||
+		$event->getType() == 'osm-instance-deleted'
+	) {
+		$extra = $event->getExtra();
+		foreach ( OpenStackNovaProject::getProjectByName( $extra['projectName'] )->getRoles() as $role ) {
+			if ( $role->getRoleName() == 'projectadmin' ) {
+				foreach ( $role->getMembers() as $roleMember ) {
+					$roleMemberUser = User::newFromName( $roleMember );
+					$users[$roleMemberUser->getId()] = $roleMemberUser;
+				}
+			}
+		}
+	} elseif ( $event->getType() == 'osm-instance-reboot-completed' ) {
+		// Only notify the person who initiated the reboot.
+		$users[$event->getAgent()->getId()] = $event->getAgent();
+	} elseif ( $event->getType() == 'osm-projectmembers-add' ) {
+		$extra = $event->getExtra();
+		$users[$extra['userAdded']] = User::newFromId( $extra['userAdded'] );
+	}
+	unset( $users[0] );
 	return true;
 }
 
