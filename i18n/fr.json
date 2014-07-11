@@ -15,7 +15,8 @@
 			"Peter17",
 			"Tititou36",
 			"Verdy p",
-			"Wyz"
+			"Wyz",
+			"SnowedEarth"
 		]
 	},
 	"openstackmanager-desc": "Permet aux utilisateurs autorisés de créer et gérer des instances de serveurs virtuels avec un gestionnaire compatible OpenStack, tel que Nova ou Swift.",
@@ -419,9 +420,17 @@
 	"action-manageproject": "gérer les projets et les rôles OpenStack",
 	"right-loginviashell": "Connexion par le shell",
 	"notification-osm-instance-deleted": "$1 {{GENDER:$1|a supprimé}} l’instance '$3' dans le projet [[$2]]",
+	"notification-osm-instance-deleted-email-subject": "Instance «$1» supprimée sur {{SITENAME}}",
+	"notification-osm-instance-deleted-email-body-batch": "$1 a supprimé l'instance «$3» dans le projet [[$2]]",
 	"notification-osm-instance-build-completed": "$1 {{GENDER:$1|a créé}} l’instance « $3 » dans le projet [[$2]]",
+	"notification-osm-instance-build-completed-email-subject": "Instance «$1» construite sur {{SITENAME}}",
+	"notification-osm-instance-build-completed-email-body-batch": "$1 a créé l'instance «$3» dans le projet [[$2]]",
 	"notification-osm-instance-reboot-completed": "$1 {{GENDER:$1|a redémarré}} l’instance '$3' dans le projet [[$2]]",
+	"notification-osm-instance-reboot-completed-email-subject": "Instance «$1» redémarrée sur {{SITENAME}}",
+	"notification-osm-instance-reboot-completed-email-body-batch": "$1 a redémarré l'instance «$3» dans le projet [[$2]]",
 	"notification-osm-projectmember-added": "$1 vous {{GENDER:$1|a ajouté}} au projet [[$2]]",
+	"notification-osm-projectmember-added-email-subject": "Vous avez été ajouté à un projet sur {{SITENAME}}",
+	"notification-osm-projectmember-added-email-body-batch": "$1 vous a ajouté(e) au projet [[$2]]",
 	"echo-category-title-osm-instance-deleted": "Suppression d’une instance (où vous êtes administrateur de projet)",
 	"echo-category-title-osm-instance-build-completed": "Construction d’une instance (où vous êtes administrateur de projet)",
 	"echo-category-title-osm-instance-reboot-completed": "Fin du redémarrage de l’instance",
