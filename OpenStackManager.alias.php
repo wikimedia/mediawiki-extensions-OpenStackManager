@@ -65,6 +65,24 @@ $specialPageAliases['diq'] = array(
 	'OpenStackManager' => array( 'İdaroğaOpenStacki' ),
 );
 
+/** Hebrew (עברית) */
+$specialPageAliases['he'] = array(
+	'OpenStackManager' => array( 'ניהול_OpenStack' ),
+	'OpenStackManageInstance' => array( 'ניהול_מופע' ),
+	'NovaAddress' => array( 'כתובת_Nova' ),
+	'NovaDomain' => array( 'מתחם_Nova' ),
+	'NovaInstance' => array( 'מופע_Nova' ),
+	'NovaKey' => array( 'מפתח_Nova' ),
+	'NovaProject' => array( 'פרויקט_Nova' ),
+	'NovaProxy' => array( 'שרת_מתווך_Nova' ),
+	'NovaPuppetGroup' => array( 'קבוצת_Puppet_של_Nova' ),
+	'NovaResources' => array( 'משאבי_Nova' ),
+	'NovaRole' => array( 'תפקיד_Nova' ),
+	'NovaSecurityGroup' => array( 'קבוצת_אבטחה_של_Nova' ),
+	'NovaServiceGroup' => array( 'קבוצת_שירות_של_Nova' ),
+	'NovaVolume' => array( 'כרך_Nova' ),
+);
+
 /** Interlingua (interlingua) */
 $specialPageAliases['ia'] = array(
 	'OpenStackManager' => array( 'Gerentia_de_OpenStack' ),
