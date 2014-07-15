@@ -33,12 +33,40 @@ $specialPageAliases['en'] = array(
 $specialPageAliases['ar'] = array(
 	'OpenStackManager' => array( 'مدير_ستاك_مفتوح' ),
 	'OpenStackManageInstance' => array( 'التحكم_بها' ),
+	'Nova' => array( 'نوفا' ),
+	'NovaAddress' => array( 'عنوان_نوفا' ),
+	'NovaDomain' => array( 'نطاق_نوفا' ),
+	'NovaInstance' => array( 'واحدة_نوفا' ),
+	'NovaKey' => array( 'مفتاح_نوفا' ),
+	'NovaProject' => array( 'مشروع_نوفا' ),
+	'NovaProxy' => array( 'بروكسي_نوفا' ),
+	'NovaPuppetGroup' => array( 'مجموعة_الدمية_نوفا' ),
+	'NovaResources' => array( 'موارد_نوفا' ),
+	'NovaRole' => array( 'دور_نوفا' ),
+	'NovaSecurityGroup' => array( 'مجموعة_أمان_نوفا' ),
+	'NovaServiceGroup' => array( 'مجموعة_خدمة_نوفا' ),
+	'NovaSudoer' => array( 'نوفا_سودوير' ),
+	'NovaVolume' => array( 'حجم_نوفا' ),
 );
 
 /** Egyptian Spoken Arabic (مصرى) */
 $specialPageAliases['arz'] = array(
 	'OpenStackManager' => array( 'مدير_ستاك_مفتوح' ),
 	'OpenStackManageInstance' => array( 'التحكم_بالانستانس' ),
+	'Nova' => array( 'نوفا' ),
+	'NovaAddress' => array( 'عنوان_نوفا' ),
+	'NovaDomain' => array( 'نطاق_نوفا' ),
+	'NovaInstance' => array( 'واحده_نوفا' ),
+	'NovaKey' => array( 'مفتاح_نوفا' ),
+	'NovaProject' => array( 'مشروع_نوفا' ),
+	'NovaProxy' => array( 'بروكسي_نوفا' ),
+	'NovaPuppetGroup' => array( 'مجموعه_ببيت_نوفا' ),
+	'NovaResources' => array( 'موارد_نوفا' ),
+	'NovaRole' => array( 'دور_نوفا' ),
+	'NovaSecurityGroup' => array( 'مجموعه_امان_نوفا' ),
+	'NovaServiceGroup' => array( 'مجموعه_خدمه_نوفا' ),
+	'NovaSudoer' => array( 'نوفا_سودوير' ),
+	'NovaVolume' => array( 'حجم_نوفا' ),
 );
 
 /** German (Deutsch) */
