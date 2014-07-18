@@ -177,6 +177,7 @@
 	"openstackmanager-sudoerhosts": "Hosty",
 	"openstackmanager-sudoercommands": "Polecenia",
 	"openstackmanager-sudoeroptions": "Opcje",
+	"openstackmanager-allmembers": "Wszyscy uczestnicy projektu",
 	"openstackmanager-deletesudoer": "Usuń regułę sudo",
 	"openstackmanager-deletesudoer-confirm": "Czy na pewno chcesz usunąć regułę sudo $1?",
 	"openstackmanager-createsudoerfailed": "Nie udało się utworzyć reguły sudo.",
