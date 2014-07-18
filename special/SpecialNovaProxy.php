@@ -75,8 +75,10 @@ class SpecialNovaProxy extends SpecialNova {
 		$instances = $this->userNova->getInstances();
 		foreach ( $instances as $instance ) {
 			if ( $instance->getProject() === $this->projectName ) {
-				$instancename = $instance->getHost()->getFullyQualifiedDisplayName();
-				$instance_keys[$instancename] = $instancename;
+				if ( $instance->getHost() ) {
+					$instancename = $instance->getHost()->getFullyQualifiedDisplayName();
+					$instance_keys[$instancename] = $instancename;
+				}
 			}
 		}
 		ksort( $instance_keys );
