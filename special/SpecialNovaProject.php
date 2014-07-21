@@ -481,6 +481,7 @@ class SpecialNovaProject extends SpecialNova {
 				$this->userNova->addSecurityGroupRule( $groupid, $fromport, $toport, $protocol, $range, $sourcegroupid );
 			}
 		}
+		$project->setVolumeSettings(array('home', 'project'));
 		$project->editArticle();
 		$this->getOutput()->addWikiMsg( 'openstackmanager-createdproject' );
 
