@@ -360,5 +360,10 @@
 	"right-manageproject": "Gestionar proyectos y funciones de OpenStack",
 	"action-manageproject": "Gestionar proyectos y funciones de OpenStack",
 	"right-loginviashell": "Inicio de sesión mediante shell",
+	"notification-osm-instance-deleted-email-subject": "Se borró la instancia \"$1\" en {{SITENAME}}",
+	"notification-osm-instance-deleted-email-body-batch": "$1 {{GENDER:$1|borró}} la instancia \"$3\" en el proyecto [[$2]]",
+	"notification-osm-instance-build-completed-email-body-batch": "$1 {{GENDER:$1|construyó}} la instancia \"$3\" en el proyecto [[$2]]",
+	"notification-osm-instance-reboot-completed-email-body-batch": "$1 {{GENDER:$1|reinició}} la instancia \"$3\" en el proyecto [[$2]]",
+	"notification-osm-projectmember-added-email-body-batch": "$1 te {{GENDER:$1|agregó}} al proyecto [[$2]]",
 	"prefs-openstack-keys": "Lista de claves"
 }
