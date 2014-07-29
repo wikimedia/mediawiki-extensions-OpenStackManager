@@ -7,7 +7,8 @@
 			"Oapbtommy",
 			"Simon Shek",
 			"Cwlin0416",
-			"LNDDYL"
+			"LNDDYL",
+			"Liuxinyu970226"
 		]
 	},
 	"openstackmanager-desc": "允許用戶管理 Nova 及 Swift",
@@ -266,7 +267,7 @@
 	"openstackmanager-novasudoer-info": "sudo原則資訊",
 	"openstackmanager-sudoername": "sudo原則名稱",
 	"openstackmanager-commadelimiter": "逗號分隔",
-	"openstackmanager-sudoerusers": "用戶",
+	"openstackmanager-sudoerusers": "使用者",
 	"openstackmanager-sudoerhosts": "主機",
 	"openstackmanager-sudoercommands": "命令",
 	"openstackmanager-sudoeroptions": "選項",

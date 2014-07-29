@@ -6,7 +6,8 @@
 			"Olvin",
 			"Steve.rusyn",
 			"SteveR",
-			"Тест"
+			"Тест",
+			"Ата"
 		]
 	},
 	"openstackmanager-desc": "Дозволяє користувачам керувати Nova і Swift",
@@ -410,9 +411,17 @@
 	"action-manageproject": "управляти проектами та ролями OpenStack",
 	"right-loginviashell": "Вхід через оболонку",
 	"notification-osm-instance-deleted": "$1 {{GENDER:$1|вилучив|вилучила}} примірник '$3' у проекті [[$2]]",
+	"notification-osm-instance-deleted-email-subject": "Приклад «$1» видалено на сайті {{SITENAME}}",
+	"notification-osm-instance-deleted-email-body-batch": "$1 {{GENDER:$1|вилучив|вилучила}} примірник «$3» у проекті [[$2]]",
 	"notification-osm-instance-build-completed": "$1 {{GENDER:$1|побудував|побудувала}} примірник '$3' у проекті [[$2]]",
+	"notification-osm-instance-build-completed-email-subject": "Приклад «$1» вибудувано на сайті {{SITENAME}}",
+	"notification-osm-instance-build-completed-email-body-batch": "$1 {{GENDER:$1|побудував|побудувала}} примірник «$3» у проекті [[$2]]",
 	"notification-osm-instance-reboot-completed": "$1 {{GENDER:$1|перевантажив|перевантажила}} примірник '$3' у проекті [[$2]]",
+	"notification-osm-instance-reboot-completed-email-subject": "Приклад «$1» перезавантажено на сайті {{SITENAME}}",
+	"notification-osm-instance-reboot-completed-email-body-batch": "$1 {{GENDER:$1|перевантажив|перевантажила}} примірник «$3» у проекті [[$2]]",
 	"notification-osm-projectmember-added": "$1 {{GENDER:$1|додав|додала}} вас до проекту [[$2]]",
+	"notification-osm-projectmember-added-email-subject": "Ви були додані до проекту на сайті {{SITENAME}}",
+	"notification-osm-projectmember-added-email-body-batch": "$1 {{GENDER:$1|додав|додала}} Вас до проекту [[$2]]",
 	"echo-category-title-osm-instance-deleted": "Вилучення примірника (де ви - адміністратор проекту)",
 	"echo-category-title-osm-instance-build-completed": "Побудова примірника (де ви - адміністратор проекту)",
 	"echo-category-title-osm-instance-reboot-completed": "Завершення перезавантаження примірника",
