@@ -121,6 +121,7 @@
 	"openstackmanager-deleteinstancefailed": "删除实例$1失败（$2）。",
 	"openstackmanager-consoleoutput": "$1（$2）的控制台输出",
 	"openstackmanager-getconsoleoutput": "获得控制台输出",
+	"openstackmanager-getconsoleoutputfailed": "为实例$1获取控制台输出失败。",
 	"openstackmanager-createvolume": "创建卷",
 	"openstackmanager-volumename": "卷名",
 	"openstackmanager-volumeid": "卷ID",
