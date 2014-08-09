@@ -4,7 +4,8 @@
 			"Dani",
 			"Dj",
 			"Misibacsi",
-			"Tacsipacsi"
+			"Tacsipacsi",
+			"Csega"
 		]
 	},
 	"openstackmanager-desc": "Lehetővé teszi, hogy a felhasználók kezeljék a Novát és Swiftet",
@@ -35,7 +36,7 @@
 	"openstackmanager-notloggedin": "Bejelentkezés szükséges",
 	"openstackmanager-mustbeloggedin": "A művelet végrehajtásához be kell jelentkezned.",
 	"openstackmanager-nonovacred": "Nem található Nova hitelesítő adat a fiókodban.",
-	"openstackmanager-noaccount": "A fiókod nincs a kért $1 projektben.",
+	"openstackmanager-noaccount": "A fiókod nincs a(z) $1 projektben.",
 	"openstackmanager-nonexistentresource": "A megadott erőforrás nem létezik.",
 	"openstackmanager-createdomain": "Domain létrehozása",
 	"openstackmanager-deletedomain": "Domain törlése",
