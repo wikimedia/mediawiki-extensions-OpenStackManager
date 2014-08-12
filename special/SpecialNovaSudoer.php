@@ -348,11 +348,17 @@ class SpecialNovaSudoer extends SpecialNova {
 		$runas_keys = array();
 		$runas_defaults = array();
 
-		# Add the 'all project members' option to the top
+		# 'ALL' includes all possible users, including system users and service users.
+		$runas_keys['ALL'] = 'ALL';
+		if ( in_array( 'ALL', $runasmembers ) ) {
+			$runas_defaults['ALL'] = 'ALL';
+		}
+
+		# A safer option is 'all project members'
 		$projectGroup = "%" . $project->getProjectGroup()->getProjectGroupName();
 		$all_members = $this->msg( 'openstackmanager-allmembers' )->text();
 		$runas_keys[$all_members] = $all_members;
-		if ( in_array( 'ALL', $runasmembers ) || in_array ( $projectGroup, $runasmembers ) ) {
+		if ( in_array ( $projectGroup, $runasmembers ) ) {
 			$runas_defaults[$all_members] = $all_members;
 		}
 
@@ -463,8 +469,6 @@ class SpecialNovaSudoer extends SpecialNova {
 		foreach ( $leftovers as $leftover ) {
 			if ( $leftover == $AllProjectMembers ) {
 				array_unshift( $HRList, $this->msg( 'openstackmanager-allmembers' )->text() );
-			} elseif ( $leftover == 'ALL' ) {
-				array_unshift( $HRList, $this->msg( 'openstackmanager-allmembers' )->text() );
 			} elseif ( $leftover[0] == '%' ) {
 				array_unshift( $HRList, $this->msg( 'openstackmanager-membersofgroup', substr( $leftover, 1 ) ) );
 			} else {
@@ -553,7 +557,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	 *  @ param $users: a list of usernames and/or 'openstackmanager-allmembers'
 	 *  @ return modified list of usernames
 	 *
-	 *  This function replaces the problematic 'ALL' with a reference
+	 *  This function replaces 'ALL' and 'All project members' with a reference
 	 *   to the project user group.
 	 *
 	 */
@@ -561,6 +565,29 @@ class SpecialNovaSudoer extends SpecialNova {
 		$newusers = array();
 		foreach ( $users as $user ) {
 			if ( ( $user == 'ALL' ) || ( $user == $this->msg( 'openstackmanager-allmembers' )->text() )) {
+				$newusers[] = "%" . $this->project->getProjectGroup()->getProjectGroupName();
+			} else {
+				$newusers[] = $user;
+			}
+		}
+		return $newusers;
+	}
+
+	/**
+	 *
+	 *  @ param $users: a list of usernames and/or 'openstackmanager-allmembers'
+	 *  @ return modified list of usernames
+	 *
+	 *  This function replaces 'All project members' with a reference
+	 *   to the project user group.  It differes from Remove ALLFromUserKeys
+	 *   because it preserves the string 'ALL' which is useful in the 'run as'
+	 *   context.
+	 *
+	 */
+	function removeALLFromRunAsUserKeys( $users ) {
+		$newusers = array();
+		foreach ( $users as $user ) {
+			if ( ( $user == $this->msg( 'openstackmanager-allmembers' )->text() ) ) {
 				$newusers[] = "%" . $this->project->getProjectGroup()->getProjectGroupName();
 			} else {
 				$newusers[] = $user;
@@ -590,7 +617,7 @@ class SpecialNovaSudoer extends SpecialNova {
 		} else {
 			$options[] = '!authenticate';
 		}
-		$runasusers = $this->removeALLFromUserKeys($formData['runas']);
+		$runasusers = $this->removeALLFromRunAsUserKeys($formData['runas']);
 		$success = OpenStackNovaSudoer::createSudoer( $formData['sudoername'], $formData['project'], $this->removeALLFromUserKeys($formData['users']), $formData['hosts'], $runasusers, $commands, $options );
 		if ( ! $success ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-createsudoerfailed' );
@@ -674,9 +701,9 @@ class SpecialNovaSudoer extends SpecialNova {
 				}
 			}
 
-			$runasusers = $this->removeALLFromUserKeys($formData['runas']);
+			$runasusers = $this->removeALLFromRunAsUserKeys($formData['runas']);
 			foreach ( $sudoer->getSudoerRunAsUsers() as $candidate ) {
-				if ( $candidate != $projectGroup ) {
+				if ( ( $candidate != $projectGroup ) && ( $candidate != 'ALL' ) ) {
 					if ( ( ! in_array( $candidate, $projectuids ) ) && ( ! in_array( $candidate, $projectserviceusers ) ) ) {
 						$runasusers[] = $candidate;
 					}
