@@ -299,6 +299,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	function getSudoUsers( $projectName, $sudoer=null ) {
 		$project = OpenStackNovaProject::getProjectByName( $projectName );
 		$projectuids = $project->getMemberUids();
+		$projectserviceusers = $project->getServiceUsers();
 
 		$sudomembers = array();
 		if ( $sudoer ) {
@@ -323,12 +324,21 @@ class SpecialNovaSudoer extends SpecialNova {
 				$user_defaults[$projectmember] = $userUid;
 			}
 		}
+
+		foreach ( $projectserviceusers as $serviceuser ) {
+			$user_keys[$serviceuser] = $serviceuser;
+			if ( in_array( $serviceuser, $sudomembers ) ) {
+				$user_defaults[$serviceuser] = $serviceuser;
+			}
+		}
+
 		return array( 'keys' => $user_keys, 'defaults' => $user_defaults );
 	}
 
 	function getSudoRunAsUsers( $projectName, $sudoer=null ) {
 		$project = OpenStackNovaProject::getProjectByName( $projectName );
 		$projectuids = $project->getMemberUids();
+		$projectserviceusers = $project->getServiceUsers();
 
 		$runasmembers = array();
 		if ( $sudoer ) {
@@ -354,6 +364,14 @@ class SpecialNovaSudoer extends SpecialNova {
 				$runas_defaults[$projectmember] = $userUid;
 			}
 		}
+
+		foreach ( $projectserviceusers as $serviceuser ) {
+			$runas_keys[$serviceuser] = $serviceuser;
+			if ( in_array( $serviceuser, $runasmembers ) ) {
+				$runas_defaults[$serviceuser] = $serviceuser;
+			}
+		}
+
 		return array( 'keys' => $runas_keys, 'defaults' => $runas_defaults );
 	}
 
@@ -641,6 +659,7 @@ class SpecialNovaSudoer extends SpecialNova {
 			$projectName = $formData['project'];
 			$project = OpenStackNovaProject::getProjectByName( $projectName );
 			$projectuids = $project->getMemberUids();
+			$projectserviceusers = $project->getServiceUsers();
 			$projectGroup = "%" . $project->getProjectGroup()->getProjectGroupName();
 
 			$users = $this->removeALLFromUserKeys($formData['users']);
@@ -649,7 +668,7 @@ class SpecialNovaSudoer extends SpecialNova {
 				# Anything in this list that isn't a user or  ALL
 				# wasn't exposed to user selection so needs to stay.
 				if ( $candidate != $projectGroup ) {
-					if ( ! in_array( $candidate, $projectuids ) ) {
+					if ( ( ! in_array( $candidate, $projectuids ) ) && ( ! in_array( $candidate, $projectserviceusers ) ) ) {
 						$users[] = $candidate;
 					}
 				}
@@ -658,7 +677,7 @@ class SpecialNovaSudoer extends SpecialNova {
 			$runasusers = $this->removeALLFromUserKeys($formData['runas']);
 			foreach ( $sudoer->getSudoerRunAsUsers() as $candidate ) {
 				if ( $candidate != $projectGroup ) {
-					if ( ! in_array( $candidate, $projectuids ) ) {
+					if ( ( ! in_array( $candidate, $projectuids ) ) && ( ! in_array( $candidate, $projectserviceusers ) ) ) {
 						$runasusers[] = $candidate;
 					}
 				}
