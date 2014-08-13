@@ -749,12 +749,20 @@ class OpenStackNovaProject {
 				# TODO: If project group creation fails we need to be able to fail gracefully
 			}
 
-			// Create a default, permissive sudo policy.
+			// Create two default, permissive sudo policies.  First,
+                        //  allow sudo (as root) for all members...
 			$projectGroup = "%" . $project->getProjectGroup()->getProjectGroupName();
-			if ( OpenStackNovaSudoer::createSudoer( 'default', $projectname, array( $projectGroup ),
+			if ( OpenStackNovaSudoer::createSudoer( 'default-sudo', $projectname, array( $projectGroup ),
 						array( 'ALL' ), array(),  array( 'ALL' ),
 						array( '!authenticate' ) ) ) {
 				$wgAuth->printDebug( "Successfully created default sudo policy for $projectname", NONSENSITIVE );
+			}
+			// Now, allow all project members to sudo to all other users.
+			$projectGroup = "%" . $project->getProjectGroup()->getProjectGroupName();
+			if ( OpenStackNovaSudoer::createSudoer( 'default-sudo-as', $projectname, array( $projectGroup ),
+						array( 'ALL' ), array( "$projectGroup" ),  array( 'ALL' ),
+						array( '!authenticate' ) ) ) {
+				$wgAuth->printDebug( "Successfully created default sudo-as policy for $projectname", NONSENSITIVE );
 			}
 		} else {
 			$wgAuth->printDebug( "Failed to add project $projectname", NONSENSITIVE );
