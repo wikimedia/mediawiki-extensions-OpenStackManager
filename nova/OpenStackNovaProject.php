@@ -246,7 +246,7 @@ class OpenStackNovaProject {
 	 *
 	 * @return array
 	 */
-	function getMemberUIDs() {
+	function getMemberUids() {
 		$this->loadMembers();
 		return array_keys( $this->members );
 	}
