@@ -182,6 +182,7 @@
 	"openstackmanager-manageservicegroupmembers-title": "管理服务组成员",
 	"openstackmanager-manageservicegroupmembers": "管理成员",
 	"openstackmanager-removeservicegroupconfirm": "您确信要删除服务组“$1”么？\n这可能会禁用使用此组运作的工具或机器人。",
+	"openstackmanager-servicegrouprecursewarning": "当心！加入服务用户至此组将允许其他组的所有成员访问此组。这也将允许有权访问任何组的成员加入此组，等等。请在选择“{{int:openstackmanager-serviceuser}}”选项前确信您信任任何人并知道您之前做了什么。",
 	"openstackmanager-createservicegroupfailed": "创建服务组失败。",
 	"openstackmanager-createdservicegroup": "已创建服务组。",
 	"openstackmanager-removedservicegroup": "已删除服务组。",

@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Anakmalaysia"
+			"Anakmalaysia",
+			"Pizza1016"
 		]
 	},
 	"openstackmanager-desc": "Izinkan pengguna menguruskan Nova dan Swift",
@@ -37,7 +38,7 @@
 	"openstackmanager-notloggedin": "Log masuk diperlukan",
 	"openstackmanager-mustbeloggedin": "Anda mesti log masuk untuk melakukan tindakan ini.",
 	"openstackmanager-nonovacred": "Tiada watikah Nova dalam akaun anda.",
-	"openstackmanager-nonovacred-admincreate": "Tidak terdapat watikah Nova bagi akaun pengguna anda. Sila hubungi pentadbir Nova untuk membuat watikah untuk anda.",
+	"openstackmanager-nonovacred-admincreate": "Tiada tauliah-tauliah Nova didapati dalam akaun pengguna anda.\nSila hubungi penyelia Nova untuk membuat tauliah untuk anda.",
 	"openstackmanager-noaccount": "Akaun anda tiada dalam projek $1.",
 	"openstackmanager-noaccount2": "Anda tidak boleh melengkapkan tindakan yang dipohon kerana akaun pengguna anda tiada dalam projek $1.",
 	"openstackmanager-nonexistentresource": "Sumber yang dinyatakan tidak wujud.",
