@@ -9,8 +9,8 @@
 
 class OpenStackNovaSecurityGroup {
 
-	var $group;
-	var $rules;
+	public $group;
+	public $rules;
 
 	/**
 	 * @param $apiInstanceResponse

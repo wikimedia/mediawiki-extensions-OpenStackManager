@@ -9,7 +9,7 @@
 
 class OpenStackNovaKeyPair {
 
-	var $keypair;
+	public $keypair;
 
 	/**
 	 * @param  $apiKeypairResponse

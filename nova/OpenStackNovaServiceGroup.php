@@ -8,10 +8,10 @@
  */
 
 class OpenStackNovaServiceGroup {
-	var $groupName;
-	var $groupDN;
-	var $groupInfo;
-	var $project;
+	public $groupName;
+	public $groupDN;
+	public $groupInfo;
+	public $project;
 
 	/**
 	 * @param  $groupname string

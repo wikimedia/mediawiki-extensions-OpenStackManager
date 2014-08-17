@@ -9,7 +9,7 @@
 
 class OpenStackNovaVolume {
 
-	var $volume;
+	public $volume;
 
 	/**
 	 * @param $apiVolumeResponse

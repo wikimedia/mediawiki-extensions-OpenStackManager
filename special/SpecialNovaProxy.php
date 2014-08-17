@@ -8,8 +8,8 @@
  */
 
 class SpecialNovaProxy extends SpecialNova {
-	var $userLDAP;
-	var $userNova;
+	public $userLDAP;
+	public $userNova;
 
 	function __construct() {
 		parent::__construct( 'NovaProxy' );

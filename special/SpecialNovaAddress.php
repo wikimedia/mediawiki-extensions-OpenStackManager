@@ -8,12 +8,12 @@
  */
 
 class SpecialNovaAddress extends SpecialNova {
-	var $userNova;
+	public $userNova;
 
 	/**
 	 * @var OpenStackNovaUser
 	 */
-	var $userLDAP;
+	public $userLDAP;
 
 	function __construct() {
 		parent::__construct( 'NovaAddress' );

@@ -11,12 +11,12 @@ class SpecialNovaProject extends SpecialNova {
 		/**
 	 * @var OpenStackNovaUser
 	 */
-	var $userLDAP;
+	public $userLDAP;
 
 	/**
 	 * @var OpenStackNovaController
 	 */
-	var $userNova;
+	public $userNova;
 
 	function __construct() {
 		parent::__construct( 'NovaProject', 'manageproject' );

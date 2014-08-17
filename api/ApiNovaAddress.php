@@ -1,8 +1,8 @@
 <?php
 class ApiNovaAddress extends ApiBase {
-	var $userLDAP;
-	var $userNova;
-	var $params;
+	public $userLDAP;
+	public $userNova;
+	public $params;
 
 	public function canExecute() {
 		if ( ! $this->userLDAP->exists() ) {

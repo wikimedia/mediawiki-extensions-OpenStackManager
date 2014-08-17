@@ -21,10 +21,10 @@
  */
 
 class OpenStackNovaProjectGroup  {
-	var $projectName;
-	var $projectGroupInfo;
-	var $projectGroupDN;
-	var $loaded;
+	public $projectName;
+	public $projectGroupInfo;
+	public $projectGroupDN;
+	public $loaded;
 
 	static $prefix = 'project-';
 

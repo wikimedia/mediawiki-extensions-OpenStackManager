@@ -9,17 +9,17 @@
 
 class OpenStackNovaInstance {
 
-	var $instance;
+	public $instance;
 
 	/**
 	 * @var string
 	 */
-	var $region;
+	public $region;
 
 	/**
 	 * @var OpenStackNovaHost
 	 */
-	var $host;
+	public $host;
 
 	/**
 	 * @param  $apiInstanceResponse

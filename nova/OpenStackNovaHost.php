@@ -12,17 +12,17 @@ class OpenStackNovaHost {
 	/**
 	 * @var string
 	 */
-	var $hostDN;
+	public $hostDN;
 
 	/**
 	 * @var mixed
 	 */
-	var $hostInfo;
+	public $hostInfo;
 
 	/**
 	 * @var OpenStackNovaDomain
 	 */
-	var $domainCache;
+	public $domainCache;
 
 	/**
 	 * Return all arecords associated with this host. Return an empty

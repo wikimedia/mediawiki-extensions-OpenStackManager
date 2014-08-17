@@ -9,7 +9,7 @@
 
 class OpenStackNovaInstanceType {
 
-	var $instanceType;
+	public $instanceType;
 
 	/**
 	 * @param  $apiInstanceResponse

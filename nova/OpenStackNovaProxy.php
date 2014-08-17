@@ -9,9 +9,9 @@
 
 class OpenStackNovaProxy {
 
-	var $proxyFQDN;
-	var $backendName;
-	var $backendPort;
+	public $proxyFQDN;
+	public $backendName;
+	public $backendPort;
 
 	/**
 	 * @param $sudoername

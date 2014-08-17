@@ -9,9 +9,9 @@
 
 class OpenStackNovaUser {
 
-	var $username;
-	var $userDN;
-	var $userInfo;
+	public $username;
+	public $userDN;
+	public $userInfo;
 
 	/**
 	 * @param string $username

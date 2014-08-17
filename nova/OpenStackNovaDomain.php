@@ -9,10 +9,10 @@
 
 class OpenStackNovaDomain {
 
-	var $domainname;
-	var $domainDN;
-	var $domainInfo;
-	var $fqdn; // fq domain name
+	public $domainname;
+	public $domainDN;
+	public $domainInfo;
+	public $fqdn; // fq domain name
 
 	/**
 	 * @param  $domainname

@@ -8,10 +8,10 @@
  */
 
 class OpenStackNovaRole {
-	var $rolename;
-	var $roleDN;
-	var $roleInfo;
-	var $project;
+	public $rolename;
+	public $roleDN;
+	public $roleInfo;
+	public $project;
 
 	/**
 	 * @param  $rolename
