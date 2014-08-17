@@ -12,7 +12,7 @@ class OpenStackNovaPublicHost extends OpenStackNovaHost {
 	/**
 	 * @var string
 	 */
-	var $ip;
+	public $ip;
 
 	/**
 	 * @param  $ip

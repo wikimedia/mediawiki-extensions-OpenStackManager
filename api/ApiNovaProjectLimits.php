@@ -1,8 +1,8 @@
 <?php
 class ApiNovaProjectLimits extends ApiBase {
-	var $userLDAP;
-	var $userNova;
-	var $params;
+	public $userLDAP;
+	public $userNova;
+	public $params;
 
 	public function canExecute( $rights=array() ) {
 		if ( ! $this->userLDAP->exists() ) {

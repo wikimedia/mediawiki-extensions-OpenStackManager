@@ -2,7 +2,7 @@
 
 class OpenStackNovaSecurityGroupRule {
 
-	var $rule;
+	public $rule;
 
 	/**
 	 * @param  $apiInstanceResponse

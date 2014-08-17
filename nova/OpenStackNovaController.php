@@ -8,11 +8,11 @@
  */
 
 class OpenStackNovaController {
-	var $username;
-	var $user;
-	var $project;
-	var $region;
-	var $token;
+	public $username;
+	public $user;
+	public $project;
+	public $region;
+	public $token;
 
 	/**
 	 * @param $user string

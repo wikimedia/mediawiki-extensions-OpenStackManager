@@ -9,7 +9,7 @@
 
 class OpenStackNovaAddress {
 
-	var $address;
+	public $address;
 
 	/**
 	 * @param  $apiInstanceResponse

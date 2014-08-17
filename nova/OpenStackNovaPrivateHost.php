@@ -12,12 +12,12 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 	/**
 	 * @var string
 	 */
-	var $instanceid;
+	public $instanceid;
 
 	/**
 	 * @var string
 	 */
-	var $region;
+	public $region;
 
 	/**
 	 * @param  $instanceid

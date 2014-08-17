@@ -8,12 +8,12 @@
  */
 
 class OpenStackNovaProject {
-	var $projectname;
-	var $projectDN;
-	var $projectInfo;
-	var $roles;
-	var $loaded;
-	var $projectGroup;
+	public $projectname;
+	public $projectDN;
+	public $projectInfo;
+	public $roles;
+	public $loaded;
+	public $projectGroup;
 
 	// list of roles
 	static $rolenames = array( 'projectadmin' );

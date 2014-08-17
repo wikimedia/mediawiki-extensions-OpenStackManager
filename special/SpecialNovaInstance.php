@@ -18,12 +18,12 @@ class SpecialNovaInstance extends SpecialNova {
 	/**
 	 * @var OpenStackNovaController
 	 */
-	var $userNova;
+	public $userNova;
 
 	/**
 	 * @var OpenStackNovaUser
 	 */
-	var $userLDAP;
+	public $userLDAP;
 
 	function __construct() {
 		parent::__construct( 'NovaInstance' );

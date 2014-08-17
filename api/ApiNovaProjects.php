@@ -1,7 +1,7 @@
 <?php
 class ApiNovaProjects extends ApiBase {
-	var $userLDAP;
-	var $params;
+	public $userLDAP;
+	public $params;
 
 	function execute() {
 		$this->params = $this->extractRequestParams();

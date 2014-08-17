@@ -9,7 +9,7 @@
 
 class OpenStackNovaImage {
 
-	var $image;
+	public $image;
 
 	/**
 	 * @param  $apiInstanceResponse

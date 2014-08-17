@@ -9,10 +9,10 @@
 
 class OpenStackNovaSudoer {
 
-	var $sudoername;
-	var $project;
-	var $sudoerDN;
-	var $sudoerInfo;
+	public $sudoername;
+	public $project;
+	public $sudoerDN;
+	public $sudoerInfo;
 
 	/**
 	 * @param $sudoername
