@@ -235,10 +235,6 @@ class SpecialNovaInstance extends SpecialNova {
 			'name' => 'project',
 		);
 
-		if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
-			$this->setPuppetInfo( $instanceInfo );
-		}
-
 		$instanceInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'create',
