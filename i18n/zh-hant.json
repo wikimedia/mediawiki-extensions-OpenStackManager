@@ -328,5 +328,6 @@
 	"openstackmanager-failedtodeletepuppetvar": "刪除傀儡變數失敗。",
 	"openstackmanager-email-subject": "您的實例已經準備登入。",
 	"openstackmanager-email-body": "以下的實例已經創造好，並可以登入：",
-	"right-manageproject": "管理OpenStack項目及作用"
+	"right-manageproject": "管理OpenStack項目及作用",
+	"echo-category-title-osm-projectmembers-add": "專案成員加入"
 }
