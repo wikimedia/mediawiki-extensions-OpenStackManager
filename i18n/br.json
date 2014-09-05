@@ -127,6 +127,7 @@
 	"openstackmanager-removeprojectconfirm": "Ha sur oc'h e fell deoc'h  diverkañ ar raktres \"$1\" ? Emplegadennoù en do an ober-mañ war an holl vekanikoù galloudel (VM). Na rit ket se diwar skañv !",
 	"openstackmanager-manageservicegroupmembers": "Merañ an izili",
 	"openstackmanager-configureproject": "Kefluniañ ar raktres $1",
+	"openstackmanager-configureproject-serviceuserinfo": "(Er patrom homedir e vo erlec'hiet %u gant an anv implijer ha %p gant \"$1\".)",
 	"openstackmanager-displayquotas": "Kotaioù evit ar raktres $1",
 	"openstackmanager-displayquotas-action": "Diskwel ar c'hotaioù",
 	"openstackmanager-displayquotas-ram": "Memor : $1/$2",
@@ -153,7 +154,7 @@
 	"openstackmanager-projectfiltersubmit": "Lakaat ar sil",
 	"openstackmanager-toggle": "Gwintañ",
 	"openstackmanager-roles": "Roloù",
-	"openstackmanager-rolename": "Anv ar rol",
+	"openstackmanager-rolename": "Roll",
 	"openstackmanager-removerolemember": "Diverkañ an ezel",
 	"openstackmanager-addrolemember": "Ouzhpennañ un ezel",
 	"openstackmanager-rolelist": "Listenn ar rolloù hollek",
@@ -245,6 +246,8 @@
 	"openstackmanager-sudoerhosts": "Ostizien",
 	"openstackmanager-sudoercommands": "Urzhiadoù",
 	"openstackmanager-sudoeroptions": "Dibarzhioù",
+	"openstackmanager-allmembers": "Holl izili ar raktres",
+	"openstackmanager-membersofgroup": "Izili eus ar strollad $1",
 	"openstackmanager-deletesudoer": "Diverkañ ur reolenn Sudo",
 	"openstackmanager-deletesudoer-confirm": "Ha sur oc'h e fell deoc'h diverkañ ar reolenn Sudo $1 ?",
 	"openstackmanager-createsudoerfailed": "N'eus ket bet gallet krouiñ ar reolenn Sudo.",
@@ -270,5 +273,6 @@
 	"openstackmanager-email-subject": "Prest eo hoc'h urzhiataer galloudel da vezañ kevreet.",
 	"openstackmanager-email-body": "Krouet eo bet an urzhiataerioù galloudel-mañ ha prest int da vezañ kevreet :",
 	"right-manageproject": "Merañ raktresoù ha rolloù Openstack",
+	"notification-osm-projectmember-added-email-subject": "Ouzhpennet oc'h bet d'ur raktres war {{SITENAME}}",
 	"prefs-openstack-keys": "Roll an alc'hwezioù"
 }
