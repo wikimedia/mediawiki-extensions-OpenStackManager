@@ -3,7 +3,8 @@
 		"authors": [
 			"Hym411",
 			"Priviet",
-			"아라"
+			"아라",
+			"Revi"
 		]
 	},
 	"openstackmanager-desc": "사용자가 Nova와 Swift를 관리 할 수 ​​있습니다",
@@ -407,9 +408,17 @@
 	"action-manageproject": "OpenStack 프로젝트와 역할 관리",
 	"right-loginviashell": "셸을 통해 로드인",
 	"notification-osm-instance-deleted": "$1 사용자가 [[$2]] 프로젝트에 '$3' 인스턴스를 {{GENDER:$1|삭제했습니다}}",
+	"notification-osm-instance-deleted-email-subject": "{{SITENAME}}에서 인스턴스 \"$1\" 이/가 삭제되었습니다.",
+	"notification-osm-instance-deleted-email-body-batch": "$1 사용자가 프로젝트 [[$2]]의 인스턴스 \"$3\"을 {{GENDER:$1|삭제}}하였습니다",
 	"notification-osm-instance-build-completed": "$1 사용자가 [[$2]] 프로젝트에 '$3' 인스턴스를 {{GENDER:$1|구축했습니다}}",
+	"notification-osm-instance-build-completed-email-subject": "{{SITENAME}}에서 인스턴스 \"$1\"이 빌드되었습니다",
+	"notification-osm-instance-build-completed-email-body-batch": "$1 사용자가 프로젝트 [[$2]]에서 인스턴스 \"$3\"을 {{GENDER:$1|빌드}}하였습니다",
 	"notification-osm-instance-reboot-completed": "$1 사용자가 [[$2]] 프로젝트에 '$3' 인스턴스를 {{GENDER:$1|다시 시작했습니다}}",
+	"notification-osm-instance-reboot-completed-email-subject": "{{SITENAME}}에서 인스턴스 \"$1\"이 재부팅되었습니다",
+	"notification-osm-instance-reboot-completed-email-body-batch": "$1 사용자가 프로젝트 [[$2]]에서 인스턴스 \"$3\"을 {{GENDER:$1|재부팅}}하였습니다",
 	"notification-osm-projectmember-added": "$1 사용자가 [[$2]] 프로젝트에 당신을 {{GENDER:$1|추가했습니다}}",
+	"notification-osm-projectmember-added-email-subject": "{{SITENAME}}의 프로젝트에 추가되셨습니다",
+	"notification-osm-projectmember-added-email-body-batch": "$1 사용자가 당신을 프로젝트 [[$2]]에 {{GENDER:$1|추가}}하였습니다",
 	"echo-category-title-osm-instance-deleted": "인스턴스 삭제 (자신이 프로젝트 관리자)",
 	"echo-category-title-osm-instance-build-completed": "인스턴스 구축 (자신이 프로젝트 관리자)",
 	"echo-category-title-osm-instance-reboot-completed": "인스턴스 다시 시작 완료",
