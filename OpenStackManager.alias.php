@@ -178,6 +178,11 @@ $specialPageAliases['scn'] = array(
 /** Vietnamese (Tiếng Việt) */
 $specialPageAliases['vi'] = array(
 	'OpenStackManageInstance' => array( 'Quản_lý_thực_thể', 'Quản_lí_thực_thể' ),
+	'NovaAddress' => array( 'Địa_chỉ_Nova' ),
+	'NovaKey' => array( 'Chìa_khóa_Nova', 'Chìa_khoá_Nova' ),
+	'NovaProject' => array( 'Dự_án_Nova' ),
+	'NovaResources' => array( 'Tài_nguyên_Nova' ),
+	'NovaRole' => array( 'Vai_trò_Nova' ),
 );
 
 /** Simplified Chinese (中文（简体）‎) */
