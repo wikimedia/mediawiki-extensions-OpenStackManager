@@ -36,6 +36,10 @@ class OpenStackNovaProject {
 		}
 	}
 
+	public function getName() {
+		return $this->projectname;
+	}
+
 	/**
 	 * Fetch the project from LDAP and initialize the object
 	 * @return void
@@ -669,7 +673,7 @@ class OpenStackNovaProject {
 	 * than just the project's name, you'll need to call the project's fetchProjectInfo() function.
 	 *
 	 * @static
-	 * @return array
+	 * @return OpenStackNovaProject[]
 	 */
 	static function getAllProjects() {
 		global $wgAuth;
