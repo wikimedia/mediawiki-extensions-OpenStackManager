@@ -668,6 +668,21 @@ class OpenStackNovaProject {
 	}
 
 	/**
+	 * Get all project names
+	 *
+	 * @return string[]
+	 */
+	static function getAllProjectNames() {
+		$projects = self::getAllProjects();
+		$names = array();
+		foreach ( $projects as $project ) {
+			$names[] = $project->getName();
+		}
+
+		return $names;
+	}
+
+	/**
 	 * Return all existing projects. Returns an empty array if no projects exist. This function
 	 * lazy loads the projects. Objects will be returned unloaded. If you wish to receive more
 	 * than just the project's name, you'll need to call the project's fetchProjectInfo() function.
