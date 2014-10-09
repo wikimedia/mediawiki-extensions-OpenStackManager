@@ -238,7 +238,7 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @return array
+	 * @return OpenStackNovaInstance[]
 	 */
 	function getInstances() {
 		$instancesarr = array();
