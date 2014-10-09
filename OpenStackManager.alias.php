@@ -131,6 +131,15 @@ $specialPageAliases['ja'] = array(
 $specialPageAliases['ko'] = array(
 	'OpenStackManager' => array( '오픈스택관리자' ),
 	'OpenStackManageInstance' => array( '경우관리', '경우_관리' ),
+	'NovaAddress' => array( 'Nova주소', 'Nova_주소' ),
+	'NovaDomain' => array( 'Nova도메인', 'Nova_도메인' ),
+	'NovaKey' => array( 'Nova키', 'Nova_키' ),
+	'NovaProject' => array( 'Nova프로젝트', 'Nova_프로젝트' ),
+	'NovaProxy' => array( 'Nova프록시', 'Nova_프록시' ),
+	'NovaResources' => array( 'Nova자료', 'Nova_자료' ),
+	'NovaRole' => array( 'Nova규칙', 'Nova_규칙' ),
+	'NovaSecurityGroup' => array( 'Nova보안그룹', 'Nova_보안_그룹' ),
+	'NovaServiceGroup' => array( 'Nova서비스그룹', 'Nova_서비스_그룹' ),
 );
 
 /** Luxembourgish (Lëtzebuergesch) */
