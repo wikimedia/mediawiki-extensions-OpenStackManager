@@ -17,6 +17,7 @@ class ApiListNovaInstances extends ApiQueryGeneratorBase {
 	public function run() {
 		global $wgOpenStackManagerLDAPUsername;
 		global $wgOpenStackManagerLDAPUserPassword;
+		global $wgMemc;
 
 		$params = $this->extractRequestParams();
 		$project = OpenStackNovaProject::getProjectByName( $params['project'] );
@@ -25,25 +26,35 @@ class ApiListNovaInstances extends ApiQueryGeneratorBase {
 			$this->dieUsage( 'Invalid project specified.', 'badproject' );
 		}
 
-		$user = new OpenStackNovaUser( $wgOpenStackManagerLDAPUsername );
-		$userNova = OpenStackNovaController::newFromUser( $user );
-		$userNova->authenticate( $wgOpenStackManagerLDAPUsername, $wgOpenStackManagerLDAPUserPassword );
+		$key = wfMemcKey( 'openstackmanager', 'apilistnovainstances', $params['region'], $params['project'] );
+		$instancesInfo = $wgMemc->get( $key );
+		if ( $instancesInfo === false ) {
+			$user = new OpenStackNovaUser( $wgOpenStackManagerLDAPUsername );
+			$userNova = OpenStackNovaController::newFromUser( $user );
+			$userNova->authenticate( $wgOpenStackManagerLDAPUsername, $wgOpenStackManagerLDAPUserPassword );
 
-		$userNova->setProject( $project->getName() );
-		$userNova->setRegion( $params['region'] ); // validated by API
+			$userNova->setProject( $project->getName() );
+			$userNova->setRegion( $params['region'] ); // validated by API
 
-		$instances = $userNova->getInstances();
-		foreach ( $instances as $instance ) {
-			$info = array(
-				'name' => $instance->getInstanceName(),
-				'state' => $instance->getInstanceState(),
-				'ip' => $instance->getInstancePrivateIPs(),
-				'id' => $instance->getInstanceId(),
-				'floatingip' => $instance->getInstancePublicIPs(),
-				'securitygroups' => $instance->getSecurityGroups(),
-				'imageid' => $instance->getImageId(),
-			);
+			$instances = $userNova->getInstances();
+			$instancesInfo = array();
+			foreach ( $instances as $instance ) {
+				$instancesInfo[ ] = array(
+					'name' => $instance->getInstanceName(),
+					'state' => $instance->getInstanceState(),
+					'ip' => $instance->getInstancePrivateIPs(),
+					'id' => $instance->getInstanceId(),
+					'floatingip' => $instance->getInstancePublicIPs(),
+					'securitygroups' => $instance->getSecurityGroups(),
+					'imageid' => $instance->getImageId(),
+				);
+			}
+		}
 
+		// Cache info for 1 minute, not caching for longer since we do not invalidate
+		$wgMemc->set( $key, $instancesInfo, 1 * 60 );
+
+		foreach ( $instancesInfo as $info ) {
 			// UGH I hate XML
 			$this->getResult()->setIndexedTagName( $info['securitygroups'], 'group' );
 			$this->getResult()->setIndexedTagName( $info['ip'], 'ip' );
