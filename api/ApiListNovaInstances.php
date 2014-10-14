@@ -15,6 +15,9 @@ class ApiListNovaInstances extends ApiQueryGeneratorBase {
 	}
 
 	public function run() {
+		global $wgOpenStackManagerLDAPUsername;
+		global $wgOpenStackManagerLDAPUserPassword;
+
 		$params = $this->extractRequestParams();
 		$project = OpenStackNovaProject::getProjectByName( $params['project'] );
 		if ( !$project ) {
@@ -22,18 +25,14 @@ class ApiListNovaInstances extends ApiQueryGeneratorBase {
 			$this->dieUsage( 'Invalid project specified.', 'badproject' );
 		}
 
-		if ( !$this->getUser()->isLoggedIn() ) {
-			$this->dieUsage( 'Must be logged in to use this API', 'notloggedin' );
-		}
+		$user = new OpenStackNovaUser( $wgOpenStackManagerLDAPUsername );
+		$userNova = OpenStackNovaController::newFromUser( $user );
+		$userNova->authenticate( $wgOpenStackManagerLDAPUsername, $wgOpenStackManagerLDAPUserPassword );
 
-		$user = new OpenStackNovaUser();
-		if ( !$user->exists() ) {
-			$this->dieUsage( 'NovaUser does not exist', 'baduser' );
-		}
-		$controller = OpenStackNovaController::newFromUser( $user );
-		$controller->setProject( $project->getName() );
-		$controller->setRegion( $params['region'] ); // validated by API
-		$instances = $controller->getInstances();
+		$userNova->setProject( $project->getName() );
+		$userNova->setRegion( $params['region'] ); // validated by API
+
+		$instances = $userNova->getInstances();
 		foreach ( $instances as $instance ) {
 			$info = array(
 				'name' => $instance->getInstanceName(),
