@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Robby",
-			"Soued031"
+			"Soued031",
+			"Les Meloures"
 		]
 	},
 	"openstackmanager-desc": "Erméiglecht et de Benotzer fir Nova a Swift ze verwalten",
@@ -42,7 +43,7 @@
 	"openstackmanager-imageid": "Bild ID",
 	"openstackmanager-imagetype": "Bildtyp",
 	"openstackmanager-backinstancelist": "Zréck op d'Lëscht vun den Instanzen",
-	"openstackmanager-deletedinstance": "Geläschten Instanz $1 ($2).",
+	"openstackmanager-deletedinstance": "Geläscht Instanz $1 ($2).",
 	"openstackmanager-device": "Apparat",
 	"openstackmanager-novapublickey": "Ëffentlechen SSH-Schlëssel:",
 	"openstackmanager-prefs-novapublickey": "Ëffentlech SSH-Schlësselen:",
@@ -116,7 +117,7 @@
 	"openstackmanager-sudoerusers": "Benotzer",
 	"openstackmanager-sudoeroptions": "Optiounen",
 	"openstackmanager-allmembers": "All Membere vum Projet",
-	"openstackmanager-membersofgroup": "Membere vum Grupp $1",
+	"openstackmanager-membersofgroup": "Membere vun der Grupp $1",
 	"openstackmanager-deleteproxy": "Proxy läschen",
 	"openstackmanager-puppetallprojects": "All Projeten",
 	"openstackmanager-createpuppetgroup": "Grupp derbäisetzen",
