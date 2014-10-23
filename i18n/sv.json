@@ -125,6 +125,7 @@
 	"openstackmanager-volumeattachmentdevice": "Knuten som enhet",
 	"openstackmanager-volumesize": "Volymstorlek (i GB)",
 	"openstackmanager-volumedeleteonvolumedelete": "Ta bort på instansborttagning?",
+	"openstackmanager-volumecreationtime": "Skapandetid för volym",
 	"openstackmanager-attach": "bifoga",
 	"openstackmanager-detach": "Ta loss",
 	"openstackmanager-deletevolume": "Radera volym",
