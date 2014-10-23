@@ -402,6 +402,7 @@
 	"openstackmanager-email-body": "An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].",
 	"openstackmanager-twofactorrequired": "A page title that will be shown on error when two factor auth is not enabled",
 	"openstackmanager-twofactorrequired2": "Text shown on error when two factor auth is not enabled",
+	"openstackmanager-nonovacred-admincreate": "Text shown when a user who is not project admin for a project tries to edit hiera data page for that project. $1 refers to the project name",
 	"right-manageproject": "{{doc-right|manageproject}}\n\nThis is about OpenStack roles.",
 	"action-manageproject": "{{doc-action|manageproject}}\n\nThis is about OpenStack roles.",
 	"right-loginviashell": "{{doc-right|loginviashell}}\n\nThis is a right needed to be added to a project.",
