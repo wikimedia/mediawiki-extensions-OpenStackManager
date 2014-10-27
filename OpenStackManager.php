@@ -26,8 +26,20 @@ $wgExtensionCredits['other'][] = array(
 	'descriptionmsg' => 'openstackmanager-desc',
 );
 
+define( 'CONTENT_MODEL_YAML', 'yaml' );
+define( 'CONTENT_FORMAT_YAML', 'application/yaml' );
+
 define( "NS_NOVA_RESOURCE", 498 );
 define( "NS_NOVA_RESOURCE_TALK", 499 );
+define( 'NS_HIERA', 666 );
+define( 'NS_HIERA_TALK', 667 );
+
+$wgExtraNamespaces[NS_HIERA] = 'Hiera';
+$wgExtraNamespaces[NS_HIERA_TALK] = 'Hiera_Talk';
+$wgContentHandlers[CONTENT_MODEL_YAML] = 'YamlContentHandler';
+$wgNamespaceContentModels[NS_HIERA] = CONTENT_MODEL_YAML;
+
+
 $wgExtraNamespaces[NS_NOVA_RESOURCE] = 'Nova_Resource';
 $wgExtraNamespaces[NS_NOVA_RESOURCE_TALK] = 'Nova_Resource_Talk';
 $wgContentNamespaces[] = NS_NOVA_RESOURCE;
@@ -40,6 +52,7 @@ $wgAvailableRights[] = 'loginviashell';
 $wgAvailableRights[] = 'accessrestrictedregions';
 
 $wgHooks['UserRights'][] = 'OpenStackNovaUser::manageShellAccess';
+$wgHooks['getUserPermissionsErrors'][] = 'OpenStackManagerHooks::getUserPermissionsErrors';
 
 // Keystone identity URI
 $wgOpenStackManagerNovaIdentityURI = 'http://localhost:5000/v2.0';
@@ -150,6 +163,9 @@ $dir = __DIR__ . '/';
 $wgMessagesDirs['OpenStackManager'] = __DIR__ . '/i18n';
 $wgExtensionMessagesFiles['OpenStackManager'] = $dir . 'OpenStackManager.i18n.php';
 $wgExtensionMessagesFiles['OpenStackManagerAlias'] = $dir . 'OpenStackManager.alias.php';
+$wgAutoloadClasses['YamlContent'] = $dir . 'includes/YamlContent.php';
+$wgAutoloadClasses['YamlContentHandler'] = $dir . 'includes/YamlContentHandler.php';
+$wgAutoloadClasses['OpenStackManagerHooks'] = $dir . 'OpenStackManagerHooks.php';
 $wgAutoloadClasses['OpenStackNovaInstance'] = $dir . 'nova/OpenStackNovaInstance.php';
 $wgAutoloadClasses['OpenStackNovaInstanceType'] = $dir . 'nova/OpenStackNovaInstanceType.php';
 $wgAutoloadClasses['OpenStackNovaImage'] = $dir . 'nova/OpenStackNovaImage.php';
