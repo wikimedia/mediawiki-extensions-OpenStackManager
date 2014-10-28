@@ -11,6 +11,9 @@ class OpenStackManagerHooks {
 	* @return bool
 	*/
 	public static function getUserPermissionsErrors( Title $title, User $user, $action, &$result ) {
+		if ( !$title->inNamespace( NS_HIERA ) ) {
+			return true;
+		}
 		if ( $action === 'create' || $action === 'edit' ) {
 			if ( !$user->isLoggedIn() ) {
 				$result = array( 'openstackmanager-notloggedin' );
