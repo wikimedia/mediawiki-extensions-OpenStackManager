@@ -404,6 +404,7 @@
 	"openstackmanager-email-body": "המופע הבא נוצר ואפשר להיכנס בו לחשבון:",
 	"openstackmanager-twofactorrequired": "נדרש אימות דו־רכיבי",
 	"openstackmanager-twofactorrequired2": "נדרש אימות דו־רכיבי. נא להפעילו ולנסות שוב.",
+	"openstackmanager-hiera-noadmin": "רק מנהלי פרויקט של $1 יכולים לערוך את הדף הזה",
 	"right-manageproject": "ניהול פרויקטים ותפקידים של OpenStack",
 	"action-manageproject": "ניהול פרויקטים ותפקידים של OpenStack",
 	"right-loginviashell": "כניסה דרך מסוף",

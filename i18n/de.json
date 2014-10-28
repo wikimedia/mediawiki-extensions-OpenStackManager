@@ -406,6 +406,7 @@
 	"openstackmanager-email-body": "Die folgende Instanz wurde erstellt und ist ist zum Anmelden bereit.",
 	"openstackmanager-twofactorrequired": "Zwei-Faktor-Authentifizierung erforderlich",
 	"openstackmanager-twofactorrequired2": "Die Zwei-Faktor-Authentifizierung ist erforderlich. Bitte aktiviere sie und versuche es erneut.",
+	"openstackmanager-hiera-noadmin": "Nur Projekt-Administratoren für das Projekt $1 können diese Seite bearbeiten",
 	"right-manageproject": "OpenStack-Projekte und Rollen verwalten",
 	"action-manageproject": "OpenStack-Projekte und Rollen zu verwalten",
 	"right-loginviashell": "Über Shell anmelden",

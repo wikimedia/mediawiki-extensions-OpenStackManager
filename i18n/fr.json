@@ -16,7 +16,8 @@
 			"Tititou36",
 			"Verdy p",
 			"Wyz",
-			"SnowedEarth"
+			"SnowedEarth",
+			"Amelia"
 		]
 	},
 	"openstackmanager-desc": "Permet aux utilisateurs autorisés de créer et gérer des instances de serveurs virtuels avec un gestionnaire compatible OpenStack, tel que Nova ou Swift.",
@@ -416,6 +417,7 @@
 	"openstackmanager-email-body": "L’instance suivante a été créée et est prête à recevoir des connexions :",
 	"openstackmanager-twofactorrequired": "Authentification à double facteur exigée",
 	"openstackmanager-twofactorrequired2": "L'authentification à double facteur est exigée. Veuillez l'activer et réessayer.",
+	"openstackmanager-hiera-noadmin": "Seulement les chefs de projet du projet $1 peuvent réviser cette page web.",
 	"right-manageproject": "Gérer les rôles et projets Openstack",
 	"action-manageproject": "gérer les projets et les rôles OpenStack",
 	"right-loginviashell": "Connexion par le shell",

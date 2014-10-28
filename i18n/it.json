@@ -406,6 +406,7 @@
 	"openstackmanager-email-body": "Le seguenti istanze sono state create, e sono pronte per potervi accedere:",
 	"openstackmanager-twofactorrequired": "Autenticazione a due fattori necessaria",
 	"openstackmanager-twofactorrequired2": "È richiesta l'autenticazione a due fattori. Attivarla e riprovare.",
+	"openstackmanager-hiera-noadmin": "Solo gli amministratori del progetto $1 possono modificare questa pagina",
 	"right-manageproject": "Gestire ruoli e progetti OpenStack",
 	"action-manageproject": "gestire ruoli e progetti OpenStack",
 	"right-loginviashell": "effettua l'accesso tramite la shell",

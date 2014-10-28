@@ -402,6 +402,7 @@
 	"openstackmanager-email-body": "Создаден е следниов примерок. Дега можете да се најавите на него:",
 	"openstackmanager-twofactorrequired": "Се бара двочинителска заверка",
 	"openstackmanager-twofactorrequired2": "Се бара двочинителска заверка. Вклучете ја и обидете се повторно.",
+	"openstackmanager-hiera-noadmin": "Страницава можат да ја уредуваат само администратори на проектот $1",
 	"right-manageproject": "Раководство со проекти и улоги на OpenStack",
 	"action-manageproject": "Раководство со проекти и улоги на OpenStack",
 	"right-loginviashell": "најавување преку обвивка",

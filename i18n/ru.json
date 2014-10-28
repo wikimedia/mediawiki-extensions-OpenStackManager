@@ -79,7 +79,7 @@
 	"openstackmanager-securitygroups": "Группы безопасности",
 	"openstackmanager-imageid": "ID фотографии",
 	"openstackmanager-imagetype": "Тип изображения",
-	"openstackmanager-instancetypelabel": "{{PLURAL:$1|$1 процессор|$1 процессоров|$1 процессора}}, $2 Мб оперативной памяти, $3 Гб в корневом разделе, $4 Гб хранилища",
+	"openstackmanager-instancetypelabel": "{{PLURAL:$1|$1 процессор|$1 процессора|$1 процессоров}}, $2 Мб оперативной памяти, $3 Гб в корневом разделе, $4 Гб хранилища",
 	"openstackmanager-rebootinstance": "Перезагрузить экземпляр",
 	"openstackmanager-rebootinstancewithname": "Перезагрузка экземпляра $1 ($2)",
 	"openstackmanager-rebootinstancequestion": "Вы уверены, что хотите перезагрузить экземпляр \"$1\"?",

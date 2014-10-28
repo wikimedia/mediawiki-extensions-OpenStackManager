@@ -371,6 +371,7 @@
 	"openstackmanager-email-body": "Tika yang berikut telah diwujudkan dan sedia dimasuki:",
 	"openstackmanager-twofactorrequired": "Pengesahsahihan dwifaktor diperlukan",
 	"openstackmanager-twofactorrequired2": "Pengesahsahihan dwifaktor diperlukan. Sila hidupkannya dan cuba lagi.",
+	"openstackmanager-hiera-noadmin": "Hanya penyelia projek $1 boleh menyunting laman ini",
 	"right-manageproject": "Menguruskan projek-projek dan peranan-peranan Openstack",
 	"action-manageproject": "menguruskan projek dan peranan OpenStack",
 	"right-loginviashell": "Log masuk melalui shell",
