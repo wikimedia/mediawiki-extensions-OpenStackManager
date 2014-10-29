@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Fryed-peach",
-			"Shirayuki"
+			"Shirayuki",
+			"SkyDaisy9"
 		]
 	},
 	"openstackmanager-desc": "利用者が Nova と Swift を管理できるようにする",
@@ -327,6 +328,7 @@
 	"openstackmanager-email-body": "以下のインスタンスを作成しました。ログインの準備ができています:",
 	"openstackmanager-twofactorrequired": "二要素認証が必要",
 	"openstackmanager-twofactorrequired2": "二要素認証が必要です。有効にしてからもう一度試してください。",
+	"openstackmanager-hiera-noadmin": "$1プロジェクトの管理者だけがこのページを編集できます。",
 	"right-manageproject": "OpenStack プロジェクトと権限を管理",
 	"action-manageproject": "OpenStack プロジェクトと権限の管理",
 	"right-loginviashell": "シェルでログイン",

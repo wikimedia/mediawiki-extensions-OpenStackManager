@@ -53,7 +53,7 @@
 	"openstackmanager-nonovacred": "Er zijn geen Nova-referenties gevonden voor uw gebruiker.",
 	"openstackmanager-nonovacred-admincreate": "Er zijn geen Nova-referenties gevonden voor uw gebruiker. Vraag een Nova-beheerder om deze toe te voegen.",
 	"openstackmanager-noaccount": "Uw gebruiker is geen lid van het project $1.",
-	"openstackmanager-noaccount2": "U kunt de gevraagde handeling niet uitvoeren met uw account omdat deze geen lid is van het project $1.",
+	"openstackmanager-noaccount2": "U kunt de gevraagde handeling niet uitvoeren met uw gebruiker omdat deze geen lid is van het project $1.",
 	"openstackmanager-nonexistentresource": "De opgegeven resource bestaat niet.",
 	"openstackmanager-createdomain": "Domein aanmaken",
 	"openstackmanager-deletedomain": "Domein verwijderen",
