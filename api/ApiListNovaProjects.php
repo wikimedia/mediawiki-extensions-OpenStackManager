@@ -27,13 +27,29 @@ class ApiListNovaProjects extends ApiQueryGeneratorBase {
 		$this->getResult()->setIndexedTagName_internal( array( 'query', $this->getModuleName() ), 'project' );
 	}
 
+	/**
+	 * @deprecated since MediaWiki core 1.25
+	 */
 	public function getDescription() {
 		return array(
 			'Returns a list of all the known projects'
 		);
 	}
 
+	/**
+	 * @deprecated since MediaWiki core 1.25
+	 */
 	public function getExamples() {
 		return 'api.php?action=query&list=novaprojects';
+	}
+
+	/**
+	 * @see ApiBase::getExamplesMessages()
+	 */
+	protected function getExamplesMessages() {
+		return array(
+			'action=query&list=novaprojects'
+				=> 'apihelp-query+novaprojects-example-1',
+		);
 	}
 }

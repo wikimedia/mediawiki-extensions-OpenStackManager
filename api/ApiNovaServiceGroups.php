@@ -54,6 +54,9 @@ class ApiNovaServiceGroups extends ApiBase {
 		);
 	}
  
+	/**
+	 * @deprecated since MediaWiki core 1.25
+	 */
 	public function getParamDescription() {
 		return array_merge( parent::getParamDescription(), array(
 			'subaction' => 'The subaction to perform.',
@@ -62,14 +65,30 @@ class ApiNovaServiceGroups extends ApiBase {
 		) );
 	}
 
+	/**
+	 * @deprecated since MediaWiki core 1.25
+	 */
 	public function getDescription() {
 		return 'Gets information on service groups.';
 	}
 
+	/**
+	 * @deprecated since MediaWiki core 1.25
+	 */
 	public function getExamples() {
 		return array(
 			'api.php?action=novaservicegroups&subaction=getservicegroups&project=testing'
 			=> 'Get all service groups in project testing',
+		);
+	}
+
+	/**
+	 * @see ApiBase::getExamplesMessages()
+	 */
+	protected function getExamplesMessages() {
+		return array(
+			'action=novaservicegroups&subaction=getservicegroups&project=testing'
+				=> 'apihelp-novaservicegroups-example-1',
 		);
 	}
 

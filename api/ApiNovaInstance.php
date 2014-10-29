@@ -93,6 +93,9 @@ class ApiNovaInstance extends ApiBase {
 		);
 	}
  
+	/**
+	 * @deprecated since MediaWiki core 1.25
+	 */
 	public function getParamDescription() {
 		return array(
 			'subaction' => 'The subaction to perform.',
@@ -103,16 +106,34 @@ class ApiNovaInstance extends ApiBase {
 		);
 	}
 
+	/**
+	 * @deprecated since MediaWiki core 1.25
+	 */
 	public function getDescription() {
 		return 'Perform actions on instances.';
 	}
 
+	/**
+	 * @deprecated since MediaWiki core 1.25
+	 */
 	public function getExamples() {
 		return array(
 			'api.php?action=novainstance&subaction=reboot&instanceid=eb195097-8539-4e66-b0b5-be8347d8caec&project=testing&region=mars&token=123ABC'
 			=> 'Reboot instance id eb195097-8539-4e66-b0b5-be8347d8caec in project testing in region mars',
 			'api.php?action=novainstance&subaction=consoleoutput&instanceid=eb195097-8539-4e66-b0b5-be8347d8caec&project=testing&region=mars&token=123ABC'
 			=> 'Display console output for instance id eb195097-8539-4e66-b0b5-be8347d8caec in project testing in region mars',
+		);
+	}
+
+	/**
+	 * @see ApiBase::getExamplesMessages()
+	 */
+	protected function getExamplesMessages() {
+		return array(
+			'action=novainstance&subaction=reboot&instanceid=eb195097-8539-4e66-b0b5-be8347d8caec&project=testing&region=mars&token=123ABC'
+				=> 'apihelp-novainstance-example-1',
+			'action=novainstance&subaction=consoleoutput&instanceid=eb195097-8539-4e66-b0b5-be8347d8caec&project=testing&region=mars&token=123ABC'
+				=> 'apihelp-novainstance-example-2',
 		);
 	}
 

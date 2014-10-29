@@ -85,6 +85,9 @@ class ApiNovaAddress extends ApiBase {
 		);
 	}
 
+	/**
+	 * @deprecated since MediaWiki core 1.25
+	 */
 	public function getParamDescription() {
 		return array_merge( parent::getParamDescription(), array(
 			'subaction' => 'The subaction to perform.',
@@ -94,14 +97,30 @@ class ApiNovaAddress extends ApiBase {
 		) );
 	}
 
+	/**
+	 * @deprecated since MediaWiki core 1.25
+	 */
 	public function getDescription() {
 		return 'Perform actions on Nova IP addresses.';
 	}
 
+	/**
+	 * @deprecated since MediaWiki core 1.25
+	 */
 	public function getExamples() {
 		return array(
 			'api.php?action=novaaddress&subaction=disassociate&address=7&project=testing&region=mars'
 			=> 'Disassociate IP 208.80.153.198 in project testing',
+		);
+	}
+
+	/**
+	 * @see ApiBase::getExamplesMessages()
+	 */
+	protected function getExamplesMessages() {
+		return array(
+			'action=novaaddress&subaction=disassociate&address=7&project=testing&region=mars'
+				=> 'apihelp-novaaddress-example-1',
 		);
 	}
 

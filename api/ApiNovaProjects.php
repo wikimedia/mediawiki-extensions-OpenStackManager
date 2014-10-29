@@ -92,6 +92,9 @@ class ApiNovaProjects extends ApiBase {
 		);
 	}
  
+	/**
+	 * @deprecated since MediaWiki core 1.25
+	 */
 	public function getParamDescription() {
 		return array_merge( parent::getParamDescription(), array(
 			'subaction' => 'The subaction to perform.',
@@ -100,10 +103,16 @@ class ApiNovaProjects extends ApiBase {
 		) );
 	}
 
+	/**
+	 * @deprecated since MediaWiki core 1.25
+	 */
 	public function getDescription() {
 		return 'Gets information on projects.';
 	}
 
+	/**
+	 * @deprecated since MediaWiki core 1.25
+	 */
 	public function getExamples() {
 		return array(
 			'api.php?action=novaprojects&subaction=getall'
@@ -112,6 +121,20 @@ class ApiNovaProjects extends ApiBase {
 			=> 'Get all projects and role info for the logged-in user',
 			'api.php?action=novaprojects&subaction=getuser&username=testuser'
 			=> 'Get all projects and role info for testuser',
+		);
+	}
+
+	/**
+	 * @see ApiBase::getExamplesMessages()
+	 */
+	protected function getExamplesMessages() {
+		return array(
+			'action=novaprojects&subaction=getall'
+				=> 'apihelp-novaprojects-example-1',
+			'action=novaprojects&subaction=getuser'
+				=> 'apihelp-novaprojects-example-2',
+			'action=novaprojects&subaction=getuser&username=testuser'
+				=> 'apihelp-novaprojects-example-3',
 		);
 	}
 
