@@ -411,6 +411,7 @@
 	"openstackmanager-email-body": "以下的实例已经创建好，并可以登入：",
 	"openstackmanager-twofactorrequired": "需要双因素身份验证",
 	"openstackmanager-twofactorrequired2": "需要双因素身份验证。请将其启用并重试。",
+	"openstackmanager-hiera-noadmin": "只有项目$1的管理员可以编辑此页面",
 	"right-manageproject": "管理OpenStack项目及作用",
 	"action-manageproject": "管理OpenStack项目与任务",
 	"right-loginviashell": "通过shell登录",
