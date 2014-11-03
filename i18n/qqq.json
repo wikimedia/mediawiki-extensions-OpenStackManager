@@ -49,6 +49,7 @@
 	"openstackmanager-ownedinstances": "Precedes a list of instances created by the user. Parameters:\n* $1 - number of instances, used for PLURAL\nIf there are no instances, the following message is used:\n* {{msg-mw|Openstackmanager-noownedinstances}}",
 	"openstackmanager-delete": "Used as action link text in several Special pages.\n{{Identical|Delete}}",
 	"openstackmanager-configure": "Used as action link text in Special:NovaInstance and Special:NovaProject.\n{{Identical|Configure}}",
+	"openstackmanager-hieraconfig": "Used as action link text in Special:NovaProject, takes user to hiera config for that particular project",
 	"openstackmanager-modify": "{{Identical|Modify}}",
 	"openstackmanager-rename": "{{Identical|Rename}}",
 	"openstackmanager-reboot": "Used as action link text in Special:NovaInstance.",

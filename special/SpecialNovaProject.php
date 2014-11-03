@@ -250,6 +250,10 @@ class SpecialNovaProject extends SpecialNova {
 		$actions[] = $this->createActionLink( 'openstackmanager-removemember', array( 'action' => 'deletemember', 'projectname' => $projectName ) );
 		$actions[] = $this->createActionLink( 'openstackmanager-configure', array( 'action' => 'configureproject', 'projectname' => $projectName ) );
 		$actions[] = $this->createActionLink( 'openstackmanager-displayquotas-action', array( 'action' => 'displayquotas', 'projectname' => $projectName ) );
+
+		$hieraTitle = Title::makeTitleSafe( NS_HIERA, $projectName );
+
+		$actions[] = $this->createActionLink( 'openstackmanager-hieraconfig', array(), $hieraTitle );
 		$this->pushRawResourceColumn( $projectRow,  $this->createResourceList( $actions ) );
 		$projectRows[] = $projectRow;
 		return $this->createResourceTable( $headers, $projectRows );

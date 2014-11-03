@@ -37,6 +37,7 @@
     "openstackmanager-ownedinstances": "You created {{PLURAL:$1|this instance|these instances}}:",
     "openstackmanager-delete": "delete",
     "openstackmanager-configure": "configure",
+    "openstackmanager-hieraconfig": "View Hiera config",
     "openstackmanager-modify": "modify",
     "openstackmanager-rename": "rename",
     "openstackmanager-reboot": "reboot",
