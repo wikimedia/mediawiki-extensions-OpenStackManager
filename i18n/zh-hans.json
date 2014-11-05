@@ -46,6 +46,7 @@
 	"openstackmanager-ownedinstances": "您已创建以下$1个实例：",
 	"openstackmanager-delete": "删除",
 	"openstackmanager-configure": "配置",
+	"openstackmanager-hieraconfig": "查看Hiera配置",
 	"openstackmanager-modify": "修改",
 	"openstackmanager-rename": "改名",
 	"openstackmanager-reboot": "重新引导",

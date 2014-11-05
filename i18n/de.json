@@ -40,6 +40,7 @@
 	"openstackmanager-ownedinstances": "Du hast diese {{PLURAL:$1|Instanz|Instanzen}} erstellt:",
 	"openstackmanager-delete": "löschen",
 	"openstackmanager-configure": "konfigurieren",
+	"openstackmanager-hieraconfig": "Hiera-Konfiguration ansehen",
 	"openstackmanager-modify": "ändern",
 	"openstackmanager-rename": "umbenennen",
 	"openstackmanager-reboot": "neu starten",
