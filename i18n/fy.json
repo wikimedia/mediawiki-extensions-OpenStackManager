@@ -4,5 +4,6 @@
 			"Robin0van0der0vliet"
 		]
 	},
-	"openstackmanager-name": "Namme"
+	"openstackmanager-name": "Namme",
+	"openstackmanager-sudoeroptions": "Opsjes"
 }
