@@ -4,6 +4,8 @@
 			"Robin0van0der0vliet"
 		]
 	},
+	"openstackmanager-location": "Lokaasje",
 	"openstackmanager-name": "Namme",
+	"openstackmanager-projects": "Projekten",
 	"openstackmanager-sudoeroptions": "Opsjes"
 }
