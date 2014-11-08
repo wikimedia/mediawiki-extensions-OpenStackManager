@@ -48,7 +48,7 @@
 	"openstackmanager-configure": "配置",
 	"openstackmanager-hieraconfig": "查看Hiera配置",
 	"openstackmanager-modify": "修改",
-	"openstackmanager-rename": "改名",
+	"openstackmanager-rename": "重命名",
 	"openstackmanager-reboot": "重新引导",
 	"openstackmanager-actions": "动作",
 	"openstackmanager-notloggedin": "需要登录",
