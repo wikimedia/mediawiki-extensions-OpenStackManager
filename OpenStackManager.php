@@ -39,6 +39,7 @@ $wgExtraNamespaces[NS_HIERA_TALK] = 'Hiera_Talk';
 $wgContentHandlers[CONTENT_MODEL_YAML] = 'YamlContentHandler';
 $wgNamespaceContentModels[NS_HIERA] = CONTENT_MODEL_YAML;
 
+$wgSyntaxHighlightModels[CONTENT_MODEL_YAML] = 'yaml';
 
 $wgExtraNamespaces[NS_NOVA_RESOURCE] = 'Nova_Resource';
 $wgExtraNamespaces[NS_NOVA_RESOURCE_TALK] = 'Nova_Resource_Talk';
