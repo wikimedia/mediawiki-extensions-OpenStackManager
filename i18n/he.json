@@ -39,6 +39,7 @@
 	"openstackmanager-ownedinstances": "יצרת את {{PLURAL:$1|המופע הבא|המופעים הבאים}}:",
 	"openstackmanager-delete": "מחיקה",
 	"openstackmanager-configure": "הגדרה",
+	"openstackmanager-hieraconfig": "הצגת הגדרות Hiera",
 	"openstackmanager-modify": "שינוי",
 	"openstackmanager-rename": "שינוי שם",
 	"openstackmanager-reboot": "אתחול",
