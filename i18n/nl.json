@@ -148,7 +148,7 @@
 	"openstackmanager-attachvolumefailed": "Het koppelen van het volume is mislukt.",
 	"openstackmanager-detachvolume": "Volume ontkoppelen",
 	"openstackmanager-forcedetachment": "Ontkoppelen van volume forceren",
-	"openstackmanager-forcedetachmenthelp": "Geforceerd ontkoppelen wordt alleen aanbevolen als het volume niet op reguliere wijze ontkoppeld kan worden. Dit kan leiden tot een corrupt volume en gegevensverlies.",
+	"openstackmanager-forcedetachmenthelp": "Geforceerd ontkoppelen wordt alleen aanbevolen als het volume niet op reguliere wijze ontkoppeld kan worden. Dit kan leiden tot een beschadigd volume en gegevensverlies.",
 	"openstackmanager-detachedvolume": "Het volume is ontkoppeld.",
 	"openstackmanager-detachvolumefailed": "Het ontkoppelen van het volume is mislukt.",
 	"openstackmanager-novapublickey": "Publieke SSH-sleutel",
