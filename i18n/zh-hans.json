@@ -31,7 +31,7 @@
 	"novaproject": "管理OpenStack项目",
 	"novaservicegroup": "管理服务组",
 	"novasecuritygroup": "管理防火墙安全组",
-	"novarole": "管理全域作用",
+	"novarole": "管理全域角色",
 	"novavolume": "管理存储卷",
 	"novasudoer": "管理sudo策略",
 	"novaproxy": "管理实例代理",
