@@ -213,5 +213,9 @@
 	"action-manageproject": "zarządzaj projektami i uprawnieniami OpenStock",
 	"right-loginviashell": "Logowanie przez shell",
 	"prefs-openstack": "OpenStack",
-	"prefs-openstack-keys": "Lista kluczy"
+	"prefs-openstack-keys": "Lista kluczy",
+	"apihelp-novaprojectlimits-description": "Pobiera informacje o projektach.",
+	"apihelp-novaprojects-description": "Pobiera informacje o projektach.",
+	"apihelp-novaprojects-example-1": "Pobierz wszystkie projekty",
+	"apihelp-query+novaprojects-description": "Zwraca listę wszystkich znanych projektów."
 }

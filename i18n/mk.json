@@ -424,5 +424,11 @@
 	"echo-category-title-osm-instance-reboot-completed": "Довршување на препуштање на примерок",
 	"echo-category-title-osm-projectmembers-add": "Додавање на членови во проектот",
 	"prefs-openstack": "OpenStack",
-	"prefs-openstack-keys": "Список на клучеви"
+	"prefs-openstack-keys": "Список на клучеви",
+	"apihelp-novaaddress-description": "Вршење на дејства врз IP-адреси од Nova.",
+	"apihelp-novaaddress-param-subaction": "Поддејството што треба да се изврши.",
+	"apihelp-novaaddress-param-project": "Во кој проект постои адресата.",
+	"apihelp-novaaddress-param-region": "Регион на тековно здружениот примерок.",
+	"apihelp-novaaddress-example-1": "Оддели ја адресата со назнака 7 во проектното испробување во регионот Марс",
+	"apihelp-query+novaprojects-example-1": "Испиши проекти"
 }

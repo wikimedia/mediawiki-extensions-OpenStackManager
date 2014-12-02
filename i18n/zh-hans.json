@@ -432,5 +432,8 @@
 	"echo-category-title-osm-instance-build-completed": "实例建立（在您是项目管理员时）",
 	"echo-category-title-osm-instance-reboot-completed": "实例重启完成",
 	"echo-category-title-osm-projectmembers-add": "计划成员加入",
-	"prefs-openstack-keys": "密钥列表"
+	"prefs-openstack-keys": "密钥列表",
+	"apihelp-novaprojectlimits-description": "获取项目信息。",
+	"apihelp-novaprojects-example-1": "获取所有项目",
+	"apihelp-query+novaprojects-example-1": "列出项目"
 }
