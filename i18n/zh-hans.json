@@ -433,6 +433,7 @@
 	"echo-category-title-osm-instance-reboot-completed": "实例重启完成",
 	"echo-category-title-osm-projectmembers-add": "计划成员加入",
 	"prefs-openstack-keys": "密钥列表",
+	"apihelp-novaaddress-description": "在Nova IP地址执行操作。",
 	"apihelp-novaprojectlimits-description": "获取项目信息。",
 	"apihelp-novaprojects-example-1": "获取所有项目",
 	"apihelp-query+novaprojects-example-1": "列出项目"

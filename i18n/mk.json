@@ -430,5 +430,11 @@
 	"apihelp-novaaddress-param-project": "Во кој проект постои адресата.",
 	"apihelp-novaaddress-param-region": "Регион на тековно здружениот примерок.",
 	"apihelp-novaaddress-example-1": "Оддели ја адресата со назнака 7 во проектното испробување во регионот Марс",
+	"apihelp-novainstance-description": "Иврши дејства врз примероци.",
+	"apihelp-novainstance-param-subaction": "Поддејството што треба да се изврши.",
+	"apihelp-novainstance-param-instanceid": "Назнака на примерокот на Nova врз кој треба да се изврши дејството.",
+	"apihelp-novainstance-param-project": "Проектот во кој постои примерокот.",
+	"apihelp-novainstance-param-region": "РЕгионот во кој постои примерокот.",
+	"apihelp-novainstance-example-1": "Превклучи го примерокот со назнака eb195097-8539-4e66-b0b5-be8347d8caec во проектна проба во регионот Марс",
 	"apihelp-query+novaprojects-example-1": "Испиши проекти"
 }
