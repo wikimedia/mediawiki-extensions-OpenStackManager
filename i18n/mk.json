@@ -436,5 +436,11 @@
 	"apihelp-novainstance-param-project": "Проектот во кој постои примерокот.",
 	"apihelp-novainstance-param-region": "РЕгионот во кој постои примерокот.",
 	"apihelp-novainstance-example-1": "Превклучи го примерокот со назнака eb195097-8539-4e66-b0b5-be8347d8caec во проектна проба во регионот Марс",
+	"apihelp-novainstance-example-2": "Прикажи конзолен извод за примерокот со назнака eb195097-8539-4e66-b0b5-be8347d8caec во проектна проба во регионот Марс",
+	"apihelp-novaprojectlimits-description": "Дава информации за проекти",
+	"apihelp-novaprojectlimits-param-subaction": "Поддејството што треба да се изврши.",
+	"apihelp-novaprojectlimits-param-project": "Врз кој проект да се изврши поддејството.",
+	"apihelp-novaprojectlimits-param-region": "Врз кој регион да се изврши поддејството.",
+	"apihelp-novaprojectlimits-example-1": "Дај ограничувања за сите региони на пробниот проект",
 	"apihelp-query+novaprojects-example-1": "Испиши проекти"
 }
