@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"أحمد المحمودي"
+		]
+	},
+	"apihelp-novaaddress-param-project": "المشروع الذي يوجد فيه العنوان",
+	"apihelp-novaaddress-param-region": "المنطقة المرتبطة بالمثال الحالي.",
+	"apihelp-novaprojectlimits-description": "الحصول على معلومات عن المشاريع.",
+	"apihelp-novaprojects-param-username": "اسم المستخدم المراد الحصول على معلومات عنه.",
+	"apihelp-novaprojects-example-1": "الحصول على كل المشاريع",
+	"apihelp-novaprojects-example-2": "الحصول على كل المشاريع و كل معلومات الأدوار المتعلقة بالمستخدمين المسجلين دخولهم حاليا.",
+	"apihelp-novaservicegroups-example-1": "الحصول على كل مجموعات الخدمة في اختبار المشروع"
+}
