@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"BRUTE",
-			"David1010"
+			"David1010",
+			"MIKHEIL"
 		]
 	},
 	"openstackmanager": "OpenStackManager",
@@ -107,5 +108,8 @@
 	"openstackmanager-addpuppetclass": "კლასის დამატება",
 	"openstackmanager-puppetclassname": "კლასის სახელი",
 	"openstackmanager-puppetvars": "ცვალებადი",
-	"openstackmanager-addpuppetvar": "ცვლადის დამატება"
+	"openstackmanager-addpuppetvar": "ცვლადის დამატება",
+	"apihelp-novaprojectlimits-description": "ინფორმაცია პროექტების შესახებ.",
+	"apihelp-novaprojects-example-1": "ყველა პროექტის მიღება",
+	"apihelp-query+novaprojects-example-1": "პროექტების სია"
 }
