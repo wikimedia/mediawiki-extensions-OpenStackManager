@@ -216,8 +216,8 @@ $specialPageAliases['zh-hans'] = array(
 $specialPageAliases['zh-hant'] = array(
 	'OpenStackManager' => array( '啟用堆疊組管理' ),
 	'OpenStackManageInstance' => array( '管理實例' ),
-	'NovaInstance' => array( 'Nova實例' ),
-	'NovaKey' => array( 'Nova密鑰' ),
-	'NovaProject' => array( 'Nova項目' ),
-	'NovaResources' => array( 'Nova資源' ),
+	'NovaInstance' => array( 'Nova 實例' ),
+	'NovaKey' => array( 'Nova 密鑰' ),
+	'NovaProject' => array( 'Nova 專案' ),
+	'NovaResources' => array( 'Nova 資源' ),
 );
