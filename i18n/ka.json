@@ -110,6 +110,7 @@
 	"openstackmanager-puppetvars": "ცვალებადი",
 	"openstackmanager-addpuppetvar": "ცვლადის დამატება",
 	"apihelp-novaprojectlimits-description": "ინფორმაცია პროექტების შესახებ.",
+	"apihelp-novaprojects-description": "ინფორმაციის მიღება პროექტებზე.",
 	"apihelp-novaprojects-example-1": "ყველა პროექტის მიღება",
 	"apihelp-query+novaprojects-example-1": "პროექტების სია"
 }
