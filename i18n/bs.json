@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"CERminator"
+			"CERminator",
+			"Palapa"
 		]
 	},
 	"openstackmanager-desc": "Daje mogućnost korisnicima da upravljaju sa Nova i Swift",
@@ -13,7 +14,7 @@
 	"openstackmanager-reboot": "pokreni ponovo",
 	"openstackmanager-actions": "Akcije",
 	"openstackmanager-notloggedin": "Potrebno je prijavljivanje",
-	"openstackmanager-novadomain-domain": "Domena",
+	"openstackmanager-novadomain-domain": "Dodaj domenu",
 	"openstackmanager-domainlist": "Spisak domena",
 	"openstackmanager-domainname": "Naziv domene",
 	"openstackmanager-location": "Lokacija",
@@ -24,9 +25,9 @@
 	"openstackmanager-deletevolume": "Obriši nosač",
 	"openstackmanager-deletevolumequestion": "Da li ste sigurni da želite obrisati nosač \"$1\"?",
 	"openstackmanager-device": "Uređaj",
-	"openstackmanager-deletekey": "Brisanje ključa",
+	"openstackmanager-deletekey": "Brisanje javnog SSH ključa",
 	"openstackmanager-deletekeyconfirm": "Da li ste sigurni da želite obrisati gornji ključ?",
-	"openstackmanager-keylist": "Spisak ključeva",
+	"openstackmanager-keylist": "Spisak javnih SSH ključeva",
 	"openstackmanager-name": "Naziv",
 	"openstackmanager-fingerprint": "Otisak prsta",
 	"openstackmanager-keys": "Ključevi",
