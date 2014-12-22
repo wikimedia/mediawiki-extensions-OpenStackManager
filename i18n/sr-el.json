@@ -1,5 +1,9 @@
 {
-	"@metadata": [],
+	"@metadata": {
+		"authors": [
+			"Milicevic01"
+		]
+	},
 	"openstackmanager-novainstance": "Primerak Nove",
 	"openstackmanager-novakey": "Ključ Nove",
 	"openstackmanager-novaproject": "Projekat Nova",
@@ -93,9 +97,9 @@
 	"openstackmanager-detachedvolume": "Jedinica je uspešno otkačena.",
 	"openstackmanager-detachvolumefailed": "Ne mogu da otkačim jedinicu.",
 	"openstackmanager-novapublickey": "Javni SSH ključ",
-	"openstackmanager-deletekey": "Brisanje ključa",
+	"openstackmanager-deletekey": "Brisanje javnog SSH ključa",
 	"openstackmanager-deletekeyconfirm": "Želite li da obrišete gorenavedeni ključ?",
-	"openstackmanager-keylist": "Spisak ključeva",
+	"openstackmanager-keylist": "Spisak javnih SSH ključeva",
 	"openstackmanager-name": "Naziv",
 	"openstackmanager-fingerprint": "Otisak",
 	"openstackmanager-keys": "Ključevi",
