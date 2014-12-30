@@ -63,7 +63,11 @@ class ApiListNovaInstances extends ApiQueryGeneratorBase {
 			$this->getResult()->addValue( array( 'query', $this->getModuleName() ), null, $info );
 		}
 
-		$this->getResult()->setIndexedTagName_internal( array( 'query', $this->getModuleName() ), 'instance' );
+		if ( defined( 'ApiResult::META_CONTENT' ) ) {
+			$this->getResult()->defineIndexedTagName( array( 'query', $this->getModuleName() ), 'instance' );
+		} else {
+			$this->getResult()->setIndexedTagName_internal( array( 'query', $this->getModuleName() ), 'instance' );
+		}
 	}
 
 	/**
