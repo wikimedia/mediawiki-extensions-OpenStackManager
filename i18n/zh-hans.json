@@ -435,6 +435,7 @@
 	"prefs-openstack-keys": "密钥列表",
 	"apihelp-novaaddress-description": "在Nova IP地址执行操作。",
 	"apihelp-novaprojectlimits-description": "获取项目信息。",
+	"apihelp-novaprojects-description": "获取项目上的信息。",
 	"apihelp-novaprojects-example-1": "获取所有项目",
 	"apihelp-query+novaprojects-description": "返回所有已知项目的列表。",
 	"apihelp-query+novaprojects-example-1": "列出项目"
