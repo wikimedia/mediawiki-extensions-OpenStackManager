@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"AZISS",
-			"Cekli829"
+			"Cekli829",
+			"Wertuose"
 		]
 	},
 	"openstackmanager-delete": "sil",
@@ -12,6 +13,6 @@
 	"openstackmanager-keys": "Açar",
 	"openstackmanager-members": "İştirakçılar",
 	"openstackmanager-member": "Üzv",
-	"openstackmanager-novaproject-project": "Layihə",
+	"openstackmanager-novaproject-project": "Layihə əlavə et",
 	"openstackmanager-sudoerusers": "İstifadəçilər"
 }
