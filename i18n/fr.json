@@ -17,7 +17,8 @@
 			"Verdy p",
 			"Wyz",
 			"SnowedEarth",
-			"Amelia"
+			"Amelia",
+			"0x010C"
 		]
 	},
 	"openstackmanager-desc": "Permet aux utilisateurs autorisés de créer et gérer des instances de serveurs virtuels avec un gestionnaire compatible OpenStack, tel que Nova ou Swift.",
@@ -438,5 +439,6 @@
 	"echo-category-title-osm-instance-reboot-completed": "Fin du redémarrage de l’instance",
 	"echo-category-title-osm-projectmembers-add": "Ajout de membres au projet",
 	"prefs-openstack": "OpenStack",
-	"prefs-openstack-keys": "Liste de clés"
+	"prefs-openstack-keys": "Liste de clés",
+	"apihelp-query+novaprojects-example-1": "Liste des projets"
 }
