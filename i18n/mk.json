@@ -35,7 +35,7 @@
 	"openstackmanager-noownedinstances": "Немате создадено ниеден постоечки примерок.",
 	"openstackmanager-ownedinstances": "{{PLURAL:$1|Го создадовте овој примерок|Ги создадовте овие примероци}}:",
 	"openstackmanager-delete": "избриши",
-	"openstackmanager-configure": "нагоди поствки",
+	"openstackmanager-configure": "нагоди",
 	"openstackmanager-hieraconfig": "Погл. поставеноста на Hiera",
 	"openstackmanager-modify": "измени",
 	"openstackmanager-rename": "преименувај",
