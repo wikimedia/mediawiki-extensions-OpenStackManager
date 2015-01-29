@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"පසිඳු කාවින්ද"
+			"පසිඳු කාවින්ද",
+			"Subi"
 		]
 	},
 	"openstackmanager-delete": "ezabatu",
@@ -9,6 +10,7 @@
 	"openstackmanager-location": "Kokapena",
 	"openstackmanager-device": "Gailua",
 	"openstackmanager-name": "Izena",
+	"openstackmanager-displayquotas-ram": "RAM: $1/$2",
 	"openstackmanager-members": "Kideak",
 	"openstackmanager-member": "Kidea",
 	"openstackmanager-action": "Ekintza",
@@ -16,5 +18,8 @@
 	"openstackmanager-projects": "Proiektuak",
 	"openstackmanager-securitygroupdescription": "Deskribapen",
 	"openstackmanager-sudoerusers": "Erabiltzaileak",
-	"openstackmanager-sudoeroptions": "Aukerak"
+	"openstackmanager-sudoeroptions": "Aukerak",
+	"openstackmanager-puppetvars": "Aldagaiak",
+	"openstackmanager-addpuppetvar": "Gehitu aldagaia",
+	"openstackmanager-puppetvarname": "Aldagaiaren izena"
 }
