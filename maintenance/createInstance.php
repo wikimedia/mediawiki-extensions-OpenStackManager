@@ -128,7 +128,7 @@ class CreateInstance extends Maintenance {
 			if ( $host ) {
 				$instance->setHost( $host );
 				$title = Title::newFromText("createInstance script");
-				$job = new OpenStackNovaHostJob( $title, array( 'instanceid' => $instance->getInstanceId(), 'instanceosid' => $instance->getInstanceOSId(), 'project' => $project, 'region' => $region ) );
+				$job = new OpenStackNovaHostJob( $title, array( 'instanceid' => $instance->getInstanceId(), 'instanceosid' => $instance->getInstanceOSId(), 'project' => $project, 'region' => $region, 'auth' => $wgAuth ) );
 				$job->insert();
 				$image = $this->userNova->getImage( $instance->getImageId() );
 				$imageName = $image->getImageName();

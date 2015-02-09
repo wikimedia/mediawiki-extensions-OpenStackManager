@@ -30,9 +30,9 @@ class OpenStackNovaHostJob extends Job {
 	 */
 	public function run() {
 		global $wgUser;
-		global $wgAuth;
 		global $wgOpenStackManagerLDAPUsername;
 		global $wgOpenStackManagerLDAPUserPassword;
+		$auth = $this->params['auth'];
 
 		$user = isset( $this->params['user'] )
 			? User::newFromName( $this->params['user'] )
@@ -46,7 +46,7 @@ class OpenStackNovaHostJob extends Job {
 		$instanceosid = $this->params['instanceosid'];
 		$project = $this->params['project'];
 		$region = $this->params['region'];
-		$wgAuth->printDebug( "Running DNS job for $instanceid", NONSENSITIVE );
+		$auth->printDebug( "Running DNS job for $instanceid", NONSENSITIVE );
 
 		$user = new OpenStackNovaUser( $wgOpenStackManagerLDAPUsername );
 		$userNova = OpenStackNovaController::newFromUser( $user );
@@ -55,7 +55,7 @@ class OpenStackNovaHostJob extends Job {
 		$userNova->authenticate( $wgOpenStackManagerLDAPUsername, $wgOpenStackManagerLDAPUserPassword );
 		$instance = $userNova->getInstance( $instanceosid );
 		if ( ! $instance ) {
-			$wgAuth->printDebug( "Instance doesn't exist for $instanceosid", NONSENSITIVE );
+			$auth->printDebug( "Instance doesn't exist for $instanceosid", NONSENSITIVE );
 			# Instance no longer exists
 			return true;
 		}
@@ -64,14 +64,14 @@ class OpenStackNovaHostJob extends Job {
 		if ( trim( $ip ) === '' ) {
 			# IP hasn't been assigned yet
 			# re-add to queue
-			$wgAuth->printDebug( "Readding job for $instanceid", NONSENSITIVE );
+			$auth->printDebug( "Readding job for $instanceid", NONSENSITIVE );
 			$job = new OpenStackNovaHostJob( $this->title, $this->params );
 			$job->insert();
 			return true;
 		}
 		$host = OpenStackNovaHost::getHostByInstanceId( $instanceid, $region );
 		if ( ! $host ) {
-			$wgAuth->printDebug( "Host record doesn't exist for $instanceid", NONSENSITIVE );
+			$auth->printDebug( "Host record doesn't exist for $instanceid", NONSENSITIVE );
 			return true;
 		}
 		$host->setARecord( $ip );

@@ -641,6 +641,7 @@ class SpecialNovaInstance extends SpecialNova {
 	 */
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgUser;
+		global $wgAuth;
 
 		$domain = OpenStackNovaDomain::getDomainByName( $formData['region'] );
 		$project = $formData['project'];
@@ -663,7 +664,7 @@ class SpecialNovaInstance extends SpecialNova {
 				$instance->setHost( $host );
 				OpenStackManagerEvent::storeEventInfo( 'build', $this->getUser(), $instance, $project );
 				$title = Title::newFromText( $this->getOutput()->getPageTitle() );
-				$job = new OpenStackNovaHostJob( $title, array( 'instanceid' => $instance->getInstanceId(), 'instanceosid' => $instance->getInstanceOSId(), 'project' => $project, 'region' => $region, 'user' => $wgUser->getName() ) );
+				$job = new OpenStackNovaHostJob( $title, array( 'instanceid' => $instance->getInstanceId(), 'instanceosid' => $instance->getInstanceOSId(), 'project' => $project, 'region' => $region, 'user' => $wgUser->getName(), 'auth' => $wgAuth ) );
 				$job->insert();
 				$image = $this->userNova->getImage( $instance->getImageId() );
 				$imageName = $image->getImageName();
