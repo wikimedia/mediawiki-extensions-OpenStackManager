@@ -3,14 +3,15 @@
 		"authors": [
 			"EugeneZelenko",
 			"Jim-by",
-			"Wizardist"
+			"Wizardist",
+			"Red Winged Duck"
 		]
 	},
 	"openstackmanager-desc": "Дазваляе удзельнікам кіраваць Nova і Swift",
 	"openstackmanager": "OpenStackManager",
 	"openstackmanager-instance": "Кіраваць элемэнтам",
 	"openstackmanager-title": "OpenStackManager",
-	"openstackmanager-badresourcename": "Пададзеная няслушная назва рэсурсу. Назва рэсурсу пачынаецца з a-z, і можа ўтрымліваць толькі a-z, 0-9, -, сымбалі _.",
+	"openstackmanager-badresourcename": "Пададзеная няслушная назва рэсурсу. Назва рэсурсу пачынаецца з a-z, і можа ўтрымліваць толькі сымбалі a-z, 0-9 і -.",
 	"specialpages-group-nova": "OpenStack Nova",
 	"novaaddress": "Кіраваць публічнымі IP-адрасамі",
 	"novadomain": "Кіраваць DNS-дамэнамі",
