@@ -24,7 +24,11 @@ class ApiListNovaProjects extends ApiQueryGeneratorBase {
 			);
 		}
 
-		$this->getResult()->setIndexedTagName_internal( array( 'query', $this->getModuleName() ), 'project' );
+		if ( defined( 'ApiResult::META_CONTENT' ) ) {
+			$this->getResult()->defineIndexedTagName( array( 'query', $this->getModuleName() ), 'project' );
+		} else {
+			$this->getResult()->setIndexedTagName_internal( array( 'query', $this->getModuleName() ), 'project' );
+		}
 	}
 
 	/**
