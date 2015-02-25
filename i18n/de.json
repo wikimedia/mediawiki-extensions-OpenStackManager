@@ -428,5 +428,8 @@
 	"echo-category-title-osm-instance-reboot-completed": "Abschluss eines Instanzneustarts",
 	"echo-category-title-osm-projectmembers-add": "Projektmitgliedschaft-Hinzufügungen",
 	"prefs-openstack": "OpenStack",
-	"prefs-openstack-keys": "Schlüsselliste"
+	"prefs-openstack-keys": "Schlüsselliste",
+	"apihelp-novaprojects-description": "Informationen über Projekte abrufen.",
+	"apihelp-novaprojects-example-1": "Alle Projekte abrufen",
+	"apihelp-query+novaprojects-example-1": "Projekte auflisten"
 }
