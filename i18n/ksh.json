@@ -84,5 +84,6 @@
 	"openstackmanager-sudoercommands": "Kommandos",
 	"openstackmanager-sudoeroptions": "Ennshtällunge",
 	"openstackmanager-createpuppetgroup": "En Jropp derbei donn",
-	"prefs-openstack": "<i lang=\"en\" xml:lang=\"en\">OpenStack</i>"
+	"prefs-openstack": "<i lang=\"en\" xml:lang=\"en\">OpenStack</i>",
+	"apihelp-novainstance-example-1": "Donn en Enschtanz vun eb195097-8539-4e66-b0b5-be8347d8caec em Projäk <code lang=\"en\">testing</code> em Berätt <code lang=\"en\">mars</code> vun Noll aan neu loßloufe lohße."
 }

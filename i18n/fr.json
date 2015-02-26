@@ -18,7 +18,8 @@
 			"Wyz",
 			"SnowedEarth",
 			"Amelia",
-			"0x010C"
+			"0x010C",
+			"Hercule"
 		]
 	},
 	"openstackmanager-desc": "Permet aux utilisateurs autorisés de créer et gérer des instances de serveurs virtuels avec un gestionnaire compatible OpenStack, tel que Nova ou Swift.",
@@ -433,7 +434,7 @@
 	"notification-osm-instance-reboot-completed-email-body-batch": "$1 a redémarré l'instance «$3» dans le projet [[$2]]",
 	"notification-osm-projectmember-added": "$1 vous {{GENDER:$1|a ajouté}} au projet [[$2]]",
 	"notification-osm-projectmember-added-email-subject": "Vous avez été ajouté à un projet sur {{SITENAME}}",
-	"notification-osm-projectmember-added-email-body-batch": "$1 vous a ajouté(e) au projet [[$2]]",
+	"notification-osm-projectmember-added-email-body-batch": "$1 vous a ajouté{{GENDER:||e}} au projet [[$2]]",
 	"echo-category-title-osm-instance-deleted": "Suppression d’une instance (où vous êtes administrateur de projet)",
 	"echo-category-title-osm-instance-build-completed": "Construction d’une instance (où vous êtes administrateur de projet)",
 	"echo-category-title-osm-instance-reboot-completed": "Fin du redémarrage de l’instance",
