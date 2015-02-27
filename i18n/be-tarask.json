@@ -37,7 +37,7 @@
 	"openstackmanager-nonovacred": "Ня знойдзеныя пасьведчаньні Nova для Вашага рахунку.",
 	"openstackmanager-nonovacred-admincreate": "Ня знойдзеныя пасьведчаньні Nova для Вашага рахунку. Калі ласка, падайце запыт адміністратару Nova на стварэньне пасьведчаньняў для Вас.",
 	"openstackmanager-noaccount": "Ваш рахунак не належыць да праекту $1.",
-	"openstackmanager-noaccount2": "Вы ня можаце скончыць запыт, таму што Ваш рахунак не запатрабаваны праектам.",
+	"openstackmanager-noaccount2": "Вы ня можаце завяршыць запытанае дзеяньне, таму што Ваш рахунак не належыць да праекту $1.",
 	"openstackmanager-nonexistentresource": "Пазначаны рэсурс не існуе.",
 	"openstackmanager-createdomain": "Стварыць дамэн",
 	"openstackmanager-deletedomain": "Выдаліць дамэн",
