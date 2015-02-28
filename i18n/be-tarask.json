@@ -55,7 +55,7 @@
 	"openstackmanager-location": "Месцазнаходжаньне",
 	"openstackmanager-location-help": "Поле месцазнаходжаньня патрэбнае для прыватных DNS-зонаў. Пакіньце пустымі для публічных зонаў.",
 	"openstackmanager-novainstance-instance": "Экзэмпляр",
-	"openstackmanager-configureinstance": "Канфігураваць экзэмпляр",
+	"openstackmanager-configureinstance": "Канфігураваць экзэмпляр $1 ($2)",
 	"openstackmanager-nonexistanthost": "Запатрабаваны хост не існуе.",
 	"openstackmanager-dnsdomain": "DNS-дамэн",
 	"openstackmanager-puppetclasses": "Клясы",
