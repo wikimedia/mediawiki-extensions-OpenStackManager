@@ -73,7 +73,7 @@
 	"openstackmanager-availabilityzone": "Зона даступнасьці",
 	"openstackmanager-imageid": "Ідэнтыфікатар выявы",
 	"openstackmanager-imagetype": "Тып выявы",
-	"openstackmanager-instancetypelabel": "{{PLURAL:$1|$1 працэсар|$1 працэсары|$1 працэсараў}}, памяць: $2 Мб, дыск: $3 Гб",
+	"openstackmanager-instancetypelabel": "{{PLURAL:$1|$1 працэсар|$1 працэсары|$1 працэсараў}}, памяць: $2 Мб, дыск: $3 Гб, сховішча: $4 Гб",
 	"openstackmanager-rebootinstance": "Перазагрузіць экзэмпляр",
 	"openstackmanager-rebootinstancequestion": "Вы ўпэўнены, што жадаеце перазагрузіць экзэмпляр «$1»?",
 	"openstackmanager-rebootedinstance": "Перазагружаны экзэмпляр $1.",
