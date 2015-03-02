@@ -77,7 +77,7 @@
 	"openstackmanager-rebootinstance": "Перазагрузіць экзэмпляр",
 	"openstackmanager-rebootinstancequestion": "Вы ўпэўнены, што жадаеце перазагрузіць экзэмпляр «$1»?",
 	"openstackmanager-rebootedinstance": "Перазагружаны экзэмпляр $1.",
-	"openstackmanager-rebootinstancefailed": "Немагчыма перазагрузіць экзэмпляр.",
+	"openstackmanager-rebootinstancefailed": "Не атрымалася перазагрузіць экзэмпляр $1.",
 	"openstackmanager-launchtime": "Час запуску",
 	"openstackmanager-createinstance": "Дадаць экзэмпляр",
 	"openstackmanager-invaliddomain": "Запытаны няслушны дамэн.",
