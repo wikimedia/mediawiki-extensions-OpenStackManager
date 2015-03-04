@@ -566,8 +566,12 @@ class SpecialNovaInstance extends SpecialNova {
 				$imageName = $imageNameRet;
 			} else {
 				$image = $this->userNova->getImage( $imageId );
-				$imageName = $image->getImageName();
-				$wgMemc->set( $key, $imageName, 86400 );
+				if ( $image ) {
+					$imageName = $image->getImageName();
+					$wgMemc->set( $key, $imageName, 86400 );
+				} else {
+					$imageName = $this->msg( 'openstackmanager-missingimage' )->text();
+				}
 			}
 			$this->pushResourceColumn( $instanceRow, $imageName );
 			$this->pushResourceColumn( $instanceRow, $instance->getLaunchTime() );

@@ -89,6 +89,7 @@
 	"openstackmanager-instancepublicip": "Instance floating IP address",
 	"openstackmanager-securitygroups": "Security groups",
 	"openstackmanager-availabilityzone": "Availability zone",
+	"openstackmanager-missingimage": "(missing)",
 	"openstackmanager-imageid": "Image ID",
 	"openstackmanager-imagetype": "Image type",
 	"openstackmanager-instancetypelabel": "{{PLURAL:$1|$1 CPU|$1 CPUs}}, $2 MB RAM, $3 GB root partition, $4 GB storage",
