@@ -85,7 +85,7 @@
 	"openstackmanager-createfailedldap": "Немагчыма стварыць экзэмпляр: немагчыма дадаць хост ў LDAP.",
 	"openstackmanager-createinstancefailed": "Немагчыма стварыць экзэмпляр.",
 	"openstackmanager-backinstancelist": "Вярнуцца ў сьпіс экзэмпляраў",
-	"openstackmanager-deletedinstance": "Выдалены экзэмпляр $1",
+	"openstackmanager-deletedinstance": "Выдалены экзэмпляр $1 ($2).",
 	"openstackmanager-deletedinstance-faileddns": "Экзэмпляр пасьпяхова выдалены, але немагчыма выдаліць запіс у DNS $1.",
 	"openstackmanager-modifiedinstance": "Экзэмпляр зьменены пасьпяхова.",
 	"openstackmanager-modifyinstancefailed": "Немагчыма зьмяніць экзэмпляр.",
