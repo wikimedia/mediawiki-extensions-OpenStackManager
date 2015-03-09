@@ -348,6 +348,7 @@ function efOpenStackSchemaUpdates( $updater ) {
 		$updater->addExtensionUpdate( array( 'addIndex', 'openstack_puppet_vars', 'var_group_id', "$base/schema-changes/openstack_add_name_indexes.sql", true ) );
 		$updater->addExtensionUpdate( array( 'addIndex', 'openstack_puppet_classes', 'class_name', "$base/schema-changes/openstack_add_name_indexes.sql", true ) );
 		$updater->addExtensionUpdate( array( 'addIndex', 'openstack_puppet_classes', 'class_group_id', "$base/schema-changes/openstack_add_name_indexes.sql", true ) );
+		$updater->addExtensionUpdate( array( 'modifyField', 'openstack_tokens', 'token', "$base/schema-changes/openstack_change_token_size.sql", true ) );
 		break;
 	}
 	return true;
