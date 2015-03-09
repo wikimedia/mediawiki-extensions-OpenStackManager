@@ -734,6 +734,8 @@ class OpenStackNovaController {
 				$wikiuser = User::newFromName( $this->user->getUsername() );
 				$token = OpenStackNovaUser::loadToken( $wikiuser );
 				if ( !$token ) {
+					// Log this user out!
+					$wikiuser->doLogout();
 					return '';
 				}
 				$wgMemc->set( $key, $token );
