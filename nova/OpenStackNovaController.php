@@ -713,10 +713,10 @@ class OpenStackNovaController {
 		$user = $ret['body'];
 		$this->token = $this->_get_property( $user->access->token, 'id' );
 		$key = wfMemcKey( 'openstackmanager', 'fulltoken', $username );
-		// Set a good long expiration time so that it's longer than
-		// MediaWiki's token, so a re-auth will occur
+		// Expiration time is unneccessary. Token expiration is expected
+		// to be longer than MediaWiki's token, so a re-auth will occur
 		// before the generic token expires.
-		$wgMemc->set( $key, $this->token, 60*60*24*30 );
+		$wgMemc->set( $key, $this->token );
 
 		return $this->token;
 	}
