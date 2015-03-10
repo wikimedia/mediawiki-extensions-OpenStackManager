@@ -3,7 +3,7 @@ CREATE TABLE /*_*/openstack_tokens (
 	token_id int not null primary key auto_increment,
 
 	-- token itself
-	token varchar(255) binary not null,
+	token varchar(2048) binary not null,
 
 	-- User to which this token belongs
 	user_id int not null
