@@ -431,5 +431,6 @@
 	"prefs-openstack-keys": "Schlüsselliste",
 	"apihelp-novaprojects-description": "Informationen über Projekte abrufen.",
 	"apihelp-novaprojects-example-1": "Alle Projekte abrufen",
+	"apihelp-novaservicegroups-param-subaction": "Die auszuführende Subaktion.",
 	"apihelp-query+novaprojects-example-1": "Projekte auflisten"
 }

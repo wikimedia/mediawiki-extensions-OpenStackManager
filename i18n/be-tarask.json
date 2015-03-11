@@ -89,7 +89,7 @@
 	"openstackmanager-deletedinstance-faileddns": "Экзэмпляр $1 ($2) пасьпяхова выдалены, але немагчыма выдаліць запіс у DNS.",
 	"openstackmanager-modifiedinstance": "Экзэмпляр $1 ($2) зьменены пасьпяхова.",
 	"openstackmanager-modifyinstancefailed": "Немагчыма зьмяніць экзэмпляр.",
-	"openstackmanager-deleteinstancefailed": "Немагчыма выдаліць экзэмпляр.",
+	"openstackmanager-deleteinstancefailed": "Не атрымалася выдаліць экзэмпляр $1 ($2).",
 	"openstackmanager-consoleoutput": "Вывад кансолі",
 	"openstackmanager-getconsoleoutput": "атрымаць кансольны вывад",
 	"openstackmanager-createvolume": "Стварыць разьдзел сховішча",
