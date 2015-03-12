@@ -90,7 +90,7 @@
 	"openstackmanager-modifiedinstance": "Экзэмпляр $1 ($2) зьменены пасьпяхова.",
 	"openstackmanager-modifyinstancefailed": "Немагчыма зьмяніць экзэмпляр.",
 	"openstackmanager-deleteinstancefailed": "Не атрымалася выдаліць экзэмпляр $1 ($2).",
-	"openstackmanager-consoleoutput": "Вывад кансолі",
+	"openstackmanager-consoleoutput": "Вывад кансолі для $1 ($2)",
 	"openstackmanager-getconsoleoutput": "атрымаць кансольны вывад",
 	"openstackmanager-createvolume": "Стварыць разьдзел сховішча",
 	"openstackmanager-volumename": "Назва разьдзелу сховішча",
