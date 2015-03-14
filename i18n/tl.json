@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"AnakngAraw"
+			"AnakngAraw",
+			"Stranger195"
 		]
 	},
 	"openstackmanager-desc": "Nagpapahintulot sa mga tagagamit na pamahalaan ang Nova at Swift",
@@ -75,6 +76,7 @@
 	"openstackmanager-instancepublicip": "Lumulutang na tirahang IP ng pagkakataon",
 	"openstackmanager-securitygroups": "Mga pangkat pangkaligtasan",
 	"openstackmanager-availabilityzone": "Sona ng mga makukuha",
+	"openstackmanager-missingimage": "(nawawala)",
 	"openstackmanager-imageid": "ID ng larawan",
 	"openstackmanager-imagetype": "Uri ng larawan",
 	"openstackmanager-instancetypelabel": "{{PLURAL:$1|$1 CPU|$1 mga CPU}}, $2 MB RAM, $3 imbakan ng GB",

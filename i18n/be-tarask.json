@@ -125,7 +125,7 @@
 	"openstackmanager-detachedvolume": "Разьдзел сховішча адлучаны пасьпяхова.",
 	"openstackmanager-detachvolumefailed": "Немагчыма адлучыць разьдзел сховішча.",
 	"openstackmanager-novapublickey": "Публічны ключ SSH",
-	"openstackmanager-deletekey": "Выдаліць ключ",
+	"openstackmanager-deletekey": "Выдаліць публічны SSH-ключ",
 	"openstackmanager-deletekeyconfirm": "Вы ўпэўнены, што жадаеце выдаліць ніжэй прыведзены ключ?",
 	"openstackmanager-keylist": "Сьпіс ключоў",
 	"openstackmanager-name": "Назва",

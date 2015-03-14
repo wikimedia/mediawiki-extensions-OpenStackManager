@@ -14,7 +14,8 @@
 			"Sam Reed <reedy@wikimedia.org>",
 			"Shirayuki",
 			"Siebrand",
-			"Umherirrender"
+			"Umherirrender",
+			"Liuxinyu970226"
 		]
 	},
 	"openstackmanager-desc": "{{desc|name=Open Stack Manager|url=http://www.mediawiki.org/wiki/Extension:OpenStackManager}}",
@@ -97,7 +98,7 @@
 	"openstackmanager-instanceip": "An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].",
 	"openstackmanager-instancepublicip": "An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].",
 	"openstackmanager-securitygroups": "Used as label for multi-select box and as heading cell in \"resource\" table, in [[Special:NovaInstance]].",
-	"openstackmanager-missingimage": "Label for images that have been deleted in [[Special:NovaInstance]].",
+	"openstackmanager-missingimage": "Label for images that have been deleted in [[Special:NovaInstance]].\n{{Identical|Missing}}",
 	"openstackmanager-imageid": "\"ID\" stands for \"Identifier\".",
 	"openstackmanager-instancetypelabel": "Used in Special:NovaInstance. Parameters:\n* $1 - number of CPUs\n* $2 - memory size (in megabytes)\n* $3 - root storage size (in gigabytes)\n* $4 - storage size (in gigabytes)",
 	"openstackmanager-rebootinstance": "An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].",

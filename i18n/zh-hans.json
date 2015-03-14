@@ -97,6 +97,7 @@
 	"openstackmanager-instancepublicip": "实例浮动 IP 地址",
 	"openstackmanager-securitygroups": "安全组",
 	"openstackmanager-availabilityzone": "可用性区域",
+	"openstackmanager-missingimage": "（丢失）",
 	"openstackmanager-imageid": "图像ID",
 	"openstackmanager-imagetype": "图像类型",
 	"openstackmanager-instancetypelabel": "$1个CPU、$2 MB RAM、$3 GB 根分区、$4 GB 存储",

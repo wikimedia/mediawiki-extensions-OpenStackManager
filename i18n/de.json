@@ -92,6 +92,7 @@
 	"openstackmanager-instancepublicip": "Dynamische IP-Adresse der Instanz",
 	"openstackmanager-securitygroups": "Sicherheitsgruppen",
 	"openstackmanager-availabilityzone": "Verfügbarkeitszone",
+	"openstackmanager-missingimage": "(fehlend)",
 	"openstackmanager-imageid": "Bildkennung",
 	"openstackmanager-imagetype": "Bildtyp",
 	"openstackmanager-instancetypelabel": "{{PLURAL:$1|$1 Prozessor|$1 Prozessoren}}, $2 MB RAM, $3 GB Stammpartition, $4 GB Speicher",

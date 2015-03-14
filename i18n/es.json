@@ -86,6 +86,7 @@
 	"openstackmanager-instancepublicip": "IP flotante de la instancia",
 	"openstackmanager-securitygroups": "Grupos de seguridad",
 	"openstackmanager-availabilityzone": "Zona de disponibilidad",
+	"openstackmanager-missingimage": "(falta)",
 	"openstackmanager-imageid": "Id. de la imagen",
 	"openstackmanager-imagetype": "Tipo de imagen",
 	"openstackmanager-instancetypelabel": "{{PLURAL:$1|$1 procesador|$1 procesadores}}, $2 MB de RAM, $3 GB de partición raíz, $4 GB de almacenamiento",
