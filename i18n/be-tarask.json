@@ -127,7 +127,7 @@
 	"openstackmanager-novapublickey": "Публічны ключ SSH",
 	"openstackmanager-deletekey": "Выдаліць публічны SSH-ключ",
 	"openstackmanager-deletekeyconfirm": "Вы ўпэўнены, што жадаеце выдаліць ніжэй прыведзены ключ?",
-	"openstackmanager-keylist": "Сьпіс ключоў",
+	"openstackmanager-keylist": "Сьпіс публічных SSH-ключоў",
 	"openstackmanager-name": "Назва",
 	"openstackmanager-keys": "Ключы",
 	"openstackmanager-invalidkeypair": "Няслушнае месцазнаходжаньне пары ключоў.",
