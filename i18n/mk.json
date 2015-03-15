@@ -88,6 +88,7 @@
 	"openstackmanager-instancepublicip": "Променлива IP-адреса на примерокот",
 	"openstackmanager-securitygroups": "Безбедносни групи",
 	"openstackmanager-availabilityzone": "Подрајче на достапност",
+	"openstackmanager-missingimage": "(недостасува)",
 	"openstackmanager-imageid": "Назнака на сликата",
 	"openstackmanager-imagetype": "Тип на сликата",
 	"openstackmanager-instancetypelabel": "{{PLURAL:$1|$1 обработувач|$1 обработувачи}}, $2 МБ RAM, $3 ГБ основен оддел, $4 ГБ складиште",

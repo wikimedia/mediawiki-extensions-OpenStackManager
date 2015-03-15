@@ -135,7 +135,7 @@
 	"openstackmanager-keypairimported": "Імпартаваная пара ключоў.",
 	"openstackmanager-deletedkey": "Пасьпяхова выдалены ключ.",
 	"openstackmanager-deletedkeyfailed": "Немагчыма выдаліць ключ.",
-	"openstackmanager-addmember": "Дадаць удзельніка праекту",
+	"openstackmanager-addmember": "Дадаць удзельніка",
 	"openstackmanager-removemember": "Выдаліць удзельніка праекту",
 	"openstackmanager-removeprojectconfirm": "Вы ўпэўнены, што жадаеце выдаліць праект «$1»? Гэтае дзеяньне паўплывае на віртуальныя машыны. Не прымайце гэтае рашэньне не падумаўшы!",
 	"openstackmanager-createproject": "Стварыць новы праект",
