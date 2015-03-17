@@ -39,6 +39,7 @@
 	"novavolume": "{{doc-special|NovaVolume}}",
 	"novasudoer": "{{doc-special|NovaSudoer}}",
 	"novaproxy": "{{doc-special|NovaSudoer}}",
+	"novaresources": "{{doc-special|NovaResources}}",
 	"novapuppetgroup": "{{doc-special|NovaPuppetGroup}}",
 	"openstackmanager-novadomain": "Used as title for the form in Special:NovaDomain.",
 	"openstackmanager-novainstance": "An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].",
