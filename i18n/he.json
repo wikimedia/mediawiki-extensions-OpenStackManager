@@ -90,6 +90,7 @@
 	"openstackmanager-instancepublicip": "כתובת ה־IP הצפה של המופע",
 	"openstackmanager-securitygroups": "קבוצות אבטחה",
 	"openstackmanager-availabilityzone": "אזור זמינות",
+	"openstackmanager-missingimage": "(חסר)",
 	"openstackmanager-imageid": "מזהה תמונה",
 	"openstackmanager-imagetype": "סוג תמונה",
 	"openstackmanager-instancetypelabel": "{{PLURAL:$1|מעבד אחד|$1 מעבדים}}, $2 מ״ב של זיכרון פנימי, $3 ג״ב במחיצת root, ו־$4 ג\"ב של נפח אחסון",
