@@ -138,7 +138,7 @@
 	"openstackmanager-addmember": "Дадаць удзельніка",
 	"openstackmanager-removemember": "Выдаліць удзельніка",
 	"openstackmanager-removeprojectconfirm": "Вы ўпэўнены, што жадаеце выдаліць праект «$1»? Гэтае дзеяньне паўплывае на віртуальныя машыны. Не прымайце гэтае рашэньне не падумаўшы!",
-	"openstackmanager-createproject": "Стварыць новы праект",
+	"openstackmanager-createproject": "Дадаць праект",
 	"openstackmanager-projectname": "Назва праекту",
 	"openstackmanager-members": "Удзельнікі",
 	"openstackmanager-member": "Удзельнік",

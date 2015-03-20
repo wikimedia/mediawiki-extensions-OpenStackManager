@@ -88,6 +88,7 @@
 	"openstackmanager-instancepublicip": "Endereço IP flutuante da instância",
 	"openstackmanager-securitygroups": "Grupos de segurança",
 	"openstackmanager-availabilityzone": "Zona de disponibilidade",
+	"openstackmanager-missingimage": "(em falta)",
 	"openstackmanager-imageid": "ID da imagem",
 	"openstackmanager-imagetype": "Tipo da imagem",
 	"openstackmanager-instancetypelabel": "{{PLURAL:$1|$1CPU| $1  CPUs}},  $2  MB de RAM,  $3  GB de partição raiz,  $4  GB de armazenamento",

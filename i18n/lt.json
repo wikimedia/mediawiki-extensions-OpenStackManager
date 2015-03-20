@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Eitvys200",
-			"Reedy"
+			"Reedy",
+			"Pofka"
 		]
 	},
 	"novaaddress": "Valdyti viešus IP adresus",
@@ -26,6 +27,7 @@
 	"openstackmanager-dnsdomain": "DNS domenas",
 	"openstackmanager-securitygroups": "Saugos grupės",
 	"openstackmanager-availabilityzone": "Prieinamumo zona",
+	"openstackmanager-missingimage": "(trūksta)",
 	"openstackmanager-imageid": "Vaizdo ID",
 	"openstackmanager-imagetype": "Vaizdo tipas",
 	"openstackmanager-launchtime": "Paleidimo laikas",
