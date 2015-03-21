@@ -7,7 +7,7 @@
  * @ingroup Extensions
  */
 
-class OpenStackNovaKeyPair {
+class OpenStackNovaKeypair {
 
 	public $keypair;
 
