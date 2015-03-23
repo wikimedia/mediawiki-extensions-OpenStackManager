@@ -18,7 +18,7 @@
 			"Liuxinyu970226"
 		]
 	},
-	"openstackmanager-desc": "{{desc|name=Open Stack Manager|url=http://www.mediawiki.org/wiki/Extension:OpenStackManager}}",
+	"openstackmanager-desc": "{{desc|name=Open Stack Manager|url=https://www.mediawiki.org/wiki/Extension:OpenStackManager}}",
 	"openstackmanager": "{{Identical|OpenStackManager}}",
 	"openstackmanager-instance": "An instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].\n{{Identical|Manage instance}}",
 	"openstackmanager-title": "{{Identical|OpenStackManager}}",
