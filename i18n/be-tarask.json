@@ -156,7 +156,7 @@
 	"openstackmanager-failedtoremove": "Немагчыма выдаліць $1 з $2.",
 	"openstackmanager-novaproject-project": "Дадаць праект",
 	"openstackmanager-roles": "Ролі",
-	"openstackmanager-rolename": "Назва ролі",
+	"openstackmanager-rolename": "Роля",
 	"openstackmanager-removerolemember": "Выдаліць удзельніка ролі",
 	"openstackmanager-addrolemember": "Дадаць удзельніка ролі",
 	"openstackmanager-rolelist": "Сьпіс глябальных роляў",
