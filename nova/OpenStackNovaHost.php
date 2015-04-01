@@ -333,6 +333,9 @@ class OpenStackNovaHost {
 		}
 		$hostEntry['associateddomain'][] = $instanceid . '.' . $domainname;
 		$hostEntry['associateddomain'][] = $hostname . '.' . $domainname;
+		$projectName = $project->getProjectName();
+		$hostEntry['associateddomain'][] = $instanceid . '.' . $projectName . '.' . $domainname;
+		$hostEntry['associateddomain'][] = $hostname . '.' . $projectName . '.' . $domainname;
 		$hostEntry['l'] = $domain->getLocation();
 		if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
 			$hostEntry['objectclass'][] = 'puppetclient';
