@@ -170,12 +170,6 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 
 		$hostEntry = array();
 		if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
-			foreach ( $wgOpenStackManagerPuppetOptions['defaultclasses'] as $class ) {
-				$hostEntry['puppetclass'][] = $class;
-			}
-			foreach ( $wgOpenStackManagerPuppetOptions['defaultvariables'] as $variable => $value ) {
-				$hostEntry['puppetvar'][] = $variable . '=' . $value;
-			}
 			if ( isset( $puppetinfo['classes'] ) ) {
 				foreach ( $puppetinfo['classes'] as $class ) {
 					$hostEntry['puppetclass'][] = $class;
