@@ -169,7 +169,7 @@
 	"openstackmanager-addresslist": "Сьпіс публічных IP-адрасоў",
 	"openstackmanager-address": "Публічны IP-адрас",
 	"openstackmanager-allocateaddress": "Выдзеліць IP",
-	"openstackmanager-releaseaddress": "Вызваліць IP-адрасу",
+	"openstackmanager-releaseaddress": "Вызваліць IP",
 	"openstackmanager-associateaddress": "Зьвязаць IP-адрас",
 	"openstackmanager-reassociateaddress": "Зьвязаць IP-адрас з іншым экзэмплярам",
 	"openstackmanager-disassociateaddress": "Выдаліць сувязь IP-адрасу",
