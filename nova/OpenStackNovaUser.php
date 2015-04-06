@@ -576,6 +576,7 @@ class OpenStackNovaUser {
 	static function AbortNewAccount( $user, &$message ) {
 		global $wgRequest;
 		global $wgAuth;
+		global $wgUser;
 
 		$shellaccountname = $wgRequest->getText( 'shellaccountname' );
 		if ( ! preg_match( "/^[a-z][a-z0-9\-_]*$/", $shellaccountname ) ) {
@@ -594,7 +595,12 @@ class OpenStackNovaUser {
 				return false;
 			}
 		}
-		return true;
+
+		if ( class_exists( 'TitleBlacklist' ) ) {
+			return TitleBlacklistHooks::acceptNewUserName( $shellaccountname, $wgUser, $message, $override = false, $log = true );
+		} else {
+			return true;
+		}
 	}
 
 	/**
