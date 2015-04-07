@@ -172,7 +172,7 @@
 	"openstackmanager-releaseaddress": "Вызваліць IP",
 	"openstackmanager-associateaddress": "Зьвязаць IP",
 	"openstackmanager-reassociateaddress": "Паўторна зьвязаць IP",
-	"openstackmanager-disassociateaddress": "Выдаліць сувязь IP-адрасу",
+	"openstackmanager-disassociateaddress": "Адлучыць IP",
 	"openstackmanager-allocateaddressfailed": "Немагчыма зьвязаць новы публічны IP-адрас.",
 	"openstackmanager-allocatedaddress": "Выдзелены новы публічны IP-адрас $1",
 	"openstackmanager-backaddresslist": "Вярнуцца ў сьпіс адрасоў",
