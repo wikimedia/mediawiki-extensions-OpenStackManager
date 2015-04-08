@@ -207,7 +207,7 @@
 	"openstackmanager-deletesecuritygroup-confirm": "Вы ўпэўнены, што жадаеце выдаліць $1?",
 	"openstackmanager-securitygrouplist": "Сьпіс групаў бясьпекі",
 	"openstackmanager-securitygrouprule": "Правілы",
-	"openstackmanager-securitygrouprule-toport": "У порт",
+	"openstackmanager-securitygrouprule-toport": "Канец дыяпазону портаў",
 	"openstackmanager-securitygrouprule-fromport": "З порту",
 	"openstackmanager-securitygrouprule-protocol": "Пратакол",
 	"openstackmanager-securitygrouprule-ipranges": "Дыяпазоны CIDR",
