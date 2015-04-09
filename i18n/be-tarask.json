@@ -208,7 +208,7 @@
 	"openstackmanager-securitygrouplist": "Сьпіс групаў бясьпекі",
 	"openstackmanager-securitygrouprule": "Правілы",
 	"openstackmanager-securitygrouprule-toport": "Канец дыяпазону портаў",
-	"openstackmanager-securitygrouprule-fromport": "З порту",
+	"openstackmanager-securitygrouprule-fromport": "Пачатак дыяпазону портаў",
 	"openstackmanager-securitygrouprule-protocol": "Пратакол",
 	"openstackmanager-securitygrouprule-ipranges": "Дыяпазоны CIDR",
 	"openstackmanager-securitygrouprule-groups": "Групы бясьпекі",
