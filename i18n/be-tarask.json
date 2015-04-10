@@ -211,7 +211,7 @@
 	"openstackmanager-securitygrouprule-fromport": "Пачатак дыяпазону портаў",
 	"openstackmanager-securitygrouprule-protocol": "Пратакол",
 	"openstackmanager-securitygrouprule-ipranges": "Дыяпазоны CIDR",
-	"openstackmanager-securitygrouprule-groups": "Групы бясьпекі",
+	"openstackmanager-securitygrouprule-groups": "Група-крыніца",
 	"openstackmanager-createnewsecuritygroup": "Стварыць новую групу бясьпекі",
 	"openstackmanager-addrule-action": "дадаць правіла",
 	"openstackmanager-removerule-action": "выдаліць правіла",
