@@ -26,6 +26,7 @@
 	"novavolume": "Manage storage volumes",
 	"novasudoer": "Manage sudo policies",
 	"novaproxy": "Manage instance proxies",
+	"novaresources": "Manage resources",
 	"novapuppetgroup": "Manage Puppet groups",
 	"openstackmanager-novadomain": "Nova domain",
 	"openstackmanager-novainstance": "Nova instance",
