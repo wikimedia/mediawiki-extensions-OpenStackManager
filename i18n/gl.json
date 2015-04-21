@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Toliño"
+			"Toliño",
+			"Banjo"
 		]
 	},
 	"openstackmanager-desc": "Permite aos usuarios xestionar Nova e Swift",
@@ -405,13 +406,19 @@
 	"action-manageproject": "xestionar os roles e proxectos Openstack",
 	"right-loginviashell": "acceder ao sistema mediante shell",
 	"notification-osm-instance-deleted": "$1 {{GENDER:$1|borrou}} a instancia \"$3\" no proxecto [[$2]]",
+	"notification-osm-instance-deleted-email-subject": "Instancia \"$1\" eliminada en {{SITENAME}}",
 	"notification-osm-instance-build-completed": "$1 {{GENDER:$1|construíu}} a instancia \"$3\" no proxecto [[$2]]",
+	"notification-osm-instance-build-completed-email-subject": "Instancia \"$1\" construída en {{SITENAME}}",
 	"notification-osm-instance-reboot-completed": "$1 {{GENDER:$1|reiniciou}} a instancia \"$3\" no proxecto [[$2]]",
+	"notification-osm-instance-reboot-completed-email-subject": "Instancia \"$1\" reiniciada en {{SITENAME}}",
 	"notification-osm-projectmember-added": "$1 {{GENDER:$1|engadiu}} a vostede ao proxecto [[$2]]",
 	"echo-category-title-osm-instance-deleted": "Borrado dunha instancia (onde sexa administrador de proxecto)",
 	"echo-category-title-osm-instance-build-completed": "Construción dunha instancia (onde sexa administrador de proxecto)",
 	"echo-category-title-osm-instance-reboot-completed": "Remate do reinicio dunha instancia",
 	"echo-category-title-osm-projectmembers-add": "Adición de membros ao proxecto",
 	"prefs-openstack": "OpenStack",
-	"prefs-openstack-keys": "Lista de claves"
+	"prefs-openstack-keys": "Lista de claves",
+	"apihelp-novainstance-param-project": "O proxecto no que existe a instancia.",
+	"apihelp-novainstance-param-region": "A rexión na que existe a instancia.",
+	"apihelp-query+novaprojects-example-1": "Listar proxectos"
 }

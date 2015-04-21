@@ -29,6 +29,7 @@
 	"novavolume": "Datenträger verwalten",
 	"novasudoer": "Sudo-Richtlinien verwalten",
 	"novaproxy": "Instanzproxys verwalten",
+	"novaresources": "Ressourcen verwalten",
 	"novapuppetgroup": "Puppet-Gruppen verwalten",
 	"openstackmanager-novadomain": "Nova-Domain",
 	"openstackmanager-novainstance": "Nova-Instanz",

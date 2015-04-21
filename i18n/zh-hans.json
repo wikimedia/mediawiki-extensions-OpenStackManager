@@ -11,7 +11,8 @@
 			"Xiaomingyan",
 			"Yanmiao liu",
 			"Yfdyh000",
-			"乌拉跨氪"
+			"乌拉跨氪",
+			"凡人丶"
 		]
 	},
 	"openstackmanager-desc": "让用户管理 Nova 和 Swift",
@@ -35,6 +36,7 @@
 	"novavolume": "管理存储卷",
 	"novasudoer": "管理sudo策略",
 	"novaproxy": "管理实例代理",
+	"novaresources": "管理资源",
 	"novapuppetgroup": "管理Puppet组",
 	"openstackmanager-novadomain": "Nova 域",
 	"openstackmanager-novainstance": "Nova 实例",

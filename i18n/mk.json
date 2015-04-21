@@ -25,6 +25,7 @@
 	"novavolume": "Раководење со складишни носачи на податоци",
 	"novasudoer": "Раководење со правилата на Sudo",
 	"novaproxy": "Раководење со застапници на примероците",
+	"novaresources": "Раководство со ресурси",
 	"novapuppetgroup": "Раководење со марионетски групи",
 	"openstackmanager-novadomain": "Домен на Nova",
 	"openstackmanager-novainstance": "Примерок на Nova",
