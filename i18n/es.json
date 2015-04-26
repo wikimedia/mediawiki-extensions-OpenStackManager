@@ -31,7 +31,7 @@
 	"novarole": "Administrar los perfiles globales",
 	"novavolume": "Administrar los volúmenes de almacenamiento",
 	"novasudoer": "Administrar las políticas de '''sudo'''",
-	"novaresources": "Administrar recursos",
+	"novaresources": "Gestionar recursos",
 	"novapuppetgroup": "Administrar grupos de títeres (puppet)",
 	"openstackmanager-novadomain": "Dominio de Nova",
 	"openstackmanager-novainstance": "Instancia de Nova",
