@@ -276,7 +276,7 @@ class SpecialNovaKey extends SpecialNova {
 	function tryImportSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOpenStackManagerNovaKeypairStorage;
 
-		$key = $formData['key'];
+		$key = trim( $formData['key'] ); # Because people copy paste it with an accidental newline
 		$returnto = Title::newFromText( $formData['returnto'] );
 		if ( !preg_match( '/(^| )ssh-(rsa|dss) /', $key ) ) {
 			# This doesn't look like openssh format, it's probably a
