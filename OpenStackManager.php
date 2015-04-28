@@ -263,6 +263,8 @@ $commonModuleInfo = array(
 );
 
 $wgResourceModules['ext.openstack'] = array(
+	'position' => 'top',
+
 	'styles' => 'ext.openstack.css',
 
 	'dependencies' => array(
