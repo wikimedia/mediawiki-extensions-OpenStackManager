@@ -212,7 +212,7 @@
 	"openstackmanager-securitygrouprule-protocol": "Пратакол",
 	"openstackmanager-securitygrouprule-ipranges": "Дыяпазоны CIDR",
 	"openstackmanager-securitygrouprule-groups": "Група-крыніца",
-	"openstackmanager-createnewsecuritygroup": "Стварыць новую групу бясьпекі",
+	"openstackmanager-createnewsecuritygroup": "Дадаць групу",
 	"openstackmanager-addrule-action": "дадаць правіла",
 	"openstackmanager-removerule-action": "выдаліць правіла",
 	"openstackmanager-modifiedgroup": "Група бясьпекі абноўленая пасьпяхова.",

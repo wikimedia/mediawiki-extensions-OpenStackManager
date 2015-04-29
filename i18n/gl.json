@@ -440,6 +440,7 @@
 	"apihelp-novaprojectlimits-example-2": "Obter límites para a rexión A para o proxecto de proba",
 	"apihelp-novaprojects-description": "Obter información nos proxectos.",
 	"apihelp-novaprojects-param-subaction": "Que subacción realizar.",
+	"apihelp-novaprojects-param-username": "Nome de usuario sobre o que obter información.",
 	"apihelp-novaprojects-example-1": "Obter todos os proxectos",
 	"apihelp-novaservicegroups-description": "Obter información dos grupos de servizo.",
 	"apihelp-novaservicegroups-param-subaction": "Que subacción realizar.",
