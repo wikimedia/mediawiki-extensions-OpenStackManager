@@ -230,7 +230,7 @@
 	"openstackmanager-removerulefailed": "Немагчыма выдаліць правіла.",
 	"openstackmanager-addrule": "Дадаць правіла",
 	"openstackmanager-securitygrouprule-ranges": "Дыяпазоны CIDR",
-	"openstackmanager-securitygrouprule-ranges-help": "Дыяпазоны CIDR — падзелены коскамі сьпіс дыяпазонаў.",
+	"openstackmanager-securitygrouprule-ranges-help": "Утрымлівае падзелены коскамі сьпіс CIDR-дыяпазонаў.",
 	"openstackmanager-securitygrouprule-groups-help": "Для экзэмпляраў у дададзеных групах бясьпекі будзе дазволены доступ да ўсіх партоў і пратаколаў.",
 	"openstackmanager-addedrule": "Правіла дададзенае пасьпяхова.",
 	"openstackmanager-addrulefailed": "Немагчыма дадаць правіла.",
