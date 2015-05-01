@@ -235,7 +235,7 @@
 	"openstackmanager-addedrule": "Правіла дададзенае пасьпяхова.",
 	"openstackmanager-addrulefailed": "Немагчыма дадаць правіла.",
 	"openstackmanager-createsudoer": "Стварыць правілы Sudo",
-	"openstackmanager-novasudoer-sudoer": "Правілы Sudo",
+	"openstackmanager-novasudoer-sudoer": "Дадаць sudo-палітыку",
 	"openstackmanager-novasudoer-info": "Інфармацыя пра правілы Sudo",
 	"openstackmanager-sudoername": "Назва правілаў Sudo",
 	"openstackmanager-commadelimiter": "Падзеленыя коскамі",
