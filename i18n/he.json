@@ -28,6 +28,7 @@
 	"novavolume": "ניהול כרכי אחסון",
 	"novasudoer": "ניהול מדיניות sudo",
 	"novaproxy": "ניהול שרתי פרוקסי של מופעים",
+	"novaresources": "ניהול משאבים",
 	"novapuppetgroup": "ניהול קבוצות Puppet",
 	"openstackmanager-novadomain": "מתחם Nova",
 	"openstackmanager-novainstance": "מופע Nova",
