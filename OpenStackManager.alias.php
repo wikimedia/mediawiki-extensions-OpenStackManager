@@ -49,7 +49,7 @@ $specialPageAliases['ar'] = array(
 	'NovaVolume' => array( 'حجم_نوفا' ),
 );
 
-/** Egyptian Spoken Arabic (مصرى) */
+/** Egyptian Arabic (مصرى) */
 $specialPageAliases['arz'] = array(
 	'OpenStackManager' => array( 'مدير_ستاك_مفتوح' ),
 	'OpenStackManageInstance' => array( 'التحكم_بالانستانس' ),
