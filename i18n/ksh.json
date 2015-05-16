@@ -45,7 +45,8 @@
 	"openstackmanager-failedeletedomainnotfound": "Di Domähn hät sesch nit fott schmiiße lohße, weil et se nit ze jävve schingk.",
 	"openstackmanager-domainname": "Dä domain ier Nahme",
 	"openstackmanager-fqdn": "Dä kumpläte Nahme för di Domain",
-	"openstackmanager-location": "Plaz",
+	"openstackmanager-location": "Prevahte Zohn",
+	"openstackmanager-location-help": "Dat Väld es för prevahte Zohne em <i lang=\"en\" xml:lang=\"en\" dir=\"ltr\" title=\"Domain Name System\">DNS</i> beschtemmp.\nFör öffentlesche Zohne draht nigs enn.",
 	"openstackmanager-nonexistanthost": "Dä nohjefroochte Rääschner jidd_et nit.",
 	"openstackmanager-dnsdomain": "de <i lang=\"en\">domain</i> em <i lang=\"en\">DNS</i>",
 	"openstackmanager-securitygroups": "Sescherheitsjroppe",
@@ -194,7 +195,7 @@
 	"apihelp-novaprojects-param-username": "Dä Nahme vum Metmaacher för Aanjahbe drövver ze holle.",
 	"apihelp-novaprojects-example-1": "Holl alle Projäkte",
 	"apihelp-novaprojects-example-2": "Holl alle Projäkte un de Rolle vum jrahd enjeloggt Metmaacher",
-	"apihelp-novaprojects-example-3": "Holl alle Projäkte un de Rolle vum Metmaacher testuser <!--\nhttps://translatewiki.net/wiki/Thread:Support\n/About_MediaWiki:Popups-settings-help-ok/en\n -->",
+	"apihelp-novaprojects-example-3": "Holl alle Projäkte un de Rolle vum Metmaacher „<code lang=\"en\" xml:lang=\"en\" dir=\"ltr\">testuser</code>“",
 	"apihelp-query+novaprojects-description": "Jivv en Leß met alle bikannte Projäkte uß.",
 	"apihelp-query+novaprojects-example-1": "Projäkte opleßte"
 }
