@@ -460,6 +460,7 @@
 	"apihelp-novaservicegroups-param-project": "要执行子操作的项目。",
 	"apihelp-novaservicegroups-param-shellmembers": "返回服务组成员的shell账户名，而不是MediaWiki用户名。",
 	"apihelp-novaservicegroups-example-1": "获取项目testing中的所有服务组",
+	"apihelp-query+novainstances-description": "返回指定项目的实例列表。",
 	"apihelp-query+novainstances-param-project": "要列出实例的项目。",
 	"apihelp-query+novainstances-param-region": "要列出实例的地域。",
 	"apihelp-query+novaprojects-description": "返回所有已知项目的列表。",
