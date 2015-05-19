@@ -4,8 +4,11 @@
 			"Robin0van0der0vliet"
 		]
 	},
+	"openstackmanager-delete": "fuortsmite",
 	"openstackmanager-location": "Lokaasje",
 	"openstackmanager-name": "Namme",
+	"openstackmanager-deleteproject": "Fuortsmite",
 	"openstackmanager-projects": "Projekten",
+	"openstackmanager-sudoerusers": "Brûkers",
 	"openstackmanager-sudoeroptions": "Opsjes"
 }

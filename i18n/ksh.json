@@ -49,6 +49,7 @@
 	"openstackmanager-location-help": "Dat Väld es för prevahte Zohne em <i lang=\"en\" xml:lang=\"en\" dir=\"ltr\" title=\"Domain Name System\">DNS</i> beschtemmp.\nFör öffentlesche Zohne draht nigs enn.",
 	"openstackmanager-nonexistanthost": "Dä nohjefroochte Rääschner jidd_et nit.",
 	"openstackmanager-dnsdomain": "de <i lang=\"en\">domain</i> em <i lang=\"en\">DNS</i>",
+	"openstackmanager-novainstance-global": "Jroppe en alle Wikkis",
 	"openstackmanager-securitygroups": "Sescherheitsjroppe",
 	"openstackmanager-missingimage": "(fählt)",
 	"openstackmanager-imageid": "Däm Beld sing Kännong",

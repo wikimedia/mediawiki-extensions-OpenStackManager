@@ -226,6 +226,7 @@
 	"openstackmanager-puppetvars": "Переменные",
 	"openstackmanager-addpuppetvar": "Добавить переменную",
 	"openstackmanager-puppetvarname": "Имя переменной",
+	"openstackmanager-puppetvarposition": "Переменная позиция",
 	"openstackmanager-twofactorrequired": "Требуется двухфакторная аутентификация",
 	"openstackmanager-twofactorrequired2": "Требуется двухфакторная аутентификация. Пожалуйста, включите ее и повторите попытку.",
 	"notification-osm-instance-deleted": "$1 {{GENDER:$1|удалил|удалила}} экземпляр '$3' в проекте [[$2]]",
