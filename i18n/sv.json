@@ -90,6 +90,7 @@
 	"openstackmanager-instancepublicip": "Instansflytande IPadress",
 	"openstackmanager-securitygroups": "Säkerhetsgrupper",
 	"openstackmanager-availabilityzone": "Tillgänglighetszon",
+	"openstackmanager-missingimage": "(saknas)",
 	"openstackmanager-imageid": "Bild-ID",
 	"openstackmanager-imagetype": "Bildtyp",
 	"openstackmanager-instancetypelabel": "{{PLURAL:$1|$1 CPU|$1 CPU:er}}, $2 MB RAM, $3 GB rotpartition, $4 GB lagring",
@@ -124,6 +125,7 @@
 	"openstackmanager-volumeattachmentinstance": "Knuten till instans",
 	"openstackmanager-volumeattachmentdevice": "Knuten som enhet",
 	"openstackmanager-volumesize": "Volymstorlek (i GB)",
+	"openstackmanager-volumeattachmentstatus": "Status för bilaga",
 	"openstackmanager-volumedeleteonvolumedelete": "Ta bort på instansborttagning?",
 	"openstackmanager-volumecreationtime": "Skapandetid för volym",
 	"openstackmanager-attach": "bifoga",
@@ -413,5 +415,11 @@
 	"echo-category-title-osm-instance-reboot-completed": "Färdigställande av instansomstart",
 	"echo-category-title-osm-projectmembers-add": "Tillägg av projektmedlemskap",
 	"prefs-openstack": "OpenStack",
-	"prefs-openstack-keys": "Nyckellista"
+	"prefs-openstack-keys": "Nyckellista",
+	"apihelp-novaaddress-param-project": "Projektet där adressen finns.",
+	"apihelp-novaprojects-example-1": "Hämta alla projekt",
+	"apihelp-novaprojects-example-2": "Hämta alla projekt och rollinformation för den inloggade användaren",
+	"apihelp-novaprojects-example-3": "Hämta alla projekt och rollinformation för testuser",
+	"apihelp-novaservicegroups-description": "Hämtar information om tjänstgrupper.",
+	"apihelp-query+novaprojects-example-1": "Lista projekt"
 }

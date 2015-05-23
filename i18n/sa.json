@@ -1,15 +1,25 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ansumang"
+			"Ansumang",
+			"NehalDaveND"
 		]
 	},
-	"openstackmanager-delete": "विलुप्यताम्",
+	"openstackmanager-delete": "अपाक्रियताम्",
+	"openstackmanager-rename": "नाम परिवर्त्यताम्",
+	"openstackmanager-actions": "क्रियाः",
+	"openstackmanager-notloggedin": "प्रवेशः अपेक्षितः",
+	"openstackmanager-location": "स्थानम्",
 	"openstackmanager-novainstance-instance": "उदाहरणम्",
+	"openstackmanager-launchtime": "अल्पाहारकालः",
 	"openstackmanager-novavolume-volume": "खंड",
-	"openstackmanager-name": "नामन्",
+	"openstackmanager-name": "नाम",
 	"openstackmanager-member": "सदस्य",
-	"openstackmanager-deleteproject": "विलुप्यताम्",
-	"openstackmanager-securitygroupdescription": "वर्णन",
-	"openstackmanager-sudoerusers": "योजकः"
+	"openstackmanager-action": "क्रिया",
+	"openstackmanager-deleteproject": "अपाक्रियताम्",
+	"openstackmanager-projects": "प्रकल्पाः",
+	"openstackmanager-securitygroupdescription": "वर्णनम्",
+	"openstackmanager-novasecuritygroup-group": "दलनियमाः",
+	"openstackmanager-sudoerusers": "योजकः",
+	"openstackmanager-sudoeroptions": "विकल्पाः"
 }

@@ -37,6 +37,7 @@
 	"openstackmanager-imagetype": "სურათის ტიპი",
 	"openstackmanager-instancetypelabel": "{{PLURAL:$1|$1 პროცესორი}}, $2 მბ ოპერატიული მეხსიერება, $3 გბ ძირეული განყოფილება, $4 გბ საცავი",
 	"openstackmanager-launchtime": "გაშვების დრო",
+	"openstackmanager-volumename": "სვეტის სახელი",
 	"openstackmanager-attach": "მიმაგრება",
 	"openstackmanager-detach": "მოხსნა",
 	"openstackmanager-deletevolume": "ტომის წაშლა",
