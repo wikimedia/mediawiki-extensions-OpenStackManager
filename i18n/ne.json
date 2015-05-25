@@ -1,8 +1,18 @@
 {
 	"@metadata": {
 		"authors": [
-			"सरोज कुमार ढकाल"
+			"सरोज कुमार ढकाल",
+			"NehalDaveND"
 		]
 	},
-	"openstackmanager-puppetstatus": "पपेट स्थिती"
+	"openstackmanager-delete": "मेटिएको",
+	"openstackmanager-modify": "सच्याउने",
+	"openstackmanager-rename": "पुन: नामाकरण",
+	"openstackmanager-actions": "कार्यहरू",
+	"openstackmanager-location": "स्थान",
+	"openstackmanager-puppetstatus": "पपेट स्थिती",
+	"openstackmanager-name": "नाम",
+	"openstackmanager-action": "कार्य",
+	"openstackmanager-deleteproject": "हटाउने",
+	"openstackmanager-securitygroupdescription": "विवरण"
 }
