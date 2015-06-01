@@ -434,6 +434,7 @@
 	"apihelp-novaaddress-param-region": "A rexión da instacia asociada actualmente.",
 	"apihelp-novainstance-description": "Realizar accións en instancias.",
 	"apihelp-novainstance-param-subaction": "Que subacción realizar.",
+	"apihelp-novainstance-param-instanceid": "O identificador exemplo de Nova no que realizar unha subacción",
 	"apihelp-novainstance-param-project": "O proxecto no que existe a instancia.",
 	"apihelp-novainstance-param-region": "A rexión na que existe a instancia.",
 	"apihelp-novaprojectlimits-description": "Obter información nos proxectos.",
