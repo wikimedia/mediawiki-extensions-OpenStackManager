@@ -251,12 +251,13 @@ class OpenStackNovaHost {
 	 * Get a host by an instance ID. Returns null if the entry does not exist.
 	 *
 	 * @static
-	 * @param  $instanceid
+	 * @param  $instancename
+	 * @param  $instanceproject
 	 * @param  $region
 	 * @return OpenStackNovaHost
 	 */
-	static function getHostByInstanceId( $instanceid, $region ) {
-		$host = new OpenStackNovaPrivateHost( $instanceid, $region );
+	static function getHostByNameAndProject( $instancename, $instanceproject, $region ) {
+		$host = new OpenStackNovaPrivateHost( $instancename, $instanceproject, $region );
 		if ( $host->hostInfo ) {
 			return $host;
 		} else {
@@ -267,7 +268,6 @@ class OpenStackNovaHost {
 	/**
 	 * Delete this host
 	 *
-	 * @param  $instanceid
 	 * @return bool
 	 */
 	function deleteHost() {
@@ -307,6 +307,8 @@ class OpenStackNovaHost {
 
 		$hostname = $instance->getInstanceName();
 		$instanceid = $instance->getInstanceId();
+		$instancename = $instance->getInstanceName();
+		$instanceproject = $instance->getProject();
 		$project = $instance->getProject();
 		$tmpip = $instance->getInstancePrivateIPs();
 		if ( $tmpip && isset( $tmpip[0] ) ) {
@@ -316,8 +318,8 @@ class OpenStackNovaHost {
 		}
 		$domainname = $domain->getFullyQualifiedDomainName();
 		$region = $domain->getLocation();
-		$fqdn = $instanceid . '.' . $domainname;
-		$host = OpenStackNovaHost::getHostByInstanceId( $instanceid, $region );
+		$fqdn = $instancename . '.' . $instanceproject . '.' . $domainname;
+		$host = OpenStackNovaHost::getHostByNameAndProject( $instancename, $instanceproject, $region );
 		if ( $host ) {
 			$wgAuth->printDebug( "Failed to add host $hostname as the DNS entry already exists", NONSENSITIVE );
 			return null;
@@ -367,7 +369,7 @@ class OpenStackNovaHost {
 		if ( $success ) {
 			$domain->updateSOA();
 			$wgAuth->printDebug( "Successfully added host $fqdn", NONSENSITIVE );
-			return OpenStackNovaHost::getHostByInstanceId( $instanceid, $region );
+			return OpenStackNovaHost::getHostByInstanceNameAndProject( $instancename, $instanceproject, $region );
 		} else {
 			$wgAuth->printDebug( "Failed to add host $fqdn with dn of $dn", NONSENSITIVE );
 			return null;

@@ -42,11 +42,11 @@ class OpenStackNovaHostJob extends Job {
 		}
 		$wgUser = $user;
 
-		$instanceid = $this->params['instanceid'];
+		$instancename = $this->params['instancename'];
 		$instanceosid = $this->params['instanceosid'];
 		$project = $this->params['project'];
 		$region = $this->params['region'];
-		$auth->printDebug( "Running DNS job for $instanceid", NONSENSITIVE );
+		$auth->printDebug( "Running DNS job for $instanceosid", NONSENSITIVE );
 
 		$user = new OpenStackNovaUser( $wgOpenStackManagerLDAPUsername );
 		$userNova = OpenStackNovaController::newFromUser( $user );
@@ -64,14 +64,14 @@ class OpenStackNovaHostJob extends Job {
 		if ( trim( $ip ) === '' ) {
 			# IP hasn't been assigned yet
 			# re-add to queue
-			$auth->printDebug( "Readding job for $instanceid", NONSENSITIVE );
+			$auth->printDebug( "Readding job for $instanceosid", NONSENSITIVE );
 			$job = new OpenStackNovaHostJob( $this->title, $this->params );
 			$job->insert();
 			return true;
 		}
-		$host = OpenStackNovaHost::getHostByInstanceId( $instanceid, $region );
+		$host = OpenStackNovaHost::getHostByNameAndProject( $instancename, $project, $region );
 		if ( ! $host ) {
-			$auth->printDebug( "Host record doesn't exist for $instanceid", NONSENSITIVE );
+			$auth->printDebug( "Host record doesn't exist for $instancename in $project", NONSENSITIVE );
 			return true;
 		}
 		$host->setARecord( $ip );

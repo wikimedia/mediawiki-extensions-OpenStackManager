@@ -273,8 +273,9 @@ class SpecialNovaInstance extends SpecialNova {
 			return false;
 		}
 
-		if ( !$this->userLDAP->inRole( 'projectadmin', $instance->getProject() ) ) {
-			$this->notInRole( 'projectadmin', $instance->getProject() );
+		$project = $instance->getProject();
+		if ( !$this->userLDAP->inRole( 'projectadmin', $project ) ) {
+			$this->notInRole( 'projectadmin', $project );
 			return false;
 		}
 
@@ -289,7 +290,7 @@ class SpecialNovaInstance extends SpecialNova {
 		);
 		$instanceInfo['project'] = array(
 			'type' => 'hidden',
-			'default' => $instance->getProject(),
+			'default' => $project,
 			'name' => 'project',
 		);
 		$instanceInfo['region'] = array(
@@ -299,7 +300,7 @@ class SpecialNovaInstance extends SpecialNova {
 		);
 
 		if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
-			$host = OpenStackNovaHost::getHostByInstanceId( $instanceid, $region );
+			$host = OpenStackNovaHost::getHostByNameAndProject( $instancename, $project, $region );
 			if ( ! $host ) {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistenthost' );
 				return false;
@@ -668,7 +669,7 @@ class SpecialNovaInstance extends SpecialNova {
 				$instance->setHost( $host );
 				OpenStackManagerEvent::storeEventInfo( 'build', $this->getUser(), $instance, $project );
 				$title = Title::newFromText( $this->getOutput()->getPageTitle() );
-				$job = new OpenStackNovaHostJob( $title, array( 'instanceid' => $instance->getInstanceId(), 'instanceosid' => $instance->getInstanceOSId(), 'project' => $project, 'region' => $region, 'user' => $wgUser->getName(), 'auth' => $wgAuth ) );
+				$job = new OpenStackNovaHostJob( $title, array( 'instancename' => $instance->getInstanceName(), 'instanceosid' => $instance->getInstanceOSId(), 'project' => $project, 'region' => $region, 'user' => $wgUser->getName(), 'auth' => $wgAuth ) );
 				$job->insert();
 				$image = $this->userNova->getImage( $instance->getImageId() );
 				$imageName = $image->getImageName();
@@ -710,7 +711,7 @@ class SpecialNovaInstance extends SpecialNova {
 		$result = $instance->deleteInstance( $this->userNova );
 		if ( $result ) {
 			$title = Title::newFromText( $this->getOutput()->getPageTitle() );
-			$job = new OpenStackNovaHostDeleteJob( $title, array( 'instanceid' => $instance->getInstanceId(), 'region' => $formData['region'], 'user' => $wgUser->getName() ) );
+			$job = new OpenStackNovaHostDeleteJob( $title, array( 'instancename' => $instancename, 'project' => $instance->getProject(), 'region' => $formData['region'], 'user' => $wgUser->getName() ) );
 			JobQueueGroup::singleton()->push( $job );
 			$this->getOutput()->addWikiMsg( 'openstackmanager-deletedinstance', $instanceid, $instancename );
 		} else {

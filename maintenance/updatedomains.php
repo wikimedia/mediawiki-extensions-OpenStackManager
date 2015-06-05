@@ -34,10 +34,9 @@ require_once( "$IP/maintenance/Maintenance.php" );
 class UpdateDomains extends Maintenance {
 	public function __construct() {
 		parent::__construct();
-		$this->addOption( 'instance', 'The instance hostname, e.g. i-00000001', false, true );
-		$this->addOption( 'name', 'The instance hostname, e.g. i-00000001', false, true );
-		$this->addOption( 'project', 'The instance hostname, e.g. i-00000001', false, true );
-		$this->addOption( 'region', 'The instance region, e.g. pmtpa', false, true );
+		$this->addOption( 'name', 'The instance hostname, e.g. bastion1', false, true );
+		$this->addOption( 'project', 'The instance project name, e.g. bastion', false, true );
+		$this->addOption( 'region', 'The instance region, e.g. eqiad', false, true );
 		$this->addOption( 'all-instances', 'Run this command on every instance.', false, false );
 	}
 
@@ -65,27 +64,21 @@ class UpdateDomains extends Maintenance {
 					$instances = $userNova->getInstances();
 					if ( $instances ) {
 						foreach ( $instances as $instance ) {
-							$id = $instance->getInstanceId();
-							$instancelist[] = array( $instance->getInstanceId(), $region,
-                                                                                 $instance->getInstanceName(), $projectName );
+							$instancelist[] = array( $region, $instance->getInstanceName(), $projectName );
 						}
 					}
 				}
 			}
-		} elseif ( $this->hasOption( 'instance' ) )  {
+		} elseif ( $this->hasOption( 'name' ) )  {
 			if ( ! $this->hasOption( 'region' ) ) {
-				$this->error( "--instance requires --region.\n", true );
-			}
-			if ( ! $this->hasOption( 'name' ) ) {
-				$this->error( "--instance requires --name.\n", true );
+				$this->error( "--name requires --region.\n", true );
 			}
 			if ( ! $this->hasOption( 'project' ) ) {
-				$this->error( "--instance requires --project.\n", true );
+				$this->error( "--name requires --project.\n", true );
 			}
-			$instancelist = array( array( $this->getOption( 'instance' ), $this->getOption( 'region' ),
-                                                      $this->getOption( 'name' ), $this->getOption( 'project' ), ) );
+			$instancelist = array( array( $this->getOption( 'region' ), $this->getOption( 'name' ), $this->getOption( 'project' ), ) );
 		} else {
-			$this->error( "Must specify either --instance or --all-instances.\n", true );
+			$this->error( "Must specify either --name or --all-instances.\n", true );
 		}
 
 		if ( !class_exists( 'OpenStackNovaHost' ) ) {
@@ -93,20 +86,15 @@ class UpdateDomains extends Maintenance {
 		}
 		OpenStackNovaLdapConnection::connect();
 		foreach ( $instancelist as $instancepair ) {
-			$instance = $instancepair[0];
-			$instanceregion = $instancepair[1];
-			$instancename = $instancepair[2];
-			$instanceproject = $instancepair[3];
-			$host = OpenStackNovaHost::getHostByInstanceId( $instance, $instanceregion );
+			list( $instanceregion, $instancename, $instanceproject ) = $instancepair;
+			$host = OpenStackNovaHost::getHostByNameAndProject( $instancename, $instanceproject, $instanceregion );
 			if ( ! $host ) {
-				print "Skipping $instance.$instanceregion; not found.\n";
+				print "Skipping $instancename.$instanceproject.$instanceregion; not found.\n";
 				continue;
 			}
 
-			print "\nFor instance $instance name $instancename in region $instanceregion and project $instanceproject:\n\n";
+			print "\nFor instance $instancename in region $instanceregion and project $instanceproject:\n\n";
 
-			$idfqdn = $instance . '.' . $instanceproject . '.' . $instanceregion . '.' . 'wmflabs';
-			$host->addAssociatedDomain($idfqdn);
 			$namefqdn = $instancename . '.' . $instanceproject . '.' . $instanceregion . '.' . 'wmflabs';
 			$host->addAssociatedDomain($namefqdn);
 		}

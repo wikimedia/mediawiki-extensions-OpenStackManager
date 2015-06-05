@@ -12,7 +12,8 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 	/**
 	 * @var string
 	 */
-	public $instanceid;
+	public $instancename;
+	public $instanceproject;
 
 	/**
 	 * @var string
@@ -20,14 +21,15 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 	public $region;
 
 	/**
-	 * @param  $instanceid
-	 * @param  $ip
-	 *  (specify $instanceid for private, $ip for public)
+	 * @param  $instancename
+	 * @param  $instanceproject
+	 * @param  $region
 	 */
-	function __construct( $instanceid, $region ) {
+	function __construct( $instancename, $instanceproject, $region ) {
 		global $wgAuth;
 
-		$this->instanceid = $instanceid;
+		$this->instancename = $wgAuth->getLdapEscapedString( $instancename );
+		$this->instanceproject = $wgAuth->getLdapEscapedString( $instanceproject );
 		$this->region = $region;
 		$this->domainCache = null;
 		OpenStackNovaLdapConnection::connect();
@@ -43,9 +45,8 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
 
-		$this->instanceid = $wgAuth->getLdapEscapedString( $this->instanceid );
 		if ($this->getDomain()) {
-			$fqdn = $this->instanceid . '.' . $this->getDomain()->getFullyQualifiedDomainName();
+			$fqdn = $this->instancename . '.' . $this->instanceproject . '.' . $this->getDomain()->getFullyQualifiedDomainName();
 		} else {
 			# No domain means no instance!
 			$this->hostInfo = null;
@@ -71,24 +72,13 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 	function getFullyQualifiedDisplayName() {
 		global $wgAuth;
 
-		if ( isset( $this->hostInfo[0]['associateddomain'] ) ) {
-			$domains = $this->hostInfo[0]['associateddomain'];
-			array_shift( $domains );
-			foreach ( $domains as $domain ) {
-				$pieces = explode( '.', $domain );
-				$name = $pieces[0];
-				if ( $name != $this->instanceid ) {
-					# A leap of faith:  There should
-					# be two associated domains, one based on the id and
-					# one the display name.  So, if this one isn't the id,
-					# it must be the display.
-					return $domain;
-				}
-			}
+		if ($this->getDomain()) {
+			$fqdn = $this->instancename . '.' . $this->instanceproject . '.' . $this->getDomain()->getFullyQualifiedDomainName();
+			return $fqdn;
+		} else {
+			$wgAuth->printDebug( "Error: Unable to determine instancename of " . $this->instancename, NONSENSITIVE );
+			return "";
 		}
-
-		$wgAuth->printDebug( "Error: Unable to determine instancename of " . $this->instanceid, NONSENSITIVE );
-		return "";
 	}
 
 	/**
@@ -120,7 +110,7 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 
 	/**
 	 *
-	 * Return i-xxxxx.<domain> for a private host
+	 * Return <hostname>.<project>.<domain> for a private host
 	 *
 	 * (Note that calling this for a public host doesn't make sense since public
 	 *  host entries have multiple FQDNs.)
@@ -128,9 +118,7 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 	 * @return string
 	 */
 	function getFullyQualifiedHostName() {
-		global $wgAuth;
-
-		return $this->instanceid . '.' . $this->getDomain()->getFullyQualifiedDomainName();
+		return $this->getFullyQualifiedDisplayName();
 	}
 
 	/**

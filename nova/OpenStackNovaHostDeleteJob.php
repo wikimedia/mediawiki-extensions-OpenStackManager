@@ -34,7 +34,8 @@ class OpenStackNovaHostDeleteJob extends Job {
 			$this->params['count'] = 0;
 		}
 
-		$instanceid = $this->params['instanceid'];
+		$instancename = $this->params['instancename'];
+		$project = $this->params['project'];
 
 		if ( $this->params['count'] > 8 ) {
 			$wgAuth->printDebug( "DNS delete job for $instanceid failed many times, giving up.", NONSENSITIVE );
@@ -53,7 +54,7 @@ class OpenStackNovaHostDeleteJob extends Job {
 		$region = $this->params['region'];
 		$wgAuth->printDebug( "Running DNS delete job for $instanceid, attempt number $count", NONSENSITIVE );
 
-		$host = OpenStackNovaHost::getHostByInstanceId( $instanceid, $region );
+		$host = OpenStackNovaHost::getHostByNameAndProject( $instancename, $project, $region );
 		if ( ! $host ) {
 			$wgAuth->printDebug( "Host entry doesn't exist for $instanceid", NONSENSITIVE );
 			return true;

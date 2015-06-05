@@ -36,7 +36,7 @@ class OpenStackNovaInstance {
 	}
 
 	function loadHost() {
-		$this->host = OpenStackNovaHost::getHostByInstanceId( $this->getInstanceId(), $this->region );
+		$this->host = OpenStackNovaHost::getHostByNameAndProject( $this->getInstanceName(), $this->getProject(), $this->region );
 	}
 
 	/**

@@ -54,7 +54,7 @@ class ApiNovaInstance extends ApiBase {
 			}
 
 			$title = Title::newMainPage();
-			$params = array( 'instanceid' => $instance->getInstanceId(), 'region' => $this->params['region'],
+			$params = array( 'instancename' => $instancename, 'project' => $instance->getProject(), 'region' => $this->params['region'],
                                          'user' => $wgUser->getName() );
 			$job = new OpenStackNovaHostDeleteJob( $title, $params );
 			JobQueueGroup::singleton()->push( $job );
