@@ -65,8 +65,6 @@ class SpecialNovaSudoer extends SpecialNova {
 
 		$userArr = $this->getSudoUsers( $this->projectName );
 		$user_keys = $userArr["keys"];
-		$hostArr = $this->getSudoHosts( $this->projectName );
-		$host_keys = $hostArr["keys"];
 		$runasArr = $this->getSudoRunAsUsers( $this->projectName );
 		$runas_keys = $runasArr["keys"];
 		$sudoerInfo = array();
@@ -83,13 +81,6 @@ class SpecialNovaSudoer extends SpecialNova {
 			'options' => $user_keys,
 			'section' => 'sudoer',
 			'name' => 'users',
-		);
-		$sudoerInfo['hosts'] = array(
-			'type' => 'multiselect',
-			'label-message' => 'openstackmanager-sudoerhosts',
-			'options' => $host_keys,
-			'section' => 'sudoer',
-			'name' => 'hosts',
 		);
 		$sudoerInfo['runas'] = array(
 			'type' => 'multiselect',
@@ -199,9 +190,6 @@ class SpecialNovaSudoer extends SpecialNova {
 		$userArr = $this->getSudoUsers( $this->projectName, $sudoer );
 		$user_keys = $userArr["keys"];
 		$user_defaults = $userArr["defaults"];
-		$hostArr = $this->getSudoHosts( $this->projectName, $sudoer );
-		$host_keys = $hostArr["keys"];
-		$host_defaults = $hostArr["defaults"];
 		$runasArr = $this->getSudoRunAsUsers( $this->projectName, $sudoer );
 		$runas_keys = $runasArr["keys"];
 		$runas_defaults = $runasArr["defaults"];
@@ -235,14 +223,6 @@ class SpecialNovaSudoer extends SpecialNova {
 			'default' => $user_defaults,
 			'section' => 'sudoer',
 			'name' => 'users',
-		);
-		$sudoerInfo['hosts'] = array(
-			'type' => 'multiselect',
-			'label-message' => 'openstackmanager-sudoerhosts',
-			'options' => $host_keys,
-			'default' => $host_defaults,
-			'section' => 'sudoer',
-			'name' => 'hosts',
 		);
 		$sudoerInfo['runas'] = array(
 			'type' => 'multiselect',
@@ -381,39 +361,6 @@ class SpecialNovaSudoer extends SpecialNova {
 		return array( 'keys' => $runas_keys, 'defaults' => $runas_defaults );
 	}
 
-	function getSudoHosts( $projectName, $sudoer=null ) {
-		$sudohosts = array();
-		if ( $sudoer ) {
-			$sudohosts = $sudoer->getSudoerHosts();
-		}
-		$host_keys = array( 'ALL' => 'ALL' );
-		$host_defaults = array();
-		$this->userNova->setProject( $projectName );
-		$regions = $this->userNova->getRegions( 'compute' );
-		foreach ( $regions as $region ) {
-			$this->userNova->setRegion( $region );
-			$instances = $this->userNova->getInstances();
-			foreach ( $instances as $instance ) {
-				$instanceName = $instance->getInstanceName();
-				// instanceName will be output later, without a change to escape.
-				$instanceName = htmlentities( $instanceName . ' (' . $region . ')' );
-				$instanceHost = $instance->getHost();
-				if ( !$instanceHost ) {
-					continue;
-				}
-				$instanceHostname = $instanceHost->getFullyQualifiedHostName();
-				$host_keys[$instanceName] = $instanceHostname;
-				if ( in_array( $instanceHostname, $sudohosts ) ) {
-					$host_defaults[$instanceName] = $instanceHostname;
-				}
-			}
-		}
-		if ( in_array( "ALL", $sudohosts ) ) {
-			$host_defaults["ALL"] = "ALL";
-		}
-		return array( 'keys' => $host_keys, 'defaults' => $host_defaults );
-	}
-
 	/**
 	 * @return void
 	 */
@@ -484,24 +431,7 @@ class SpecialNovaSudoer extends SpecialNova {
 		$projectName = $project->getProjectName();
 		$this->userNova->setProject( $projectName );
 		$regions = $this->userNova->getRegions( 'compute' );
-		$instanceNames = array();
-		foreach ( $regions as $region ) {
-			$this->userNova->setRegion( $region );
-			$instances = $this->userNova->getInstances();
-			foreach ( $instances as $instance ) {
-				$host = $instance->getHost();
-				if ( $host ) {
-					// $instanceNames will be output later with no change of escaping
-					$fqdn = $host->getFullyQualifiedHostName();
-					$instanceNames[$fqdn] = htmlentities( $instance->getInstanceName() . ' (' . $region . ')' );
-
-					// We might have stored this as a display rather than as i-xxxxx:
-					$displayfqdn = $host->getFullyQualifiedDisplayName();
-					$instanceNames[$displayfqdn] = htmlentities( $instance->getInstanceName() . ' (' . $region . ')' );
-				}
-			}
-		}
-		$headers = array( 'openstackmanager-sudoername', 'openstackmanager-sudoerusers', 'openstackmanager-sudoerhosts',
+		$headers = array( 'openstackmanager-sudoername', 'openstackmanager-sudoerusers',
 				'openstackmanager-sudoerrunas', 'openstackmanager-sudoercommands',
 				'openstackmanager-sudoeroptions', 'openstackmanager-actions' );
 		$sudoers = OpenStackNovaSudoer::getAllSudoersByProject( $projectName );
@@ -516,20 +446,7 @@ class SpecialNovaSudoer extends SpecialNova {
 			$userNames = $this->makeHumanReadableUserlist( $sudoer->getSudoerUsers(), $project );
 			$sudoRunAsUsers = $this->makeHumanReadableUserlist( $sudoer->getSudoerRunAsUsers(), $project );
 
-			$sudoHosts = $sudoer->getSudoerHosts();
-			$sudoHostNames = array();
-			foreach ( $sudoHosts as $sudoHost ) {
-				if ( array_key_exists( $sudoHost, $instanceNames ) ) {
-					if ( ! in_array( $instanceNames[$sudoHost], $sudoHostNames ) ) {
-						$sudoHostNames[] = $instanceNames[$sudoHost];
-					}
-				}
-			}
-			if ( in_array( 'ALL', $sudoHosts ) ) {
-				array_unshift( $sudoHostNames, 'ALL' );
-			}
 			$this->pushRawResourceColumn( $sudoerRow, $this->createResourceList( $userNames ) );
-			$this->pushRawResourceColumn( $sudoerRow, $this->createResourceList( $sudoHostNames ) );
 			$this->pushRawResourceColumn( $sudoerRow, $this->createResourceList( $sudoRunAsUsers ) );
 			$this->pushRawResourceColumn( $sudoerRow, $this->createResourceList( $sudoer->getSudoerCommands() ) );
 			$this->pushRawResourceColumn( $sudoerRow, $this->createResourceList( $sudoer->getSudoerOptions() ) );
@@ -618,7 +535,7 @@ class SpecialNovaSudoer extends SpecialNova {
 			$options[] = '!authenticate';
 		}
 		$runasusers = $this->removeALLFromRunAsUserKeys($formData['runas']);
-		$success = OpenStackNovaSudoer::createSudoer( $formData['sudoername'], $formData['project'], $this->removeALLFromUserKeys($formData['users']), $formData['hosts'], $runasusers, $commands, $options );
+		$success = OpenStackNovaSudoer::createSudoer( $formData['sudoername'], $formData['project'], $this->removeALLFromUserKeys($formData['users']), $runasusers, $commands, $options );
 		if ( ! $success ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-createsudoerfailed' );
 			return false;
@@ -710,7 +627,7 @@ class SpecialNovaSudoer extends SpecialNova {
 				}
 			}
 
-			$success = $sudoer->modifySudoer( $users, $formData['hosts'], $runasusers, $commands, $options );
+			$success = $sudoer->modifySudoer( $users, $runasusers, $commands, $options );
 			if ( ! $success ) {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-modifysudoerfailed' );
 				return true;

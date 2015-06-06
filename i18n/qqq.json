@@ -327,7 +327,6 @@
 	"openstackmanager-sudoername": "Used as label for input box and as heading cell in \"resource\" table, in Special:NovaSudoer.",
 	"openstackmanager-commadelimiter": "Unused at this time.",
 	"openstackmanager-sudoerusers": "{{Identical|User}}",
-	"openstackmanager-sudoerhosts": "Used as label for multi-select box and as heading cell in \"resource\" table.",
 	"openstackmanager-sudoerrunas": "Used as label for multi-select box and as heading cell in \"resource\" table in [[Special:NovaSudoer]].\n\nThe multi-select box has a list of the users.",
 	"openstackmanager-sudoercommands": "Used as label for textarea and as heading cell in \"resource\" table, in [[Special:NovaSudoer]].\n{{Identical|Command}}",
 	"openstackmanager-requirepassword": "When this option is checked, sudo will require the user password",

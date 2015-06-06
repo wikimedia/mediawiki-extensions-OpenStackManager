@@ -360,7 +360,6 @@ class OpenStackNovaServiceGroup {
 		if ( OpenStackNovaSudoer::createSudoer( $groupName . '-chmod',
 				$project->getProjectName(),
 				array( $groupName ),
-				array( 'ALL' ),
 				array(),
 				array( '/bin/chown -R ' . $groupName . '\:' . $groupName . ' ' . $homeDir ),
 				array( '!authenticate' ) ) ) {
@@ -375,7 +374,6 @@ class OpenStackNovaServiceGroup {
 		if ( OpenStackNovaSudoer::createSudoer( 'runas-' . $groupName,
 				$project->getProjectName(),
 				array( "%" . $groupName ),
-				array( 'ALL' ),
 				array( $groupName ),
 				array( 'ALL' ),
 				array( '!authenticate' ) ) ) {

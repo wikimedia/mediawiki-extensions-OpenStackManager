@@ -326,7 +326,6 @@
 	"openstackmanager-sudoername": "Sudo policy name",
 	"openstackmanager-commadelimiter": "Comma separated",
 	"openstackmanager-sudoerusers": "Users",
-	"openstackmanager-sudoerhosts": "Hosts",
 	"openstackmanager-sudoerrunas": "Allow running as",
 	"openstackmanager-sudoercommands": "Commands",
 	"openstackmanager-requirepassword": "Require authentication",

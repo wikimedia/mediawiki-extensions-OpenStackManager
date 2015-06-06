@@ -76,21 +76,6 @@ class OpenStackNovaSudoer {
 	}
 
 	/**
-	 * Return the policy hosts
-	 *
-	 * @return array
-	 */
-	function getSudoerHosts() {
-		if ( isset( $this->sudoerInfo[0]['sudohost'] ) ) {
-			$hosts = $this->sudoerInfo[0]['sudohost'];
-			array_shift( $hosts );
-			return $hosts;
-		} else {
-			return array();
-		}
-	}
-
-	/**
 	 * Return the 'run as' users for the policy
 	 *
 	 * @return array
@@ -136,15 +121,14 @@ class OpenStackNovaSudoer {
 	}
 
 	/**
-	 * Modify a sudoer based on users, hosts, commands, and options.
+	 * Modify a sudoer based on users, commands, and options.
 	 *
 	 * @param  $users
-	 * @param  $hosts
 	 * @param  $commands
 	 * @param  $options
 	 * @return boolean
 	 */
-	function modifySudoer( $users, $hosts, $runasuser, $commands, $options ) {
+	function modifySudoer( $users, $runasuser, $commands, $options ) {
 		global $wgAuth;
 		global $wgMemc;
 
@@ -152,23 +136,6 @@ class OpenStackNovaSudoer {
 		$sudoer['sudouser'] = array();
 		foreach ( $users as $user ) {
 			$sudoer['sudouser'][] = $user;
-		}
-		$sudoer['sudohost'] = array();
-		foreach ( $hosts as $host ) {
-			$sudoer['sudohost'][] = $host;
-
-			if ( ( strcasecmp( $host, 'all' ) != 0 ) ) {
-				// For good measure, put the display name in there too.
-				//  modern instances identify themselves that way.
-				list ( $name, $domainname ) = explode( '.', $host );
-				$domain = OpenStackNovaDomain::getDomainByName( $domainname );
-		                $region = $domain->getLocation();
-				$hostobj = OpenStackNovaHost::getHostByInstanceId( $name, $region );
-				if ( $hostobj ) {
-				    $displayfqdn = $hostobj->getFullyQualifiedDisplayName();
-				    $sudoer['sudohost'][] = $displayfqdn;
-				}
-			}
 		}
 		$sudoer['sudorunasuser'] = array();
 		foreach ( $runasuser as $runas ) {
@@ -271,19 +238,18 @@ class OpenStackNovaSudoer {
 	}
 
 	/**
-	 * Create a new sudoer based on name, users, hosts, commands, and options.
+	 * Create a new sudoer based on name, users, commands, and options.
 	 * Returns null on sudoer creation failure.
 	 *
 	 * @static
 	 * @param  $sudoername
 	 * @param $projectName
 	 * @param  $users
-	 * @param  $hosts
 	 * @param  $commands
 	 * @param  $options
 	 * @return null|OpenStackNovaSudoer
 	 */
-	static function createSudoer( $sudoername, $projectName, $users, $hosts, $runasuser, $commands, $options ) {
+	static function createSudoer( $sudoername, $projectName, $users, $runasuser, $commands, $options ) {
 		global $wgAuth;
 
 		OpenStackNovaLdapConnection::connect();
@@ -292,24 +258,6 @@ class OpenStackNovaSudoer {
 		$sudoer['objectclass'][] = 'sudorole';
 		foreach ( $users as $user ) {
 			$sudoer['sudouser'][] = $user;
-		}
-		foreach ( $hosts as $host ) {
-			$sudoer['sudohost'][] = $host;
-
-			if ( ( strcasecmp( $host, 'all' ) != 0 ) ) {
-				// For good measure, put the display name in there too.
-				//  modern instances identify themselves that way.
-				list ( $name, $domain ) = explode( '.', $host );
-				$domainobj = OpenStackNovaDomain::getDomainByName( $domain );
-				if ( $domainobj ) {
-		                	$region = $domainobj->getLocation();
-					$hostobj = OpenStackNovaHost::getHostByInstanceId( $name, $region );
-					if ( $hostobj ) {
-					    $displayfqdn = $hostobj->getFullyQualifiedDisplayName();
-					    $sudoer['sudohost'][] = $displayfqdn;
-					}
-				}
-			}
 		}
 		foreach ( $runasuser as $runas ) {
 			$sudoer['sudorunasuser'][] = $runas;
@@ -320,6 +268,7 @@ class OpenStackNovaSudoer {
 		foreach ( $options as $option ) {
 			$sudoer['sudooption'][] = $option;
 		}
+		$sudoer['sudohost'][] = 'ALL';
 		$sudoer['cn'] = $sudoername;
 		$project = OpenStackNovaProject::getProjectByName( $projectName );
 		$dn = 'cn=' . $sudoername . ',' . $project->getSudoersDN();

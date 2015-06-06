@@ -772,14 +772,14 @@ class OpenStackNovaProject {
                         //  allow sudo (as root) for all members...
 			$projectGroup = "%" . $project->getProjectGroup()->getProjectGroupName();
 			if ( OpenStackNovaSudoer::createSudoer( 'default-sudo', $projectname, array( $projectGroup ),
-						array( 'ALL' ), array(),  array( 'ALL' ),
+						array(),  array( 'ALL' ),
 						array( '!authenticate' ) ) ) {
 				$wgAuth->printDebug( "Successfully created default sudo policy for $projectname", NONSENSITIVE );
 			}
 			// Now, allow all project members to sudo to all other users.
 			$projectGroup = "%" . $project->getProjectGroup()->getProjectGroupName();
 			if ( OpenStackNovaSudoer::createSudoer( 'default-sudo-as', $projectname, array( $projectGroup ),
-						array( 'ALL' ), array( "$projectGroup" ),  array( 'ALL' ),
+						array( "$projectGroup" ),  array( 'ALL' ),
 						array( '!authenticate' ) ) ) {
 				$wgAuth->printDebug( "Successfully created default sudo-as policy for $projectname", NONSENSITIVE );
 			}
