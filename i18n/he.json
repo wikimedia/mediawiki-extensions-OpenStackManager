@@ -428,5 +428,16 @@
 	"echo-category-title-osm-instance-reboot-completed": "השלמת אתחול מופע",
 	"echo-category-title-osm-projectmembers-add": "הוספת חברות בפרויקט",
 	"prefs-openstack": "OpenStack",
-	"prefs-openstack-keys": "רשימת מפתחות"
+	"prefs-openstack-keys": "רשימת מפתחות",
+	"apihelp-novaaddress-description": "ביצוע פעולות על כתובות IP של Nova.",
+	"apihelp-novaaddress-param-subaction": "איזו תת־פעולה לבצע.",
+	"apihelp-novaaddress-param-project": "באיזה פרויקט קיימת הכתובת.",
+	"apihelp-novaaddress-param-region": "האזור של הישות שמשויכת עכשיו.",
+	"apihelp-novaaddress-example-1": "לבטל את השיוך של כתובת עם מזהה 7 לפרויקט testing באזור mars",
+	"apihelp-novainstance-description": "לבצע פעולות בישויות.",
+	"apihelp-novainstance-param-subaction": "איזו תת־פעולה לבצע.",
+	"apihelp-novainstance-param-instanceid": "מזהה ישות Nova שהתת־פעולה תתבצע עליה.",
+	"apihelp-novainstance-param-project": "באיזה פרויקט קיימת הישות.",
+	"apihelp-novainstance-param-region": "באיזה אזור קיימת הישות.",
+	"apihelp-novainstance-example-1": "אתחול ישות עם מזהה eb195097-8539-4e66-b0b5-be8347d8caec בפרויקט testing באזור mars"
 }
