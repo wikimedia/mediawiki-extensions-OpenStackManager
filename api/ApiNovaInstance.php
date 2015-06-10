@@ -47,17 +47,10 @@ class ApiNovaInstance extends ApiBase {
 			if ( !$instance ) {
 				$this->dieUsage( 'The instance requested does not exist.', 'openstackmanager-nonexistanthost' );
 			}
-			$instancename = $instance->getInstanceName();
 			$result = $instance->deleteInstance( $this->userNova );
 			if ( !$result ) {
 				$this->dieUsage( 'Failed to delete the instance.', 'openstackmanager-deleteinstancefailed' );
 			}
-
-			$title = Title::newMainPage();
-			$params = array( 'instancename' => $instancename, 'project' => $instance->getProject(), 'region' => $this->params['region'],
-                                         'user' => $wgUser->getName() );
-			$job = new OpenStackNovaHostDeleteJob( $title, $params );
-			JobQueueGroup::singleton()->push( $job );
 
 			break;
 		}

@@ -106,7 +106,7 @@
 	"openstackmanager-createinstance": "Add instance",
 	"openstackmanager-createinstancepuppetwarning": "Warning: Adding Puppet configuration on instance creation can cause the instance to fail to build.\nUse this configuration with caution.\nYou will have an opportunity to configure the instance after it is finished building.",
 	"openstackmanager-invaliddomain": "Requested domain is invalid.",
-	"openstackmanager-createdinstance": "Created instance $1 with image \"$2\" and hostname $3.",
+	"openstackmanager-createdinstance": "Created instance $1 with image \"$2\".",
 	"openstackmanager-createfailedldap": "Failed to create instance as the host could not be added to LDAP.",
 	"openstackmanager-createinstancefailed": "Failed to create instance.",
 	"openstackmanager-backinstancelist": "Back to instance list",

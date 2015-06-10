@@ -661,25 +661,10 @@ class SpecialNovaInstance extends SpecialNova {
 			// for now we need to work around this by fetching the instance again.
 			$instanceId = $instance->getInstanceOSId();
 			$instance = $this->userNova->getInstance( $instanceId );
-		}
-		if ( $instance ) {
-			$host = OpenStackNovaHost::addHostFromInstance( $instance, $domain, $this->getPuppetInfo( $formData ) );
-
-			if ( $host ) {
-				$instance->setHost( $host );
-				OpenStackManagerEvent::storeEventInfo( 'build', $this->getUser(), $instance, $project );
-				$title = Title::newFromText( $this->getOutput()->getPageTitle() );
-				$job = new OpenStackNovaHostJob( $title, array( 'instancename' => $instance->getInstanceName(), 'instanceosid' => $instance->getInstanceOSId(), 'project' => $project, 'region' => $region, 'user' => $wgUser->getName(), 'auth' => $wgAuth ) );
-				$job->insert();
-				$image = $this->userNova->getImage( $instance->getImageId() );
-				$imageName = $image->getImageName();
-				$this->getOutput()->addWikiMsg( 'openstackmanager-createdinstance', $instance->getInstanceID(),
-					$imageName, $host->getFullyQualifiedHostName() );
-			} else {
-				$instance->deleteInstance( $this->userNova );
-				$this->getOutput()->addWikiMsg( 'openstackmanager-createfailedldap' );
-			}
-			# TODO: also add puppet
+			$image = $this->userNova->getImage( $instance->getImageId() );		
+			$imageName = $image->getImageName();
+			$this->getOutput()->addWikiMsg( 'openstackmanager-createdinstance', $instance->getInstanceID(),		
+				$imageName );
 		} else {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-createinstancefailed' );
 		}
@@ -710,9 +695,6 @@ class SpecialNovaInstance extends SpecialNova {
 		$instanceid = $instance->getInstanceId();
 		$result = $instance->deleteInstance( $this->userNova );
 		if ( $result ) {
-			$title = Title::newFromText( $this->getOutput()->getPageTitle() );
-			$job = new OpenStackNovaHostDeleteJob( $title, array( 'instancename' => $instancename, 'project' => $instance->getProject(), 'region' => $formData['region'], 'user' => $wgUser->getName() ) );
-			JobQueueGroup::singleton()->push( $job );
 			$this->getOutput()->addWikiMsg( 'openstackmanager-deletedinstance', $instanceid, $instancename );
 		} else {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-deleteinstancefailed', $instanceid, $instancename );
