@@ -327,7 +327,6 @@
 	"openstackmanager-sudoername": "שם מדיניות sudo",
 	"openstackmanager-commadelimiter": "מופרד בפסיקים",
 	"openstackmanager-sudoerusers": "משתמשים",
-	"openstackmanager-sudoerhosts": "מארחים",
 	"openstackmanager-sudoerrunas": "לאפשר לרוץ בתור",
 	"openstackmanager-sudoercommands": "פקודות",
 	"openstackmanager-requirepassword": "לדרוש הזדהות",

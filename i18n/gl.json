@@ -326,7 +326,6 @@
 	"openstackmanager-sudoername": "Nome da política sudo",
 	"openstackmanager-commadelimiter": "Separados por comas",
 	"openstackmanager-sudoerusers": "Usuarios",
-	"openstackmanager-sudoerhosts": "Servidores",
 	"openstackmanager-sudoerrunas": "Permitir a execución como",
 	"openstackmanager-sudoercommands": "Comandos",
 	"openstackmanager-requirepassword": "Cómpre autenticación",
