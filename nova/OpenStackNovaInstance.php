@@ -140,28 +140,6 @@ class OpenStackNovaInstance {
 		return OpenStackNovaController::_get_property( $this->instance, 'user_id' );
 	}
 
-	function getPuppetStatus() {
-		global $wgPuppetInterval;
-
-		$metadata = OpenStackNovaController::_get_property( $this->instance, 'metadata' );
-		if ( ! property_exists( $metadata, 'puppetstatus' ) ) {
-			return 'unknown';
-		}
-		if ( ! property_exists( $metadata, 'puppettimestamp' ) ) {
-			return 'unknown';
-		}
-		$status = $metadata->puppetstatus;
-		$timestamp = $metadata->puppettimestamp;
-		$elapsed = ( time() - $timestamp ) / 60;
-		if ( $elapsed > $wgPuppetInterval ) {
-			return 'stale';
-		}
-		if ( $status == 'changed' ) {
-			return 'ok';
-		}
-		return $status;
-	}
-
 	/**
 	 * Get a human friendly name + id of this instance
 	 *

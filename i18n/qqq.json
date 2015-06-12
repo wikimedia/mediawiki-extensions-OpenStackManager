@@ -110,7 +110,6 @@
 	"openstackmanager-rebootinstancefailed": "Used as failure message in Special:NovaInstance.\n\nThis message indicates the instance has been failed to create.\n\nAn instance is a virtual machine. In this particular case, a clone of an image for a virtual machine. [http://docs.openstack.org/diablo/openstack-compute/starter/content/Introduction-d1e2084.html More on OpenStack].\n\nParameters:\n* $1 - the human-readable name for the same instance\n\nSee also:\n* {{msg-mw|Openstackmanager-rebootedinstance}}",
 	"openstackmanager-launchtime": "Used as heading cell in \"resource\" table, in Special:NovaInstance.",
 	"openstackmanager-instancecreator": "Used as header in the table.\n\nThis means \"user who created instance\".",
-	"openstackmanager-puppetstatus": "Used as header cell in \"resource\" table, in [[Special:NovaResources]].  Reports if an instance is running puppet without errors.",
 	"openstackmanager-createinstance": "Used as page title and as action link title, in Special:NovaInstance.",
 	"openstackmanager-createinstancepuppetwarning": "Used in Special:NovaInstance.\n\nThe page title for this message is:\n* {{msg-mw|Openstackmanager-createinstance}}",
 	"openstackmanager-invaliddomain": "Used as error message in Special:NovaInstance.",

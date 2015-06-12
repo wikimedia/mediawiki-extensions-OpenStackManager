@@ -101,7 +101,6 @@
 	"openstackmanager-rebootinstancefailed": "Failed to reboot instance $1.",
 	"openstackmanager-launchtime": "Launch time",
 	"openstackmanager-instancecreator": "Instance creator",
-	"openstackmanager-puppetstatus": "Puppet status",
 	"openstackmanager-createinstance": "Add instance",
 	"openstackmanager-createinstancepuppetwarning": "Warning: Adding Puppet configuration on instance creation can cause the instance to fail to build.\nUse this configuration with caution.\nYou will have an opportunity to configure the instance after it is finished building.",
 	"openstackmanager-invaliddomain": "Requested domain is invalid.",

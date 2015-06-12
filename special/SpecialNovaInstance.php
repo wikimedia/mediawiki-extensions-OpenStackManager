@@ -530,7 +530,7 @@ class SpecialNovaInstance extends SpecialNova {
 
 		$this->userNova->setRegion( $region );
 		$headers = array( 'openstackmanager-instancename', 'openstackmanager-instanceid', 'openstackmanager-instancestate',
-			'openstackmanager-puppetstatus', 'openstackmanager-instanceip', 'openstackmanager-instancepublicip',
+			'openstackmanager-instanceip', 'openstackmanager-instancepublicip',
 			'openstackmanager-securitygroups', 'openstackmanager-imageid',
 			'openstackmanager-launchtime', 'openstackmanager-actions' );
 		$instances = $this->userNova->getInstances();
@@ -555,7 +555,6 @@ class SpecialNovaInstance extends SpecialNova {
 				$stateDisplay = $state;
 			}
 			$this->pushResourceColumn( $instanceRow, $stateDisplay, array( 'class' => 'novainstancestate' ) );
-			$this->pushResourceColumn( $instanceRow, $instance->getPuppetStatus() );
 			$this->pushRawResourceColumn( $instanceRow, $this->createResourceList( $instance->getInstancePrivateIPs() ) );
 			$this->pushRawResourceColumn( $instanceRow, $this->createResourceList( $instance->getInstancePublicIPs() ) );
 			$this->pushRawResourceColumn( $instanceRow, $this->createResourceList( $instance->getSecurityGroups() ) );
