@@ -52,6 +52,7 @@ $wgAvailableRights[] = 'managednsdomain';
 $wgAvailableRights[] = 'manageglobalpuppet';
 $wgAvailableRights[] = 'loginviashell';
 $wgAvailableRights[] = 'accessrestrictedregions';
+$wgAvailableRights[] = 'editallhiera';
 
 $wgHooks['UserRights'][] = 'OpenStackNovaUser::manageShellAccess';
 $wgHooks['getUserPermissionsErrors'][] = 'OpenStackManagerHooks::getUserPermissionsErrors';
