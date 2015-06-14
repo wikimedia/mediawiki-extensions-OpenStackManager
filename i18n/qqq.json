@@ -25,7 +25,6 @@
 	"openstackmanager-title": "{{Identical|OpenStackManager}}",
 	"openstackmanager-badresourcename": "Used as error message in Special:NovaAddress, Special:NovaInstance, SpecialNova:Project, Special:NovaPuppetGroup and Special:NovaVolume.\n\nThis error is the result of the form validation about the following elements: host name, instance name, project name, puppet group name and volume name.\n\n\"Resource name(s)\" in this message probably refers the above-mentioned \"*name\" elements.",
 	"action-listall": "{{doc-action|listall}}",
-	"right-listall": "{{doc-right|listall}}",
 	"right-listall": "{{doc-right|editallhiera}}",
 	"action-managednsdomain": "{{doc-action|managednsdomain}}",
 	"action-manageglobalpuppet": "{{doc-action|manageglobalpuppet}}",
