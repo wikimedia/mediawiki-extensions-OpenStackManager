@@ -109,7 +109,7 @@
 	"openstackmanager-createinstance": "Instanz hinzufügen",
 	"openstackmanager-createinstancepuppetwarning": "Warnung: Das Hinzufügen einer Puppet-Konfiguration während der Instanzerstellung kann die deren Erstellung scheitern lassen. Diese Konfiguration ist mit Vorsicht durchzuführen. Die Instanz kann auch nach deren Erstellung noch konfiguriert werden.",
 	"openstackmanager-invaliddomain": "Die angeforderte Domain ist ungültig.",
-	"openstackmanager-createdinstance": "Die Instanz $1 mit Image $2 und Hostname $3 wurde erstellt.",
+	"openstackmanager-createdinstance": "Die Instanz $1 mit Image „$2“ wurde erstellt.",
 	"openstackmanager-createfailedldap": "Die Instanz konnte nicht erstellt werden, da der Host nicht zu LDAP hinzugefügt werden konnte.",
 	"openstackmanager-createinstancefailed": "Die Instanz konnte nicht erstellt werden.",
 	"openstackmanager-backinstancelist": "Zurück zur Instanzliste",

@@ -107,7 +107,7 @@
 	"openstackmanager-createinstance": "הוספת מופע",
 	"openstackmanager-createinstancepuppetwarning": "אזהרה: הוספת הגדרת Puppet עם יצירת מופע יכולה לגרום לכשל בבניית המופע. לש להשתמש בהגדרה הזאת בזהירות. תהיה לך הזדמנות להגדיר את המופע בתום בנייתו.",
 	"openstackmanager-invaliddomain": "המתחם המבוקש אינו תקין.",
-	"openstackmanager-createdinstance": "נוצר מופע $1 עם התמונה $2 ועם שם המארח $3.",
+	"openstackmanager-createdinstance": "נוצר מופע $1 עם התמונה \"$2\" ועם שם המארח $3.",
 	"openstackmanager-createfailedldap": "יצירת המופע נכשלה, כי לא ניתן היה להוסיף את המארח ל־LDAP.",
 	"openstackmanager-createinstancefailed": "יצירת המופע נכשלה.",
 	"openstackmanager-backinstancelist": "חזרה לרשימת מופעים",
