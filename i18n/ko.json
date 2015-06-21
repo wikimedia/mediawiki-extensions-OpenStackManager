@@ -4,7 +4,8 @@
 			"Hym411",
 			"Priviet",
 			"아라",
-			"Revi"
+			"Revi",
+			"Alex00728"
 		]
 	},
 	"openstackmanager-desc": "사용자가 Nova와 Swift를 관리 할 수 ​​있습니다",
@@ -103,7 +104,7 @@
 	"openstackmanager-createinstance": "인스턴스 추가",
 	"openstackmanager-createinstancepuppetwarning": "경고: 인스턴스 만들기에 인형 설정을 추가하면 인스턴스가 구축에 실패할 수 있습니다.\n주의하여 이 설정을 사용하세요.\n빌드를 마치고 나서 인스턴스를 설정할 수 있는 기회를 갖게 됩니다.",
 	"openstackmanager-invaliddomain": "요청한 도메인은 잘못되었습니다.",
-	"openstackmanager-createdinstance": "\"$2\" 그림과 $3 호스트 이름으로 $1 인스턴스를 만들었습니다.",
+	"openstackmanager-createdinstance": "\"$2\" 그림으로 $1 인스턴스를 만들었습니다.",
 	"openstackmanager-createfailedldap": "호스트를 LDAP에 추가 할 수 없으므로 인스턴스를 만드는 데 실패했습니다.",
 	"openstackmanager-createinstancefailed": "인스턴스를 만드는 데 실패했습니다.",
 	"openstackmanager-backinstancelist": "인스턴스 목록으로 돌아가기",
@@ -324,7 +325,6 @@
 	"openstackmanager-sudoername": "Sudo 정책 이름",
 	"openstackmanager-commadelimiter": "쉼표로 구분",
 	"openstackmanager-sudoerusers": "사용자",
-	"openstackmanager-sudoerhosts": "호스트",
 	"openstackmanager-sudoerrunas": "다음 사용자로 실행 허용",
 	"openstackmanager-sudoercommands": "명령",
 	"openstackmanager-requirepassword": "인증 필요",

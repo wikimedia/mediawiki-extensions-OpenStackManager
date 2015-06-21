@@ -6,7 +6,8 @@
 			"Davio",
 			"F. Cosoleto",
 			"Nemo bis",
-			"Raoli"
+			"Raoli",
+			"Alexmar983"
 		]
 	},
 	"openstackmanager-desc": "Permette agli utenti di gestire Nova e Swift",
@@ -105,7 +106,7 @@
 	"openstackmanager-createinstance": "Aggiungi istanza",
 	"openstackmanager-createinstancepuppetwarning": "Attenzione: aggiungendo una configurazione Puppet durante la creazione dell'istanza può causare errori in fase di costruzione. Usa questa configurazione con cautela. Potrai configurare l'istanza dopo il termine della costruzione.",
 	"openstackmanager-invaliddomain": "Il dominio richiesto non è valido.",
-	"openstackmanager-createdinstance": "Creata istanza $1 con immagine $2 e nome host $3.",
+	"openstackmanager-createdinstance": "Creata istanza $1 con immagine \"$2\".",
 	"openstackmanager-createfailedldap": "Errore durante la creazione dell'istanza ed il nome host non può essere aggiunto a LDAP.",
 	"openstackmanager-createinstancefailed": "Errore durante la creazione dell'istanza.",
 	"openstackmanager-backinstancelist": "Ritorna all'elenco delle istanze",
@@ -326,7 +327,6 @@
 	"openstackmanager-sudoername": "Nome politica Sudo",
 	"openstackmanager-commadelimiter": "Separate da virgola",
 	"openstackmanager-sudoerusers": "Utenti",
-	"openstackmanager-sudoerhosts": "Host",
 	"openstackmanager-sudoerrunas": "Consenti l'esecuzione come",
 	"openstackmanager-sudoercommands": "Comandi",
 	"openstackmanager-requirepassword": "Richiedi l'autenticazione",

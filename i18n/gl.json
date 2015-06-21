@@ -105,7 +105,7 @@
 	"openstackmanager-createinstance": "Engadir unha instancia",
 	"openstackmanager-createinstancepuppetwarning": "Atención: A adición dunha configuración de monicreque na creación dunha instancia pode causar un erro na construción desta instancia. Use esta configuración con precaución. Terá a oportunidade de configurar a instancia despois da súa construción.",
 	"openstackmanager-invaliddomain": "O dominio solicitado non é válido.",
-	"openstackmanager-createdinstance": "Creouse a instancia $1 coa imaxe $2 e o nome de servidor de aloxamento $3.",
+	"openstackmanager-createdinstance": "Creouse a instancia $1 coa imaxe $2.",
 	"openstackmanager-createfailedldap": "Erro ao crear a instancia debido a que o aloxamento non se puido engadir a LDAP.",
 	"openstackmanager-createinstancefailed": "Erro ao crear a instancia.",
 	"openstackmanager-backinstancelist": "Volver á lista de instancias",
