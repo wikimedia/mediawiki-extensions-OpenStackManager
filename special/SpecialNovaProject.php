@@ -637,4 +637,8 @@ class SpecialNovaProject extends SpecialNova {
 
 		return true;
 	}
+
+	protected function getGroupName() {
+		return 'nova';
+	}
 }

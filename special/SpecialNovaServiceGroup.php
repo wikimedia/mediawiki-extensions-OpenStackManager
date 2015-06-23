@@ -372,4 +372,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 		return true;
 	}
 
+	protected function getGroupName() {
+		return 'nova';
+	}
 }

@@ -867,4 +867,8 @@ class SpecialNovaInstance extends SpecialNova {
 	}
 
 	#### End of Puppet related methods ################################
+
+	protected function getGroupName() {
+		return 'nova';
+	}
 }

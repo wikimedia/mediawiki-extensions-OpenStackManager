@@ -801,4 +801,8 @@ $this->getOutput();
 		$outputPage->addHTML( $out );
 		return true;
 	}
+
+	protected function getGroupName() {
+		return 'nova';
+	}
 }

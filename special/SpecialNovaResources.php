@@ -165,4 +165,8 @@ class SpecialNovaResources extends SpecialNova {
 		} 
 		return '';
 	}
+
+	protected function getGroupName() {
+		return 'nova';
+	}
 }

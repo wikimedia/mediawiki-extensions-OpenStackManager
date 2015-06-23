@@ -525,4 +525,8 @@ class SpecialNovaVolume extends SpecialNova {
 
 		return $drives;
 	}
+
+	protected function getGroupName() {
+		return 'nova';
+	}
 }
