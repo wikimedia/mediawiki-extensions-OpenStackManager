@@ -220,7 +220,6 @@
 	"openstackmanager-failedtoadd": "Failed to add $1 to $2.",
 	"openstackmanager-setgroupmembers": "Successfully set group members for $1",
 	"openstackmanager-failedtosetgroupmembers": "Failed to set group members for $1",
-	"openstackmanager-failedtoaddneedsloginright": "Failed to add $1 to $2.\nThis needs user $1 to have the \"<code>loginviashell</code>\" right.",
 	"openstackmanager-removedfrom": "Successfully removed $1 from $2.",
 	"openstackmanager-failedtoremove": "Failed to remove $1 from $2.",
 	"openstackmanager-novaproject-project": "Add project",
