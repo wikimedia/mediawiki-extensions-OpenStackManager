@@ -57,7 +57,7 @@
 	"openstackmanager-imageid": "Kuvan ID",
 	"openstackmanager-imagetype": "Kuvan tyyppi",
 	"openstackmanager-rebootinstancewithname": "Käynnistä instanssi $1 ($2) uudelleen",
-	"openstackmanager-createdinstance": "Instanssi $1 luotiin levykuvasta \"$2\".",
+	"openstackmanager-createdinstance": "Instanssi $1 luotiin levykuvasta ”$2”.",
 	"openstackmanager-consoleoutput": "Konsolituloste instanssille $1 ($2)",
 	"openstackmanager-attach": "liitä",
 	"openstackmanager-detach": "irrota",
