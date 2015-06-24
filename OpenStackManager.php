@@ -54,7 +54,8 @@ $wgAvailableRights[] = 'loginviashell';
 $wgAvailableRights[] = 'accessrestrictedregions';
 $wgAvailableRights[] = 'editallhiera';
 
-$wgHooks['UserRights'][] = 'OpenStackNovaUser::manageShellAccess';
+$wgHooks['UserAddGroup'][] = 'OpenStackNovaUser::addUserToBastionProject';
+$wgHooks['UserRemoveGroup'][] = 'OpenStackNovaUser::removeUserFromBastionProject';
 $wgHooks['getUserPermissionsErrors'][] = 'OpenStackManagerHooks::getUserPermissionsErrors';
 
 // Keystone identity URI

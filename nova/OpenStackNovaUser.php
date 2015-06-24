@@ -658,20 +658,47 @@ class OpenStackNovaUser {
 		return true;
 	}
 
-	public static function manageShellAccess( $user, $addedGroups, $removedGroups ) {
-		global $wgOpenStackManagerRemoveUserFromBastionProjectOnShellDisable;
-		global $wgOpenStackManagerRemoveUserFromAllProjectsOnShellDisable;
+	public static function addUserToBastionProject( $user, &$group ) {
 		global $wgOpenStackManagerBastionProjectName;
 
-		$username = $user->getName();
-
-		if( $user->isAllowed( 'loginviashell' ) ) {
-			// Check the user is in the bastion project
+		if( User::groupHasPermission( $group, 'loginviashell' ) ) {
+			// Add the user to the bastion project if not already a
+			// member.
+			$username = $user->getName();
 			$project = new OpenStackNovaProject( $wgOpenStackManagerBastionProjectName );
 			if( !in_array( $username, $project->getMembers() ) ) {
 				$project->addMember( $username );
 			}
-		} elseif( $wgOpenStackManagerRemoveUserFromAllProjectsOnShellDisable ) {
+		}
+		return true;
+	}
+
+	public static function removeUserFromBastionProject( $user, &$group ) {
+		global $wgOpenStackManagerRemoveUserFromBastionProjectOnShellDisable;
+		global $wgOpenStackManagerRemoveUserFromAllProjectsOnShellDisable;
+		global $wgOpenStackManagerBastionProjectName;
+
+		// Check whether after removing the group the user would still
+		// have the loginviashell permission.
+		foreach ( $user->getEffectiveGroups() as $g ) {
+			// Ignore the group that will be removed.
+			if( $g === $group ) {
+				continue;
+			}
+			// If the user still has the loginviashell permission, we
+			// can immediately return.
+			if( User::groupHasPermission( $g, 'loginviashell' ) ) {
+				return true;
+			}
+		}
+
+		// At this point we know that the user will not have the
+		// loginviashell permission after the group is removed so we
+		// can remove him from the bastion projects if the
+		// configuration requires that.
+		$username = $user->getName();
+
+		if( $wgOpenStackManagerRemoveUserFromAllProjectsOnShellDisable ) {
 			// Get a users projects
 			$userLDAP = new OpenStackNovaUser( $username );
 			foreach( $userLDAP->getProjects() as $projectName ) {
@@ -686,7 +713,7 @@ class OpenStackNovaUser {
 				$project->deleteMember( $username );
 			}
 		}
-		return True;
+		return true;
 	}
 
 	/**
