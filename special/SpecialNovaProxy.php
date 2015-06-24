@@ -415,4 +415,8 @@ class SpecialNovaProxy extends SpecialNova {
 		$outputPage->addHTML( $goback );
 		return true;
 	}
+
+	protected function getGroupName() {
+		return 'nova';
+	}
 }

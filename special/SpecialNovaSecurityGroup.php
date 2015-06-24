@@ -559,4 +559,8 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 		$this->getOutput()->addHTML( $out );
 		return true;
 	}
+
+	protected function getGroupName() {
+		return 'nova';
+	}
 }
