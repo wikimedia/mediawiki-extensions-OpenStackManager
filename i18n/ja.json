@@ -3,7 +3,8 @@
 		"authors": [
 			"Fryed-peach",
 			"Shirayuki",
-			"SkyDaisy9"
+			"SkyDaisy9",
+			"Sujiniku"
 		]
 	},
 	"openstackmanager-desc": "利用者が Nova と Swift を管理できるようにする",
@@ -87,7 +88,6 @@
 	"openstackmanager-rebootedinstance": "インスタンス $1 を再起動しました。",
 	"openstackmanager-rebootinstancefailed": "インスタンス $1 の再起動に失敗しました。",
 	"openstackmanager-instancecreator": "インスタンス作成者",
-	"openstackmanager-puppetstatus": "パペットの状態",
 	"openstackmanager-createinstance": "インスタンスを追加",
 	"openstackmanager-invaliddomain": "指定したドメインは無効です。",
 	"openstackmanager-createinstancefailed": "インスタンスの作成に失敗しました。",
@@ -177,7 +177,6 @@
 	"openstackmanager-failedtoadd": "$1 の $2 への追加に失敗しました。",
 	"openstackmanager-setgroupmembers": "$1 のグループ メンバーを設定しました",
 	"openstackmanager-failedtosetgroupmembers": "$1 のグループ メンバーを設定できませんでした",
-	"openstackmanager-failedtoaddneedsloginright": "$1 を $2 に追加するのに失敗しました。\nこの操作は「<code>loginviashell</code>」権限を持つ利用者のみが実行できます。",
 	"openstackmanager-removedfrom": "$1 を $2 から除去しました。",
 	"openstackmanager-failedtoremove": "$1 の $2 からの除去に失敗しました。",
 	"openstackmanager-novaproject-project": "プロジェクトを追加",
@@ -252,7 +251,6 @@
 	"openstackmanager-sudoername": "sudo ポリシー名",
 	"openstackmanager-commadelimiter": "カンマ区切り",
 	"openstackmanager-sudoerusers": "利用者",
-	"openstackmanager-sudoerhosts": "ホスト",
 	"openstackmanager-sudoerrunas": "以下の利用者としての実行を許可",
 	"openstackmanager-requirepassword": "認証を求める",
 	"openstackmanager-sudoeroptions": "オプション",
@@ -328,7 +326,7 @@
 	"openstackmanager-email-body": "以下のインスタンスを作成しました。ログインの準備ができています:",
 	"openstackmanager-twofactorrequired": "二要素認証が必要",
 	"openstackmanager-twofactorrequired2": "二要素認証が必要です。有効にしてからもう一度試してください。",
-	"openstackmanager-hiera-noadmin": "$1プロジェクトの管理者だけがこのページを編集できます。",
+	"openstackmanager-hiera-noadmin": "グローバルプロジェクトの管理者と$1プロジェクトの管理者だけがこのページを編集できます。",
 	"right-manageproject": "OpenStack プロジェクトと権限を管理",
 	"action-manageproject": "OpenStack プロジェクトと権限の管理",
 	"right-loginviashell": "シェルでログイン",
