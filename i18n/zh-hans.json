@@ -438,8 +438,12 @@
 	"apihelp-novaaddress-param-subaction": "要执行的子操作。",
 	"apihelp-novaaddress-param-project": "存在地址的项目。",
 	"apihelp-novaaddress-param-region": "当前关联实例的地域。",
+	"apihelp-novaaddress-example-1": "分离火星地区上项目测试中ID为7的地址",
+	"apihelp-novainstance-description": "在实例中执行操作。",
 	"apihelp-novainstance-param-subaction": "要执行的子操作。",
-	"apihelp-novainstance-example-1": "于mars地区重启正在测试的项目中ID为eb195097-8539-4e66-b0b5-be8347d8caec的实体",
+	"apihelp-novainstance-param-instanceid": "要执行操作的Nova实例ID。",
+	"apihelp-novainstance-example-1": "于火星地区重启项目测试中ID为eb195097-8539-4e66-b0b5-be8347d8caec的实体",
+	"apihelp-novainstance-example-2": "于火星地区为项目测试中ID为eb195097-8539-4e66-b0b5-be8347d8caec的实体显示控制台输出",
 	"apihelp-novaprojectlimits-description": "获取项目信息。",
 	"apihelp-novaprojectlimits-param-subaction": "要执行的子操作。",
 	"apihelp-novaprojectlimits-param-project": "要执行子操作的项目。",
@@ -461,6 +465,7 @@
 	"apihelp-query+novainstances-description": "返回指定项目的实例列表。",
 	"apihelp-query+novainstances-param-project": "要列出实例的项目。",
 	"apihelp-query+novainstances-param-region": "要列出实例的地域。",
+	"apihelp-query+novainstances-example-1": "列举火星地区上项目测试中的实例",
 	"apihelp-query+novaprojects-description": "返回所有已知项目的列表。",
 	"apihelp-query+novaprojects-example-1": "列出项目"
 }

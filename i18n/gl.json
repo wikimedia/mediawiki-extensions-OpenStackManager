@@ -13,6 +13,7 @@
 	"openstackmanager-badresourcename": "O nome do recurso proporcionado é incorrecto. Os nomes de recursos comezan con letras do a ao z, e só poden conter caracteres a-z, 0-9 e \"-\".",
 	"action-listall": "mostrar toda a información de recursos",
 	"right-listall": "Mostrar toda a información de recursos",
+	"right-editallhiera": "Editar todas as páxinas Hiera:",
 	"action-managednsdomain": "xestionar os dominios DNS",
 	"action-manageglobalpuppet": "xestionar a información global de monicreques",
 	"specialpages-group-nova": "Nova OpenStack",
