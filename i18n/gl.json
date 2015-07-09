@@ -220,6 +220,7 @@
 	"openstackmanager-failedtoadd": "Erro ao engadir a $1 a $2.",
 	"openstackmanager-setgroupmembers": "Estableceu correctamente os membros do grupo para $1",
 	"openstackmanager-failedtosetgroupmembers": "Erro ao establecer os membros do grupo para $1",
+	"openstackmanager-failedtoaddneedsloginright": "Erro ao engadir a $1 a $2.\nO usuario $1 debe ter dereitos de \"<code>loginviashell</code>\".",
 	"openstackmanager-removedfrom": "$1 eliminouse correctamente de $2.",
 	"openstackmanager-failedtoremove": "Erro ao eliminar a $1 de $2.",
 	"openstackmanager-novaproject-project": "Engadir un proxecto",
