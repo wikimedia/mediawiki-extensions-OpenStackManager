@@ -539,12 +539,13 @@ class SpecialNovaProject extends SpecialNova {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoadd', $formData['member'], $formData['projectname'] );
 				continue;
 			}
-			if ( !$user->isAllowed( 'loginviashell' ) ) {
-				$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoaddneedsloginright', $formData['member'], $formData['projectname'] );
-				continue;
-			}
 			$success = $project->addMember( $member );
 			if ( $success ) {
+				if ( !$user->isAllowed( 'loginviashell' ) ) {
+					# Grant user the shell right if they have
+					# successfully been added to a project
+					$user->addGroup( 'shell' );
+				}
 				$this->getOutput()->addWikiMsg( 'openstackmanager-addedto', $formData['member'], $formData['projectname'] );
 				if ( class_exists( 'EchoEvent' ) ) {
 					EchoEvent::create( array(
