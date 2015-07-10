@@ -424,42 +424,6 @@ class OpenStackNovaUser {
 	}
 
 	/**
-	 * Create a shell request page for $username
-	 *
-	 * @static
-	 * @param  $auth
-	 * @param  $username
-	 * @return bool
-	 */
-	static function RequestShellAccess( $user, $_byEmail ) {
-		global $wgAuth;
-		$username = $user->getName();
-
-		$titletext = "Shell_Request/" . $username;
-		$title = Title::newFromText( $titletext );
-		$article = WikiPage::factory( $title );
-
-		if ( $article->exists() ) {
-			$wgAuth->printDebug( "shell request for " . $username . " already exists.", NONSENSITIVE );
-			return false;
-		}
-
-		$text = "{{Shell Access Request "
-				. "|Justification=(auto request on account creation) "
-				. "|Completed=false "
-				. "|User Name=$username}}";
-
-		$logbot = User::newFromName( 'labslogbot' );
-		if ( ! $logbot ) {
-			$wgAuth->printDebug( "Failed to get 'labslogbot' user, so unable to create shell request.", NONSENSITIVE );
-		} else {
-			$article->doEdit( $text, 'auto request', 0, false, $logbot );
-		}
-
-		return true;
-	}
-
-	/**
 	 * Hook to add objectclasses and attributes for users being created.
 	 *
 	 * @static
