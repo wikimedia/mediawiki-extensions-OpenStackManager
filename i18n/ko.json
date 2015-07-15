@@ -90,6 +90,7 @@
 	"openstackmanager-instancepublicip": "인스턴스 유동 IP 주소",
 	"openstackmanager-securitygroups": "보안 그룹",
 	"openstackmanager-availabilityzone": "가용성 영역",
+	"openstackmanager-missingimage": "(없음)",
 	"openstackmanager-imageid": "그림 ID",
 	"openstackmanager-imagetype": "그림 유형",
 	"openstackmanager-instancetypelabel": "{{PLURAL:$1|$1 CPU}}, $2 MB RAM, $3 GB 루트 파티션, $4 GB 저장 공간",

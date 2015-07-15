@@ -139,7 +139,7 @@
 	"openstackmanager-removeservicegroup": "サービス グループを除去",
 	"openstackmanager-manageservicegroupmembers": "メンバーを管理",
 	"openstackmanager-removeservicegroupconfirm": "サービス グループ「$1」を本当に削除しますか?\n削除すると、このグループで実行するツールやボットが無効になる場合があります。",
-	"openstackmanager-servicegrouprecursewarning": "ご注意ください! このグループにサービス利用者を追加すると、グループのすべてのメンバーがこのグループにアクセスできるようになります。\nIt will also allow access to members of any group added to that group, and so on.\nMake sure you trust everyone and know what you are doing before selecting anything in the \"{{int:openstackmanager-serviceuser}}\" section.",
+	"openstackmanager-servicegrouprecursewarning": "ご注意ください! このグループにサービス利用者を追加すると、グループのすべてのメンバーがこのグループにアクセスできるようになります。\nIt will also allow access to members of any group added to that group, and so on.\nあなたが全員を信頼していることを確認してください、そして、あなたが \"{{int:openstackmanager-serviceuser}}\" セクションでの選択の前に何をしているかを知ってください。",
 	"openstackmanager-createservicegroupfailed": "サービス グループの作成に失敗しました。",
 	"openstackmanager-createdservicegroup": "サービス グループを作成しました。",
 	"openstackmanager-removedservicegroup": "サービス グループを削除しました。",
