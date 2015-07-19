@@ -19,7 +19,8 @@
 			"SnowedEarth",
 			"Amelia",
 			"0x010C",
-			"Hercule"
+			"Hercule",
+			"Wladek92"
 		]
 	},
 	"openstackmanager-desc": "Permet aux utilisateurs autorisés de créer et gérer des instances de serveurs virtuels avec un gestionnaire compatible OpenStack, tel que Nova ou Swift.",
@@ -43,6 +44,7 @@
 	"novavolume": "Gérer les volumes de stockage",
 	"novasudoer": "Gérer les règles de sudo",
 	"novaproxy": "Gérer les mandataires de l’instance",
+	"novaresources": "Gérer les ressources",
 	"novapuppetgroup": "Gestion des groupes de marionnettes",
 	"openstackmanager-novadomain": "Domaine Nova",
 	"openstackmanager-novainstance": "Instance Nova",
@@ -54,6 +56,7 @@
 	"openstackmanager-ownedinstances": "Vous avez créé {{PLURAL:$1|cette instance|ces instances}} :",
 	"openstackmanager-delete": "supprimer",
 	"openstackmanager-configure": "configurer",
+	"openstackmanager-hieraconfig": "Voir la config Hiera",
 	"openstackmanager-modify": "modifier",
 	"openstackmanager-rename": "renommer",
 	"openstackmanager-reboot": "redémarrer",
@@ -104,6 +107,7 @@
 	"openstackmanager-instancepublicip": "Adresses IP flottantes de l’instance",
 	"openstackmanager-securitygroups": "Groupes de sécurité",
 	"openstackmanager-availabilityzone": "Zone de disponibilité",
+	"openstackmanager-missingimage": "(manquant)",
 	"openstackmanager-imageid": "Identifiant de l’image",
 	"openstackmanager-imagetype": "Type de l’image",
 	"openstackmanager-instancetypelabel": "{{PLURAL:$1|$1 CPU|$1 CPUs}}, $2 Mo de RAM, $3 Go de partition racine, $4 Go de stockage",
@@ -114,7 +118,6 @@
 	"openstackmanager-rebootinstancefailed": "Impossible de redémarrer l'instance $1.",
 	"openstackmanager-launchtime": "Heure de démarrage",
 	"openstackmanager-instancecreator": "Créateur de l’instance",
-	"openstackmanager-puppetstatus": "État du pantin",
 	"openstackmanager-createinstance": "Ajouter une instance",
 	"openstackmanager-createinstancepuppetwarning": "Avertissement : l’ajout d’une configuration de ''puppet'' lors de la création d’une instance peut faire échouer la construction de l’instance. Utilisez cette configuration avec prudence. Vous aurez la possibilité de configurer l’instance après la fin de sa construction.",
 	"openstackmanager-invaliddomain": "Le domaine demandé est invalide.",
@@ -233,7 +236,6 @@
 	"openstackmanager-failedtoadd": "Impossible d'ajouter $1 à $2.",
 	"openstackmanager-setgroupmembers": "Membres du groupe bien ajoutés pour $1",
 	"openstackmanager-failedtosetgroupmembers": "Échec d’ajout des membres du groupe pour $1",
-	"openstackmanager-failedtoaddneedsloginright": "Impossible d'ajouter $1 à $2.\nCela nécessite $1 d'avoir le droit « <code>loginviashell</code> ».",
 	"openstackmanager-removedfrom": "$1 supprimé de $2 avec succès.",
 	"openstackmanager-failedtoremove": "Impossible de supprimer $1 de $2.",
 	"openstackmanager-novaproject-project": "Ajouter un projet",
@@ -339,7 +341,6 @@
 	"openstackmanager-sudoername": "Nom de la règle ''sudo''",
 	"openstackmanager-commadelimiter": "Séparés par des virgules",
 	"openstackmanager-sudoerusers": "Utilisateurs",
-	"openstackmanager-sudoerhosts": "Hôtes",
 	"openstackmanager-sudoerrunas": "Permettre l’exécution en tant que",
 	"openstackmanager-sudoercommands": "Commandes",
 	"openstackmanager-requirepassword": "Authentification requise",
@@ -441,5 +442,6 @@
 	"echo-category-title-osm-projectmembers-add": "Ajout de membres au projet",
 	"prefs-openstack": "OpenStack",
 	"prefs-openstack-keys": "Liste de clés",
+	"apihelp-novaaddress-param-subaction": "La sous-action à effectuer.",
 	"apihelp-query+novaprojects-example-1": "Liste des projets"
 }
