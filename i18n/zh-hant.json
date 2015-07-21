@@ -278,7 +278,7 @@
 	"openstackmanager-removedhost": "已成功移除 $1。",
 	"openstackmanager-removehostfailed": "移除 $1 失敗。",
 	"openstackmanager-nonexistenthost": "請求的主機不存在。",
-	"openstackmanager-nonexistentrole": "請求的身份不存在。",
+	"openstackmanager-nonexistentrole": "請求的身分不存在。",
 	"openstackmanager-unknownerror": "發生錯誤。",
 	"openstackmanager-needrole": "專案 $2 需要擁有 $1 身份",
 	"openstackmanager-needrole2": "您必須在專案 $2 為 $1 身份的成員來執行此操作。",
