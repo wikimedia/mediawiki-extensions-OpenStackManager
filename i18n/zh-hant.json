@@ -93,7 +93,7 @@
 	"openstackmanager-instancepublicip": "實例浮動 IP 位址",
 	"openstackmanager-securitygroups": "安全群組",
 	"openstackmanager-availabilityzone": "可用性區域",
-	"openstackmanager-missingimage": "(丟失)",
+	"openstackmanager-missingimage": "(遺失)",
 	"openstackmanager-imageid": "圖片 ID",
 	"openstackmanager-imagetype": "圖片類型",
 	"openstackmanager-instancetypelabel": "{{PLURAL:$1|$1 CPU|$1 CPU}}、$2 MB RAM、$3 GB root 磁區，$4 GB 儲存空間",
