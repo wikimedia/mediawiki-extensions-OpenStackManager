@@ -430,7 +430,13 @@
 	"prefs-openstack": "OpenStack",
 	"prefs-openstack-keys": "Schlüsselliste",
 	"apihelp-novaprojects-description": "Informationen über Projekte abrufen.",
+	"apihelp-novaprojects-param-subaction": "Die auszuführende Unteraktion.",
+	"apihelp-novaprojects-param-username": "Der Benutzername, über den die Informationen abgerufen werden sollen.",
 	"apihelp-novaprojects-example-1": "Alle Projekte abrufen",
+	"apihelp-novaservicegroups-description": "Ruft Informationen zu Dienstgruppen ab.",
 	"apihelp-novaservicegroups-param-subaction": "Die auszuführende Subaktion.",
+	"apihelp-query+novainstances-param-project": "Das Projekt, für das die Instanzen aufgelistet werden sollen.",
+	"apihelp-query+novainstances-param-region": "Die Region, für die die Instanzen aufgelistet werden sollen.",
+	"apihelp-query+novaprojects-description": "Gibt eine Liste aller bekannten Projekte zurück.",
 	"apihelp-query+novaprojects-example-1": "Projekte auflisten"
 }
