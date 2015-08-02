@@ -3,7 +3,8 @@
 		"authors": [
 			"Milicevic01",
 			"Rancher",
-			"Михајло Анђелковић"
+			"Михајло Анђелковић",
+			"Srdjan m"
 		]
 	},
 	"openstackmanager-novainstance": "Примерак Нове",
@@ -30,7 +31,7 @@
 	"openstackmanager-domainname": "Назив домена",
 	"openstackmanager-location": "Место",
 	"openstackmanager-novainstance-instance": "Примерак",
-	"openstackmanager-configureinstance": "Подешавање примерка",
+	"openstackmanager-configureinstance": "Подешавање примерка $1 ($2)",
 	"openstackmanager-nonexistanthost": "Захтевани домаћин не постоји.",
 	"openstackmanager-dnsdomain": "DNS домен",
 	"openstackmanager-puppetclasses": "Класе",
@@ -53,14 +54,14 @@
 	"openstackmanager-rebootinstance": "Поново покрени примерак",
 	"openstackmanager-rebootinstancequestion": "Желите ли да поново покренете примерак „$1“?",
 	"openstackmanager-rebootedinstance": "Примерак $1 је поново покренут.",
-	"openstackmanager-rebootinstancefailed": "Не могу да поново покренем примерак.",
+	"openstackmanager-rebootinstancefailed": "Не могу да поново покренем примерак $1.",
 	"openstackmanager-launchtime": "Време покретања",
 	"openstackmanager-createinstance": "Додавање примерка",
 	"openstackmanager-invaliddomain": "Захтевани домен је неисправан.",
 	"openstackmanager-createfailedldap": "Не могу да направим примерак јер не могу да додам домаћина у LDAP.",
 	"openstackmanager-createinstancefailed": "Не могу да направим примерак.",
 	"openstackmanager-backinstancelist": "Назад на списак примерака",
-	"openstackmanager-deletedinstance": "Примерак $1 је обрисан.",
+	"openstackmanager-deletedinstance": "Примерак $1 ($2) је обрисан.",
 	"openstackmanager-deletedinstance-faileddns": "Примерак је успешно обрисан, али нисам успео да уклоним DNS ставку $1.",
 	"openstackmanager-modifiedinstance": "Примерак $1 је успешно измењен ($2).",
 	"openstackmanager-modifyinstancefailed": "Не могу да изменим примерак.",
@@ -198,7 +199,6 @@
 	"openstackmanager-addrulefailed": "Додавање правила није било успешно.",
 	"openstackmanager-commadelimiter": "Раздвојено запетама",
 	"openstackmanager-sudoerusers": "Корисници",
-	"openstackmanager-sudoerhosts": "Хостови",
 	"openstackmanager-sudoercommands": "Команде",
 	"openstackmanager-sudoeroptions": "Опције"
 }
