@@ -57,7 +57,7 @@ abstract class SpecialNova extends SpecialPage {
 	function checkTwoFactor() {
 		if ( $this->getUser()->isAllowed( 'userrights' ) ) {
 			$isEnabled = false;
-			wfRunHooks( 'TwoFactorIsEnabled', array( &$isEnabled ) );
+			Hooks::run( 'TwoFactorIsEnabled', array( &$isEnabled ) );
 			if ( !$isEnabled ) {
 				throw new ErrorPageError( 'openstackmanager-twofactorrequired', 'openstackmanager-twofactorrequired2' );
 			}
