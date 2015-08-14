@@ -429,6 +429,7 @@
 	"echo-category-title-osm-projectmembers-add": "Projektmitgliedschaft-Hinzufügungen",
 	"prefs-openstack": "OpenStack",
 	"prefs-openstack-keys": "Schlüsselliste",
+	"apihelp-novainstance-param-subaction": "Die auszuführende Unteraktion.",
 	"apihelp-novaprojects-description": "Informationen über Projekte abrufen.",
 	"apihelp-novaprojects-param-subaction": "Die auszuführende Unteraktion.",
 	"apihelp-novaprojects-param-username": "Der Benutzername, über den die Informationen abgerufen werden sollen.",
