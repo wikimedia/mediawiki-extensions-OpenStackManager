@@ -776,7 +776,7 @@ class OpenStackNovaController {
 		$expires = strtotime( $this->_get_property( $user->access->token, 'expires' ) );
 		$wgMemc->set( $projectkey, $token, $expires );
 		$key = wfMemcKey( 'openstackmanager', 'serviceCatalog-' . $project, $this->username );
-		$wgMemc->set( $key, json_encode( $user->access->serviceCatalog ), $expires );
+		$wgMemc->set( $key, json_encode( $user->access->serviceCatalog ), 3600 );
 
 		return $token;
 	}
@@ -785,7 +785,13 @@ class OpenStackNovaController {
 		global $wgMemc;
 
 		$key = wfMemcKey( 'openstackmanager', 'serviceCatalog-' . $this->project, $this->username );
-		$serviceCatalog = json_decode( $wgMemc->get( $key ) );
+		$catalogJson = $wgMemc->get( $key );
+		if ( !$catalogJson ) {
+			# Catalog expired; refresh
+			$this->getProjectToken( $this->project );
+			$catalogJson = $wgMemc->get( $key );
+		}
+		$serviceCatalog = json_decode( $catalogJson );
 		$endpoints = array();
 		if ( $serviceCatalog ) {
 			foreach ( $serviceCatalog as $entry ) {
