@@ -746,15 +746,18 @@ class OpenStackNovaController {
 		return $token;
 	}
 
-	function getProjectToken( $project ) {
+	function getProjectToken( $project, $forcerefresh = false ) {
 		global $wgMemc;
 
 		// Try to fetch the project token
 		$projectkey = wfMemcKey( 'openstackmanager', "fulltoken-$project", $this->username );
-		$projecttoken = $wgMemc->get( $projectkey );
-		if ( is_string( $projecttoken ) ) {
-			return $projecttoken;
+		if ( !$forcerefresh ) {
+			$projecttoken = $wgMemc->get( $projectkey );
+			if ( is_string( $projecttoken ) ) {
+				return $projecttoken;
+			}
 		}
+
 		$token = $this->getUnscopedToken();
 		if ( !$token ) {
 			// If there's no non-project token, there's nothing to do, the
@@ -788,7 +791,7 @@ class OpenStackNovaController {
 		$catalogJson = $wgMemc->get( $key );
 		if ( !$catalogJson ) {
 			# Catalog expired; refresh
-			$this->getProjectToken( $this->project );
+			$this->getProjectToken( $this->project, true );
 			$catalogJson = $wgMemc->get( $key );
 		}
 		$serviceCatalog = json_decode( $catalogJson );
