@@ -746,18 +746,15 @@ class OpenStackNovaController {
 		return $token;
 	}
 
-	function getProjectToken( $project, $forcerefresh = false ) {
+	function getProjectToken( $project ) {
 		global $wgMemc;
 
 		// Try to fetch the project token
 		$projectkey = wfMemcKey( 'openstackmanager', "fulltoken-$project", $this->username );
-		if ( !$forcerefresh ) {
-			$projecttoken = $wgMemc->get( $projectkey );
-			if ( is_string( $projecttoken ) ) {
-				return $projecttoken;
-			}
+		$projecttoken = $wgMemc->get( $projectkey );
+		if ( is_string( $projecttoken ) ) {
+			return $projecttoken;
 		}
-
 		$token = $this->getUnscopedToken();
 		if ( !$token ) {
 			// If there's no non-project token, there's nothing to do, the
@@ -779,7 +776,7 @@ class OpenStackNovaController {
 		$expires = strtotime( $this->_get_property( $user->access->token, 'expires' ) );
 		$wgMemc->set( $projectkey, $token, $expires );
 		$key = wfMemcKey( 'openstackmanager', 'serviceCatalog-' . $project, $this->username );
-		$wgMemc->set( $key, json_encode( $user->access->serviceCatalog ), 3600 );
+		$wgMemc->set( $key, json_encode( $user->access->serviceCatalog ), $expires );
 
 		return $token;
 	}
@@ -788,13 +785,7 @@ class OpenStackNovaController {
 		global $wgMemc;
 
 		$key = wfMemcKey( 'openstackmanager', 'serviceCatalog-' . $this->project, $this->username );
-		$catalogJson = $wgMemc->get( $key );
-		if ( !$catalogJson ) {
-			# Catalog expired; refresh
-			$this->getProjectToken( $this->project, true );
-			$catalogJson = $wgMemc->get( $key );
-		}
-		$serviceCatalog = json_decode( $catalogJson );
+		$serviceCatalog = json_decode( $wgMemc->get( $key ) );
 		$endpoints = array();
 		if ( $serviceCatalog ) {
 			foreach ( $serviceCatalog as $entry ) {
