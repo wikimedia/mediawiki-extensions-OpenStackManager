@@ -107,7 +107,7 @@
 	"openstackmanager-createinstance": "新增實例",
 	"openstackmanager-createinstancepuppetwarning": "警告：在實例建立過程增加 Puppet 設定可能導致實例建立失敗。\n使用此設定時無必謹慎。\n在實例完成建立後您仍有機會設定。",
 	"openstackmanager-invaliddomain": "請求的網域無效。",
-	"openstackmanager-createdinstance": "已建立實例 $1，使用圖片 \"$2\" 與主機名稱 $3。",
+	"openstackmanager-createdinstance": "已使用圖片 \"$2\" 建立實例 $1。",
 	"openstackmanager-createfailedldap": "無法新增主機至 LDAP，建立實例失敗。",
 	"openstackmanager-createinstancefailed": "建立實例失敗。",
 	"openstackmanager-backinstancelist": "返回實例清單",
