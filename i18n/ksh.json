@@ -189,7 +189,7 @@
 	"notification-osm-projectmember-added-email-body-batch": "{{GENDER:$1|Dä|Dat|Dä Metmaacher|De|Dat}} „$1“ hät desch för dat Projäk [[$2]] zohjelohße",
 	"prefs-openstack": "<i lang=\"en\" xml:lang=\"en\">OpenStack</i>",
 	"prefs-openstack-keys": "Leß vun de Schlößßelle",
-	"apihelp-novainstance-example-1": "Donn en Enschtanz vun eb195097-8539-4e66-b0b5-be8347d8caec em Projäk <code lang=\"en\">testing</code> em Berätt <code lang=\"en\">mars</code> vun Noll aan neu loßloufe lohße.",
+	"apihelp-novainstance-example-1": "Donn en Enschtanz vun eb195097-8539-4e66-b0b5-be8347d8caec em Projäk „Versohch“ em Berätt „Mohnd“ vun Noll aan neu loßßloufe lohße.",
 	"apihelp-novaprojectlimits-description": "Hölld Aanjahbe övver Projäke.",
 	"apihelp-novaprojects-description": "Holld Aanjahbe övver Projäkte.",
 	"apihelp-novaprojects-param-username": "Dä Nahme vum Metmaacher för Aanjahbe drövver ze holle.",
