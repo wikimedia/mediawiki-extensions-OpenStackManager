@@ -19,6 +19,7 @@
 	"openstackmanager-badresourcename": "Nombre de recurso incorrecto.\nLos nombres de recursos deben comenzar con a-z y sólo pueden contener los caracteres a-z, 0-9, - y _.",
 	"action-listall": "mostrar toda la información de recursos",
 	"right-listall": "Mostrar toda la información de recursos",
+	"right-editallhiera": "Editar todas las páginas Hiera:",
 	"action-managednsdomain": "gestionar los dominios DNS",
 	"action-manageglobalpuppet": "administrar la información global de Puppet",
 	"specialpages-group-nova": "OpenStack Nova",
