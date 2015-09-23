@@ -311,8 +311,7 @@ class SpecialNovaAddress extends SpecialNova {
 		$domains = OpenStackNovaDomain::getAllDomains( 'public' );
 		$domain_keys = array();
 		foreach ( $domains as $domain ) {
-			$domainname = $domain->getDomainName();
-			$domain_keys[$domainname] = $domainname;
+			$domain_keys[$domain->getFullyQualifiedDomainName()] = $domain->getDomainName();
 		}
 		$addressInfo['domain'] = array(
 			'type' => 'select',
@@ -358,7 +357,7 @@ class SpecialNovaAddress extends SpecialNova {
 		if ( ! $this->getRequest()->wasPosted() ) {
 			$address = $this->userNova->getAddress( $id );
 			$ip = $address->getPublicIP();
-			$this->getOutput()->addWikiMsg( 'openstackmanager-removehost-confirm', $hostname, $ip );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-removehost-confirm', $fqdn, $ip );
 		}
 		$addressInfo = array();
 		$addressInfo['project'] = array(
@@ -727,24 +726,25 @@ class SpecialNovaAddress extends SpecialNova {
 		$domain = OpenStackNovaDomain::getDomainByName( $domain );
 		$hostbyip = OpenStackNovaHost::getHostByPublicIP( $ip );
 
+		$hostnameText = $hostname . '.' . $domain->getFullyQualifiedDomainName();
 		if ( $hostbyip ) {
 			# We need to add an associateddomain, if the associateddomain doesn't already exist
-			$success = $hostbyip->addAssociatedDomain( $hostname . '.' . $domain->getFullyQualifiedDomainName() );
+			$success = $hostbyip->addAssociatedDomain( $hostnameText );
 			if ( $success ) {
-				$outputPage->addWikiMsg( 'openstackmanager-addedhost', $hostname, $ip );
+				$outputPage->addWikiMsg( 'openstackmanager-addedhost', $hostnameText, $ip );
 			} else {
-				$outputPage->addWikiMsg( 'openstackmanager-addhostfailed', $hostname, $ip );
+				$outputPage->addWikiMsg( 'openstackmanager-addhostfailed', $hostnameText, $ip );
 			}
 		} else {
 			# This is a new host entry
 			$host = OpenStackNovaHost::addPublicHost( $hostname, $ip, $domain );
 			if ( $host ) {
-				$outputPage->addWikiMsg( 'openstackmanager-addedhost', $hostname, $ip );
+				$outputPage->addWikiMsg( 'openstackmanager-addedhost', $hostnameText, $ip );
 			} else {
-				$outputPage->addWikiMsg( 'openstackmanager-addhostfailed', $hostname, $ip );
+				$outputPage->addWikiMsg( 'openstackmanager-addhostfailed', $hostnameText, $ip );
 			}
 		}
-$this->getOutput();
+
 		$out = '<br />';
 		$out .= Linker::link(
 			$this->getPageTitle(),
@@ -777,17 +777,17 @@ $this->getOutput();
 				# We need to keep the host, but remove the fqdn
 				$success = $host->deleteAssociatedDomain( $fqdn );
 				if ( $success ) {
-					$outputPage->addWikiMsg( 'openstackmanager-removedhost', $hostname, $ip );
+					$outputPage->addWikiMsg( 'openstackmanager-removedhost', $fqdn, $ip );
 				} else {
-					$outputPage->addWikiMsg( 'openstackmanager-removehostfailed', $ip, $hostname );
+					$outputPage->addWikiMsg( 'openstackmanager-removehostfailed', $ip, $fqdn );
 				}
 			} else {
 				# We need to remove the host entry
 				$success = $host->deleteHost();
 				if ( $success ) {
-					$outputPage->addWikiMsg( 'openstackmanager-removedhost', $hostname, $ip );
+					$outputPage->addWikiMsg( 'openstackmanager-removedhost', $fqdn, $ip );
 				} else {
-					$outputPage->addWikiMsg( 'openstackmanager-removehostfailed', $ip, $hostname );
+					$outputPage->addWikiMsg( 'openstackmanager-removehostfailed', $ip, $fqdn );
 				}
 			}
 		} else {
