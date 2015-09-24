@@ -238,14 +238,14 @@ $wgHooks['ChainAuth'][] = 'OpenStackNovaUser::ChainAuth';
 $wgHooks['GetPreferences'][] = 'OpenStackNovaUser::novaUserPreferences';
 
 $commonModuleInfo = array(
-	'localBasePath' => dirname( __FILE__ ) . '/modules',
-	'remoteExtPath' => 'OpenStackManager/modules',
+	'localBasePath' => __DIR__,
+	'remoteExtPath' => 'OpenStackManager',
 );
 
 $wgResourceModules['ext.openstack'] = array(
 	'position' => 'top',
 
-	'styles' => 'ext.openstack.css',
+	'styles' => 'modules/ext.openstack.css',
 
 	'dependencies' => array(
 		'jquery.spinner',
@@ -254,7 +254,7 @@ $wgResourceModules['ext.openstack'] = array(
 	),
 
 	'scripts' => array(
-		'ext.openstack.js',
+		'modules/ext.openstack.js',
 	),
 ) + $commonModuleInfo;
 
@@ -274,7 +274,7 @@ $wgResourceModules['ext.openstack.Instance'] = array(
 		'openstackmanager-deleteinstancequestion',
 	),
 	'scripts' => array(
-		'ext.openstack.Instance.js',
+		'modules/ext.openstack.Instance.js',
 	),
 ) + $commonModuleInfo;
 
@@ -293,7 +293,7 @@ $wgResourceModules['ext.openstack.Address'] = array(
 	),
 
 	'scripts' => array(
-		'ext.openstack.Address.js',
+		'modules/ext.openstack.Address.js',
 	),
 ) + $commonModuleInfo;
 
