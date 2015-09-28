@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"أحمد المحمودي"
+			"أحمد المحمودي",
+			"Meno25"
 		]
 	},
+	"openstackmanager-securitygroupdescription": "الوصف",
 	"apihelp-novaaddress-param-project": "المشروع الذي يوجد فيه العنوان",
 	"apihelp-novaaddress-param-region": "المنطقة المرتبطة بالمثال الحالي.",
 	"apihelp-novaprojectlimits-description": "الحصول على معلومات عن المشاريع.",
