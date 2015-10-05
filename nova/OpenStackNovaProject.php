@@ -907,7 +907,8 @@ class OpenStackNovaProject {
 	}
 
 	function editArticle() {
-		global $wgOpenStackManagerCreateProjectSALPages, $wgOpenStackManagerProjectNamespace;
+		global $wgOpenStackManagerCreateProjectSALPages, $wgOpenStackManagerProjectNamespace,
+			$wgOpenStackManagerBastionProjectName;
 
 		if ( ! OpenStackNovaArticle::canCreatePages() ) {
 			return;
@@ -923,8 +924,12 @@ __NOEDITSECTION__
 RESOURCEINFO;
 		$rawmembers = $this->getMembers();
 		$members = array();
-		foreach ( $rawmembers as $member ) {
-			$members[] = 'User:' . $member;
+		// FIXME! This was too slow on the bastion project, which users get added to automatically.
+		// See https://phabricator.wikimedia.org/T114229 for details.
+		if ( $this->getProjectName() !== $wgOpenStackManagerBastionProjectName ) {
+			foreach ( $rawmembers as $member ) {
+				$members[] = 'User:' . $member;
+			}
 		}
 		$admins = array();
 		# All roles have elevated privileges, count them all as admins
