@@ -243,7 +243,6 @@
 	"openstackmanager-sudoername": "Anv reolenn Sudo",
 	"openstackmanager-commadelimiter": "Dispartiet gant ur skej",
 	"openstackmanager-sudoerusers": "Implijerien",
-	"openstackmanager-sudoerhosts": "Ostizien",
 	"openstackmanager-sudoercommands": "Urzhiadoù",
 	"openstackmanager-sudoeroptions": "Dibarzhioù",
 	"openstackmanager-allmembers": "Holl izili ar raktres",

@@ -36,7 +36,6 @@
 	"openstackmanager-securitygrouprule": "قوانين",
 	"openstackmanager-createnewsecuritygroup": "ډله ورگډول",
 	"openstackmanager-sudoerusers": "کارنان",
-	"openstackmanager-sudoerhosts": "کوربانه",
 	"openstackmanager-sudoeroptions": "خوښنې",
 	"openstackmanager-puppetallprojects": "ټولې پروژې",
 	"openstackmanager-createpuppetgroup": "ډله ورگډول"

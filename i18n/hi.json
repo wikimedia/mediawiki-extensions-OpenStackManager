@@ -68,7 +68,6 @@
 	"openstackmanager-removerule": "नियम निकालें",
 	"openstackmanager-addrule": "नियम जोड़ें",
 	"openstackmanager-sudoerusers": "सदस्य",
-	"openstackmanager-sudoerhosts": "मेजबान",
 	"openstackmanager-sudoeroptions": "विकल्प",
 	"openstackmanager-sudoerlist": "सुडो नीति तालिका",
 	"openstackmanager-modifysudoer": "सुडो नीति संशोधित करें",

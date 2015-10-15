@@ -109,7 +109,6 @@
 	"openstackmanager-removerulefailed": "Imposibil de eliminat regula.",
 	"openstackmanager-addrule": "Adăugați regulă",
 	"openstackmanager-sudoerusers": "Utilizator:",
-	"openstackmanager-sudoerhosts": "Gazde",
 	"openstackmanager-sudoercommands": "Comenzi",
 	"openstackmanager-sudoeroptions": "Opțiuni",
 	"openstackmanager-puppetallprojects": "Toate proiectele",

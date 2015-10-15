@@ -256,7 +256,6 @@
 	"openstackmanager-sudoername": "Nomine del politica de Sudo",
 	"openstackmanager-commadelimiter": "Separate per commas",
 	"openstackmanager-sudoerusers": "Usatores",
-	"openstackmanager-sudoerhosts": "Hosts",
 	"openstackmanager-sudoercommands": "Commandos",
 	"openstackmanager-sudoeroptions": "Optiones",
 	"openstackmanager-deletesudoer": "Deler politica de Sudo",

@@ -246,7 +246,6 @@
 	"openstackmanager-sudoername": "Nom de la politica sudô",
 	"openstackmanager-commadelimiter": "Sèparâ per des virgules",
 	"openstackmanager-sudoerusers": "Usanciérs",
-	"openstackmanager-sudoerhosts": "Hôtos",
 	"openstackmanager-sudoercommands": "Comandes",
 	"openstackmanager-sudoeroptions": "Chouèx",
 	"openstackmanager-deletesudoer": "Suprimar una politica sudô",

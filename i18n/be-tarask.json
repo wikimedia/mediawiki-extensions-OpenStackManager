@@ -240,7 +240,6 @@
 	"openstackmanager-sudoername": "Назва правілаў Sudo",
 	"openstackmanager-commadelimiter": "Падзеленыя коскамі",
 	"openstackmanager-sudoerusers": "Карыстальнікі",
-	"openstackmanager-sudoerhosts": "Хосты",
 	"openstackmanager-sudoercommands": "Каманды",
 	"openstackmanager-sudoeroptions": "Налады",
 	"openstackmanager-deletesudoer": "Выдаліць правілы Sudo",

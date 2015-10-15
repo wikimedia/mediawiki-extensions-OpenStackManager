@@ -211,7 +211,6 @@
 	"openstackmanager-sudoername": "Имя политики sudo",
 	"openstackmanager-commadelimiter": "Через запятую",
 	"openstackmanager-sudoerusers": "Пользователи",
-	"openstackmanager-sudoerhosts": "Хосты",
 	"openstackmanager-sudoercommands": "Команды",
 	"openstackmanager-requirepassword": "Требуется аутентификация",
 	"openstackmanager-sudoeroptions": "Параметры",

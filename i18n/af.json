@@ -190,7 +190,6 @@
 	"openstackmanager-sudoername": "Sudo Beleid Naam",
 	"openstackmanager-commadelimiter": "deur kommas geskei",
 	"openstackmanager-sudoerusers": "Gebruikers",
-	"openstackmanager-sudoerhosts": "die leërskare",
 	"openstackmanager-sudoercommands": "Commando",
 	"openstackmanager-sudoeroptions": "Opsies",
 	"openstackmanager-deletesudoer": "Verwyder Sudo Policy",

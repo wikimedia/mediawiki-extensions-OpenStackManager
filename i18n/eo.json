@@ -151,7 +151,6 @@
 	"openstackmanager-addrule": "Aldoni regulon",
 	"openstackmanager-addrulefailed": "Malsukcesis aldoni regulon.",
 	"openstackmanager-sudoerusers": "Uzantoj",
-	"openstackmanager-sudoerhosts": "Ĉefkomputiloj",
 	"openstackmanager-sudoercommands": "Komandoj",
 	"openstackmanager-sudoeroptions": "Agordoj",
 	"openstackmanager-puppetallprojects": "Ĉiuj Projektoj",

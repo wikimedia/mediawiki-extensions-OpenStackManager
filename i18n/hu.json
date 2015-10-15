@@ -227,7 +227,6 @@
 	"openstackmanager-sudoername": "Sudo házirend neve",
 	"openstackmanager-commadelimiter": "Vesszővel elválasztott",
 	"openstackmanager-sudoerusers": "Felhasználók",
-	"openstackmanager-sudoerhosts": "Hosztnevek",
 	"openstackmanager-sudoercommands": "Parancsok",
 	"openstackmanager-sudoeroptions": "Beállítások",
 	"openstackmanager-deletesudoer": "Sudo házirend törlése",

@@ -35,7 +35,6 @@
 	"openstackmanager-securitygrouprule-protocol": "كېلىشىم",
 	"openstackmanager-createnewsecuritygroup": "گۇرۇپپا قوش",
 	"openstackmanager-sudoerusers": "ئىشلەتكۈچىلەر",
-	"openstackmanager-sudoerhosts": "ئاساسىي ئاپپارات",
 	"openstackmanager-sudoercommands": "بۇيرۇقلار",
 	"openstackmanager-sudoeroptions": "تاللانما",
 	"openstackmanager-createpuppetgroup": "گۇرۇپپا قوش",

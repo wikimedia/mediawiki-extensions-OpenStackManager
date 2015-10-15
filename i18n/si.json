@@ -223,7 +223,6 @@
 	"openstackmanager-sudoername": "Sudo ප්‍රතිපත්තියේ නම",
 	"openstackmanager-commadelimiter": "කොමාවෙන් වෙන්වූ",
 	"openstackmanager-sudoerusers": "පරිශීලකයෝ",
-	"openstackmanager-sudoerhosts": "ධාරකයෝ",
 	"openstackmanager-sudoercommands": "අණකිරීම්",
 	"openstackmanager-sudoeroptions": "සැකසුම්",
 	"openstackmanager-deletesudoer": "Sudo ප්‍රතිපත්තිය මකන්න",

@@ -108,7 +108,6 @@
 	"openstackmanager-addrule": "წესის დამატება",
 	"openstackmanager-addrulefailed": "წესის დამატება ვერ მოხერხდა",
 	"openstackmanager-sudoerusers": "მომხმარებლები",
-	"openstackmanager-sudoerhosts": "ჰოსტები",
 	"openstackmanager-sudoercommands": "ბრძანებები",
 	"openstackmanager-sudoeroptions": "პარამეტრები",
 	"openstackmanager-puppetallprojects": "ყველა პროექტი",

@@ -194,7 +194,6 @@
 	"openstackmanager-addrulefailed": "Dodavanje pravila nije bilo uspešno.",
 	"openstackmanager-commadelimiter": "Razdvojeno zapetama",
 	"openstackmanager-sudoerusers": "Korisnici",
-	"openstackmanager-sudoerhosts": "Hostovi",
 	"openstackmanager-sudoercommands": "Komande",
 	"openstackmanager-sudoeroptions": "Opcije"
 }

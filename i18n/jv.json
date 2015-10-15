@@ -198,7 +198,6 @@
 	"openstackmanager-sudoername": "Jeneng Kabijakan Sudo",
 	"openstackmanager-commadelimiter": "Dipisahaké koma",
 	"openstackmanager-sudoerusers": "Panganggo",
-	"openstackmanager-sudoerhosts": "Host",
 	"openstackmanager-sudoercommands": "Paréntah",
 	"openstackmanager-sudoeroptions": "Pilihan",
 	"openstackmanager-deletesudoer": "Busak Kabijakan Sudo",
