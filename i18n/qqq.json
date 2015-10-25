@@ -72,7 +72,7 @@
 	"openstackmanager-createdomain": "Page title",
 	"openstackmanager-deletedomain": "Used as page title in Special:NovaDomain.",
 	"openstackmanager-deletedomain-confirm": "Used in [[Special:NovaAdmin]].\n\nParameters:\n* $1 - domain name",
-	"openstackmanager-novadomain-domain": "",
+	"openstackmanager-novadomain-domain": "Seems unused in the OpenStackManager extension",
 	"openstackmanager-createdomainfailed": "Used as failure message in Special:NovaDomain.\n\nThis message indicates the domain has been failed to create.\n\nSee also:\n* {{msg-mw|Openstackmanager-createddomain}}",
 	"openstackmanager-createddomain": "Used as success message in Special:NovaDomain.\n\nThis message indicates the domain has been created successfully.\n\nSee also:\n* {{msg-mw|Openstackmanager-createdomainfailed}}",
 	"openstackmanager-domainlist": "Used as page title in Special:NovaDomain.",

@@ -14,6 +14,7 @@
 	"action-listall": "すべてのリソース情報の閲覧",
 	"right-listall": "リソース情報をすべて表示",
 	"action-managednsdomain": "DNS ドメインの管理",
+	"right-managednsdomain": "グローバルDNSドメインを管理する",
 	"action-manageglobalpuppet": "グローバル パペット情報の管理",
 	"specialpages-group-nova": "OpenStack Nova",
 	"novaaddress": "公開IPアドレスの管理",
