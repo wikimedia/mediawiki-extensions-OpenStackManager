@@ -209,6 +209,7 @@ class SpecialNovaRole extends SpecialNova {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoadd', $member, $formData['rolename'] );
 			}
 		}
+		$project->editArticle();
 
 		$out = '<br />';
 		$returnto = Title::newFromText( $formData['returnto'] );
@@ -250,6 +251,7 @@ class SpecialNovaRole extends SpecialNova {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoremove', $member, $formData['rolename'] );
 			}
 		}
+		$project->editArticle();
 
 		$out = '<br />';
 		$returnto = Title::newFromText( $formData['returnto'] );
