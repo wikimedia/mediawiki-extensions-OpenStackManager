@@ -19,6 +19,7 @@
 	"openstackmanager-instance": "Zarządzanie instancją",
 	"openstackmanager-title": "OpenStackManager",
 	"openstackmanager-badresourcename": "Wprowadzoną złą nazwę zasobu.\nNazwa zasobu musi się zaczynać literą od a do z oraz może zawierać jedynie litery od a do z, cyfry od 0 do 9 oraz znaki - i _",
+	"right-managednsdomain": "Zarządzanie globalnymi domenami DNS",
 	"specialpages-group-nova": "OpenStack Nova",
 	"novaaddress": "Zarządzanie publicznymi adresami IP",
 	"novadomain": "Zarządzanie domenami DNS",

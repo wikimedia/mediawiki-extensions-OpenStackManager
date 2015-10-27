@@ -8,6 +8,7 @@
 	"openstackmanager": "De <i lang=\"en\">OpenStack</i> Verwaldong",
 	"openstackmanager-title": "<i lang=\"en\" xml:lang=\"en\">OpenStackManager</i>",
 	"action-managednsdomain": "Domähne em DNS verwallde",
+	"right-managednsdomain": "alljemeine Domähne em DNS verwallde",
 	"specialpages-group-nova": "<i lang=\"en\" xml:lang=\"en\">OpenStack Nova</i>",
 	"novaaddress": "Öffentlesche <i lang=\"en\" xml:lang=\"en\" dir=\"ltr\" title=\"„de eläktrohnesche Poß“\">e-mail</i>-Adräße verwallde",
 	"novadomain": "Domähne em DNS verwallde",
