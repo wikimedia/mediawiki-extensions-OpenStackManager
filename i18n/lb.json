@@ -9,6 +9,7 @@
 	"openstackmanager-desc": "Erméiglecht et de Benotzer fir Nova a Swift ze verwalten",
 	"openstackmanager": "OpenStack-Gestionnaire",
 	"right-editallhiera": "All Hiera-Säiten änneren",
+	"right-managednsdomain": "Global DNS-Domainë geréieren",
 	"novaaddress": "Ëffentlech IP-Adresse geréieren",
 	"novainstance": "Instanze geréieren",
 	"novakey": "Är ëffentlech SSH-Schlëssele geréieren",
