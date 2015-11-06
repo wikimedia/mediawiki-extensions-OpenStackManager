@@ -4,7 +4,8 @@
 			"Milicevic01",
 			"Rancher",
 			"Михајло Анђелковић",
-			"Srdjan m"
+			"Srdjan m",
+			"Сербијана"
 		]
 	},
 	"openstackmanager-novainstance": "Примерак Нове",
@@ -62,11 +63,11 @@
 	"openstackmanager-createinstancefailed": "Не могу да направим примерак.",
 	"openstackmanager-backinstancelist": "Назад на списак примерака",
 	"openstackmanager-deletedinstance": "Примерак $1 ($2) је обрисан.",
-	"openstackmanager-deletedinstance-faileddns": "Примерак је успешно обрисан, али нисам успео да уклоним DNS ставку $1.",
+	"openstackmanager-deletedinstance-faileddns": "Примерак $1 ($2) је успешно обрисан, али нисам успео да уклоним DNS ставку.",
 	"openstackmanager-modifiedinstance": "Примерак $1 је успешно измењен ($2).",
 	"openstackmanager-modifyinstancefailed": "Не могу да изменим примерак.",
-	"openstackmanager-deleteinstancefailed": "Не могу да обришем примерак.",
-	"openstackmanager-consoleoutput": "Излаз конзоле",
+	"openstackmanager-deleteinstancefailed": "Не могу да обришем примерак $1 ($2).",
+	"openstackmanager-consoleoutput": "Излаз конзоле за $1 ($2)",
 	"openstackmanager-getconsoleoutput": "преузми излаз конзоле",
 	"openstackmanager-createvolume": "Направи јединицу података",
 	"openstackmanager-volumename": "Назив јединице",
@@ -133,7 +134,7 @@
 	"openstackmanager-setprojects": "Филтер пројекта је успешно постављен.",
 	"openstackmanager-projectfiltersubmit": "Постави филтер",
 	"openstackmanager-roles": "Улоге",
-	"openstackmanager-rolename": "Назив улоге",
+	"openstackmanager-rolename": "Улога",
 	"openstackmanager-removerolemember": "Уклони члана",
 	"openstackmanager-addrolemember": "Додај члана",
 	"openstackmanager-rolelist": "Списак глобалних улога",
