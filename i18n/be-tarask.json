@@ -4,7 +4,8 @@
 			"EugeneZelenko",
 			"Jim-by",
 			"Wizardist",
-			"Red Winged Duck"
+			"Red Winged Duck",
+			"Renessaince"
 		]
 	},
 	"openstackmanager-desc": "Дазваляе удзельнікам кіраваць Nova і Swift",
@@ -81,7 +82,7 @@
 	"openstackmanager-launchtime": "Час запуску",
 	"openstackmanager-createinstance": "Дадаць экзэмпляр",
 	"openstackmanager-invaliddomain": "Запытаны няслушны дамэн.",
-	"openstackmanager-createdinstance": "Стварыць экзэмпляр $1 з выявай $2 і назвай хаста $3.",
+	"openstackmanager-createdinstance": "Стварыць экзэмпляр $1 з выявай «$2».",
 	"openstackmanager-createfailedldap": "Немагчыма стварыць экзэмпляр: немагчыма дадаць хост ў LDAP.",
 	"openstackmanager-createinstancefailed": "Немагчыма стварыць экзэмпляр.",
 	"openstackmanager-backinstancelist": "Вярнуцца ў сьпіс экзэмпляраў",
