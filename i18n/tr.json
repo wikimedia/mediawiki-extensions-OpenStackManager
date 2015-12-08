@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Incelemeelemani",
-			"Suelnur"
+			"Suelnur",
+			"Sayginer"
 		]
 	},
 	"openstackmanager-delete": "sil",
@@ -20,5 +21,7 @@
 	"openstackmanager-puppetallprojects": "Tüm projeler",
 	"openstackmanager-deletepuppetgroup": "Kukla grubunu sil",
 	"openstackmanager-deletedpuppetgroup": "Silinen kukla grubu.",
-	"openstackmanager-puppetgroupname": "Kukla grubu adı"
+	"openstackmanager-puppetgroupname": "Kukla grubu adı",
+	"notification-header-osm-projectmembers-add": "$1, sizi $3 projesine {{GENDER:$2|ekledi}}",
+	"echo-notification-goto-project": "Projeyi görüntüle"
 }

@@ -38,5 +38,7 @@
 	"openstackmanager-sudoerusers": "کارنان",
 	"openstackmanager-sudoeroptions": "خوښنې",
 	"openstackmanager-puppetallprojects": "ټولې پروژې",
-	"openstackmanager-createpuppetgroup": "ډله ورگډول"
+	"openstackmanager-createpuppetgroup": "ډله ورگډول",
+	"notification-header-osm-projectmembers-add": "$1 تاسې د $3 په پروژه کې {{GENDER:$2|ورگډ کړئ}}",
+	"echo-notification-goto-project": "پروژه کتل"
 }
