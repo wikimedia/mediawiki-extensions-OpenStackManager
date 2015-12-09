@@ -237,9 +237,8 @@
 	"openstackmanager-puppetvarposition": "Переменная позиция",
 	"openstackmanager-twofactorrequired": "Требуется двухфакторная аутентификация",
 	"openstackmanager-twofactorrequired2": "Требуется двухфакторная аутентификация. Пожалуйста, включите ее и повторите попытку.",
-	"notification-osm-instance-deleted": "$1 {{GENDER:$1|удалил|удалила}} экземпляр '$3' в проекте [[$2]]",
-	"notification-osm-projectmember-added": "$1 добавил{{GENDER:$1||а}} вас в проект [[$2]]",
 	"notification-osm-projectmember-added-email-subject": "Вы были добавлены в проект на сайте {{SITENAME}}",
 	"notification-osm-projectmember-added-email-body-batch": "$1 добавил{{GENDER:$1||а}} вас в проект [[$2]]",
+	"notification-header-osm-projectmembers-add": "$1 добавил{{GENDER:$2||а}} вас в проект $3",
 	"prefs-openstack-keys": "Список ключей"
 }

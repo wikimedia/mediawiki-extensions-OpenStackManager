@@ -130,6 +130,7 @@
 	"openstackmanager-puppetvarname": "Numm vun der Variabel",
 	"openstackmanager-puppetvarposition": "Positioun vun der Variabel",
 	"right-manageproject": "OpenStack Projeten a Rolle geréieren",
+	"echo-notification-goto-project": "Projet weisen",
 	"prefs-openstack-keys": "Lëscht vun de Schlësselen",
 	"apihelp-query+novaprojects-example-1": "Mécht eng Lëscht vun de Projeten"
 }
