@@ -235,11 +235,20 @@ class OpenStackNovaProjectGroup  {
 	static function createProjectGroup( $projectname ) {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPProjectGroupBaseDN;
+		global $wgOpenStackManagerLDAPUsername;
 
 		OpenStackNovaLdapConnection::connect();
 
+		$user = new OpenStackNovaUser( $wgOpenStackManagerLDAPUsername );
+
+                if ( ! $user->userDN ) {
+                        $wgAuth->printDebug( "Failed to find userDN in createProjectGroup", NONSENSITIVE );
+                        return false;
+                }
+
 		$projectGroupName = self::$prefix . $projectname;
 		$projectGroup = array();
+		$projectGroup['member'][] = $user->userDN;
 		$projectGroup['objectclass'][] = 'posixgroup';
 		$projectGroup['objectclass'][] = 'groupofnames';
 		$projectGroup['cn'] = $projectGroupName;
@@ -253,6 +262,7 @@ class OpenStackNovaProjectGroup  {
 		}
 		else {
 			$wgAuth->printDebug( "Failed to add project group $projectGroupName: " . ldap_error( $wgAuth->ldapconn ), NONSENSITIVE );
+                        return false;
 		}
 		return $success;
 	}
