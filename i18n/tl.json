@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"AnakngAraw",
-			"Stranger195"
+			"Stranger195",
+			"Leeheonjin"
 		]
 	},
 	"openstackmanager-desc": "Nagpapahintulot sa mga tagagamit na pamahalaan ang Nova at Swift",
@@ -322,5 +323,6 @@
 	"openstackmanager-email-body": "Nalikha na ang sumusunod na pagkakataon, at nakahanda na upang malagdaang papasok:",
 	"right-manageproject": "Pamahalaan ang mga proyekto ng Openstack at mga gampanin",
 	"action-manageproject": "mamahala ng mga proyekto ng Openstack at mga gampanin",
-	"right-loginviashell": "paglagdang papasok sa pamamagitan ng kabibe"
+	"right-loginviashell": "paglagdang papasok sa pamamagitan ng kabibe",
+	"echo-notification-goto-project": "Tingnan ang proyekto"
 }
