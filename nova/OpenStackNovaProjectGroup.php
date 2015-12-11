@@ -77,22 +77,6 @@ class OpenStackNovaProjectGroup  {
 	}
 
 	/**
-	 * Returns true if this ProjectGroup is a
-	 * 'ds-virtual-static-group', meaning that
-	 * it doesn't really have any member
-	 * attributes of its own.
-	 *
-	 * Virtual static groups were the previous
-	 * way of associating projects with posix groups.
-	 * We now manually keep the list of members in sync
-	 * when they are added and removed from a Project.
-	 */
-	function isVirtual() {
-		$this->fetchProjectGroupInfo(false);
-		return ( array_search( 'ds-virtual-static-group', $this->projectGroupInfo[0]['objectclass'] ) !== false );
-	}
-
-	/**
 	 * Return all users who are a member of this project
 	 *
 	 * @return array

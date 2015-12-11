@@ -134,19 +134,14 @@ class OpenStackNovaProject {
 
 		// If we couldn't find an corresponding Project Group,
 		// then we should create one now.
-		if ( !$this->projectGroup->loaded or $this->projectGroup->isVirtual() ) {
-			$wgAuth->printDebug( $this->projectGroup->getProjectGroupName() . " either does not exist or is a virtual static group.  Recreating is as a real group and syncing members.", NONSENSITIVE );
+		if ( !$this->projectGroup->loaded ) {
+			$wgAuth->printDebug( $this->projectGroup->getProjectGroupName() . " does not exist.  Creating it.", NONSENSITIVE );
 
-			// Delete, recreate, and then sync the members.
-			$deleteSuccess = OpenStackNovaProjectGroup::deleteProjectGroup( $this->projectname );
-			// if we successfully deleted the ProjectGroup, then recreate it now.
-			if ( $deleteSuccess ) {
-				$createSuccess = OpenStackNovaProjectGroup::createProjectGroup( $this->projectname );
-				// Aaaaand if we successfully created the group, then finally sync the members from this project now.
-				if ( $createSuccess ) {
-					$this->projectGroup = new OpenStackNovaProjectGroup( $this->projectname );
-					$this->syncProjectGroupMembers();
-				}
+			$createSuccess = OpenStackNovaProjectGroup::createProjectGroup( $this->projectname );
+			// Aaaaand if we successfully created the group, then finally sync the members from this project now.
+			if ( $createSuccess ) {
+				$this->projectGroup = new OpenStackNovaProjectGroup( $this->projectname );
+				$this->syncProjectGroupMembers();
 			}
 		}
 	}
