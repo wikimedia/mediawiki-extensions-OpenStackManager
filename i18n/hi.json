@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Adithyavr",
-			"Ansumang"
+			"Ansumang",
+			"Sfic"
 		]
 	},
 	"novaaddress": "सार्वजनिक आईपी पते की प्रबंधन",
@@ -92,5 +93,5 @@
 	"openstackmanager-puppetgroup": "पपेट दल",
 	"openstackmanager-modifiedpuppetclass": "पपेट कक्ष को बदला गया ।",
 	"openstackmanager-removepuppetclass": "पपेट कक्ष हटाया गया",
-	"notification-osm-instance-reboot-completed": "$1 {{GENDER:$1|rebooted}} इंस्टेंस \" $3 \" परियोजना में [[ $2 ]]"
+	"echo-notification-goto-project": "परियोजना देखें"
 }

@@ -4,7 +4,8 @@
 			"Fryed-peach",
 			"Shirayuki",
 			"SkyDaisy9",
-			"Sujiniku"
+			"Sujiniku",
+			"Otokoume"
 		]
 	},
 	"openstackmanager-desc": "利用者が Nova と Swift を管理できるようにする",
@@ -335,6 +336,7 @@
 	"notification-header-osm-instance-reboot-completed": "$1 がプロジェクト $3 のインスタンス「$4」を{{GENDER:$2|再起動させました}}",
 	"notification-header-osm-instance-deleted": "$1 がプロジェクト $3 のインスタンス「$4」を{{GENDER:$2|削除しました}}",
 	"notification-header-osm-projectmembers-add": "$1 がプロジェクト $3 にあなたを{{GENDER:$2|追加しました}}",
+	"echo-notification-goto-project": "プロジェクトを閲覧",
 	"echo-category-title-osm-instance-deleted": "インスタンス (自分がプロジェクト管理者) を削除したとき",
 	"echo-category-title-osm-instance-build-completed": "インスタンス (自分がプロジェクト管理者) を構築したとき",
 	"echo-category-title-osm-instance-reboot-completed": "インスタンスを再起動が完了したとき",
