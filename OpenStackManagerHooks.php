@@ -23,7 +23,7 @@ class OpenStackManagerHooks {
 			if ( !$userLDAP->exists() ) {
 				$result = array( 'openstackmanager-nonovacred-admincreate' );
 			}
-			$project = $title->getText();
+			$project = $title->getRootText();
 			if ( !$userLDAP->inRole( 'projectadmin', $project ) && !$user->isAllowed( 'editallhiera' )  ) {
 				$result = array( 'openstackmanager-hiera-noadmin', $project );
 				return false;
