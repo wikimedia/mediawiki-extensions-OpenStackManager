@@ -278,5 +278,6 @@
 	"openstackmanager-email-subject": "A sua instância está pronta para receber ligações.",
 	"openstackmanager-email-body": "A seguinte instância foi criada e está pronta para receber ligações:",
 	"openstackmanager-hiera-noadmin": "Apenas administradores do projeto $1 podem editar esta página",
-	"right-manageproject": "Gerir os projetos e funções Openstack"
+	"right-manageproject": "Gerir os projetos e funções Openstack",
+	"echo-notification-goto-project": "Ver projeto"
 }

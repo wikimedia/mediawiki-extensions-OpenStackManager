@@ -112,5 +112,6 @@
 	"openstackmanager-commadelimiter": "Atskirti kableliu",
 	"openstackmanager-sudoerusers": "Naudotojai",
 	"openstackmanager-sudoercommands": "Komandos",
-	"openstackmanager-sudoeroptions": "Pasirinktys"
+	"openstackmanager-sudoeroptions": "Pasirinktys",
+	"echo-notification-goto-project": "Žiūrėti projektą"
 }
