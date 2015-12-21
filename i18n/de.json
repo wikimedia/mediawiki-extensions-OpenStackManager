@@ -434,6 +434,7 @@
 	"prefs-openstack": "OpenStack",
 	"prefs-openstack-keys": "Schlüsselliste",
 	"apihelp-novaaddress-description": "Führt Aktionen auf Nova-IP-Adressen durch.",
+	"apihelp-novaaddress-param-subaction": "Die auszuführende Unteraktion.",
 	"apihelp-novainstance-description": "Führt Aktionen auf Instanzen durch.",
 	"apihelp-novainstance-param-subaction": "Die auszuführende Unteraktion.",
 	"apihelp-novainstance-param-project": "Das Projekt, in dem die Instanz vorhanden ist.",
