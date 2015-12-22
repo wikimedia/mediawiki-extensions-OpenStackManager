@@ -29,6 +29,13 @@ class EchoOpenStackManagerPresentationModel extends EchoEventPresentationModel {
 		);
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getSecondaryLinks() {
+		return array( $this->getAgentLink() );
+	}
+
 	public function getHeaderMessage() {
 		$msg = parent::getHeaderMessage();
 
