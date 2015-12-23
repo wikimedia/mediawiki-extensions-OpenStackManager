@@ -88,5 +88,6 @@
 	"openstackmanager-sudoerusers": "ব্যবহারকারী",
 	"openstackmanager-sudoercommands": "কমান্ড",
 	"openstackmanager-sudoeroptions": "অপশন",
-	"openstackmanager-deletesudoer": "সুডো নীতি অপসারণ"
+	"openstackmanager-deletesudoer": "সুডো নীতি অপসারণ",
+	"echo-notification-goto-project": "প্রকল্প দেখুন"
 }
