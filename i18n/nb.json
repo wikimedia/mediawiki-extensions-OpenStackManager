@@ -37,6 +37,6 @@
 	"openstackmanager-dnsdomain": "DNS-domene",
 	"openstackmanager-puppetclasses": "Klasser",
 	"openstackmanager-novainstance-info": "Instansinformasjon",
-	"notification-osm-instance-deleted": "$1 {{GENDER:$1|slettet}} instansen «$3» i prosjekt [[$2]]",
-	"notification-osm-instance-build-completed": "$1 {{GENDER:$1|bygget}} instans «$3» i prosjekt [[$2]]"
+	"notification-header-osm-projectmembers-add": "$1 {{GENDER:$2|la deg til}} i prosjektet $3",
+	"echo-notification-goto-project": "Vis prosjekt"
 }
