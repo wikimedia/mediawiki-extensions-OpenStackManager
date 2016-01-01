@@ -13,7 +13,8 @@
 			"Yfdyh000",
 			"乌拉跨氪",
 			"凡人丶",
-			"Appleuseryu"
+			"Appleuseryu",
+			"Fengchao"
 		]
 	},
 	"openstackmanager-desc": "让用户管理 Nova 和 Swift",
@@ -165,7 +166,7 @@
 	"openstackmanager-novapublickey": "公共SSH密钥",
 	"openstackmanager-prefs-novapublickey": "SSH公钥：",
 	"openstackmanager-deletekey": "删除SSH公钥",
-	"openstackmanager-deletekeyconfirm": "你确定要删除以上密钥吗？",
+	"openstackmanager-deletekeyconfirm": "确定要删除以上密钥吗？",
 	"openstackmanager-keylist": "SSH公钥列表",
 	"openstackmanager-addkey": "添加SSH公钥",
 	"openstackmanager-name": "名",
