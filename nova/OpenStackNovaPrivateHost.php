@@ -156,7 +156,7 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 		global $wgAuth;
 		global $wgOpenStackManagerPuppetOptions;
 
-		$hostEntry = array();
+		$hostEntry = array( 'puppetclass' => array(), 'puppetvar' => array() );
 		if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
 			if ( isset( $puppetinfo['classes'] ) ) {
 				foreach ( $puppetinfo['classes'] as $class ) {
@@ -178,18 +178,14 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 					}
 				}
 			}
-			if ( $hostEntry ) {
-				$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->hostDN, $hostEntry );
-				if ( $success ) {
-					$this->fetchHostInfo();
-					$wgAuth->printDebug( "Successfully modified puppet configuration for host", NONSENSITIVE );
-					return true;
-				} else {
-					$wgAuth->printDebug( "Failed to modify puppet configuration for host", NONSENSITIVE );
-					return false;
-				}
+
+			$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->hostDN, $hostEntry );
+			if ( $success ) {
+				$this->fetchHostInfo();
+				$wgAuth->printDebug( "Successfully modified puppet configuration for host", NONSENSITIVE );
+				return true;
 			} else {
-				$wgAuth->printDebug( "No hostEntry when trying to modify puppet configuration", NONSENSITIVE );
+				$wgAuth->printDebug( "Failed to modify puppet configuration for host", NONSENSITIVE );
 				return false;
 			}
 		}
