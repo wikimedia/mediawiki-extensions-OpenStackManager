@@ -8,7 +8,8 @@
 			"Reza1615",
 			"ZxxZxxZ",
 			"جواد",
-			"Alirezaaa"
+			"Alirezaaa",
+			"Hosseinblue"
 		]
 	},
 	"openstackmanager-desc": "اجازه دادن به کاربران برای اداره کردن نوا و سوییفت",
@@ -43,7 +44,7 @@
 	"openstackmanager-ownedinstances": "شما {{PLURAL:$1|این نمونه|این نمونه‌ها}} را ایجاد کردید:",
 	"openstackmanager-delete": "حذف",
 	"openstackmanager-configure": "پیکربندی",
-	"openstackmanager-modify": "تغییر",
+	"openstackmanager-modify": "گؤەڕانن/تغییر",
 	"openstackmanager-rename": "تغییر نام",
 	"openstackmanager-reboot": "راه‌اندازی مجدد",
 	"openstackmanager-actions": "اقدامات",
@@ -408,13 +409,9 @@
 	"right-manageproject": "مدیریت پروژه‌های اُپن‌استک و نقش‌ها",
 	"action-manageproject": "مدیریت پروژه‌های اُپن‌استک و نقش‌ها",
 	"right-loginviashell": "ورود از طریق پوسته",
-	"notification-osm-instance-deleted": "$1 {{GENDER:$1|حذف شده}} نمونهٔ '$3' در پروژهٔ [[$2]]",
 	"notification-osm-instance-deleted-email-body-batch": "$1 {{GENDER:$1|حذف شده}} نمونهٔ '$3' در پروژهٔ [[$2]]",
-	"notification-osm-instance-build-completed": "$1 {{GENDER:$1|ساخته شده}} نمونهٔ '$3' در پروژهٔ‌ [[$2]]",
 	"notification-osm-instance-build-completed-email-body-batch": "$1 {{GENDER:$1|ساخته شده}} نمونهٔ '$3' در پروژهٔ‌ [[$2]]",
-	"notification-osm-instance-reboot-completed": "$1 {{GENDER:$1|دوباره راه‌انذازی شده}} نمونهٔ '$3' در پروژهٔ‌ [[$2]]",
 	"notification-osm-instance-reboot-completed-email-body-batch": "$1 {{GENDER:$1|دوباره راه‌انذازی شده}} نمونهٔ '$3' در پروژهٔ‌ [[$2]]",
-	"notification-osm-projectmember-added": "$1 {{GENDER:$1|اضافه کرده}} شما را به پروژهٔ [[$2]]",
 	"notification-osm-projectmember-added-email-body-batch": "$1 {{GENDER:$1|اضافه کرده}} شما را به پروژهٔ [[$2]]",
 	"echo-category-title-osm-instance-deleted": "به عنوان مثال حذف (جایی که شما ادمین پروژه هستید)",
 	"echo-category-title-osm-instance-build-completed": "به عنوان مثال ساختن (جایی که شما ادمین پروژه هستید)",
