@@ -44,7 +44,7 @@
 	"openstackmanager-ownedinstances": "شما {{PLURAL:$1|این نمونه|این نمونه‌ها}} را ایجاد کردید:",
 	"openstackmanager-delete": "حذف",
 	"openstackmanager-configure": "پیکربندی",
-	"openstackmanager-modify": "گؤەڕانن/تغییر",
+	"openstackmanager-modify": "تغییر",
 	"openstackmanager-rename": "تغییر نام",
 	"openstackmanager-reboot": "راه‌اندازی مجدد",
 	"openstackmanager-actions": "اقدامات",
