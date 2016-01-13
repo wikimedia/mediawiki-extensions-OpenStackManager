@@ -946,7 +946,7 @@ RESOURCEINFO;
 			$article = Article::newFromId( $id );
 			$content = '';
 			if ( $article ) {
-				$content = $article->getRawText();
+				$content = $article->getContent( Revision::RAW );
 			}
 			$text = "{{SAL|Project Name=" . $this->getProjectName() . "}}";
 			if ( !strstr( $content, $text ) ) {
