@@ -8,6 +8,10 @@
  */
 
 abstract class SpecialNova extends SpecialPage {
+	public function doesWrites() {
+		return true;
+	}
+
 	/**
 	 * @return void
 	 */
