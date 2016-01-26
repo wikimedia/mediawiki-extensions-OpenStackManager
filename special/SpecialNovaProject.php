@@ -41,8 +41,6 @@ class SpecialNovaProject extends SpecialNova {
 			$this->addMember();
 		} elseif ( $action === "deletemember" ) {
 			$this->deleteMember();
-		} elseif ( $action === "configureproject" ) {
-			$this->configureProject();
 		} elseif ( $action === "displayquotas" ) {
 			$this->displayQuotas();
 		} else {
@@ -248,7 +246,6 @@ class SpecialNovaProject extends SpecialNova {
 		$actions[] = $this->createActionLink( 'openstackmanager-deleteproject', array( 'action' => 'delete', 'projectname' => $projectName ) );
 		$actions[] = $this->createActionLink( 'openstackmanager-addmember', array( 'action' => 'addmember', 'projectname' => $projectName ) );
 		$actions[] = $this->createActionLink( 'openstackmanager-removemember', array( 'action' => 'deletemember', 'projectname' => $projectName ) );
-		$actions[] = $this->createActionLink( 'openstackmanager-configure', array( 'action' => 'configureproject', 'projectname' => $projectName ) );
 		$actions[] = $this->createActionLink( 'openstackmanager-displayquotas-action', array( 'action' => 'displayquotas', 'projectname' => $projectName ) );
 
 		$hieraTitle = Title::makeTitleSafe( NS_HIERA, $projectName );
@@ -306,77 +303,6 @@ class SpecialNovaProject extends SpecialNova {
 		$projectForm->setSubmitID( 'novaproject-form-createprojectsubmit' );
 		$projectForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
 		$projectForm->show();
-	}
-
-	/**
-	 * @return bool
-	 */
-	function configureProject() {
-		global $wgOpenStackManagerServiceGroupPrefix;
-
-		$this->setHeaders();
-		$projectName = $this->getRequest()->getText( 'projectname' );
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-configureproject', $projectName ) );
-		if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( 'projectadmin', $projectName ) ) {
-			$this->notInRole( 'projectadmin', $projectName );
-			return false;
-		}
-		$project = OpenStackNovaProject::getProjectByName( $projectName );
-
-		$volumes = $project->getVolumeSettings();
-		$defaultHomedirs = in_array( "home", $volumes );
-		$defaultProject = in_array( "project", $volumes );
-		$homePattern = $project->getServiceGroupHomedirPattern();
-
-		$formInfo = array();
-		$formInfo['homedirs'] = array(
-			'type' => 'check',
-			'label-message' => 'openstackmanager-configureproject-sharedhomedirs',
-			'default' => $defaultHomedirs,
-			'section' => 'volume',
-			'name' => 'sharedhomedirs',
-		);
-		$formInfo['storage'] = array(
-			'type' => 'check',
-			'label-message' => 'openstackmanager-configureproject-sharedstorage',
-			'default' => $defaultProject,
-			'section' => 'volume',
-			'name' => 'sharedstorage',
-		);
-		$formInfo['serviceuserhome'] = array(
-			'type' => 'text',
-			'label-message' => 'openstackmanager-configureproject-serviceuserhome',
-			'default' => $homePattern,
-			'section' => 'servicegroup',
-			'name' => 'serviceuserhome',
-		);
-		$msg = $this->msg( 'openstackmanager-configureproject-serviceuserinfo', $wgOpenStackManagerServiceGroupPrefix );
-		$formInfo['serviceuserhomeinfo'] = array(
-			'type' => 'info',
-			'section' => 'servicegroup',
-			'label' => $msg,
-		);
-		$formInfo['action'] = array(
-			'type' => 'hidden',
-			'default' => 'configureproject',
-			'name' => 'action',
-		);
-		$formInfo['projectname'] = array(
-			'type' => 'hidden',
-			'default' => $projectName,
-			'name' => 'projectname',
-		);
-
-		$projectForm = new HTMLForm(
-			$formInfo,
-			$this->getContext(),
-			'openstackmanager-configureproject'
-		);
-		$projectForm->setSubmitID( 'novaproject-form-configuresubmit' );
-		$projectForm->setSubmitCallback( array( $this, 'tryConfigureProjectSubmit' ) );
-		$projectForm->show();
-
-		return true;
 	}
 
 	/**
@@ -486,7 +412,6 @@ class SpecialNovaProject extends SpecialNova {
 				$this->userNova->addSecurityGroupRule( $groupid, $fromport, $toport, $protocol, $range, $sourcegroupid );
 			}
 		}
-		$project->setVolumeSettings(array('home', 'project'));
 		$project->editArticle();
 		$this->getOutput()->addWikiMsg( 'openstackmanager-createdproject' );
 
@@ -592,45 +517,6 @@ class SpecialNovaProject extends SpecialNova {
 		$out = '<br />';
 
 		$out .= Linker::link(
-			$this->getPageTitle(),
-			$this->msg( 'openstackmanager-backprojectlist' )->escaped()
-		);
-		$this->getOutput()->addHTML( $out );
-
-		return true;
-	}
-
-	/**
-	 * @param  $formData
-	 * @param string $entryPoint
-	 * @return bool
-	 */
-	function tryConfigureProjectSubmit( $formData, $entryPoint = 'internal' ) {
-		$project = OpenStackNovaProject::getProjectByName( $formData['projectname'] );
-		if ( ! $project ) {
-			$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistentproject' );
-			return true;
-		}
-
-		$vols = array();
-
-		if ( $formData['homedirs'] ) {
-			$vols[] = "home";
-		}
-
-		if ( $formData['storage'] ) {
-			$vols[] = "project";
-		}
-
-		$homedirPattern = $formData['serviceuserhome'];
-
-		if ( $project->setVolumeSettings( $vols ) && $project->setServiceGroupHomedirPattern( $homedirPattern) ) {
-			$this->getOutput()->addWikiMsg( 'openstackmanager-configureproject-success' );
-		} else {
-			$this->getOutput()->addWikiMsg( 'openstackmanager-configureproject-failed' );
-		}
-
-		$out = Linker::link(
 			$this->getPageTitle(),
 			$this->msg( 'openstackmanager-backprojectlist' )->escaped()
 		);
