@@ -40,7 +40,7 @@ class EchoOpenStackManagerPresentationModel extends EchoEventPresentationModel {
 		$msg = parent::getHeaderMessage();
 
 		return $msg->params(
-			$this->event->getTitle()->getText(),
+			$this->getTruncatedTitleText( $this->event->getTitle() ),
 			$this->event->getExtraParam( 'instanceName' )
 		);
 	}
