@@ -810,9 +810,10 @@ class OpenStackNovaController {
 		return $headers;
 	}
 
-	function restCall( $service, $path, $method, $data = array(), $authHeaders='' ) {
+	function restCall( $service, $path, $method, $data = array(), $authHeaders='', $retrying=false ) {
 		global $wgAuth;
 		global $wgOpenStackManagerNovaIdentityURI;
+		global $wgMemc;
 
 		if ( $authHeaders ) {
 			$headers = $authHeaders;
@@ -861,6 +862,14 @@ class OpenStackNovaController {
 		curl_setopt( $handle, CURLOPT_HEADER, 1 );
 		$response = curl_exec( $handle );
 		$code = curl_getinfo( $handle, CURLINFO_HTTP_CODE );
+
+		if ( $code === 401 && !$retrying ) {
+			$wgMemc->delete(
+				wfMemcKey( 'openstackmanager', "fulltoken-" . $this->getProject(), $this->username )
+			);
+			return $this->restCall( $service, $path, $method, $data, $authHeaders, true );
+		}
+
 		$header_size = curl_getinfo( $handle, CURLINFO_HEADER_SIZE );
 		$response_headers = substr( $response, 0, $header_size );
 		$body = substr( $response, $header_size );
