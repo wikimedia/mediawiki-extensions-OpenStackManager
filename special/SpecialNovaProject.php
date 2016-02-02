@@ -278,17 +278,6 @@ class SpecialNovaProject extends SpecialNova {
 			'section' => 'project',
 			'name' => 'member',
 		);
-		$role_keys = array();
-		foreach ( OpenStackNovaProject::$rolenames as $rolename ) {
-			$role_keys[$rolename] = $rolename;
-		}
-		$projectInfo['roles'] = array(
-			'type' => 'multiselect',
-			'label-message' => 'openstackmanager-roles',
-			'section' => 'project',
-			'options' => $role_keys,
-			'name' => 'roles',
-		);
 		$projectInfo['action'] = array(
 			'type' => 'hidden',
 			'default' => 'create',
@@ -361,10 +350,8 @@ class SpecialNovaProject extends SpecialNova {
 		}
 		$roles = $project->getRoles();
 		foreach ( $roles as $role ) {
-			if ( in_array( $role->getRoleName(), $formData['roles'] ) ) {
-				foreach ( $members as $member ) {
-					$role->addMember( $member );
-				}
+			foreach ( $members as $member ) {
+				$role->addMember( $member );
 			}
 			// We also need to ensure the project creator is in all roles
 			$role->addMember( $username );
