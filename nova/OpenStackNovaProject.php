@@ -478,41 +478,24 @@ class OpenStackNovaProject {
 		$nochange =  0;
 		$synced   =  1;
 
-		// if we're not using project groups, just return $nochange.
-		if ( !OpenStackNovaProject::useProjectGroup() ) {
+		// These both return a sorted array of Member DNs
+		$projectMemberDNs      = $this->getMemberDNs();
+		$projectGroupMemberDNs = $this->projectGroup->getMemberDNs();
+
+		// These two arrays should be exactly the same,
+		// so comparing them using == should work.
+		// If they are not the same, then modify the
+		// project group member list so that it exactly
+		// matches the list from the project.
+		if ( $projectMemberDNs != $projectGroupMemberDNs ) {
+			$sync_success = $this->projectGroup->setMembers( $projectMemberDNs );
+			$retval = $sync_success == true ? $synced : $failure;
+		}
+		else {
 			$retval = $nochange;
 		}
 
-		else {
-			// These both return a sorted array of Member DNs
-			$projectMemberDNs      = $this->getMemberDNs();
-			$projectGroupMemberDNs = $this->projectGroup->getMemberDNs();
-
-			// These two arrays should be exactly the same, 
-			// so comparing them using == should work.
-			// If they are not the same, then modify the
-			// project group member list so that it exactly
-			// matches the list from the project.
-			if ( $projectMemberDNs != $projectGroupMemberDNs ) {
-				$sync_success = $this->projectGroup->setMembers( $projectMemberDNs );
-				$retval = $sync_success == true ? $synced : $failure;
-			}
-			else {
-				$retval = $nochange;
-			}
-		}
-
 		return $retval;
-	}
-
-	static function useProjectGroup() {
-		global $wgOpenStackManagerLDAPProjectBaseDN;
-
-		if ( $wgOpenStackManagerLDAPProjectBaseDN ) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	/**
@@ -618,13 +601,6 @@ class OpenStackNovaProject {
 		$project['member'] = $wgOpenStackManagerLDAPUser;
 		$projectdn = 'cn=' . $projectname . ',' . $wgOpenStackManagerLDAPProjectBaseDN;
 
-		// if we're not going to use project groups, 
-		// then create this project as a posixgroup
-		if ( !OpenStackNovaProject::useProjectGroup() ) {
-			$project['gidnumber'] = OpenStackNovaUser::getNextIdNumber( $wgAuth, 'gidnumber' );
-			$project['objectclass'][] = 'posixgroup';
-		}
-
 		$success = LdapAuthenticationPlugin::ldap_add( $wgAuth->ldapconn, $projectdn, $project );
 		$project = new OpenStackNovaProject( $projectname );
 		if ( $success ) {
@@ -645,10 +621,8 @@ class OpenStackNovaProject {
 			// Now that we've created the Project, if we
 			// are supposed to use a corresponding Project Group
 			// to manage posix group permissions, do so now.
-			if ( OpenStackNovaProject::useProjectGroup() ) {
-				OpenStackNovaProjectGroup::createProjectGroup( $projectname );
-				# TODO: If project group creation fails we need to be able to fail gracefully
-			}
+			OpenStackNovaProjectGroup::createProjectGroup( $projectname );
+			# TODO: If project group creation fails we need to be able to fail gracefully
 
 			// Create two default, permissive sudo policies.  First,
                         //  allow sudo (as root) for all members...
@@ -746,10 +720,7 @@ class OpenStackNovaProject {
 			}
 		}
 
-		# Projects can have a separate group entry.  If so, delete it now.
-		if ( OpenStackNovaProject::useProjectGroup() ) {
-			OpenStackNovaProjectGroup::deleteProjectGroup( $projectname );
-		}
+		OpenStackNovaProjectGroup::deleteProjectGroup( $projectname );
 
 		# Projects have a sudo OU and sudoers entries below that OU, we must delete them first
 		$sudoers = OpenStackNovaSudoer::getAllSudoersByProject( $project->getProjectName() );
