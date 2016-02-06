@@ -83,6 +83,10 @@ $wgOpenStackManagerLDAPUser = '';
 $wgOpenStackManagerLDAPUsername = '';
 // Password used to bind
 $wgOpenStackManagerLDAPUserPassword = '';
+// Project that $wgOpenStackManagerLDAPUsername has admin on
+$wgOpenStackManagerProject = '';
+// Keystone ID of same
+$wgOpenStackManagerProjectId = '';
 // DN location of projects
 $wgOpenStackManagerLDAPProjectBaseDN = '';
 // DN location of hosts/instances

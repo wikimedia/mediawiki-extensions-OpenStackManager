@@ -13,6 +13,7 @@ class OpenStackNovaController {
 	public $project;
 	public $region;
 	public $token;
+	public $admintoken;
 
 	/**
 	 * @param $user string
@@ -229,6 +230,144 @@ class OpenStackNovaController {
 			$proxyarr[] = $proxyObj;
 		}
 		return $proxyarr;
+	}
+
+	/**
+	 * @return a token for $wgOpenStackManagerLDAPUsername
+	 *  who happens to have admin rights in Keystone.
+	 */
+	function _getAdminToken() {
+		global $wgOpenStackManagerLDAPUsername, $wgOpenStackManagerLDAPUserPassword;
+		global $wgOpenStackManagerProjectId, $wgAuth;
+		global $wgMemc;
+
+		if ( $this->admintoken ) {
+			return $this->admintoken;
+		}
+
+		$key = wfMemcKey( 'openstackmanager', 'keystoneadmintoken' );
+
+		$this->admintoken = $wgMemc->get( $key );
+		if ( is_string( $this->admintoken ) ) {
+			return $this->admintoken;
+		}
+
+		$data = array(
+			'auth' => array(
+				'passwordCredentials' => array(
+					'username' => $wgOpenStackManagerLDAPUsername,
+					'password' => $wgOpenStackManagerLDAPUserPassword ),
+				'tenantId' => $wgOpenStackManagerProjectId ) );
+		$headers = array(
+			'Accept: application/json',
+			'Content-Type: application/json',
+		);
+		$ret = $this->restCall( 'identity', '/tokens', 'POST', $data, $headers );
+		if ( $ret['code'] !== 200 ) {
+			$wgAuth->printDebug( "OpenStackNovaController::_getAdminToken return code: " . $ret['code'], NONSENSITIVE );
+			return "";
+		}
+
+		$body = $ret['body'];
+		$this->admintoken = self::_get_property( $body->access->token, 'id' );
+
+		$wgMemc->set( $key, $this->admintoken, 300 );
+
+		return $this->admintoken;
+	}
+
+	/**
+	 * @return array of project ids => project names
+	 */
+	function getProjects() {
+		$admintoken = $this->_getAdminToken();
+		$headers = array( "X-Auth-Token: $admintoken" );
+
+		$projarr = array();
+		$ret = $this->restCall( 'identity', '/tenants', 'GET', array(), $headers );
+		$projects = self::_get_property( $ret['body'], 'tenants' );
+		if ( !$projects ) {
+			return $projarr;
+		}
+		foreach ( $projects as $project ) {
+			$projectname = self::_get_property( $project, 'name' );
+			$projectid = self::_get_property( $project, 'id' );
+			$projarr[$projectid] = $projectname;
+		}
+		return $projarr;
+	}
+
+	/**
+	 * @return array of user IDs => user names
+	 */
+	function getUsersInProject( $projectid ) {
+		$admintoken = $this->_getAdminToken();
+		$headers = array( "X-Auth-Token: $admintoken" );
+
+		$userarr = array();
+		$ret = $this->restCall( 'identity', "/tenants/$projectid/users", 'GET', array(), $headers );
+		$users = self::_get_property( $ret['body'], 'users' );
+		if ( !$users ) {
+			return $userarr;
+		}
+		foreach ( $users as $user ) {
+			$name = self::_get_property( $user, 'name' );
+			$id = self::_get_property( $user, 'id' );
+			$userarr[$id] = $name;
+		}
+		return $userarr;
+	}
+
+	/**
+	 * @return array of roles
+	 */
+	function getKeystoneRoles( ) {
+		global $wgMemc;
+
+		$key = wfMemcKey( 'openstackmanager', 'keystoneroles' );
+		$rolearr = $wgMemc->get( $key );
+		if ( is_array( $rolearr ) ) {
+			return $rolearr;
+		}
+
+		$admintoken = $this->_getAdminToken();
+		$headers = array( "X-Auth-Token: $admintoken" );
+
+		$rolearr = array();
+		$ret = $this->restCall( 'identity', "/OS-KSADM/roles", 'GET', array(), $headers );
+		$roles = self::_get_property( $ret['body'], 'roles' );
+		if ( !$roles ) {
+			return $rolearr;
+		}
+		foreach ( $roles as $role ) {
+			$name = self::_get_property( $role, 'name' );
+			$rolearr[] = $name;
+		}
+
+		$wgMemc->set( $key, $rolearr, 3600 );
+
+		return $rolearr;
+	}
+
+	/**
+	 * @return array role IDs => role Names
+	 */
+	function getRolesForProjectAndUser( $projectid, $userid ) {
+		$admintoken = $this->_getAdminToken();
+		$headers = array( "X-Auth-Token: $admintoken" );
+
+		$rolearr = array();
+		$ret = $this->restCall( 'identity', "/tenants/$projectid/users/$userid/roles", 'GET', array(), $headers );
+		$roles = self::_get_property( $ret['body'], 'roles' );
+		if ( !$roles ) {
+			return $rolearr;
+		}
+		foreach ( $roles as $role ) {
+			$id = self::_get_property( $role, 'id' );
+			$name = self::_get_property( $role, 'name' );
+			$rolearr[$id] = $name;
+		}
+		return $rolearr;
 	}
 
 	/**
