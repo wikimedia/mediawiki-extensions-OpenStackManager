@@ -42,13 +42,13 @@ class SpecialNovaRole extends SpecialNova {
 
 		$roleInfo = array();
 		$roleid = $this->getRequest()->getText( 'roleid' );
-		$projectname = $this->getRequest()->getText( 'projectname' );
-		if ( $projectname ) {
-			if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( $roleid, $projectname ) ) {
+		$projectid = $this->getRequest()->getText( 'projectid' );
+		if ( $projectid ) {
+			if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( $roleid, $projectid ) ) {
 				$this->displayRestrictionError();
 				return false;
 			}
-			$project = OpenStackNovaProject::getProjectByName( $projectname );
+			$project = OpenStackNovaProject::getProjectById( $projectid );
 			$projectmembers = $project->getMembers();
 			natcasesort( $projectmembers );
 			$role = new OpenStackNovaRole( $roleid, $project );
@@ -83,10 +83,10 @@ class SpecialNovaRole extends SpecialNova {
 			'default' => $roleid,
 			'name' => 'roleid',
 		);
-		$roleInfo['projectname'] = array(
+		$roleInfo['projectid'] = array(
 			'type' => 'hidden',
-			'default' => $projectname,
-			'name' => 'projectname',
+			'default' => $projectid,
+			'name' => 'projectid',
 		);
 		$roleInfo['returnto'] = array(
 			'type' => 'hidden',
@@ -114,13 +114,13 @@ class SpecialNovaRole extends SpecialNova {
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-removerolemember' ) );
 
 		$roleid = $this->getRequest()->getText( 'roleid' );
-		$projectname = $this->getRequest()->getText( 'projectname' );
-		if ( $projectname ) {
-			if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( $roleid, $projectname ) ) {
+		$projectid = $this->getRequest()->getText( 'projectid' );
+		if ( $projectid ) {
+			if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( $roleid, $projectid ) ) {
 				$this->displayRestrictionError();
 				return false;
 			}
-			$project = OpenStackNovaProject::getProjectByName( $projectname );
+			$project = OpenStackNovaProject::getProjectById( $projectid );
 			$projectmembers = $project->getMembers();
 			natcasesort( $projectmembers );
 			$role = new OpenStackNovaRole( $roleid, $project );
@@ -156,10 +156,10 @@ class SpecialNovaRole extends SpecialNova {
 			'default' => $roleid,
 			'name' => 'roleid',
 		);
-		$roleInfo['projectname'] = array(
+		$roleInfo['projectid'] = array(
 			'type' => 'hidden',
-			'default' => $projectname,
-			'name' => 'projectname',
+			'default' => $projectid,
+			'name' => 'projectid',
 		);
 		$roleInfo['returnto'] = array(
 			'type' => 'hidden',
@@ -185,9 +185,9 @@ class SpecialNovaRole extends SpecialNova {
 	 * @return bool
 	 */
 	function tryAddMemberSubmit( $formData, $entryPoint = 'internal' ) {
-		$projectname = $formData['projectname'];
-		if ( $projectname ) {
-			$project = OpenStackNovaProject::getProjectByName( $projectname );
+		$projectid = $formData['projectid'];
+		if ( $projectid ) {
+			$project = OpenStackNovaProject::getProjectById( $projectid );
 			if ( ! $project ) {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistentproject' );
 				return true;
@@ -229,9 +229,9 @@ class SpecialNovaRole extends SpecialNova {
 	 * @return bool
 	 */
 	function tryDeleteMemberSubmit( $formData, $entryPoint = 'internal' ) {
-		$projectname = $formData['projectname'];
-		if ( $projectname ) {
-			$project = OpenStackNovaProject::getProjectByName( $projectname );
+		$projectid = $formData['projectid'];
+		if ( $projectid ) {
+			$project = OpenStackNovaProject::getProjectById( $projectid );
 			if ( ! $project ) {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistentproject' );
 				return true;

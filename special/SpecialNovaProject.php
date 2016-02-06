@@ -55,7 +55,7 @@ class SpecialNovaProject extends SpecialNova {
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-addmember' ) );
 
-		$project = $this->getRequest()->getText( 'projectname' );
+		$project = $this->getRequest()->getText( 'projectid' );
 		if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( 'projectadmin', $project ) ) {
 			$this->notInRole( 'projectadmin', $project );
 			return false;
@@ -72,10 +72,10 @@ class SpecialNovaProject extends SpecialNova {
 			'default' => 'addmember',
 			'name' => 'action',
 		);
-		$projectInfo['projectname'] = array(
+		$projectInfo['projectid'] = array(
 			'type' => 'hidden',
 			'default' => $project,
-			'name' => 'projectname',
+			'name' => 'projectid',
 		);
 
 		$projectForm = new HTMLForm(
@@ -97,12 +97,12 @@ class SpecialNovaProject extends SpecialNova {
 		$this->setHeaders();
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-removemember' ) );
 
-		$projectname = $this->getRequest()->getText( 'projectname' );
-		if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( 'projectadmin', $projectname ) ) {
-			$this->notInRole( 'projectadmin', $projectname );
+		$projectid = $this->getRequest()->getText( 'projectid' );
+		if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( 'projectadmin', $projectid ) ) {
+			$this->notInRole( 'projectadmin', $projectid );
 			return false;
 		}
-		$project = OpenStackNovaProject::getProjectByName( $projectname );
+		$project = OpenStackNovaProject::getProjectByName( $projectid );
 		$projectmembers = $project->getMembers();
 		$member_keys = array();
 		foreach ( $projectmembers as $projectmember ) {
@@ -120,10 +120,10 @@ class SpecialNovaProject extends SpecialNova {
 			'default' => 'deletemember',
 			'name' => 'action',
 		);
-		$projectInfo['projectname'] = array(
+		$projectInfo['projectid'] = array(
 			'type' => 'hidden',
-			'default' => $projectname,
-			'name' => 'projectname',
+			'default' => $projectid,
+			'name' => 'projectid',
 		);
 
 		$projectForm = new HTMLForm(
@@ -149,15 +149,15 @@ class SpecialNovaProject extends SpecialNova {
 		}
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-deleteproject' ) );
 
-		$project = $this->getRequest()->getText( 'projectname' );
+		$project = $this->getRequest()->getText( 'projectid' );
 		if ( ! $this->getRequest()->wasPosted() ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-removeprojectconfirm', $project );
 		}
 		$projectInfo = array();
-		$projectInfo['projectname'] = array(
+		$projectInfo['projectid'] = array(
 			'type' => 'hidden',
 			'default' => $project,
-			'name' => 'projectname',
+			'name' => 'projectid',
 		);
 		$projectInfo['action'] = array(
 			'type' => 'hidden',
@@ -218,6 +218,7 @@ class SpecialNovaProject extends SpecialNova {
 		$projectRow = array();
 		$this->pushRawResourceColumn( $projectRow, $this->createResourceList( $project->getMembers() ) );
 		$roleRows = array();
+		$projectId = $project->getId();
 		$projectName = $project->getProjectName();
 		foreach ( $project->getRoles() as $role ) {
 			$roleRow = array();
@@ -230,11 +231,11 @@ class SpecialNovaProject extends SpecialNova {
 			$actions = array();
 			$specialRoleTitle = Title::newFromText( 'Special:NovaRole' );
 			$actions[] = $this->createActionLink( 'openstackmanager-addrolemember',
-				array( 'action' => 'addmember', 'projectname' => $projectName, 'roleid' => $roleId, 'returnto' => 'Special:NovaProject' ),
+				array( 'action' => 'addmember', 'projectid' => $projectId, 'roleid' => $roleId, 'returnto' => 'Special:NovaProject' ),
 				$specialRoleTitle
 			);
 			$actions[] = $this->createActionLink( 'openstackmanager-removerolemember',
-				array( 'action' => 'deletemember', 'projectname' => $projectName, 'roleid' => $roleId, 'returnto' => 'Special:NovaProject' ),
+				array( 'action' => 'deletemember', 'projectid' => $projectId, 'roleid' => $roleId, 'returnto' => 'Special:NovaProject' ),
 				$specialRoleTitle
 			);
 			$this->pushRawResourceColumn( $roleRow,  $this->createResourceList( $actions ) );
@@ -244,10 +245,10 @@ class SpecialNovaProject extends SpecialNova {
 		$this->pushRawResourceColumn( $projectRow, $this->createResourceTable( $roleheaders, $roleRows ) );
 
 		$actions = array();
-		$actions[] = $this->createActionLink( 'openstackmanager-deleteproject', array( 'action' => 'delete', 'projectname' => $projectName ) );
-		$actions[] = $this->createActionLink( 'openstackmanager-addmember', array( 'action' => 'addmember', 'projectname' => $projectName ) );
-		$actions[] = $this->createActionLink( 'openstackmanager-removemember', array( 'action' => 'deletemember', 'projectname' => $projectName ) );
-		$actions[] = $this->createActionLink( 'openstackmanager-displayquotas-action', array( 'action' => 'displayquotas', 'projectname' => $projectName ) );
+		$actions[] = $this->createActionLink( 'openstackmanager-deleteproject', array( 'action' => 'delete', 'projectid' => $projectId ) );
+		$actions[] = $this->createActionLink( 'openstackmanager-addmember', array( 'action' => 'addmember', 'projectid' => $projectId ) );
+		$actions[] = $this->createActionLink( 'openstackmanager-removemember', array( 'action' => 'deletemember', 'projectid' => $projectId ) );
+		$actions[] = $this->createActionLink( 'openstackmanager-displayquotas-action', array( 'action' => 'displayquotas', 'projectid' => $projectId ) );
 
 		$hieraTitle = Title::makeTitleSafe( NS_HIERA, $projectName );
 
@@ -300,14 +301,14 @@ class SpecialNovaProject extends SpecialNova {
 	 */
 	function displayQuotas() {
 		$this->setHeaders();
-		$projectName = $this->getRequest()->getText( 'projectname' );
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-displayquotas', $projectName ) );
-		if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( 'projectadmin', $projectName ) ) {
-			$this->notInRole( 'projectadmin', $projectName );
+		$projectId = $this->getRequest()->getText( 'projectid' );
+		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-displayquotas', $projectId ) );
+		if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( 'projectadmin', $projectId ) ) {
+			$this->notInRole( 'projectadmin', $projectId );
 			return false;
 		}
 		# Change the connection to reference this project
-		$this->userNova->setProject( $projectName );
+		$this->userNova->setProject( $projectId );
 		$regions = $this->userNova->getRegions( 'compute' );
 		foreach ( $regions as $region ) {
 			$this->userNova->setRegion( $region );
@@ -337,14 +338,14 @@ class SpecialNovaProject extends SpecialNova {
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOpenStackManagerDefaultSecurityGroupRules;
 
-		$success = OpenStackNovaProject::createProject( $formData['projectname'] );
-		if ( ! $success ) {
+		$project = OpenStackNovaProject::createProject( $formData['projectname'] );
+		if ( ! $project ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-createprojectfailed' );
 			return false;
 		}
-		$project = OpenStackNovaProject::getProjectByName( $formData['projectname'] );
 		$username = $this->userLDAP->getUsername();
 		$project->addMember( $username );
+		$projectId = $project->getId();
 		$members = explode( ',', $formData['member'] );
 		foreach ( $members as $member ) {
 			$project->addMember( $member );
@@ -358,7 +359,7 @@ class SpecialNovaProject extends SpecialNova {
 			$role->addMember( $username );
 		}
 		# Change the connection to reference this project
-		$this->userNova->setProject( $formData['projectname'] );
+		$this->userNova->setProject( $projectId );
 		$regions = $this->userNova->getRegions( 'compute' );
 		foreach ( $regions as $region ) {
 			$this->userNova->setRegion( $region );
@@ -419,9 +420,9 @@ class SpecialNovaProject extends SpecialNova {
 	 * @return bool
 	 */
 	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
-		$success = OpenStackNovaProject::deleteProject( $formData['projectname'] );
+		$project = OpenStackNovaProject::getProjectById( $formData['projectid'] );
+		$success = OpenStackNovaProject::deleteProject( $formData['projectid'] );
 		if ( $success ) {
-			$project = OpenStackNovaProject::getProjectByName( $formData['projectname'] );
 			$project->deleteArticle();
 			$this->getOutput()->addWikiMsg( 'openstackmanager-deletedproject' );
 		} else {
@@ -444,12 +445,13 @@ class SpecialNovaProject extends SpecialNova {
 	 * @return bool
 	 */
 	function tryAddMemberSubmit( $formData, $entryPoint = 'internal' ) {
-		$project = new OpenStackNovaProject( $formData['projectname'] );
+		$project = new OpenStackNovaProject( $formData['projectid'] );
+		$projectName = $project->getName();
 		$members = explode( ',', $formData['member'] );
 		foreach ( $members as $member ) {
 			$user = User::newFromName( $member, 'usable' );
 			if ( !$user ) {
-				$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoadd', $formData['member'], $formData['projectname'] );
+				$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoadd', $formData['member'], $projectName );
 				continue;
 			}
 			$success = $project->addMember( $member );
@@ -459,17 +461,17 @@ class SpecialNovaProject extends SpecialNova {
 					# successfully been added to a project
 					$user->addGroup( 'shell' );
 				}
-				$this->getOutput()->addWikiMsg( 'openstackmanager-addedto', $formData['member'], $formData['projectname'] );
+				$this->getOutput()->addWikiMsg( 'openstackmanager-addedto', $formData['member'], $projectName );
 				if ( class_exists( 'EchoEvent' ) ) {
 					EchoEvent::create( array(
 						'type' => 'osm-projectmembers-add',
-						'title' => Title::newFromText( $formData['projectname'], NS_NOVA_RESOURCE ),
+						'title' => Title::newFromText( $projectName, NS_NOVA_RESOURCE ),
 						'agent' => $this->getUser(),
 						'extra' => array( 'userAdded' => $user->getId() ),
 					) );
 				}
 			} else {
-				$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoadd', $formData['member'], $formData['projectname'] );
+				$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoadd', $formData['member'], $projectName );
 			}
 		}
 
@@ -489,7 +491,8 @@ class SpecialNovaProject extends SpecialNova {
 	 * @return bool
 	 */
 	function tryDeleteMemberSubmit( $formData, $entryPoint = 'internal' ) {
-		$project = OpenStackNovaProject::getProjectByName( $formData['projectname'] );
+		$project = OpenStackNovaProject::getProjectById( $formData['projectid'] );
+		$projectName = $project->getName();
 		if ( ! $project ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistentproject' );
 			return true;
@@ -497,9 +500,9 @@ class SpecialNovaProject extends SpecialNova {
 		foreach ( $formData['members'] as $member ) {
 			$success = $project->deleteMember( $member );
 			if ( $success ) {
-				$this->getOutput()->addWikiMsg( 'openstackmanager-removedfrom', $member, $formData['projectname'] );
+				$this->getOutput()->addWikiMsg( 'openstackmanager-removedfrom', $member, $projectName );
 			} else {
-				$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoremove', $member, $formData['projectname'] );
+				$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoremove', $member, $projectName );
 			}
 		}
 		$out = '<br />';
