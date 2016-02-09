@@ -438,7 +438,6 @@ class OpenStackNovaUser {
 	static function LDAPSetCreationValues( $auth, $username, &$values, $writeloc, &$userdn, &$result ) {
 		global $wgOpenStackManagerLDAPDefaultGid;
 		global $wgOpenStackManagerLDAPDefaultShell;
-		global $wgOpenStackManagerLDAPUseUidAsNamingAttribute;
 		global $wgRequest;
 
 		$values['objectclass'][] = 'person';
@@ -486,14 +485,12 @@ class OpenStackNovaUser {
 		$values['homedirectory'] = '/home/' . $shellaccountname;
 		$values['loginshell'] = $wgOpenStackManagerLDAPDefaultShell;
 
-		if ( $wgOpenStackManagerLDAPUseUidAsNamingAttribute ) {
-			if ( $writeloc === '' ) {
-				$auth->printDebug( "Trying to set the userdn, but write location isn't set.", NONSENSITIVE );
-				return false;
-			} else {
-				$userdn = 'uid=' . $shellaccountname . ',' . $writeloc;
-				$auth->printDebug( "Using uid as the naming attribute, dn is: $userdn", NONSENSITIVE );
-			}
+		if ( $writeloc === '' ) {
+			$auth->printDebug( "Trying to set the userdn, but write location isn't set.", NONSENSITIVE );
+			return false;
+		} else {
+			$userdn = 'uid=' . $shellaccountname . ',' . $writeloc;
+			$auth->printDebug( "Using uid as the naming attribute, dn is: $userdn", NONSENSITIVE );
 		}
 		$auth->printDebug( "User account's objectclasses: ", NONSENSITIVE, $values['objectclass'] );
 
@@ -588,13 +585,8 @@ class OpenStackNovaUser {
 	 * @return bool
 	 */
 	static function ChainAuth( $username, $password, &$result ) {
-		global $wgOpenStackManagerLDAPUseUidAsNamingAttribute;
-
 		$user = new OpenStackNovaUser( $username );
 		$userNova = OpenStackNovaController::newFromUser( $user );
-		if ( $wgOpenStackManagerLDAPUseUidAsNamingAttribute ) {
-			$username = $user->getUid();
-		}
 		$token = $userNova->authenticate( $username, $password );
 		if ( $token ) {
 			$result = true;

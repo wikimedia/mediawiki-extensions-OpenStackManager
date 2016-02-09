@@ -106,10 +106,6 @@ $wgOpenStackManagerIdRanges = array(
 	),
 );
 
-// gid used when creating users
-//TODO: change this ridiculous option to a configurable naming attribute
-// Whether to use uid, rather than cn as a naming attribute for user objects
-$wgOpenStackManagerLDAPUseUidAsNamingAttribute = false;
 // DN location for posix groups based on projects
 $wgOpenStackManagerLDAPProjectGroupBaseDN = "";
 $wgOpenStackManagerLDAPDefaultGid = '500';

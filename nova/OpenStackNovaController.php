@@ -18,16 +18,10 @@ class OpenStackNovaController {
 	 * @param $user string
 	 */
 	function __construct( $user ) {
-		global $wgOpenStackManagerLDAPUseUidAsNamingAttribute;
-
 		$this->project = '';
 		$this->token = '';
 
-		if ( $wgOpenStackManagerLDAPUseUidAsNamingAttribute ) {
-			$this->username = $user->getUid();
-		} else {
-			$this->username = $user->getUsername();
-		}
+		$this->username = $user->getUsername();
 		$this->user = $user;
 	}
 

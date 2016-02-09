@@ -159,17 +159,12 @@ class OpenStackNovaRoleLdap {
 	 */
 	function deleteMemcKeys( $user ) {
 		global $wgMemc;
-		global $wgOpenStackManagerLDAPUseUidAsNamingAttribute;
 
 		$projectname = $this->project->getProjectName();
 		$role = $this->getRoleName();
 		$key = wfMemcKey( 'openstackmanager', "projectrole-ldap-$projectname-$role", $user->userDN );
 		$wgMemc->delete( $key );
-		if ( $wgOpenStackManagerLDAPUseUidAsNamingAttribute ) {
-			$username = $user->getUid();
-		} else {
-			$username = $user->getUsername();
-		}
+		$username = $user->getUsername();
 		$key = wfMemcKey( 'openstackmanager', "fulltoken-$projectname", $username );
 		$wgMemc->delete( $key );
 		$key = wfMemcKey( 'openstackmanager', 'roles', $user->getUsername() );
