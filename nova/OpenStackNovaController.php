@@ -395,6 +395,31 @@ class OpenStackNovaController {
 	}
 
 	/**
+	 * @return array of arrays: role ID => role Names
+	 */
+	function getRoleAssignmentsForProject( $projectid ) {
+		$admintoken = $this->_getAdminToken();
+		$headers = array( "X-Auth-Token: $admintoken" );
+
+		$assignments = array();
+
+		$ret = $this->restCall( 'identityv3', "/role_assignments?scope.project.id=$projectid", 'GET', array(), $headers );
+		$role_assignments = self::_get_property( $ret['body'], 'role_assignments' );
+		if ( !$role_assignments ) {
+			return $assignments;
+		}
+		foreach ( $role_assignments as $assignment ) {
+			$role = self::_get_property( $assignment, 'role' );
+			$roleid = self::_get_property( $role, 'id' );
+			$user = self::_get_property( $assignment, 'user' );
+			$userid = self::_get_property( $user, 'id' );
+			$assignments[$roleid][] = $userid;
+		}
+		return $assignments;
+	}
+
+
+	/**
 	 * @return array role IDs => role Names
 	 */
 	function getRolesForProjectAndUser( $projectid, $userid ) {
@@ -1023,6 +1048,7 @@ class OpenStackNovaController {
 	function restCall( $service, $path, $method, $data = array(), $authHeaders='', $retrying=false ) {
 		global $wgAuth;
 		global $wgOpenStackManagerNovaIdentityURI;
+		global $wgOpenStackManagerNovaIdentityV3URI;
 		global $wgMemc;
 
 		if ( $authHeaders ) {
@@ -1036,6 +1062,8 @@ class OpenStackNovaController {
 
 		if ( $service === 'identity' ) {
 			$endpointURL = $wgOpenStackManagerNovaIdentityURI;
+		} elseif ( $service === 'identityv3' ) {
+			$endpointURL = $wgOpenStackManagerNovaIdentityV3URI;
 		} else {
 			$endpoints = $this->getEndpoints( $service );
 			foreach ( $endpoints as $endpoint ) {
