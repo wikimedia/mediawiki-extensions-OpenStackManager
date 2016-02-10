@@ -41,7 +41,8 @@ class EchoOpenStackManagerPresentationModel extends EchoEventPresentationModel {
 
 		return $msg->params(
 			$this->getTruncatedTitleText( $this->event->getTitle() ),
-			$this->event->getExtraParam( 'instanceName' )
+			$this->event->getExtraParam( 'instanceName' ),
+			$this->getViewingUserForGender()
 		);
 	}
 }
