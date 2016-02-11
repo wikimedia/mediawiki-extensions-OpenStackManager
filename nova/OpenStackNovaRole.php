@@ -16,7 +16,7 @@ class OpenStackNovaRole {
 	private $rolename;
 
 	/**
-	 * @param  $roleid
+	 * @param $roleid
 	 * @param null $project, optional
 	 */
 	function __construct( $roleid, $project ) {
@@ -66,6 +66,13 @@ class OpenStackNovaRole {
 	 */
 	function getRoleName() {
 		return $this->rolename;
+	}
+
+	/**
+	 * @return string
+	 */
+	function getRoleId() {
+		return $this->roleid;
 	}
 
 	/**

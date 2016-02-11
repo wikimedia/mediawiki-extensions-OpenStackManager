@@ -222,6 +222,7 @@ class SpecialNovaProject extends SpecialNova {
 		foreach ( $project->getRoles() as $role ) {
 			$roleRow = array();
 			$roleName = $role->getRoleName();
+			$roleId = $role->getRoleId();
 			$this->pushResourceColumn( $roleRow, $roleName );
 			$roleMembers = $role->getMembers();
 			natcasesort( $roleMembers );
@@ -229,11 +230,11 @@ class SpecialNovaProject extends SpecialNova {
 			$actions = array();
 			$specialRoleTitle = Title::newFromText( 'Special:NovaRole' );
 			$actions[] = $this->createActionLink( 'openstackmanager-addrolemember',
-				array( 'action' => 'addmember', 'projectname' => $projectName, 'rolename' => $roleName, 'returnto' => 'Special:NovaProject' ),
+				array( 'action' => 'addmember', 'projectname' => $projectName, 'roleid' => $roleId, 'returnto' => 'Special:NovaProject' ),
 				$specialRoleTitle
 			);
 			$actions[] = $this->createActionLink( 'openstackmanager-removerolemember',
-				array( 'action' => 'deletemember', 'projectname' => $projectName, 'rolename' => $roleName, 'returnto' => 'Special:NovaProject' ),
+				array( 'action' => 'deletemember', 'projectname' => $projectName, 'roleid' => $roleId, 'returnto' => 'Special:NovaProject' ),
 				$specialRoleTitle
 			);
 			$this->pushRawResourceColumn( $roleRow,  $this->createResourceList( $actions ) );
