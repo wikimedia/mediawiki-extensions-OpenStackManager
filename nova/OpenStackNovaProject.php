@@ -26,14 +26,9 @@ class OpenStackNovaProject {
 	 * @param  $projectname
 	 * @param bool $load
 	 */
-	function __construct( $projectname, $load=true ) {
-		$this->projectname = $projectname;
-		foreach ( OpenStackNovaProject::getProjectList() as $id => $name ) {
-			if ( $name == $projectname ) {
-				$this->projectid = $id;
-				break;
-			}
-		}
+	function __construct( $projectid, $load=true ) {
+		$this->projectid = $projectid;
+		$this->projectname = "";
 		if ( $load ) {
 			OpenStackNovaLdapConnection::connect();
 			$this->fetchProjectInfo();
@@ -42,12 +37,24 @@ class OpenStackNovaProject {
 		}
 	}
 
+	public function setName( $projectname ) {
+		$this->projectname = $projectname;
+	}
+
 	public function getName() {
+		if ( !$this->projectname ) {
+			$this->loadProjectName();
+		}
 		return $this->projectname;
 	}
 
 	public function getId() {
 		return $this->projectid;
+	}
+
+	function loadProjectName() {
+		$controller = OpenstackNovaProject::getController();
+		$this->projectname = $controller->getProjectName( $this->projectid );
 	}
 
 	/**
@@ -60,6 +67,10 @@ class OpenStackNovaProject {
 
 		if ( $this->loaded and !$refresh ) {
 			return;
+		}
+
+		if ( !$this->projectname || $refresh ) {
+			$this->loadProjectName();
 		}
 
 		$this->roles = array();
@@ -165,9 +176,8 @@ class OpenStackNovaProject {
 	 * @return  string
 	 */
 	function getProjectName() {
-		return $this->projectname;
+		return $this->getName();
 	}
-
 
 	/**
 	 * Returns the corresponding ProjectGroup for this Project.
@@ -514,21 +524,39 @@ class OpenStackNovaProject {
 
 	/**
 	 * Return a project by its project name. Returns null if the project does not exist.
+	 *  This function is terrible and should be used sparingly
 	 *
 	 * @static
 	 * @param  $projectname
 	 * @return null|OpenStackNovaProject
 	 */
 	static function getProjectByName( $projectname ) {
-		if ( isset( self::$projectCache[ $projectname ] ) ) {
-			return self::$projectCache[ $projectname ];
+		$projects = self::getAllProjects();
+		foreach ( $projects as $project ) {
+			if ( $project->getProjectName() == $projectname ) {
+				return $project;
+			}
 		}
-		$project = new OpenStackNovaProject( $projectname );
+		return null;
+	}
+
+	/**
+	 * Return a project by its project id. Returns null if the project does not exist.
+	 *
+	 * @static
+	 * @param  $projectname
+	 * @return null|OpenStackNovaProject
+	 */
+	static function getProjectById( $projectid ) {
+		if ( isset( self::$projectCache[ $projectid ] ) ) {
+			return self::$projectCache[ $projectid ];
+		}
+		$project = new OpenStackNovaProject( $projectid );
 		if ( $project->projectInfo ) {
 			if ( count( self::$projectCache ) >= self::$projectCacheMaxSize ) {
 				array_shift( self::$projectCache );
 			}
-			self::$projectCache[ $projectname ] = $project;
+			self::$projectCache[ $projectid ] = $project;
 			return $project;
 		} else {
 			return null;
@@ -552,6 +580,17 @@ class OpenStackNovaProject {
 		$projects = array();
 		foreach ( $projectnames as $projectname ) {
 			$project = self::getProjectByName( $projectname );
+			if ( $project ) {
+				$projects[] = $project;
+			}
+		}
+		return $projects;
+	}
+
+	static function getProjectsById( $projectids ) {
+		$projects = array();
+		foreach ( $projectids as $projectid ) {
+			$project = self::getProjectById( $projectid );
 			if ( $project ) {
 				$projects[] = $project;
 			}
@@ -609,7 +648,8 @@ class OpenStackNovaProject {
 
 		$projects = array();
 		foreach( OpenStackNovaProject::getProjectList() as $id => $name ) {
-			$project = new OpenStackNovaProject( $name, false );
+			$project = new OpenStackNovaProject( $id, false );
+			$project->setName( $name );
 			$projects[] = $project;
 		}
 
@@ -623,7 +663,7 @@ class OpenStackNovaProject {
 	 *
 	 * @static
 	 * @param  $projectname
-	 * @return bool
+	 * @return OpenStackNovaProject
 	 */
 	static function createProject( $projectname ) {
 		global $wgAuth, $wgMemc;
@@ -681,12 +721,12 @@ class OpenStackNovaProject {
 			$wgMemc->delete( wfMemcKey( 'openstackmanager', 'projectlist' ) );
 		} else {
 			$wgAuth->printDebug( "Failed to add project $projectname", NONSENSITIVE );
-			return false;
+			return null;
 		}
 
 		OpenStackNovaProject::createServiceGroupOUs( $projectname );
 
-		return true;
+		return $project;
 	}
 
 	/**
@@ -730,18 +770,19 @@ class OpenStackNovaProject {
 
 
 	/**
-	 * Deletes a project based on project name. This function will also delete all roles
+	 * Deletes a project based on project id. This function will also delete all roles
 	 * associated with the project.
 	 *
-	 * @param  $projectname String
+	 * @param  $projectid String
 	 * @return bool
 	 */
-	static function deleteProject( $projectname ) {
+	static function deleteProject( $projectid ) {
 		global $wgAuth, $wgMemc;
 
 		OpenStackNovaLdapConnection::connect();
 
-		$project = new OpenStackNovaProject( $projectname );
+		$project = new OpenStackNovaProject( $projectid );
+		$projectname = $project->getName();
 		if ( ! $project ) {
 			return false;
 		}

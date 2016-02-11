@@ -298,6 +298,19 @@ class OpenStackNovaController {
 	}
 
 	/**
+	 * @return string
+	 */
+	function getProjectName( $projectid ) {
+		$admintoken = $this->_getAdminToken();
+		$headers = array( "X-Auth-Token: $admintoken" );
+
+		$userarr = array();
+		$ret = $this->restCall( 'identity', "/tenants/$projectid", 'GET', array(), $headers );
+		$tenant = self::_get_property( $ret['body'], 'tenant' );
+		return $tenant->name;
+	}
+
+	/**
 	 * @return array of user IDs => user names
 	 */
 	function getUsersInProject( $projectid ) {

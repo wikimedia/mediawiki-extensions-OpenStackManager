@@ -151,6 +151,7 @@ $wgOpenStackManagerRemoveUserFromAllProjectsOnShellDisable = true;
 $wgOpenStackManagerRemoveUserFromBastionProjectOnShellDisable = false;
 // 'bastion' project name
 $wgOpenStackManagerBastionProjectName = 'bastion';
+$wgOpenStackManagerBastionProjectId = 'bastion';
 // Base URL for puppet docs. Classname will be appended with s/::/\//g
 $wgOpenStackManagerPuppetDocBase = '';
 /**

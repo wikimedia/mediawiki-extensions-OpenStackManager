@@ -615,13 +615,13 @@ class OpenStackNovaUser {
 	}
 
 	public static function addUserToBastionProject( $user, &$group ) {
-		global $wgOpenStackManagerBastionProjectName;
+		global $wgOpenStackManagerBastionProjectId;
 
 		if( User::groupHasPermission( $group, 'loginviashell' ) ) {
 			// Add the user to the bastion project if not already a
 			// member.
 			$username = $user->getName();
-			$project = new OpenStackNovaProject( $wgOpenStackManagerBastionProjectName );
+			$project = new OpenStackNovaProject( $wgOpenStackManagerBastionProjectId );
 			if( !in_array( $username, $project->getMembers() ) ) {
 				$project->addMember( $username );
 			}
@@ -632,7 +632,7 @@ class OpenStackNovaUser {
 	public static function removeUserFromBastionProject( $user, &$group ) {
 		global $wgOpenStackManagerRemoveUserFromBastionProjectOnShellDisable;
 		global $wgOpenStackManagerRemoveUserFromAllProjectsOnShellDisable;
-		global $wgOpenStackManagerBastionProjectName;
+		global $wgOpenStackManagerBastionProjectId;
 
 		// Check whether after removing the group the user would still
 		// have the loginviashell permission.
@@ -657,14 +657,14 @@ class OpenStackNovaUser {
 		if( $wgOpenStackManagerRemoveUserFromAllProjectsOnShellDisable ) {
 			// Get a users projects
 			$userLDAP = new OpenStackNovaUser( $username );
-			foreach( $userLDAP->getProjects() as $projectName ) {
+			foreach( $userLDAP->getProjects() as $projectId ) {
 				// Remove the user from the project
-				$project = new OpenStackNovaProject( $projectName );
+				$project = new OpenStackNovaProject( $projectId );
 				$project->deleteMember( $username );
 			}
 		} elseif( $wgOpenStackManagerRemoveUserFromBastionProjectOnShellDisable ) {
 			// Remove the user from the bastion project
-			$project = new OpenStackNovaProject( $wgOpenStackManagerBastionProjectName );
+			$project = new OpenStackNovaProject( $wgOpenStackManagerBastionProjectId );
 			if( in_array( $username, $project->getMembers() ) ) {
 				$project->deleteMember( $username );
 			}
