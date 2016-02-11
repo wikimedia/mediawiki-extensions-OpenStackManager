@@ -8,17 +8,19 @@
  */
 
 class OpenStackNovaRole {
-	public $rolename;
+	public $roleid;
 	public $roleDN;
 	public $roleInfo;
 	public $project;
 
+	private $rolename;
+
 	/**
-	 * @param  $rolename
+	 * @param  $roleid
 	 * @param null $project, optional
 	 */
-	function __construct( $rolename, $project ) {
-		$this->rolename = $rolename;
+	function __construct( $roleid, $project ) {
+		$this->roleid = $roleid;
 		$this->project = $project;
 		OpenStackNovaLdapConnection::connect();
 		$this->fetchRoleInfo();
@@ -28,17 +30,34 @@ class OpenStackNovaRole {
 	 * @return void
 	 */
 	function fetchRoleInfo() {
-		global $wgAuth;
+		global $wgMemc;
+		$controller = OpenstackNovaProject::getController();
 
-		$dn = $this->project->projectDN;
-		if ( !$dn ) {
-			return;
+		$roleid = $this->roleid;
+		$key = wfMemcKey( 'openstackmanager', "role-$roleid-members", $this->project->projectname );
+		$this->members = $wgMemc->get( $key );
+
+		if ( ! is_array( $this->members ) ) {
+			$this->members = array();
+
+			# This isn't great -- Keystone doesn't have an API to list
+			#  members of a given role so we have to check potential members one by one
+			foreach ( $this->project->getMemberIds() as $userid ) {
+				$roles = $controller->getRolesForProjectAndUser( $this->project->getId(), $userid );
+				if ( in_array( $this->roleid, array_keys( $roles ) ) ) {
+					$this->members[] = $this->project->memberForUid( $userid );
+				}
+			}
+			$wgMemc->set( $key, $this->members, '3600' );
 		}
-		$query = '(cn=' . $this->rolename . ')';
-		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $dn, $query );
-		$this->roleInfo = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
-		if ( $this->roleInfo['count'] != "0" ) {
-			$this->roleDN = $this->roleInfo[0]['dn'];
+
+		# And, get the name by searching the global role list
+		$this->rolename = 'unknown role';
+		foreach ( $controller->getKeystoneRoles() as $id => $name ) {
+			if ( $id == $this->roleid ) {
+				$this->rolename = $name;
+				break;
+			}
 		}
 	}
 
@@ -53,31 +72,7 @@ class OpenStackNovaRole {
 	 * @return array
 	 */
 	function getMembers() {
-		global $wgAuth;
-		global $wgOpenStackManagerLDAPDomain;
-
-		$members = array();
-		if ( isset( $this->roleInfo[0]['roleoccupant'] ) ) {
-			$memberdns = $this->roleInfo[0]['roleoccupant'];
-			array_shift( $memberdns );
-			foreach ( $memberdns as $memberdn ) {
-				$searchattr = $wgAuth->getConf( 'SearchAttribute', $wgOpenStackManagerLDAPDomain );
-				if ( $searchattr ) {
-					// We need to look up the search attr from the user entry
-					// this is expensive, but must be done.
-					// TODO: memcache this
-					$userInfo = $wgAuth->getUserInfoStateless( $memberdn );
-					$members[] = $userInfo[0][$searchattr][0];
-				} else {
-					$member = explode( '=', $memberdn );
-					$member = explode( ',', $member[1] );
-					$member = $member[0];
-					$members[] = $member;
-				}
-			}
-		}
-
-		return $members;
+		return $this->members;
 	}
 
 	/**
@@ -169,6 +164,9 @@ class OpenStackNovaRole {
 		$wgMemc->delete( $key );
 		$key = wfMemcKey( 'openstackmanager', 'roles', $user->getUsername() );
 		$wgMemc->delete( $key );
+		$roleid = $this->roleid;
+		$key = wfMemcKey( 'openstackmanager', "role-$roleid-members", $this->project->projectname );
+		$wgMemc->delete( $key );
 	}
 
 	/**
@@ -179,7 +177,11 @@ class OpenStackNovaRole {
 		if ( !$userLDAP ) {
 			return false;
 		}
-		return in_array( $userLDAP->userDN, $this->roleInfo[0]['roleoccupant'] );
+		$member = explode( '=', $userLDAP );
+		$member = explode( ',', $member[1] );
+		$member = $member[0];
+
+		return in_array( $member, $this->members );
 	}
 
 	/**
@@ -189,12 +191,14 @@ class OpenStackNovaRole {
 	 * @return null|OpenStackNovaRole
 	 */
 	static function getProjectRoleByName( $rolename, $project ) {
-		$role = new OpenStackNovaRole( $rolename, $project );
-		if ( $role->roleInfo ) {
-			return $role;
-		} else {
-			return null;
+		$controller = OpenstackNovaProject::getController();
+		$globalrolelist = $controller->getKeystoneRoles();
+		foreach ( $globalrolelist as $id => $name ) {
+			if ( $name == $rolename ) {
+				return new OpenStackNovaRole( $id, $project );
+			}
 		}
+		return null;
 	}
 
 	/**

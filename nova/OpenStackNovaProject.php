@@ -1,7 +1,7 @@
 <?php
 
 /**
- * todo comment me
+ * Class to manage Projects, project roles, service groups.
  *
  * @file
  * @ingroup Extensions
@@ -16,7 +16,7 @@ class OpenStackNovaProject {
 	public $projectGroup;
 
 	// list of roles
-	static $rolenames = array( 'projectadmin' );
+	static $visiblerolenames = array( 'projectadmin' );
 
 	// short-lived cache of project objects
 	static $projectCache = array();
@@ -28,6 +28,12 @@ class OpenStackNovaProject {
 	 */
 	function __construct( $projectname, $load=true ) {
 		$this->projectname = $projectname;
+		foreach ( OpenStackNovaProject::getProjectList() as $id => $name ) {
+			if ( $name == $projectname ) {
+				$this->projectid = $id;
+				break;
+			}
+		}
 		if ( $load ) {
 			OpenStackNovaLdapConnection::connect();
 			$this->fetchProjectInfo();
@@ -40,8 +46,12 @@ class OpenStackNovaProject {
 		return $this->projectname;
 	}
 
+	public function getId() {
+		return $this->projectid;
+	}
+
 	/**
-	 * Fetch the project from LDAP and initialize the object
+	 * Fetch the project from keystone initialize the object
 	 * @return void
 	 */
 	function fetchProjectInfo( $refresh=true ) {
@@ -51,6 +61,19 @@ class OpenStackNovaProject {
 		if ( $this->loaded and !$refresh ) {
 			return;
 		}
+
+		$this->roles = array();
+		foreach ( self::$visiblerolenames as $rolename ) {
+			$this->roles[] = OpenStackNovaRole::getProjectRoleByName( $rolename, $this );
+		}
+
+		// fetch the associated posix project group (project-$projectname)
+		$this->fetchProjectGroup();
+
+		$this->fetchServiceGroups();
+
+		// For legacy purposes, still read in the ldap data.  This can be removed once we
+		//  are writing via keystone as well:
 		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN,
 								'(&(cn=' . $this->projectname . ')(objectclass=groupofnames))' );
 		$this->projectInfo = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
@@ -58,14 +81,6 @@ class OpenStackNovaProject {
 			return;
 		}
 		$this->projectDN = $this->projectInfo[0]['dn'];
-		$this->roles = array();
-		foreach ( self::$rolenames as $rolename ) {
-			$this->roles[] = OpenStackNovaRole::getProjectRoleByName( $rolename, $this );
-		}
-		// fetch the associated posix project group (project-$projectname)
-		$this->fetchProjectGroup();
-
-		$this->fetchServiceGroups();
 
 		$this->loaded = true;
 	}
@@ -199,9 +214,7 @@ class OpenStackNovaProject {
 	 * @return array
 	 */
 	function loadMembers() {
-		global $wgAuth;
 		global $wgMemc;
-		global $wgOpenStackManagerLDAPDomain;
 
 		$key = wfMemcKey( 'openstackmanager', 'projectuidsandmembers', $this->projectname );
 		$this->members = $wgMemc->get( $key );
@@ -210,29 +223,8 @@ class OpenStackNovaProject {
 			return;
 		}
 
-		$this->members = array();
-		if ( isset( $this->projectInfo[0]['member'] ) ) {
-			$memberdns = $this->projectInfo[0]['member'];
-			// The first element in the member list is the count
-			// of entries in the list.  We don't want that!
-			// Shift it off.
-			array_shift( $memberdns );
-			foreach ( $memberdns as $memberdn ) {
-				$member = explode( '=', $memberdn );
-				$member = explode( ',', $member[1] );
-				$member = $member[0];
-
-				$searchattr = $wgAuth->getConf( 'SearchAttribute', $wgOpenStackManagerLDAPDomain );
-				if ( $searchattr ) {
-					// We need to look up the search attr from the user entry
-					// this is expensive, but must be done.
-					$userInfo = $wgAuth->getUserInfoStateless( $memberdn );
-					$this->members[$member] = $userInfo[0][$searchattr][0];
-				} else {
-					$this->members[$member] = $member;
-				}
-			}
-		}
+		$controller = OpenstackNovaProject::getController();
+		$this->members = $controller->getUsersInProject( $this->projectid );
 
 		$wgMemc->set( $key, $this->members, '3600' );
 	}
@@ -258,6 +250,16 @@ class OpenStackNovaProject {
 	function getMembers() {
 		$this->loadMembers();
 		return array_values( $this->members );
+	}
+
+	/**
+	 * Return Ids of each user who is a member of this project
+	 *
+	 * @return array
+	 */
+	function getMemberIds() {
+		$this->loadMembers();
+		return array_keys( $this->members );
 	}
 
 	function memberForUid( $uid ) {
@@ -300,14 +302,12 @@ class OpenStackNovaProject {
 	 * @return array
 	 */
 	function getMemberDNs() {
+		global $wgLDAPUserBaseDNs;
+		$membernames = $this->getMembers();
 		$memberDNs = array();
-		if ( isset( $this->projectInfo[0]['member'] ) ) {
-			$memberDNs = $this->projectInfo[0]['member'];
-			// The first element in the member list is the count
-			// of entries in the list.  We don't want that!
-			// Shift it off.
-			array_shift( $memberDNs );
-			sort( $memberDNs );
+		$dnstring = implode( ",", $wgLDAPUserBaseDNs );
+		foreach ( $membernames as $member ) {
+			$memberDNs[] = "uid=$member,$dnstring";
 		}
 		return $memberDNs;
 	}
@@ -318,6 +318,18 @@ class OpenStackNovaProject {
 
 	function getSudoersDN() {
 		return 'ou=sudoers,' . $this->projectDN;
+	}
+
+	/**
+	 * Inform role objects that membership has changed and they
+	 *  need to refresh their caches.
+	 *
+	 * @param  $user OpenStackNovaUser
+	 */
+	function deleteRoleCaches( $user ) {
+		foreach ( $this->getRoles() as $role ) {
+			$role->deleteMemcKeys( $user );
+		}
 	}
 
 	/**
@@ -375,6 +387,7 @@ class OpenStackNovaProject {
 				}
 				$this->fetchProjectInfo(true);
 				$wgAuth->printDebug( "Successfully removed $user->userDN from $this->projectDN", NONSENSITIVE );
+				$this->deleteRoleCaches( $user );
 				$this->editArticle();
 				return true;
 			} else {
@@ -457,6 +470,7 @@ class OpenStackNovaProject {
 
 			$this->fetchProjectInfo( true );
 			$wgAuth->printDebug( "Successfully added $user->userDN to $this->projectDN", NONSENSITIVE );
+			$this->deleteRoleCaches( $user );
 			$this->editArticle();
 			return true;
 		} else {
@@ -521,6 +535,19 @@ class OpenStackNovaProject {
 		}
 	}
 
+	static function getController() {
+		# Because of weird issues in the Keystone auth model, we can't
+		#  really modify project info as the current user.  For now
+		#  we're doing this with a global all-powerful account,
+		#  and relying on the GUI code to ensure that we're allowed :(
+		#
+		# In particular, keystone doesn't have any user roll which
+		#  allows editing membership of some projects but not others.
+		global $wgOpenStackManagerLDAPUsername;
+		$userLDAP = new OpenStackNovaUser( $wgOpenStackManagerLDAPUsername );
+		return OpenStackNovaController::newFromUser( $userLDAP );
+	}
+
 	static function getProjectsByName( $projectnames ) {
 		$projects = array();
 		foreach ( $projectnames as $projectname ) {
@@ -548,6 +575,28 @@ class OpenStackNovaProject {
 	}
 
 	/**
+	 * Get the list of projects from Keystone.
+	 *
+	 * @static
+	 * @return array of projectid => projectname
+	 */
+	static function getProjectList() {
+		global $wgMemc;
+
+		$key = wfMemcKey( 'openstackmanager', 'projectlist' );
+		$projectList = $wgMemc->get( $key );
+		if ( is_array( $projectList ) ) {
+			return $projectList;
+		}
+
+		$controller = OpenstackNovaProject::getController();
+		$projectList = $controller->getProjects();
+		$wgMemc->set( $key, $projectList, '3600' );
+
+		return $projectList;
+	}
+
+	/**
 	 * Return all existing projects. Returns an empty array if no projects exist. This function
 	 * lazy loads the projects. Objects will be returned unloaded. If you wish to receive more
 	 * than just the project's name, you'll need to call the project's fetchProjectInfo() function.
@@ -557,22 +606,11 @@ class OpenStackNovaProject {
 	 */
 	static function getAllProjects() {
 		global $wgAuth;
-		global $wgOpenStackManagerLDAPProjectBaseDN;
-
-		OpenStackNovaLdapConnection::connect();
 
 		$projects = array();
-		$result = LdapAuthenticationPlugin::ldap_list( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, '(objectclass=groupofnames)' );
-		if ( $result ) {
-			$entries = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
-			if ( $entries ) {
-				# First entry is always a count
-				array_shift( $entries );
-				foreach ( $entries as $entry ) {
-					$project = new OpenStackNovaProject( $entry['cn'][0], false );
-					$projects[] = $project;
-				}
-			}
+		foreach( OpenStackNovaProject::getProjectList() as $id => $name ) {
+			$project = new OpenStackNovaProject( $name, false );
+			$projects[] = $project;
 		}
 
 		sort( $projects );
@@ -588,7 +626,7 @@ class OpenStackNovaProject {
 	 * @return bool
 	 */
 	static function createProject( $projectname ) {
-		global $wgAuth;
+		global $wgAuth, $wgMemc;
 		global $wgOpenStackManagerLDAPUser;
 		global $wgOpenStackManagerLDAPProjectBaseDN;
 
@@ -604,7 +642,7 @@ class OpenStackNovaProject {
 		$success = LdapAuthenticationPlugin::ldap_add( $wgAuth->ldapconn, $projectdn, $project );
 		$project = new OpenStackNovaProject( $projectname );
 		if ( $success ) {
-			foreach ( self::$rolenames as $rolename ) {
+			foreach ( self::$visiblerolenames as $rolename ) {
 				OpenStackNovaRole::createRole( $rolename, $project );
 				# TODO: If role addition fails, find a way to fail gracefully
 				# Though, if the project was added successfully, it is unlikely
@@ -639,6 +677,8 @@ class OpenStackNovaProject {
 						array( '!authenticate' ) ) ) {
 				$wgAuth->printDebug( "Successfully created default sudo-as policy for $projectname", NONSENSITIVE );
 			}
+
+			$wgMemc->delete( wfMemcKey( 'openstackmanager', 'projectlist' ) );
 		} else {
 			$wgAuth->printDebug( "Failed to add project $projectname", NONSENSITIVE );
 			return false;
@@ -697,7 +737,7 @@ class OpenStackNovaProject {
 	 * @return bool
 	 */
 	static function deleteProject( $projectname ) {
-		global $wgAuth;
+		global $wgAuth, $wgMemc;
 
 		OpenStackNovaLdapConnection::connect();
 
@@ -750,6 +790,7 @@ class OpenStackNovaProject {
 			}
 		}
 		$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $dn );
+		$wgMemc->delete( wfMemcKey( 'openstackmanager', 'projectlist' ) );
 		if ( $success ) {
 			$wgAuth->printDebug( "Successfully deleted project $projectname", NONSENSITIVE );
 			return true;
