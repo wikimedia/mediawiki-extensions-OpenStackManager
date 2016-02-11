@@ -162,22 +162,12 @@ class OpenStackNovaUser {
 		global $wgAuth;
 		global $wgOpenStackManagerLDAPProjectBaseDN;
 
-		# All projects have a owner attribute, project
-		# roles do not
 		$projects = array();
-		$filter = "(&(objectclass=groupofnames)(member=$this->userDN))";
-		$result = LdapAuthenticationPlugin::ldap_list( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, $filter );
-		if ( $result ) {
-			$entries = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
-			if ( $entries ) {
-				# First entry is always a count
-				array_shift( $entries );
-				foreach ( $entries as $entry ) {
-					$projects[] = $entry['cn'][0];
-				}
+		$allprojects = OpenStackNovaProject::getAllProjects();
+		foreach ( $allprojects as $project ) {
+			if ( in_array( $this->getUsername(), $project->getMembers() ) ) {
+				$projects[] = $project->getId();
 			}
-		} else {
-			$wgAuth->printDebug( "No result found when searching for user's projects", NONSENSITIVE );
 		}
 		return $projects;
 	}
@@ -197,24 +187,19 @@ class OpenStackNovaUser {
 			return $roles;
 		}
 
-		# All projects have a owner attribute, project
-		# roles do not
 		$roles = array();
-		$filter = "(&(objectclass=organizationalrole)(roleoccupant=$this->userDN))";
-		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, $filter );
-		if ( $result ) {
-			$entries = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
-			if ( $entries ) {
-				# First entry is always a count
-				array_shift( $entries );
-				foreach ( $entries as $entry ) {
-					$roles[] = $entry['cn'][0];
+		$projects = $this->getProjects();
+		foreach ( $projects as $projectid ) {
+			$project = OpenStackNovaProject::getProjectById( $projectid );
+			$projectroles = $project->getRoles();
+			foreach ( $projectroles as $role ) {
+				if ( in_array( $this->getUsername(), $role->getMembers() ) ) {
+					$roles[] = $role->getRoleName();
 				}
 			}
-			$roles = array_unique( $roles );
-		} else {
-			$wgAuth->printDebug( "No result found when searching for user's roles", NONSENSITIVE );
 		}
+
+		$roles = array_unique( $roles );
 		$key = wfMemcKey( 'openstackmanager', 'roles', $this->getUsername() );
 		$wgMemc->set( $key, $roles, '3600' );
 		return $roles;
@@ -236,19 +221,8 @@ class OpenStackNovaUser {
 			return (bool)$inProject;
 		}
 
-		$filter = "(&(cn=$project)(member=$this->userDN)(objectclass=groupofnames))";
-		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN, $filter );
-		$ret = false;
-		if ( $result ) {
-			$entries = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
-			if ( $entries ) {
-				if ( $entries['count'] == "0" ) {
-					$wgAuth->printDebug( "Couldn't find the user in project: $project", NONSENSITIVE );
-				} else {
-					$ret = true;
-				}
-			}
-		}
+		$ret = in_array( $project, $this->getProjects() );
+
 		$wgMemc->set( $key, (int)$ret, $cacheLength );
 		return $ret;
 	}
@@ -258,40 +232,32 @@ class OpenStackNovaUser {
 	 * @param string $projectname
 	 * @return bool
 	 */
-	function inRole( $role, $projectname ) {
+	function inRole( $role, $projectid ) {
 		global $wgAuth;
 		global $wgMemc;
 
-		if ( !$projectname ) {
+		if ( !$projectid ) {
 			return false;
 		}
-		$key = wfMemcKey( 'openstackmanager', "projectrole-$projectname-$role", $this->userDN );
-		$cacheLength = 3600;
+		$key = wfMemcKey( 'openstackmanager', "projectrole-$projectid-$role", $this->userDN );
 		$inRole = $wgMemc->get( $key );
 		if ( is_int( $inRole ) ) {
 			return (bool)$inRole;
 		}
 
-		$ret = false;
-		# Check project specific role
-		$project = OpenStackNovaProject::getProjectByName( $projectname );
-		if ( ! $project ) {
-			$wgMemc->set( $key, 0, $cacheLength );
+		$project = new OpenStackNovaProject( $projectid );
+		$role = OpenStackNovaRole::getProjectRoleByName( $role, $project );
+		if ( ! $role ) {
 			return false;
 		}
-		$filter = "(&(cn=$role)(roleoccupant=$this->userDN))";
-		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $project->projectDN, $filter );
-		if ( $result ) {
-			$entries = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
-			if ( $entries ) {
-				if ( $entries['count'] == "0" ) {
-					$wgAuth->printDebug( "Couldn't find the user in role: $role", NONSENSITIVE );
-				} else {
-					$ret = true;
-				}
-			}
+
+		$ret = false;
+		if ( in_array( $this->getUsername(), $role->getMembers() ) ) {
+			$ret = true;
 		}
-		$wgMemc->set( $key, (int)$ret, $cacheLength );
+		//  Invalidating this properly is hard, so cache just long enough for a single action
+		$wgMemc->set( $key, (int)$ret, 30 );
+
 		return $ret;
 	}
 
