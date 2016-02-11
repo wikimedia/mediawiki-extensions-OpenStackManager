@@ -214,7 +214,7 @@
 	"right-manageproject": "Zarządzanie projektami i uprawnieniami OpenStack",
 	"action-manageproject": "zarządzaj projektami i uprawnieniami OpenStock",
 	"right-loginviashell": "Logowanie przez shell",
-	"notification-header-osm-projectmembers-add": "$1 {{GENDER:$2|dodał|dodała|dodał(a)}} Cię do projektu $3",
+	"notification-header-osm-projectmembers-add": "{{GENDER:$5|Zostałeś dodany|Zostałaś dodana}} do projektu '''$3'''.",
 	"echo-notification-goto-project": "Zobacz projekt",
 	"prefs-openstack": "OpenStack",
 	"prefs-openstack-keys": "Lista kluczy",

@@ -279,5 +279,9 @@
 	"openstackmanager-email-body": "A seguinte instância foi criada e está pronta para receber ligações:",
 	"openstackmanager-hiera-noadmin": "Apenas administradores do projeto $1 podem editar esta página",
 	"right-manageproject": "Gerir os projetos e funções Openstack",
+	"notification-header-osm-instance-build-completed": "Instância \"$4\" construída no projeto '''$3'''.",
+	"notification-header-osm-instance-reboot-completed": "Instância \"$4\" reiniciada no projeto '''$3'''.",
+	"notification-header-osm-instance-deleted": "Instância \"$4\" eliminada no projeto '''$3'''.",
+	"notification-header-osm-projectmembers-add": "Foi {{GENDER:$5|adicionado|adicionada|adicionado(a)}} ao projeto '''$3'''.",
 	"echo-notification-goto-project": "Ver projeto"
 }
