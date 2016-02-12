@@ -307,10 +307,10 @@ class OpenStackNovaProject {
 	 */
 	function getMemberDNs() {
 		global $wgLDAPUserBaseDNs;
-		$membernames = $this->getMembers();
+		$memberids = $this->getMemberIDs();
 		$memberDNs = array();
 		$dnstring = implode( ",", $wgLDAPUserBaseDNs );
-		foreach ( $membernames as $member ) {
+		foreach ( $memberids as $member ) {
 			$memberDNs[] = "uid=$member,$dnstring";
 		}
 		return $memberDNs;
