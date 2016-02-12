@@ -41,24 +41,26 @@ class OpenStackNovaRole {
 	 */
 	function loadMembers() {
 		global $wgMemc;
-		$controller = OpenstackNovaProject::getController();
 
 		$roleid = $this->roleid;
-		$key = wfMemcKey( 'openstackmanager', "role-$roleid-members", $this->project->projectname );
-		$this->members = $wgMemc->get( $key );
 
-		if ( ! is_array( $this->members ) ) {
-			$this->members = array();
+		# This caches assignment for all roles in project, not just this one.  Should
+		#  save us a bit of time if we check another role later.
+		$key = wfMemcKey( 'openstackmanager', "role-assignments", $this->project->getId() );
+		$this->members = array();
+		$assignments = $wgMemc->get( $key );
 
-			# This isn't great -- Keystone doesn't have an API to list
-			#  members of a given role so we have to check potential members one by one
-			foreach ( $this->project->getMemberIds() as $userid ) {
-				$roles = $controller->getRolesForProjectAndUser( $this->project->getId(), $userid );
-				if ( in_array( $this->roleid, array_keys( $roles ) ) ) {
-					$this->members[] = $this->project->memberForUid( $userid );
-				}
+		if ( ! is_array( $assignments ) ) {
+			$controller = OpenstackNovaProject::getController();
+
+			$assignments = $controller->getRoleAssignmentsForProject( $this->project->getId() );
+			$wgMemc->set( $key, $assignments, '3600' );
+		}
+
+		if ( in_array( $this->roleid, array_keys( $assignments ) ) ) {
+			foreach ($assignments[$this->roleid] as $userid ) {
+				$this->members[] = $this->project->memberForUid( $userid );
 			}
-			$wgMemc->set( $key, $this->members, '3600' );
 		}
 	}
 
@@ -139,7 +141,7 @@ class OpenStackNovaRole {
 
 		$projectid = $this->project->getId();
 		$role = $this->getRoleId();
-		$key = wfMemcKey( 'openstackmanager', "projectrole-$projectid-$role", $user->userDN );
+		$key = wfMemcKey( 'openstackmanager', "role-assignments", $projectid );
 		$wgMemc->delete( $key );
 		$username = $user->getUsername();
 		$key = wfMemcKey( 'openstackmanager', "fulltoken-$projectid", $username );

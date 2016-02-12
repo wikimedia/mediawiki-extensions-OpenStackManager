@@ -72,6 +72,7 @@ if ( isset( $wgWikimediaJenkinsCI ) && $wgWikimediaJenkinsCI ) {
 
 // Keystone identity URI
 $wgOpenStackManagerNovaIdentityURI = 'http://localhost:5000/v2.0';
+$wgOpenStackManagerNovaIdentityV3URI = 'http://localhost:5000/v3';
 
 // SSH key storage location, ldap or nova
 $wgOpenStackManagerNovaKeypairStorage = 'ldap';
