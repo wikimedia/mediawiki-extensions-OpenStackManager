@@ -224,20 +224,20 @@ class OpenStackNovaUser {
 	 * @param string $projectname
 	 * @return bool
 	 */
-	function inRole( $role, $projectid ) {
+	function inRole( $role, $projectname ) {
 		global $wgAuth;
 		global $wgMemc;
 
-		if ( !$projectid ) {
+		if ( !$projectname ) {
 			return false;
 		}
-		$key = wfMemcKey( 'openstackmanager', "projectrole-$projectid-$role", $this->userDN );
+		$key = wfMemcKey( 'openstackmanager', "projectrole-$projectname-$role", $this->userDN );
 		$inRole = $wgMemc->get( $key );
 		if ( is_int( $inRole ) ) {
 			return (bool)$inRole;
 		}
 
-		$project = new OpenStackNovaProject( $projectid );
+		$project = OpenStackNovaProject::getProjectByName( $projectname );
 		$role = OpenStackNovaRole::getProjectRoleByName( $role, $project );
 		if ( ! $role ) {
 			return false;
