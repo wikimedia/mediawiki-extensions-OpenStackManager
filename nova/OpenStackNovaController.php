@@ -311,6 +311,37 @@ class OpenStackNovaController {
 	}
 
 	/**
+	 * @return id of new project or "" on failure
+	 */
+	function createProject( $projectname ) {
+		$admintoken = $this->_getAdminToken();
+		$headers = array(
+			'Accept: application/json',
+			'Content-Type: application/json',
+			"X-Auth-Token: $admintoken"
+		);
+		$projname = urlencode( $projectname );
+		$data = array( 'tenant' => array( 'name' => $projname, 'id' => $projname ) );
+		$ret = $this->restCall( 'identity', '/tenants', 'POST', $data, $headers );
+		if ( $ret['code'] == 200 ) {
+			$tenant = self::_get_property( $ret['body'], 'tenant' );
+			return self::_get_property( $tenant, 'id' );
+		}
+		return "";
+	}
+
+	function deleteProject( $projectid ) {
+		$admintoken = $this->_getAdminToken();
+		$headers = array( "X-Auth-Token: $admintoken" );
+
+		$ret = $this->restCall( 'identity', "/tenants/$projectid", 'DELETE', array(), $headers );
+		if ( $ret['code'] !== 200 && $ret['code'] !== 204 ) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
 	 * @return array of user IDs => user names
 	 */
 	function getUsersInProject( $projectid ) {
@@ -332,7 +363,7 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @return array of roles
+	 * @return array of $roleid => $rolename
 	 */
 	function getKeystoneRoles( ) {
 		global $wgMemc;
@@ -354,7 +385,8 @@ class OpenStackNovaController {
 		}
 		foreach ( $roles as $role ) {
 			$name = self::_get_property( $role, 'name' );
-			$rolearr[] = $name;
+			$id = self::_get_property( $role, 'id' );
+			$rolearr[$id] = $name;
 		}
 
 		$wgMemc->set( $key, $rolearr, 3600 );
@@ -381,6 +413,38 @@ class OpenStackNovaController {
 			$rolearr[$id] = $name;
 		}
 		return $rolearr;
+	}
+
+	function grantRoleForProjectAndUser( $roleid, $projectid, $userid ) {
+		$admintoken = $this->_getAdminToken();
+		$headers = array(
+			'Accept: application/json',
+			'Content-Type: application/json',
+			"X-Auth-Token: $admintoken"
+		);
+
+		$rolearr = array();
+		$ret = $this->restCall( 'identity', "/tenants/$projectid/users/$userid/roles/OS-KSADM/$roleid", 'PUT', array(), $headers );
+		if ( $ret['code'] !== 200 && $ret['code'] !== 201 ) {
+			return false;
+		}
+		return true;
+	}
+
+	function revokeRoleForProjectAndUser( $roleid, $projectid, $userid ) {
+		$admintoken = $this->_getAdminToken();
+		$headers = array(
+			'Accept: application/json',
+			'Content-Type: application/json',
+			"X-Auth-Token: $admintoken"
+		);
+
+		$rolearr = array();
+		$ret = $this->restCall( 'identity', "/tenants/$projectid/users/$userid/roles/OS-KSADM/$roleid", 'DELETE', array(), $headers );
+		if ( $ret['code'] !== 204 && $ret['code'] !== 200 ) {
+			return false;
+		}
+		return true;
 	}
 
 	/**

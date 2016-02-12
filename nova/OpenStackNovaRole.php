@@ -23,13 +23,23 @@ class OpenStackNovaRole {
 		$this->roleid = $roleid;
 		$this->project = $project;
 		OpenStackNovaLdapConnection::connect();
-		$this->fetchRoleInfo();
+
+		# Get the name by searching the global role list
+		$controller = OpenstackNovaProject::getController();
+		$globalrolelist = $controller->getKeystoneRoles();
+		$this->rolename = 'unknown role';
+		foreach ( $globalrolelist as $id => $name ) {
+			if ( $id == $this->roleid ) {
+				$this->rolename = $name;
+				break;
+			}
+		}
 	}
 
 	/**
 	 * @return void
 	 */
-	function fetchRoleInfo() {
+	function loadMembers() {
 		global $wgMemc;
 		$controller = OpenstackNovaProject::getController();
 
@@ -49,15 +59,6 @@ class OpenStackNovaRole {
 				}
 			}
 			$wgMemc->set( $key, $this->members, '3600' );
-		}
-
-		# And, get the name by searching the global role list
-		$this->rolename = 'unknown role';
-		foreach ( $controller->getKeystoneRoles() as $id => $name ) {
-			if ( $id == $this->roleid ) {
-				$this->rolename = $name;
-				break;
-			}
 		}
 	}
 
@@ -79,6 +80,7 @@ class OpenStackNovaRole {
 	 * @return array
 	 */
 	function getMembers() {
+		$this->loadMembers();
 		return $this->members;
 	}
 
@@ -89,36 +91,18 @@ class OpenStackNovaRole {
 	function deleteMember( $username ) {
 		global $wgAuth;
 
-		if ( isset( $this->roleInfo[0]['roleoccupant'] ) ) {
-			$members = $this->roleInfo[0]['roleoccupant'];
-			array_shift( $members );
-			$user = new OpenStackNovaUser( $username );
-			if ( ! $user->userDN ) {
-				$wgAuth->printDebug( "Failed to find userDN in deleteMember", NONSENSITIVE );
-				return false;
-			}
-			$index = array_search( $user->userDN, $members );
-			if ( $index === false ) {
-				$wgAuth->printDebug( "Failed to find userDN in member list", NONSENSITIVE );
-				return false;
-			}
-			unset( $members[$index] );
-			$values = array();
-			$values['roleoccupant'] = array();
-			foreach ( $members as $member ) {
-				$values['roleoccupant'][] = $member;
-			}
-			$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->roleDN, $values );
-			if ( $success ) {
-				$this->deleteMemcKeys( $user );
-				$this->fetchRoleInfo();
-				$wgAuth->printDebug( "Successfully removed $user->userDN from $this->roleDN", NONSENSITIVE );
-				return true;
-			} else {
-				$wgAuth->printDebug( "Failed to remove $user->userDN from $this->roleDN", NONSENSITIVE );
-				return false;
-			}
+		$user = new OpenStackNovaUser( $username );
+		$userid = $user->getUid();
+		$controller = OpenstackNovaProject::getController();
+		if ( $controller->revokeRoleForProjectAndUser( $this->roleid,
+								$this->project->getId(),
+								$userid ) ) {
+			$user = new OpenStackNovaUser( $userid );
+			$this->deleteMemcKeys( $user );
+			$wgAuth->printDebug( "Successfully removed $userid from role $this->rolename", NONSENSITIVE );
+			return true;
 		} else {
+			$wgAuth->printDebug( "Failed to remove $userid from role $this->rolename", NONSENSITIVE );
 			return false;
 		}
 	}
@@ -130,27 +114,18 @@ class OpenStackNovaRole {
 	function addMember( $username ) {
 		global $wgAuth;
 
-		$members = array();
-		if ( isset( $this->roleInfo[0]['roleoccupant'] ) ) {
-			$members = $this->roleInfo[0]['roleoccupant'];
-			array_shift( $members );
-		}
 		$user = new OpenStackNovaUser( $username );
-		if ( ! $user->userDN ) {
-			$wgAuth->printDebug( "Failed to find userDN in addMember", NONSENSITIVE );
-			return false;
-		}
-		$members[] = $user->userDN;
-		$values = array();
-		$values['roleoccupant'] = $members;
-		$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->roleDN, $values );
-		if ( $success ) {
-			$this->fetchRoleInfo();
-			$wgAuth->printDebug( "Successfully added $user->userDN to $this->roleDN", NONSENSITIVE );
+		$userid = $user->getUid();
+                $controller = OpenstackNovaProject::getController();
+		if ( $controller->grantRoleForProjectAndUser( $this->roleid,
+								$this->project->getId(),
+								$userid ) ) {
+			$wgAuth->printDebug( "Successfully added $userid to $this->rolename", NONSENSITIVE );
+			$user = new OpenStackNovaUser( $userid );
 			$this->deleteMemcKeys( $user );
 			return true;
 		} else {
-			$wgAuth->printDebug( "Failed to add $user->userDN to $this->roleDN", NONSENSITIVE );
+			$wgAuth->printDebug( "Failed to add $userid to role $this->rolename", NONSENSITIVE );
 			return false;
 		}
 	}
@@ -162,12 +137,12 @@ class OpenStackNovaRole {
 	function deleteMemcKeys( $user ) {
 		global $wgMemc;
 
-		$projectname = $this->project->getProjectName();
-		$role = $this->getRoleName();
-		$key = wfMemcKey( 'openstackmanager', "projectrole-$projectname-$role", $user->userDN );
+		$projectid = $this->project->getId();
+		$role = $this->getRoleId();
+		$key = wfMemcKey( 'openstackmanager', "projectrole-$projectid-$role", $user->userDN );
 		$wgMemc->delete( $key );
 		$username = $user->getUsername();
-		$key = wfMemcKey( 'openstackmanager', "fulltoken-$projectname", $username );
+		$key = wfMemcKey( 'openstackmanager', "fulltoken-$projectid", $username );
 		$wgMemc->delete( $key );
 		$key = wfMemcKey( 'openstackmanager', 'roles', $user->getUsername() );
 		$wgMemc->delete( $key );
@@ -181,6 +156,8 @@ class OpenStackNovaRole {
 	 * @return bool
 	 */
 	function userInRole( $userLDAP ) {
+		$this->loadMembers();
+
 		if ( !$userLDAP ) {
 			return false;
 		}
@@ -206,35 +183,5 @@ class OpenStackNovaRole {
 			}
 		}
 		return null;
-	}
-
-	/**
-	 * @static
-	 * @param  $rolename
-	 * @param  $project OpenStackNovaProject
-	 * @return bool
-	 */
-	static function createRole( $rolename, $project ) {
-		global $wgAuth;
-		global $wgOpenStackManagerLDAPUser;
-
-		OpenStackNovaLdapConnection::connect();
-
-		$role = array();
-		$role['objectclass'][] = 'organizationalrole';
-		$role['cn'] = $rolename;
-		$role['roleoccupant'] = $wgOpenStackManagerLDAPUser;
-		$roledn = 'cn=' . $rolename . ',' . $project->projectDN;
-		$success = LdapAuthenticationPlugin::ldap_add( $wgAuth->ldapconn, $roledn, $role );
-		# TODO: If role addition fails, find a way to fail gracefully
-		# Though, if the project was added successfully, it is unlikely
-		# that role addition will fail.
-		if ( $success ) {
-			$wgAuth->printDebug( "Successfully added role $rolename", NONSENSITIVE );
-			return true;
-		} else {
-			$wgAuth->printDebug( "Failed to add role $rolename", NONSENSITIVE );
-			return false;
-		}
 	}
 }

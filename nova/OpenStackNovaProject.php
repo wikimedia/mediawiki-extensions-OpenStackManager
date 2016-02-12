@@ -3,6 +3,19 @@
 /**
  * Class to manage Projects, project roles, service groups.
  *
+ *  For historical reasons this class is kind of a mess, mixing
+ *   ldap with keystone-managed resources.
+ *
+ *  Projects:  Live in keystone, have ids and names
+ *  Users: Stored in ldap, managed elsewhere
+ *  Project members:  Stored via keystone roles that manage user/project/role records.
+ *                    We have a role called 'user' that grants no OpenStack rights but is
+ *                    used to keep track of which users should have login access to project
+ *                    instances.
+ *  Sudoers:   Live in ldap, in a domain named after the project name (not the id)
+ *  Service groups:  Live entirely in ldap in domains named with the project name
+ *
+ *
  * @file
  * @ingroup Extensions
  */
@@ -10,13 +23,17 @@
 class OpenStackNovaProject {
 	public $projectname;
 	public $projectDN;
-	public $projectInfo;
 	public $roles;
+	public $userrole;
 	public $loaded;
 	public $projectGroup;
 
-	// list of roles
+	// list of roles that are visible in the web UI
 	static $visiblerolenames = array( 'projectadmin' );
+
+	// this is a stealth role that implies project membership
+	//  but no ability to manipulate the project or instances
+	static $userrolename = 'user';
 
 	// short-lived cache of project objects
 	static $projectCache = array();
@@ -30,7 +47,6 @@ class OpenStackNovaProject {
 		$this->projectid = $projectid;
 		$this->projectname = "";
 		if ( $load ) {
-			OpenStackNovaLdapConnection::connect();
 			$this->fetchProjectInfo();
 		} else {
 			$this->loaded = false;
@@ -53,8 +69,14 @@ class OpenStackNovaProject {
 	}
 
 	function loadProjectName() {
+		global $wgOpenStackManagerLDAPProjectBaseDN;
+
 		$controller = OpenstackNovaProject::getController();
 		$this->projectname = $controller->getProjectName( $this->projectid );
+
+		# We still keep things like sudoers in ldap, so we need a unique dn for this
+		#  project to keep things under.
+		$this->projectDN = 'cn=' . $this->projectname . ',' . $wgOpenStackManagerLDAPProjectBaseDN;
 	}
 
 	/**
@@ -77,21 +99,12 @@ class OpenStackNovaProject {
 		foreach ( self::$visiblerolenames as $rolename ) {
 			$this->roles[] = OpenStackNovaRole::getProjectRoleByName( $rolename, $this );
 		}
+		$this->userrole = OpenStackNovaRole::getProjectRoleByName( self::$userrolename, $this );
 
 		// fetch the associated posix project group (project-$projectname)
 		$this->fetchProjectGroup();
 
 		$this->fetchServiceGroups();
-
-		// For legacy purposes, still read in the ldap data.  This can be removed once we
-		//  are writing via keystone as well:
-		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN,
-								'(&(cn=' . $this->projectname . ')(objectclass=groupofnames))' );
-		$this->projectInfo = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
-		if ( $this->projectInfo['count'] === 0 ) {
-			return;
-		}
-		$this->projectDN = $this->projectInfo[0]['dn'];
 
 		$this->loaded = true;
 	}
@@ -277,33 +290,14 @@ class OpenStackNovaProject {
 		return $this->members[$uid];
 	}
 
-	/**
-	 * Get service user homedir setting for project.
-	 *
-	 * This is stored as an 'info' setting in ldap:
-	 *
-	 * info: homedirpattern=<pattern>
-	 *
-	 * @return string
-	 */
-	function getServiceGroupHomedirPattern() {
-		global $wgOpenStackManagerServiceGroupHomedirPattern;
-		$pattern = $wgOpenStackManagerServiceGroupHomedirPattern;
-
-		if ( isset( $this->projectInfo[0]['info'] ) ) {
-			$infos = $this->projectInfo[0]['info'];
-
-			// first member is a count.
-			array_shift( $infos );
-			foreach ( $infos as $info ) {
-				$substrings=explode( '=', $info );
-				if ( ( count( $substrings ) == 2 ) and ( $substrings[0] == 'servicegrouphomedirpattern' ) ) {
-					$pattern = $substrings[1];
-					break;
-				}
+	function uidForMember( $username ) {
+		$this->loadMembers();
+		foreach ( $this->members as $id => $name ) {
+			if ( $username == $name ) {
+				return $id;
 			}
 		}
-		return $pattern;
+		return "";
 	}
 
 	/**
@@ -323,11 +317,14 @@ class OpenStackNovaProject {
 	}
 
 	function getProjectDN() {
+		if ( !$this->projectDN ) {
+			$this->loadProjectName();
+		}
 		return $this->projectDN;
 	}
 
 	function getSudoersDN() {
-		return 'ou=sudoers,' . $this->projectDN;
+		return 'ou=sudoers,' . $this->getProjectDN();
 	}
 
 	/**
@@ -336,10 +333,14 @@ class OpenStackNovaProject {
 	 *
 	 * @param  $user OpenStackNovaUser
 	 */
-	function deleteRoleCaches( $user ) {
-		foreach ( $this->getRoles() as $role ) {
-			$role->deleteMemcKeys( $user );
+	function deleteRoleCaches( $username ) {
+		$user = new OpenStackNovaUser( $username );
+		if ( $this->roles ) {
+			foreach ( $this->roles as $role ) {
+				$role->deleteMemcKeys( $user );
+			}
 		}
+		$this->userrole->deleteMemcKeys( $user );
 	}
 
 	/**
@@ -355,56 +356,29 @@ class OpenStackNovaProject {
 		$key = wfMemcKey( 'openstackmanager', 'projectuidsandmembers', $this->projectname );
 		$wgMemc->delete( $key );
 
-		if ( isset( $this->projectInfo[0]['member'] ) ) {
-			$members = $this->projectInfo[0]['member'];
-			array_shift( $members );
-			$user = new OpenStackNovaUser( $username );
-			if ( ! $user->userDN ) {
-				$wgAuth->printDebug( "Failed to find userDN for username $username in OpenStackNovaProject deleteMember", NONSENSITIVE );
-				return false;
-			}
-			$index = array_search( $user->userDN, $members );
-			if ( $index === false ) {
-				$wgAuth->printDebug( "Failed to find userDN " . $user->userDN . " in Project " . $this->projectname . " member list", NONSENSITIVE );
-				return false;
-			}
-			unset( $members[$index] );
-			$values = array();
-			$values['member'] = array();
-			foreach ( $members as $member ) {
-				$values['member'][] = $member;
-			}
+		if ( $this->userrole->deleteMember( $username ) ) {
+			$this->projectGroup->deleteMember( $username );
 
-			$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->projectDN, $values );
-			if ( $success ) {
-				// If we successfully deleted the Project Member, then also
-				// delete the member from the corresponding ProjectGroup.
-				$this->projectGroup->deleteMember( $username );
-
-				foreach ( $this->roles as $role ) {
-					$role->deleteMember( $username );
-					# @todo Find a way to fail gracefully if role member
-					# deletion fails
-				}
-				$sudoers = OpenStackNovaSudoer::getAllSudoersByProject( $this->getProjectName() );
-				foreach ( $sudoers as $sudoer ) {
-					$success = $sudoer->deleteUser( $username );
-					if ( $success ) {
-						$wgAuth->printDebug( "Successfully removed $username from " . $sudoer->getSudoerName(), NONSENSITIVE );
-					} else {
-						$wgAuth->printDebug( "Failed to remove $username from " . $sudoer->getSudoerName(), NONSENSITIVE );
-					}
-				}
-				$this->fetchProjectInfo(true);
-				$wgAuth->printDebug( "Successfully removed $user->userDN from $this->projectDN", NONSENSITIVE );
-				$this->deleteRoleCaches( $user );
-				$this->editArticle();
-				return true;
-			} else {
-				$wgAuth->printDebug( "Failed to remove $user->userDN from $this->projectDN: " . ldap_error($wgAuth->ldapconn), NONSENSITIVE );
-				return false;
+			foreach ( $this->roles as $role ) {
+				$role->deleteMember( $username );
+				# @todo Find a way to fail gracefully if role member
+				# deletion fails
 			}
+			$sudoers = OpenStackNovaSudoer::getAllSudoersByProject( $this->getProjectName() );
+			foreach ( $sudoers as $sudoer ) {
+				$success = $sudoer->deleteUser( $username );
+				if ( $success ) {
+					$wgAuth->printDebug( "Successfully removed $username from " . $sudoer->getSudoerName(), NONSENSITIVE );
+				} else {
+					$wgAuth->printDebug( "Failed to remove $username from " . $sudoer->getSudoerName(), NONSENSITIVE );
+				}
+			}
+			$wgAuth->printDebug( "Successfully removed $user->userDN from $this->projectname", NONSENSITIVE );
+			$this->deleteRoleCaches( $username );
+			$this->editArticle();
+			return true;
 		} else {
+			$wgAuth->printDebug( "Failed to remove $username from $this->projectname: " . ldap_error($wgAuth->ldapconn), NONSENSITIVE );
 			return false;
 		}
 	}
@@ -456,35 +430,20 @@ class OpenStackNovaProject {
 		$key = wfMemcKey( 'openstackmanager', 'projectuidsandmembers', $this->projectname );
 		$wgMemc->delete( $key );
 
-		$members = array();
-		if ( isset( $this->projectInfo[0]['member'] ) ) {
-			$members = $this->projectInfo[0]['member'];
-			array_shift( $members );
+		if ( !$this->userrole ) {
+			$this->userrole = OpenStackNovaRole::getProjectRoleByName( self::$userrolename, $this );
 		}
-		$user = new OpenStackNovaUser( $username );
-		if ( ! $user->userDN ) {
-			$wgAuth->printDebug( "Failed to find userDN in addMember", NONSENSITIVE );
-			return false;
-		}
-		$members[] = $user->userDN;
-		$values = array();
-		$values['member'] = $members;
 
-		$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->projectDN, $values );
-
-
-		if ( $success ) {
+		if ( $this->userrole->addMember( $username ) ) {
 			// If we successfully added the member to this Project, then
 			// also add the member to the corresponding ProjectGroup.
 			$this->projectGroup->addMember( $username );
-
-			$this->fetchProjectInfo( true );
-			$wgAuth->printDebug( "Successfully added $user->userDN to $this->projectDN", NONSENSITIVE );
-			$this->deleteRoleCaches( $user );
+			$this->deleteRoleCaches( $username );
+			$wgAuth->printDebug( "Successfully added $username to $this->projectname", NONSENSITIVE );
 			$this->editArticle();
 			return true;
 		} else {
-			$wgAuth->printDebug( "Failed to add $user->userDN to $this->projectDN: " . ldap_error($wgAuth->ldapconn), NONSENSITIVE );
+			$wgAuth->printDebug( "Failed to add $username to $this->projectname", NONSENSITIVE );
 			return false;
 		}
 	}
@@ -552,7 +511,7 @@ class OpenStackNovaProject {
 			return self::$projectCache[ $projectid ];
 		}
 		$project = new OpenStackNovaProject( $projectid );
-		if ( $project->projectInfo ) {
+		if ( $project ) {
 			if ( count( self::$projectCache ) >= self::$projectCacheMaxSize ) {
 				array_shift( self::$projectCache );
 			}
@@ -670,31 +629,35 @@ class OpenStackNovaProject {
 		global $wgOpenStackManagerLDAPUser;
 		global $wgOpenStackManagerLDAPProjectBaseDN;
 
-		OpenStackNovaLdapConnection::connect();
+		$controller = OpenstackNovaProject::getController();
+		$newProjectId = $controller->createProject( $projectname );
+		$wgMemc->delete( wfMemcKey( 'openstackmanager', 'projectlist' ) );
 
-		$project = array();
-		$project['objectclass'][] = 'extensibleobject';
-		$project['objectclass'][] = 'groupofnames';
-		$project['cn'] = $projectname;
-		$project['member'] = $wgOpenStackManagerLDAPUser;
-		$projectdn = 'cn=' . $projectname . ',' . $wgOpenStackManagerLDAPProjectBaseDN;
+		if ( $newProjectId ) {
+			# We need to create the Ldap project as well, so it's there to contain sudoers &c.
+			OpenStackNovaLdapConnection::connect();
+			$ldapproject = array();
+			$ldapproject['objectclass'][] = 'extensibleobject';
+			$ldapproject['objectclass'][] = 'groupofnames';
+			$ldapproject['cn'] = $projectname;
+			$ldapproject['member'] = $wgOpenStackManagerLDAPUser;
+			$projectdn = 'cn=' . $projectname . ',' . $wgOpenStackManagerLDAPProjectBaseDN;
 
-		$success = LdapAuthenticationPlugin::ldap_add( $wgAuth->ldapconn, $projectdn, $project );
-		$project = new OpenStackNovaProject( $projectname );
-		if ( $success ) {
-			foreach ( self::$visiblerolenames as $rolename ) {
-				OpenStackNovaRole::createRole( $rolename, $project );
-				# TODO: If role addition fails, find a way to fail gracefully
-				# Though, if the project was added successfully, it is unlikely
-				# that role addition will fail.
+			$success = LdapAuthenticationPlugin::ldap_add( $wgAuth->ldapconn, $projectdn, $ldapproject );
+			if ( !$success ) {
+				$wgAuth->printDebug( "Creation of ldap project container failed for $projectname", NONSENSITIVE );
 			}
+
+			$wgAuth->printDebug( "Added ldap project container $projectname", NONSENSITIVE );
+			$project = new OpenstackNovaProject( $newProjectId, false );
+			$projectdn = $project->getProjectDN();
+
 			$sudoerOU = array();
 			$sudoerOU['objectclass'][] = 'organizationalunit';
 			$sudoerOU['ou'] = 'sudooers';
 			$sudoerOUdn = 'ou=sudoers,' . $projectdn;
 			LdapAuthenticationPlugin::ldap_add( $wgAuth->ldapconn, $sudoerOUdn, $sudoerOU );
 			# TODO: If sudoerOU creation fails we need to be able to fail gracefully
-			$wgAuth->printDebug( "Successfully added project $projectname", NONSENSITIVE );
 
 			// Now that we've created the Project, if we
 			// are supposed to use a corresponding Project Group
@@ -717,15 +680,13 @@ class OpenStackNovaProject {
 						array( '!authenticate' ) ) ) {
 				$wgAuth->printDebug( "Successfully created default sudo-as policy for $projectname", NONSENSITIVE );
 			}
-
-			$wgMemc->delete( wfMemcKey( 'openstackmanager', 'projectlist' ) );
+			OpenStackNovaProject::createServiceGroupOUs( $projectname );
 		} else {
 			$wgAuth->printDebug( "Failed to add project $projectname", NONSENSITIVE );
 			return null;
 		}
 
-		OpenStackNovaProject::createServiceGroupOUs( $projectname );
-
+		$project->fetchProjectInfo();
 		return $project;
 	}
 
@@ -768,6 +729,41 @@ class OpenStackNovaProject {
 		return true;
 	}
 
+	/**
+	 * Remove the top-level entry for Service Groups to this project.
+	 *
+	 * @param  $projectname String
+	 * @return bool
+	 */
+	function deleteServiceGroupOUs() {
+		global $wgAuth;
+		global $wgOpenStackManagerLDAPProjectBaseDN;
+
+		$groups = array();
+		$groups['objectclass'][] = 'organizationalunit';
+		$groups['ou'] = 'groups';
+		$groupsdn = 'ou=' . $groups['ou'] . ',' . 'cn=' . $this->projectname . ',' . $wgOpenStackManagerLDAPProjectBaseDN;
+
+		$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $groupsdn );
+		if ( !$success ) {
+			$wgAuth->printDebug( "Failed to delete service group ou for  project $this->projectname", NONSENSITIVE );
+			return false;
+		}
+
+		$users = array();
+		$users['objectclass'][] = 'organizationalunit';
+		$users['ou'] = 'people';
+		$usersdn = 'ou=' . $users['ou'] . ',' . 'cn=' . $this->projectname . ',' . $wgOpenStackManagerLDAPProjectBaseDN;
+
+		$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $usersdn );
+		if ( !$success ) {
+			$wgAuth->printDebug( "Failed to delete service user ou for project $this->projectname", NONSENSITIVE );
+			return false;
+		}
+
+		return true;
+	}
+
 
 	/**
 	 * Deletes a project based on project id. This function will also delete all roles
@@ -779,29 +775,14 @@ class OpenStackNovaProject {
 	static function deleteProject( $projectid ) {
 		global $wgAuth, $wgMemc;
 
-		OpenStackNovaLdapConnection::connect();
-
 		$project = new OpenStackNovaProject( $projectid );
-		$projectname = $project->getName();
 		if ( ! $project ) {
 			return false;
 		}
-		$dn = $project->projectDN;
-		# Projects can have roles as sub-entries, we need to delete them first
-		$result = LdapAuthenticationPlugin::ldap_list( $wgAuth->ldapconn, $dn, 'objectclass=*' );
-		$roles = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
-		array_shift( $roles );
-		foreach ( $roles as $role ) {
-			$roledn = $role['dn'];
-			$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $roledn );
-			if ( $success ){
-				$wgAuth->printDebug( "Successfully deleted role $roledn", NONSENSITIVE );
-			} else {
-				$wgAuth->printDebug( "Failed to delete role $roledn", NONSENSITIVE );
-			}
-		}
+		$projectname = $project->getName();
 
-		OpenStackNovaProjectGroup::deleteProjectGroup( $projectname );
+		OpenStackNovaLdapConnection::connect();
+		OpenStackNovaProjectGroup::deleteProjectGroup( $project->getProjectName() );
 
 		# Projects have a sudo OU and sudoers entries below that OU, we must delete them first
 		$sudoers = OpenStackNovaSudoer::getAllSudoersByProject( $project->getProjectName() );
@@ -827,16 +808,26 @@ class OpenStackNovaProject {
 			if ( $success ){
 				$wgAuth->printDebug( "Successfully deleted service group " . $groupName, NONSENSITIVE );
 			} else {
-				$wgAuth->printDebug( "Failed to delete servie group " . $groupName, NONSENSITIVE );
+				$wgAuth->printDebug( "Failed to delete service group " . $groupName, NONSENSITIVE );
 			}
 		}
+		$project->deleteServiceGroupOUs();
+
+		$dn = $project->projectDN;
 		$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $dn );
+		if ( !$success ) {
+			$wgAuth->printDebug( "Failed to delete project LDAP container $dn", NONSENSITIVE );
+		}
+
+		$controller = OpenstackNovaProject::getController();
+		$success = $controller->deleteProject( $projectid );
 		$wgMemc->delete( wfMemcKey( 'openstackmanager', 'projectlist' ) );
+
 		if ( $success ) {
-			$wgAuth->printDebug( "Successfully deleted project $projectname", NONSENSITIVE );
+			$wgAuth->printDebug( "Successfully deleted project", NONSENSITIVE );
 			return true;
 		} else {
-			$wgAuth->printDebug( "Failed to delete project $projectname", NONSENSITIVE );
+			$wgAuth->printDebug( "Failed to delete project", NONSENSITIVE );
 			return false;
 		}
 	}
