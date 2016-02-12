@@ -43,25 +43,34 @@ class OpenStackNovaRole {
 		global $wgMemc;
 
 		$roleid = $this->roleid;
+		$projectid = $this->project->getId();
+
+		$memberskey = wfMemcKey( 'openstackmanager', "role-members-$projectid", $roleid );
+		$this->members = $wgMemc->get( $memberskey );
+		if ( is_array ( $this->members ) ) {
+			return;
+		}
 
 		# This caches assignment for all roles in project, not just this one.  Should
 		#  save us a bit of time if we check another role later.
-		$key = wfMemcKey( 'openstackmanager', "role-assignments", $this->project->getId() );
-		$this->members = array();
-		$assignments = $wgMemc->get( $key );
+		$assignmentkey = wfMemcKey( 'openstackmanager', "role-assignments", $this->project->getId() );
+		$assignments = $wgMemc->get( $assignmentkey );
 
 		if ( ! is_array( $assignments ) ) {
 			$controller = OpenstackNovaProject::getController();
 
-			$assignments = $controller->getRoleAssignmentsForProject( $this->project->getId() );
-			$wgMemc->set( $key, $assignments, '3600' );
+			$assignments = $controller->getRoleAssignmentsForProject( $projectid );
+			$wgMemc->set( $assignmentkey, $assignments, '3600' );
 		}
 
+		$this->members = array();
 		if ( in_array( $this->roleid, array_keys( $assignments ) ) ) {
 			foreach ($assignments[$this->roleid] as $userid ) {
 				$this->members[] = $this->project->memberForUid( $userid );
 			}
 		}
+
+		$wgMemc->set( $memberskey, $this->members, '3600' );
 	}
 
 	/**
@@ -150,6 +159,8 @@ class OpenStackNovaRole {
 		$wgMemc->delete( $key );
 		$roleid = $this->roleid;
 		$key = wfMemcKey( 'openstackmanager', "role-$roleid-members", $this->project->projectname );
+		$wgMemc->delete( $key );
+		$key = wfMemcKey( 'openstackmanager', "role-members-$projectid", $role );
 		$wgMemc->delete( $key );
 	}
 
