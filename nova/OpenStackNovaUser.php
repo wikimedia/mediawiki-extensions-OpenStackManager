@@ -159,16 +159,8 @@ class OpenStackNovaUser {
 	 * @return array
 	 */
 	function getProjects() {
-		global $wgAuth;
-		global $wgOpenStackManagerLDAPProjectBaseDN;
-
-		$projects = array();
-		$allprojects = OpenStackNovaProject::getAllProjects();
-		foreach ( $allprojects as $project ) {
-			if ( in_array( $this->getUsername(), $project->getMembers() ) ) {
-				$projects[] = $project->getId();
-			}
-		}
+		$controller = OpenStackNovaProject::getController();
+		$projects = $controller->getProjectsForUser( $this->getUid() ) ;
 		return $projects;
 	}
 

@@ -395,7 +395,30 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @return array of arrays: role ID => role Names
+	 * @return array of projects ids
+	 */
+	function getProjectsForUser( $userid ) {
+		$admintoken = $this->_getAdminToken();
+		$headers = array( "X-Auth-Token: $admintoken" );
+
+		$projects = array();
+		$ret = $this->restCall( 'identityv3', "/role_assignments?user.id=$userid", 'GET', array(), $headers );
+		$role_assignments = self::_get_property( $ret['body'], 'role_assignments' );
+		if ( !$role_assignments ) {
+			return $projects;
+		}
+		foreach ( $role_assignments as $assignment ) {
+			$scope = self::_get_property( $assignment, 'scope' );
+			$project = self::_get_property( $scope, 'project' );
+			$projectid = self::_get_property( $project, 'id' );
+
+			$projects[] = $projectid;
+		}
+		return array_unique( $projects );
+	}
+
+	/**
+	 * @return array of arrays:  role ID => role Names
 	 */
 	function getRoleAssignmentsForProject( $projectid ) {
 		$admintoken = $this->_getAdminToken();
