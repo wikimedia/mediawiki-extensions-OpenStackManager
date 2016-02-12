@@ -331,7 +331,7 @@
 	"notification-header-osm-instance-build-completed": "プロジェクト'''$3'''のインスタンス「$4」が構築されました。",
 	"notification-header-osm-instance-reboot-completed": "プロジェクト'''$3'''のインスタンス「$4」が再起動されました。",
 	"notification-header-osm-instance-deleted": "プロジェクト'''$3'''のインスタンス「$4」が削除されました。",
-	"notification-header-osm-projectmembers-add": "プロジェクト'''「$3」'''に追加されました。",
+	"notification-header-osm-projectmembers-add": "{{GENDER:$5|あなた}}はプロジェクト'''「$3」'''に追加されました。",
 	"echo-notification-goto-project": "プロジェクトを閲覧",
 	"echo-category-title-osm-instance-deleted": "インスタンス (自分がプロジェクト管理者) を削除したとき",
 	"echo-category-title-osm-instance-build-completed": "インスタンス (自分がプロジェクト管理者) を構築したとき",
