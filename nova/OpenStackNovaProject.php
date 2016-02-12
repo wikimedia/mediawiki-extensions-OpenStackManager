@@ -890,4 +890,41 @@ RESOURCEINFO;
 		global $wgOpenStackManagerProjectNamespace;
 		OpenStackNovaArticle::deleteArticle( $this->getProjectName(), $wgOpenStackManagerProjectNamespace );
 	}
+
+	/**
+	 * Get service user homedir setting for project.
+	 *
+	 * This is stored as an 'info' setting in ldap:
+	 *
+	 *  Note:  This setting is obsolete and can no longer be changed.  It's preserved as legacy
+	 *          for a small number of projects who rely on it being set.
+	 *
+	 * info: homedirpattern=<pattern>
+	 *
+	 * @return string
+	 */
+	function getServiceGroupHomedirPattern() {
+		global $wgOpenStackManagerServiceGroupHomedirPattern;
+		global $wgOpenStackManagerLDAPProjectBaseDN, $wgAuth;
+		$pattern = $wgOpenStackManagerServiceGroupHomedirPattern;
+
+		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN,
+								'(&(cn=' . $this->getProjectName() . ')(objectclass=groupofnames))' );
+		$projectInfo = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
+
+		if ( isset( $projectInfo[0]['info'] ) ) {
+			$infos = $projectInfo[0]['info'];
+
+			// first member is a count.
+			array_shift( $infos );
+			foreach ( $infos as $info ) {
+				$substrings=explode( '=', $info );
+				if ( ( count( $substrings ) == 2 ) and ( $substrings[0] == 'servicegrouphomedirpattern' ) ) {
+					$pattern = $substrings[1];
+					break;
+				}
+			}
+		}
+		return $pattern;
+	}
 }
