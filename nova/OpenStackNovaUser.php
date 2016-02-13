@@ -34,6 +34,10 @@ class OpenStackNovaUser {
 			if ( ! $this->userDN ) {
 				$this->userDN = $wgAuth->getUserDN( strtolower( $this->username ), false, "uid" );
 				$wgAuth->printDebug( "Fetching userdn using shell name: $this->userDN ", NONSENSITIVE );
+
+				# We want the actual username, not the id that was passed in.
+				$this->userInfo = $wgAuth->userInfo;
+				$this->username = $this->userInfo[0]['cn'][0];
 			}
 		} else {
 			$this->userDN = $wgAuth->getUserDN( strtolower( $wgUser->getName() ) );
