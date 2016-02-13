@@ -56,7 +56,8 @@ class SpecialNovaProject extends SpecialNova {
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-addmember' ) );
 
 		$projectid = $this->getRequest()->getText( 'projectid' );
-		$projectname = $this->getRequest()->getText( 'projectname' );
+		$project = new OpenStackNovaProject( $projectid );
+		$projectname = $project->getProjectName();
 		if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( 'projectadmin', $projectname ) ) {
 			$this->notInRole( 'projectadmin', $projectname );
 			return false;
@@ -99,7 +100,8 @@ class SpecialNovaProject extends SpecialNova {
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-removemember' ) );
 
 		$projectid = $this->getRequest()->getText( 'projectid' );
-		$projectname = $this->getRequest()->getText( 'projectname' );
+		$project = new OpenStackNovaProject( $projectid );
+		$projectname = $project->getProjectName();
 		if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( 'projectadmin', $projectname ) ) {
 			$this->notInRole( 'projectadmin', $projectname );
 			return false;
@@ -247,10 +249,10 @@ class SpecialNovaProject extends SpecialNova {
 		$this->pushRawResourceColumn( $projectRow, $this->createResourceTable( $roleheaders, $roleRows ) );
 
 		$actions = array();
-		$actions[] = $this->createActionLink( 'openstackmanager-deleteproject', array( 'action' => 'delete', 'projectid' => $projectId, 'projectname' => $projectName ) );
-		$actions[] = $this->createActionLink( 'openstackmanager-addmember', array( 'action' => 'addmember', 'projectid' => $projectId, 'projectname' => $projectName ) );
-		$actions[] = $this->createActionLink( 'openstackmanager-removemember', array( 'action' => 'deletemember', 'projectid' => $projectId, 'projectname' => $projectName ) );
-		$actions[] = $this->createActionLink( 'openstackmanager-displayquotas-action', array( 'action' => 'displayquotas', 'projectid' => $projectId, 'projectname' => $projectName ) );
+		$actions[] = $this->createActionLink( 'openstackmanager-deleteproject', array( 'action' => 'delete', 'projectid' => $projectId ) );
+		$actions[] = $this->createActionLink( 'openstackmanager-addmember', array( 'action' => 'addmember', 'projectid' => $projectId ) );
+		$actions[] = $this->createActionLink( 'openstackmanager-removemember', array( 'action' => 'deletemember', 'projectid' => $projectId ) );
+		$actions[] = $this->createActionLink( 'openstackmanager-displayquotas-action', array( 'action' => 'displayquotas', 'projectid' => $projectId ) );
 
 		$hieraTitle = Title::makeTitleSafe( NS_HIERA, $projectName );
 
@@ -304,7 +306,8 @@ class SpecialNovaProject extends SpecialNova {
 	function displayQuotas() {
 		$this->setHeaders();
 		$projectId = $this->getRequest()->getText( 'projectid' );
-		$projectname = $this->getRequest()->getText( 'projectname' );
+		$project = new OpenStackNovaProject( $projectId );
+		$projectname = $project->getProjectName();
 		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-displayquotas', $projectId ) );
 		if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( 'projectadmin', $projectname ) ) {
 			$this->notInRole( 'projectadmin', $projectname );
