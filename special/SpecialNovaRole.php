@@ -43,13 +43,17 @@ class SpecialNovaRole extends SpecialNova {
 		$roleInfo = array();
 		$roleid = $this->getRequest()->getText( 'roleid' );
 		$projectid = $this->getRequest()->getText( 'projectid' );
-		$projectname = $this->getRequest()->getText( 'projectname' );
+
 		if ( $projectid ) {
-			if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( $roleid, $projectname ) ) {
+			$project = new OpenStackNovaProject( $projectid );
+			$role = new OpenStackNovaRole( $roleid, $project );
+			$projectname = $project->getProjectName();
+			$rolename = $role->getRoleName();
+
+			if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( $rolename, $projectname ) ) {
 				$this->displayRestrictionError();
 				return false;
 			}
-			$project = OpenStackNovaProject::getProjectById( $projectid );
 			$projectmembers = $project->getMembers();
 			natcasesort( $projectmembers );
 			$role = new OpenStackNovaRole( $roleid, $project );
@@ -116,13 +120,16 @@ class SpecialNovaRole extends SpecialNova {
 
 		$roleid = $this->getRequest()->getText( 'roleid' );
 		$projectid = $this->getRequest()->getText( 'projectid' );
-		$projectname = $this->getRequest()->getText( 'projectname' );
+
 		if ( $projectid ) {
-			if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( $roleid, $projectname ) ) {
+			$project = new OpenStackNovaProject( $projectid );
+			$role = new OpenStackNovaRole( $roleid, $project );
+			$projectname = $project->getProjectName();
+			$rolename = $role->getRoleName();
+			if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( $rolename, $projectname ) ) {
 				$this->displayRestrictionError();
 				return false;
 			}
-			$project = OpenStackNovaProject::getProjectById( $projectid );
 			$projectmembers = $project->getMembers();
 			natcasesort( $projectmembers );
 			$role = new OpenStackNovaRole( $roleid, $project );

@@ -233,11 +233,11 @@ class SpecialNovaProject extends SpecialNova {
 			$actions = array();
 			$specialRoleTitle = Title::newFromText( 'Special:NovaRole' );
 			$actions[] = $this->createActionLink( 'openstackmanager-addrolemember',
-				array( 'action' => 'addmember', 'projectid' => $projectId, 'projectname' => $projectName, 'roleid' => $roleId, 'returnto' => 'Special:NovaProject' ),
+				array( 'action' => 'addmember', 'projectid' => $projectId, 'roleid' => $roleId, 'returnto' => 'Special:NovaProject' ),
 				$specialRoleTitle
 			);
 			$actions[] = $this->createActionLink( 'openstackmanager-removerolemember',
-				array( 'action' => 'deletemember', 'projectid' => $projectId, 'projectname' => $projectName, 'roleid' => $roleId, 'returnto' => 'Special:NovaProject' ),
+				array( 'action' => 'deletemember', 'projectid' => $projectId, 'roleid' => $roleId, 'returnto' => 'Special:NovaProject' ),
 				$specialRoleTitle
 			);
 			$this->pushRawResourceColumn( $roleRow,  $this->createResourceList( $actions ) );
