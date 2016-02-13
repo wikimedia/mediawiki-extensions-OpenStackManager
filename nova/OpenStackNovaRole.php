@@ -24,16 +24,7 @@ class OpenStackNovaRole {
 		$this->project = $project;
 		OpenStackNovaLdapConnection::connect();
 
-		# Get the name by searching the global role list
-		$controller = OpenstackNovaProject::getController();
-		$globalrolelist = $controller->getKeystoneRoles();
-		$this->rolename = 'unknown role';
-		foreach ( $globalrolelist as $id => $name ) {
-			if ( $id == $this->roleid ) {
-				$this->rolename = $name;
-				break;
-			}
-		}
+		$this->rolename = OpenStackNovaRole::getRoleNameForId( $this->roleid );
 	}
 
 	/**
@@ -196,5 +187,26 @@ class OpenStackNovaRole {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * @static
+	 * @param  $roleid
+	 * @return role name
+	 */
+	static function getRoleNameForId( $roleid ) {
+		global $wgMemc;
+
+		$key = wfMemcKey( 'openstackmanager', 'globalrolelist' );
+		$globalrolelist = $wgMemc->get( $key );
+		if ( ! is_array( $globalrolelist ) ) {
+			$controller = OpenstackNovaProject::getController();
+			$globalrolelist = $controller->getKeystoneRoles();
+
+			# Roles basically never change, so this can be a long-lived cache
+			$wgMemc->set( $key, $globalrolelist );
+		}
+
+		return isset( $globalrolelist[$roleid] ) ? $globalrolelist[$roleid] : "unknown role";
 	}
 }
