@@ -395,13 +395,19 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @return array of projects ids
+	 * @return array of arrays:  project ID => role IDs
+	 *
+	 *  Return array only includes entries for projects
+	 *  with roles assigned, so calling array_keys
+	 *  on the return value will answer the question
+	 *  'what projects is this user in?'
+	 *
 	 */
-	function getProjectsForUser( $userid ) {
+	function getRoleAssignmentsForUser( $userid ) {
 		$admintoken = $this->_getAdminToken();
 		$headers = array( "X-Auth-Token: $admintoken" );
 
-		$projects = array();
+		$assignments = array();
 		$ret = $this->restCall( 'identityv3', "/role_assignments?user.id=$userid", 'GET', array(), $headers );
 		$role_assignments = self::_get_property( $ret['body'], 'role_assignments' );
 		if ( !$role_assignments ) {
@@ -409,16 +415,18 @@ class OpenStackNovaController {
 		}
 		foreach ( $role_assignments as $assignment ) {
 			$scope = self::_get_property( $assignment, 'scope' );
+			$role = self::_get_property( $assignment, 'role' );
+			$roleid = self::_get_property( $role, 'id' );
 			$project = self::_get_property( $scope, 'project' );
 			$projectid = self::_get_property( $project, 'id' );
 
-			$projects[] = $projectid;
+			$assignments[$projectid][] = $roleid;
 		}
-		return array_unique( $projects );
+		return $assignments;
 	}
 
 	/**
-	 * @return array of arrays:  role ID => role Names
+	 * @return array of arrays:  role ID => user IDs
 	 */
 	function getRoleAssignmentsForProject( $projectid ) {
 		$admintoken = $this->_getAdminToken();

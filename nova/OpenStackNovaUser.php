@@ -160,39 +160,39 @@ class OpenStackNovaUser {
 	 */
 	function getProjects() {
 		$controller = OpenStackNovaProject::getController();
-		$projects = $controller->getProjectsForUser( $this->getUid() ) ;
+		$projects = array_keys( $controller->getRoleAssignmentsForUser( $this->getUid() ) );
 		return $projects;
 	}
 
 	/**
-	 * Returns a list of roles this user is a member of. Includes
+	 * Returns a list of role this user is a member of. Includes
 	 * all projects.
-	 * @return array
+	 * @return array of rolenames
 	 */
 	function getRoles() {
 		global $wgAuth, $wgMemc;
 		global $wgOpenStackManagerLDAPProjectBaseDN;
 
-		$key = wfMemcKey( 'openstackmanager', 'roles', $this->userDN );
+		$key = wfMemcKey( 'openstackmanager', 'roles', $this->username );
 		$roles = $wgMemc->get( $key );
 		if ( is_array( $roles ) ) {
 			return $roles;
 		}
 
+		$controller = OpenStackNovaProject::getController();
+		$assignments = $controller->getRoleAssignmentsForUser( $this->getUid() );
+
+		$everyrole = array();
+		foreach ($assignments as $projectid => $rolelist ) {
+			$everyrole = array_merge( $everyrole, $rolelist );
+		}
+		$roleids = array_unique( $everyrole );
+
 		$roles = array();
-		$projects = $this->getProjects();
-		foreach ( $projects as $projectid ) {
-			$project = OpenStackNovaProject::getProjectById( $projectid );
-			$projectroles = $project->getRoles();
-			foreach ( $projectroles as $role ) {
-				if ( in_array( $this->getUsername(), $role->getMembers() ) ) {
-					$roles[] = $role->getRoleName();
-				}
-			}
+		foreach ( $roleids as $roleid ) {
+			$roles[] = OpenStackNovaRole::getRoleNameForId( $roleid );
 		}
 
-		$roles = array_unique( $roles );
-		$key = wfMemcKey( 'openstackmanager', 'roles', $this->getUsername() );
 		$wgMemc->set( $key, $roles, '3600' );
 		return $roles;
 	}
