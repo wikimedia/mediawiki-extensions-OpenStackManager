@@ -70,9 +70,18 @@ class OpenStackNovaProject {
 
 	function loadProjectName() {
 		global $wgOpenStackManagerLDAPProjectBaseDN;
+		global $wgMemc;
 
-		$controller = OpenstackNovaProject::getController();
-		$this->projectname = $controller->getProjectName( $this->projectid );
+		$key = wfMemcKey( 'openstackmanager', 'projectname', $this->projectid );
+		$this->projectname = $wgMemc->get( $key );
+		if ( ! $this->projectname ) {
+			$controller = OpenstackNovaProject::getController();
+			$this->projectname = $controller->getProjectName( $this->projectid );
+
+			# Projectname doesn't ever change once a project is created, so
+			# we can cache this a good long time.
+			$wgMemc->set( $key, $this->projectname );
+		}
 
 		# We still keep things like sudoers in ldap, so we need a unique dn for this
 		#  project to keep things under.
