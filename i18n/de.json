@@ -429,6 +429,7 @@
 	"apihelp-novaaddress-param-project": "Das Projekt, in dem die Adresse vorhanden ist.",
 	"apihelp-novainstance-description": "Führt Aktionen auf Instanzen durch.",
 	"apihelp-novainstance-param-subaction": "Die auszuführende Unteraktion.",
+	"apihelp-novainstance-param-instanceid": "Die Nova-Instanz-Kennung, auf der die Unteraktion ausgeführt werden soll.",
 	"apihelp-novainstance-param-project": "Das Projekt, in dem die Instanz vorhanden ist.",
 	"apihelp-novainstance-param-region": "Die Region, in der die Instanz vorhanden ist.",
 	"apihelp-novaprojectlimits-description": "Ruft Informationen zu Projekten ab.",

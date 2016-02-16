@@ -120,7 +120,6 @@
 	"openstackmanager-addmember": "Добавить участника",
 	"openstackmanager-removemember": "Удалить участника",
 	"openstackmanager-manageservicegroupmembers": "Управление участниками",
-	"openstackmanager-configureproject": "Настройка проекта $1",
 	"openstackmanager-displayquotas-ram": "RAM: $1/$2",
 	"openstackmanager-displayquotas-cores": "Ядер: $1 /$2",
 	"openstackmanager-displayquotas-securitygroups": "Группы безопасности: $1/$2",
@@ -239,6 +238,6 @@
 	"openstackmanager-twofactorrequired2": "Требуется двухфакторная аутентификация. Пожалуйста, включите ее и повторите попытку.",
 	"notification-osm-projectmember-added-email-subject": "Вы были добавлены в проект на сайте {{SITENAME}}",
 	"notification-osm-projectmember-added-email-body-batch": "$1 добавил{{GENDER:$1||а}} вас в проект [[$2]]",
-	"notification-header-osm-projectmembers-add": "$1 добавил{{GENDER:$2||а}} вас в проект $3",
+	"notification-header-osm-projectmembers-add": "{{GENDER:$5|Вы}} были добавлены в проект $3.",
 	"prefs-openstack-keys": "Список ключей"
 }
