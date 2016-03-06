@@ -570,7 +570,7 @@ class OpenStackNovaUser {
 				$user = new OpenStackNovaUser();
 				$roles = $user->getRoles();
 			}
-			$groups = array_merge( $groups, $roles );
+			$groups = array_unique( array_merge( $groups, $roles ) );
 		}
 
 		return true;
