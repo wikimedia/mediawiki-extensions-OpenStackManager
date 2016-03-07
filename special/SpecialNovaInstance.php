@@ -156,10 +156,6 @@ class SpecialNovaInstance extends SpecialNova {
 			if ( $imageName === '' ) {
 				continue;
 			}
-			$showImage = $image->getImageMetadata( 'show' );
-			if ( !$showImage ) {
-				continue;
-			}
 			$imageLabel = $imageName;
 			$isDefault = $image->getImageMetadata( 'default' );
 			if ( $isDefault ) {
