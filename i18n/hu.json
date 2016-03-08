@@ -5,7 +5,8 @@
 			"Dj",
 			"Misibacsi",
 			"Tacsipacsi",
-			"Csega"
+			"Csega",
+			"R-Joe"
 		]
 	},
 	"openstackmanager-desc": "Lehetővé teszi, hogy a felhasználók kezeljék a Novát és Swiftet",
@@ -134,7 +135,7 @@
 	"openstackmanager-keypairimportfailed": "Nem sikerült importálni a kulcspárt.",
 	"openstackmanager-keypairimported": "Kulcspár importálva.",
 	"openstackmanager-keypairimportedfingerprint": "$1 kulcspár $2 ujjlenyomattal importálva.",
-	"openstackmanager-deletedkey": "Kulcs sikeresen törölve.",
+	"openstackmanager-deletedkey": "Törölt kulcs.",
 	"openstackmanager-deletedkeyfailed": "Nem sikerült törölni a kulcsot.",
 	"openstackmanager-addmember": "Tag hozzáadása",
 	"openstackmanager-removemember": "Tag eltávolítása",
@@ -149,7 +150,7 @@
 	"openstackmanager-backprojectlist": "Vissza a projektek listájához",
 	"openstackmanager-addadditionalproject": "Egy másik projekt hozzáadása.",
 	"openstackmanager-deleteproject": "Törlés",
-	"openstackmanager-deletedproject": "Projekt sikeresen törölve.",
+	"openstackmanager-deletedproject": "Törölt projekt.",
 	"openstackmanager-deleteprojectfailed": "Nem sikerült törölni a projektet.",
 	"openstackmanager-addedto": "$1 hozzáadva a következőhöz: $2",
 	"openstackmanager-failedtoadd": "Nem sikerült $1 felvétele ide: $2.",
@@ -183,7 +184,7 @@
 	"openstackmanager-removehost": "Hoszt törlése",
 	"openstackmanager-removehost-action": "(Hosztnév eltávolítása)",
 	"openstackmanager-removehost-confirm": "Biztos el akarod távolítani a $1 hosztot innen: $2?",
-	"openstackmanager-removedhost": "$1 sikeresen eltávolítva.",
+	"openstackmanager-removedhost": "$1 eltávolítva.",
 	"openstackmanager-removehostfailed": "$1 eltávolítása nem sikerült.",
 	"openstackmanager-nonexistenthost": "A kért hoszt nem létezik.",
 	"openstackmanager-createsecuritygroup": "Biztonsági csoport létrehozása",
