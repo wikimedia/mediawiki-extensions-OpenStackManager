@@ -281,7 +281,7 @@
 	"openstackmanager-removehost": "Used as page title and as action link title, in Special:NovaAddress.",
 	"openstackmanager-removehost-action": "A link text. [[File:Wikimedia_labs_address_admin.png|thumb]]",
 	"openstackmanager-removehost-confirm": "Used in Special:NovaAddress. Parameters:\n* $1 - host name\n* $2 - public IP address",
-	"openstackmanager-removedhost": "Used as success message in Special:NovaAddress.\n\nParameters:\n* $1 - hostname\n* $2 - (Unused) public IP address\n\nSee also:\n* {{msg-mw|Openstackmanager-removehostfailed}}",
+	"openstackmanager-removedhost": "Used as success message in Special:NovaAddress.\n\nParameters:\n* $1 - hostname\n* $2 - (Unused) public IP address\n\nSee also:\n* {{msg-mw|Openstackmanager-removehostfailed}}\n{{Identical|Removed}}",
 	"openstackmanager-removehostfailed": "Used as failure message in Special:NovaAddress.\n\nParameters:\n* $1 - public IP address\n* $2 - (Unused) hostname\n\nSee also:\n* {{msg-mw|Openstackmanager-removedhost}}",
 	"openstackmanager-nonexistenthost": "Used as error message in Special:NovaAddress.\n\nSee also:\n* {{msg-mw|Openstackmanager-removedhost|success message}}\n* {{msg-mw|Openstackmanager-removehostfailed|failure message}}",
 	"openstackmanager-nonexistentrole": "Appears when adding a user to a role but the role does not exist",

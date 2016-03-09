@@ -27,5 +27,5 @@
 	"openstackmanager-domainlist": "Seznam domen",
 	"openstackmanager-backdomainlist": "Nazaj na seznam domen.",
 	"openstackmanager-addadditionaldomain": "Dodajte drugo domeno.",
-	"openstackmanager-deleteddomain": "Domena je uspešno izbrisana."
+	"openstackmanager-deleteddomain": "Domeno smo izbrisali."
 }
