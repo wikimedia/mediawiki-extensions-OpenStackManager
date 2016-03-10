@@ -66,7 +66,7 @@
 	"openstackmanager-domainlist": "רשימת מתחמים",
 	"openstackmanager-backdomainlist": "חזרה לרשימת מתחמים",
 	"openstackmanager-addadditionaldomain": "הוספת מתחם.",
-	"openstackmanager-deleteddomain": "מתחם נמחק בהצלחה.",
+	"openstackmanager-deleteddomain": "מתחם נמחק.",
 	"openstackmanager-failedeletedomain": "מחיקת מתחם נכשלה.",
 	"openstackmanager-failedeletedomainduplicates": "לא ניתן למחוק את המתחם אם יש בו עיולי־משנה.",
 	"openstackmanager-failedeletedomainnotfound": "מחיקת מתחם נכשלה; המתחם לא נמצא.",

@@ -160,6 +160,7 @@
 	"openstackmanager-releasedaddress": "Zwolniono adres: $1",
 	"openstackmanager-releaseaddressfailed": "Nie udało się zwolnić adresu: $1",
 	"openstackmanager-associatedaddress": "Pomyślnie przypisano $1 z Identyfikatorem instancji  $2 .",
+	"openstackmanager-addedhost": "Dodano nazwę $1 dla adresu IP $2.",
 	"openstackmanager-removedhost": "Usunięto $1.",
 	"openstackmanager-removehostfailed": "Nie udało się usunąć $1.",
 	"openstackmanager-unknownerror": "Wystąpił błąd.",
