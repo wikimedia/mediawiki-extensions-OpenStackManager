@@ -27,13 +27,6 @@ class ApiNovaServiceGroups extends ApiBase {
 
 	}
 
-	public function getPossibleErrors() {
-		return array(
-			array( 'openstackmanager-noaccount' ),
-			array( 'openstackmanager-needrole' )
-		);
-	}
-
 	// Face parameter.
 	public function getAllowedParams() {
 		return array(
@@ -53,7 +46,7 @@ class ApiNovaServiceGroups extends ApiBase {
 			),
 		);
 	}
- 
+
 	/**
 	 * @deprecated since MediaWiki core 1.25
 	 */
