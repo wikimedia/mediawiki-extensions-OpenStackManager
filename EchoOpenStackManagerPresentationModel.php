@@ -39,9 +39,16 @@ class EchoOpenStackManagerPresentationModel extends EchoEventPresentationModel {
 	public function getHeaderMessage() {
 		$msg = parent::getHeaderMessage();
 
+		$truncatedInstanceName = $this->language->embedBidi( $this->language->truncate(
+			$this->event->getExtraParam( 'instanceName' ),
+			self::PAGE_NAME_RECOMMENDED_LENGTH,
+			'...',
+			false
+		) );
+
 		return $msg->params(
 			$this->getTruncatedTitleText( $this->event->getTitle() ),
-			$this->event->getExtraParam( 'instanceName' ),
+			$truncatedInstanceName,
 			$this->getViewingUserForGender()
 		);
 	}
