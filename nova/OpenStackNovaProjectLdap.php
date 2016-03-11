@@ -797,8 +797,8 @@ RESOURCEINFO;
 		}
 		$text = sprintf( $format,
 			$this->getProjectName(),
-			implode( ',', $admins ),
-			implode( ',', $members )
+			implode( ",\n", $admins ),
+			implode( ",\n", $members )
 		);
 		OpenStackNovaArticle::editArticle( $this->getProjectName(), $text, $wgOpenStackManagerProjectNamespace );
 		if ( $wgOpenStackManagerCreateProjectSALPages ) {
