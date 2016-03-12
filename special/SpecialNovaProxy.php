@@ -48,12 +48,6 @@ class SpecialNovaProxy extends SpecialNova {
 				return;
 			}
 			$this->deleteProxy();
-		} elseif ( $action === "modify" ) {
-			if ( ! $this->userLDAP->inProject( $this->projectName ) ) {
-				$this->notInProject( $this->project );
-				return;
-			}
-			$this->modifyProxy();
 		} else {
 			$this->listProxies();
 		}
