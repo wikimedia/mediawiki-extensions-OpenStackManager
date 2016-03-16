@@ -234,14 +234,11 @@ $wgAutoloadClasses['OpenStackManagerEvent'] = $dir . 'OpenStackManagerEvent.php'
 $wgSpecialPages['NovaInstance'] = 'SpecialNovaInstance';
 $wgSpecialPages['NovaKey'] = 'SpecialNovaKey';
 $wgSpecialPages['NovaProject'] = 'SpecialNovaProject';
-$wgSpecialPages['NovaDomain'] = 'SpecialNovaDomain';
-$wgSpecialPages['NovaAddress'] = 'SpecialNovaAddress';
 $wgSpecialPages['NovaSecurityGroup'] = 'SpecialNovaSecurityGroup';
 $wgSpecialPages['NovaServiceGroup'] = 'SpecialNovaServiceGroup';
 $wgSpecialPages['NovaRole'] = 'SpecialNovaRole';
 $wgSpecialPages['NovaVolume'] = 'SpecialNovaVolume';
 $wgSpecialPages['NovaSudoer'] = 'SpecialNovaSudoer';
-$wgSpecialPages['NovaProxy'] = 'SpecialNovaProxy';
 $wgSpecialPages['NovaPuppetGroup'] = 'SpecialNovaPuppetGroup';
 $wgSpecialPages['NovaResources'] = 'SpecialNovaResources';
 
