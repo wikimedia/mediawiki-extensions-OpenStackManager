@@ -80,7 +80,7 @@
 	"openstackmanager-addadditionaldomain": "Used as link title in Special:NovaDomain.",
 	"openstackmanager-deleteddomain": "Used as success message in Special:NovaDomain.\n\nThis message indicates the domain has been deleted successfully.",
 	"openstackmanager-failedeletedomain": "Failure message when a DNS domain cannot be deleted",
-	"openstackmanager-failedeletedomainduplicates": "Failure message when a DNS domain cannot be deleted",
+	"openstackmanager-failedeletedomainduplicates": "Message when a DNS domain has subdomains or other subentries and thus was not deleted.",
 	"openstackmanager-failedeletedomainnotfound": "Failure message when a DNS domain cannot be deleted",
 	"openstackmanager-domainname": "Used as label for input box and as heading cell in \"resource\" table, in Special:NovaDomain.",
 	"openstackmanager-fqdn": "Used as label for input box and as heading cell in \"resource\" table, in Special:NovaDomain.",
