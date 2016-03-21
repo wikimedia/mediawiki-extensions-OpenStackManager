@@ -224,7 +224,7 @@
 	"openstackmanager-proxyport": "Порт экземпляра",
 	"openstackmanager-novaproxy-frontend": "Новый интерфейс прокси",
 	"openstackmanager-createproxyfailed": "Не удалось создать новый прокси $1.",
-	"openstackmanager-createdproxy": "Успешно создан новый прокси $1 для $2.",
+	"openstackmanager-createdproxy": "Создан новый прокси $1 для $2.",
 	"openstackmanager-backproxylist": "Вернуться к списку прокси",
 	"openstackmanager-puppetallprojects": "Все проекты",
 	"openstackmanager-createpuppetgroup": "Добавить группу",

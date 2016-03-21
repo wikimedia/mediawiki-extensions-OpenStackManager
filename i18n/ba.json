@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Haqmar"
+			"Haqmar",
+			"Айсар"
 		]
 	},
 	"openstackmanager-delete": "юйырға",
@@ -11,5 +12,6 @@
 	"openstackmanager-reboot": "яңынан башлатырға",
 	"openstackmanager-actions": "Ғәмәлдәр",
 	"openstackmanager-notloggedin": "Танылыу кәрәк",
-	"openstackmanager-location": "Урын"
+	"openstackmanager-location": "Урын",
+	"openstackmanager-removedrule": "Ҡағиҙә юйылған."
 }

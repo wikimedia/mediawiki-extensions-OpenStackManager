@@ -84,7 +84,7 @@
 	"openstackmanager-novainstance-global": "Gruppi globali",
 	"openstackmanager-deleteinstancewithname": "Cancella istanza $1 ($2)",
 	"openstackmanager-deleteinstance": "Cancella istanza",
-	"openstackmanager-deleteinstancequestion": "Sei sicuro di voler eliminare l'istanza \"$1\"?",
+	"openstackmanager-deleteinstancequestion": "Sei sicuro di voler cancellare l'istanza \"$1\"?",
 	"openstackmanager-instancelist": "Elenco istanze",
 	"openstackmanager-instancename": "Nome istanza",
 	"openstackmanager-instanceid": "ID istanza",
