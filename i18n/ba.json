@@ -12,6 +12,18 @@
 	"openstackmanager-reboot": "яңынан башлатырға",
 	"openstackmanager-actions": "Ғәмәлдәр",
 	"openstackmanager-notloggedin": "Танылыу кәрәк",
+	"openstackmanager-deleteddomain": "Юйылған домен.",
 	"openstackmanager-location": "Урын",
-	"openstackmanager-removedrule": "Ҡағиҙә юйылған."
+	"openstackmanager-attachedvolume": "Беркетелгән күләм.",
+	"openstackmanager-detachedvolume": "Айырым күләм.",
+	"openstackmanager-deletedkey": "Асҡыс юйыла.",
+	"openstackmanager-deletedproject": "Юйылған проект.",
+	"openstackmanager-addedto": "Өҫтәлгән $1-ҙән $2-гә тиклем.",
+	"openstackmanager-setgroupmembers": "$ 1 төркөмө ҡатнашыусыларын йыйыу",
+	"openstackmanager-setprojects": "Проект фильтрын ҡуйырға.",
+	"openstackmanager-removedhost": "$ 1 юйылған.",
+	"openstackmanager-createdsecuritygroup": "Именлек төркөмө төҙөлгән",
+	"openstackmanager-deletedsecuritygroup": "Именлек төркөмө юйыла",
+	"openstackmanager-removedrule": "Ҡағиҙә юйылған.",
+	"openstackmanager-addedrule": "Ҡағиҙә өҫтәлгән."
 }
