@@ -4,7 +4,8 @@
 			"Chmee2",
 			"Littledogboy",
 			"Mormegil",
-			"Vks"
+			"Vks",
+			"Urbanecm"
 		]
 	},
 	"openstackmanager-desc": "Umožňuje uživatelům spravovat OpenStack Nova a Swift",
@@ -24,7 +25,7 @@
 	"openstackmanager-domainlist": "List domén",
 	"openstackmanager-backdomainlist": "Zpět k seznamu domén",
 	"openstackmanager-addadditionaldomain": "Přidat další doménu.",
-	"openstackmanager-deleteddomain": "Doména úspěšně odstraněna.",
+	"openstackmanager-deleteddomain": "Doména odstraněna.",
 	"openstackmanager-failedeletedomain": "Chyba při mazání domény.",
 	"openstackmanager-domainname": "Název domény",
 	"openstackmanager-fqdn": "Celý název domény",
@@ -46,8 +47,6 @@
 	"openstackmanager-name": "Jméno",
 	"openstackmanager-fingerprint": "Otisk prstu",
 	"openstackmanager-keys": "Klíč",
-	"openstackmanager-configureproject": "Nastavit projekt $1",
-	"openstackmanager-configureproject-volume": "Sdílené úložiště",
 	"openstackmanager-displayquotas-ram": "RAM: $1/$2",
 	"openstackmanager-displayquotas-cores": "Jádra: $1/$2",
 	"openstackmanager-displayquotas-floatingips": "Plovoucí IP: $1/$2",
