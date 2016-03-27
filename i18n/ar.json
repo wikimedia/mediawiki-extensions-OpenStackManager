@@ -2,9 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"أحمد المحمودي",
-			"Meno25"
+			"Meno25",
+			"محمد أحمد عبد الفتاح"
 		]
 	},
+	"openstackmanager-removedhost": "أزال $1.",
 	"openstackmanager-securitygroupdescription": "الوصف",
 	"apihelp-novaaddress-param-project": "المشروع الذي يوجد فيه العنوان",
 	"apihelp-novaaddress-param-region": "المنطقة المرتبطة بالمثال الحالي.",
