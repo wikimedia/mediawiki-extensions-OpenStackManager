@@ -343,14 +343,17 @@ class SpecialNovaProject extends SpecialNova {
 	 */
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOpenStackManagerDefaultSecurityGroupRules;
+		global $wgOpenStackManagerLDAPUsername;
 
 		$project = OpenStackNovaProject::createProject( $formData['projectname'] );
 		if ( ! $project ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-createprojectfailed' );
 			return false;
 		}
+		# Add project creator and novaadmin to the new project.
 		$username = $this->userLDAP->getUsername();
 		$project->addMember( $username );
+		$project->addMember( $wgOpenStackManagerLDAPUsername );
 		$projectId = $project->getId();
 		$members = explode( ',', $formData['member'] );
 		foreach ( $members as $member ) {
@@ -363,6 +366,7 @@ class SpecialNovaProject extends SpecialNova {
 			}
 			// We also need to ensure the project creator is in all roles
 			$role->addMember( $username );
+			$role->addMember( $wgOpenStackManagerLDAPUsername );
 		}
 		# Change the connection to reference this project
 		$this->userNova->setProject( $projectId );
