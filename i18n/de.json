@@ -427,6 +427,7 @@
 	"apihelp-novaaddress-description": "Führt Aktionen auf Nova-IP-Adressen durch.",
 	"apihelp-novaaddress-param-subaction": "Die auszuführende Unteraktion.",
 	"apihelp-novaaddress-param-project": "Das Projekt, in dem die Adresse vorhanden ist.",
+	"apihelp-novaaddress-param-region": "Die Region der derzeit zugewiesenen Instanz.",
 	"apihelp-novainstance-description": "Führt Aktionen auf Instanzen durch.",
 	"apihelp-novainstance-param-subaction": "Die auszuführende Unteraktion.",
 	"apihelp-novainstance-param-instanceid": "Die Nova-Instanz-Kennung, auf der die Unteraktion ausgeführt werden soll.",
