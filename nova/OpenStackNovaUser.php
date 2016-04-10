@@ -242,6 +242,9 @@ class OpenStackNovaUser {
 		}
 
 		$project = OpenStackNovaProject::getProjectByName( $projectname );
+		if ( !$project ) {
+			return false;
+		}
 		$role = OpenStackNovaRole::getProjectRoleByName( $role, $project );
 		if ( ! $role ) {
 			return false;
