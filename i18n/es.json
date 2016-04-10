@@ -10,7 +10,8 @@
 			"Vivaelcelta",
 			"Macofe",
 			"Ryo567",
-			"Matiia"
+			"Matiia",
+			"AlvaroMolina"
 		]
 	},
 	"openstackmanager-desc": "Permite a los usuarios administrar Nova y Swift",
@@ -429,6 +430,8 @@
 	"apihelp-novainstance-param-subaction": "La subacción que realizar.",
 	"apihelp-novainstance-param-project": "El proyecto en el que existe la instancia.",
 	"apihelp-novainstance-param-region": "La región en la que existe la instancia.",
+	"apihelp-novainstance-example-1": "Reiniciar el ID de instancia eb195097-8539-4e66-b0b5-be8347d8caec en el proyecto de pruebas en la región de marte",
+	"apihelp-novainstance-example-2": "Pantalla de salida de la consola para el ID de instancia eb195097-8539-4e66-b0b5-be8347d8caec en el proyecto de pruebas en la región de marte",
 	"apihelp-novaprojectlimits-description": "Obtener información de los proyectos.",
 	"apihelp-novaprojectlimits-param-subaction": "La subacción que realizar.",
 	"apihelp-novaprojectlimits-param-project": "El proyecto sobre el cual realizar la subacción.",
