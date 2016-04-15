@@ -3,7 +3,8 @@
 		"authors": [
 			"Ansumang",
 			"Jnanaranjan Sahu",
-			"Psubhashish"
+			"Psubhashish",
+			"MKar"
 		]
 	},
 	"openstackmanager-desc": "ବ୍ୟବହାରକାରୀମାନଙ୍କୁ Nova ଓ Swift ପରିଚାଳନା କରିବାରେ ସହଯୋଗ କରିଥାଏ",
@@ -88,7 +89,7 @@
 	"openstackmanager-rolename": "ଭୂମିକା ନାମ",
 	"openstackmanager-hostname": "ହୋଷ୍ଟ ନାମ",
 	"openstackmanager-hostnames": "ହୋଷ୍ଟ ନାମସବୁ",
-	"openstackmanager-addhost": "ହୋଷ୍ଟ ନାମ ଯୋଡନ୍ତୁ",
+	"openstackmanager-addhost": "ହୋଷ୍ଟ ନାମ ଯୋଡ଼ନ୍ତୁ",
 	"openstackmanager-removehost": "ହୋଷ୍ଟ ହଟାନ୍ତୁ",
 	"openstackmanager-removehost-action": "(ହୋଷ୍ଟ ନାମ ହଟାନ୍ତୁ)",
 	"openstackmanager-createsecuritygroup": "ସୁରକ୍ଷା ଗୋଷ୍ଠୀ ତିଆରି କରନ୍ତୁ",
