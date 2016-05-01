@@ -461,7 +461,7 @@ class SpecialNovaProject extends SpecialNova {
 		foreach ( $members as $member ) {
 			$user = User::newFromName( $member, 'usable' );
 			if ( !$user ) {
-				$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoadd', $formData['member'], $projectName );
+				$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoadd', $member, $projectName );
 				continue;
 			}
 			$success = $project->addMember( $member );
@@ -471,7 +471,7 @@ class SpecialNovaProject extends SpecialNova {
 					# successfully been added to a project
 					$user->addGroup( 'shell' );
 				}
-				$this->getOutput()->addWikiMsg( 'openstackmanager-addedto', $formData['member'], $projectName );
+				$this->getOutput()->addWikiMsg( 'openstackmanager-addedto', $member, $projectName );
 				if ( class_exists( 'EchoEvent' ) ) {
 					EchoEvent::create( array(
 						'type' => 'osm-projectmembers-add',
@@ -481,7 +481,7 @@ class SpecialNovaProject extends SpecialNova {
 					) );
 				}
 			} else {
-				$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoadd', $formData['member'], $projectName );
+				$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoadd', $member, $projectName );
 			}
 		}
 
