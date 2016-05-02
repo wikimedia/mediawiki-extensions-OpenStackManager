@@ -13,7 +13,6 @@ class OpenStackNovaUpdateInstancePages extends Maintenance {
 	}
 
 	public function execute() {
-		global $wgAuth;
 		global $wgOpenStackManagerLDAPUsername;
 		global $wgOpenStackManagerLDAPUserPassword;
 
@@ -35,7 +34,8 @@ class OpenStackNovaUpdateInstancePages extends Maintenance {
 				$userNova->setRegion( $region );
 				$instances = $userNova->getInstances();
 				if ( ! $instances ) {
-					$wgAuth->printDebug( "No instance, continuing", NONSENSITIVE );
+					$ldap = LdapAuthenticationPlugin::getInstance();
+					$ldap->printDebug( "No instance, continuing", NONSENSITIVE );
 					continue;
 				}
 				foreach ( $instances as $instance ) {

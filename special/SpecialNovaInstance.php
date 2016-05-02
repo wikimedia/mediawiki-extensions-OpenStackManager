@@ -641,7 +641,6 @@ class SpecialNovaInstance extends SpecialNova {
 	 */
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgUser;
-		global $wgAuth;
 
 		$domain = OpenStackNovaDomain::getDomainByName( $formData['region'] );
 		$project = $formData['project'];

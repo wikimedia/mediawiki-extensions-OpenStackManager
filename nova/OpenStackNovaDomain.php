@@ -29,7 +29,7 @@ class OpenStackNovaDomain {
 	 * @return void
 	 */
 	function fetchDomainInfo() {
-		global $wgAuth, $wgMemc;
+		global $wgMemc;
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
 
 		$key = wfMemcKey( 'openstackmanager', 'domaininfo', $this->domainname );
@@ -39,9 +39,10 @@ class OpenStackNovaDomain {
 		if ( is_array( $domainInfo ) ) {
 			$this->domainInfo = $domainInfo;
 		} else {
-			$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN,
+			$ldap = LdapAuthenticationPlugin::getInstance();
+			$result = LdapAuthenticationPlugin::ldap_search( $ldap->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN,
 									'(dc=' . $this->domainname . ')' );
-			$this->domainInfo = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
+			$this->domainInfo = LdapAuthenticationPlugin::ldap_get_entries( $ldap->ldapconn, $result );
 			$wgMemc->set( $key, $this->domainInfo, 3600 * 24 );
 		}
 		if ( $this->domainInfo ) {
@@ -89,17 +90,16 @@ class OpenStackNovaDomain {
 	 * @return bool
 	 */
 	function updateSOA() {
-		global $wgAuth;
-
+		$ldap = LdapAuthenticationPlugin::getInstance();
 		$domain = array();
 		$domain['soarecord'] = OpenStackNovaDomain::generateSOA();
-		$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->domainDN, $domain );
+		$success = LdapAuthenticationPlugin::ldap_modify( $ldap->ldapconn, $this->domainDN, $domain );
 		if ( $success ) {
-			$wgAuth->printDebug( "Successfully modified soarecord for " . $this->domainDN, NONSENSITIVE );
+			$ldap->printDebug( "Successfully modified soarecord for " . $this->domainDN, NONSENSITIVE );
 			$this->fetchDomainInfo();
 			return true;
 		} else {
-			$wgAuth->printDebug( "Failed to modify soarecord for " . $this->domainDN, NONSENSITIVE );
+			$ldap->printDebug( "Failed to modify soarecord for " . $this->domainDN, NONSENSITIVE );
 			return false;
 		}
 	}
@@ -112,9 +112,9 @@ class OpenStackNovaDomain {
 	 * @return array of OpenNovaDomain
 	 */
 	static function getAllDomains( $type='all' ) {
-		global $wgAuth;
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
 
+		$ldap = LdapAuthenticationPlugin::getInstance();
 		OpenStackNovaLdapConnection::connect();
 
 		$domains = array();
@@ -125,9 +125,9 @@ class OpenStackNovaDomain {
 		} else {
 			$query = '(soarecord=*)';
 		}
-		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, $query );
+		$result = LdapAuthenticationPlugin::ldap_search( $ldap->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, $query );
 		if ( $result ) {
-			$entries = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
+			$entries = LdapAuthenticationPlugin::ldap_get_entries( $ldap->ldapconn, $result );
 			if ( $entries ) {
 				# First entry is always a count
 				array_shift( $entries );
@@ -167,14 +167,14 @@ class OpenStackNovaDomain {
 	 * @return null|OpenStackNovaDomain
 	 */
 	static function getDomainByHostIP( $ip ) {
-		global $wgAuth;
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
 
+		$ldap = LdapAuthenticationPlugin::getInstance();
 		OpenStackNovaLdapConnection::connect();
 
-		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN,
+		$result = LdapAuthenticationPlugin::ldap_search( $ldap->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN,
 								'(arecord=' . $ip . ')' );
-		$hostInfo = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
+		$hostInfo = LdapAuthenticationPlugin::ldap_get_entries( $ldap->ldapconn, $result );
 		if ( $hostInfo['count'] == "0" ) {
 			return null;
 		}
@@ -221,9 +221,9 @@ class OpenStackNovaDomain {
 	 * @return null|OpenStackNovaDomain
 	 */
 	static function createDomain( $domainname, $fqdn, $location ) {
-		global $wgAuth;
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
 
+		$ldap = LdapAuthenticationPlugin::getInstance();
 		OpenStackNovaLdapConnection::connect();
 
 		$soa = OpenStackNovaDomain::generateSOA();
@@ -239,12 +239,12 @@ class OpenStackNovaDomain {
 		}
 		$dn = 'dc=' . $domainname . ',' . $wgOpenStackManagerLDAPInstanceBaseDN;
 
-		$success = LdapAuthenticationPlugin::ldap_add( $wgAuth->ldapconn, $dn, $domain );
+		$success = LdapAuthenticationPlugin::ldap_add( $ldap->ldapconn, $dn, $domain );
 		if ( $success ) {
-			$wgAuth->printDebug( "Successfully added domain $domainname", NONSENSITIVE );
+			$ldap->printDebug( "Successfully added domain $domainname", NONSENSITIVE );
 			return new OpenStackNovaDomain( $domainname );
 		} else {
-			$wgAuth->printDebug( "Failed to add domain $domainname", NONSENSITIVE );
+			$ldap->printDebug( "Failed to add domain $domainname", NONSENSITIVE );
 			return null;
 		}
 	}
@@ -258,31 +258,30 @@ class OpenStackNovaDomain {
 	 * @return bool
 	 */
 	static function deleteDomain( $domainname ) {
-		global $wgAuth;
-
+		$ldap = LdapAuthenticationPlugin::getInstance();
 		OpenStackNovaLdapConnection::connect();
 
 		$domain = new OpenStackNovaDomain( $domainname );
 		if ( ! $domain ) {
-			$wgAuth->printDebug( "Domain $domainname does not exist", NONSENSITIVE );
+			$ldap->printDebug( "Domain $domainname does not exist", NONSENSITIVE );
 			return array( false, 'openstackmanager-failedeletedomainnotfound' );
 		}
 		$dn = $domain->domainDN;
 
 		# Domains can have records as sub entries. If sub-entries exist, fail.
-		$result = LdapAuthenticationPlugin::ldap_list( $wgAuth->ldapconn, $dn, 'objectclass=*' );
-		$hosts = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
+		$result = LdapAuthenticationPlugin::ldap_list( $ldap->ldapconn, $dn, 'objectclass=*' );
+		$hosts = LdapAuthenticationPlugin::ldap_get_entries( $ldap->ldapconn, $result );
 		if ( $hosts['count'] != "0" ) {
-			$wgAuth->printDebug( "Failed to delete domain $domainname, since it had sub entries", NONSENSITIVE );
+			$ldap->printDebug( "Failed to delete domain $domainname, since it had sub entries", NONSENSITIVE );
 			return array( false, 'openstackmanager-failedeletedomainduplicates' );
 		}
 
-		$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $dn );
+		$success = LdapAuthenticationPlugin::ldap_delete( $ldap->ldapconn, $dn );
 		if ( $success ) {
-			$wgAuth->printDebug( "Successfully deleted domain $domainname", NONSENSITIVE );
+			$ldap->printDebug( "Successfully deleted domain $domainname", NONSENSITIVE );
 			return array( true, '' );
 		} else {
-			$wgAuth->printDebug( "Failed to delete domain $domainname, since it had sub entries", NONSENSITIVE );
+			$ldap->printDebug( "Failed to delete domain $domainname, since it had sub entries", NONSENSITIVE );
 			return array( false, 'openstackmanager-failedeletedomain' );
 		}
 	}
