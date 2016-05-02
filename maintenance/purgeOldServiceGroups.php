@@ -14,8 +14,8 @@ class OpenStackNovaPurgeOldServiceGroups extends Maintenance {
 
 	public function execute() {
 		global $wgOpenStackManagerLDAPUsername;
-		global $wgAuth;
 
+		$ldap = LdapAuthenticationPlugin::getInstance();
 		$user     = new OpenStackNovaUser( $wgOpenStackManagerLDAPUsername );
 		$projects = OpenStackNovaProject::getAllProjects();
 
@@ -37,20 +37,20 @@ class OpenStackNovaPurgeOldServiceGroups extends Maintenance {
 			$oldServiceGroupOUDN = 'ou=groups,' . $project->getProjectDN();
 			$oldServiceUserOUDN = 'ou=people,' . $project->getProjectDN();
 
-			$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn,
+			$result = LdapAuthenticationPlugin::ldap_search( $ldap->ldapconn,
 				$oldServiceGroupOUDN,
 				'(objectclass=groupofnames)' );
 
 			if ( $result ) {
 				$this->serviceGroups = array();
-				$groupList = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
+				$groupList = LdapAuthenticationPlugin::ldap_get_entries( $ldap->ldapconn, $result );
 				if ( isset( $groupList ) ) {
 					array_shift( $groupList );
 					foreach ( $groupList as $groupEntry ) {
 						$deleteme = "cn=" . $groupEntry['cn'][0] . "," . $oldServiceGroupOUDN;
 						print "needs deleting: " . $deleteme . "...";
 						$attempt_count++;
-						$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $deleteme );
+						$success = LdapAuthenticationPlugin::ldap_delete( $ldap->ldapconn, $deleteme );
 						if ( $success ) {
 							$synced_count++;
 							print( "done.\n");
@@ -62,20 +62,20 @@ class OpenStackNovaPurgeOldServiceGroups extends Maintenance {
 				}
 			}
 
-			$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn,
+			$result = LdapAuthenticationPlugin::ldap_search( $ldap->ldapconn,
 				$oldServiceUserOUDN,
 				'(objectclass=person)' );
 
 			if ( $result ) {
 				$this->serviceGroups = array();
-				$groupList = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
+				$groupList = LdapAuthenticationPlugin::ldap_get_entries( $ldap->ldapconn, $result );
 				if ( isset( $groupList ) ) {
 					array_shift( $groupList );
 					foreach ( $groupList as $groupEntry ) {
 						$deleteme = "uid=" . $groupEntry['cn'][0] . "," . $oldServiceUserOUDN;
 						print "user needs deleting: " . $deleteme . "...";
 						$attempt_count++;
-						$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $deleteme );
+						$success = LdapAuthenticationPlugin::ldap_delete( $ldap->ldapconn, $deleteme );
 						if ( $success ) {
 							$synced_count++;
 							print( "done.\n");
@@ -90,7 +90,7 @@ class OpenStackNovaPurgeOldServiceGroups extends Maintenance {
 			$deleteme = $oldServiceGroupOUDN;
 			print "ou needs deleting: " . $deleteme . "...";
 			$attempt_count++;
-			$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $deleteme );
+			$success = LdapAuthenticationPlugin::ldap_delete( $ldap->ldapconn, $deleteme );
 			if ( $success ) {
 				$synced_count++;
 				print( "done.\n");
@@ -102,7 +102,7 @@ class OpenStackNovaPurgeOldServiceGroups extends Maintenance {
 			$deleteme = $oldServiceUserOUDN;
 			print "ou needs deleting: " . $deleteme . "...";
 			$attempt_count++;
-			$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $deleteme );
+			$success = LdapAuthenticationPlugin::ldap_delete( $ldap->ldapconn, $deleteme );
 			if ( $success ) {
 				$synced_count++;
 				print( "done.\n");

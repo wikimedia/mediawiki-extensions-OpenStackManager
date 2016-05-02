@@ -9,17 +9,17 @@
 
 class OpenStackNovaLdapConnection {
 	/**
-	 * Connect to LDAP as the open stack manager account using wgAuth
+	 * Connect to LDAP as the open stack manager account using LdapAuthenticationPlugin
 	 */
 	static function connect() {
-		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPDomain;
 
 		// Only reconnect/rebind if we aren't alredy bound
-		if ( $wgAuth->boundAs !== $wgOpenStackManagerLDAPUser ) {
-			$wgAuth->connect( $wgOpenStackManagerLDAPDomain );
-			$wgAuth->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
+		$ldap = LdapAuthenticationPlugin::getInstance();
+		if ( $ldap->boundAs !== $wgOpenStackManagerLDAPUser ) {
+			$ldap->connect( $wgOpenStackManagerLDAPDomain );
+			$ldap->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
 		}
 	}
 }

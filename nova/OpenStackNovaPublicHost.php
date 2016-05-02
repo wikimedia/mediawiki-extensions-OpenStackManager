@@ -18,8 +18,6 @@ class OpenStackNovaPublicHost extends OpenStackNovaHost {
 	 * @param  $ip
 	 */
 	function __construct( $ip ) {
-		global $wgAuth;
-
 		$this->domainCache = null;
 		$this->ip = $ip;
 		OpenStackNovaLdapConnection::connect();
@@ -32,12 +30,12 @@ class OpenStackNovaPublicHost extends OpenStackNovaHost {
 	 * @return void
 	 */
 	function fetchHostInfo() {
-		global $wgAuth;
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
 
-		$this->ip = $wgAuth->getLdapEscapedString( $this->ip );
-		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, '(dc=' . $this->ip . ')' );
-		$this->hostInfo = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
+		$ldap = LdapAuthenticationPlugin::getInstance();
+		$this->ip = $ldap->getLdapEscapedString( $this->ip );
+		$result = LdapAuthenticationPlugin::ldap_search( $ldap->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, '(dc=' . $this->ip . ')' );
+		$this->hostInfo = LdapAuthenticationPlugin::ldap_get_entries( $ldap->ldapconn, $result );
 		if ( $this->hostInfo["count"] == "0" ) {
 			$this->hostInfo = null;
 		} else {
@@ -51,12 +49,11 @@ class OpenStackNovaPublicHost extends OpenStackNovaHost {
 	 * @return OpenStackNovaDomain
 	 */
 	function getDomain() {
-		global $wgAuth;
-
 		if ( ! $this->domainCache ) {
 			$this->domainCache = OpenStackNovaDomain::getDomainByHostIP( $this->ip );
 			if (! $this->domainCache ) {
-		    		$wgAuth->printDebug( "Looked up domain for ip $this->ip but domainCache is still empty.", NONSENSITIVE );
+				$ldap = LdapAuthenticationPlugin::getInstance();
+				$ldap->printDebug( "Looked up domain for ip $this->ip but domainCache is still empty.", NONSENSITIVE );
 			}
 		}
 		return $this->domainCache;

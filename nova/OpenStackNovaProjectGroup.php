@@ -47,15 +47,15 @@ class OpenStackNovaProjectGroup  {
 	 * @return void
 	 */
 	function fetchProjectGroupInfo( $refresh=true ) {
-		global $wgAuth;
 		global $wgOpenStackManagerLDAPProjectGroupBaseDN;
 
 		if ( $this->loaded and !$refresh ) {
 			return;
 		}
-		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPProjectGroupBaseDN,
+		$ldap = LdapAuthenticationPlugin::getInstance();
+		$result = LdapAuthenticationPlugin::ldap_search( $ldap->ldapconn, $wgOpenStackManagerLDAPProjectGroupBaseDN,
 								'(&(cn=' . $this->getProjectGroupName() . ')(objectclass=groupofnames))' );
-		$this->projectGroupInfo = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
+		$this->projectGroupInfo = LdapAuthenticationPlugin::ldap_get_entries( $ldap->ldapconn, $result );
 		if ( !isset( $this->projectGroupInfo[0] ) ) {
 			$this->loaded = false;
 			return;
@@ -82,20 +82,20 @@ class OpenStackNovaProjectGroup  {
 	 * @return array
 	 */
 	function getMembers() {
-		global $wgAuth;
 		global $wgOpenStackManagerLDAPDomain;
 
 		$members = array();
 		if ( isset( $this->projectGroupInfo[0]['member'] ) ) {
+			$ldap = LdapAuthenticationPlugin::getInstance();
 			$memberdns = $this->projectGroupInfo[0]['member'];
 			array_shift( $memberdns );
 			foreach ( $memberdns as $memberdn ) {
-				$searchattr = $wgAuth->getConf( 'SearchAttribute', $wgOpenStackManagerLDAPDomain );
+				$searchattr = $ldap->getConf( 'SearchAttribute', $wgOpenStackManagerLDAPDomain );
 				if ( $searchattr ) {
 					// We need to look up the search attr from the user entry
 					// this is expensive, but must be done.
 					// TODO: memcache this
-					$userInfo = $wgAuth->getUserInfoStateless( $memberdn );
+					$userInfo = $ldap->getUserInfoStateless( $memberdn );
 					$members[] = $userInfo[0][$searchattr][0];
 				} else {
 
@@ -132,19 +132,18 @@ class OpenStackNovaProjectGroup  {
 	 * @return bool
 	 */
 	function deleteMember( $username ) {
-		global $wgAuth;
-
 		if ( isset( $this->projectGroupInfo[0]['member'] ) ) {
+			$ldap = LdapAuthenticationPlugin::getInstance();
 			$members = $this->projectGroupInfo[0]['member'];
 			array_shift( $members );
 			$user = new OpenStackNovaUser( $username );
 			if ( ! $user->userDN ) {
-				$wgAuth->printDebug( "Failed to find userDN for username $username in OpenStackNovaProjectGroup deleteMember.", NONSENSITIVE );
+				$ldap->printDebug( "Failed to find userDN for username $username in OpenStackNovaProjectGroup deleteMember.", NONSENSITIVE );
 				return false;
 			}
 			$index = array_search( $user->userDN, $members );
 			if ( $index === false ) {
-				$wgAuth->printDebug( "Failed to find userDN " . $user->userDN . " in in ProjectGroup " . $this->projectGroupName . " member list", NONSENSITIVE );
+				$ldap->printDebug( "Failed to find userDN " . $user->userDN . " in in ProjectGroup " . $this->projectGroupName . " member list", NONSENSITIVE );
 				return false;
 			}
 			unset( $members[$index] );
@@ -153,13 +152,13 @@ class OpenStackNovaProjectGroup  {
 			foreach ( $members as $member ) {
 				$values['member'][] = $member;
 			}
-			$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->projectGroupDN, $values );
+			$success = LdapAuthenticationPlugin::ldap_modify( $ldap->ldapconn, $this->projectGroupDN, $values );
 			if ( $success ) {
 				$this->fetchProjectGroupInfo( true );
-				$wgAuth->printDebug( "Successfully removed $user->userDN from $this->projectGroupDN", NONSENSITIVE );
+				$ldap->printDebug( "Successfully removed $user->userDN from $this->projectGroupDN", NONSENSITIVE );
 				return true;
 			} else {
-				$wgAuth->printDebug( "Failed to remove $user->userDN from $this->projectGroupDN: " . ldap_error($wgAuth->ldapconn), NONSENSITIVE );
+				$ldap->printDebug( "Failed to remove $user->userDN from $this->projectGroupDN: " . ldap_error($ldap->ldapconn), NONSENSITIVE );
 				return false;
 			}
 		} else {
@@ -175,17 +174,16 @@ class OpenStackNovaProjectGroup  {
 	 * @return bool
 	 */
 	function setMembers( $memberDNs ) {
-		global $wgAuth;
-
+		$ldap = LdapAuthenticationPlugin::getInstance();
 		$values = array( 'member' => $memberDNs );
-		$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->projectGroupDN, $values );
+		$success = LdapAuthenticationPlugin::ldap_modify( $ldap->ldapconn, $this->projectGroupDN, $values );
 
 		if ( $success ) {
 			// reload the ProjectGroup from LDAP.
 			$this->fetchProjectGroupInfo( true );
-			$wgAuth->printDebug( "Successfully set " . count( $memberDNs ) . " members to $this->projectGroupDN", NONSENSITIVE );
+			$ldap->printDebug( "Successfully set " . count( $memberDNs ) . " members to $this->projectGroupDN", NONSENSITIVE );
 		} else {
-			$wgAuth->printDebug( "Failed to set " . count( $memberDNs ) . " members to $this->projectGroupDN: " . ldap_error( $wgAuth->ldapconn ) . ". [" . join( ";", $memberDNs ) . "]", NONSENSITIVE );
+			$ldap->printDebug( "Failed to set " . count( $memberDNs ) . " members to $this->projectGroupDN: " . ldap_error( $ldap->ldapconn ) . ". [" . join( ";", $memberDNs ) . "]", NONSENSITIVE );
 		}
 
 		return $success;
@@ -198,8 +196,7 @@ class OpenStackNovaProjectGroup  {
 	 * @return bool
 	 */
 	function addMember( $username ) {
-		global $wgAuth;
-
+		$ldap = LdapAuthenticationPlugin::getInstance();
 		$members = array();
 		if ( isset( $this->projectGroupInfo[0]['member'] ) ) {
 			$members = $this->projectGroupInfo[0]['member'];
@@ -207,19 +204,19 @@ class OpenStackNovaProjectGroup  {
 		}
 		$user = new OpenStackNovaUser( $username );
 		if ( ! $user->userDN ) {
-			$wgAuth->printDebug( "Failed to find userDN in addMember", NONSENSITIVE );
+			$ldap->printDebug( "Failed to find userDN in addMember", NONSENSITIVE );
 			return false;
 		}
 		$members[] = $user->userDN;
 		$values = array();
 		$values['member'] = $members;
-		$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->projectGroupDN, $values );
+		$success = LdapAuthenticationPlugin::ldap_modify( $ldap->ldapconn, $this->projectGroupDN, $values );
 		if ( $success ) {
 			$this->fetchProjectGroupInfo( true );
-			$wgAuth->printDebug( "Successfully added $user->userDN to $this->projectGroupDN", NONSENSITIVE );
+			$ldap->printDebug( "Successfully added $user->userDN to $this->projectGroupDN", NONSENSITIVE );
 			return true;
 		} else {
-			$wgAuth->printDebug( "Failed to add $user->userDN to $this->projectGroupDN: " . ldap_error($wgAuth->ldapconn), NONSENSITIVE );
+			$ldap->printDebug( "Failed to add $user->userDN to $this->projectGroupDN: " . ldap_error($ldap->ldapconn), NONSENSITIVE );
 			return false;
 		}
 	}
@@ -233,18 +230,18 @@ class OpenStackNovaProjectGroup  {
 	 * @return bool
 	 */
 	static function createProjectGroup( $projectname ) {
-		global $wgAuth;
 		global $wgOpenStackManagerLDAPProjectGroupBaseDN;
 		global $wgOpenStackManagerLDAPUsername;
 
+		$ldap = LdapAuthenticationPlugin::getInstance();
 		OpenStackNovaLdapConnection::connect();
 
 		$user = new OpenStackNovaUser( $wgOpenStackManagerLDAPUsername );
 
-                if ( ! $user->userDN ) {
-                        $wgAuth->printDebug( "Failed to find userDN in createProjectGroup", NONSENSITIVE );
-                        return false;
-                }
+		if ( ! $user->userDN ) {
+			$ldap->printDebug( "Failed to find userDN in createProjectGroup", NONSENSITIVE );
+			return false;
+		}
 
 		$projectGroupName = self::$prefix . $projectname;
 		$projectGroup = array();
@@ -252,17 +249,17 @@ class OpenStackNovaProjectGroup  {
 		$projectGroup['objectclass'][] = 'posixgroup';
 		$projectGroup['objectclass'][] = 'groupofnames';
 		$projectGroup['cn'] = $projectGroupName;
-		$projectGroup['gidnumber'] = OpenStackNovaUser::getNextIdNumber( $wgAuth, 'gidnumber' );
+		$projectGroup['gidnumber'] = OpenStackNovaUser::getNextIdNumber( $ldap, 'gidnumber' );
 		$projectGroupDN = 'cn=' . $projectGroupName . ',' . $wgOpenStackManagerLDAPProjectGroupBaseDN;
 
 		# TODO: If project group creation fails we need to be able to fail gracefully
-		$success = LdapAuthenticationPlugin::ldap_add( $wgAuth->ldapconn, $projectGroupDN, $projectGroup );
+		$success = LdapAuthenticationPlugin::ldap_add( $ldap->ldapconn, $projectGroupDN, $projectGroup );
 		if ( $success ) {
-			$wgAuth->printDebug( "Successfully added project group $projectGroupName", NONSENSITIVE );
+			$ldap->printDebug( "Successfully added project group $projectGroupName", NONSENSITIVE );
 		}
 		else {
-			$wgAuth->printDebug( "Failed to add project group $projectGroupName: " . ldap_error( $wgAuth->ldapconn ), NONSENSITIVE );
-                        return false;
+			$ldap->printDebug( "Failed to add project group $projectGroupName: " . ldap_error( $ldap->ldapconn ), NONSENSITIVE );
+			return false;
 		}
 		return $success;
 	}
@@ -274,19 +271,19 @@ class OpenStackNovaProjectGroup  {
 	 * @return bool
 	 */
 	static function deleteProjectGroup( $projectname ) {
-		global $wgAuth;
 		global $wgOpenStackManagerLDAPProjectGroupBaseDN;
 
+		$ldap = LdapAuthenticationPlugin::getInstance();
 		OpenStackNovaLdapConnection::connect();
 
 		$projectGroupName = self::$prefix . $projectname;
 		$projectGroupDN = 'cn=' . $projectGroupName . ',' . $wgOpenStackManagerLDAPProjectGroupBaseDN;
 
-		$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $projectGroupDN );
+		$success = LdapAuthenticationPlugin::ldap_delete( $ldap->ldapconn, $projectGroupDN );
 		if ( $success ){
-			$wgAuth->printDebug( "Successfully deleted project group $projectGroupDN", NONSENSITIVE );
+			$ldap->printDebug( "Successfully deleted project group $projectGroupDN", NONSENSITIVE );
 		} else {
-			$wgAuth->printDebug( "Failed to delete project group $projectGroupDN: " . ldap_error( $wgAuth->ldapconn ), NONSENSITIVE );
+			$ldap->printDebug( "Failed to delete project group $projectGroupDN: " . ldap_error( $ldap->ldapconn ), NONSENSITIVE );
 		}
 		return $success;
 	}

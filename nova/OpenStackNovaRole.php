@@ -91,8 +91,7 @@ class OpenStackNovaRole {
 	 * @return bool
 	 */
 	function deleteMember( $username ) {
-		global $wgAuth;
-
+		$ldap = LdapAuthenticationPlugin::getInstance();
 		$user = new OpenStackNovaUser( $username );
 		$userid = $user->getUid();
 		$controller = OpenstackNovaProject::getController();
@@ -101,10 +100,10 @@ class OpenStackNovaRole {
 								$userid ) ) {
 			$user = new OpenStackNovaUser( $userid );
 			$this->deleteMemcKeys( $user );
-			$wgAuth->printDebug( "Successfully removed $userid from role $this->rolename", NONSENSITIVE );
+			$ldap->printDebug( "Successfully removed $userid from role $this->rolename", NONSENSITIVE );
 			return true;
 		} else {
-			$wgAuth->printDebug( "Failed to remove $userid from role $this->rolename", NONSENSITIVE );
+			$ldap->printDebug( "Failed to remove $userid from role $this->rolename", NONSENSITIVE );
 			return false;
 		}
 	}
@@ -114,20 +113,19 @@ class OpenStackNovaRole {
 	 * @return bool
 	 */
 	function addMember( $username ) {
-		global $wgAuth;
-
+		$ldap = LdapAuthenticationPlugin::getInstance();
 		$user = new OpenStackNovaUser( $username );
 		$userid = $user->getUid();
-                $controller = OpenstackNovaProject::getController();
+		$controller = OpenstackNovaProject::getController();
 		if ( $controller->grantRoleForProjectAndUser( $this->roleid,
 								$this->project->getId(),
 								$userid ) ) {
-			$wgAuth->printDebug( "Successfully added $userid to $this->rolename", NONSENSITIVE );
+			$ldap->printDebug( "Successfully added $userid to $this->rolename", NONSENSITIVE );
 			$user = new OpenStackNovaUser( $userid );
 			$this->deleteMemcKeys( $user );
 			return true;
 		} else {
-			$wgAuth->printDebug( "Failed to add $userid to role $this->rolename", NONSENSITIVE );
+			$ldap->printDebug( "Failed to add $userid to role $this->rolename", NONSENSITIVE );
 			return false;
 		}
 	}
