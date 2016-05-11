@@ -181,8 +181,7 @@ class OpenStackNovaController {
 	 * @return array
 	 */
 	function getProxiesForProject() {
-		global $wgAuth;
-
+		$ldap = LdapAuthenticationPlugin::getInstance();
 		$proxyarr = array();
 		$ret = $this->restCall( 'proxy', '/mapping', 'GET' );
 		$proxies = self::_get_property( $ret['body'], 'routes' );
@@ -194,14 +193,14 @@ class OpenStackNovaController {
 			$backends = self::_get_property( $proxy, 'backends' );
 
 			if ( (count( $backends ) ) > 1 ) {
-				$wgAuth->printDebug( "Warning!  proxy $domain has multiple backends but we only support one backend per proxy.", NONSENSITIVE );
+				$ldap->printDebug( "Warning!  proxy $domain has multiple backends but we only support one backend per proxy.", NONSENSITIVE );
 			}
 			$backend = $backends[0];
 			$backendarray = explode(  ':', $backends[0] );
 
 			if ( strpos( $backend, "http" ) === 0 ) {
 				if ( ( count( $backendarray ) < 2 ) or ( count( $backendarray ) > 3 ) ) {
-					$wgAuth->printDebug( "Unable to parse backend $backend, discarding.", NONSENSITIVE );
+					$ldap->printDebug( "Unable to parse backend $backend, discarding.", NONSENSITIVE );
 				} elseif ( count( $backendarray ) == 2 ) {
 					$backendHost = $backend;
 					$backendPort = null;
@@ -211,7 +210,7 @@ class OpenStackNovaController {
 				}
 			} else {
 				if ( ( count( $backendarray ) < 1 ) or ( count( $backendarray ) > 2 ) ) {
-					$wgAuth->printDebug( "Unable to parse backend $backend, discarding.", NONSENSITIVE );
+					$ldap->printDebug( "Unable to parse backend $backend, discarding.", NONSENSITIVE );
 				} elseif ( count( $backendarray ) == 1 ) {
 					$backendHost = $backend;
 					$backendPort = null;
@@ -238,7 +237,7 @@ class OpenStackNovaController {
 	 */
 	function _getAdminToken() {
 		global $wgOpenStackManagerLDAPUsername, $wgOpenStackManagerLDAPUserPassword;
-		global $wgOpenStackManagerProjectId, $wgAuth;
+		global $wgOpenStackManagerProjectId;
 		global $wgMemc;
 
 		if ( $this->admintoken ) {
@@ -264,7 +263,8 @@ class OpenStackNovaController {
 		);
 		$ret = $this->restCall( 'identity', '/tokens', 'POST', $data, $headers );
 		if ( $ret['code'] !== 200 ) {
-			$wgAuth->printDebug( "OpenStackNovaController::_getAdminToken return code: " . $ret['code'], NONSENSITIVE );
+			$ldap = LdapAuthenticationPlugin::getInstance();
+			$ldap->printDebug( "OpenStackNovaController::_getAdminToken return code: " . $ret['code'], NONSENSITIVE );
 			return "";
 		}
 
@@ -962,10 +962,10 @@ class OpenStackNovaController {
 	}
 
 	function authenticate( $username, $password ) {
-		global $wgAuth;
 		global $wgMemc;
 
-		$wgAuth->printDebug( "Entering OpenStackNovaController::authenticate", NONSENSITIVE );
+		$ldap = LdapAuthenticationPlugin::getInstance();
+		$ldap->printDebug( "Entering OpenStackNovaController::authenticate", NONSENSITIVE );
 		$headers = array(
 			'Accept: application/json',
 			'Content-Type: application/json',
@@ -973,7 +973,7 @@ class OpenStackNovaController {
 		$data = array( 'auth' => array( 'passwordCredentials' => array( 'username' => $username, 'password' => $password ) ) );
 		$ret = $this->restCall( 'identity', '/tokens', 'POST', $data, $headers );
 		if ( $ret['code'] !== 200 ) {
-			$wgAuth->printDebug( "OpenStackNovaController::authenticate return code: " . $ret['code'], NONSENSITIVE );
+			$ldap->printDebug( "OpenStackNovaController::authenticate return code: " . $ret['code'], NONSENSITIVE );
 			return '';
 		}
 		$user = $ret['body'];
@@ -1077,11 +1077,11 @@ class OpenStackNovaController {
 	}
 
 	function restCall( $service, $path, $method, $data = array(), $authHeaders='', $retrying=false ) {
-		global $wgAuth;
 		global $wgOpenStackManagerNovaIdentityURI;
 		global $wgOpenStackManagerNovaIdentityV3URI;
 		global $wgMemc;
 
+		$ldap = LdapAuthenticationPlugin::getInstance();
 		if ( $authHeaders ) {
 			$headers = $authHeaders;
 		} else {
@@ -1104,7 +1104,7 @@ class OpenStackNovaController {
 			}
 		}
 		$fullurl = $endpointURL . $path;
-		$wgAuth->printDebug( "OpenStackNovaController::restCall fullurl: " . $fullurl, NONSENSITIVE );
+		$ldap->printDebug( "OpenStackNovaController::restCall fullurl: " . $fullurl, NONSENSITIVE );
 		$handle = curl_init();
 		switch( $method ) {
 		case 'GET':

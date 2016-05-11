@@ -26,25 +26,26 @@ class OpenStackNovaUser {
 	 * @return void
 	 */
 	function fetchUserInfo() {
-		global $wgAuth, $wgUser;
+		global $wgUser;
 
+		$ldap = LdapAuthenticationPlugin::getInstance();
 		if ( $this->username ) {
-			$this->userDN = $wgAuth->getUserDN( strtolower( $this->username ) );
-			$wgAuth->printDebug( "Fetching userdn using username: $this->userDN ", NONSENSITIVE );
+			$this->userDN = $ldap->getUserDN( strtolower( $this->username ) );
+			$ldap->printDebug( "Fetching userdn using username: $this->userDN ", NONSENSITIVE );
 			if ( ! $this->userDN ) {
-				$this->userDN = $wgAuth->getUserDN( strtolower( $this->username ), false, "uid" );
-				$wgAuth->printDebug( "Fetching userdn using shell name: $this->userDN ", NONSENSITIVE );
+				$this->userDN = $ldap->getUserDN( strtolower( $this->username ), false, "uid" );
+				$ldap->printDebug( "Fetching userdn using shell name: $this->userDN ", NONSENSITIVE );
 
 				# We want the actual username, not the id that was passed in.
-				$this->userInfo = $wgAuth->userInfo;
+				$this->userInfo = $ldap->userInfo;
 				$this->username = $this->userInfo[0]['cn'][0];
 			}
 		} else {
-			$this->userDN = $wgAuth->getUserDN( strtolower( $wgUser->getName() ) );
+			$this->userDN = $ldap->getUserDN( strtolower( $wgUser->getName() ) );
 			$this->username = $wgUser->getName();
-			$wgAuth->printDebug( "Fetching userdn using wiki name: " . $wgUser->getName(), NONSENSITIVE );
+			$ldap->printDebug( "Fetching userdn using wiki name: " . $wgUser->getName(), NONSENSITIVE );
 		}
-		$this->userInfo = $wgAuth->userInfo;
+		$this->userInfo = $ldap->userInfo;
 	}
 
 	/**
@@ -133,8 +134,6 @@ class OpenStackNovaUser {
 	 * @return array
 	 */
 	function getKeypairs() {
-		global $wgAuth;
-
 		$this->fetchUserInfo();
 		if ( isset( $this->userInfo[0]['sshpublickey'] ) ) {
 			$keys = $this->userInfo[0]['sshpublickey'];
@@ -146,7 +145,8 @@ class OpenStackNovaUser {
 			}
 			return $keypairs;
 		} else {
-			$wgAuth->printDebug( "No keypairs found", NONSENSITIVE );
+			$ldap = LdapAuthenticationPlugin::getInstance();
+			$ldap->printDebug( "No keypairs found", NONSENSITIVE );
 			return array();
 		}
 	}
@@ -174,7 +174,7 @@ class OpenStackNovaUser {
 	 * @return array of rolenames
 	 */
 	function getRoles() {
-		global $wgAuth, $wgMemc;
+		global $wgMemc;
 		global $wgOpenStackManagerLDAPProjectBaseDN;
 
 		$key = wfMemcKey( 'openstackmanager', 'roles', $this->username );
@@ -206,7 +206,6 @@ class OpenStackNovaUser {
 	 * @return bool
 	 */
 	function inProject( $project ) {
-		global $wgAuth;
 		global $wgOpenStackManagerLDAPProjectBaseDN;
 		global $wgMemc;
 
@@ -229,7 +228,6 @@ class OpenStackNovaUser {
 	 * @return bool
 	 */
 	function inRole( $role, $projectname ) {
-		global $wgAuth;
 		global $wgMemc;
 
 		if ( !$projectname ) {
@@ -265,9 +263,9 @@ class OpenStackNovaUser {
 	 * @return bool
 	 */
 	function importKeypair( $key ) {
-		global $wgAuth;
 		global $wgMemc;
 
+		$ldap = LdapAuthenticationPlugin::getInstance();
 		$keypairs = array();
 		if ( isset( $this->userInfo[0]['sshpublickey'] ) ) {
 			$keypairs = $this->userInfo[0]['sshpublickey'];
@@ -276,16 +274,16 @@ class OpenStackNovaUser {
 		$keypairs[] = $key;
 		$values = array();
 		$values['sshpublickey'] = $keypairs;
-		$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->userDN, $values );
+		$success = LdapAuthenticationPlugin::ldap_modify( $ldap->ldapconn, $this->userDN, $values );
 		if ( $success ) {
-			$wgAuth->printDebug( "Successfully imported the user's sshpublickey", NONSENSITIVE );
+			$ldap->printDebug( "Successfully imported the user's sshpublickey", NONSENSITIVE );
 			$key = wfMemcKey( 'ldapauthentication', "userinfo", $this->userDN );
-			$wgAuth->printDebug( "Deleting memcache key: $key.", NONSENSITIVE );
+			$ldap->printDebug( "Deleting memcache key: $key.", NONSENSITIVE );
 			$wgMemc->delete( $key );
 			$this->fetchUserInfo();
 			return true;
 		} else {
-			$wgAuth->printDebug( "Failed to import the user's sshpublickey", NONSENSITIVE );
+			$ldap->printDebug( "Failed to import the user's sshpublickey", NONSENSITIVE );
 			return false;
 		}
 	}
@@ -295,15 +293,15 @@ class OpenStackNovaUser {
 	 * @return bool
 	 */
 	function deleteKeypair( $key ) {
-		global $wgAuth;
 		global $wgMemc;
 
+		$ldap = LdapAuthenticationPlugin::getInstance();
 		if ( isset( $this->userInfo[0]['sshpublickey'] ) ) {
 			$keypairs = $this->userInfo[0]['sshpublickey'];
 			array_shift( $keypairs );
 			$index = array_search( $key, $keypairs );
 			if ( $index === false ) {
-				$wgAuth->printDebug( "Unable to find the sshpublickey to be deleted", NONSENSITIVE );
+				$ldap->printDebug( "Unable to find the sshpublickey to be deleted", NONSENSITIVE );
 				return false;
 			}
 			unset( $keypairs[$index] );
@@ -312,20 +310,20 @@ class OpenStackNovaUser {
 			foreach ( $keypairs as $keypair ) {
 				$values['sshpublickey'][] = $keypair;
 			}
-			$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->userDN, $values );
+			$success = LdapAuthenticationPlugin::ldap_modify( $ldap->ldapconn, $this->userDN, $values );
 			if ( $success ) {
-				$wgAuth->printDebug( "Successfully deleted the user's sshpublickey", NONSENSITIVE );
+				$ldap->printDebug( "Successfully deleted the user's sshpublickey", NONSENSITIVE );
 				$key = wfMemcKey( 'ldapauthentication', "userinfo", $this->userDN );
-				$wgAuth->printDebug( "Deleting memcache key: $key.", NONSENSITIVE );
+				$ldap->printDebug( "Deleting memcache key: $key.", NONSENSITIVE );
 				$wgMemc->delete( $key );
 				$this->fetchUserInfo();
 				return true;
 			} else {
-				$wgAuth->printDebug( "Failed to delete the user's sshpublickey", NONSENSITIVE );
+				$ldap->printDebug( "Failed to delete the user's sshpublickey", NONSENSITIVE );
 				return false;
 			}
 		} else {
-			$wgAuth->printDebug( "User does not have a sshpublickey attribute", NONSENSITIVE );
+			$ldap->printDebug( "User does not have a sshpublickey attribute", NONSENSITIVE );
 			return false;
 		}
 	}
@@ -501,22 +499,22 @@ class OpenStackNovaUser {
 
 	static function AbortNewAccount( $user, &$message ) {
 		global $wgRequest;
-		global $wgAuth;
 		global $wgUser;
 
+		$ldap = LdapAuthenticationPlugin::getInstance();
 		$shellaccountname = $wgRequest->getText( 'shellaccountname' );
 		if ( ! preg_match( "/^[a-z][a-z0-9\-_]*$/", $shellaccountname ) ) {
-			$wgAuth->printDebug( "Invalid shell name $shellaccountname", NONSENSITIVE );
+			$ldap->printDebug( "Invalid shell name $shellaccountname", NONSENSITIVE );
 			$message = wfMessage( 'openstackmanager-shellaccountvalidationfail' )->parse();
 			return false;
 		}
 
-                $base = USERDN;
-		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $base, "(uid=$shellaccountname)" );
+		$base = USERDN;
+		$result = LdapAuthenticationPlugin::ldap_search( $ldap->ldapconn, $base, "(uid=$shellaccountname)" );
 		if ( $result ) {
-			$entries = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
+			$entries = LdapAuthenticationPlugin::ldap_get_entries( $ldap->ldapconn, $result );
 			if ( (int)$entries['count'] > 0 ) {
-				$wgAuth->printDebug( "User $shellaccountname already exists.", NONSENSITIVE );
+				$ldap->printDebug( "User $shellaccountname already exists.", NONSENSITIVE );
 				$message = wfMessage( 'openstackmanager-shellaccountexists' )->parse();
 				return false;
 			}

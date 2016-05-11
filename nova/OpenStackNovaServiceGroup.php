@@ -29,7 +29,6 @@ class OpenStackNovaServiceGroup {
 	 * @return void
 	 */
 	function fetchGroupInfo( $refreshCache = true ) {
-		global $wgAuth;
 		global $wgOpenStackManagerLDAPServiceGroupBaseDN;
 		global $wgMemc;
 
@@ -48,8 +47,9 @@ class OpenStackNovaServiceGroup {
 		if ( is_array( $groupInfo ) ) {
 			$this->groupInfo = $groupInfo;
 		} else {
-			$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $dn, $query );
-			$this->groupInfo = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
+			$ldap = LdapAuthenticationPlugin::getInstance();
+			$result = LdapAuthenticationPlugin::ldap_search( $ldap->ldapconn, $dn, $query );
+			$this->groupInfo = LdapAuthenticationPlugin::ldap_get_entries( $ldap->ldapconn, $result );
 			$wgMemc->set( $key, $this->groupInfo, 3600 * 24 );
 		}
 
@@ -79,7 +79,6 @@ class OpenStackNovaServiceGroup {
 	 * @return array
 	 */
 	function getUidMembers() {
-		global $wgAuth;
 		global $wgOpenStackManagerLDAPDomain;
 
 		$members = array();
@@ -97,7 +96,8 @@ class OpenStackNovaServiceGroup {
 				if ( $attr === 'uid' ) {
 					$members[] = $member;
 				} else {
-					$userInfo = $wgAuth->getUserInfoStateless( $memberdn );
+					$ldap = LdapAuthenticationPlugin::getInstance();
+					$userInfo = $ldap->getUserInfoStateless( $memberdn );
 					$members[] = $userInfo[0]['uid'][0];
 				}
 			}
@@ -109,17 +109,17 @@ class OpenStackNovaServiceGroup {
 	 * @return array
 	 */
 	function getMembers() {
-		global $wgAuth;
 		global $wgOpenStackManagerLDAPDomain;
 
 		$members = array();
 		if ( isset( $this->groupInfo[0]['member'] ) ) {
+			$ldap = LdapAuthenticationPlugin::getInstance();
 			$memberdns = $this->groupInfo[0]['member'];
 			array_shift( $memberdns );
 			foreach ( $memberdns as $memberdn ) {
-				$searchattr = $wgAuth->getConf( 'SearchAttribute', $wgOpenStackManagerLDAPDomain );
+				$searchattr = $ldap->getConf( 'SearchAttribute', $wgOpenStackManagerLDAPDomain );
 				if ( $searchattr ) {
-					$userInfo = $wgAuth->getUserInfoStateless( $memberdn );
+					$userInfo = $ldap->getUserInfoStateless( $memberdn );
 					$members[] = $userInfo[0][$searchattr][0];
 				} else {
 					$member = explode( '=', $memberdn );
@@ -145,21 +145,20 @@ class OpenStackNovaServiceGroup {
 	 * @return bool
 	 */
 	function deleteMember( $username ) {
-		global $wgAuth;
-
 		if ( isset( $this->groupInfo[0]['member'] ) ) {
+			$ldap = LdapAuthenticationPlugin::getInstance();
 			$members = $this->groupInfo[0]['member'];
 			array_shift( $members );
 
 			$user = new OpenStackNovaUser( $username );
 			if ( ! $user->userDN ) {
-				$wgAuth->printDebug( "Failed to find $username in deleteMember", NONSENSITIVE );
+				$ldap->printDebug( "Failed to find $username in deleteMember", NONSENSITIVE );
 				return false;
 			}
 
 			$index = array_search( $user->userDN, $members );
 			if ( $index === false ) {
-				$wgAuth->printDebug( "Failed to find userDN in member list", NONSENSITIVE );
+				$ldap->printDebug( "Failed to find userDN in member list", NONSENSITIVE );
 				return false;
 			}
 			unset( $members[$index] );
@@ -168,12 +167,12 @@ class OpenStackNovaServiceGroup {
 			foreach ( $members as $member ) {
 				$values['member'][] = $member;
 			}
-			$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->groupDN, $values );
+			$success = LdapAuthenticationPlugin::ldap_modify( $ldap->ldapconn, $this->groupDN, $values );
 			if ( $success ) {
 				$this->fetchGroupInfo();
-				$wgAuth->printDebug( "Successfully removed $user->userDN from $this->groupDN", NONSENSITIVE );
+				$ldap->printDebug( "Successfully removed $user->userDN from $this->groupDN", NONSENSITIVE );
 			} else {
-				$wgAuth->printDebug( "Failed to remove $user->userDN from $this->groupDN", NONSENSITIVE );
+				$ldap->printDebug( "Failed to remove $user->userDN from $this->groupDN", NONSENSITIVE );
 				return false;
 			}
 		} else {
@@ -187,14 +186,13 @@ class OpenStackNovaServiceGroup {
 	 * @return bool
 	 */
 	function setMembers( $usernames, $serviceUsernames=array() ) {
-		global $wgAuth;
-
+		$ldap = LdapAuthenticationPlugin::getInstance();
 		$members = array();
 		foreach ( $usernames as $username ) {
 			$userDN = "";
 			$user = new OpenStackNovaUser( $username );
 			if ( ! $user->userDN ) {
-				$wgAuth->printDebug( "Failed to find userDN in setMembers", NONSENSITIVE );
+				$ldap->printDebug( "Failed to find userDN in setMembers", NONSENSITIVE );
 				return false;
 			}
 			$userDN = $user->userDN;
@@ -207,12 +205,12 @@ class OpenStackNovaServiceGroup {
 		}
 		$values = array();
 		$values['member'] = $members;
-		$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->groupDN, $values );
+		$success = LdapAuthenticationPlugin::ldap_modify( $ldap->ldapconn, $this->groupDN, $values );
 		if ( $success ) {
 			$this->fetchGroupInfo();
-			$wgAuth->printDebug( "Successfully set members for $this->groupDN", NONSENSITIVE );
+			$ldap->printDebug( "Successfully set members for $this->groupDN", NONSENSITIVE );
 		} else {
-			$wgAuth->printDebug( "Failed to set members for $this->groupDN", NONSENSITIVE );
+			$ldap->printDebug( "Failed to set members for $this->groupDN", NONSENSITIVE );
 			return false;
 		}
 		return true;
@@ -223,8 +221,7 @@ class OpenStackNovaServiceGroup {
 	 * @return bool
 	 */
 	function addMember( $username ) {
-		global $wgAuth;
-
+		$ldap = LdapAuthenticationPlugin::getInstance();
 		$members = array();
 		if ( isset( $this->groupInfo[0]['member'] ) ) {
 			$members = $this->groupInfo[0]['member'];
@@ -234,7 +231,7 @@ class OpenStackNovaServiceGroup {
 		$userDN = "";
 		$user = new OpenStackNovaUser( $username );
 		if ( ! $user->userDN ) {
-			$wgAuth->printDebug( "Failed to find userDN in addMember", NONSENSITIVE );
+			$ldap->printDebug( "Failed to find userDN in addMember", NONSENSITIVE );
 			return false;
 		}
 		$userDN = $user->userDN;
@@ -242,12 +239,12 @@ class OpenStackNovaServiceGroup {
 		$members[] = $userDN;
 		$values = array();
 		$values['member'] = $members;
-		$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->groupDN, $values );
+		$success = LdapAuthenticationPlugin::ldap_modify( $ldap->ldapconn, $this->groupDN, $values );
 		if ( $success ) {
 			$this->fetchGroupInfo();
-			$wgAuth->printDebug( "Successfully added $userDN to $this->groupDN", NONSENSITIVE );
+			$ldap->printDebug( "Successfully added $userDN to $this->groupDN", NONSENSITIVE );
 		} else {
-			$wgAuth->printDebug( "Failed to add $userDN to $this->groupDN", NONSENSITIVE );
+			$ldap->printDebug( "Failed to add $userDN to $this->groupDN", NONSENSITIVE );
 			return false;
 		}
 		return true;
@@ -276,12 +273,12 @@ class OpenStackNovaServiceGroup {
 	 * @return null|OpenStackNovaServiceGroup
 	 */
 	static function createServiceGroup( $inGroupName, $project, $initialUser ) {
-		global $wgAuth;
 		global $wgOpenStackManagerLDAPUser;
 		global $wgOpenStackManagerLDAPDefaultShell;
 		global $wgOpenStackManagerLDAPServiceGroupBaseDN;
 		global $wgMemc;
 
+		$ldap = LdapAuthenticationPlugin::getInstance();
 		OpenStackNovaLdapConnection::connect();
 
 		$projectPrefix = $project->getProjectName() . '.';
@@ -299,7 +296,7 @@ class OpenStackNovaServiceGroup {
 		if ( $initialUser ) {
 			$user = new OpenStackNovaUser( $initialUser );
 			if ( ! $user->userDN ) {
-				$wgAuth->printDebug( "Unable to find initial user $initialUser for new group $groupName", NONSENSITIVE );
+				$ldap->printDebug( "Unable to find initial user $initialUser for new group $groupName", NONSENSITIVE );
 				return null;
 			}
 			$initialUserDN = $user->userDN;
@@ -313,17 +310,17 @@ class OpenStackNovaServiceGroup {
 		$group['objectclass'][] = 'groupofnames';
 		$group['cn'] = $groupName;
 		$groupdn = 'cn=' . $groupName . ',' . $wgOpenStackManagerLDAPServiceGroupBaseDN;
-		$group['gidnumber'] = OpenStackNovaUser::getNextIdNumber( $wgAuth, 'gidnumber' );
+		$group['gidnumber'] = OpenStackNovaUser::getNextIdNumber( $ldap, 'gidnumber' );
 		$group['member'] = array();
 		if ( $initialUser ) {
 			$group['member'][] = $initialUserDN;
 		}
 
-		$success = LdapAuthenticationPlugin::ldap_add( $wgAuth->ldapconn, $groupdn, $group );
+		$success = LdapAuthenticationPlugin::ldap_add( $ldap->ldapconn, $groupdn, $group );
 		if ( $success ) {
-			$wgAuth->printDebug( "Successfully added service group $groupdn", NONSENSITIVE );
+			$ldap->printDebug( "Successfully added service group $groupdn", NONSENSITIVE );
 		} else {
-			$wgAuth->printDebug( "Failed to add service group $groupdn", NONSENSITIVE );
+			$ldap->printDebug( "Failed to add service group $groupdn", NONSENSITIVE );
 			return null;
 		}
 
@@ -347,12 +344,12 @@ class OpenStackNovaServiceGroup {
 		$user['uid'] = $groupName;
 		$user['sn'] = $groupName;
 		$user['cn'] = $groupName;
-		$success = LdapAuthenticationPlugin::ldap_add( $wgAuth->ldapconn, $userdn, $user );
+		$success = LdapAuthenticationPlugin::ldap_add( $ldap->ldapconn, $userdn, $user );
 
 		if ( $success ) {
-			$wgAuth->printDebug( "Successfully created service user $userdn", NONSENSITIVE );
+			$ldap->printDebug( "Successfully created service user $userdn", NONSENSITIVE );
 		} else {
-			$wgAuth->printDebug( "Failed to create service user $userdn", NONSENSITIVE );
+			$ldap->printDebug( "Failed to create service user $userdn", NONSENSITIVE );
 			return null;
 		}
 
@@ -363,10 +360,10 @@ class OpenStackNovaServiceGroup {
 				array(),
 				array( '/bin/chown -R ' . $groupName . '\:' . $groupName . ' ' . $homeDir ),
 				array( '!authenticate' ) ) ) {
-			$wgAuth->printDebug( "Successfully created chmod sudo policy for $groupName",
+			$ldap->printDebug( "Successfully created chmod sudo policy for $groupName",
 				NONSENSITIVE );
 		} else {
-			$wgAuth->printDebug( "Failed to  creat chmod sudo policy for $groupName",
+			$ldap->printDebug( "Failed to  creat chmod sudo policy for $groupName",
 				NONSENSITIVE );
 		}
 
@@ -377,10 +374,10 @@ class OpenStackNovaServiceGroup {
 				array( $groupName ),
 				array( 'ALL' ),
 				array( '!authenticate' ) ) ) {
-			$wgAuth->printDebug( "Successfully created run-as sudo policy for $groupName",
+			$ldap->printDebug( "Successfully created run-as sudo policy for $groupName",
 				NONSENSITIVE );
 		} else {
-			$wgAuth->printDebug( "Failed to  creat run-as sudo policy for $groupName",
+			$ldap->printDebug( "Failed to  creat run-as sudo policy for $groupName",
 				NONSENSITIVE );
 		}
 
@@ -394,32 +391,32 @@ class OpenStackNovaServiceGroup {
 	 * @return bool
 	 */
 	static function deleteServiceGroup( $groupName, $project ) {
-		global $wgAuth;
 		global $wgMemc;
 
+		$ldap = LdapAuthenticationPlugin::getInstance();
 		$group = self::getServiceGroupByName( $groupName, $project );
 		if ( !$group ) {
-			$wgAuth->printDebug( "We are trying to delete a nonexistent service group, $groupName", NONSENSITIVE );
+			$ldap->printDebug( "We are trying to delete a nonexistent service group, $groupName", NONSENSITIVE );
 			return false;
 		}
 
 		# Delete our special member.
-		$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $group->getSpecialUserDN() );
+		$success = LdapAuthenticationPlugin::ldap_delete( $ldap->ldapconn, $group->getSpecialUserDN() );
 		if ( $success ) {
-			$wgAuth->printDebug( "Successfully deleted service user $groupName", NONSENSITIVE );
+			$ldap->printDebug( "Successfully deleted service user $groupName", NONSENSITIVE );
 		} else {
-			$wgAuth->printDebug( "Failed to delete service user $groupName", NONSENSITIVE );
+			$ldap->printDebug( "Failed to delete service user $groupName", NONSENSITIVE );
 			return false;
 		}
 
 		# Now delete the group.
-		$success = LdapAuthenticationPlugin::ldap_delete( $wgAuth->ldapconn, $group->groupDN );
+		$success = LdapAuthenticationPlugin::ldap_delete( $ldap->ldapconn, $group->groupDN );
 		if ( $success ) {
-			$wgAuth->printDebug( "Successfully deleted service group $groupName", NONSENSITIVE );
+			$ldap->printDebug( "Successfully deleted service group $groupName", NONSENSITIVE );
 			$key = wfMemcKey( 'openstackmanager', 'servicegroup', $groupName );
 			$wgMemc->delete( $key );
 		} else {
-			$wgAuth->printDebug( "Failed to delete service group $groupName", NONSENSITIVE );
+			$ldap->printDebug( "Failed to delete service group $groupName", NONSENSITIVE );
 			return false;
 		}
 

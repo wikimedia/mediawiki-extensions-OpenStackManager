@@ -26,10 +26,9 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 	 * @param  $region
 	 */
 	function __construct( $instancename, $instanceproject, $region ) {
-		global $wgAuth;
-
-		$this->instancename = $wgAuth->getLdapEscapedString( $instancename );
-		$this->instanceproject = $wgAuth->getLdapEscapedString( $instanceproject );
+		$ldap = LdapAuthenticationPlugin::getInstance();
+		$this->instancename = $ldap->getLdapEscapedString( $instancename );
+		$this->instanceproject = $ldap->getLdapEscapedString( $instanceproject );
 		$this->region = $region;
 		$this->domainCache = null;
 		OpenStackNovaLdapConnection::connect();
@@ -42,9 +41,9 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 	 * @return void
 	 */
 	function fetchHostInfo() {
-		global $wgAuth;
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
 
+		$ldap = LdapAuthenticationPlugin::getInstance();
 		if ($this->getDomain()) {
 			$fqdn = $this->instancename . '.' . $this->instanceproject . '.' . $this->getDomain()->getFullyQualifiedDomainName();
 		} else {
@@ -52,8 +51,8 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 			$this->hostInfo = null;
 			return;
 		}
-		$result = LdapAuthenticationPlugin::ldap_search( $wgAuth->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, '(dc=' . $fqdn . ')' );
-		$this->hostInfo = LdapAuthenticationPlugin::ldap_get_entries( $wgAuth->ldapconn, $result );
+		$result = LdapAuthenticationPlugin::ldap_search( $ldap->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, '(dc=' . $fqdn . ')' );
+		$this->hostInfo = LdapAuthenticationPlugin::ldap_get_entries( $ldap->ldapconn, $result );
 		if ( $this->hostInfo["count"] == "0" ) {
 			$this->hostInfo = null;
 		} else {
@@ -70,13 +69,12 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 	 * @return string
 	 */
 	function getFullyQualifiedDisplayName() {
-		global $wgAuth;
-
 		if ($this->getDomain()) {
 			$fqdn = $this->instancename . '.' . $this->instanceproject . '.' . $this->getDomain()->getFullyQualifiedDomainName();
 			return $fqdn;
 		} else {
-			$wgAuth->printDebug( "Error: Unable to determine instancename of " . $this->instancename, NONSENSITIVE );
+			$ldap = LdapAuthenticationPlugin::getInstance();
+			$ldap->printDebug( "Error: Unable to determine instancename of " . $this->instancename, NONSENSITIVE );
 			return "";
 		}
 	}
@@ -87,12 +85,11 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 	 * @return OpenStackNovaDomain
 	 */
 	function getDomain() {
-		global $wgAuth;
-
 		if ( ! $this->domainCache ) {
 			$this->domainCache = OpenStackNovaDomain::getDomainByRegion( $this->region );
 			if (! $this->domainCache ) {
-		    		$wgAuth->printDebug( "Looked up domain for region $this->region but domainCache is still empty.", NONSENSITIVE );
+				$ldap = LdapAuthenticationPlugin::getInstance();
+				$ldap->printDebug( "Looked up domain for region $this->region but domainCache is still empty.", NONSENSITIVE );
 			}
 		}
 		return $this->domainCache;
@@ -153,11 +150,11 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 	 * @return bool
 	 */
 	function modifyPuppetConfiguration( $puppetinfo ) {
-		global $wgAuth;
 		global $wgOpenStackManagerPuppetOptions;
 
 		$hostEntry = array( 'puppetclass' => array(), 'puppetvar' => array() );
 		if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
+			$ldap = LdapAuthenticationPlugin::getInstance();
 			if ( isset( $puppetinfo['classes'] ) ) {
 				foreach ( $puppetinfo['classes'] as $class ) {
 					$hostEntry['puppetclass'][] = $class;
@@ -170,22 +167,22 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 			}
 			$oldpuppetinfo = $this->getPuppetConfiguration();
 			if ( isset( $oldpuppetinfo['puppetvar'] ) ) {
-				$wgAuth->printDebug( "Checking for preexisting variables", NONSENSITIVE );
+				$ldap->printDebug( "Checking for preexisting variables", NONSENSITIVE );
 				foreach ( $oldpuppetinfo['puppetvar'] as $variable => $value ) {
-					$wgAuth->printDebug( "Found $variable", NONSENSITIVE );
+					$ldap->printDebug( "Found $variable", NONSENSITIVE );
 					if ( $variable === "instanceproject" || $variable === "instancename" ) {
 						$hostEntry['puppetvar'][] = $variable . '=' . $value;
 					}
 				}
 			}
 
-			$success = LdapAuthenticationPlugin::ldap_modify( $wgAuth->ldapconn, $this->hostDN, $hostEntry );
+			$success = LdapAuthenticationPlugin::ldap_modify( $ldap->ldapconn, $this->hostDN, $hostEntry );
 			if ( $success ) {
 				$this->fetchHostInfo();
-				$wgAuth->printDebug( "Successfully modified puppet configuration for host", NONSENSITIVE );
+				$ldap->printDebug( "Successfully modified puppet configuration for host", NONSENSITIVE );
 				return true;
 			} else {
-				$wgAuth->printDebug( "Failed to modify puppet configuration for host", NONSENSITIVE );
+				$ldap->printDebug( "Failed to modify puppet configuration for host", NONSENSITIVE );
 				return false;
 			}
 		}

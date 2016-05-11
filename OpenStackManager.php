@@ -58,18 +58,6 @@ $wgHooks['UserAddGroup'][] = 'OpenStackNovaUser::addUserToBastionProject';
 $wgHooks['UserRemoveGroup'][] = 'OpenStackNovaUser::removeUserFromBastionProject';
 $wgHooks['getUserPermissionsErrors'][] = 'OpenStackManagerHooks::getUserPermissionsErrors';
 
-# Block runs on Wikimedia Jenkins CI system
-if ( isset( $wgWikimediaJenkinsCI ) && $wgWikimediaJenkinsCI ) {
-
-	# Please MediaWiki ApiDocumentationTest which invokes our API calls which
-	# require $wgAuth to be an instance of the LdapAuthenticationPlugin.
-	# T124613
-	$wgExtensionFunctions[] = function () {
-		global $wgAuth;
-		$wgAuth = new LdapAuthenticationPlugin();
-	};
-}
-
 // Keystone identity URI
 $wgOpenStackManagerNovaIdentityURI = 'http://localhost:5000/v2.0';
 $wgOpenStackManagerNovaIdentityV3URI = 'http://localhost:5000/v3';

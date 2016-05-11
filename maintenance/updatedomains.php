@@ -41,7 +41,6 @@ class UpdateDomains extends Maintenance {
 	}
 
 	public function execute() {
-		global $wgAuth;
 		global $wgOpenStackManagerLDAPUsername;
 		global $wgOpenStackManagerLDAPUserPassword;
 
