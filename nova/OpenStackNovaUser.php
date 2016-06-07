@@ -419,7 +419,12 @@ class OpenStackNovaUser {
 		if ( '' !== $auth->realname ) {
 			$values['displayname'] = $auth->realname;
 		}
-		$shellaccountname = $wgRequest->getText( 'shellaccountname' );
+		if ( class_exists( \MediaWiki\Auth\AuthManager::class ) && empty( $wgDisableAuthManager ) ) {
+			$shellaccountname = \MediaWiki\Auth\AuthManager::singleton()
+				->getAuthenticationSessionData( 'osm-shellaccountname', '' );
+		} else {
+			$shellaccountname = $wgRequest->getText( 'shellaccountname' );
+		}
 		if ( ! preg_match( "/^[a-z][a-z0-9\-_]*$/", $shellaccountname ) ) {
 			$auth->printDebug( "Invalid shell name $shellaccountname", NONSENSITIVE );
 			$result = false;
@@ -499,10 +504,31 @@ class OpenStackNovaUser {
 		return true;
 	}
 
+	/**
+	 * @param \MediaWiki\Auth\AuthenticationRequest[] $requests
+	 * @param array $fieldInfo
+	 * @param array $formDescriptor
+	 * @param string $action
+	 */
+	static function AuthChangeFormFields( $requests, $fieldInfo, &$formDescriptor, $action ) {
+		if ( isset( $formDescriptor['shellaccountname'] ) ) {
+			$formDescriptor['shellaccountname'] += [
+				'help-message' => 'openstackmanager-shellaccountnamehelp',
+				'weight' => 90,
+			];
+		};
+	}
+
 	static function AbortNewAccount( $user, &$message ) {
 		global $wgRequest;
 		global $wgAuth;
 		global $wgUser;
+		global $wgDisableAuthManager;
+
+		if ( class_exists( \MediaWiki\Auth\AuthManager::class ) && empty( $wgDisableAuthManager ) ) {
+			// handled in OpenStackNovaSecondaryAuthenticationProvider
+			return true;
+		}
 
 		$shellaccountname = $wgRequest->getText( 'shellaccountname' );
 		if ( ! preg_match( "/^[a-z][a-z0-9\-_]*$/", $shellaccountname ) ) {
