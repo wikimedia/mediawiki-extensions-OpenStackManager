@@ -4,7 +4,8 @@
 			"Amire80",
 			"Ofekalef",
 			"Orsa",
-			"ערן"
+			"ערן",
+			"Guycn2"
 		]
 	},
 	"openstackmanager-desc": "ניהול Nova ו־Swift",
@@ -402,7 +403,7 @@
 	"openstackmanager-hiera-noadmin": "רק מנהלי ענו גלובליים ומנהלי פרויקט של $1 יכולים לערוך את הדף הזה",
 	"right-manageproject": "ניהול פרויקטים ותפקידים של OpenStack",
 	"action-manageproject": "ניהול פרויקטים ותפקידים של OpenStack",
-	"right-loginviashell": "כניסה דרך מסוף",
+	"right-loginviashell": "כניסה לחשבון באמצעות מסוף",
 	"notification-osm-instance-deleted-email-subject": "מופע \"$1\" נמחק באתר {{SITENAME}}",
 	"notification-osm-instance-deleted-email-body-batch": "$1 {{GENDER:$1|מחק|מחקה}} את המופע \"$3\" בפרויקט [[$2]]",
 	"notification-osm-instance-build-completed-email-subject": "המופע \"$1\" נבנה באתר {{SITENAME}}",
