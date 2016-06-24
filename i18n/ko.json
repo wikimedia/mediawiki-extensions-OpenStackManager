@@ -9,7 +9,7 @@
 			"Ykhwong"
 		]
 	},
-	"openstackmanager-desc": "사용자가 Nova와 Swift를 관리 할 수 ​​있습니다",
+	"openstackmanager-desc": "사용자가 Nova와 Swift를 관리할 수 ​​있게 합니다",
 	"openstackmanager": "OpenStack관리자",
 	"openstackmanager-instance": "인스턴스 관리",
 	"openstackmanager-title": "OpenStack관리자",
@@ -112,7 +112,7 @@
 	"openstackmanager-createinstancepuppetwarning": "경고: 인스턴스 만들기에 퍼핏 설정을 추가하면 인스턴스가 구축에 실패할 수 있습니다.\n설정을 사용할 때 주의하세요.\n빌드를 마치고 나서 인스턴스를 설정할 수 있게 됩니다.",
 	"openstackmanager-invaliddomain": "요청한 도메인은 잘못되었습니다.",
 	"openstackmanager-createdinstance": "\"$2\" 그림으로 $1 인스턴스를 만들었습니다.",
-	"openstackmanager-createfailedldap": "호스트를 LDAP에 추가 할 수 없으므로 인스턴스를 만드는 데 실패했습니다.",
+	"openstackmanager-createfailedldap": "호스트를 LDAP에 추가할 수 없으므로 인스턴스를 만드는 데 실패했습니다.",
 	"openstackmanager-createinstancefailed": "인스턴스를 만드는 데 실패했습니다.",
 	"openstackmanager-backinstancelist": "인스턴스 목록으로 돌아가기",
 	"openstackmanager-deletedinstance": "$1 ($2) 인스턴스를 삭제했습니다.",
@@ -424,11 +424,11 @@
 	"echo-category-title-osm-projectmembers-add": "프로젝트 구성원 추가",
 	"prefs-openstack": "OpenStack",
 	"prefs-openstack-keys": "키 목록",
-	"apihelp-novaaddress-description": "노바 IP 주소에 특정 행위 하기",
+	"apihelp-novaaddress-description": "노바 IP 주소에 특정 행위 수행하기",
 	"apihelp-novaaddress-param-subaction": "수행할 동작",
 	"apihelp-novaaddress-param-region": "현재 연결된 인스턴스의 지역",
 	"apihelp-novaaddress-example-1": "화성 지역의 프로젝트 7의 주소 ID 7의 연결 해제",
-	"apihelp-novainstance-description": "인스턴스에 특정 행위 하기",
+	"apihelp-novainstance-description": "인스턴스에 특정 행위 수행하기",
 	"apihelp-novainstance-param-subaction": "수행할 동작",
 	"apihelp-novainstance-param-instanceid": "동작을 수행할 노바 인스턴스 ID"
 }

@@ -169,7 +169,7 @@
 	"openstackmanager-deleteprojectfailed": "プロジェクトの削除に失敗しました。",
 	"openstackmanager-addedto": "$1 を $2 に追加しました。",
 	"openstackmanager-failedtoadd": "$1 の $2 への追加に失敗しました。",
-	"openstackmanager-setgroupmembers": "$1 のグループ メンバーを設定しました",
+	"openstackmanager-setgroupmembers": "$1 のグループメンバーを設定しました",
 	"openstackmanager-failedtosetgroupmembers": "$1 のグループ メンバーを設定できませんでした",
 	"openstackmanager-removedfrom": "$1 を $2 から除去しました。",
 	"openstackmanager-failedtoremove": "$1 の $2 からの除去に失敗しました。",

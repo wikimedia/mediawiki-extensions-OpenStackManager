@@ -2,13 +2,15 @@
 	"@metadata": {
 		"authors": [
 			"Erdemaslancan",
-			"Mirzali"
+			"Mirzali",
+			"Kumkumuk"
 		]
 	},
 	"specialpages-group-nova": "OpenStack Nova",
 	"openstackmanager-delete": "bestere",
 	"openstackmanager-configure": "awan ke",
 	"openstackmanager-actions": "Kerdışi",
+	"openstackmanager-notloggedin": "Cı kewetış icab keno",
 	"openstackmanager-location": "Lokasyon",
 	"openstackmanager-novavolume-volume": "Venge",
 	"openstackmanager-device": "Cihaz",
