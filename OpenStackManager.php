@@ -192,6 +192,8 @@ $wgAutoloadClasses['OpenStackNovaLdapConnection'] = $dir . 'nova/OpenStackNovaLd
 $wgAutoloadClasses['OpenStackNovaProject'] = $dir . 'nova/OpenStackNovaProject.php';
 $wgAutoloadClasses['OpenStackNovaProjectLimits'] = $dir . 'nova/OpenStackNovaProjectLimits.php';
 $wgAutoloadClasses['OpenStackNovaProjectGroup'] = $dir . 'nova/OpenStackNovaProjectGroup.php';
+$wgAutoloadClasses['OpenStackNovaShellAccountNameRequest'] = $dir . 'nova/OpenStackNovaShellAccountNameRequest.php';
+$wgAutoloadClasses['OpenStackNovaSecondaryAuthenticationProvider'] = $dir . '/nova/OpenStackNovaSecondaryAuthenticationProvider.php';
 $wgAutoloadClasses['SpecialNovaInstance'] = $dir . 'special/SpecialNovaInstance.php';
 $wgAutoloadClasses['SpecialNovaKey'] = $dir . 'special/SpecialNovaKey.php';
 $wgAutoloadClasses['SpecialNovaProject'] = $dir . 'special/SpecialNovaProject.php';
@@ -236,6 +238,14 @@ $wgHooks['LDAPUpdateUser'][] = 'OpenStackNovaUser::LDAPUpdateUser';
 $wgHooks['DynamicSidebarGetGroups'][] = 'OpenStackNovaUser::DynamicSidebarGetGroups';
 $wgHooks['ChainAuth'][] = 'OpenStackNovaUser::ChainAuth';
 $wgHooks['GetPreferences'][] = 'OpenStackNovaUser::novaUserPreferences';
+$wgHooks['AuthChangeFormFields'][] = 'OpenStackNovaUser::AuthChangeFormFields';
+
+$wgAuthManagerAutoConfig['preauth'] += [
+	OpenStackNovaSecondaryAuthenticationProvider::class => [
+			'class' => OpenStackNovaSecondaryAuthenticationProvider::class,
+			'sort' => 0, // non-UI providers should run early
+	],
+];
 
 $commonModuleInfo = array(
 	'localBasePath' => __DIR__,
