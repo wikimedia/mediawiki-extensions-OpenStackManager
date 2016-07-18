@@ -129,7 +129,7 @@
 	"openstackmanager-puppetvarname": "Numm vun der Variabel",
 	"openstackmanager-puppetvarposition": "Positioun vun der Variabel",
 	"right-manageproject": "OpenStack Projeten a Rolle geréieren",
-	"notification-header-osm-projectmembers-add": "$1 {{GENDER:$2|huet}}Iech bäi de Projet $3 derbäigesar $3",
+	"notification-header-osm-projectmembers-add": "{{GENDER:$5|Dir}} gouft bäi de Projet $3 derbäigesat.",
 	"echo-notification-goto-project": "Projet weisen",
 	"prefs-openstack-keys": "Lëscht vun de Schlësselen",
 	"apihelp-query+novaprojects-example-1": "Mécht eng Lëscht vun de Projeten"
