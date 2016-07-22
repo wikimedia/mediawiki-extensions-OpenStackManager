@@ -405,7 +405,7 @@
 	"right-manageproject": "OpenStack 프로젝트와 역할 관리",
 	"action-manageproject": "OpenStack 프로젝트와 역할 관리",
 	"right-loginviashell": "셸을 통해 로드인",
-	"notification-osm-instance-deleted-email-subject": "{{SITENAME}}에서 인스턴스 \"$1\" 이/가 삭제되었습니다.",
+	"notification-osm-instance-deleted-email-subject": "{{SITENAME}}에서 \"$1\" 인스턴스가 삭제되었습니다.",
 	"notification-osm-instance-deleted-email-body-batch": "$1 사용자가 프로젝트 [[$2]]의 인스턴스 \"$3\"을 {{GENDER:$1|삭제}}하였습니다",
 	"notification-osm-instance-build-completed-email-subject": "{{SITENAME}}에서 인스턴스 \"$1\"이 빌드되었습니다",
 	"notification-osm-instance-build-completed-email-body-batch": "$1 사용자가 프로젝트 [[$2]]에서 인스턴스 \"$3\"을 {{GENDER:$1|빌드}}하였습니다",
