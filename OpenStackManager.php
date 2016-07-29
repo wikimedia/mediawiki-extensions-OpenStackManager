@@ -216,7 +216,6 @@ $wgAutoloadClasses['ApiNovaServiceGroups'] = $dir . 'api/ApiNovaServiceGroups.ph
 $wgAutoloadClasses['ApiListNovaProjects'] = $dir . 'api/ApiListNovaProjects.php';
 $wgAutoloadClasses['ApiListNovaInstances'] = $dir . 'api/ApiListNovaInstances.php';
 $wgAutoloadClasses['Spyc'] = $dir . 'Spyc.php';
-$wgAutoloadClasses['OpenStackManagerNotificationFormatter'] = $dir . 'OpenStackManagerNotificationFormatter.php';
 $wgAutoloadClasses['EchoOpenStackManagerPresentationModel'] = $dir . 'EchoOpenStackManagerPresentationModel.php';
 $wgAutoloadClasses['OpenStackManagerEvent'] = $dir . 'OpenStackManagerEvent.php';
 $wgSpecialPages['NovaInstance'] = 'SpecialNovaInstance';
@@ -367,55 +366,27 @@ function efOpenStackOnBeforeCreateEchoEvent(
 	&$notifications, &$notificationCategories
 ) {
 	$notifications['osm-instance-build-completed'] = array(
-		'formatter-class' => 'OpenStackManagerNotificationFormatter',
 		'presentation-model' => 'EchoOpenStackManagerPresentationModel',
 		'category' => 'osm-instance-build-completed',
 		'section' => 'message',
-		'icon' => 'placeholder',
-		'payload' => array( 'summary' ),
-		'email-subject-message' => 'notification-osm-instance-build-completed-email-subject',
-		'email-subject-params' => array( 'instance' ),
-		'email-body-batch-message' => 'notification-osm-instance-build-completed-email-body-batch',
-		'email-body-batch-params' => array( 'agent', 'title', 'instance' ),
 	);
 
 	$notifications['osm-instance-reboot-completed'] = array(
-		'formatter-class' => 'OpenStackManagerNotificationFormatter',
 		'presentation-model' => 'EchoOpenStackManagerPresentationModel',
 		'category' => 'osm-instance-reboot-completed',
 		'section' => 'message',
-		'icon' => 'placeholder',
-		'payload' => array( 'summary' ),
-		'email-subject-message' => 'notification-osm-instance-reboot-completed-email-subject',
-		'email-subject-params' => array( 'instance' ),
-		'email-body-batch-message' => 'notification-osm-instance-reboot-completed-email-body-batch',
-		'email-body-batch-params' => array( 'agent', 'title', 'instance' ),
 	);
 
 	$notifications['osm-instance-deleted'] = array(
-		'formatter-class' => 'OpenStackManagerNotificationFormatter',
 		'presentation-model' => 'EchoOpenStackManagerPresentationModel',
 		'category' => 'osm-instance-deleted',
 		'section' => 'message',
-		'icon' => 'trash',
-		'payload' => array( 'summary' ),
-		'email-subject-message' => 'notification-osm-instance-deleted-email-subject',
-		'email-subject-params' => array( 'instance' ),
-		'email-body-batch-message' => 'notification-osm-instance-deleted-email-body-batch',
-		'email-body-batch-params' => array( 'agent', 'title', 'instance' ),
 	);
 
 	$notifications['osm-projectmembers-add'] = array(
-		'formatter-class' => 'OpenStackManagerNotificationFormatter',
 		'presentation-model' => 'EchoOpenStackManagerPresentationModel',
 		'category' => 'osm-projectmembers-add',
 		'section' => 'message',
-		'icon' => 'placeholder',
-		'payload' => array( 'summary' ),
-		'email-subject-message' => 'notification-osm-projectmember-added-email-subject',
-		'email-subject-params' => array(),
-		'email-body-batch-message' => 'notification-osm-projectmember-added-email-body-batch',
-		'email-body-batch-params' => array( 'agent', 'title' ),
 	);
 
 	return true;
