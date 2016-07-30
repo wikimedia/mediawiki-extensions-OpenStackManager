@@ -74,7 +74,7 @@
 	"openstackmanager-backprojectlist": "Zréck op d'Lëscht vun de Projeten",
 	"openstackmanager-addadditionalproject": "En anere Projet derbäisetzen.",
 	"openstackmanager-deleteproject": "Läschen",
-	"openstackmanager-deletedproject": "De Projet gouf geläscht.",
+	"openstackmanager-deletedproject": "Geläschte Projet.",
 	"openstackmanager-deleteprojectfailed": "De Projet konnt net geläscht ginn.",
 	"openstackmanager-addedto": "$1 gouf bei $2 derbäigesat.",
 	"openstackmanager-novaproject-project": "Projet derbäisetzen",
