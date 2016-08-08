@@ -21,7 +21,7 @@
 	"openstackmanager-servicegrouplist": "דינסטגרופע ליסטע",
 	"openstackmanager-action": "אַקציע",
 	"openstackmanager-deleteproject": "אויסמעקן",
-	"openstackmanager-setgroupmembers": "דערפאלגרייך געשטעלט גרופע מיטגלידער פאר $1",
+	"openstackmanager-setgroupmembers": "געשטעלט גרופע מיטגלידער פאר $1",
 	"openstackmanager-projects": "פראיעקטן",
 	"openstackmanager-securitygroupdescription": "באַשרײַבונג",
 	"openstackmanager-sudoerusers": "באַניצער",
