@@ -55,7 +55,7 @@ class YamlContent extends TextContent {
 	 * @return YamlContent
 	 */
 	public function preSaveTransform( Title $title, User $user, ParserOptions $popts ) {
-		return new static( $this->beautifyYAML() );
+		return new static( self::normalizeLineEndings( $this->beautifyYAML() ) );
 	}
 
 	/**
