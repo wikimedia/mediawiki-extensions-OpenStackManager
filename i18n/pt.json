@@ -10,7 +10,8 @@
 			"Waldir",
 			"Vitorvicentevalente",
 			"Helder.wiki",
-			"He7d3r"
+			"He7d3r",
+			"Fúlvio"
 		]
 	},
 	"openstackmanager-desc": "Permite que os utilizadores façam a gestão do controlador Nova e do armazenamento Swift",
@@ -105,7 +106,7 @@
 	"openstackmanager-createinstancefailed": "Não foi possível criar a instância.",
 	"openstackmanager-backinstancelist": "Voltar à lista de instâncias",
 	"openstackmanager-deletedinstance": "A instância $1 ($2) foi eliminada.",
-	"openstackmanager-deletedinstance-faileddns": "A instância $1 ($2) foi eliminada com sucesso, mas não foi possível remover a entrada de DNS dela.",
+	"openstackmanager-deletedinstance-faileddns": "A instância $1 ($2) foi eliminada, mas não foi possível remover a entrada de DNS dela.",
 	"openstackmanager-modifiedinstance": "A instância $1 ($2) foi modificada.",
 	"openstackmanager-modifyinstancefailed": "Não foi possível modificar a instância.",
 	"openstackmanager-deleteinstancefailed": "Não foi possível eliminar a instância $1 ($2).",
