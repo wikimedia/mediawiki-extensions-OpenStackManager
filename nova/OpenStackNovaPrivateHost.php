@@ -119,32 +119,23 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 	}
 
 	/**
-	 * Return the puppet classes and variables assigned to this host
+	 * Return the puppet classes assigned to this host
 	 *
 	 * @return array
 	 */
 	function getPuppetConfiguration() {
-		$puppetinfo = array( 'puppetclass' => array(), 'puppetvar' => array() );
+		$puppetinfo = array( 'puppetclass' => array() );
 		if ( isset( $this->hostInfo[0]['puppetclass'] ) ) {
 			array_shift( $this->hostInfo[0]['puppetclass'] );
 			foreach ( $this->hostInfo[0]['puppetclass'] as $class ) {
 				$puppetinfo['puppetclass'][] = $class;
 			}
 		}
-		if ( isset( $this->hostInfo[0]['puppetvar'] ) ) {
-			array_shift( $this->hostInfo[0]['puppetvar'] );
-			foreach ( $this->hostInfo[0]['puppetvar'] as $variable ) {
-				$vararr = explode( '=', $variable );
-				$varname = trim( $vararr[0] );
-				$var = trim( $vararr[1] );
-				$puppetinfo['puppetvar'][$varname] = $var;
-			}
-		}
 		return $puppetinfo;
 	}
 
 	/**
-	 * Update puppet classes and variables for this host.
+	 * Update puppet classes for this host.
 	 *
 	 * @param  $puppetinfo
 	 * @return bool
@@ -152,27 +143,12 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 	function modifyPuppetConfiguration( $puppetinfo ) {
 		global $wgOpenStackManagerPuppetOptions;
 
-		$hostEntry = array( 'puppetclass' => array(), 'puppetvar' => array() );
+		$hostEntry = array( 'puppetclass' => array() );
 		if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
 			$ldap = LdapAuthenticationPlugin::getInstance();
 			if ( isset( $puppetinfo['classes'] ) ) {
 				foreach ( $puppetinfo['classes'] as $class ) {
 					$hostEntry['puppetclass'][] = $class;
-				}
-			}
-			if ( isset( $puppetinfo['variables'] ) ) {
-				foreach ( $puppetinfo['variables'] as $variable => $value ) {
-					$hostEntry['puppetvar'][] = $variable . '=' . $value;
-				}
-			}
-			$oldpuppetinfo = $this->getPuppetConfiguration();
-			if ( isset( $oldpuppetinfo['puppetvar'] ) ) {
-				$ldap->printDebug( "Checking for preexisting variables", NONSENSITIVE );
-				foreach ( $oldpuppetinfo['puppetvar'] as $variable => $value ) {
-					$ldap->printDebug( "Found $variable", NONSENSITIVE );
-					if ( $variable === "instanceproject" || $variable === "instancename" ) {
-						$hostEntry['puppetvar'][] = $variable . '=' . $value;
-					}
 				}
 			}
 

@@ -793,12 +793,6 @@ class SpecialNovaInstance extends SpecialNova {
 					}
 				}
 			}
-			foreach ( $puppetGroup->getVars() as $variable ) {
-				$variablename = $variable["name"];
-				if ( isset ( $formData["$puppetgroupname-$variablename"] ) && trim( $formData["$puppetgroupname-$variablename"] ) ) {
-					$puppetinfo['variables'][$variablename] = $formData["$puppetgroupname-$variablename"];
-				}
-			}
 		}
 	}
 
@@ -843,20 +837,6 @@ class SpecialNovaInstance extends SpecialNova {
 				'default' => $defaults,
 				'name' => "${puppetgroupname}-puppetclasses",
 			);
-			foreach ( $puppetGroup->getVars() as $variable ) {
-				$variablename = $variable["name"];
-				$default = '';
-				if ( $puppetinfo && array_key_exists( $variablename, $puppetinfo['puppetvar'] ) ) {
-					$default = $puppetinfo['puppetvar'][$variablename];
-				}
-				$instanceInfo["${puppetgroupname}-${variablename}"] = array(
-					'type' => 'text',
-					'section' => $section,
-					'label' => $variablename,
-					'default' => $default,
-					'name' => "${puppetgroupname}-${variablename}",
-				);
-			}
 		}
 	}
 

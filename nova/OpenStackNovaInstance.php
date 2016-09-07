@@ -294,20 +294,13 @@ class OpenStackNovaInstance {
 |Project=%s
 |Region=%s
 |FQDN=%s
-|Puppet Class=%s
-|Puppet Var=%s}}
+|Puppet Class=%s}}
 RESOURCEINFO;
 		$puppetinfo = $host->getPuppetConfiguration();
 		if ( $puppetinfo['puppetclass'] ) {
 			$puppetclasses = implode( ',', $puppetinfo['puppetclass'] );
 		} else {
 			$puppetclasses = '';
-		}
-		$puppetvars = '';
-		if ( $puppetinfo['puppetvar'] ) {
-			foreach ( $puppetinfo['puppetvar'] as $key => $val ) {
-				$puppetvars .= $key . '=' . $val . ',';
-			}
 		}
 		$image = $userNova->getImage( $this->getImageId() );
 		$text = sprintf( $format,
@@ -317,8 +310,7 @@ RESOURCEINFO;
 			$this->getProject(),
 			$this->getRegion(),
 			$host->getFullyQualifiedHostName(),
-			$puppetclasses,
-			$puppetvars
+			$puppetclasses
 		);
 		OpenStackNovaArticle::editArticle( $host->getFullyQualifiedHostName(), $text );
 	}

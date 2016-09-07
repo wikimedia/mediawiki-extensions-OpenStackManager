@@ -336,25 +336,11 @@ class OpenStackNovaHost {
 			foreach ( $wgOpenStackManagerPuppetOptions['defaultclasses'] as $class ) {
 				$hostEntry['puppetclass'][] = $class;
 			}
-			foreach ( $wgOpenStackManagerPuppetOptions['defaultvariables'] as $variable => $value ) {
-				$hostEntry['puppetvar'][] = $variable . '=' . $value;
-			}
-			if ( $puppetinfo ) {
-				if ( isset( $puppetinfo['classes'] ) ) {
-					foreach ( $puppetinfo['classes'] as $class ) {
-						$hostEntry['puppetclass'][] = $class;
-					}
-				}
-				if ( isset( $puppetinfo['variables'] ) ) {
-					foreach ( $puppetinfo['variables'] as $variable => $value ) {
-						if ( $value ) {
-							$hostEntry['puppetvar'][] = $variable . '=' . $value;
-						}
-					}
+			if ( $puppetinfo && isset( $puppetinfo['classes'] ) ) {
+				foreach ( $puppetinfo['classes'] as $class ) {
+					$hostEntry['puppetclass'][] = $class;
 				}
 			}
-			$hostEntry['puppetvar'][] = 'instanceproject=' . $project;
-			$hostEntry['puppetvar'][] = 'instancename=' . $hostname;
 		}
 		$dn = 'dc=' . $fqdn . ',' . $wgOpenStackManagerLDAPInstanceBaseDN;
 
