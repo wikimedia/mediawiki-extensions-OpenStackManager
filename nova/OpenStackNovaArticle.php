@@ -17,7 +17,7 @@ class OpenStackNovaArticle {
 	public static function editArticle( $titletext, $text, $namespace=NS_NOVA_RESOURCE ) {
 		$title = Title::newFromText( $titletext, $namespace );
 		$article = WikiPage::factory( $title );
-		$article->doEdit( $text, '' );
+		$article->doEditContent( ContentHandler::makeContent( $text, $title ), '' );
 	}
 
 	public static function getText( $titletext, $namespace=NS_NOVA_RESOURCE ) {
