@@ -23,7 +23,9 @@ class OpenStackNovaArticle {
 	public static function getText( $titletext, $namespace=NS_NOVA_RESOURCE ) {
 		$title = Title::newFromText( $titletext, $namespace );
 		$article = WikiPage::factory( $title );
-		return $article->getText();
+		$content = $article->getContent();
+		$text = ContentHandler::getContentText( $content );
+		return $text;
 	}
 
 	public static function deleteArticle( $titletext, $namespace=NS_NOVA_RESOURCE ) {
