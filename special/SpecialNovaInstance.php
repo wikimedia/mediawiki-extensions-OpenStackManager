@@ -61,12 +61,6 @@ class SpecialNovaInstance extends SpecialNova {
 				return;
 			}
 			$this->deleteInstance();
-		} elseif ( $action === "configure" ) {
-			if ( ! $this->userLDAP->inProject( $project ) ) {
-				$this->notInProject( $project );
-				return;
-			}
-			$this->configureInstance();
 		} elseif ( $action === "reboot" ) {
 			if ( ! $this->userLDAP->inProject( $project ) ) {
 				$this->notInProject( $project );
@@ -90,7 +84,6 @@ class SpecialNovaInstance extends SpecialNova {
 	 * @return bool
 	 */
 	function createInstance() {
-		global $wgOpenStackManagerPuppetOptions;
 		global $wgOpenStackManagerInstanceBannedInstanceTypes;
 		global $wgOpenStackManagerInstanceDefaultImage;
 
@@ -242,83 +235,8 @@ class SpecialNovaInstance extends SpecialNova {
 			$this->getContext(),
 			'openstackmanager-novainstance'
 		);
-		$instanceForm->addHeaderText( $this->msg( 'openstackmanager-createinstancepuppetwarning' )->text() .
-			'<div class="mw-collapsible mw-collapsed">', 'puppetinfo' );
-		$instanceForm->addFooterText( '</div>', 'puppetinfo' );
 		$instanceForm->setSubmitID( 'openstackmanager-novainstance-createinstancesubmit' );
 		$instanceForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
-		$instanceForm->show();
-
-		return true;
-	}
-
-	/**
-	 * Handle ?action=configure
-	 * @return bool
-	 */
-	function configureInstance() {
-		global $wgOpenStackManagerPuppetOptions;
-
-		$this->setHeaders();
-
-		$region = $this->getRequest()->getText( 'region' );
-		$instanceosid = $this->getRequest()->getText( 'instanceid' );
-		$instance = $this->userNova->getInstance( $instanceosid );
-		if ( !$instance ) {
-			$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistentresource' );
-			return false;
-		}
-
-		$project = $instance->getProject();
-		if ( !$this->userLDAP->inRole( 'projectadmin', $project ) ) {
-			$this->notInRole( 'projectadmin', $project );
-			return false;
-		}
-
-		$instanceid = $instance->getInstanceId();
-		$instancename = $instance->getInstanceName();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-configureinstance', $instanceid, $instancename ) );
-		$instanceInfo = array();
-		$instanceInfo['instanceid'] = array(
-			'type' => 'hidden',
-			'default' => $instanceosid,
-			'name' => 'instanceid',
-		);
-		$instanceInfo['project'] = array(
-			'type' => 'hidden',
-			'default' => $project,
-			'name' => 'project',
-		);
-		$instanceInfo['region'] = array(
-			'type' => 'hidden',
-			'default' => $region,
-			'name' => 'region',
-		);
-
-		if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
-			$host = OpenStackNovaHost::getHostByNameAndProject( $instancename, $project, $region );
-			if ( ! $host ) {
-				$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistenthost' );
-				return false;
-			}
-			$puppetinfo = $host->getPuppetConfiguration();
-
-			$this->setPuppetInfo( $instanceInfo, $puppetinfo );
-		}
-
-		$instanceInfo['action'] = array(
-			'type' => 'hidden',
-			'default' => 'configure',
-			'name' => 'action',
-		);
-
-		$instanceForm = new HTMLForm(
-			$instanceInfo,
-			$this->getContext(),
-			'openstackmanager-novainstance'
-		);
-		$instanceForm->setSubmitID( 'novainstance-form-configureinstancesubmit' );
-		$instanceForm->setSubmitCallback( array( $this, 'tryConfigureSubmit' ) );
 		$instanceForm->show();
 
 		return true;
@@ -604,15 +522,6 @@ class SpecialNovaInstance extends SpecialNova {
 					$instanceDataAttributes
 				);
 				$actions[] = $this->createActionLink(
-					'openstackmanager-configure',
-					array(
-						'action' => 'configure',
-						'instanceid' => $instance->getInstanceOSId(),
-						'project' => $projectName,
-						'region' => $region
-					)
-				);
-				$actions[] = $this->createActionLink(
 					'openstackmanager-getconsoleoutput',
 					array(
 						'action' => 'consoleoutput',
@@ -728,119 +637,6 @@ class SpecialNovaInstance extends SpecialNova {
 		$this->getOutput()->addHTML( $out );
 		return true;
 	}
-
-	/**
-	 * @param  $formData
-	 * @param string $entryPoint
-	 * @return bool
-	 */
-	function tryConfigureSubmit( $formData, $entryPoint = 'internal' ) {
-		$instance = $this->userNova->getInstance( $formData['instanceid'] );
-		$host = $instance->getHost();
-		if ( $host ) {
-			$success = $host->modifyPuppetConfiguration( $this->getPuppetInfo( $formData ) );
-			if ( $success ) {
-				$instance->editArticle( $this->userNova );
-				$this->getOutput()->addWikiMsg( 'openstackmanager-modifiedinstance', $instance->getInstanceId(), $instance->getInstanceName() );
-			} else {
-				$this->getOutput()->addWikiMsg( 'openstackmanager-modifyinstancefailed' );
-			}
-		} else {
-			$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistanthost' );
-		}
-
-		$out = '<br />';
-		$out .= Linker::link(
-			$this->getPageTitle(),
-			$this->msg( 'openstackmanager-backinstancelist' )->escaped()
-		);
-
-		$this->getOutput()->addHTML( $out );
-		return true;
-	}
-
-	#### Puppet related methods #######################################
-
-	function getPuppetInfo( $formData ) {
-		global $wgOpenStackManagerPuppetOptions;
-
-		$puppetinfo = array();
-		if ( $wgOpenStackManagerPuppetOptions['enabled'] ) {
-			$puppetGroups = OpenStackNovaPuppetGroup::getGroupList( $formData['project'] );
-			$this->getPuppetInfoByGroup( $puppetinfo, $puppetGroups, $formData );
-			$puppetGroups = OpenStackNovaPuppetGroup::getGroupList();
-			$this->getPuppetInfoByGroup( $puppetinfo, $puppetGroups, $formData );
-		}
-		return $puppetinfo;
-	}
-
-	function setPuppetInfo( &$instanceInfo, $puppetinfo=array() ) {
-		$project = $instanceInfo['project']['default'];
-		$projectGroups = OpenStackNovaPuppetGroup::getGroupList( $project );
-		$this->setPuppetInfoByGroups( $instanceInfo, $puppetinfo, $projectGroups );
-		$globalGroups = OpenStackNovaPuppetGroup::getGroupList();
-		$this->setPuppetInfoByGroups( $instanceInfo, $puppetinfo, $globalGroups );
-	}
-
-	function getPuppetInfoByGroup( &$puppetinfo, $puppetGroups, $formData ) {
-		foreach ( $puppetGroups as $puppetGroup ) {
-			$puppetgroupname = $puppetGroup->getName();
-			foreach ( $puppetGroup->getClasses() as $class ) {
-				if ( in_array( $class["name"], $formData["$puppetgroupname-puppetclasses"] ) ) {
-					$classname = $class["name"];
-					if ( !in_array( $classname, $puppetinfo['classes'] ) ) {
-						$puppetinfo['classes'][] = $classname;
-					}
-				}
-			}
-		}
-	}
-
-	function setPuppetInfoByGroups( &$instanceInfo, $puppetinfo, $puppetGroups ) {
-		global $wgOpenStackManagerPuppetDocBase;
-
-		foreach ( $puppetGroups as $puppetGroup ) {
-			$classes = array();
-			$defaults = array();
-			$puppetgroupname = $puppetGroup->getName();
-			$puppetgroupproject = $puppetGroup->getProject();
-			if ( $puppetgroupproject ) {
-				$section = 'puppetinfo/project';
-			} else {
-				$section = 'puppetinfo/global';
-			}
-			foreach ( $puppetGroup->getClasses() as $class ) {
-				$classname = $class["name"];
-				$classlabel = $classname;
-				if ( $wgOpenStackManagerPuppetDocBase ) {
-					$docentry = str_replace( '::', '/', $classname );
-					$docurl = $wgOpenStackManagerPuppetDocBase . $docentry . '.html';
-					#  FIXME:  This probably doesn't handle modules properly.
-					$doclink = Html::element( 'a', array('href' => $docurl ),
-						$this->msg( 'openstackmanager-puppetdoclink' ) );
-					$classlabel = "$classname $doclink";
-				}
-				$classes[$classlabel] = $classname;
-				if ( $puppetinfo && in_array( $classname, $puppetinfo['puppetclass'] ) ) {
-					$defaults[$classname] = $classname;
-				}
-			}
-			$instanceInfo[$puppetgroupname] = array(
-				'type' => 'info',
-				'section' => $section,
-				'label-raw' => Html::element( 'h3', array(), "$puppetgroupname:" ),
-			);
-			$instanceInfo["${puppetgroupname}-puppetclasses"] = array(
-				'type' => 'multiselect',
-				'section' => $section,
-				'options' => $classes,
-				'default' => $defaults,
-				'name' => "${puppetgroupname}-puppetclasses",
-			);
-		}
-	}
-
-	#### End of Puppet related methods ################################
 
 	protected function getGroupName() {
 		return 'nova';

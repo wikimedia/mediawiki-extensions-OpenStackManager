@@ -49,7 +49,6 @@ $wgContentNamespaces[] = NS_NOVA_RESOURCE;
 $wgAvailableRights[] = 'listall';
 $wgAvailableRights[] = 'manageproject';
 $wgAvailableRights[] = 'managednsdomain';
-$wgAvailableRights[] = 'manageglobalpuppet';
 $wgAvailableRights[] = 'loginviashell';
 $wgAvailableRights[] = 'accessrestrictedregions';
 $wgAvailableRights[] = 'editallhiera';
@@ -114,11 +113,6 @@ $wgOpenStackManagerDNSSOA = array(
 	'expiry' => '86400',
 	'minimum' => '7200'
 	);
-// Default classes to apply to instances when created
-$wgOpenStackManagerPuppetOptions = array(
-	'enabled' => false,
-	'defaultclasses' => array()
-	);
 // User data to inject into instances when created
 $wgOpenStackManagerInstanceUserData = array(
 	'cloud-config' => array(),
@@ -140,8 +134,6 @@ $wgOpenStackManagerRemoveUserFromBastionProjectOnShellDisable = false;
 // 'bastion' project name
 $wgOpenStackManagerBastionProjectName = 'bastion';
 $wgOpenStackManagerBastionProjectId = 'bastion';
-// Base URL for puppet docs. Classname will be appended with s/::/\//g
-$wgOpenStackManagerPuppetDocBase = '';
 /**
  * Path to the ssh-keygen utility. Used for converting ssh key formats. False to disable its use.
  */
@@ -185,7 +177,6 @@ $wgAutoloadClasses['OpenStackNovaVolume'] = $dir . 'nova/OpenStackNovaVolume.php
 $wgAutoloadClasses['OpenStackNovaSudoer'] = $dir . 'nova/OpenStackNovaSudoer.php';
 $wgAutoloadClasses['OpenStackNovaProxy'] = $dir . 'nova/OpenStackNovaProxy.php';
 $wgAutoloadClasses['OpenStackNovaArticle'] = $dir . 'nova/OpenStackNovaArticle.php';
-$wgAutoloadClasses['OpenStackNovaPuppetGroup'] = $dir . 'nova/OpenStackNovaPuppetGroup.php';
 $wgAutoloadClasses['OpenStackNovaLdapConnection'] = $dir . 'nova/OpenStackNovaLdapConnection.php';
 $wgAutoloadClasses['OpenStackNovaProject'] = $dir . 'nova/OpenStackNovaProject.php';
 $wgAutoloadClasses['OpenStackNovaProjectLimits'] = $dir . 'nova/OpenStackNovaProjectLimits.php';
@@ -203,7 +194,6 @@ $wgAutoloadClasses['SpecialNovaServiceGroup'] = $dir . 'special/SpecialNovaServi
 $wgAutoloadClasses['SpecialNovaVolume'] = $dir . 'special/SpecialNovaVolume.php';
 $wgAutoloadClasses['SpecialNovaSudoer'] = $dir . 'special/SpecialNovaSudoer.php';
 $wgAutoloadClasses['SpecialNovaProxy'] = $dir . 'special/SpecialNovaProxy.php';
-$wgAutoloadClasses['SpecialNovaPuppetGroup'] = $dir . 'special/SpecialNovaPuppetGroup.php';
 $wgAutoloadClasses['SpecialNovaResources'] = $dir . 'special/SpecialNovaResources.php';
 $wgAutoloadClasses['SpecialNova'] = $dir . 'special/SpecialNova.php';
 $wgAutoloadClasses['ApiNovaInstance'] = $dir . 'api/ApiNovaInstance.php';
@@ -224,7 +214,6 @@ $wgSpecialPages['NovaServiceGroup'] = 'SpecialNovaServiceGroup';
 $wgSpecialPages['NovaRole'] = 'SpecialNovaRole';
 $wgSpecialPages['NovaVolume'] = 'SpecialNovaVolume';
 $wgSpecialPages['NovaSudoer'] = 'SpecialNovaSudoer';
-$wgSpecialPages['NovaPuppetGroup'] = 'SpecialNovaPuppetGroup';
 $wgSpecialPages['NovaResources'] = 'SpecialNovaResources';
 
 $wgHooks['LDAPSetCreationValues'][] = 'OpenStackNovaUser::LDAPSetCreationValues';
@@ -323,16 +312,8 @@ function efOpenStackSchemaUpdates( $updater ) {
 	$base = dirname( __FILE__ );
 	switch ( $updater->getDB()->getType() ) {
 	case 'mysql':
-		$updater->addExtensionTable( 'openstack_puppet_groups', "$base/openstack.sql" );
-		$updater->addExtensionTable( 'openstack_puppet_classes', "$base/openstack.sql" );
 		$updater->addExtensionTable( 'openstack_tokens', "$base/schema-changes/tokens.sql" );
 		$updater->addExtensionTable( 'openstack_notification_event', "$base/schema-changes/openstack_add_notification_events_table.sql" );
-		$updater->addExtensionUpdate( array( 'addField', 'openstack_puppet_groups', 'group_project', "$base/schema-changes/openstack_project_field.sql", true ) );
-		$updater->addExtensionUpdate( array( 'addField', 'openstack_puppet_groups', 'group_is_global', "$base/schema-changes/openstack_group_is_global_field.sql", true ) );
-		$updater->addExtensionUpdate( array( 'dropField', 'openstack_puppet_groups', 'group_position', "$base/schema-changes/openstack_drop_positions.sql", true ) );
-		$updater->addExtensionUpdate( array( 'dropField', 'openstack_puppet_classes', 'class_position', "$base/schema-changes/openstack_drop_positions.sql", true ) );
-		$updater->addExtensionUpdate( array( 'addIndex', 'openstack_puppet_classes', 'class_name', "$base/schema-changes/openstack_add_name_indexes.sql", true ) );
-		$updater->addExtensionUpdate( array( 'addIndex', 'openstack_puppet_classes', 'class_group_id', "$base/schema-changes/openstack_add_name_indexes.sql", true ) );
 		$updater->addExtensionUpdate( array( 'modifyField', 'openstack_tokens', 'token', "$base/schema-changes/openstack_change_token_size.sql", true ) );
 		break;
 	}
