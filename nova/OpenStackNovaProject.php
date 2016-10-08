@@ -381,6 +381,7 @@ class OpenStackNovaProject {
 					$ldap->printDebug( "Failed to remove $username from " . $sudoer->getSudoerName(), NONSENSITIVE );
 				}
 			}
+			$user = new OpenStackNovaUser( $username );
 			$ldap->printDebug( "Successfully removed $user->userDN from $this->projectname", NONSENSITIVE );
 			$this->deleteRoleCaches( $username );
 			$this->editArticle();
