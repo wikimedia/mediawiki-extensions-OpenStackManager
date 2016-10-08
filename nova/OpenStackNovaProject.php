@@ -880,11 +880,11 @@ RESOURCEINFO;
 		OpenStackNovaArticle::editArticle( $this->getProjectName(), $text, $wgOpenStackManagerProjectNamespace );
 		if ( $wgOpenStackManagerCreateProjectSALPages ) {
 			$pagename = $this->getProjectName() . "/SAL";
-			$id = Title::newFromText( $pagename, $wgOpenStackManagerProjectNamespace )->getArticleId();
-			$article = Article::newFromId( $id );
+			$title = Title::newFromText( $pagename, $wgOpenStackManagerProjectNamespace );
+			$page = WikiPage::factory( $title );
 			$content = '';
-			if ( $article ) {
-				$content = $article->getContent( Revision::RAW );
+			if ( $page ) {
+				$content = ContentHandler::getContentText( $page->getContent( Revision::RAW ) );
 			}
 			$text = "{{SAL|Project Name=" . $this->getProjectName() . "}}";
 			if ( !strstr( $content, $text ) ) {
