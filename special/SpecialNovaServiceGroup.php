@@ -76,7 +76,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 				'type' => 'multiselect',
 				'label-message' => 'openstackmanager-member',
 				'options' => $member_keys,
-				'cssclass' => 'mw-chosen',
+				'dropdown' => true,
 				'default' => $defaults,
 				'name' => 'members',
 			);
@@ -84,7 +84,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 				'type' => 'multiselect',
 				'label-message' => 'openstackmanager-serviceuser',
 				'options' => $servicemember_keys,
-				'cssclass' => 'mw-chosen',
+				'dropdown' => true,
 				'default' => $servicememberDefaults,
 				'name' => 'servicemembers',
 				'help-message' => 'openstackmanager-servicegrouprecursewarning'

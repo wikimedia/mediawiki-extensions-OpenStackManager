@@ -137,7 +137,7 @@ abstract class SpecialNova extends SpecialPage {
 			'section' => 'projectfilter',
 			'options' => $project_keys,
 			'default' => $defaults,
-			'cssclass' => 'mw-chosen',
+			'dropdown' => true,
 			'name' => 'projects',
 		);
 		$projectFilter['action'] = array(
