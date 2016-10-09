@@ -16,7 +16,8 @@
 			"Siebrand",
 			"Umherirrender",
 			"Liuxinyu970226",
-			"Legoktm"
+			"Legoktm",
+			"Hamilton Abreu"
 		]
 	},
 	"openstackmanager-desc": "{{desc|name=Open Stack Manager|url=https://www.mediawiki.org/wiki/Extension:OpenStackManager}}",
@@ -250,7 +251,7 @@
 	"openstackmanager-shellaccountname-pref": "Label used for displaying the user's shell account name on Special:Preferences.\n\nSee also:\n* {{msg-mw|Openstackmanager-shellaccountname|without colon}}",
 	"openstackmanager-shellaccountnamehelp": "Used as help text for the input box which is labeled {{msg-mw|Openstackmanager-shellaccountname}}.",
 	"openstackmanager-shellaccountvalidationfail": "Failure message if user has an invalid character in shell name.",
-	"openstackmanager-shellaccountexists": "Failure message if user requests a shell name already in user.",
+	"openstackmanager-shellaccountexists": "Failure message if user requests a shell name already in use.",
 	"openstackmanager-addresslist": "Used as page title in Special:NovaAddress.",
 	"openstackmanager-address": "Used as heading cell in \"resource\" table, in Special:NovaAddress.",
 	"openstackmanager-allocateaddress": "Used as page title and as action link title, in Special:NovaAddress.",

@@ -187,8 +187,10 @@
 	"openstackmanager-nomemberstoremove": "Não há membros para remover deste grupo.",
 	"openstackmanager-novarole-role": "Função do Nova",
 	"openstackmanager-novarole-info": "Informação sobre a função do Nova",
-	"openstackmanager-shellaccountname": "Nome da conta shell da instância",
-	"openstackmanager-shellaccountnamehelp": "Um nome de usuário shell é necessário.\nEle deve começar com a-z e pode conter apenas letras minúsculas a-z, 0-9 e - caracteres.",
+	"openstackmanager-shellaccountname": "Nome da conta <i>shell</i> desta instância",
+	"openstackmanager-shellaccountname-pref": "Nome da conta <i>shell</i> desta instância:",
+	"openstackmanager-shellaccountnamehelp": "É necessário um nome de conta <i>shell</i>.\nO nome deve começar com uma letra a-z e só pode conter as letras minúsculas a-z, 0-9 e -.",
+	"openstackmanager-shellaccountexists": "Esse nome de conta <i>shell</i> já está em uso.",
 	"openstackmanager-addresslist": "Lista de endereços IP públicos",
 	"openstackmanager-address": "Endereço IP público",
 	"openstackmanager-allocateaddress": "Atribuir IP",
@@ -281,9 +283,11 @@
 	"openstackmanager-email-body": "A seguinte instância foi criada e está pronta para receber ligações:",
 	"openstackmanager-hiera-noadmin": "Apenas administradores do projeto $1 podem editar esta página",
 	"right-manageproject": "Gerir os projetos e funções Openstack",
+	"right-loginviashell": "Iniciar sessão usando conta <i>shell</i>",
 	"notification-header-osm-instance-build-completed": "Instância \"$4\" construída no projeto '''$3'''.",
 	"notification-header-osm-instance-reboot-completed": "Instância \"$4\" reiniciada no projeto '''$3'''.",
 	"notification-header-osm-instance-deleted": "Instância \"$4\" eliminada no projeto '''$3'''.",
 	"notification-header-osm-projectmembers-add": "Foi {{GENDER:$5|adicionado|adicionada|adicionado(a)}} ao projeto '''$3'''.",
-	"echo-notification-goto-project": "Ver projeto"
+	"echo-notification-goto-project": "Ver projeto",
+	"apihelp-novaservicegroups-param-shellmembers": "Devolve os nomes da conta <i>shell</i> dos membros do grupo de serviço, em vez dos nomes de utilizador do MediaWiki."
 }
