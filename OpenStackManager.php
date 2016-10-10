@@ -162,7 +162,6 @@ $wgOpenStackManagerReadOnlyRegions = array();
 $dir = __DIR__ . '/';
 
 $wgMessagesDirs['OpenStackManager'] = __DIR__ . '/i18n';
-$wgExtensionMessagesFiles['OpenStackManager'] = $dir . 'OpenStackManager.i18n.php';
 $wgExtensionMessagesFiles['OpenStackManagerAlias'] = $dir . 'OpenStackManager.alias.php';
 $wgAutoloadClasses['YamlContent'] = $dir . 'includes/YamlContent.php';
 $wgAutoloadClasses['YamlContentHandler'] = $dir . 'includes/YamlContentHandler.php';
