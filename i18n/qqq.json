@@ -237,7 +237,7 @@
 	"openstackmanager-setprojects": "A message informing the user that a project filter has been successfully assigned",
 	"openstackmanager-setprojectfilter": " A message telling the user that a project filter should be applied to see any resources.",
 	"openstackmanager-projectfiltersubmit": "Submit text for the project filter HTMLForm. Used on every OpenStackManager special page.",
-	"openstackmanager-toggle": "A message to tell the user they can toggle the collapsing and expanding of project sections.",
+	"openstackmanager-toggle": "A message to tell the user they can toggle the collapsing and expanding of project sections.\n{{Identical|Toggle}}",
 	"openstackmanager-roles": "{{Identical|Role}}",
 	"openstackmanager-rolename": "{{Identical|Role}}",
 	"openstackmanager-removerolemember": "Used as page title and as action link text, in Special:NovaRole.",
