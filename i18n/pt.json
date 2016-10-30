@@ -274,7 +274,7 @@
 	"openstackmanager-nonexistantsudoer": "A política sudo solicitada não existe.",
 	"openstackmanager-email-subject": "A sua instância está pronta para receber ligações.",
 	"openstackmanager-email-body": "A seguinte instância foi criada e está pronta para receber ligações:",
-	"openstackmanager-hiera-noadmin": "Apenas administradores do projeto $1 podem editar esta página",
+	"openstackmanager-hiera-noadmin": "Só administradores globais e administradores do projeto $1 podem editar esta página",
 	"right-manageproject": "Gerir os projetos e funções Openstack",
 	"right-loginviashell": "Iniciar sessão usando conta <i>shell</i>",
 	"notification-header-osm-instance-build-completed": "Instância \"$4\" construída no projeto $3.",
