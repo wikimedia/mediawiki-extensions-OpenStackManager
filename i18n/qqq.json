@@ -411,5 +411,6 @@
 	"apihelp-query+novainstances-param-region": "{{doc-apihelp-param|query+novainstances|region}}",
 	"apihelp-query+novainstances-example-1": "{{doc-apihelp-example|query+novainstances}}",
 	"apihelp-query+novaprojects-description": "{{doc-apihelp-description|query+novaprojects}}",
-	"apihelp-query+novaprojects-example-1": "{{doc-apihelp-example|query+novaprojects}}"
+	"apihelp-query+novaprojects-example-1": "{{doc-apihelp-example|query+novaprojects}}",
+	"apierror-openstackmanager-badproject": "{{doc-apierror}}"
 }
