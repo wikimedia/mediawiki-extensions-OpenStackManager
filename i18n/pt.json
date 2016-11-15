@@ -39,7 +39,7 @@
 	"openstackmanager-novaproject": "Projecto do Nova",
 	"openstackmanager-delete": "eliminar",
 	"openstackmanager-modify": "modificar",
-	"openstackmanager-rename": "renomear",
+	"openstackmanager-rename": "mudar o nome",
 	"openstackmanager-reboot": "reiniciar",
 	"openstackmanager-actions": "Ações",
 	"openstackmanager-notloggedin": "Autenticação necessária",
