@@ -60,7 +60,7 @@
 	"openstackmanager-addadditionaldomain": "Adicionar outro domínio.",
 	"openstackmanager-deleteddomain": "Domínio eliminado.",
 	"openstackmanager-failedeletedomain": "Não foi possível eliminar o domínio.",
-	"openstackmanager-failedeletedomainduplicates": "Não é possível excluir um domínio que contém sub-entradas.",
+	"openstackmanager-failedeletedomainduplicates": "Não é possível eliminar o domínio porque ele contém subentradas.",
 	"openstackmanager-failedeletedomainnotfound": "Erro ao eliminar o domínio; domínio não encontrado.",
 	"openstackmanager-domainname": "Nome do domínio",
 	"openstackmanager-fqdn": "Nome do domínio completamente qualificado",
