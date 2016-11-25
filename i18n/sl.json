@@ -27,6 +27,7 @@
 	"openstackmanager-backdomainlist": "Nazaj na seznam domen.",
 	"openstackmanager-addadditionaldomain": "Dodajte drugo domeno.",
 	"openstackmanager-deleteddomain": "Domeno smo izbrisali.",
+	"echo-notification-goto-project": "Poglej projekt",
 	"echo-category-title-osm-instance-deleted": "Takojšnji izbris (na projektu, kjer si administrator)",
 	"echo-category-title-osm-instance-build-completed": "Takojšnji napredek (na projektih, kjer si administrator)",
 	"echo-category-title-osm-instance-reboot-completed": "Takojšnji ponovni zagon za dokončanje",
