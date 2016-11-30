@@ -113,7 +113,7 @@
 	"openstackmanager-backinstancelist": "Volver a la lista de instancias",
 	"openstackmanager-deletedinstance": "Se eliminó la instancia $1 ($2).",
 	"openstackmanager-deletedinstance-faileddns": "Se ha eliminado la instancia $1 ($2), pero no se logró eliminar su entrada DNS.",
-	"openstackmanager-modifiedinstance": "Instancia modificada $1 ($2).",
+	"openstackmanager-modifiedinstance": "Instancia $1 modificada ($2).",
 	"openstackmanager-deleteinstancefailed": "No se pudo eliminar la instancia $1 ($2).",
 	"openstackmanager-consoleoutput": "Salida de la consola para $1 ($2)",
 	"openstackmanager-getconsoleoutput": "obtener la salida de la consola",
