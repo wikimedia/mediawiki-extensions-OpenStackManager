@@ -89,6 +89,10 @@ $wgOpenStackManagerServiceGroupPrefix = 'local-';
 // %u is username, %p is $wgOpenStackManagerServiceGroupPrefix.
 $wgOpenStackManagerServiceGroupHomedirPattern = '/home/%p%u/';
 
+// Username for special observer user -- hidden
+//  from the OSM front end.
+$wgOpenStackHiddenUsernames = array('novaobserver');
+
 // Key/value pairs like array( 'region1' => '10.4.0.11', 'region2' => '10.68.1.35' )
 $wgOpenStackManagerProxyGateways = array();
 
