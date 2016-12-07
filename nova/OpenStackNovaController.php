@@ -345,6 +345,8 @@ class OpenStackNovaController {
 	 * @return array of user IDs => user names
 	 */
 	function getUsersInProject( $projectid ) {
+		global $wgOpenStackHiddenUsernames;
+
 		$admintoken = $this->_getAdminToken();
 		$headers = array( "X-Auth-Token: $admintoken" );
 
@@ -357,7 +359,9 @@ class OpenStackNovaController {
 		foreach ( $users as $user ) {
 			$name = self::_get_property( $user, 'name' );
 			$id = self::_get_property( $user, 'id' );
-			$userarr[$id] = $name;
+			if ( !in_array( $id, $wgOpenStackHiddenUsernames ) ) {
+				$userarr[$id] = $name;
+			}
 		}
 		return $userarr;
 	}
