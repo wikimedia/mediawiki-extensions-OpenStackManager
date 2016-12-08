@@ -396,5 +396,6 @@
 	"apihelp-query+novainstances-param-region": "The region to list instances for.",
 	"apihelp-query+novainstances-example-1": "List instances in project testing in region mars",
 	"apihelp-query+novaprojects-description": "Returns a list of all the known projects.",
-	"apihelp-query+novaprojects-example-1": "List projects"
+	"apihelp-query+novaprojects-example-1": "List projects",
+	"apierror-openstackmanager-badproject": "Invalid project specified."
 }
