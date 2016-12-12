@@ -10,7 +10,6 @@
 	"novaaddress": "Valdyti viešus IP adresus",
 	"novadomain": "Valdyti DNS domenus",
 	"openstackmanager-delete": "ištrinti",
-	"openstackmanager-configure": "konfigūruoti",
 	"openstackmanager-modify": "modifikuoti",
 	"openstackmanager-reboot": "perkrauti",
 	"openstackmanager-actions": "Veiksmai",
@@ -115,5 +114,6 @@
 	"openstackmanager-sudoerusers": "Naudotojai",
 	"openstackmanager-sudoercommands": "Komandos",
 	"openstackmanager-sudoeroptions": "Pasirinktys",
-	"echo-notification-goto-project": "Žiūrėti projektą"
+	"echo-notification-goto-project": "Žiūrėti projektą",
+	"apierror-openstackmanager-badproject": "Nurodytas negalimas projektas."
 }
