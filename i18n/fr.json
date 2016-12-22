@@ -21,7 +21,8 @@
 			"0x010C",
 			"Hercule",
 			"Wladek92",
-			"Orlodrim"
+			"Orlodrim",
+			"McDutchie"
 		]
 	},
 	"openstackmanager-desc": "Permet aux utilisateurs autorisés de créer et gérer des instances de serveurs virtuels avec un gestionnaire compatible OpenStack, tel que Nova ou Swift.",
@@ -227,7 +228,7 @@
 	"openstackmanager-novaproject-project": "Ajouter un projet",
 	"openstackmanager-novaprojectfilter-projectfilter": "Filtre de projet",
 	"openstackmanager-projects": "Projets",
-	"openstackmanager-setprojects": "Définir le filtre de projet.",
+	"openstackmanager-setprojects": "Le filtre de projet a été défini.",
 	"openstackmanager-setprojectfilter": "Veuillez sélectionner les projets à afficher à l'aide du filtre du projet.",
 	"openstackmanager-projectfiltersubmit": "Fixer le filtre",
 	"openstackmanager-toggle": "Basculer",

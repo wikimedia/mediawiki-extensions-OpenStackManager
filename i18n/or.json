@@ -26,7 +26,6 @@
 	"openstackmanager-novakey": "Nova ଚାବି",
 	"openstackmanager-novaproject": "Nova ପ୍ରକଳ୍ପ",
 	"openstackmanager-delete": "ଲିଭାଇବେ",
-	"openstackmanager-configure": "ସଜଡ଼ା",
 	"openstackmanager-modify": "ରୂପାନ୍ତର କରିବେ",
 	"openstackmanager-rename": "ନାମବଦଳ",
 	"openstackmanager-reboot": "ପୁନରାରମ୍ଭ",
@@ -82,7 +81,7 @@
 	"openstackmanager-deletedproject": "ପ୍ରକଳ୍ପଟି ସଫଳ ଭାବେ ଲିଭା ହେଲା ।",
 	"openstackmanager-deleteprojectfailed": "ପ୍ରକଳ୍ପଟି ଲିଭା ହୋଇପାରିଲା ନାହିଁ ।",
 	"openstackmanager-addedto": "$1କୁ $2 ସହ ସଫଳ ଭାବେ ଯୋଡାଗଲା ।",
-	"openstackmanager-failedtoadd": "$1କୁ $2 ସହ ଯୋଡା ଯାଇପାରିଲାନାହିଁ ।",
+	"openstackmanager-failedtoadd": "$1କୁ $2 ସହ ଯୋଡ଼ା ଯାଇପାରିଲାନାହିଁ ।",
 	"openstackmanager-removedfrom": "$2ରୁ $1କୁ ସଫଳଭାବେ ହଟାଗଲା ।",
 	"openstackmanager-failedtoremove": "$2ରୁ $1କୁ ହଟା ଯାଇପାରିଲାନାହିଁ ।",
 	"openstackmanager-novaproject-project": "ପ୍ରକଳ୍ପ ଯୋଡ଼ନ୍ତୁ",
@@ -125,13 +124,11 @@
 	"openstackmanager-removerulefailed": "ନିୟମ ହଟାଯାଇପାରିଲା ନାହିଁ ।",
 	"openstackmanager-addrule": "ନିୟମ ଯୋଡ଼ନ୍ତୁ",
 	"openstackmanager-addedrule": "ନିୟମଟିକୁ ସଫଳଭାବେ ଯୋଡାଗଲା ।",
-	"openstackmanager-addrulefailed": "ନିୟମ ଯୋଡା ଯାଇ ପାରିଲାନାହିଁ ।",
+	"openstackmanager-addrulefailed": "ନିୟମ ଯୋଡ଼ା ଯାଇ ପାରିଲାନାହିଁ ।",
 	"openstackmanager-commadelimiter": "କମାଦ୍ଵାରା ଅଲଗା କରାଯାଇଛି",
 	"openstackmanager-sudoerusers": "ବ୍ୟବହାରକାରୀଗଣ",
 	"openstackmanager-sudoercommands": "ଆଦେଶଗୁଡିକ",
 	"openstackmanager-sudoeroptions": "ପସନ୍ଦସମୂହ",
 	"openstackmanager-deletesudoer": "ସୁଡୋ ନୀତି ହଟାଇବେ",
-	"openstackmanager-deletesudoer-confirm": "ଆପଣ ନିଶ୍ଚିତ ଯେ $1 ସୁଡୋ ନୀତି ହଟାଇବେ ?",
-	"openstackmanager-puppetclassname": "କକ୍ଷ ନାମ",
-	"openstackmanager-puppetvarname": "ଅସ୍ଥାୟୀ ନାମ"
+	"openstackmanager-deletesudoer-confirm": "ଆପଣ ନିଶ୍ଚିତ ଯେ $1 ସୁଡୋ ନୀତି ହଟାଇବେ ?"
 }
