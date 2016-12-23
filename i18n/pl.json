@@ -204,6 +204,8 @@
 	"openstackmanager-proxybackend": "Instancja",
 	"openstackmanager-email-subject": "Twoja maszyna jest gotowa do zalogowania.",
 	"openstackmanager-email-body": "Ta maszyna została utworzona i jest gotowa do zalogowania:",
+	"openstackmanager-twofactorrequired": "Wymagane uwierzytelnianie dwuskładnikowe",
+	"openstackmanager-twofactorrequired2": "Wymagane jest uwierzytelnianie dwuskładnikowe. Proszę je włączyć i spróbować ponownie.",
 	"right-manageproject": "Zarządzanie projektami i uprawnieniami OpenStack",
 	"action-manageproject": "zarządzaj projektami i uprawnieniami OpenStock",
 	"right-loginviashell": "Logowanie przez shell",
@@ -214,5 +216,6 @@
 	"apihelp-novaprojectlimits-description": "Pobiera informacje o projektach.",
 	"apihelp-novaprojects-description": "Pobiera informacje o projektach.",
 	"apihelp-novaprojects-example-1": "Pobierz wszystkie projekty",
-	"apihelp-query+novaprojects-description": "Zwraca listę wszystkich znanych projektów."
+	"apihelp-query+novaprojects-description": "Zwraca listę wszystkich znanych projektów.",
+	"apihelp-query+novaprojects-example-1": "Lista projektów"
 }
