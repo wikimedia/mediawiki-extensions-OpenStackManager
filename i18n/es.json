@@ -11,7 +11,8 @@
 			"Macofe",
 			"Ryo567",
 			"Matiia",
-			"AlvaroMolina"
+			"AlvaroMolina",
+			"Dgstranz"
 		]
 	},
 	"openstackmanager-desc": "Permite a los usuarios administrar Nova y Swift",
@@ -391,5 +392,6 @@
 	"apihelp-novaservicegroups-example-1": "Obtener todos los grupos de servicio en la prueba de proyecto",
 	"apihelp-query+novainstances-description": "Devuelve una lista de instancias del proyecto dado.",
 	"apihelp-query+novaprojects-description": "Devuelve una lista de todos los proyectos conocidos.",
-	"apihelp-query+novaprojects-example-1": "Listar proyectos"
+	"apihelp-query+novaprojects-example-1": "Listar proyectos",
+	"apierror-openstackmanager-badproject": "El proyecto especificado no es válido."
 }
