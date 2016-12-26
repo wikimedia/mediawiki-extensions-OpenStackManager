@@ -399,5 +399,6 @@
 	"apihelp-query+novainstances-param-region": "באזור שהמופעים בו יהיו ברשימה.",
 	"apihelp-query+novainstances-example-1": "רשימת מופעים בפרויקט testing באזור mars",
 	"apihelp-query+novaprojects-description": "החזרת רשימת כל הפרויקטים הידועים.",
-	"apihelp-query+novaprojects-example-1": "רשימת פרויקטים"
+	"apihelp-query+novaprojects-example-1": "רשימת פרויקטים",
+	"apierror-openstackmanager-badproject": "ניתן מיזם בלתי־תקין."
 }
