@@ -53,7 +53,7 @@ class SpecialNovaProject extends SpecialNova {
 	 */
 	function addMember() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-addmember' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-addmember' ) );
 
 		$projectid = $this->getRequest()->getText( 'projectid' );
 		$project = new OpenStackNovaProject( $projectid );
@@ -97,7 +97,7 @@ class SpecialNovaProject extends SpecialNova {
 	 */
 	function deleteMember() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-removemember' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-removemember' ) );
 
 		$projectid = $this->getRequest()->getText( 'projectid' );
 		$project = new OpenStackNovaProject( $projectid );
@@ -151,7 +151,7 @@ class SpecialNovaProject extends SpecialNova {
 			$this->displayRestrictionError();
 			return false;
 		}
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-deleteproject' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-deleteproject' ) );
 
 		$project = $this->getRequest()->getText( 'projectid' );
 		if ( ! $this->getRequest()->wasPosted() ) {
@@ -308,7 +308,7 @@ class SpecialNovaProject extends SpecialNova {
 		$projectId = $this->getRequest()->getText( 'projectid' );
 		$project = new OpenStackNovaProject( $projectId );
 		$projectname = $project->getProjectName();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-displayquotas', $projectId ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-displayquotas', $projectId ) );
 		if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( 'projectadmin', $projectname ) ) {
 			$this->notInRole( 'projectadmin', $projectname );
 			return false;

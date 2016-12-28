@@ -75,7 +75,7 @@ class SpecialNovaVolume extends SpecialNova {
 	 */
 	function createVolume() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-createvolume' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-createvolume' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -138,7 +138,7 @@ class SpecialNovaVolume extends SpecialNova {
 	 */
 	function deleteVolume() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-deletevolume' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-deletevolume' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -188,7 +188,7 @@ class SpecialNovaVolume extends SpecialNova {
 	 */
 	function attachVolume() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-attachvolume' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-attachvolume' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -270,7 +270,7 @@ class SpecialNovaVolume extends SpecialNova {
 	 */
 	function detachVolume() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-detachvolume' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-detachvolume' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -330,7 +330,7 @@ class SpecialNovaVolume extends SpecialNova {
 	function listVolumes() {
 		$this->setHeaders();
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-volumelist' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-volumelist' ) );
 
 		if ( $this->getUser()->isAllowed( 'listall' ) ) {
 			$projects = OpenStackNovaProject::getAllProjects();

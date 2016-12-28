@@ -57,7 +57,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	 */
 	function createSudoer() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-modifysudoer' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-modifysudoer' ) );
 		if ( ! $this->userLDAP->inRole( 'projectadmin', $this->projectName ) ) {
 			$this->notInRole( 'projectadmin', $this->projectName );
 			return false;
@@ -138,7 +138,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	 */
 	function deleteSudoer() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-deletesudoer' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-deletesudoer' ) );
 		if ( ! $this->userLDAP->inRole( 'projectadmin', $this->projectName ) ) {
 			$this->notInRole( 'projectadmin', $this->projectName );
 			return false;
@@ -180,7 +180,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	 */
 	function modifySudoer() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-modifysudoer' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-modifysudoer' ) );
 		if ( ! $this->userLDAP->inRole( 'projectadmin', $this->projectName ) ) {
 			$this->notInRole( 'projectadmin', $this->projectName );
 			return false;
@@ -367,7 +367,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	function listSudoers() {
 		$this->setHeaders();
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-sudoerlist' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-sudoerlist' ) );
 
 		if ( $this->getUser()->isAllowed( 'listall' ) ) {
 			$projects = OpenStackNovaProject::getAllProjects();

@@ -59,7 +59,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	 */
 	function createSecurityGroup() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-createsecuritygroup' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-createsecuritygroup' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -114,7 +114,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	 */
 	function deleteSecurityGroup() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-deletesecuritygroup' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-deletesecuritygroup' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -172,7 +172,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	function listSecurityGroups() {
 		$this->setHeaders();
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-securitygrouplist' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-securitygrouplist' ) );
 
 		if ( $this->userCanExecute( $this->getUser() ) ) {
 			$projects = OpenStackNovaProject::getAllProjects();
@@ -290,7 +290,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	 */
 	function addRule() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-addrule' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-addrule' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -389,7 +389,7 @@ class SpecialNovaSecurityGroup extends SpecialNova {
 	 */
 	function removeRule() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-removerule' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-removerule' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );

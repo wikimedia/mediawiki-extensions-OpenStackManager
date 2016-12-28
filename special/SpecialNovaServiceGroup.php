@@ -40,7 +40,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 	 */
 	function manageMembers() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-manageservicegroupmembers-title' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-manageservicegroupmembers-title' ) );
 
 		$groupInfo = array();
 		$groupName = $this->getRequest()->getText( 'servicegroupname' );
@@ -130,7 +130,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 	 */
 	function addServiceGroup() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-addservicegroup' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-addservicegroup' ) );
 
 		$project = $this->getRequest()->getText( 'projectname' );
 		if ( !$this->userLDAP->inProject( $project ) ) {
@@ -180,7 +180,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 			$this->notInRole( 'projectadmin', $project );
 			return false;
 		}
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-removeservicegroup' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-removeservicegroup' ) );
 
 		$groupName = $this->getRequest()->getText( 'groupname' );
 		if ( ! $this->getRequest()->wasPosted() ) {
