@@ -228,7 +228,7 @@
 	"openstackmanager-novaproject-project": "Ajouter un projet",
 	"openstackmanager-novaprojectfilter-projectfilter": "Filtre de projet",
 	"openstackmanager-projects": "Projets",
-	"openstackmanager-setprojects": "Le filtre de projet a été défini.",
+	"openstackmanager-setprojects": "Définir le filtre de projet.",
 	"openstackmanager-setprojectfilter": "Veuillez sélectionner les projets à afficher à l'aide du filtre du projet.",
 	"openstackmanager-projectfiltersubmit": "Fixer le filtre",
 	"openstackmanager-toggle": "Basculer",
