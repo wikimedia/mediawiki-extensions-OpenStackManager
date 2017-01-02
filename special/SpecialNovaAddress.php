@@ -59,7 +59,7 @@ class SpecialNovaAddress extends SpecialNova {
 	 */
 	function allocateAddress() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-allocateaddress' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-allocateaddress' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -104,7 +104,7 @@ class SpecialNovaAddress extends SpecialNova {
 	 */
 	function releaseAddress() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-releaseaddress' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-releaseaddress' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -158,7 +158,7 @@ class SpecialNovaAddress extends SpecialNova {
 	function associateAddress() {
 
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-associateaddress' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-associateaddress' ) );
 
 		$id = $this->getRequest()->getText( 'id' );
 		$project = $this->getRequest()->getText( 'project' );
@@ -223,7 +223,7 @@ class SpecialNovaAddress extends SpecialNova {
 	 */
 	function disassociateAddress() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-disassociateaddress' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-disassociateaddress' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -276,7 +276,7 @@ class SpecialNovaAddress extends SpecialNova {
 	 */
 	function addHost() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-addhost' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-addhost' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -343,7 +343,7 @@ class SpecialNovaAddress extends SpecialNova {
 	function removeHost() {
 
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-removehost' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-removehost' ) );
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
@@ -411,7 +411,7 @@ class SpecialNovaAddress extends SpecialNova {
 
 		$this->setHeaders();
 		$this->getOutput()->addModules( 'ext.openstack.Address' );
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-addresslist' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-addresslist' ) );
 
 		if ( $this->getUser()->isAllowed( 'listall' ) ) {
 			$projects = OpenStackNovaProject::getAllProjects();

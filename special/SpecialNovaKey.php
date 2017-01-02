@@ -43,7 +43,7 @@ class SpecialNovaKey extends SpecialNova {
 		global $wgOpenStackManagerNovaKeypairStorage;
 
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-deletekey' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-deletekey' ) );
 		$returnto = $this->getRequest()->getVal( 'returnto' );
 
 		$keyInfo = array();
@@ -110,7 +110,7 @@ class SpecialNovaKey extends SpecialNova {
 		global $wgOpenStackManagerNovaKeypairStorage;
 
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-addkey' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-addkey' ) );
 		$returnto = $this->getRequest()->getVal( 'returnto' );
 
 		$keyInfo = array();

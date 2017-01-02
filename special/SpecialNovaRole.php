@@ -38,7 +38,7 @@ class SpecialNovaRole extends SpecialNova {
 	 */
 	function addMember() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-addmember' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-addmember' ) );
 
 		$roleInfo = array();
 		$roleid = $this->getRequest()->getText( 'roleid' );
@@ -116,7 +116,7 @@ class SpecialNovaRole extends SpecialNova {
 	 */
 	function deleteMember() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-removerolemember' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-removerolemember' ) );
 
 		$roleid = $this->getRequest()->getText( 'roleid' );
 		$projectid = $this->getRequest()->getText( 'projectid' );

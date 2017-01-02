@@ -17,7 +17,7 @@ abstract class SpecialNova extends SpecialPage {
 	 */
 	function notLoggedIn() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-notloggedin' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-notloggedin' ) );
 		$this->getOutput()->addWikiMsg( 'openstackmanager-mustbeloggedin' );
 	}
 
@@ -26,7 +26,7 @@ abstract class SpecialNova extends SpecialPage {
 	 */
 	function noCredentials() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-nonovacred' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-nonovacred' ) );
 		$this->getOutput()->addWikiMsg( 'openstackmanager-nonovacred-admincreate' );
 	}
 
@@ -35,7 +35,7 @@ abstract class SpecialNova extends SpecialPage {
 	 */
 	function notInProject( $project ) {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-noaccount', $project ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-noaccount', $project ) );
 		$this->getOutput()->addWikiMsg( 'openstackmanager-noaccount2', $project );
 	}
 
@@ -44,7 +44,7 @@ abstract class SpecialNova extends SpecialPage {
 	 */
 	function notInServiceGroup() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-notinservicegroup' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-notinservicegroup' ) );
 		$this->getOutput()->addWikiMsg( 'openstackmanager-needservicegroup' );
 	}
 
@@ -54,7 +54,7 @@ abstract class SpecialNova extends SpecialPage {
 	 */
 	function notInRole( $role, $project ) {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-needrole', $role, $project ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-needrole', $role, $project ) );
 		$this->getOutput()->addWikiMsg( 'openstackmanager-needrole2', $role, $project );
 	}
 

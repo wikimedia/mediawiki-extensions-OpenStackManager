@@ -43,7 +43,7 @@ class SpecialNovaDomain extends SpecialNova {
 	 */
 	function deleteDomain() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-deletedomain' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-deletedomain' ) );
 
 		$domainname = $this->getRequest()->getText( 'domainname' );
 		if ( ! $this->getRequest()->wasPosted() ) {
@@ -77,7 +77,7 @@ class SpecialNovaDomain extends SpecialNova {
 	 */
 	function listDomains() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-domainlist' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-domainlist' ) );
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
 
 		$domainInfo = array();

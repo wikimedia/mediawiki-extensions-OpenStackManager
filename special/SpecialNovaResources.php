@@ -91,13 +91,13 @@ class SpecialNovaResources extends SpecialNova {
 		$out = '';
 
 		if ( $ownedProjects ) {
-			$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-ownedprojects', count( $ownedProjects ) ) );
+			$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-ownedprojects', count( $ownedProjects ) ) );
 			foreach ( $ownedProjects as $ownedProject ) {
 				$projectNameOut = $this->createResourceLink( $ownedProject );
 				$out .= $projectNameOut . " ";
 			}
 		} else {
-			$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-noownedprojects' ) );
+			$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-noownedprojects' ) );
 		}
 
 		if ( $instanceCount ) {

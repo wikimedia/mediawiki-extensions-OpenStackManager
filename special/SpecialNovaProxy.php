@@ -58,7 +58,7 @@ class SpecialNovaProxy extends SpecialNova {
 	 */
 	function createProxy() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-createproxy' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-createproxy' ) );
 		if ( ! $this->userLDAP->inRole( 'projectadmin', $this->projectName ) ) {
 			$this->notInRole( 'projectadmin', $this->projectName );
 			return false;
@@ -149,7 +149,7 @@ class SpecialNovaProxy extends SpecialNova {
 	 */
 	function deleteProxy() {
 		$this->setHeaders();
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-deleteproxy' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-deleteproxy' ) );
 		if ( ! $this->userLDAP->inRole( 'projectadmin', $this->projectName ) ) {
 			$this->notInRole( 'projectadmin', $this->projectName );
 			return false;
@@ -199,7 +199,7 @@ class SpecialNovaProxy extends SpecialNova {
 		global $wgOpenStackManagerReadOnlyRegions;
 		$this->setHeaders();
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
-		$this->getOutput()->setPagetitle( $this->msg( 'openstackmanager-proxylist' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-proxylist' ) );
 
 		if ( $this->getUser()->isAllowed( 'listall' ) ) {
 			$projects = OpenStackNovaProject::getAllProjects();
