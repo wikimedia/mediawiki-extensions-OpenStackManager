@@ -3,7 +3,7 @@
  * OpenStackManager extension - lets users manage nova and swift
  *
  *
- * For more info see http://mediawiki.org/wiki/Extension:OpenStackManager
+ * For more info see https://mediawiki.org/wiki/Extension:OpenStackManager
  *
  * @file
  * @ingroup Extensions
@@ -22,7 +22,7 @@ $wgExtensionCredits['other'][] = array(
 	'name' => 'OpenStackManager',
 	'author' => 'Ryan Lane',
 	'version' => '2.2.0',
-	'url' => 'http://mediawiki.org/wiki/Extension:OpenStackManager',
+	'url' => 'https://mediawiki.org/wiki/Extension:OpenStackManager',
 	'descriptionmsg' => 'openstackmanager-desc',
 	'license-name' => 'GPL-2.0+',
 );
