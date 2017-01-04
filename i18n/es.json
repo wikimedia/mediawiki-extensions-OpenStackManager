@@ -281,7 +281,7 @@
 	"openstackmanager-novasecuritygroup-rule": "Regla de grupos de seguridad",
 	"openstackmanager-novasecuritygroup-singlerule": "Regla individual",
 	"openstackmanager-novasecuritygroup-group": "Regla de grupo",
-	"openstackmanager-securitygrouprule-group-exclusive": "Nota: las reglas del grupo y las reglas individuales son mutuamente excluyentes.\nElije unas o las otras, no ambas.",
+	"openstackmanager-securitygrouprule-group-exclusive": "Nota: las reglas del grupo y las reglas individuales son mutuamente excluyentes.\nElige unas o las otras, no ambas.",
 	"openstackmanager-securitygrouprule-toport": "Final del intervalo de puertos",
 	"openstackmanager-securitygrouprule-fromport": "Comienzo del intervalo de puertos",
 	"openstackmanager-securitygrouprule-protocol": "Protocolo",
