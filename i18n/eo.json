@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Blahma",
-			"Yekrats"
+			"Yekrats",
+			"Robin van der Vliet"
 		]
 	},
 	"openstackmanager-desc": "Permesas al uzantoj por administri servilajn ilojn Nova aŭ Swift",
@@ -19,7 +20,6 @@
 	"openstackmanager-novakey": "Ŝlosilo Nova",
 	"openstackmanager-novaproject": "Projekto Nova",
 	"openstackmanager-delete": "forigi",
-	"openstackmanager-configure": "konfiguri",
 	"openstackmanager-modify": "modifi",
 	"openstackmanager-rename": "alinomigi",
 	"openstackmanager-reboot": "restarti",
@@ -40,11 +40,8 @@
 	"openstackmanager-domainname": "Nomo de domajno",
 	"openstackmanager-location": "Loko",
 	"openstackmanager-novainstance-instance": "Ekzemplo",
-	"openstackmanager-configureinstance": "Konfiguri ekzemplon",
 	"openstackmanager-dnsdomain": "DNS-domajno",
-	"openstackmanager-puppetclasses": "Klasoj",
 	"openstackmanager-novainstance-info": "Informo pri ekzemplo",
-	"openstackmanager-novainstance-puppetinfo": "Informo de \"pupoj\"",
 	"openstackmanager-novainstance-global": "Ĝeneralaj grupoj",
 	"openstackmanager-deleteinstancewithname": "Forigi Ekzemplon $1 ($2)",
 	"openstackmanager-deleteinstance": "Forigi Ekzemplon",
@@ -68,7 +65,6 @@
 	"openstackmanager-createinstancefailed": "Malsukcesis krei ekzemplon.",
 	"openstackmanager-backinstancelist": "Reiri al listo de ekzemploj",
 	"openstackmanager-deletedinstance": "Forigis ekzemplon $1.",
-	"openstackmanager-modifyinstancefailed": "Malsukcesis modifi ekzemplon.",
 	"openstackmanager-deleteinstancefailed": "Malsukcesis forigi ekzemplon.",
 	"openstackmanager-consoleoutput": "Eligo de stirpanelo",
 	"openstackmanager-createvolume": "Krei Volumon",
@@ -137,6 +133,7 @@
 	"openstackmanager-removedhost": "Sukcesis forigi $1.",
 	"openstackmanager-removehostfailed": "Malsukcesis forigi $1.",
 	"openstackmanager-nonexistenthost": "La petita gastigo ne ekzistas.",
+	"openstackmanager-unknownerror": "Eraro okazis.",
 	"openstackmanager-securitygroupdescription": "Priskribo",
 	"openstackmanager-securitygrouprule": "Reguloj",
 	"openstackmanager-novasecuritygroup-singlerule": "Persona regulo",
@@ -152,12 +149,5 @@
 	"openstackmanager-addrulefailed": "Malsukcesis aldoni regulon.",
 	"openstackmanager-sudoerusers": "Uzantoj",
 	"openstackmanager-sudoercommands": "Komandoj",
-	"openstackmanager-sudoeroptions": "Agordoj",
-	"openstackmanager-puppetallprojects": "Ĉiuj Projektoj",
-	"openstackmanager-createpuppetgroup": "Aldoni grupon",
-	"openstackmanager-addpuppetclass": "Aldoni klason",
-	"openstackmanager-puppetvars": "Variabloj",
-	"openstackmanager-addpuppetvar": "Aldoni variablon",
-	"openstackmanager-puppetvarname": "Nomo de variablo",
-	"openstackmanager-puppetvarposition": "Loko de variablo"
+	"openstackmanager-sudoeroptions": "Agordoj"
 }
