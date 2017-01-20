@@ -53,10 +53,9 @@ class ApiListNovaInstances extends ApiQueryGeneratorBase {
 					'imageid' => $instance->getImageId(),
 				);
 			}
+			// Cache info for 1 minute, not longer since we do not invalidate
+			$wgMemc->set( $key, $instancesInfo, 60 );
 		}
-
-		// Cache info for 1 minute, not caching for longer since we do not invalidate
-		$wgMemc->set( $key, $instancesInfo, 1 * 60 );
 
 		foreach ( $instancesInfo as $info ) {
 			// UGH I hate XML
