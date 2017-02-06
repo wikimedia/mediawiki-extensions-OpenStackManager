@@ -4,5 +4,22 @@
 			"Cedric31"
 		]
 	},
-	"openstackmanager-unknownerror": "Una error s'es produita."
+	"openstackmanager-novadomain-domain": "Apondre un domeni",
+	"openstackmanager-addadditionaldomain": "Apondre un autre domeni",
+	"openstackmanager-createinstance": "Apondre un instància",
+	"openstackmanager-addkey": "Apondre una clau publica SSH",
+	"openstackmanager-addmember": "Apondre un membre",
+	"openstackmanager-addservicegroup": "Apondre un grop de servici",
+	"openstackmanager-createproject": "Apondre un projècte",
+	"openstackmanager-addadditionalproject": "Apondre un autre projècte",
+	"openstackmanager-novaproject-project": "Apondre un projècte",
+	"openstackmanager-addrolemember": "Apondre un membre",
+	"openstackmanager-addhost": "Apondre lo nom d'òste",
+	"openstackmanager-unknownerror": "Una error s'es produita.",
+	"openstackmanager-createnewsecuritygroup": "Apondre un grop",
+	"openstackmanager-addrule-action": "apondre una règla",
+	"openstackmanager-addrule": "Apondre una règla",
+	"openstackmanager-addrulefailed": "Impossible d'apondre la règla.",
+	"openstackmanager-novasudoer-sudoer": "Apondre una règla ''sudo''",
+	"openstackmanager-addadditionalsudoer": "Apondre una autra règla ''sudo''"
 }
