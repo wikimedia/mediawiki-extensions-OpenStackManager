@@ -5,7 +5,8 @@
 			"Kghbln",
 			"Metalhead64",
 			"Purodha",
-			"Se4598"
+			"Se4598",
+			"Umherirrender"
 		]
 	},
 	"openstackmanager-desc": "Ermöglicht Benutzern die Verwaltung von Nova und Swift",
@@ -185,7 +186,7 @@
 	"openstackmanager-displayquotas": "Quoten für das Projekt $1",
 	"openstackmanager-displayquotas-action": "Quoten anzeigen",
 	"openstackmanager-displayquotas-ram": "RAM: $1/$2",
-	"openstackmanager-displayquotas-cores": "Kerne:  $1/$2",
+	"openstackmanager-displayquotas-cores": "Kerne: $1/$2",
 	"openstackmanager-displayquotas-floatingips": "Dynamische IPs: $1/$2",
 	"openstackmanager-displayquotas-instances": "Instanzen: $1/$2",
 	"openstackmanager-displayquotas-securitygroups": "Sicherheitsgruppen: $1/$2",
