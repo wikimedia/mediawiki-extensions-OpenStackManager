@@ -21,5 +21,7 @@
 	"openstackmanager-addrule": "Apondre una règla",
 	"openstackmanager-addrulefailed": "Impossible d'apondre la règla.",
 	"openstackmanager-novasudoer-sudoer": "Apondre una règla ''sudo''",
-	"openstackmanager-addadditionalsudoer": "Apondre una autra règla ''sudo''"
+	"openstackmanager-addadditionalsudoer": "Apondre una autra règla ''sudo''",
+	"openstackmanager-twofactorrequired": "Autentificacion de dos factors exigida",
+	"openstackmanager-twofactorrequired2": "L'autentificacion de dos factors es exigida. L'activar e ensajatz tornamai."
 }
