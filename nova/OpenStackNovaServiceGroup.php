@@ -353,20 +353,6 @@ class OpenStackNovaServiceGroup {
 			return null;
 		}
 
-		# Create Sudo policy so that the service user can chown files in its homedir
-		if ( OpenStackNovaSudoer::createSudoer( $groupName . '-chmod',
-				$project->getProjectName(),
-				array( $groupName ),
-				array(),
-				array( '/bin/chown -R ' . $groupName . '\:' . $groupName . ' ' . $homeDir ),
-				array( '!authenticate' ) ) ) {
-			$ldap->printDebug( "Successfully created chmod sudo policy for $groupName",
-				NONSENSITIVE );
-		} else {
-			$ldap->printDebug( "Failed to  creat chmod sudo policy for $groupName",
-				NONSENSITIVE );
-		}
-
 		# Create Sudo policy so that members of the group can sudo as the service user
 		if ( OpenStackNovaSudoer::createSudoer( 'runas-' . $groupName,
 				$project->getProjectName(),
