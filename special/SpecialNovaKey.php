@@ -278,7 +278,7 @@ class SpecialNovaKey extends SpecialNova {
 
 		$key = trim( $formData['key'] ); # Because people copy paste it with an accidental newline
 		$returnto = Title::newFromText( $formData['returnto'] );
-		if ( !preg_match( '/(^| )ssh-(rsa|dss) /', $key ) ) {
+		if ( !preg_match( '/(^| )ssh-(rsa|dss|ed25519) /', $key ) ) {
 			# This doesn't look like openssh format, it's probably a
 			# Windows user providing it in PuTTY format.
 			$key = self::opensshFormatKey( $key );
