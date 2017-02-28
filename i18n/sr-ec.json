@@ -61,7 +61,7 @@
 	"openstackmanager-backinstancelist": "Назад на списак примерака",
 	"openstackmanager-deletedinstance": "Примерак $1 ($2) је обрисан.",
 	"openstackmanager-deletedinstance-faileddns": "Примерак $1 ($2) је обрисан, али уклањање DNS ставке није успело.",
-	"openstackmanager-modifiedinstance": "Примерак $1 је успешно измењен ($2).",
+	"openstackmanager-modifiedinstance": "Примерак $1 је измењен ($2).",
 	"openstackmanager-deleteinstancefailed": "Не могу да обришем примерак $1 ($2).",
 	"openstackmanager-consoleoutput": "Излаз конзоле за $1 ($2)",
 	"openstackmanager-getconsoleoutput": "преузми излаз конзоле",

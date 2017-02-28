@@ -47,7 +47,7 @@
 	"openstackmanager-domainlist": "Сьпіс дамэнаў",
 	"openstackmanager-backdomainlist": "Вярнуцца ў сьпіс дамэнаў",
 	"openstackmanager-addadditionaldomain": "Дадаць іншы дамэн.",
-	"openstackmanager-deleteddomain": "Дамэн выдалены пасьпяхова.",
+	"openstackmanager-deleteddomain": "Дамэн выдалены.",
 	"openstackmanager-failedeletedomain": "Немагчыма выдаліць дамэн.",
 	"openstackmanager-domainname": "Назва дамэна",
 	"openstackmanager-fqdn": "Поўная назва дамэна",
