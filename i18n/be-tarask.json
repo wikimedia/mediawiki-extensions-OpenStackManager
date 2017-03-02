@@ -84,7 +84,7 @@
 	"openstackmanager-backinstancelist": "Вярнуцца ў сьпіс экзэмпляраў",
 	"openstackmanager-deletedinstance": "Выдалены экзэмпляр $1 ($2).",
 	"openstackmanager-deletedinstance-faileddns": "Экзэмпляр $1 ($2) выдалены, але немагчыма выдаліць запіс у DNS.",
-	"openstackmanager-modifiedinstance": "Экзэмпляр $1 ($2) зьменены пасьпяхова.",
+	"openstackmanager-modifiedinstance": "Экзэмпляр $1 ($2) зьменены.",
 	"openstackmanager-deleteinstancefailed": "Не атрымалася выдаліць экзэмпляр $1 ($2).",
 	"openstackmanager-consoleoutput": "Вывад кансолі для $1 ($2)",
 	"openstackmanager-getconsoleoutput": "атрымаць кансольны вывад",
