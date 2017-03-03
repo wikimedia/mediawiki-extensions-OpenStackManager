@@ -113,7 +113,7 @@
 	"openstackmanager-backvolumelist": "Вярнуцца ў сьпіс разьдзелаў сховішча",
 	"openstackmanager-attachvolume": "Далучыць разьдзел сховішча",
 	"openstackmanager-device": "Прылада",
-	"openstackmanager-attachedvolume": "Разьдзел сховішча далучаны пасьпяхова.",
+	"openstackmanager-attachedvolume": "Разьдзел сховішча далучаны.",
 	"openstackmanager-attachvolumefailed": "Немагчыма далучыць разьдзел сховішча.",
 	"openstackmanager-detachvolume": "Адлучыць разьдзел сховішча",
 	"openstackmanager-forcedetachment": "Прымусовае адлучэньне разьдзелу сховішча",
