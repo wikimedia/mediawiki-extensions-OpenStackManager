@@ -118,7 +118,7 @@
 	"openstackmanager-detachvolume": "Адлучыць разьдзел сховішча",
 	"openstackmanager-forcedetachment": "Прымусовае адлучэньне разьдзелу сховішча",
 	"openstackmanager-forcedetachmenthelp": "Прымусовае адлучэньне рэкамэндуецца толькі калі разьдзел сховішча ня можа быць адлучаны звычайна. Гэта можа прывесьці да пашкоджаньня разьдзелу сховішча і страты зьвестак.",
-	"openstackmanager-detachedvolume": "Разьдзел сховішча адлучаны пасьпяхова.",
+	"openstackmanager-detachedvolume": "Разьдзел сховішча адлучаны.",
 	"openstackmanager-detachvolumefailed": "Немагчыма адлучыць разьдзел сховішча.",
 	"openstackmanager-novapublickey": "Публічны ключ SSH",
 	"openstackmanager-deletekey": "Выдаліць публічны SSH-ключ",
