@@ -129,7 +129,7 @@
 	"openstackmanager-invalidkeypair": "Няслушнае месцазнаходжаньне пары ключоў.",
 	"openstackmanager-keypairimportfailed": "Немагчыма імпартаваць пару ключоў.",
 	"openstackmanager-keypairimported": "Імпартаваная пара ключоў.",
-	"openstackmanager-deletedkey": "Пасьпяхова выдалены ключ.",
+	"openstackmanager-deletedkey": "Ключ выдалены.",
 	"openstackmanager-deletedkeyfailed": "Немагчыма выдаліць ключ.",
 	"openstackmanager-addmember": "Дадаць удзельніка",
 	"openstackmanager-removemember": "Выдаліць удзельніка",
