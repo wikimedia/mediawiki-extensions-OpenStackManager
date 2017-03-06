@@ -54,7 +54,7 @@
 	"openstackmanager-modify": "修改",
 	"openstackmanager-rename": "重命名",
 	"openstackmanager-reboot": "重新引导",
-	"openstackmanager-actions": "动作",
+	"openstackmanager-actions": "操作",
 	"openstackmanager-notloggedin": "需要登录",
 	"openstackmanager-mustbeloggedin": "您必须登录才能执行此操作。",
 	"openstackmanager-creationdisabled": "创建已被禁用",

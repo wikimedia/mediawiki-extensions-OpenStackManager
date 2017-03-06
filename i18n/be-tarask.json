@@ -144,7 +144,7 @@
 	"openstackmanager-projectlist": "Сьпіс праектаў",
 	"openstackmanager-backprojectlist": "Вярнуцца ў сьпіс праектаў",
 	"openstackmanager-deleteproject": "Выдаліць",
-	"openstackmanager-deletedproject": "Праект выдалены пасьпяхова.",
+	"openstackmanager-deletedproject": "Праект выдалены.",
 	"openstackmanager-deleteprojectfailed": "Немагчыма выдаліць праект.",
 	"openstackmanager-addedto": "$1 дададзены да $2 пасьпяхова.",
 	"openstackmanager-failedtoadd": "Немагчыма дадаць $1 да $2.",
