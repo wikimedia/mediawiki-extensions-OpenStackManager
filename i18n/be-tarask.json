@@ -148,7 +148,7 @@
 	"openstackmanager-deleteprojectfailed": "Немагчыма выдаліць праект.",
 	"openstackmanager-addedto": "$1 дададзены да $2.",
 	"openstackmanager-failedtoadd": "Немагчыма дадаць $1 да $2.",
-	"openstackmanager-removedfrom": "$1 з $2 выдалены пасьпяхова.",
+	"openstackmanager-removedfrom": "$1 з $2 выдалены.",
 	"openstackmanager-failedtoremove": "Немагчыма выдаліць $1 з $2.",
 	"openstackmanager-novaproject-project": "Дадаць праект",
 	"openstackmanager-roles": "Ролі",
