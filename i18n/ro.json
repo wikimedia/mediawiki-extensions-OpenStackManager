@@ -3,7 +3,8 @@
 		"authors": [
 			"Firilacroco",
 			"Minisarm",
-			"Stelistcristi"
+			"Stelistcristi",
+			"Strainu"
 		]
 	},
 	"openstackmanager-desc": "Permite utilizatorilor să administreze Nova și Swift",
@@ -17,7 +18,6 @@
 	"openstackmanager-novakey": "Cheie Nova",
 	"openstackmanager-novaproject": "Proiect Nova",
 	"openstackmanager-delete": "ștergere",
-	"openstackmanager-configure": "configurare",
 	"openstackmanager-modify": "modificare",
 	"openstackmanager-rename": "redenumire",
 	"openstackmanager-reboot": "repornire",
@@ -37,7 +37,6 @@
 	"openstackmanager-location": "Loc",
 	"openstackmanager-novainstance-instance": "Instanță",
 	"openstackmanager-dnsdomain": "Domeniu DNS",
-	"openstackmanager-puppetclasses": "Clase",
 	"openstackmanager-deleteinstance": "Șterge instanța",
 	"openstackmanager-deleteinstancequestion": "Sigur doriți să ștergeți instanța „$1”?",
 	"openstackmanager-instancename": "Numele instanței",
@@ -48,7 +47,7 @@
 	"openstackmanager-imagetype": "Tipul imaginii",
 	"openstackmanager-rebootinstance": "Repornește instanța",
 	"openstackmanager-rebootinstancequestion": "Sigur doriți să reporniți instanța „$1”?",
-	"openstackmanager-rebootinstancefailed": "Nu s-a putut reporni instanța.",
+	"openstackmanager-rebootinstancefailed": "Nu s-a putut reporni instanța $1.",
 	"openstackmanager-launchtime": "Ora lansării",
 	"openstackmanager-createinstance": "Adăugare instanță",
 	"openstackmanager-attach": "atașați",
@@ -56,7 +55,7 @@
 	"openstackmanager-novavolume-info": "Informații despre volum",
 	"openstackmanager-device": "Dispozitiv",
 	"openstackmanager-novapublickey": "Cheie SSH publică",
-	"openstackmanager-deletekey": "Ștergeți cheia",
+	"openstackmanager-deletekey": "Ștergeți cheia publică",
 	"openstackmanager-deletekeyconfirm": "Sunteți sigur că doriți să ștergeți cheia de mai sus?",
 	"openstackmanager-keylist": "Listă chei",
 	"openstackmanager-name": "Nume",
@@ -110,14 +109,5 @@
 	"openstackmanager-addrule": "Adăugați regulă",
 	"openstackmanager-sudoerusers": "Utilizator:",
 	"openstackmanager-sudoercommands": "Comenzi",
-	"openstackmanager-sudoeroptions": "Opțiuni",
-	"openstackmanager-puppetallprojects": "Toate proiectele",
-	"openstackmanager-createpuppetgroup": "Adăugați grup",
-	"openstackmanager-addpuppetclass": "Adăugați clasă",
-	"openstackmanager-puppetclassname": "Numele clasei",
-	"openstackmanager-puppetvars": "Variabile",
-	"openstackmanager-addpuppetvar": "Adăugați variabilă",
-	"openstackmanager-puppetvarname": "Numele variabilei",
-	"openstackmanager-puppetvarposition": "Poziția variabilei",
-	"openstackmanager-puppetclassposition": "Poziția clasei"
+	"openstackmanager-sudoeroptions": "Opțiuni"
 }
