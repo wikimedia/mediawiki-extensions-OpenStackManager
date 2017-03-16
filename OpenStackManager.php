@@ -103,7 +103,6 @@ $wgOpenStackManagerIdRanges = array(
 );
 
 // DN location for posix groups based on projects
-$wgOpenStackManagerLDAPProjectGroupBaseDN = "";
 $wgOpenStackManagerLDAPDefaultGid = '500';
 // Shell used when creating users
 $wgOpenStackManagerLDAPDefaultShell = '/bin/bash';
@@ -184,7 +183,6 @@ $wgAutoloadClasses['OpenStackNovaArticle'] = $dir . 'nova/OpenStackNovaArticle.p
 $wgAutoloadClasses['OpenStackNovaLdapConnection'] = $dir . 'nova/OpenStackNovaLdapConnection.php';
 $wgAutoloadClasses['OpenStackNovaProject'] = $dir . 'nova/OpenStackNovaProject.php';
 $wgAutoloadClasses['OpenStackNovaProjectLimits'] = $dir . 'nova/OpenStackNovaProjectLimits.php';
-$wgAutoloadClasses['OpenStackNovaProjectGroup'] = $dir . 'nova/OpenStackNovaProjectGroup.php';
 $wgAutoloadClasses['OpenStackNovaShellAccountNameRequest'] = $dir . 'nova/OpenStackNovaShellAccountNameRequest.php';
 $wgAutoloadClasses['OpenStackNovaSecondaryAuthenticationProvider'] = $dir . '/nova/OpenStackNovaSecondaryAuthenticationProvider.php';
 $wgAutoloadClasses['SpecialNovaInstance'] = $dir . 'special/SpecialNovaInstance.php';

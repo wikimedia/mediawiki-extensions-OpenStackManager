@@ -289,7 +289,7 @@ class SpecialNovaSudoer extends SpecialNova {
 		$user_defaults = array();
 
 		# Add the 'all project members' option to the top
-		$projectGroup = "%" . $project->getProjectGroup()->getProjectGroupName();
+		$projectGroup = "%" . $project->getProjectGroupName();
 		$all_members = $this->msg( 'openstackmanager-allmembers' )->text();
 		$user_keys[$all_members] = $all_members;
 		if ( in_array( 'ALL', $sudomembers ) || in_array ( $projectGroup, $sudomembers ) ) {
@@ -335,7 +335,7 @@ class SpecialNovaSudoer extends SpecialNova {
 		}
 
 		# A safer option is 'all project members'
-		$projectGroup = "%" . $project->getProjectGroup()->getProjectGroupName();
+		$projectGroup = "%" . $project->getProjectGroupName();
 		$all_members = $this->msg( 'openstackmanager-allmembers' )->text();
 		$runas_keys[$all_members] = $all_members;
 		if ( in_array ( $projectGroup, $runasmembers ) ) {
@@ -412,7 +412,7 @@ class SpecialNovaSudoer extends SpecialNova {
 		# Now $leftovers contains anything in the sudo users list that wasn't
 		# a user.  We still want to display them to the user, but some are special
 		# cases which we'll dress up a bit.
-		$AllProjectMembers = "%" . $project->getProjectGroup()->getProjectGroupName();
+		$AllProjectMembers = "%" . $project->getProjectGroupName();
 		foreach ( $leftovers as $leftover ) {
 			if ( $leftover == $AllProjectMembers ) {
 				array_unshift( $HRList, $this->msg( 'openstackmanager-allmembers' )->text() );
@@ -482,7 +482,7 @@ class SpecialNovaSudoer extends SpecialNova {
 		$newusers = array();
 		foreach ( $users as $user ) {
 			if ( ( $user == 'ALL' ) || ( $user == $this->msg( 'openstackmanager-allmembers' )->text() )) {
-				$newusers[] = "%" . $this->project->getProjectGroup()->getProjectGroupName();
+				$newusers[] = "%" . $this->project->getProjectGroupName();
 			} else {
 				$newusers[] = $user;
 			}
@@ -505,7 +505,7 @@ class SpecialNovaSudoer extends SpecialNova {
 		$newusers = array();
 		foreach ( $users as $user ) {
 			if ( ( $user == $this->msg( 'openstackmanager-allmembers' )->text() ) ) {
-				$newusers[] = "%" . $this->project->getProjectGroup()->getProjectGroupName();
+				$newusers[] = "%" . $this->project->getProjectGroupName();
 			} else {
 				$newusers[] = $user;
 			}
@@ -604,7 +604,7 @@ class SpecialNovaSudoer extends SpecialNova {
 			$project = OpenStackNovaProject::getProjectByName( $projectName );
 			$projectuids = $project->getMemberUids();
 			$projectserviceusers = $project->getServiceUsers();
-			$projectGroup = "%" . $project->getProjectGroup()->getProjectGroupName();
+			$projectGroup = "%" . $project->getProjectGroupName();
 
 			$users = $this->removeALLFromUserKeys($formData['users']);
 			$formerusers = $sudoer->getSudoerUsers();

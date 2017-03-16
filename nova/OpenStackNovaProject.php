@@ -26,7 +26,6 @@ class OpenStackNovaProject {
 	public $roles;
 	public $userrole;
 	public $loaded;
-	public $projectGroup;
 
 	// list of roles that are visible in the web UI
 	static $visiblerolenames = array( 'projectadmin' );
@@ -38,6 +37,7 @@ class OpenStackNovaProject {
 	// short-lived cache of project objects
 	static $projectCache = array();
 	static $projectCacheMaxSize = 200;
+	static $projectGroupPrefix = 'project-';
 
 	/**
 	 * @param  $projectname
@@ -109,9 +109,6 @@ class OpenStackNovaProject {
 		}
 		$this->userrole = OpenStackNovaRole::getProjectRoleByName( self::$userrolename, $this );
 
-		// fetch the associated posix project group (project-$projectname)
-		$this->fetchProjectGroup();
-
 		$this->fetchServiceGroups();
 
 		$this->loaded = true;
@@ -167,50 +164,10 @@ class OpenStackNovaProject {
 	}
 
 	/**
-	 * Initializes the corresponding project group object for this project.
-	 * If the ProjectGroup can't be loaded OR if the existing ProjectGroup
-	 * is a virtual static group, then the ProjectGroup will be recreated
-	 * from scratch and the members will be synced from this Project's
-	 * list of members.
-	 *
-	 * @return void
-	 */
-	function fetchProjectGroup() {
-		$this->projectGroup = new OpenStackNovaProjectGroup( $this->projectname );
-
-		// If we couldn't find an corresponding Project Group,
-		// then we should create one now.
-		if ( !$this->projectGroup->loaded ) {
-			$ldap = LdapAuthenticationPlugin::getInstance();
-			$ldap->printDebug( $this->projectGroup->getProjectGroupName() . " does not exist.  Creating it.", NONSENSITIVE );
-
-			$createSuccess = OpenStackNovaProjectGroup::createProjectGroup( $this->projectname );
-			// Aaaaand if we successfully created the group, then finally sync the members from this project now.
-			if ( $createSuccess ) {
-				$this->projectGroup = new OpenStackNovaProjectGroup( $this->projectname );
-				$this->syncProjectGroupMembers();
-			}
-		}
-	}
-
-	/**
 	 * @return  string
 	 */
 	function getProjectName() {
 		return $this->getName();
-	}
-
-	/**
-	 * Returns the corresponding ProjectGroup for this Project.
-	 * If necessary, the ProjectGroup will be loaded from LDAP.
-	 *
-	 * @return OpenStackNovaProjectGroup
-	 */
-	function getProjectGroup() {
-		if ( !$this->loaded ) {
-			$this->fetchProjectGroup();
-		}
-		return $this->projectGroup;
 	}
 
 	/**
@@ -365,8 +322,6 @@ class OpenStackNovaProject {
 		$wgMemc->delete( $key );
 
 		if ( $this->userrole->deleteMember( $username ) ) {
-			$this->projectGroup->deleteMember( $username );
-
 			foreach ( $this->roles as $role ) {
 				$role->deleteMember( $username );
 				# @todo Find a way to fail gracefully if role member
@@ -441,9 +396,6 @@ class OpenStackNovaProject {
 		}
 
 		if ( $this->userrole->addMember( $username ) ) {
-			// If we successfully added the member to this Project, then
-			// also add the member to the corresponding ProjectGroup.
-			$this->projectGroup->addMember( $username );
 			$this->deleteRoleCaches( $username );
 			$ldap->printDebug( "Successfully added $username to $this->projectname", NONSENSITIVE );
 			$this->editArticle();
@@ -452,39 +404,6 @@ class OpenStackNovaProject {
 			$ldap->printDebug( "Failed to add $username to $this->projectname", NONSENSITIVE );
 			return false;
 		}
-	}
-
-	/**
-	 * Compares members between this Project and its
-	 * corresponding ProjectGroup.  If they differ,
-	 * Then the entire member list for the ProjectGroup
-	 * will be overwritten with this list of members.
-	 *
-	 * @return int -1 on failure, 0 on nochange, and 1 on a successful sync
-	 */
-	function syncProjectGroupMembers() {
-		$failure  = -1;
-		$nochange =  0;
-		$synced   =  1;
-
-		// These both return a sorted array of Member DNs
-		$projectMemberDNs      = $this->getMemberDNs();
-		$projectGroupMemberDNs = $this->projectGroup->getMemberDNs();
-
-		// These two arrays should be exactly the same,
-		// so comparing them using == should work.
-		// If they are not the same, then modify the
-		// project group member list so that it exactly
-		// matches the list from the project.
-		if ( $projectMemberDNs != $projectGroupMemberDNs ) {
-			$sync_success = $this->projectGroup->setMembers( $projectMemberDNs );
-			$retval = $sync_success == true ? $synced : $failure;
-		}
-		else {
-			$retval = $nochange;
-		}
-
-		return $retval;
 	}
 
 	/**
@@ -620,6 +539,18 @@ class OpenStackNovaProject {
 		return $projects;
 	}
 
+
+       /**
+        * Returns a standardized project group name.  This needs to
+        * correspond with the project group name as set in the keystone hook.
+        *
+        * @return string
+        */
+       function getProjectGroupName() {
+           return self::$projectGroupPrefix . $this->projectname;
+       }
+
+
 	/**
 	 * Create a new project based on project name. This function will also create
 	 * all roles needed by the project.
@@ -664,22 +595,16 @@ class OpenStackNovaProject {
 			LdapAuthenticationPlugin::ldap_add( $ldap->ldapconn, $sudoerOUdn, $sudoerOU );
 			# TODO: If sudoerOU creation fails we need to be able to fail gracefully
 
-			// Now that we've created the Project, if we
-			// are supposed to use a corresponding Project Group
-			// to manage posix group permissions, do so now.
-			OpenStackNovaProjectGroup::createProjectGroup( $projectname );
-			# TODO: If project group creation fails we need to be able to fail gracefully
-
 			// Create two default, permissive sudo policies.  First,
                         //  allow sudo (as root) for all members...
-			$projectGroup = "%" . $project->getProjectGroup()->getProjectGroupName();
+			$projectGroup = "%" . $project->getProjectGroupName();
 			if ( OpenStackNovaSudoer::createSudoer( 'default-sudo', $projectname, array( $projectGroup ),
 						array(),  array( 'ALL' ),
 						array( '!authenticate' ) ) ) {
 				$ldap->printDebug( "Successfully created default sudo policy for $projectname", NONSENSITIVE );
 			}
 			// Now, allow all project members to sudo to all other users.
-			$projectGroup = "%" . $project->getProjectGroup()->getProjectGroupName();
+			$projectGroup = "%" . $project->getProjectGroupName();
 			if ( OpenStackNovaSudoer::createSudoer( 'default-sudo-as', $projectname, array( $projectGroup ),
 						array( "$projectGroup" ),  array( 'ALL' ),
 						array( '!authenticate' ) ) ) {
@@ -790,7 +715,6 @@ class OpenStackNovaProject {
 
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		OpenStackNovaLdapConnection::connect();
-		OpenStackNovaProjectGroup::deleteProjectGroup( $project->getProjectName() );
 
 		# Projects have a sudo OU and sudoers entries below that OU, we must delete them first
 		$sudoers = OpenStackNovaSudoer::getAllSudoersByProject( $project->getProjectName() );
