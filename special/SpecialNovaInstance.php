@@ -551,13 +551,8 @@ class SpecialNovaInstance extends SpecialNova {
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgUser;
 
-		$domain = OpenStackNovaDomain::getDomainByName( $formData['region'] );
 		$project = $formData['project'];
 		$region = $formData['region'];
-		if ( !$domain ) {
-			$this->getOutput()->addWikiMsg( 'openstackmanager-invaliddomain' );
-			return true;
-		}
 		$instance = $this->userNova->createInstance( $formData['instancename'], $formData['imageType'], '', $formData['instanceType'], $formData['groups'] );
 		if ( $instance ) {
 			// In essex it seems attributes from extensions aren't returned. So,
