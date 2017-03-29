@@ -339,7 +339,6 @@ class OpenStackNovaProject {
 			$user = new OpenStackNovaUser( $username );
 			$ldap->printDebug( "Successfully removed $user->userDN from $this->projectname", NONSENSITIVE );
 			$this->deleteRoleCaches( $username );
-			$this->editArticle();
 			return true;
 		} else {
 			$ldap->printDebug( "Failed to remove $username from $this->projectname: " . ldap_error($ldap->ldapconn), NONSENSITIVE );
@@ -398,7 +397,6 @@ class OpenStackNovaProject {
 		if ( $this->userrole->addMember( $username ) ) {
 			$this->deleteRoleCaches( $username );
 			$ldap->printDebug( "Successfully added $username to $this->projectname", NONSENSITIVE );
-			$this->editArticle();
 			return true;
 		} else {
 			$ldap->printDebug( "Failed to add $username to $this->projectname", NONSENSITIVE );
@@ -764,7 +762,7 @@ class OpenStackNovaProject {
 		}
 	}
 
-	function editArticle() {
+	public function editArticle() {
 		global $wgOpenStackManagerCreateProjectSALPages, $wgOpenStackManagerProjectNamespace,
 			$wgOpenStackManagerBastionProjectName;
 
@@ -775,32 +773,11 @@ class OpenStackNovaProject {
 		$format = <<<RESOURCEINFO
 {{Nova Resource
 |Resource Type=project
-|Project Name=%s
-|Admins=%s
-|Members=%s}}
+|Project Name=%s}}
 __NOEDITSECTION__
 RESOURCEINFO;
-		$rawmembers = $this->getMembers();
-		$members = array();
-		// FIXME! This was too slow on the bastion project, which users get added to automatically.
-		// See https://phabricator.wikimedia.org/T114229 for details.
-		if ( $this->getProjectName() !== $wgOpenStackManagerBastionProjectName ) {
-			foreach ( $rawmembers as $member ) {
-				$members[] = 'User:' . $member;
-			}
-		}
-		$admins = array();
-		# All roles have elevated privileges, count them all as admins
-		foreach ( $this->getRoles() as $role ) {
-			$rawadmins = $role->getMembers();
-			foreach ( $rawadmins as $admin ) {
-				$admins[] = 'User:' . $admin;
-			}
-		}
 		$text = sprintf( $format,
-			$this->getProjectName(),
-			implode( ",\n", $admins ),
-			implode( ",\n", $members )
+			$this->getProjectName()
 		);
 		OpenStackNovaArticle::editArticle( $this->getProjectName(), $text, $wgOpenStackManagerProjectNamespace );
 		if ( $wgOpenStackManagerCreateProjectSALPages ) {
