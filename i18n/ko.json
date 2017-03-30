@@ -213,7 +213,7 @@
 	"openstackmanager-novaprojectfilter-projectfilter": "프로젝트 필터",
 	"openstackmanager-projects": "프로젝트",
 	"openstackmanager-setprojects": "프로젝트 필터를 설정했습니다.",
-	"openstackmanager-setprojectfilter": "프로젝트 필터를 사용하여 보여줄 프로젝트를 선택하세요.",
+	"openstackmanager-setprojectfilter": "프로젝트 필터를 사용하여 표시할 프로젝트를 선택하세요.",
 	"openstackmanager-projectfiltersubmit": "필터 설정",
 	"openstackmanager-toggle": "전환",
 	"openstackmanager-roles": "역할",
