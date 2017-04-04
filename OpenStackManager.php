@@ -203,7 +203,6 @@ $wgAutoloadClasses['ApiNovaProjectLimits'] = $dir . 'api/ApiNovaProjectLimits.ph
 $wgAutoloadClasses['ApiNovaServiceGroups'] = $dir . 'api/ApiNovaServiceGroups.php';
 $wgAutoloadClasses['ApiListNovaProjects'] = $dir . 'api/ApiListNovaProjects.php';
 $wgAutoloadClasses['ApiListNovaInstances'] = $dir . 'api/ApiListNovaInstances.php';
-$wgAutoloadClasses['Spyc'] = $dir . 'Spyc.php';
 $wgAutoloadClasses['EchoOpenStackManagerPresentationModel'] = $dir . 'EchoOpenStackManagerPresentationModel.php';
 $wgAutoloadClasses['OpenStackManagerEvent'] = $dir . 'OpenStackManagerEvent.php';
 $wgSpecialPages['NovaKey'] = 'SpecialNovaKey';
@@ -408,4 +407,8 @@ function efOpenStackBeforePageDisplay( $out, $skin ) {
 		$out->addModuleStyles( 'ext.openstack' );
 	}
 	return true;
+}
+
+if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
+	require_once __DIR__ . '/vendor/autoload.php';
 }
