@@ -101,7 +101,7 @@
 	"openstackmanager-instancetypelabel": "{{PLURAL:$1|$1 procesador|$1 procesadores}}, $2 MB de RAM, $3 GB de partición raíz, $4 GB de almacenamiento",
 	"openstackmanager-rebootinstance": "Reiniciar instancia",
 	"openstackmanager-rebootinstancewithname": "Reiniciar la instancia $1 ($2)",
-	"openstackmanager-rebootinstancequestion": "¿Estás seguro de que quieres reiniciar la instancia \"$1\"?",
+	"openstackmanager-rebootinstancequestion": "¿Confirmas que quieres reiniciar la instancia «$1»?",
 	"openstackmanager-rebootedinstance": "Se reinició la instancia $1.",
 	"openstackmanager-rebootinstancefailed": "No se pudo reiniciar la instancia $1.",
 	"openstackmanager-launchtime": "Hora de inicio",
