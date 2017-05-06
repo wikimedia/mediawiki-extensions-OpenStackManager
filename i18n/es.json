@@ -220,7 +220,7 @@
 	"openstackmanager-setprojects": "Has establecido el filtro de proyecto.",
 	"openstackmanager-setprojectfilter": "Selecciona los proyectos que mostrar utilizando el filtro de proyectos.",
 	"openstackmanager-projectfiltersubmit": "Establecer filtro",
-	"openstackmanager-toggle": "Alternar",
+	"openstackmanager-toggle": "Mostrar u ocultar",
 	"openstackmanager-roles": "Roles",
 	"openstackmanager-rolename": "Rol",
 	"openstackmanager-removerolemember": "Eliminar miembro",
