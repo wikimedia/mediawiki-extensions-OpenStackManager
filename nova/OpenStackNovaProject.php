@@ -26,7 +26,8 @@ class OpenStackNovaProject {
 	public $roles;
 	public $userrole;
 	public $loaded;
-	public $serviceUsers;
+	protected $serviceGroups;
+	protected $serviceUsers;
 
 	// list of roles that are visible in the web UI
 	static $visiblerolenames = array( 'projectadmin' );
@@ -91,11 +92,8 @@ class OpenStackNovaProject {
 
 	/**
 	 * Fetch the project from keystone initialize the object
-	 * @return void
 	 */
-	function fetchProjectInfo( $refresh=true ) {
-		global $wgOpenStackManagerLDAPProjectBaseDN;
-
+	function fetchProjectInfo( $refresh = true ) {
 		if ( $this->loaded and !$refresh ) {
 			return;
 		}
@@ -119,12 +117,14 @@ class OpenStackNovaProject {
 		global $wgOpenStackManagerLDAPServiceGroupBaseDN;
 
 		$ldap = LdapAuthenticationPlugin::getInstance();
-		$result = LdapAuthenticationPlugin::ldap_search( $ldap->ldapconn,
-				$wgOpenStackManagerLDAPServiceGroupBaseDN,
-				'(objectclass=groupofnames)' );
+		$result = LdapAuthenticationPlugin::ldap_search(
+			$ldap->ldapconn,
+			$wgOpenStackManagerLDAPServiceGroupBaseDN,
+			'(objectclass=groupofnames)'
+		);
 
+		$this->serviceGroups = array();
 		if ( $result ) {
-			$this->serviceGroups = array();
 			$groupList = LdapAuthenticationPlugin::ldap_get_entries( $ldap->ldapconn, $result );
 			if ( isset( $groupList ) ) {
 				array_shift( $groupList );
@@ -136,17 +136,17 @@ class OpenStackNovaProject {
 					}
 				}
 			}
-		} else {
-			$this->serviceGroups = array();
 		}
 
 		$serviceUserBaseDN = "ou=people" . "," . $wgOpenStackManagerLDAPServiceGroupBaseDN;
-		$result = LdapAuthenticationPlugin::ldap_search( $ldap->ldapconn,
-				$serviceUserBaseDN,
-				'(objectclass=person)' );
+		$result = LdapAuthenticationPlugin::ldap_search(
+			$ldap->ldapconn,
+			$serviceUserBaseDN,
+			'(objectclass=person)'
+		);
 
+		$this->serviceUsers = array();
 		if ( $result ) {
-			$this->serviceUsers = array();
 			$userList = LdapAuthenticationPlugin::ldap_get_entries( $ldap->ldapconn, $result );
 			if ( isset( $userList ) ) {
 				array_shift( $userList );
@@ -159,8 +159,6 @@ class OpenStackNovaProject {
 					}
 				}
 			}
-		} else {
-			$this->serviceUsers = array();
 		}
 	}
 
@@ -176,6 +174,7 @@ class OpenStackNovaProject {
 	 * @return array
 	 */
 	function getRoles() {
+		$this->fetchProjectInfo();
 		return $this->roles;
 	}
 
@@ -184,6 +183,7 @@ class OpenStackNovaProject {
 	 * @return array
 	 */
 	function getServiceGroups() {
+		$this->fetchProjectInfo();
 		return $this->serviceGroups;
 	}
 
@@ -192,6 +192,7 @@ class OpenStackNovaProject {
 	 * @return array
 	 */
 	function getServiceUsers() {
+		$this->fetchProjectInfo();
 		return $this->serviceUsers;
 	}
 

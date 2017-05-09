@@ -66,6 +66,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 				}
 			}
 			$servicemembers = $project->getServiceUsers();
+			$servicemember_keys = array();
 			foreach ( $servicemembers as $servicemember ) {
 				$servicemember_keys[$servicemember] = $servicemember;
 				if ( in_array( $servicemember, $groupmembers ) ) {
