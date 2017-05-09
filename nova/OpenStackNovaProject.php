@@ -26,6 +26,7 @@ class OpenStackNovaProject {
 	public $roles;
 	public $userrole;
 	public $loaded;
+	public $serviceUsers;
 
 	// list of roles that are visible in the web UI
 	static $visiblerolenames = array( 'projectadmin' );
