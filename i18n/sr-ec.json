@@ -5,7 +5,8 @@
 			"Rancher",
 			"Михајло Анђелковић",
 			"Srdjan m",
-			"Сербијана"
+			"Сербијана",
+			"Obsuser"
 		]
 	},
 	"openstackmanager-novainstance": "Примерак Нове",
@@ -197,5 +198,9 @@
 	"openstackmanager-commadelimiter": "Раздвојено запетама",
 	"openstackmanager-sudoerusers": "Корисници",
 	"openstackmanager-sudoercommands": "Команде",
-	"openstackmanager-sudoeroptions": "Опције"
+	"openstackmanager-sudoeroptions": "Опције",
+	"echo-category-title-osm-instance-deleted": "Тренутно брисање (где сте админ пројекта)",
+	"echo-category-title-osm-instance-build-completed": "Тренутно прављење (где сте админ пројекта)",
+	"echo-category-title-osm-instance-reboot-completed": "Тренутно завршавање рибута",
+	"echo-category-title-osm-projectmembers-add": "Додавање у чланство пројекта"
 }
