@@ -2,13 +2,13 @@
 	"@metadata": {
 		"authors": [
 			"CERminator",
-			"Palapa"
+			"Palapa",
+			"Srdjan m"
 		]
 	},
 	"openstackmanager-desc": "Daje mogućnost korisnicima da upravljaju sa Nova i Swift",
-	"openstackmanager-novaproject": "Nova projekat",
+	"openstackmanager-novaproject": "Projekt Nova",
 	"openstackmanager-delete": "obriši",
-	"openstackmanager-configure": "podesi",
 	"openstackmanager-modify": "izmijeni",
 	"openstackmanager-rename": "preimenuj",
 	"openstackmanager-reboot": "pokreni ponovo",
