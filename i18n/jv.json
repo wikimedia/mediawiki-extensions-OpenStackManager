@@ -122,7 +122,7 @@
 	"openstackmanager-deleteproject": "Busak",
 	"openstackmanager-deletedproject": "Suksès mbusak proyèk.",
 	"openstackmanager-deleteprojectfailed": "Gagal mbusak proyèk.",
-	"openstackmanager-addedto": "Suksès nambah $1 nèng $2.",
+	"openstackmanager-addedto": "Ditambah $1 nyang $2.",
 	"openstackmanager-failedtoadd": "Gagal nambah $1 nèng $2.",
 	"openstackmanager-removedfrom": "Suksès mbusak $1 saka $2.",
 	"openstackmanager-failedtoremove": "Gagal mbusak $1 saka $2.",
