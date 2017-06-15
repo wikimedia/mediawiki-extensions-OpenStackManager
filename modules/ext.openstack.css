@@ -1,16 +1,17 @@
 .Nova_col {
-max-width: 50em;
-overflow: hidden;
+	max-width: 50em;
+	overflow: hidden;
 }
 .Nova_cell {
-vertical-align: top;
+	vertical-align: top;
 }
-#novaaction  {
-font-size: 67%;
+/* stylelint-disable-next-line selector-no-id */
+#novaaction {
+	font-size: 67%;
 }
 .OpenStack_warning {
-/* @embed */
-background-image: url(images/warning-32.png);
+	/* @embed */
+	background-image: url( images/warning-32.png );
 	background-position: center center;
 	background-repeat: no-repeat;
 	padding: 16px;
@@ -18,8 +19,8 @@ background-image: url(images/warning-32.png);
 	top: -16px;
 }
 .OpenStack_error {
-/* @embed */
-background-image: url(images/critical-32.png);
+	/* @embed */
+	background-image: url( images/critical-32.png );
 	background-position: center center;
 	background-repeat: no-repeat;
 	padding: 16px;
@@ -27,11 +28,11 @@ background-image: url(images/critical-32.png);
 	top: -16px;
 }
 .OpenStack_success {
-/* @embed */
-background-image: url(images/tick-32.png);
-display: inline-block;
-height: 20px;
-width: 20px;
+	/* @embed */
+	background-image: url( images/tick-32.png );
+	display: inline-block;
+	height: 20px;
+	width: 20px;
 }
 .osm-consoleoutput {
 	white-space: pre-wrap;
