@@ -371,5 +371,10 @@
 	"apihelp-novainstance-description": "인스턴스에 특정 행위 수행하기",
 	"apihelp-novainstance-param-subaction": "수행할 동작",
 	"apihelp-novainstance-param-instanceid": "동작을 수행할 노바 인스턴스 ID",
+	"apihelp-novaprojectlimits-summary": "프로젝트의 정보를 가져옵니다.",
+	"apihelp-novaprojects-summary": "프로젝트의 정보를 가져옵니다.",
+	"apihelp-novaservicegroups-summary": "서비스 그룹의 정보를 가져옵니다.",
+	"apihelp-query+novainstances-summary": "주어진 프로젝트의 인스턴스 목록을 반환합니다.",
+	"apihelp-query+novaprojects-summary": "알려진 모든 프로젝트의 목록을 반환합니다.",
 	"apierror-openstackmanager-badproject": "유효하지 않은 프로젝트가 지정되었습니다."
 }

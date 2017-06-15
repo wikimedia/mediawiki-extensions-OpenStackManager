@@ -19,7 +19,7 @@
 	"openstackmanager": "OpenStackManager",
 	"openstackmanager-instance": "Gerir instância",
 	"openstackmanager-title": "OpenStackManager",
-	"openstackmanager-badresourcename": "O nome do recurso está incorreto. Os nomes dos recursos começam por um caractere a-z, e só podem conter os caracteres a-z, 0-9. \"-\" e \"_\".",
+	"openstackmanager-badresourcename": "O nome do recurso está incorreto.\nOs nomes dos recursos começam por um carácter a-z, e só podem conter os caracteres a-z, 0-9. \"-\" e \"_\".",
 	"action-listall": "apresentar toda a informação dos recursos",
 	"action-managednsdomain": "gerir domínios DNS",
 	"specialpages-group-nova": "OpenStack Nova",
