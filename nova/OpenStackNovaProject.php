@@ -30,16 +30,16 @@ class OpenStackNovaProject {
 	protected $serviceUsers;
 
 	// list of roles that are visible in the web UI
-	static $visiblerolenames = array( 'projectadmin' );
+	private static $visiblerolenames = array( 'projectadmin' );
 
 	// this is a stealth role that implies project membership
 	//  but no ability to manipulate the project or instances
-	static $userrolename = 'user';
+	private static $userrolename = 'user';
 
 	// short-lived cache of project objects
-	static $projectCache = array();
-	static $projectCacheMaxSize = 200;
-	static $projectGroupPrefix = 'project-';
+	private static $projectCache = array();
+	private static $projectCacheMaxSize = 200;
+	private static $projectGroupPrefix = 'project-';
 
 	/**
 	 * @param  $projectname
