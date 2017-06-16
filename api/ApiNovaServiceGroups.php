@@ -6,7 +6,7 @@ class ApiNovaServiceGroups extends ApiBase {
 	function execute() {
 		$this->params = $this->extractRequestParams();
 
-		switch( $this->params['subaction'] ) {
+		switch ( $this->params['subaction'] ) {
 		case 'getservicegroups':
 			$project = OpenStackNovaProject::getProjectByName( $this->params['project'] );
 			$project->fetchServiceGroups();
@@ -30,17 +30,17 @@ class ApiNovaServiceGroups extends ApiBase {
 	// Face parameter.
 	public function getAllowedParams() {
 		return array(
-			'subaction' => array (
+			'subaction' => array(
 				ApiBase::PARAM_TYPE => array(
 					'getservicegroups',
 				),
 				ApiBase::PARAM_REQUIRED => true
 			),
-			'project' => array (
+			'project' => array(
 				ApiBase::PARAM_TYPE => 'string',
 				ApiBase::PARAM_REQUIRED => true
 			),
-			'shellmembers' => array (
+			'shellmembers' => array(
 				ApiBase::PARAM_TYPE => 'boolean',
 				ApiBase::PARAM_REQUIRED => false
 			),

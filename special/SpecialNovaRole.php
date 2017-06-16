@@ -60,11 +60,11 @@ class SpecialNovaRole extends SpecialNova {
 			$rolemembers = $role->getMembers();
 			$member_keys = array();
 			foreach ( $projectmembers as $projectmember ) {
-				if ( ! in_array( $projectmember, $rolemembers ) ) {
+				if ( !in_array( $projectmember, $rolemembers ) ) {
 					$member_keys[$projectmember] = $projectmember;
 				}
 			}
-			if ( ! $member_keys ) {
+			if ( !$member_keys ) {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-nomemberstoadd' );
 				return true;
 			}
@@ -76,7 +76,7 @@ class SpecialNovaRole extends SpecialNova {
 				'name' => 'members',
 			);
 		} else {
-			//TODO: display error
+			// TODO: display error
 		}
 		$roleInfo['action'] = array(
 			'type' => 'hidden',
@@ -95,7 +95,7 @@ class SpecialNovaRole extends SpecialNova {
 		);
 		$roleInfo['returnto'] = array(
 			'type' => 'hidden',
-			'default' => $this->getRequest()->getText('returnto'),
+			'default' => $this->getRequest()->getText( 'returnto' ),
 			'name' => 'returnto',
 		);
 
@@ -141,9 +141,9 @@ class SpecialNovaRole extends SpecialNova {
 				}
 			}
 		} else {
-			//TODO: display error
+			// TODO: display error
 		}
-		if ( ! $member_keys ) {
+		if ( !$member_keys ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-nomemberstoremove' );
 			return true;
 		}
@@ -172,7 +172,7 @@ class SpecialNovaRole extends SpecialNova {
 		);
 		$roleInfo['returnto'] = array(
 			'type' => 'hidden',
-			'default' => $this->getRequest()->getText('returnto'),
+			'default' => $this->getRequest()->getText( 'returnto' ),
 			'name' => 'returnto',
 		);
 
@@ -197,7 +197,7 @@ class SpecialNovaRole extends SpecialNova {
 		$projectid = $formData['projectid'];
 		if ( $projectid ) {
 			$project = OpenStackNovaProject::getProjectById( $projectid );
-			if ( ! $project ) {
+			if ( !$project ) {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistentproject' );
 				return true;
 			}
@@ -205,9 +205,9 @@ class SpecialNovaRole extends SpecialNova {
 			$rolename = $role->getRoleName();
 			$members = $formData['members'];
 		} else {
-			//TODO: display error
+			// TODO: display error
 		}
-		if ( ! $role ) {
+		if ( !$role ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistentrole' );
 			return true;
 		}
@@ -240,16 +240,16 @@ class SpecialNovaRole extends SpecialNova {
 		$projectid = $formData['projectid'];
 		if ( $projectid ) {
 			$project = OpenStackNovaProject::getProjectById( $projectid );
-			if ( ! $project ) {
+			if ( !$project ) {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistentproject' );
 				return true;
 			}
 			$role = new OpenStackNovaRole( $formData['roleid'], $project );
 			$rolename = $role->getRoleName();
 		} else {
-			//TODO: display error
+			// TODO: display error
 		}
-		if ( ! $role ) {
+		if ( !$role ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistentrole' );
 			return true;
 		}

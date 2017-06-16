@@ -63,7 +63,7 @@ class SpecialNovaAddress extends SpecialNova {
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
-		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+		if ( !$this->userLDAP->inRole( 'projectadmin', $project ) ) {
 			$this->notInRole( 'projectadmin', $project );
 			return false;
 		}
@@ -108,12 +108,12 @@ class SpecialNovaAddress extends SpecialNova {
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
-		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+		if ( !$this->userLDAP->inRole( 'projectadmin', $project ) ) {
 			$this->notInRole( 'projectadmin', $project );
 			return false;
 		}
 		$id = $this->getRequest()->getText( 'id' );
-		if ( ! $this->getRequest()->wasPosted() ) {
+		if ( !$this->getRequest()->wasPosted() ) {
 			$address = $this->userNova->getAddress( $id );
 			$ip = $address->getPublicIP();
 			$this->getOutput()->addWikiMsg( 'openstackmanager-releaseaddress-confirm', $ip );
@@ -163,7 +163,7 @@ class SpecialNovaAddress extends SpecialNova {
 		$id = $this->getRequest()->getText( 'id' );
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
-		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+		if ( !$this->userLDAP->inRole( 'projectadmin', $project ) ) {
 			$this->notInRole( 'projectadmin', $project );
 			return false;
 		}
@@ -227,12 +227,12 @@ class SpecialNovaAddress extends SpecialNova {
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
-		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+		if ( !$this->userLDAP->inRole( 'projectadmin', $project ) ) {
 			$this->notInRole( 'projectadmin', $project );
 			return false;
 		}
 		$id = $this->getRequest()->getText( 'id' );
-		if ( ! $this->getRequest()->wasPosted() ) {
+		if ( !$this->getRequest()->wasPosted() ) {
 			$address = $this->userNova->getAddress( $id );
 			$ip = $address->getPublicIP();
 			$this->getOutput()->addWikiMsg( 'openstackmanager-disassociateaddress-confirm', $ip );
@@ -280,7 +280,7 @@ class SpecialNovaAddress extends SpecialNova {
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
-		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+		if ( !$this->userLDAP->inRole( 'projectadmin', $project ) ) {
 			$this->notInRole( 'projectadmin', $project );
 			return false;
 		}
@@ -347,14 +347,14 @@ class SpecialNovaAddress extends SpecialNova {
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
-		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+		if ( !$this->userLDAP->inRole( 'projectadmin', $project ) ) {
 			$this->notInRole( 'projectadmin', $project );
 			return false;
 		}
 		$id = $this->getRequest()->getText( 'id' );
 		$fqdn = $this->getRequest()->getText( 'fqdn' );
 		$hostname = $this->getRequest()->getText( 'hostname' );
-		if ( ! $this->getRequest()->wasPosted() ) {
+		if ( !$this->getRequest()->wasPosted() ) {
 			$address = $this->userNova->getAddress( $id );
 			$ip = $address->getPublicIP();
 			$this->getOutput()->addWikiMsg( 'openstackmanager-removehost-confirm', $fqdn, $ip );
@@ -587,7 +587,7 @@ class SpecialNovaAddress extends SpecialNova {
 	 */
 	function tryAllocateSubmit( $formData, $entryPoint = 'internal' ) {
 		$address = $this->userNova->allocateAddress();
-		if ( ! $address ) {
+		if ( !$address ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-allocateaddressfailed' );
 			return true;
 		}
@@ -610,7 +610,7 @@ class SpecialNovaAddress extends SpecialNova {
 	 */
 	function tryReleaseSubmit( $formData, $entryPoint = 'internal' ) {
 		$id = $formData['id'];
-		#TODO: Instead of throwing an error when host exist or the IP
+		# TODO: Instead of throwing an error when host exist or the IP
 		# is associated, remove all host entries and disassociate the IP
 		# then release the address
 		$outputPage = $this->getOutput();
@@ -717,7 +717,7 @@ class SpecialNovaAddress extends SpecialNova {
 		$address = $this->userNova->getAddress( $id );
 		$ip = $address->getPublicIp();
 		$outputPage = $this->getOutput();
-		if ( ! $address ) {
+		if ( !$address ) {
 			$outputPage->addWikiMsg( 'openstackmanager-invalidaddress', $ip );
 			return true;
 		}
@@ -763,7 +763,7 @@ class SpecialNovaAddress extends SpecialNova {
 		$id = $formData['id'];
 		$address = $this->userNova->getAddress( $id );
 		$outputPage = $this->getOutput();
-		if ( ! $address ) {
+		if ( !$address ) {
 			$outputPage->addWikiMsg( 'openstackmanager-invalidaddress', $id );
 			return true;
 		}

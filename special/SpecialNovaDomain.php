@@ -46,7 +46,7 @@ class SpecialNovaDomain extends SpecialNova {
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-deletedomain' ) );
 
 		$domainname = $this->getRequest()->getText( 'domainname' );
-		if ( ! $this->getRequest()->wasPosted() ) {
+		if ( !$this->getRequest()->wasPosted() ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-deletedomain-confirm', $domainname );
 		}
 		$domainInfo = array();
@@ -146,7 +146,7 @@ class SpecialNovaDomain extends SpecialNova {
 	 */
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
 		$success = OpenStackNovaDomain::createDomain( $formData['domainname'], $formData['fqdn'], $formData['location'] );
-		if ( ! $success ) {
+		if ( !$success ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-createdomainfailed' );
 			return false;
 		}

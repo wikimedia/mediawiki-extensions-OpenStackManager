@@ -28,7 +28,7 @@ class SpecialNovaProject extends SpecialNova {
 			return;
 		}
 		$this->userLDAP = new OpenStackNovaUser();
-		if ( ! $this->userLDAP->exists() ) {
+		if ( !$this->userLDAP->exists() ) {
 			$this->noCredentials();
 			return;
 		}
@@ -154,7 +154,7 @@ class SpecialNovaProject extends SpecialNova {
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-deleteproject' ) );
 
 		$project = $this->getRequest()->getText( 'projectid' );
-		if ( ! $this->getRequest()->wasPosted() ) {
+		if ( !$this->getRequest()->wasPosted() ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-removeprojectconfirm', $project );
 		}
 		$projectInfo = array();
@@ -346,7 +346,7 @@ class SpecialNovaProject extends SpecialNova {
 		global $wgOpenStackManagerLDAPUsername;
 
 		$project = OpenStackNovaProject::createProject( $formData['projectname'] );
-		if ( ! $project ) {
+		if ( !$project ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-createprojectfailed' );
 			return false;
 		}
@@ -503,7 +503,7 @@ class SpecialNovaProject extends SpecialNova {
 	function tryDeleteMemberSubmit( $formData, $entryPoint = 'internal' ) {
 		$project = OpenStackNovaProject::getProjectById( $formData['projectid'] );
 		$projectName = $project->getName();
-		if ( ! $project ) {
+		if ( !$project ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistentproject' );
 			return true;
 		}

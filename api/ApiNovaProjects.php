@@ -7,7 +7,7 @@ class ApiNovaProjects extends ApiBase {
 		$this->params = $this->extractRequestParams();
 		$this->userLDAP = new OpenStackNovaUser();
 
-		switch( $this->params['subaction'] ) {
+		switch ( $this->params['subaction'] ) {
 		case 'getall':
 			if ( isset( $this->params['project'] ) ) {
 				$projects = array( OpenStackNovaProject::getProjectByName( $this->params['project'] ) );
@@ -67,18 +67,18 @@ class ApiNovaProjects extends ApiBase {
 	// Face parameter.
 	public function getAllowedParams() {
 		return array(
-			'subaction' => array (
+			'subaction' => array(
 				ApiBase::PARAM_TYPE => array(
 					'getall',
 					'getuser',
 				),
 				ApiBase::PARAM_REQUIRED => true
 			),
-			'project' => array (
+			'project' => array(
 				ApiBase::PARAM_TYPE => 'string',
 				ApiBase::PARAM_REQUIRED => false
 			),
-			'username' => array (
+			'username' => array(
 				ApiBase::PARAM_TYPE => 'string',
 				ApiBase::PARAM_REQUIRED => false
 			),

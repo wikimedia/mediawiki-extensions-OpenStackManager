@@ -75,7 +75,7 @@ abstract class SpecialNova extends SpecialPage {
 	 * @return bool|string
 	 */
 	function validateText( $resourcename, $alldata ) {
-		if ( ! preg_match( "/^[a-z][a-z0-9-]*$/", $resourcename ) ) {
+		if ( !preg_match( "/^[a-z][a-z0-9-]*$/", $resourcename ) ) {
 			return Xml::element(
 				'span',
 				array( 'class' => 'error' ),
@@ -92,7 +92,7 @@ abstract class SpecialNova extends SpecialPage {
 	 * @return bool|string
 	 */
 	function validateDomain( $resourcename, $alldata ) {
-		if ( ! preg_match( "/^[a-z\*][a-z0-9\-]*$/", $resourcename ) ) {
+		if ( !preg_match( "/^[a-z\*][a-z0-9\-]*$/", $resourcename ) ) {
 			return Xml::element(
 				'span',
 				array( 'class' => 'error' ),
@@ -162,7 +162,7 @@ abstract class SpecialNova extends SpecialPage {
 		return Linker::link( $title, $resource );
 	}
 
-	function createActionLink( $msg, $params, $title = null, $attribs=array() ) {
+	function createActionLink( $msg, $params, $title = null, $attribs = array() ) {
 		if ( !$title ) {
 			$title = $this->getPageTitle();
 		}
@@ -181,7 +181,7 @@ abstract class SpecialNova extends SpecialPage {
 		return Html::rawElement( 'ul', array(), $resourceList );
 	}
 
-	public static function pushResourceColumn( &$row, $value, $attribs=array() ) {
+	public static function pushResourceColumn( &$row, $value, $attribs = array() ) {
 		if ( array_key_exists( 'class', $attribs ) ) {
 			$attribs['class'] = $attribs['class'] . ' Nova_cell';
 		} else {
@@ -190,7 +190,7 @@ abstract class SpecialNova extends SpecialPage {
 		$row[] = Html::element( 'td', $attribs, $value );
 	}
 
-	public static function pushRawResourceColumn( &$row, $value, $attribs=array() ) {
+	public static function pushRawResourceColumn( &$row, $value, $attribs = array() ) {
 		if ( array_key_exists( 'class', $attribs ) ) {
 			$attribs['class'] = $attribs['class'] . ' Nova_cell';
 		} else {

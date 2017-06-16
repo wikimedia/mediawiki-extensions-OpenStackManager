@@ -53,7 +53,7 @@ class SpecialNovaKey extends SpecialNova {
 		if ( $wgOpenStackManagerNovaKeypairStorage === 'nova' ) {
 			$keyname = $this->getRequest()->getVal( 'keyname' );
 			$project = $this->getRequest()->getVal( 'project' );
-			if ( $project && ! $this->userLDAP->inProject( $project ) ) {
+			if ( $project && !$this->userLDAP->inProject( $project ) ) {
 				$this->notInProject( $project );
 				return true;
 			}
@@ -70,7 +70,7 @@ class SpecialNovaKey extends SpecialNova {
 		} elseif ( $wgOpenStackManagerNovaKeypairStorage === 'ldap' ) {
 			$hash = $this->getRequest()->getVal( 'hash' );
 			$keypairs = $this->userLDAP->getKeypairs();
-			if ( ! $this->getRequest()->wasPosted() ) {
+			if ( !$this->getRequest()->wasPosted() ) {
 				$this->getOutput()->addHTML( Html::element( 'pre', array(), $keypairs[$hash] ) );
 				$this->getOutput()->addWikiMsg( 'openstackmanager-deletekeyconfirm' );
 			}
@@ -190,20 +190,22 @@ class SpecialNovaKey extends SpecialNova {
 
 		// We need to store the key in a file, as puttygen opens it several times.
 		$tmpfile = tmpfile();
-		if (!$tmpfile)
+		if ( !$tmpfile ) {
 			return false;
+		}
 
 		fwrite( $tmpfile, $keydata );
 
 		$descriptorspec = array(
-		   0 => $tmpfile,
-		   1 => array("pipe", "w"),
-		   2 => array("file", wfGetNull(), "a")
+			0 => $tmpfile,
+			1 => array( "pipe", "w" ),
+			2 => array( "file", wfGetNull(), "a" )
 		);
 
 		$process = proc_open( escapeshellcmd( $wgPuttygen ) . ' -O public-openssh -o /dev/stdout /dev/stdin', $descriptorspec, $pipes );
-		if ( $process === false )
+		if ( $process === false ) {
 			return false;
+		}
 
 		$data = stream_get_contents( $pipes[1] );
 		fclose( $pipes[1] );
@@ -224,12 +226,13 @@ class SpecialNovaKey extends SpecialNova {
 		fwrite( $tmpfile, str_repeat( "\0", strlen( $keydata ) + 4096 - strlen( $keydata ) % 4096 ) );
 		fclose( $tmpfile );
 
-		if ( $data === false || !preg_match( '/(^| )ssh-(rsa|dss) /', $data ) )
+		if ( $data === false || !preg_match( '/(^| )ssh-(rsa|dss) /', $data ) ) {
 			return false;
+		}
 
 		return $data;
 	}
-	 /**
+	/**
 	 * Converts a public ssh key to openssh format, using ssh-keygen.
 	 * @param $keydata string SSH public/private key in some format
 	 * @return mixed Public key in openssh format or false
@@ -237,8 +240,9 @@ class SpecialNovaKey extends SpecialNova {
 	static function opensshFormatKeySshKeygen( $keydata ) {
 		global $wgSshKeygen;
 
-		if ( wfIsWindows() || !$wgSshKeygen )
+		if ( wfIsWindows() || !$wgSshKeygen ) {
 			return false;
+		}
 
 		if ( substr_compare( $keydata, 'PuTTY-User-Key-File-2:', 0, 22 ) == 0 ) {
 			$keydata = explode( "\nPrivate-Lines:", $keydata, 2 );
@@ -246,14 +250,15 @@ class SpecialNovaKey extends SpecialNova {
 		}
 
 		$descriptorspec = array(
-		   0 => array("pipe", "r"),
-		   1 => array("pipe", "w"),
-		   2 => array("file", wfGetNull(), "a")
+			0 => array( "pipe", "r" ),
+			1 => array( "pipe", "w" ),
+			2 => array( "file", wfGetNull(), "a" )
 		);
 
 		$process = proc_open( escapeshellcmd( $wgSshKeygen ) . ' -i -f /dev/stdin', $descriptorspec, $pipes );
-		if ( $process === false )
+		if ( $process === false ) {
 			return false;
+		}
 
 		fwrite( $pipes[0], $keydata );
 		fclose( $pipes[0] );
@@ -262,8 +267,9 @@ class SpecialNovaKey extends SpecialNova {
 		fclose( $pipes[1] );
 		proc_close( $process );
 
-		if ( $data === false || !preg_match( '/(^| )ssh-(rsa|dss) /', $data ) )
+		if ( $data === false || !preg_match( '/(^| )ssh-(rsa|dss) /', $data ) ) {
 			return false;
+		}
 
 		return $data;
 	}

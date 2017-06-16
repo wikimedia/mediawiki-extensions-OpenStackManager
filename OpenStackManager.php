@@ -13,7 +13,7 @@
  */
 
 if ( !defined( 'MEDIAWIKI' ) ) {
-	echo( "This file is an extension to the MediaWiki software and cannot be used standalone.\n" );
+	echo "This file is an extension to the MediaWiki software and cannot be used standalone.\n";
 	die( 1 );
 }
 
@@ -91,7 +91,7 @@ $wgOpenStackManagerServiceGroupHomedirPattern = '/home/%p%u/';
 
 // Username for special observer user -- hidden
 //  from the OSM front end.
-$wgOpenStackHiddenUsernames = array('novaobserver');
+$wgOpenStackHiddenUsernames = array( 'novaobserver' );
 
 // Key/value pairs like array( 'region1' => '10.4.0.11', 'region2' => '10.68.1.35' )
 $wgOpenStackManagerProxyGateways = array();
@@ -306,7 +306,7 @@ $wgHooks['LoadExtensionSchemaUpdates'][] = 'efOpenStackSchemaUpdates';
  * @return bool
  */
 function efOpenStackSchemaUpdates( $updater ) {
-	$base = dirname( __FILE__ );
+	$base = __DIR__;
 	switch ( $updater->getDB()->getType() ) {
 	case 'mysql':
 		$updater->addExtensionTable( 'openstack_tokens', "$base/schema-changes/tokens.sql" );
@@ -371,7 +371,7 @@ function efOpenStackOnBeforeCreateEchoEvent(
  * @param &$users array to append implicitly subscribed users to.
  * @return bool true in all cases
  */
-function efOpenStackGetDefaultNotifiedUsers ( $event, &$users ) {
+function efOpenStackGetDefaultNotifiedUsers( $event, &$users ) {
 	if ( $event->getType() == 'osm-instance-build-completed' ||
 		$event->getType() == 'osm-instance-deleted'
 	) {

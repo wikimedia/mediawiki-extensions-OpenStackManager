@@ -36,7 +36,7 @@ class SpecialNovaResources extends SpecialNova {
 			return;
 		}
 		$this->userLDAP = new OpenStackNovaUser();
-		if ( ! $this->userLDAP->exists() ) {
+		if ( !$this->userLDAP->exists() ) {
 			$this->noCredentials();
 			return;
 		}
@@ -159,7 +159,7 @@ class SpecialNovaResources extends SpecialNova {
 		}
 		if ( $instanceRows ) {
 			return $this->createResourceTable( $headers, $instanceRows );
-		} 
+		}
 		return '';
 	}
 

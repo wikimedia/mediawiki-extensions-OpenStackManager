@@ -42,25 +42,25 @@ class SpecialNovaVolume extends SpecialNova {
 		$action = $this->getRequest()->getVal( 'action' );
 
 		if ( $action === "create" ) {
-			if ( ! $this->userLDAP->inProject( $project ) ) {
+			if ( !$this->userLDAP->inProject( $project ) ) {
 				$this->notInProject( $project );
 				return;
 			}
 			$this->createVolume();
 		} elseif ( $action === "delete" ) {
-			if ( ! $this->userLDAP->inProject( $project ) ) {
+			if ( !$this->userLDAP->inProject( $project ) ) {
 				$this->notInProject( $project );
 				return;
 			}
 			$this->deleteVolume();
 		} elseif ( $action === "attach" ) {
-			if ( ! $this->userLDAP->inProject( $project ) ) {
+			if ( !$this->userLDAP->inProject( $project ) ) {
 				$this->notInProject( $project );
 				return;
 			}
 			$this->attachVolume();
 		} elseif ( $action === "detach" ) {
-			if ( ! $this->userLDAP->inProject( $project ) ) {
+			if ( !$this->userLDAP->inProject( $project ) ) {
 				$this->notInProject( $project );
 				return;
 			}
@@ -79,7 +79,7 @@ class SpecialNovaVolume extends SpecialNova {
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
-		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+		if ( !$this->userLDAP->inRole( 'projectadmin', $project ) ) {
 			$this->notInRole( 'projectadmin', $project );
 			return false;
 		}
@@ -142,12 +142,12 @@ class SpecialNovaVolume extends SpecialNova {
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
-		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+		if ( !$this->userLDAP->inRole( 'projectadmin', $project ) ) {
 			$this->notInRole( 'projectadmin', $project );
 			return false;
 		}
 		$volumeid = $this->getRequest()->getText( 'volumeid' );
-		if ( ! $this->getRequest()->wasPosted() ) {
+		if ( !$this->getRequest()->wasPosted() ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-deletevolumequestion', $volumeid );
 		}
 		$volumeInfo = array();
@@ -192,7 +192,7 @@ class SpecialNovaVolume extends SpecialNova {
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
-		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+		if ( !$this->userLDAP->inRole( 'projectadmin', $project ) ) {
 			$this->notInRole( 'projectadmin', $project );
 			return false;
 		}
@@ -274,7 +274,7 @@ class SpecialNovaVolume extends SpecialNova {
 
 		$project = $this->getRequest()->getText( 'project' );
 		$region = $this->getRequest()->getText( 'region' );
-		if ( ! $this->userLDAP->inRole( 'projectadmin', $project ) ) {
+		if ( !$this->userLDAP->inRole( 'projectadmin', $project ) ) {
 			$this->notInRole( 'projectadmin', $project );
 			return false;
 		}
@@ -434,7 +434,7 @@ class SpecialNovaVolume extends SpecialNova {
 	 */
 	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
 		$volume = $this->userNova->getVolume( $formData['volumeid'] );
-		if ( ! $volume ) {
+		if ( !$volume ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistantvolume' );
 			return true;
 		}
@@ -514,11 +514,11 @@ class SpecialNovaVolume extends SpecialNova {
 	 */
 	function getDrives() {
 		$drives = array();
-		foreach ( range('a', 'z') as $letter ) {
+		foreach ( range( 'a', 'z' ) as $letter ) {
 			$drive = '/dev/vd' . $letter;
 			$drives[$drive] = $drive;
 		}
-		foreach ( range('a', 'z') as $letter ) {
+		foreach ( range( 'a', 'z' ) as $letter ) {
 			$drive = '/dev/vda' . $letter;
 			$drives[$drive] = $drive;
 		}

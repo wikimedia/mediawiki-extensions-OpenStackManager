@@ -37,13 +37,13 @@ class SpecialNovaProxy extends SpecialNova {
 		$this->userNova->setRegion( $region );
 
 		if ( $action === "create" ) {
-			if ( ! $this->userLDAP->inProject( $this->projectName ) ) {
+			if ( !$this->userLDAP->inProject( $this->projectName ) ) {
 				$this->notInProject( $this->projectName );
 				return;
 			}
 			$this->createProxy();
 		} elseif ( $action === "delete" ) {
-			if ( ! $this->userLDAP->inProject( $this->projectName ) ) {
+			if ( !$this->userLDAP->inProject( $this->projectName ) ) {
 				$this->notInProject( $this->project );
 				return;
 			}
@@ -59,7 +59,7 @@ class SpecialNovaProxy extends SpecialNova {
 	function createProxy() {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-createproxy' ) );
-		if ( ! $this->userLDAP->inRole( 'projectadmin', $this->projectName ) ) {
+		if ( !$this->userLDAP->inRole( 'projectadmin', $this->projectName ) ) {
 			$this->notInRole( 'projectadmin', $this->projectName );
 			return false;
 		}
@@ -150,13 +150,13 @@ class SpecialNovaProxy extends SpecialNova {
 	function deleteProxy() {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-deleteproxy' ) );
-		if ( ! $this->userLDAP->inRole( 'projectadmin', $this->projectName ) ) {
+		if ( !$this->userLDAP->inRole( 'projectadmin', $this->projectName ) ) {
 			$this->notInRole( 'projectadmin', $this->projectName );
 			return false;
 		}
 		$proxyfqdn = $this->getRequest()->getText( 'proxyfqdn' );
 		$region = $this->getRequest()->getText( 'region' );
-		if ( ! $this->getRequest()->wasPosted() ) {
+		if ( !$this->getRequest()->wasPosted() ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-deleteproxy-confirm', $proxyfqdn );
 		}
 		$proxyInfo = array();
@@ -250,11 +250,10 @@ class SpecialNovaProxy extends SpecialNova {
 				$this->pushResourceColumn( $proxyRow, $fqdn );
 				$this->pushResourceColumn( $proxyRow, $proxy->getBackend() );
 
-	            $actions = array();
-	            $actions[] = $this->createActionLink( 'openstackmanager-delete',
-							                array( 'action' => 'delete', 'proxyfqdn' => $fqdn, 'project' => $projectName, 'region' => $region ) );
-	            $this->pushRawResourceColumn( $proxyRow, $this->createResourceList( $actions ) );
-
+				$actions = array();
+				$actions[] = $this->createActionLink( 'openstackmanager-delete',
+					array( 'action' => 'delete', 'proxyfqdn' => $fqdn, 'project' => $projectName, 'region' => $region ) );
+				$this->pushRawResourceColumn( $proxyRow, $this->createResourceList( $actions ) );
 
 				$proxyRows[] = $proxyRow;
 			}
@@ -269,7 +268,7 @@ class SpecialNovaProxy extends SpecialNova {
 		return $out;
 	}
 
-	function addHost($hostName, $domain, $ip) {
+	function addHost( $hostName, $domain, $ip ) {
 		$domain = OpenStackNovaDomain::getDomainByName( $domain );
 		$hostbyip = OpenStackNovaHost::getHostByPublicIP( $ip );
 		$fqdn = $hostName . '.' . $domain->getFullyQualifiedDomainName();
@@ -277,13 +276,13 @@ class SpecialNovaProxy extends SpecialNova {
 		if ( $hostbyip ) {
 			# We need to add an associateddomain, if the associateddomain doesn't already exist
 			$success = $hostbyip->addAssociatedDomain( $fqdn );
-			if ( ! $success ) {
+			if ( !$success ) {
 				return false;
 			}
 		} else {
 			# This is a new host entry
 			$host = OpenStackNovaHost::addPublicHost( $hostName, $ip, $domain );
-			if ( ! $host ) {
+			if ( !$host ) {
 				return false;
 			}
 		}
@@ -291,11 +290,11 @@ class SpecialNovaProxy extends SpecialNova {
 		return true;
 	}
 
-	function deleteHost($fqdn, $ip) {
+	function deleteHost( $fqdn, $ip ) {
 		$host = OpenStackNovaHost::getHostByPublicIP( $ip );
-        if ( $host ) {
+		if ( $host ) {
 			$records = $host->getAssociatedDomains();
-				if ( count( $records ) > 1 ) {
+			if ( count( $records ) > 1 ) {
 				# We need to keep the host, but remove the fqdn
 				$success = $host->deleteAssociatedDomain( $fqdn );
 				if ( $success ) {
@@ -338,7 +337,7 @@ class SpecialNovaProxy extends SpecialNova {
 		$success =  $this->userNova->deleteProxy( $fqdn );
 		if ( $success ) {
 			$success = $this->deleteHost( $fqdn, $wgOpenStackManagerProxyGateways[$region] );
-			if ( ! $success ) {
+			if ( !$success ) {
 				$outputPage->addWikiMsg( 'openstackmanager-removehostfailed', $fqdn );
 			}
 		} else {
@@ -352,7 +351,6 @@ class SpecialNovaProxy extends SpecialNova {
 
 		return true;
 	}
-
 
 	/**
 	 * @param  $formData
@@ -376,7 +374,7 @@ class SpecialNovaProxy extends SpecialNova {
 		$outputPage = $this->getOutput();
 		$gatewayIP = $wgOpenStackManagerProxyGateways[$region];
 
-		if ( ! ( array_key_exists( $region, $wgOpenStackManagerProxyGateways ) ) ) {
+		if ( !( array_key_exists( $region, $wgOpenStackManagerProxyGateways ) ) ) {
 			$outputPage->addWikiMsg( 'openstackmanager-addhostfailed', $proxyName, $gatewayIP );
 			$outputPage->addHTML( $goback );
 			return true;

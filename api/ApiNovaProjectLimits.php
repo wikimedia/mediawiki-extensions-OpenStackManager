@@ -4,8 +4,8 @@ class ApiNovaProjectLimits extends ApiBase {
 	public $userNova;
 	public $params;
 
-	public function canExecute( $rights=array() ) {
-		if ( ! $this->userLDAP->exists() ) {
+	public function canExecute( $rights = array() ) {
+		if ( !$this->userLDAP->exists() ) {
 			if ( is_callable( array( $this, 'dieWithError' ) ) ) {
 				$this->dieWithError( 'openstackmanager-nonovacred' );
 			} else {
@@ -13,7 +13,7 @@ class ApiNovaProjectLimits extends ApiBase {
 			}
 		}
 		if ( in_array( 'inproject', $rights ) || in_array( 'isprojectadmin', $rights ) ) {
-			if ( ! $this->userLDAP->inProject( $this->params['project'] ) ) {
+			if ( !$this->userLDAP->inProject( $this->params['project'] ) ) {
 				if ( is_callable( array( $this, 'dieWithError' ) ) ) {
 					$this->dieWithError( array( 'openstackmanager-noaccount', wfEscapeWikiText( $this->params['project'] ) ) );
 				} else {
@@ -22,7 +22,7 @@ class ApiNovaProjectLimits extends ApiBase {
 			}
 		}
 		if ( in_array( 'isprojectadmin', $rights ) ) {
-			if ( ! $this->userLDAP->inRole( 'projectadmin', $this->params['project'] ) ) {
+			if ( !$this->userLDAP->inRole( 'projectadmin', $this->params['project'] ) ) {
 				if ( is_callable( array( $this, 'dieWithError' ) ) ) {
 					$this->dieWithError( [
 						'openstackmanager-needrole',
@@ -40,7 +40,7 @@ class ApiNovaProjectLimits extends ApiBase {
 		$this->params = $this->extractRequestParams();
 		$this->userLDAP = new OpenStackNovaUser();
 
-		switch( $this->params['subaction'] ) {
+		switch ( $this->params['subaction'] ) {
 		case 'getlimits':
 			$this->canExecute( array( 'isprojectadmin' ) );
 			$this->userNova = OpenStackNovaController::newFromUser( $this->userLDAP );
@@ -75,17 +75,17 @@ class ApiNovaProjectLimits extends ApiBase {
 	// Face parameter.
 	public function getAllowedParams() {
 		return array(
-			'subaction' => array (
+			'subaction' => array(
 				ApiBase::PARAM_TYPE => array(
 					'getlimits',
 				),
 				ApiBase::PARAM_REQUIRED => true
 			),
-			'project' => array (
+			'project' => array(
 				ApiBase::PARAM_TYPE => 'string',
 				ApiBase::PARAM_REQUIRED => true
 			),
-			'region' => array (
+			'region' => array(
 				ApiBase::PARAM_TYPE => 'string',
 				ApiBase::PARAM_REQUIRED => false
 			),

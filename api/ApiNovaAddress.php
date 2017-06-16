@@ -5,7 +5,7 @@ class ApiNovaAddress extends ApiBase {
 	public $params;
 
 	public function canExecute() {
-		if ( ! $this->userLDAP->exists() ) {
+		if ( !$this->userLDAP->exists() ) {
 			if ( is_callable( array( $this, 'dieWithError' ) ) ) {
 				$this->dieWithError( 'openstackmanager-nonovacred' );
 			} else {
@@ -13,10 +13,10 @@ class ApiNovaAddress extends ApiBase {
 			}
 		}
 
-		$projects = split( ',', $this->params['project'] );
+		$projects = explode( ',', $this->params['project'] );
 
 		foreach ( $projects as $p ) {
-			if ( ! $this->userLDAP->inProject( $p ) ) {
+			if ( !$this->userLDAP->inProject( $p ) ) {
 				if ( is_callable( array( $this, 'dieWithError' ) ) ) {
 					$this->dieWithError( array( 'openstackmanager-noaccount', wfEscapeWikiText( $p ) ) );
 				} else {
@@ -24,7 +24,7 @@ class ApiNovaAddress extends ApiBase {
 				}
 			}
 
-			if ( ! $this->userLDAP->inRole( 'projectadmin', $p ) ) {
+			if ( !$this->userLDAP->inRole( 'projectadmin', $p ) ) {
 				if ( is_callable( array( $this, 'dieWithError' ) ) ) {
 					$this->dieWithError( [
 						'openstackmanager-needrole',
@@ -61,14 +61,14 @@ class ApiNovaAddress extends ApiBase {
 
 		$subaction = $this->params['subaction'];
 
-		switch( $subaction ) {
+		switch ( $subaction ) {
 			case 'disassociate':
 				$success = $this->userNova->disassociateAddress(
 					$instanceId,
 					$ipAddr
 				);
 
-				if ( ! $success ) {
+				if ( !$success ) {
 					if ( is_callable( array( $this, 'dieWithError' ) ) ) {
 						$this->dieWithError( array( 'openstackmanager-disassociateaddressfailed', wfEscapeWikiText( $ipAddr ) ) );
 					} else {
@@ -76,7 +76,7 @@ class ApiNovaAddress extends ApiBase {
 					}
 				}
 
-				$result->addValue( null, $this->getModuleName(), array ( 'addressstate' => 'free' ) );
+				$result->addValue( null, $this->getModuleName(), array( 'addressstate' => 'free' ) );
 				break;
 		}
 	}

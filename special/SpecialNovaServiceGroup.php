@@ -48,7 +48,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 		$project = OpenStackNovaProject::getProjectByName( $projectname );
 		if ( $project ) {
 			$group = OpenStackNovaServiceGroup::getServiceGroupByName( $groupName, $project );
-			if ( ! $this->userLDAP->inRole( 'projectadmin', $projectname ) &&
+			if ( !$this->userLDAP->inRole( 'projectadmin', $projectname ) &&
 				( !$group->isMember( $this->userLDAP->getUsername() ) ) ) {
 				# We can add a member if we're an admin or if we're already in the security group.
 				$this->notInServiceGroup();
@@ -91,7 +91,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 				'help-message' => 'openstackmanager-servicegrouprecursewarning'
 			);
 		} else {
-			//TODO: display error
+			// TODO: display error
 		}
 		$groupInfo['action'] = array(
 			'type' => 'hidden',
@@ -110,7 +110,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 		);
 		$groupInfo['returnto'] = array(
 			'type' => 'hidden',
-			'default' => $this->getRequest()->getText('returnto'),
+			'default' => $this->getRequest()->getText( 'returnto' ),
 			'name' => 'returnto',
 		);
 
@@ -184,7 +184,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-removeservicegroup' ) );
 
 		$groupName = $this->getRequest()->getText( 'groupname' );
-		if ( ! $this->getRequest()->wasPosted() ) {
+		if ( !$this->getRequest()->wasPosted() ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-removeservicegroupconfirm', $groupName );
 		}
 		$projectInfo = array();
@@ -255,7 +255,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 		$serviceGroups =  $project->getServiceGroups();
 		if ( $serviceGroups ) {
 			$headers = array( 'openstackmanager-servicegroupname', 'openstackmanager-members', 'openstackmanager-actions' );
-			foreach ( $serviceGroups as $group) {
+			foreach ( $serviceGroups as $group ) {
 				$groupName = $group->getGroupName();
 				$groupRow = array();
 				$this->pushResourceColumn( $groupRow, $groupName );
@@ -287,7 +287,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 		$username = $this->userLDAP->getUsername();
 
 		$success = $project->addServiceGroup( $formData['servicegroupname'], $username );
-		if ( ! $success ) {
+		if ( !$success ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-createservicegroupfailed' );
 			return false;
 		}
@@ -313,7 +313,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 		$projectname = $formData['projectname'];
 		if ( $projectname ) {
 			$project = OpenStackNovaProject::getProjectByName( $projectname );
-			if ( ! $project ) {
+			if ( !$project ) {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistentproject' );
 				return true;
 			}
@@ -321,9 +321,9 @@ class SpecialNovaServiceGroup extends SpecialNova {
 			$members = $formData['members'];
 			$servicemembers = $formData['servicemembers'];
 		} else {
-			//TODO: display error
+			// TODO: display error
 		}
-		if ( ! $group ) {
+		if ( !$group ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistentgroup' );
 			return true;
 		}

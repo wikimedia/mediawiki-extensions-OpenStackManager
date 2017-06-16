@@ -5,21 +5,21 @@ class ApiNovaInstance extends ApiBase {
 	public $params;
 
 	public function canExecute() {
-		if ( ! $this->userLDAP->exists() ) {
+		if ( !$this->userLDAP->exists() ) {
 			if ( is_callable( array( $this, 'dieWithError' ) ) ) {
 				$this->dieWithError( 'openstackmanager-nonovacred' );
 			} else {
 				$this->dieUsage( 'No credentials found for your account.', 'openstackmanager-nonovacred' );
 			}
 		}
-		if ( ! $this->userLDAP->inProject( $this->params['project'] ) ) {
+		if ( !$this->userLDAP->inProject( $this->params['project'] ) ) {
 			if ( is_callable( array( $this, 'dieWithError' ) ) ) {
 				$this->dieWithError( array( 'openstackmanager-noaccount', wfEscapeWikiText( $this->params['project'] ) ) );
 			} else {
 				$this->dieUsage( 'User account is not in the project specified.', 'openstackmanager-noaccount' );
 			}
 		}
-		if ( ! $this->userLDAP->inRole( 'projectadmin', $this->params['project'] ) ) {
+		if ( !$this->userLDAP->inRole( 'projectadmin', $this->params['project'] ) ) {
 			if ( is_callable( array( $this, 'dieWithError' ) ) ) {
 				$this->dieWithError( [
 					'openstackmanager-needrole',
@@ -41,7 +41,7 @@ class ApiNovaInstance extends ApiBase {
 		$this->userNova->setProject( $this->params['project'] );
 		$this->userNova->setRegion( $this->params['region'] );
 
-		switch( $this->params['subaction'] ) {
+		switch ( $this->params['subaction'] ) {
 		case 'reboot':
 			$success = $this->userNova->rebootInstance( $this->params['instanceid'] );
 			if ( !$success ) {
@@ -53,12 +53,12 @@ class ApiNovaInstance extends ApiBase {
 			}
 			$instance = $this->userNova->getInstance( $this->params['instanceid'] );
 			if ( $instance ) {
-				$this->getResult()->addValue( null, $this->getModuleName(), array ( 'instancestate' => $instance->getInstanceState() ) );
+				$this->getResult()->addValue( null, $this->getModuleName(), array( 'instancestate' => $instance->getInstanceState() ) );
 			}
 			break;
 		case 'consoleoutput':
 			$output = $this->userNova->getConsoleOutput( $this->params['instanceid'] );
-			$this->getResult()->addValue( null, $this->getModuleName(), array ( 'consoleoutput' => $output ) );
+			$this->getResult()->addValue( null, $this->getModuleName(), array( 'consoleoutput' => $output ) );
 			break;
 		case 'delete':
 			$instanceOSID = $this->params['instanceid'];
@@ -90,7 +90,7 @@ class ApiNovaInstance extends ApiBase {
 	// Face parameter.
 	public function getAllowedParams() {
 		return array(
-			'subaction' => array (
+			'subaction' => array(
 				ApiBase::PARAM_TYPE => array(
 					'reboot',
 					'consoleoutput',
@@ -98,15 +98,15 @@ class ApiNovaInstance extends ApiBase {
 				),
 				ApiBase::PARAM_REQUIRED => true
 			),
-			'instanceid' => array (
+			'instanceid' => array(
 				ApiBase::PARAM_TYPE => 'string',
 				ApiBase::PARAM_REQUIRED => true
 			),
-			'project' => array (
+			'project' => array(
 				ApiBase::PARAM_TYPE => 'string',
 				ApiBase::PARAM_REQUIRED => true
 			),
-			'region' => array (
+			'region' => array(
 				ApiBase::PARAM_TYPE => 'string',
 				ApiBase::PARAM_REQUIRED => true
 			),
@@ -116,7 +116,7 @@ class ApiNovaInstance extends ApiBase {
 			),
 		);
 	}
- 
+
 	/**
 	 * @deprecated since MediaWiki core 1.25
 	 */
