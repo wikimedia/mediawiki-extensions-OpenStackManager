@@ -175,7 +175,6 @@ class OpenStackNovaUser {
 	 */
 	function getRoles() {
 		global $wgMemc;
-		global $wgOpenStackManagerLDAPProjectBaseDN;
 
 		$key = wfMemcKey( 'openstackmanager', 'roles', $this->username );
 		$roles = $wgMemc->get( $key );
@@ -206,7 +205,6 @@ class OpenStackNovaUser {
 	 * @return bool
 	 */
 	function inProject( $project ) {
-		global $wgOpenStackManagerLDAPProjectBaseDN;
 		global $wgMemc;
 
 		$key = wfMemcKey( 'openstackmanager', "project-$project", $this->userDN );

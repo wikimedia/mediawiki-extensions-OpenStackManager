@@ -111,8 +111,6 @@ class SpecialNovaResources extends SpecialNova {
 	}
 
 	function getInstances( $projectName, $region, &$instanceCount ) {
-		global $wgMemc;
-
 		$this->userNova->setRegion( $region );
 		$headers = array( 'openstackmanager-instancename', 'openstackmanager-instanceid', 'openstackmanager-instancestate', 'openstackmanager-instanceip', 'openstackmanager-projectname', 'openstackmanager-launchtime', 'openstackmanager-instancecreator' );
 		$instances = $this->userNova->getInstances();

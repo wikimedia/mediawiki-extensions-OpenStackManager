@@ -33,7 +33,6 @@ class ApiNovaInstance extends ApiBase {
 	}
 
 	function execute() {
-		global $wgUser;
 		$this->params = $this->extractRequestParams();
 
 		$this->userLDAP = new OpenStackNovaUser();

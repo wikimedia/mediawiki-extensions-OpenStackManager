@@ -79,8 +79,6 @@ class OpenStackNovaServiceGroup {
 	 * @return array
 	 */
 	function getUidMembers() {
-		global $wgOpenStackManagerLDAPDomain;
-
 		$members = array();
 		if ( isset( $this->groupInfo[0]['member'] ) ) {
 			$memberdns = $this->groupInfo[0]['member'];
@@ -273,7 +271,6 @@ class OpenStackNovaServiceGroup {
 	 * @return null|OpenStackNovaServiceGroup
 	 */
 	static function createServiceGroup( $inGroupName, $project, $initialUser ) {
-		global $wgOpenStackManagerLDAPUser;
 		global $wgOpenStackManagerLDAPDefaultShell;
 		global $wgOpenStackManagerLDAPServiceGroupBaseDN;
 		global $wgMemc;
