@@ -20,6 +20,7 @@ $specialPageAliases['en'] = array(
 	'NovaProject' => array( 'NovaProject', 'Nova Project' ),
 	'NovaProxy' => array( 'NovaProxy', 'Nova Proxy' ),
 	'NovaResources' => array( 'NovaResources', 'Nova Resources' ),
+	'NovaRole' => array( 'NovaRole', 'Nova Role' ),
 	'NovaServiceGroup' => array( 'NovaServiceGroup', 'Nova Service Group' ),
 	'NovaSudoer' => array( 'NovaSudoer', 'Nova Sudoer' ),
 	'NovaVolume' => array( 'NovaVolume', 'Nova Volume' ),
@@ -36,6 +37,7 @@ $specialPageAliases['ar'] = array(
 	'NovaProject' => array( 'مشروع_نوفا' ),
 	'NovaProxy' => array( 'بروكسي_نوفا' ),
 	'NovaResources' => array( 'موارد_نوفا' ),
+	'NovaRole' => array( 'دور_نوفا' ),
 	'NovaServiceGroup' => array( 'مجموعة_خدمة_نوفا' ),
 	'NovaSudoer' => array( 'نوفا_سودوير' ),
 	'NovaVolume' => array( 'حجم_نوفا' ),
@@ -52,6 +54,7 @@ $specialPageAliases['arz'] = array(
 	'NovaProject' => array( 'مشروع_نوفا' ),
 	'NovaProxy' => array( 'بروكسي_نوفا' ),
 	'NovaResources' => array( 'موارد_نوفا' ),
+	'NovaRole' => array( 'دور_نوفا' ),
 	'NovaServiceGroup' => array( 'مجموعه_خدمه_نوفا' ),
 	'NovaSudoer' => array( 'نوفا_سودوير' ),
 	'NovaVolume' => array( 'حجم_نوفا' ),
@@ -67,6 +70,7 @@ $specialPageAliases['de'] = array(
 	'NovaProject' => array( 'Nova-Projekt' ),
 	'NovaProxy' => array( 'Nova-Proxy' ),
 	'NovaResources' => array( 'Nova-Ressourcen' ),
+	'NovaRole' => array( 'Nova-Rolle' ),
 	'NovaServiceGroup' => array( 'Nova-Dienstgruppe' ),
 	'NovaSudoer' => array( 'Nova-Sudoer' ),
 	'NovaVolume' => array( 'Nova-Datenträger' ),
@@ -87,6 +91,7 @@ $specialPageAliases['he'] = array(
 	'NovaProject' => array( 'פרויקט_Nova' ),
 	'NovaProxy' => array( 'שרת_מתווך_Nova' ),
 	'NovaResources' => array( 'משאבי_Nova' ),
+	'NovaRole' => array( 'תפקיד_Nova' ),
 	'NovaServiceGroup' => array( 'קבוצת_שירות_של_Nova' ),
 	'NovaVolume' => array( 'כרך_Nova' ),
 );
@@ -117,6 +122,7 @@ $specialPageAliases['ko'] = array(
 	'NovaProject' => array( 'Nova프로젝트', 'Nova_프로젝트' ),
 	'NovaProxy' => array( 'Nova프록시', 'Nova_프록시' ),
 	'NovaResources' => array( 'Nova자료', 'Nova_자료' ),
+	'NovaRole' => array( 'Nova규칙', 'Nova_규칙' ),
 	'NovaServiceGroup' => array( 'Nova서비스그룹', 'Nova_서비스_그룹' ),
 );
 
@@ -136,6 +142,7 @@ $specialPageAliases['mk'] = array(
 	'NovaProject' => array( 'NovaПроект' ),
 	'NovaProxy' => array( 'NovaЗастапник' ),
 	'NovaResources' => array( 'NovaРесурси' ),
+	'NovaRole' => array( 'NovaУлога' ),
 	'NovaServiceGroup' => array( 'NovaСлужбенаГрупа' ),
 	'NovaSudoer' => array( 'NovaНаткориснички' ),
 	'NovaVolume' => array( 'NovaОбем' ),
@@ -165,6 +172,7 @@ $specialPageAliases['vi'] = array(
 	'NovaKey' => array( 'Chìa_khóa_Nova', 'Chìa_khoá_Nova' ),
 	'NovaProject' => array( 'Dự_án_Nova' ),
 	'NovaResources' => array( 'Tài_nguyên_Nova' ),
+	'NovaRole' => array( 'Vai_trò_Nova' ),
 );
 
 /** Simplified Chinese (中文（简体）‎) */
@@ -177,6 +185,7 @@ $specialPageAliases['zh-hans'] = array(
 	'NovaProject' => array( 'Nova项目' ),
 	'NovaProxy' => array( 'Nova代理' ),
 	'NovaResources' => array( 'Nova资源' ),
+	'NovaRole' => array( 'Nova角色' ),
 	'NovaServiceGroup' => array( 'Nova服务组' ),
 	'NovaVolume' => array( 'Nova容量' ),
 );
