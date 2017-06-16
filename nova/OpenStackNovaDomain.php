@@ -262,7 +262,7 @@ class OpenStackNovaDomain {
 		OpenStackNovaLdapConnection::connect();
 
 		$domain = new OpenStackNovaDomain( $domainname );
-		if ( ! $domain ) {
+		if ( !$domain ) {
 			$ldap->printDebug( "Domain $domainname does not exist", NONSENSITIVE );
 			return array( false, 'openstackmanager-failedeletedomainnotfound' );
 		}
@@ -297,11 +297,11 @@ class OpenStackNovaDomain {
 
 		$serial = date( 'U' );
 		$soa = $wgOpenStackManagerDNSOptions['servers']['primary'] . '. ' .
-			   $wgOpenStackManagerDNSOptions['soa']['hostmaster'] . '. ' . $serial . ' ' .
-			   $wgOpenStackManagerDNSOptions['soa']['refresh'] . ' ' .
-			   $wgOpenStackManagerDNSOptions['soa']['retry'] . ' ' .
-			   $wgOpenStackManagerDNSOptions['soa']['expiry'] . ' ' .
-			   $wgOpenStackManagerDNSOptions['soa']['minimum'];
+			$wgOpenStackManagerDNSOptions['soa']['hostmaster'] . '. ' . $serial . ' ' .
+			$wgOpenStackManagerDNSOptions['soa']['refresh'] . ' ' .
+			$wgOpenStackManagerDNSOptions['soa']['retry'] . ' ' .
+			$wgOpenStackManagerDNSOptions['soa']['expiry'] . ' ' .
+			$wgOpenStackManagerDNSOptions['soa']['minimum'];
 
 		return $soa;
 	}

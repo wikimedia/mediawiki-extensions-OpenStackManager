@@ -29,7 +29,7 @@ if ( $IP === false ) {
 	$IP = __DIR__ . '/../../..';
 
 }
-require_once( "$IP/maintenance/Maintenance.php" );
+require_once "$IP/maintenance/Maintenance.php";
 
 /**
  * Maintenance script that triggers an Echo notification for instance action completion.
@@ -109,4 +109,4 @@ class OnInstanceActionComplete extends Maintenance {
 }
 
 $maintClass = "OnInstanceActionComplete";
-require_once( RUN_MAINTENANCE_IF_MAIN );
+require_once RUN_MAINTENANCE_IF_MAIN;

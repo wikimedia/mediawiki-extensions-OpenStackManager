@@ -156,7 +156,7 @@ class OpenStackNovaController {
 	}
 
 	function createProxy( $fqdn, $backendHost, $backendPort ) {
-		$data = array( 'domain' => $fqdn, 'backends' => array ( 'http://' . $backendHost . ':' . $backendPort ) );
+		$data = array( 'domain' => $fqdn, 'backends' => array( 'http://' . $backendHost . ':' . $backendPort ) );
 		$ret = $this->restCall( 'proxy', '/mapping', 'PUT', $data );
 
 		if ( $ret['code'] !== 200 ) {
@@ -192,11 +192,11 @@ class OpenStackNovaController {
 			$domain = self::_get_property( $proxy, 'domain' );
 			$backends = self::_get_property( $proxy, 'backends' );
 
-			if ( (count( $backends ) ) > 1 ) {
+			if ( ( count( $backends ) ) > 1 ) {
 				$ldap->printDebug( "Warning!  proxy $domain has multiple backends but we only support one backend per proxy.", NONSENSITIVE );
 			}
 			$backend = $backends[0];
-			$backendarray = explode(  ':', $backends[0] );
+			$backendarray = explode( ':', $backends[0] );
 
 			if ( strpos( $backend, "http" ) === 0 ) {
 				if ( ( count( $backendarray ) < 2 ) or ( count( $backendarray ) > 3 ) ) {
@@ -369,7 +369,7 @@ class OpenStackNovaController {
 	/**
 	 * @return array of $roleid => $rolename
 	 */
-	function getKeystoneRoles( ) {
+	function getKeystoneRoles() {
 		global $wgMemc;
 
 		$key = wfMemcKey( 'openstackmanager', 'keystoneroles' );
@@ -452,7 +452,6 @@ class OpenStackNovaController {
 		}
 		return $assignments;
 	}
-
 
 	/**
 	 * @return array role IDs => role Names
@@ -683,7 +682,7 @@ class OpenStackNovaController {
 		$data['server']['imageRef'] = $image;
 		$data['server']['name'] = $instanceName;
 		if ( $wgOpenStackManagerInstanceUserData ) {
-			$random_hash = md5(date('r', time()));
+			$random_hash = md5( date( 'r', time() ) );
 			$endl = OpenStackNovaController::getLineEnding();
 			$boundary = '===============' . $random_hash .'==';
 			$userdata = 'Content-Type: multipart/mixed; boundary="' . $boundary .'"' . $endl;
@@ -700,7 +699,7 @@ class OpenStackNovaController {
 					wfSuppressWarnings();
 					$stat = stat( $script );
 					wfRestoreWarnings();
-					if ( ! $stat ) {
+					if ( !$stat ) {
 						continue;
 					}
 					$scripttext = file_get_contents( $script );
@@ -713,7 +712,7 @@ class OpenStackNovaController {
 					wfSuppressWarnings();
 					$stat = stat( $upstart );
 					wfRestoreWarnings();
-					if ( ! $stat ) {
+					if ( !$stat ) {
 						continue;
 					}
 					$upstarttext = file_get_contents( $upstart );
@@ -751,7 +750,7 @@ class OpenStackNovaController {
 		$instanceid = urlencode( $instanceid );
 		$ret = $this->restCall( 'compute', '/servers/' . $instanceid, 'DELETE' );
 
-		return( $ret['code'] === 204 );
+		return ( $ret['code'] === 204 );
 	}
 
 	/**
@@ -797,16 +796,16 @@ class OpenStackNovaController {
 	function addSecurityGroupRule( $groupid, $fromport='', $toport='', $protocol='', $range='', $group='' ) {
 		if ( $group && $range ) {
 			return false;
-		} else if ( $range ) {
-			$data = array( 'security_group_rule' => array (
+		} elseif ( $range ) {
+			$data = array( 'security_group_rule' => array(
 				'parent_group_id' => (int)$groupid,
 				'from_port' => $fromport,
 				'to_port' => $toport,
 				'ip_protocol' => $protocol,
 				'cidr' => $range )
 			);
-		} else if ( $group ) {
-			$data = array( 'security_group_rule' => array (
+		} elseif ( $group ) {
+			$data = array( 'security_group_rule' => array(
 				'parent_group_id' => (int)$groupid,
 				'group_id' => (int)$group )
 			);
@@ -881,7 +880,7 @@ class OpenStackNovaController {
 	 */
 	function disassociateAddress( $instanceid, $ip ) {
 		$instanceid = urlencode( $instanceid );
-		$data = array( 'removeFloatingIp' => array ( 'address' => $ip ) );
+		$data = array( 'removeFloatingIp' => array( 'address' => $ip ) );
 		$ret = $this->restCall( 'compute', '/servers/' . $instanceid . '/action', 'POST', $data );
 
 		return ( $ret['code'] === 202 );
@@ -1074,7 +1073,7 @@ class OpenStackNovaController {
 		$headers = array(
 			'Accept: application/json',
 			'Content-Type: application/json',
-			'X-Auth-Project-Id: ' . preg_replace("/[^a-z0-9-]/", "", $project ),
+			'X-Auth-Project-Id: ' . preg_replace( "/[^a-z0-9-]/", "", $project ),
 			'X-Auth-Token: ' . $token,
 		);
 		return $headers;
@@ -1110,7 +1109,7 @@ class OpenStackNovaController {
 		$fullurl = $endpointURL . $path;
 		$ldap->printDebug( "OpenStackNovaController::restCall fullurl: " . $fullurl, NONSENSITIVE );
 		$handle = curl_init();
-		switch( $method ) {
+		switch ( $method ) {
 		case 'GET':
 			if ( $data ) {
 				$fullurl .= '?' . wfArrayToCgi( $data );

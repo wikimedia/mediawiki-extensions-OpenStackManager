@@ -32,7 +32,7 @@ class OpenStackNovaUser {
 		if ( $this->username ) {
 			$this->userDN = $ldap->getUserDN( strtolower( $this->username ) );
 			$ldap->printDebug( "Fetching userdn using username: $this->userDN ", NONSENSITIVE );
-			if ( ! $this->userDN ) {
+			if ( !$this->userDN ) {
 				$this->userDN = $ldap->getUserDN( strtolower( $this->username ), false, "uid" );
 				$ldap->printDebug( "Fetching userdn using shell name: $this->userDN ", NONSENSITIVE );
 
@@ -66,7 +66,7 @@ class OpenStackNovaUser {
 	 * @param string $project
 	 * @return array
 	 */
-	function getCredentials( $project='' ) {
+	function getCredentials( $project = '' ) {
 		$userNova = OpenStackNovaController::newFromUser( $this );
 		if ( $project ) {
 			$token = $userNova->getProjectToken( $project );
@@ -121,7 +121,7 @@ class OpenStackNovaUser {
 			} else {
 				return $dbw->insert(
 					'openstack_tokens',
-					array(  'token' => $token,
+					array( 'token' => $token,
 						'user_id' => $user_id ),
 					__METHOD__ );
 			}
@@ -186,7 +186,7 @@ class OpenStackNovaUser {
 		$assignments = $controller->getRoleAssignmentsForUser( $this->getUid() );
 
 		$everyrole = array();
-		foreach ($assignments as $projectid => $rolelist ) {
+		foreach ( $assignments as $projectid => $rolelist ) {
 			$everyrole = array_merge( $everyrole, $rolelist );
 		}
 		$roleids = array_unique( $everyrole );
@@ -242,7 +242,7 @@ class OpenStackNovaUser {
 			return false;
 		}
 		$role = OpenStackNovaRole::getProjectRoleByName( $role, $project );
-		if ( ! $role ) {
+		if ( !$role ) {
 			return false;
 		}
 
@@ -376,7 +376,7 @@ class OpenStackNovaUser {
 			$auth->printDebug( "Failed to get a result searching for next $attr", NONSENSITIVE );
 		}
 
-		if ( $highest > $wgOpenStackManagerIdRanges['service']['gid']['max']) {
+		if ( $highest > $wgOpenStackManagerIdRanges['service']['gid']['max'] ) {
 			$auth->printDebug( "Ran out of service group gids!", NONSENSITIVE );
 		}
 
@@ -406,7 +406,7 @@ class OpenStackNovaUser {
 		$values['objectclass'][] = 'posixaccount';
 		$values['objectclass'][] = 'shadowaccount';
 		$uidnumber = OpenStackNovaUser::getNextIdNumber( $auth, 'uidnumber' );
-		if ( ! $uidnumber ) {
+		if ( !$uidnumber ) {
 			$auth->printDebug( "Unable to allocate a UID", NONSENSITIVE );
 			$result = false;
 			return false;
@@ -421,13 +421,13 @@ class OpenStackNovaUser {
 		} else {
 			$shellaccountname = $wgRequest->getText( 'shellaccountname' );
 		}
-		if ( ! preg_match( "/^[a-z][a-z0-9\-_]*$/", $shellaccountname ) ) {
+		if ( !preg_match( "/^[a-z][a-z0-9\-_]*$/", $shellaccountname ) ) {
 			$auth->printDebug( "Invalid shell name $shellaccountname", NONSENSITIVE );
 			$result = false;
 			return false;
 		}
 		$check = ucfirst( $shellaccountname );
-		if ( ! User::isCreatableName( $check ) ) {
+		if ( !User::isCreatableName( $check ) ) {
 			$auth->printDebug( "$shellaccountname is not a creatable name.", NONSENSITIVE );
 			$result = false;
 			return false;
@@ -478,7 +478,7 @@ class OpenStackNovaUser {
 	 */
 	static function LDAPRetrySetCreationValues( $auth, $username, &$values, $writeloc, &$userdn, &$result ) {
 		$uidnumber = OpenStackNovaUser::getNextIdNumber( $auth, 'uidnumber' );
-		if ( ! $uidnumber ) {
+		if ( !$uidnumber ) {
 			$result = false;
 			return false;
 		}
@@ -527,7 +527,7 @@ class OpenStackNovaUser {
 
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		$shellaccountname = $wgRequest->getText( 'shellaccountname' );
-		if ( ! preg_match( "/^[a-z][a-z0-9\-_]*$/", $shellaccountname ) ) {
+		if ( !preg_match( "/^[a-z][a-z0-9\-_]*$/", $shellaccountname ) ) {
 			$ldap->printDebug( "Invalid shell name $shellaccountname", NONSENSITIVE );
 			$message = wfMessage( 'openstackmanager-shellaccountvalidationfail' )->parse();
 			return false;
@@ -604,12 +604,12 @@ class OpenStackNovaUser {
 	public static function addUserToBastionProject( $user, &$group ) {
 		global $wgOpenStackManagerBastionProjectId;
 
-		if( User::groupHasPermission( $group, 'loginviashell' ) ) {
+		if ( User::groupHasPermission( $group, 'loginviashell' ) ) {
 			// Add the user to the bastion project if not already a
 			// member.
 			$username = $user->getName();
 			$project = new OpenStackNovaProject( $wgOpenStackManagerBastionProjectId );
-			if( !in_array( $username, $project->getMembers() ) ) {
+			if ( !in_array( $username, $project->getMembers() ) ) {
 				$project->addMember( $username );
 			}
 		}
@@ -625,12 +625,12 @@ class OpenStackNovaUser {
 		// have the loginviashell permission.
 		foreach ( $user->getEffectiveGroups() as $g ) {
 			// Ignore the group that will be removed.
-			if( $g === $group ) {
+			if ( $g === $group ) {
 				continue;
 			}
 			// If the user still has the loginviashell permission, we
 			// can immediately return.
-			if( User::groupHasPermission( $g, 'loginviashell' ) ) {
+			if ( User::groupHasPermission( $g, 'loginviashell' ) ) {
 				return true;
 			}
 		}
@@ -641,18 +641,18 @@ class OpenStackNovaUser {
 		// configuration requires that.
 		$username = $user->getName();
 
-		if( $wgOpenStackManagerRemoveUserFromAllProjectsOnShellDisable ) {
+		if ( $wgOpenStackManagerRemoveUserFromAllProjectsOnShellDisable ) {
 			// Get a users projects
 			$userLDAP = new OpenStackNovaUser( $username );
-			foreach( $userLDAP->getProjects() as $projectId ) {
+			foreach ( $userLDAP->getProjects() as $projectId ) {
 				// Remove the user from the project
 				$project = new OpenStackNovaProject( $projectId );
 				$project->deleteMember( $username );
 			}
-		} elseif( $wgOpenStackManagerRemoveUserFromBastionProjectOnShellDisable ) {
+		} elseif ( $wgOpenStackManagerRemoveUserFromBastionProjectOnShellDisable ) {
 			// Remove the user from the bastion project
 			$project = new OpenStackNovaProject( $wgOpenStackManagerBastionProjectId );
-			if( in_array( $username, $project->getMembers() ) ) {
+			if ( in_array( $username, $project->getMembers() ) ) {
 				$project->deleteMember( $username );
 			}
 		}

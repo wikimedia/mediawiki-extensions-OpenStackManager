@@ -297,7 +297,7 @@ class OpenStackNovaSudoer {
 
 		$project = OpenStackNovaProject::getProjectByName( $projectName );
 		$sudoer = new OpenStackNovaSudoer( $sudoername, $project );
-		if ( ! $sudoer ) {
+		if ( !$sudoer ) {
 			$ldap->printDebug( "Sudoer $sudoername does not exist", NONSENSITIVE );
 			return false;
 		}

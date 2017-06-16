@@ -2,7 +2,7 @@
 if ( getenv( 'MW_INSTALL_PATH' ) ) {
 	$IP = getenv( 'MW_INSTALL_PATH' );
 } else {
-	$IP = dirname( __FILE__ ) . '/../../..';
+	$IP = __DIR__ . '/../../..';
 }
 require_once "$IP/maintenance/Maintenance.php";
 
@@ -53,10 +53,10 @@ class OpenStackNovaPurgeOldServiceGroups extends Maintenance {
 						$success = LdapAuthenticationPlugin::ldap_delete( $ldap->ldapconn, $deleteme );
 						if ( $success ) {
 							$synced_count++;
-							print( "done.\n");
+							print "done.\n";
 						} else {
 							$failed_count++;
-							print( "FAILED\n");
+							print "FAILED\n";
 						}
 					}
 				}
@@ -78,10 +78,10 @@ class OpenStackNovaPurgeOldServiceGroups extends Maintenance {
 						$success = LdapAuthenticationPlugin::ldap_delete( $ldap->ldapconn, $deleteme );
 						if ( $success ) {
 							$synced_count++;
-							print( "done.\n");
+							print "done.\n";
 						} else {
 							$failed_count++;
-							print( "FAILED\n");
+							print "FAILED\n";
 						}
 					}
 				}
@@ -93,10 +93,10 @@ class OpenStackNovaPurgeOldServiceGroups extends Maintenance {
 			$success = LdapAuthenticationPlugin::ldap_delete( $ldap->ldapconn, $deleteme );
 			if ( $success ) {
 				$synced_count++;
-				print( "done.\n");
+				print "done.\n";
 			} else {
 				$failed_count++;
-				print( "FAILED\n");
+				print "FAILED\n";
 			}
 
 			$deleteme = $oldServiceUserOUDN;
@@ -105,19 +105,19 @@ class OpenStackNovaPurgeOldServiceGroups extends Maintenance {
 			$success = LdapAuthenticationPlugin::ldap_delete( $ldap->ldapconn, $deleteme );
 			if ( $success ) {
 				$synced_count++;
-				print( "done.\n");
+				print "done.\n";
 			} else {
 				$failed_count++;
-				print( "FAILED\n");
+				print "FAILED\n";
 			}
 		}
 
 		$this->output( "$attempt_count items needed cleanup. $synced_count removed, $failed_count failed.\n" );
 		$this->output( "Done.\n" );
 
-		return ($failed_count == 0);
+		return ( $failed_count == 0 );
 	}
 }
 
 $maintClass = "OpenStackNovaPurgeOldServiceGroups";
-require_once( RUN_MAINTENANCE_IF_MAIN );
+require_once RUN_MAINTENANCE_IF_MAIN;

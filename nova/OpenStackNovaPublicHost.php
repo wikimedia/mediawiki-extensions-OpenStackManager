@@ -49,9 +49,9 @@ class OpenStackNovaPublicHost extends OpenStackNovaHost {
 	 * @return OpenStackNovaDomain
 	 */
 	function getDomain() {
-		if ( ! $this->domainCache ) {
+		if ( !$this->domainCache ) {
 			$this->domainCache = OpenStackNovaDomain::getDomainByHostIP( $this->ip );
-			if (! $this->domainCache ) {
+			if ( !$this->domainCache ) {
 				$ldap = LdapAuthenticationPlugin::getInstance();
 				$ldap->printDebug( "Looked up domain for ip $this->ip but domainCache is still empty.", NONSENSITIVE );
 			}

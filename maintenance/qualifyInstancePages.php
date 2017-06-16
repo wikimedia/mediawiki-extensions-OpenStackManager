@@ -2,9 +2,9 @@
 if ( getenv( 'MW_INSTALL_PATH' ) ) {
 	$IP = getenv( 'MW_INSTALL_PATH' );
 } else {
-	$IP = dirname( __FILE__ ) . '/../../..';
+	$IP = __DIR__ . '/../../..';
 }
-require_once( "$IP/maintenance/Maintenance.php" );
+require_once "$IP/maintenance/Maintenance.php";
 
 class OpenStackNovaQualifyInstancePages extends Maintenance {
 	public function __construct() {
@@ -33,7 +33,7 @@ class OpenStackNovaQualifyInstancePages extends Maintenance {
 				$userNova->setProject( $projectName );
 				$userNova->setRegion( $region );
 				$instances = $userNova->getInstances();
-				if ( ! $instances ) {
+				if ( !$instances ) {
 					$ldap = LdapAuthenticationPlugin::getInstance();
 					$ldap->printDebug( "No instance, continuing", NONSENSITIVE );
 					continue;
@@ -58,4 +58,4 @@ class OpenStackNovaQualifyInstancePages extends Maintenance {
 }
 
 $maintClass = "OpenStackNovaQualifyInstancePages";
-require_once( RUN_MAINTENANCE_IF_MAIN );
+require_once RUN_MAINTENANCE_IF_MAIN;

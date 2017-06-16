@@ -2,9 +2,9 @@
 if ( getenv( 'MW_INSTALL_PATH' ) ) {
 	$IP = getenv( 'MW_INSTALL_PATH' );
 } else {
-	$IP = dirname( __FILE__ ) . '/../../..';
+	$IP = __DIR__ . '/../../..';
 }
-require_once( "$IP/maintenance/Maintenance.php" );
+require_once "$IP/maintenance/Maintenance.php";
 
 class OpenStackNovaSyncProjectGroups extends Maintenance {
 	public function __construct() {
@@ -41,7 +41,7 @@ class OpenStackNovaSyncProjectGroups extends Maintenance {
 			//  1: successful sync
 
 			if ( $retval != 0 ) {
-				$this->output( ( $retval ? "Succeeded" : "Failed")  . " syncing members for project $projectName and group " . $project->projectGroup->getProjectGroupName() );
+				$this->output( ( $retval ? "Succeeded" : "Failed" )  . " syncing members for project $projectName and group " . $project->projectGroup->getProjectGroupName() );
 				if ( $retval < 0 ) {
 					$failedSync = true;
 					$failed_count++;
@@ -66,4 +66,4 @@ class OpenStackNovaSyncProjectGroups extends Maintenance {
 }
 
 $maintClass = "OpenStackNovaSyncProjectGroups";
-require_once( RUN_MAINTENANCE_IF_MAIN );
+require_once RUN_MAINTENANCE_IF_MAIN;

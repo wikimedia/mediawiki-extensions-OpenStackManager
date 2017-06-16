@@ -2,9 +2,9 @@
 if ( getenv( 'MW_INSTALL_PATH' ) ) {
 	$IP = getenv( 'MW_INSTALL_PATH' );
 } else {
-	$IP = dirname( __FILE__ ) . '/../../..';
+	$IP = __DIR__ . '/../../..';
 }
-require_once( "$IP/maintenance/Maintenance.php" );
+require_once "$IP/maintenance/Maintenance.php";
 
 class OpenStackNovaUpdateProjectPages extends Maintenance {
 	public function __construct() {
@@ -27,4 +27,4 @@ class OpenStackNovaUpdateProjectPages extends Maintenance {
 }
 
 $maintClass = "OpenStackNovaUpdateProjectPages";
-require_once( RUN_MAINTENANCE_IF_MAIN );
+require_once RUN_MAINTENANCE_IF_MAIN;

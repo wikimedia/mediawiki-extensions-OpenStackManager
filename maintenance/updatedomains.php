@@ -26,7 +26,7 @@ if ( $IP === false ) {
 	$IP = __DIR__ . '/../../..';
 
 }
-require_once( "$IP/maintenance/Maintenance.php" );
+require_once "$IP/maintenance/Maintenance.php";
 
 class UpdateDomains extends Maintenance {
 	public function __construct() {
@@ -66,10 +66,10 @@ class UpdateDomains extends Maintenance {
 				}
 			}
 		} elseif ( $this->hasOption( 'name' ) )  {
-			if ( ! $this->hasOption( 'region' ) ) {
+			if ( !$this->hasOption( 'region' ) ) {
 				$this->error( "--name requires --region.\n", true );
 			}
-			if ( ! $this->hasOption( 'project' ) ) {
+			if ( !$this->hasOption( 'project' ) ) {
 				$this->error( "--name requires --project.\n", true );
 			}
 			$instancelist = array( array( $this->getOption( 'region' ), $this->getOption( 'name' ), $this->getOption( 'project' ), ) );
@@ -84,7 +84,7 @@ class UpdateDomains extends Maintenance {
 		foreach ( $instancelist as $instancepair ) {
 			list( $instanceregion, $instancename, $instanceproject ) = $instancepair;
 			$host = OpenStackNovaHost::getHostByNameAndProject( $instancename, $instanceproject, $instanceregion );
-			if ( ! $host ) {
+			if ( !$host ) {
 				print "Skipping $instancename.$instanceproject.$instanceregion; not found.\n";
 				continue;
 			}
@@ -92,10 +92,10 @@ class UpdateDomains extends Maintenance {
 			print "\nFor instance $instancename in region $instanceregion and project $instanceproject:\n\n";
 
 			$namefqdn = $instancename . '.' . $instanceproject . '.' . $instanceregion . '.' . 'wmflabs';
-			$host->addAssociatedDomain($namefqdn);
+			$host->addAssociatedDomain( $namefqdn );
 		}
 	}
 }
 
 $maintClass = "UpdateDomains";
-require_once( RUN_MAINTENANCE_IF_MAIN );
+require_once RUN_MAINTENANCE_IF_MAIN;

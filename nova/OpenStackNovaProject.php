@@ -45,7 +45,7 @@ class OpenStackNovaProject {
 	 * @param  $projectname
 	 * @param bool $load
 	 */
-	function __construct( $projectid, $load=true ) {
+	function __construct( $projectid, $load = true ) {
 		$this->projectid = $projectid;
 		$this->projectname = "";
 		if ( $load ) {
@@ -76,7 +76,7 @@ class OpenStackNovaProject {
 
 		$key = wfMemcKey( 'openstackmanager', 'projectname', $this->projectid );
 		$this->projectname = $wgMemc->get( $key );
-		if ( ! $this->projectname ) {
+		if ( !$this->projectname ) {
 			$controller = OpenstackNovaProject::getController();
 			$this->projectname = $controller->getProjectName( $this->projectid );
 
@@ -131,7 +131,7 @@ class OpenStackNovaProject {
 				foreach ( $groupList as $groupEntry ) {
 					# Now we have every group.  Check if this one belongs to us.
 					$matchstring = $this->projectname . ".";
-					if ( strpos($groupEntry['cn'][0], $matchstring) === 0 ) {
+					if ( strpos( $groupEntry['cn'][0], $matchstring ) === 0 ) {
 						$this->serviceGroups[] = new OpenStackNovaServiceGroup( $groupEntry['cn'][0], $this );
 					}
 				}
@@ -153,7 +153,7 @@ class OpenStackNovaProject {
 				foreach ( $userList as $userEntry ) {
 					# Now we have every user.  Check if this one belongs to us.
 					$matchstring = $this->projectname . ".";
-					if ( strpos($userEntry['cn'][0], $matchstring) === 0 ) {
+					if ( strpos( $userEntry['cn'][0], $matchstring ) === 0 ) {
 						$ldap->printDebug( "adding " . $userEntry['cn'][0], NONSENSITIVE );
 						$this->serviceUsers[] = $userEntry['cn'][0];
 					}
@@ -343,7 +343,7 @@ class OpenStackNovaProject {
 			$this->deleteRoleCaches( $username );
 			return true;
 		} else {
-			$ldap->printDebug( "Failed to remove $username from $this->projectname: " . ldap_error($ldap->ldapconn), NONSENSITIVE );
+			$ldap->printDebug( "Failed to remove $username from $this->projectname: " . ldap_error( $ldap->ldapconn ), NONSENSITIVE );
 			return false;
 		}
 	}
@@ -356,7 +356,7 @@ class OpenStackNovaProject {
 	 */
 	function addServiceGroup( $groupName, $initialUser ) {
 		$group = OpenStackNovaServiceGroup::createServiceGroup( $groupName, $this, $initialUser );
-		if ( ! $group ) {
+		if ( !$group ) {
 			$ldap = LdapAuthenticationPlugin::getInstance();
 			$ldap->printDebug( "Failed to create service group $groupName", NONSENSITIVE );
 			return false;
@@ -452,7 +452,6 @@ class OpenStackNovaProject {
 		#  really modify project info as the current user.  For now
 		#  we're doing this with a global all-powerful account,
 		#  and relying on the GUI code to ensure that we're allowed :(
-		#
 		# In particular, keystone doesn't have any user roll which
 		#  allows editing membership of some projects but not others.
 		global $wgOpenStackManagerLDAPUsername;
@@ -529,7 +528,7 @@ class OpenStackNovaProject {
 	 */
 	static function getAllProjects() {
 		$projects = array();
-		foreach( OpenStackNovaProject::getProjectList() as $id => $name ) {
+		foreach ( OpenStackNovaProject::getProjectList() as $id => $name ) {
 			$project = new OpenStackNovaProject( $id, false );
 			$project->setName( $name );
 			$projects[] = $project;
@@ -539,17 +538,15 @@ class OpenStackNovaProject {
 		return $projects;
 	}
 
-
-       /**
-        * Returns a standardized project group name.  This needs to
-        * correspond with the project group name as set in the keystone hook.
-        *
-        * @return string
-        */
-       function getProjectGroupName() {
-           return self::$projectGroupPrefix . $this->projectname;
-       }
-
+	/**
+	 * Returns a standardized project group name.  This needs to
+	 * correspond with the project group name as set in the keystone hook.
+	 *
+	 * @return string
+	 */
+	function getProjectGroupName() {
+		return self::$projectGroupPrefix . $this->projectname;
+	}
 
 	/**
 	 * Create a new project based on project name. This function will also create
@@ -596,7 +593,7 @@ class OpenStackNovaProject {
 			# TODO: If sudoerOU creation fails we need to be able to fail gracefully
 
 			// Create two default, permissive sudo policies.  First,
-                        //  allow sudo (as root) for all members...
+			//  allow sudo (as root) for all members...
 			$projectGroup = "%" . $project->getProjectGroupName();
 			if ( OpenStackNovaSudoer::createSudoer( 'default-sudo', $projectname, array( $projectGroup ),
 						array(),  array( 'ALL' ),
@@ -696,7 +693,6 @@ class OpenStackNovaProject {
 		return true;
 	}
 
-
 	/**
 	 * Deletes a project based on project id. This function will also delete all roles
 	 * associated with the project.
@@ -708,7 +704,7 @@ class OpenStackNovaProject {
 		global $wgMemc;
 
 		$project = new OpenStackNovaProject( $projectid );
-		if ( ! $project ) {
+		if ( !$project ) {
 			return false;
 		}
 		$projectname = $project->getName();
@@ -768,7 +764,7 @@ class OpenStackNovaProject {
 		global $wgOpenStackManagerCreateProjectSALPages, $wgOpenStackManagerProjectNamespace,
 			$wgOpenStackManagerBastionProjectName;
 
-		if ( ! OpenStackNovaArticle::canCreatePages() ) {
+		if ( !OpenStackNovaArticle::canCreatePages() ) {
 			return;
 		}
 
@@ -830,7 +826,7 @@ RESOURCEINFO;
 			// first member is a count.
 			array_shift( $infos );
 			foreach ( $infos as $info ) {
-				$substrings=explode( '=', $info );
+				$substrings = explode( '=', $info );
 				if ( ( count( $substrings ) == 2 ) and ( $substrings[0] == 'servicegrouphomedirpattern' ) ) {
 					$pattern = $substrings[1];
 					break;

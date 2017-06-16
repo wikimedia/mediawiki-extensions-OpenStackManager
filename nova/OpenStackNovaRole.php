@@ -38,7 +38,7 @@ class OpenStackNovaRole {
 
 		$memberskey = wfMemcKey( 'openstackmanager', "role-members-$projectid", $roleid );
 		$this->members = $wgMemc->get( $memberskey );
-		if ( is_array ( $this->members ) ) {
+		if ( is_array( $this->members ) ) {
 			return;
 		}
 
@@ -47,7 +47,7 @@ class OpenStackNovaRole {
 		$assignmentkey = wfMemcKey( 'openstackmanager', "role-assignments", $this->project->getId() );
 		$assignments = $wgMemc->get( $assignmentkey );
 
-		if ( ! is_array( $assignments ) ) {
+		if ( !is_array( $assignments ) ) {
 			$controller = OpenstackNovaProject::getController();
 
 			$assignments = $controller->getRoleAssignmentsForProject( $projectid );
@@ -56,7 +56,7 @@ class OpenStackNovaRole {
 
 		$this->members = array();
 		if ( in_array( $this->roleid, array_keys( $assignments ) ) ) {
-			foreach ($assignments[$this->roleid] as $userid ) {
+			foreach ( $assignments[$this->roleid] as $userid ) {
 				$this->members[] = $this->project->memberForUid( $userid );
 			}
 		}
@@ -197,7 +197,7 @@ class OpenStackNovaRole {
 
 		$key = wfMemcKey( 'openstackmanager', 'globalrolelist' );
 		$globalrolelist = $wgMemc->get( $key );
-		if ( ! is_array( $globalrolelist ) ) {
+		if ( !is_array( $globalrolelist ) ) {
 			$controller = OpenstackNovaProject::getController();
 			$globalrolelist = $controller->getKeystoneRoles();
 

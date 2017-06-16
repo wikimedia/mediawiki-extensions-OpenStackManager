@@ -44,7 +44,7 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
 
 		$ldap = LdapAuthenticationPlugin::getInstance();
-		if ($this->getDomain()) {
+		if ( $this->getDomain() ) {
 			$fqdn = $this->instancename . '.' . $this->instanceproject . '.' . $this->getDomain()->getFullyQualifiedDomainName();
 		} else {
 			# No domain means no instance!
@@ -69,7 +69,7 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 	 * @return string
 	 */
 	function getFullyQualifiedDisplayName() {
-		if ($this->getDomain()) {
+		if ( $this->getDomain() ) {
 			$fqdn = $this->instancename . '.' . $this->instanceproject . '.' . $this->getDomain()->getFullyQualifiedDomainName();
 			return $fqdn;
 		} else {
@@ -85,9 +85,9 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 	 * @return OpenStackNovaDomain
 	 */
 	function getDomain() {
-		if ( ! $this->domainCache ) {
+		if ( !$this->domainCache ) {
 			$this->domainCache = OpenStackNovaDomain::getDomainByRegion( $this->region );
-			if (! $this->domainCache ) {
+			if ( !$this->domainCache ) {
 				$ldap = LdapAuthenticationPlugin::getInstance();
 				$ldap->printDebug( "Looked up domain for region $this->region but domainCache is still empty.", NONSENSITIVE );
 			}

@@ -8,7 +8,8 @@ use MediaWiki\Auth\AuthManager;
 class OpenStackNovaSecondaryAuthenticationProvider
 	extends AbstractPreAuthenticationProvider
 {
-	public function __construct( $params = [] ) {}
+	public function __construct( $params = [] ) {
+	}
 
 	public function getAuthenticationRequests( $action, array $options ) {
 		if ( $action === AuthManager::ACTION_CREATE ) {
@@ -23,7 +24,7 @@ class OpenStackNovaSecondaryAuthenticationProvider
 		$shellaccountname = $req ? $req->shellaccountname : '';
 
 		$ldap = LdapAuthenticationPlugin::getInstance();
-		if ( ! preg_match( "/^[a-z][a-z0-9\-_]*$/", $shellaccountname ) ) {
+		if ( !preg_match( "/^[a-z][a-z0-9\-_]*$/", $shellaccountname ) ) {
 			$ldap->printDebug( "Invalid shell name $shellaccountname", NONSENSITIVE );
 			$message = wfMessage( 'openstackmanager-shellaccountvalidationfail' );
 			return StatusValue::newFatal( $message );

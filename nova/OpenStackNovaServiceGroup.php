@@ -149,7 +149,7 @@ class OpenStackNovaServiceGroup {
 			array_shift( $members );
 
 			$user = new OpenStackNovaUser( $username );
-			if ( ! $user->userDN ) {
+			if ( !$user->userDN ) {
 				$ldap->printDebug( "Failed to find $username in deleteMember", NONSENSITIVE );
 				return false;
 			}
@@ -189,7 +189,7 @@ class OpenStackNovaServiceGroup {
 		foreach ( $usernames as $username ) {
 			$userDN = "";
 			$user = new OpenStackNovaUser( $username );
-			if ( ! $user->userDN ) {
+			if ( !$user->userDN ) {
 				$ldap->printDebug( "Failed to find userDN in setMembers", NONSENSITIVE );
 				return false;
 			}
@@ -228,7 +228,7 @@ class OpenStackNovaServiceGroup {
 
 		$userDN = "";
 		$user = new OpenStackNovaUser( $username );
-		if ( ! $user->userDN ) {
+		if ( !$user->userDN ) {
 			$ldap->printDebug( "Failed to find userDN in addMember", NONSENSITIVE );
 			return false;
 		}
@@ -292,7 +292,7 @@ class OpenStackNovaServiceGroup {
 
 		if ( $initialUser ) {
 			$user = new OpenStackNovaUser( $initialUser );
-			if ( ! $user->userDN ) {
+			if ( !$user->userDN ) {
 				$ldap->printDebug( "Unable to find initial user $initialUser for new group $groupName", NONSENSITIVE );
 				return null;
 			}
@@ -323,8 +323,8 @@ class OpenStackNovaServiceGroup {
 
 		# stamp out regular expressions!
 		$homeDir = $project->getServiceGroupHomedirPattern();
-		$homeDir = str_ireplace('%u', $simpleGroupName, $homeDir);
-		$homeDir = str_ireplace('%p', $projectPrefix, $homeDir);
+		$homeDir = str_ireplace( '%u', $simpleGroupName, $homeDir );
+		$homeDir = str_ireplace( '%p', $projectPrefix, $homeDir );
 
 		# Now create the special SG member
 		$newGroup = self::getServiceGroupByName( $groupName, $project );

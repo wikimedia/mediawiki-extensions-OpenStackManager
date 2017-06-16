@@ -2,9 +2,9 @@
 if ( getenv( 'MW_INSTALL_PATH' ) ) {
 	$IP = getenv( 'MW_INSTALL_PATH' );
 } else {
-	$IP = dirname( __FILE__ ) . '/../../..';
+	$IP = __DIR__ . '/../../..';
 }
-require_once( "$IP/maintenance/Maintenance.php" );
+require_once "$IP/maintenance/Maintenance.php";
 
 class OpenStackNovaTransitionServiceGroups extends Maintenance {
 	public function __construct() {
@@ -48,7 +48,7 @@ class OpenStackNovaTransitionServiceGroups extends Maintenance {
 			$projectName = $project->getProjectName();
 			$serviceGroups = $project->getServiceGroups();
 
-			foreach ( $serviceGroups as $serviceGroup) {
+			foreach ( $serviceGroups as $serviceGroup ) {
 				$fullGroupName = $serviceGroup->getGroupName();
 
 				if ( strpos( $fullGroupName, $wgOpenStackManagerServiceGroupPrefix, 0 ) === 0 ) {
@@ -56,7 +56,6 @@ class OpenStackNovaTransitionServiceGroups extends Maintenance {
 				} else {
 					$groupName = $fullGroupName;
 				}
-
 
 				$groupMembers = $serviceGroup->getMembers();
 
@@ -71,7 +70,7 @@ class OpenStackNovaTransitionServiceGroups extends Maintenance {
 				if ( $retval ) {
 					$this->output( "Succeeded copying service group $groupName in $projectName\n" );
 					$synced_count++;
-					foreach ( $groupMembers as $member) {
+					foreach ( $groupMembers as $member ) {
 						if ( $member === $originalMember ) {
 							continue;
 						}
@@ -95,4 +94,4 @@ class OpenStackNovaTransitionServiceGroups extends Maintenance {
 }
 
 $maintClass = "OpenStackNovaTransitionServiceGroups";
-require_once( RUN_MAINTENANCE_IF_MAIN );
+require_once RUN_MAINTENANCE_IF_MAIN;
