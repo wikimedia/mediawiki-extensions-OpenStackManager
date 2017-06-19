@@ -6,194 +6,194 @@
  * @ingroup Extensions
  */
 
-$specialPageAliases = array();
+$specialPageAliases = [];
 
 /** English (English) */
-$specialPageAliases['en'] = array(
-	'OpenStackManager' => array( 'OpenStackManager' ),
-	'OpenStackManageInstance' => array( 'Manage Instance' ),
-	'Nova' => array( 'Nova', 'Nova' ),
-	'NovaAddress' => array( 'NovaAddress', 'Nova Address' ),
-	'NovaDomain' => array( 'NovaDomain', 'Nova Domain' ),
-	'NovaKey' => array( 'NovaKey', 'Nova Key' ),
-	'NovaProject' => array( 'NovaProject', 'Nova Project' ),
-	'NovaProxy' => array( 'NovaProxy', 'Nova Proxy' ),
-	'NovaResources' => array( 'NovaResources', 'Nova Resources' ),
-	'NovaRole' => array( 'NovaRole', 'Nova Role' ),
-	'NovaServiceGroup' => array( 'NovaServiceGroup', 'Nova Service Group' ),
-	'NovaSudoer' => array( 'NovaSudoer', 'Nova Sudoer' ),
-	'NovaVolume' => array( 'NovaVolume', 'Nova Volume' ),
-);
+$specialPageAliases['en'] = [
+	'OpenStackManager' => [ 'OpenStackManager' ],
+	'OpenStackManageInstance' => [ 'Manage Instance' ],
+	'Nova' => [ 'Nova', 'Nova' ],
+	'NovaAddress' => [ 'NovaAddress', 'Nova Address' ],
+	'NovaDomain' => [ 'NovaDomain', 'Nova Domain' ],
+	'NovaKey' => [ 'NovaKey', 'Nova Key' ],
+	'NovaProject' => [ 'NovaProject', 'Nova Project' ],
+	'NovaProxy' => [ 'NovaProxy', 'Nova Proxy' ],
+	'NovaResources' => [ 'NovaResources', 'Nova Resources' ],
+	'NovaRole' => [ 'NovaRole', 'Nova Role' ],
+	'NovaServiceGroup' => [ 'NovaServiceGroup', 'Nova Service Group' ],
+	'NovaSudoer' => [ 'NovaSudoer', 'Nova Sudoer' ],
+	'NovaVolume' => [ 'NovaVolume', 'Nova Volume' ],
+];
 
 /** Arabic (العربية) */
-$specialPageAliases['ar'] = array(
-	'OpenStackManager' => array( 'مدير_ستاك_مفتوح' ),
-	'OpenStackManageInstance' => array( 'التحكم_بها' ),
-	'Nova' => array( 'نوفا' ),
-	'NovaAddress' => array( 'عنوان_نوفا' ),
-	'NovaDomain' => array( 'نطاق_نوفا' ),
-	'NovaKey' => array( 'مفتاح_نوفا' ),
-	'NovaProject' => array( 'مشروع_نوفا' ),
-	'NovaProxy' => array( 'بروكسي_نوفا' ),
-	'NovaResources' => array( 'موارد_نوفا' ),
-	'NovaRole' => array( 'دور_نوفا' ),
-	'NovaServiceGroup' => array( 'مجموعة_خدمة_نوفا' ),
-	'NovaSudoer' => array( 'نوفا_سودوير' ),
-	'NovaVolume' => array( 'حجم_نوفا' ),
-);
+$specialPageAliases['ar'] = [
+	'OpenStackManager' => [ 'مدير_ستاك_مفتوح' ],
+	'OpenStackManageInstance' => [ 'التحكم_بها' ],
+	'Nova' => [ 'نوفا' ],
+	'NovaAddress' => [ 'عنوان_نوفا' ],
+	'NovaDomain' => [ 'نطاق_نوفا' ],
+	'NovaKey' => [ 'مفتاح_نوفا' ],
+	'NovaProject' => [ 'مشروع_نوفا' ],
+	'NovaProxy' => [ 'بروكسي_نوفا' ],
+	'NovaResources' => [ 'موارد_نوفا' ],
+	'NovaRole' => [ 'دور_نوفا' ],
+	'NovaServiceGroup' => [ 'مجموعة_خدمة_نوفا' ],
+	'NovaSudoer' => [ 'نوفا_سودوير' ],
+	'NovaVolume' => [ 'حجم_نوفا' ],
+];
 
 /** Egyptian Arabic (مصرى) */
-$specialPageAliases['arz'] = array(
-	'OpenStackManager' => array( 'مدير_ستاك_مفتوح' ),
-	'OpenStackManageInstance' => array( 'التحكم_بالانستانس' ),
-	'Nova' => array( 'نوفا' ),
-	'NovaAddress' => array( 'عنوان_نوفا' ),
-	'NovaDomain' => array( 'نطاق_نوفا' ),
-	'NovaKey' => array( 'مفتاح_نوفا' ),
-	'NovaProject' => array( 'مشروع_نوفا' ),
-	'NovaProxy' => array( 'بروكسي_نوفا' ),
-	'NovaResources' => array( 'موارد_نوفا' ),
-	'NovaRole' => array( 'دور_نوفا' ),
-	'NovaServiceGroup' => array( 'مجموعه_خدمه_نوفا' ),
-	'NovaSudoer' => array( 'نوفا_سودوير' ),
-	'NovaVolume' => array( 'حجم_نوفا' ),
-);
+$specialPageAliases['arz'] = [
+	'OpenStackManager' => [ 'مدير_ستاك_مفتوح' ],
+	'OpenStackManageInstance' => [ 'التحكم_بالانستانس' ],
+	'Nova' => [ 'نوفا' ],
+	'NovaAddress' => [ 'عنوان_نوفا' ],
+	'NovaDomain' => [ 'نطاق_نوفا' ],
+	'NovaKey' => [ 'مفتاح_نوفا' ],
+	'NovaProject' => [ 'مشروع_نوفا' ],
+	'NovaProxy' => [ 'بروكسي_نوفا' ],
+	'NovaResources' => [ 'موارد_نوفا' ],
+	'NovaRole' => [ 'دور_نوفا' ],
+	'NovaServiceGroup' => [ 'مجموعه_خدمه_نوفا' ],
+	'NovaSudoer' => [ 'نوفا_سودوير' ],
+	'NovaVolume' => [ 'حجم_نوفا' ],
+];
 
 /** German (Deutsch) */
-$specialPageAliases['de'] = array(
-	'OpenStackManager' => array( 'OpenStack-Verwaltung' ),
-	'OpenStackManageInstance' => array( 'Instanz_verwalten' ),
-	'NovaAddress' => array( 'Nova-Adresse' ),
-	'NovaDomain' => array( 'Nova-Domäne' ),
-	'NovaKey' => array( 'Nova-Schlüssel' ),
-	'NovaProject' => array( 'Nova-Projekt' ),
-	'NovaProxy' => array( 'Nova-Proxy' ),
-	'NovaResources' => array( 'Nova-Ressourcen' ),
-	'NovaRole' => array( 'Nova-Rolle' ),
-	'NovaServiceGroup' => array( 'Nova-Dienstgruppe' ),
-	'NovaSudoer' => array( 'Nova-Sudoer' ),
-	'NovaVolume' => array( 'Nova-Datenträger' ),
-);
+$specialPageAliases['de'] = [
+	'OpenStackManager' => [ 'OpenStack-Verwaltung' ],
+	'OpenStackManageInstance' => [ 'Instanz_verwalten' ],
+	'NovaAddress' => [ 'Nova-Adresse' ],
+	'NovaDomain' => [ 'Nova-Domäne' ],
+	'NovaKey' => [ 'Nova-Schlüssel' ],
+	'NovaProject' => [ 'Nova-Projekt' ],
+	'NovaProxy' => [ 'Nova-Proxy' ],
+	'NovaResources' => [ 'Nova-Ressourcen' ],
+	'NovaRole' => [ 'Nova-Rolle' ],
+	'NovaServiceGroup' => [ 'Nova-Dienstgruppe' ],
+	'NovaSudoer' => [ 'Nova-Sudoer' ],
+	'NovaVolume' => [ 'Nova-Datenträger' ],
+];
 
 /** Zazaki (Zazaki) */
-$specialPageAliases['diq'] = array(
-	'OpenStackManager' => array( 'İdaroğaOpenStacki' ),
-);
+$specialPageAliases['diq'] = [
+	'OpenStackManager' => [ 'İdaroğaOpenStacki' ],
+];
 
 /** Hebrew (עברית) */
-$specialPageAliases['he'] = array(
-	'OpenStackManager' => array( 'ניהול_OpenStack' ),
-	'OpenStackManageInstance' => array( 'ניהול_מופע' ),
-	'NovaAddress' => array( 'כתובת_Nova' ),
-	'NovaDomain' => array( 'מתחם_Nova' ),
-	'NovaKey' => array( 'מפתח_Nova' ),
-	'NovaProject' => array( 'פרויקט_Nova' ),
-	'NovaProxy' => array( 'שרת_מתווך_Nova' ),
-	'NovaResources' => array( 'משאבי_Nova' ),
-	'NovaRole' => array( 'תפקיד_Nova' ),
-	'NovaServiceGroup' => array( 'קבוצת_שירות_של_Nova' ),
-	'NovaVolume' => array( 'כרך_Nova' ),
-);
+$specialPageAliases['he'] = [
+	'OpenStackManager' => [ 'ניהול_OpenStack' ],
+	'OpenStackManageInstance' => [ 'ניהול_מופע' ],
+	'NovaAddress' => [ 'כתובת_Nova' ],
+	'NovaDomain' => [ 'מתחם_Nova' ],
+	'NovaKey' => [ 'מפתח_Nova' ],
+	'NovaProject' => [ 'פרויקט_Nova' ],
+	'NovaProxy' => [ 'שרת_מתווך_Nova' ],
+	'NovaResources' => [ 'משאבי_Nova' ],
+	'NovaRole' => [ 'תפקיד_Nova' ],
+	'NovaServiceGroup' => [ 'קבוצת_שירות_של_Nova' ],
+	'NovaVolume' => [ 'כרך_Nova' ],
+];
 
 /** Interlingua (interlingua) */
-$specialPageAliases['ia'] = array(
-	'OpenStackManager' => array( 'Gerentia_de_OpenStack' ),
-	'OpenStackManageInstance' => array( 'Gerer_instantia' ),
-);
+$specialPageAliases['ia'] = [
+	'OpenStackManager' => [ 'Gerentia_de_OpenStack' ],
+	'OpenStackManageInstance' => [ 'Gerer_instantia' ],
+];
 
 /** Italian (italiano) */
-$specialPageAliases['it'] = array(
-	'OpenStackManageInstance' => array( 'GestisciIstanza' ),
-);
+$specialPageAliases['it'] = [
+	'OpenStackManageInstance' => [ 'GestisciIstanza' ],
+];
 
 /** Japanese (日本語) */
-$specialPageAliases['ja'] = array(
-	'OpenStackManageInstance' => array( 'インスタンス管理' ),
-);
+$specialPageAliases['ja'] = [
+	'OpenStackManageInstance' => [ 'インスタンス管理' ],
+];
 
 /** Korean (한국어) */
-$specialPageAliases['ko'] = array(
-	'OpenStackManager' => array( '오픈스택관리자' ),
-	'OpenStackManageInstance' => array( '경우관리', '경우_관리' ),
-	'NovaAddress' => array( 'Nova주소', 'Nova_주소' ),
-	'NovaDomain' => array( 'Nova도메인', 'Nova_도메인' ),
-	'NovaKey' => array( 'Nova키', 'Nova_키' ),
-	'NovaProject' => array( 'Nova프로젝트', 'Nova_프로젝트' ),
-	'NovaProxy' => array( 'Nova프록시', 'Nova_프록시' ),
-	'NovaResources' => array( 'Nova자료', 'Nova_자료' ),
-	'NovaRole' => array( 'Nova규칙', 'Nova_규칙' ),
-	'NovaServiceGroup' => array( 'Nova서비스그룹', 'Nova_서비스_그룹' ),
-);
+$specialPageAliases['ko'] = [
+	'OpenStackManager' => [ '오픈스택관리자' ],
+	'OpenStackManageInstance' => [ '경우관리', '경우_관리' ],
+	'NovaAddress' => [ 'Nova주소', 'Nova_주소' ],
+	'NovaDomain' => [ 'Nova도메인', 'Nova_도메인' ],
+	'NovaKey' => [ 'Nova키', 'Nova_키' ],
+	'NovaProject' => [ 'Nova프로젝트', 'Nova_프로젝트' ],
+	'NovaProxy' => [ 'Nova프록시', 'Nova_프록시' ],
+	'NovaResources' => [ 'Nova자료', 'Nova_자료' ],
+	'NovaRole' => [ 'Nova규칙', 'Nova_규칙' ],
+	'NovaServiceGroup' => [ 'Nova서비스그룹', 'Nova_서비스_그룹' ],
+];
 
 /** Luxembourgish (Lëtzebuergesch) */
-$specialPageAliases['lb'] = array(
-	'OpenStackManageInstance' => array( 'Instanz_geréieren' ),
-);
+$specialPageAliases['lb'] = [
+	'OpenStackManageInstance' => [ 'Instanz_geréieren' ],
+];
 
 /** Macedonian (македонски) */
-$specialPageAliases['mk'] = array(
-	'OpenStackManager' => array( 'РаководителСоOpenStack' ),
-	'OpenStackManageInstance' => array( 'РаководиСоПримерок' ),
-	'Nova' => array( 'Nova' ),
-	'NovaAddress' => array( 'NovaАдреса' ),
-	'NovaDomain' => array( 'NovaДомен' ),
-	'NovaKey' => array( 'NovaКлуч' ),
-	'NovaProject' => array( 'NovaПроект' ),
-	'NovaProxy' => array( 'NovaЗастапник' ),
-	'NovaResources' => array( 'NovaРесурси' ),
-	'NovaRole' => array( 'NovaУлога' ),
-	'NovaServiceGroup' => array( 'NovaСлужбенаГрупа' ),
-	'NovaSudoer' => array( 'NovaНаткориснички' ),
-	'NovaVolume' => array( 'NovaОбем' ),
-);
+$specialPageAliases['mk'] = [
+	'OpenStackManager' => [ 'РаководителСоOpenStack' ],
+	'OpenStackManageInstance' => [ 'РаководиСоПримерок' ],
+	'Nova' => [ 'Nova' ],
+	'NovaAddress' => [ 'NovaАдреса' ],
+	'NovaDomain' => [ 'NovaДомен' ],
+	'NovaKey' => [ 'NovaКлуч' ],
+	'NovaProject' => [ 'NovaПроект' ],
+	'NovaProxy' => [ 'NovaЗастапник' ],
+	'NovaResources' => [ 'NovaРесурси' ],
+	'NovaRole' => [ 'NovaУлога' ],
+	'NovaServiceGroup' => [ 'NovaСлужбенаГрупа' ],
+	'NovaSudoer' => [ 'NovaНаткориснички' ],
+	'NovaVolume' => [ 'NovaОбем' ],
+];
 
 /** Low Saxon (Netherlands) (Nedersaksies) */
-$specialPageAliases['nds-nl'] = array(
-	'OpenStackManager' => array( 'Open_beuntbeheerder' ),
-	'OpenStackManageInstance' => array( 'Instansie_beheren' ),
-);
+$specialPageAliases['nds-nl'] = [
+	'OpenStackManager' => [ 'Open_beuntbeheerder' ],
+	'OpenStackManageInstance' => [ 'Instansie_beheren' ],
+];
 
 /** Dutch (Nederlands) */
-$specialPageAliases['nl'] = array(
-	'OpenStackManager' => array( 'OpenStackBeheren' ),
-	'OpenStackManageInstance' => array( 'InstantieBeheren' ),
-);
+$specialPageAliases['nl'] = [
+	'OpenStackManager' => [ 'OpenStackBeheren' ],
+	'OpenStackManageInstance' => [ 'InstantieBeheren' ],
+];
 
 /** Sicilian (sicilianu) */
-$specialPageAliases['scn'] = array(
-	'OpenStackManageInstance' => array( 'GestisciIstanza' ),
-);
+$specialPageAliases['scn'] = [
+	'OpenStackManageInstance' => [ 'GestisciIstanza' ],
+];
 
 /** Vietnamese (Tiếng Việt) */
-$specialPageAliases['vi'] = array(
-	'OpenStackManageInstance' => array( 'Quản_lý_thực_thể', 'Quản_lí_thực_thể' ),
-	'NovaAddress' => array( 'Địa_chỉ_Nova' ),
-	'NovaKey' => array( 'Chìa_khóa_Nova', 'Chìa_khoá_Nova' ),
-	'NovaProject' => array( 'Dự_án_Nova' ),
-	'NovaResources' => array( 'Tài_nguyên_Nova' ),
-	'NovaRole' => array( 'Vai_trò_Nova' ),
-);
+$specialPageAliases['vi'] = [
+	'OpenStackManageInstance' => [ 'Quản_lý_thực_thể', 'Quản_lí_thực_thể' ],
+	'NovaAddress' => [ 'Địa_chỉ_Nova' ],
+	'NovaKey' => [ 'Chìa_khóa_Nova', 'Chìa_khoá_Nova' ],
+	'NovaProject' => [ 'Dự_án_Nova' ],
+	'NovaResources' => [ 'Tài_nguyên_Nova' ],
+	'NovaRole' => [ 'Vai_trò_Nova' ],
+];
 
 /** Simplified Chinese (中文（简体）‎) */
-$specialPageAliases['zh-hans'] = array(
-	'OpenStackManager' => array( '打开堆栈管理器' ),
-	'OpenStackManageInstance' => array( '管理实例' ),
-	'NovaAddress' => array( 'Nova地址' ),
-	'NovaDomain' => array( 'Nova域名' ),
-	'NovaKey' => array( 'Nova密钥' ),
-	'NovaProject' => array( 'Nova项目' ),
-	'NovaProxy' => array( 'Nova代理' ),
-	'NovaResources' => array( 'Nova资源' ),
-	'NovaRole' => array( 'Nova角色' ),
-	'NovaServiceGroup' => array( 'Nova服务组' ),
-	'NovaVolume' => array( 'Nova容量' ),
-);
+$specialPageAliases['zh-hans'] = [
+	'OpenStackManager' => [ '打开堆栈管理器' ],
+	'OpenStackManageInstance' => [ '管理实例' ],
+	'NovaAddress' => [ 'Nova地址' ],
+	'NovaDomain' => [ 'Nova域名' ],
+	'NovaKey' => [ 'Nova密钥' ],
+	'NovaProject' => [ 'Nova项目' ],
+	'NovaProxy' => [ 'Nova代理' ],
+	'NovaResources' => [ 'Nova资源' ],
+	'NovaRole' => [ 'Nova角色' ],
+	'NovaServiceGroup' => [ 'Nova服务组' ],
+	'NovaVolume' => [ 'Nova容量' ],
+];
 
 /** Traditional Chinese (中文（繁體）‎) */
-$specialPageAliases['zh-hant'] = array(
-	'OpenStackManager' => array( '啟用堆疊組管理' ),
-	'OpenStackManageInstance' => array( '管理實例' ),
-	'NovaKey' => array( 'Nova_密鑰' ),
-	'NovaProject' => array( 'Nova_專案' ),
-	'NovaResources' => array( 'Nova_資源' ),
-);
+$specialPageAliases['zh-hant'] = [
+	'OpenStackManager' => [ '啟用堆疊組管理' ],
+	'OpenStackManageInstance' => [ '管理實例' ],
+	'NovaKey' => [ 'Nova_密鑰' ],
+	'NovaProject' => [ 'Nova_專案' ],
+	'NovaResources' => [ 'Nova_資源' ],
+];

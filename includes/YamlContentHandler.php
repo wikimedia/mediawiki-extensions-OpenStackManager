@@ -12,7 +12,7 @@
 class YamlContentHandler extends CodeContentHandler {
 
 	public function __construct( $modelId = CONTENT_MODEL_YAML ) {
-		parent::__construct( $modelId, array( CONTENT_FORMAT_YAML ) );
+		parent::__construct( $modelId, [ CONTENT_FORMAT_YAML ] );
 	}
 
 	/**

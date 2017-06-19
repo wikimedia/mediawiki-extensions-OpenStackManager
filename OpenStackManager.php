@@ -17,7 +17,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 	die( 1 );
 }
 
-$wgExtensionCredits['other'][] = array(
+$wgExtensionCredits['other'][] = [
 	'path' => __FILE__,
 	'name' => 'OpenStackManager',
 	'author' => 'Ryan Lane',
@@ -25,7 +25,7 @@ $wgExtensionCredits['other'][] = array(
 	'url' => 'https://mediawiki.org/wiki/Extension:OpenStackManager',
 	'descriptionmsg' => 'openstackmanager-desc',
 	'license-name' => 'GPL-2.0+',
-);
+];
 
 define( 'CONTENT_MODEL_YAML', 'yaml' );
 define( 'CONTENT_FORMAT_YAML', 'application/yaml' );
@@ -91,41 +91,41 @@ $wgOpenStackManagerServiceGroupHomedirPattern = '/home/%p%u/';
 
 // Username for special observer user -- hidden
 //  from the OSM front end.
-$wgOpenStackHiddenUsernames = array( 'novaobserver' );
+$wgOpenStackHiddenUsernames = [ 'novaobserver' ];
 
 // Key/value pairs like array( 'region1' => '10.4.0.11', 'region2' => '10.68.1.35' )
-$wgOpenStackManagerProxyGateways = array();
+$wgOpenStackManagerProxyGateways = [];
 
-$wgOpenStackManagerIdRanges = array(
-	'service' => array(
-		'gid' => array( 'min' => 40000, 'max' => 49999 ),
-	),
-);
+$wgOpenStackManagerIdRanges = [
+	'service' => [
+		'gid' => [ 'min' => 40000, 'max' => 49999 ],
+	],
+];
 
 // DN location for posix groups based on projects
 $wgOpenStackManagerLDAPDefaultGid = '500';
 // Shell used when creating users
 $wgOpenStackManagerLDAPDefaultShell = '/bin/bash';
 // DNS servers, used in SOA record
-$wgOpenStackManagerDNSServers = array( 'primary' => 'localhost', 'secondary' => 'localhost' );
+$wgOpenStackManagerDNSServers = [ 'primary' => 'localhost', 'secondary' => 'localhost' ];
 // SOA attributes
-$wgOpenStackManagerDNSSOA = array(
+$wgOpenStackManagerDNSSOA = [
 	'hostmaster' => 'hostmaster@localhost.localdomain',
 	'refresh' => '1800',
 	'retry' => '3600',
 	'expiry' => '86400',
 	'minimum' => '7200'
-	);
+	];
 // User data to inject into instances when created
-$wgOpenStackManagerInstanceUserData = array(
-	'cloud-config' => array(),
-	'scripts' => array(),
-	'upstarts' => array(),
-	);
+$wgOpenStackManagerInstanceUserData = [
+	'cloud-config' => [],
+	'scripts' => [],
+	'upstarts' => [],
+	];
 // Default security rules to add to a project when created
-$wgOpenStackManagerDefaultSecurityGroupRules = array();
+$wgOpenStackManagerDefaultSecurityGroupRules = [];
 // List of instance type names to not display on instance creation interface
-$wgOpenStackManagerInstanceBannedInstanceTypes = array();
+$wgOpenStackManagerInstanceBannedInstanceTypes = [];
 // Whether resource pages should be managed on instance/project creation/deletion
 $wgOpenStackManagerCreateResourcePages = true;
 // Whether a Server Admin Log page should be created with project pages
@@ -149,10 +149,10 @@ $wgPuttygen = 'puttygen';
 $wgOpenStackManagerProjectNamespace = NS_NOVA_RESOURCE;
 
 // A list of regions restricted to a group by right
-$wgOpenStackManagerRestrictedRegions = array();
+$wgOpenStackManagerRestrictedRegions = [];
 
 // A list of regions which are visible yet disabled (e.g. instance creation forbidden)
-$wgOpenStackManagerReadOnlyRegions = array();
+$wgOpenStackManagerReadOnlyRegions = [];
 
 $dir = __DIR__ . '/';
 
@@ -230,33 +230,33 @@ $wgAuthManagerAutoConfig['preauth'] += [
 	],
 ];
 
-$commonModuleInfo = array(
+$commonModuleInfo = [
 	'localBasePath' => __DIR__,
 	'remoteExtPath' => 'OpenStackManager',
-);
+];
 
-$wgResourceModules['ext.openstack'] = array(
+$wgResourceModules['ext.openstack'] = [
 	'position' => 'top',
 
 	'styles' => 'modules/ext.openstack.css',
 
-	'dependencies' => array(
+	'dependencies' => [
 		'jquery.spinner',
 		'mediawiki.api',
 		'jquery.ui.dialog',
-	),
+	],
 
-	'scripts' => array(
+	'scripts' => [
 		'modules/ext.openstack.js',
-	),
-) + $commonModuleInfo;
+	],
+] + $commonModuleInfo;
 
-$wgResourceModules['ext.openstack.Instance'] = array(
-	'dependencies' => array(
+$wgResourceModules['ext.openstack.Instance'] = [
+	'dependencies' => [
 		'ext.openstack',
-	),
+	],
 
-	'messages' => array(
+	'messages' => [
 		'openstackmanager-rebootinstancefailed',
 		'openstackmanager-rebootedinstance',
 		'openstackmanager-consoleoutput',
@@ -265,30 +265,30 @@ $wgResourceModules['ext.openstack.Instance'] = array(
 		'openstackmanager-deleteinstancefailed',
 		'openstackmanager-deleteinstance',
 		'openstackmanager-deleteinstancequestion',
-	),
-	'scripts' => array(
+	],
+	'scripts' => [
 		'modules/ext.openstack.Instance.js',
-	),
-) + $commonModuleInfo;
+	],
+] + $commonModuleInfo;
 
-$wgResourceModules['ext.openstack.Address'] = array(
-	'dependencies' => array(
+$wgResourceModules['ext.openstack.Address'] = [
+	'dependencies' => [
 		'ext.openstack',
-	),
+	],
 
-	'messages' => array(
+	'messages' => [
 		'openstackmanager-disassociateaddressfailed',
 		'openstackmanager-disassociateaddress-confirm',
 		'openstackmanager-disassociatedaddress',
 		'openstackmanager-associateaddress',
 		'openstackmanager-releaseaddress',
 		'openstackmanager-unknownerror',
-	),
+	],
 
-	'scripts' => array(
+	'scripts' => [
 		'modules/ext.openstack.Address.js',
-	),
-) + $commonModuleInfo;
+	],
+] + $commonModuleInfo;
 
 $wgAPIModules['novainstance'] = 'ApiNovaInstance';
 $wgAPIModules['novaaddress'] = 'ApiNovaAddress';
@@ -311,7 +311,7 @@ function efOpenStackSchemaUpdates( $updater ) {
 	case 'mysql':
 		$updater->addExtensionTable( 'openstack_tokens', "$base/schema-changes/tokens.sql" );
 		$updater->addExtensionTable( 'openstack_notification_event', "$base/schema-changes/openstack_add_notification_events_table.sql" );
-		$updater->addExtensionUpdate( array( 'modifyField', 'openstack_tokens', 'token', "$base/schema-changes/openstack_change_token_size.sql", true ) );
+		$updater->addExtensionUpdate( [ 'modifyField', 'openstack_tokens', 'token', "$base/schema-changes/openstack_change_token_size.sql", true ] );
 		break;
 	}
 	return true;
@@ -337,29 +337,29 @@ $wgDefaultUserOptions['echo-subscriptions-email-osm-projectmembers-add'] = true;
 function efOpenStackOnBeforeCreateEchoEvent(
 	&$notifications, &$notificationCategories
 ) {
-	$notifications['osm-instance-build-completed'] = array(
+	$notifications['osm-instance-build-completed'] = [
 		'presentation-model' => 'EchoOpenStackManagerPresentationModel',
 		'category' => 'osm-instance-build-completed',
 		'section' => 'message',
-	);
+	];
 
-	$notifications['osm-instance-reboot-completed'] = array(
+	$notifications['osm-instance-reboot-completed'] = [
 		'presentation-model' => 'EchoOpenStackManagerPresentationModel',
 		'category' => 'osm-instance-reboot-completed',
 		'section' => 'message',
-	);
+	];
 
-	$notifications['osm-instance-deleted'] = array(
+	$notifications['osm-instance-deleted'] = [
 		'presentation-model' => 'EchoOpenStackManagerPresentationModel',
 		'category' => 'osm-instance-deleted',
 		'section' => 'message',
-	);
+	];
 
-	$notifications['osm-projectmembers-add'] = array(
+	$notifications['osm-projectmembers-add'] = [
 		'presentation-model' => 'EchoOpenStackManagerPresentationModel',
 		'category' => 'osm-projectmembers-add',
 		'section' => 'message',
-	);
+	];
 
 	return true;
 }

@@ -49,24 +49,24 @@ class SpecialNovaDomain extends SpecialNova {
 		if ( !$this->getRequest()->wasPosted() ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-deletedomain-confirm', $domainname );
 		}
-		$domainInfo = array();
-		$domainInfo['domainname'] = array(
+		$domainInfo = [];
+		$domainInfo['domainname'] = [
 			'type' => 'hidden',
 			'default' => $domainname,
 			'name' => 'domainname',
-		);
-		$domainInfo['action'] = array(
+		];
+		$domainInfo['action'] = [
 			'type' => 'hidden',
 			'default' => 'delete',
 			'name' => 'action',
-		);
+		];
 		$domainForm = new HTMLForm(
 			$domainInfo,
 			$this->getContext(),
 			'openstackmanager-novadomain'
 		);
 		$domainForm->setSubmitID( 'novadomain-form-deletedomainsubmit' );
-		$domainForm->setSubmitCallback( array( $this, 'tryDeleteSubmit' ) );
+		$domainForm->setSubmitCallback( [ $this, 'tryDeleteSubmit' ] );
 		$domainForm->show();
 
 		return true;
@@ -80,34 +80,34 @@ class SpecialNovaDomain extends SpecialNova {
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-domainlist' ) );
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
 
-		$domainInfo = array();
-		$domainInfo['domainname'] = array(
+		$domainInfo = [];
+		$domainInfo['domainname'] = [
 			'type' => 'text',
 			'label-message' => 'openstackmanager-domainname',
 			'default' => '',
 			'section' => 'domain',
 			'name' => 'domainname',
-		);
-		$domainInfo['fqdn'] = array(
+		];
+		$domainInfo['fqdn'] = [
 			'type' => 'text',
 			'label-message' => 'openstackmanager-fqdn',
 			'default' => '',
 			'section' => 'domain',
 			'name' => 'fqdn',
-		);
-		$domainInfo['location'] = array(
+		];
+		$domainInfo['location'] = [
 			'type' => 'text',
 			'label-message' => 'openstackmanager-location',
 			'default' => '',
 			'section' => 'domain',
 			'help-message' => 'openstackmanager-location-help',
 			'name' => 'location',
-		);
-		$domainInfo['action'] = array(
+		];
+		$domainInfo['action'] = [
 			'type' => 'hidden',
 			'default' => 'create',
 			'name' => 'action',
-		);
+		];
 
 		$domainForm = new HTMLForm(
 			$domainInfo,
@@ -115,19 +115,19 @@ class SpecialNovaDomain extends SpecialNova {
 			'openstackmanager-novadomain'
 		);
 		$domainForm->setSubmitID( 'novadomain-form-createdomainsubmit' );
-		$domainForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
+		$domainForm->setSubmitCallback( [ $this, 'tryCreateSubmit' ] );
 		$domainForm->show();
 
-		$headers = array( 'openstackmanager-domainname', 'openstackmanager-fqdn', 'openstackmanager-location', 'openstackmanager-actions' );
+		$headers = [ 'openstackmanager-domainname', 'openstackmanager-fqdn', 'openstackmanager-location', 'openstackmanager-actions' ];
 		$domains = OpenStackNovaDomain::getAllDomains();
-		$domainRows = array();
+		$domainRows = [];
 		foreach ( $domains as $domain ) {
-			$domainRow = array();
+			$domainRow = [];
 			$domainName = $domain->getDomainName();
 			$this->pushResourceColumn( $domainRow, $domainName );
 			$this->pushResourceColumn( $domainRow, $domain->getFullyQualifiedDomainName() );
 			$this->pushResourceColumn( $domainRow, $domain->getLocation() );
-			$this->pushRawResourceColumn( $domainRow, $this->createActionLink( 'openstackmanager-delete', array( 'action' => 'delete', 'domainname' => $domainName ) ) );
+			$this->pushRawResourceColumn( $domainRow, $this->createActionLink( 'openstackmanager-delete', [ 'action' => 'delete', 'domainname' => $domainName ] ) );
 			$domainRows[] = $domainRow;
 		}
 		if ( $domainRows ) {

@@ -42,7 +42,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-manageservicegroupmembers-title' ) );
 
-		$groupInfo = array();
+		$groupInfo = [];
 		$groupName = $this->getRequest()->getText( 'servicegroupname' );
 		$projectname = $this->getRequest()->getText( 'projectname' );
 		$project = OpenStackNovaProject::getProjectByName( $projectname );
@@ -56,9 +56,9 @@ class SpecialNovaServiceGroup extends SpecialNova {
 			}
 			$projectmembers = $project->getMembers();
 			$groupmembers = $group->getMembers();
-			$member_keys = array();
-			$defaults = array();
-			$servicememberDefaults = array();
+			$member_keys = [];
+			$defaults = [];
+			$servicememberDefaults = [];
 			foreach ( $projectmembers as $projectmember ) {
 				$member_keys[$projectmember] = $projectmember;
 				if ( in_array( $projectmember, $groupmembers ) ) {
@@ -66,22 +66,22 @@ class SpecialNovaServiceGroup extends SpecialNova {
 				}
 			}
 			$servicemembers = $project->getServiceUsers();
-			$servicemember_keys = array();
+			$servicemember_keys = [];
 			foreach ( $servicemembers as $servicemember ) {
 				$servicemember_keys[$servicemember] = $servicemember;
 				if ( in_array( $servicemember, $groupmembers ) ) {
 					$servicememberDefaults[$servicemember] = $servicemember;
 				}
 			}
-			$groupInfo['members'] = array(
+			$groupInfo['members'] = [
 				'type' => 'multiselect',
 				'label-message' => 'openstackmanager-member',
 				'options' => $member_keys,
 				'dropdown' => true,
 				'default' => $defaults,
 				'name' => 'members',
-			);
-			$groupInfo['servicemembers'] = array(
+			];
+			$groupInfo['servicemembers'] = [
 				'type' => 'multiselect',
 				'label-message' => 'openstackmanager-serviceuser',
 				'options' => $servicemember_keys,
@@ -89,30 +89,30 @@ class SpecialNovaServiceGroup extends SpecialNova {
 				'default' => $servicememberDefaults,
 				'name' => 'servicemembers',
 				'help-message' => 'openstackmanager-servicegrouprecursewarning'
-			);
+			];
 		} else {
 			// TODO: display error
 		}
-		$groupInfo['action'] = array(
+		$groupInfo['action'] = [
 			'type' => 'hidden',
 			'default' => 'managemembers',
 			'name' => 'action',
-		);
-		$groupInfo['servicegroupname'] = array(
+		];
+		$groupInfo['servicegroupname'] = [
 			'type' => 'hidden',
 			'default' => $groupName,
 			'name' => 'servicegroupname',
-		);
-		$groupInfo['projectname'] = array(
+		];
+		$groupInfo['projectname'] = [
 			'type' => 'hidden',
 			'default' => $projectname,
 			'name' => 'projectname',
-		);
-		$groupInfo['returnto'] = array(
+		];
+		$groupInfo['returnto'] = [
 			'type' => 'hidden',
 			'default' => $this->getRequest()->getText( 'returnto' ),
 			'name' => 'returnto',
-		);
+		];
 
 		$groupForm = new HTMLForm(
 			$groupInfo,
@@ -120,7 +120,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 			'openstackmanager-novaservicegroup'
 		);
 		$groupForm->setSubmitID( 'novaservicegroup-form-managememberssubmit' );
-		$groupForm->setSubmitCallback( array( $this, 'tryManageMembersSubmit' ) );
+		$groupForm->setSubmitCallback( [ $this, 'tryManageMembersSubmit' ] );
 		$groupForm->show();
 
 		return true;
@@ -139,24 +139,24 @@ class SpecialNovaServiceGroup extends SpecialNova {
 			return false;
 		}
 
-		$projectInfo = array();
-		$projectInfo['servicegroupname'] = array(
+		$projectInfo = [];
+		$projectInfo['servicegroupname'] = [
 			'type' => 'text',
 			'label-message' => 'openstackmanager-servicegroupname',
-			'validation-callback' => array( $this, 'validateText' ),
+			'validation-callback' => [ $this, 'validateText' ],
 			'default' => '',
 			'name' => 'servicegroupname',
-		);
-		$projectInfo['projectname'] = array(
+		];
+		$projectInfo['projectname'] = [
 			'type' => 'hidden',
 			'default' => $project,
 			'name' => 'projectname',
-		);
-		$projectInfo['action'] = array(
+		];
+		$projectInfo['action'] = [
 			'type' => 'hidden',
 			'default' => 'addservicegroup',
 			'name' => 'action',
-		);
+		];
 
 		$projectForm = new HTMLForm(
 			$projectInfo,
@@ -164,7 +164,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 			'openstackmanager-addservicegroup'
 		);
 		$projectForm->setSubmitID( 'novaproject-form-createservicegroupsubmit' );
-		$projectForm->setSubmitCallback( array( $this, 'tryCreateServiceGroupSubmit' ) );
+		$projectForm->setSubmitCallback( [ $this, 'tryCreateServiceGroupSubmit' ] );
 		$projectForm->show();
 
 		return true;
@@ -187,29 +187,29 @@ class SpecialNovaServiceGroup extends SpecialNova {
 		if ( !$this->getRequest()->wasPosted() ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-removeservicegroupconfirm', $groupName );
 		}
-		$projectInfo = array();
-		$projectInfo['projectname'] = array(
+		$projectInfo = [];
+		$projectInfo['projectname'] = [
 			'type' => 'hidden',
 			'default' => $project,
 			'name' => 'projectname',
-		);
-		$projectInfo['groupname'] = array(
+		];
+		$projectInfo['groupname'] = [
 			'type' => 'hidden',
 			'default' => $groupName,
 			'name' => 'groupname',
-		);
-		$projectInfo['action'] = array(
+		];
+		$projectInfo['action'] = [
 			'type' => 'hidden',
 			'default' => 'removeservicegroup',
 			'name' => 'action',
-		);
+		];
 		$projectForm = new HTMLForm(
 			$projectInfo,
 			$this->getContext(),
 			'openstackmanager-novaproject'
 		);
 		$projectForm->setSubmitID( 'novaproject-form-removeservicegroupsubmit' );
-		$projectForm->setSubmitCallback( array( $this, 'tryRemoveServiceGroupSubmit' ) );
+		$projectForm->setSubmitCallback( [ $this, 'tryRemoveServiceGroupSubmit' ] );
 		$projectForm->show();
 
 		return true;
@@ -242,7 +242,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 			if ( !in_array( $projectName, $projectfilter ) ) {
 				continue;
 			}
-			$actions = array( "" => array( $this->createActionLink( 'openstackmanager-addservicegroup', array( 'action' => 'addservicegroup', 'projectname' => $projectName ) ) ) );
+			$actions = [ "" => [ $this->createActionLink( 'openstackmanager-addservicegroup', [ 'action' => 'addservicegroup', 'projectname' => $projectName ] ) ] ];
 			$out .= $this->createProjectSection( $projectName, $actions, $this->getServiceGroups( $project ) );
 		}
 
@@ -254,19 +254,19 @@ class SpecialNovaServiceGroup extends SpecialNova {
 		$projectName = $project->getProjectName();
 		$serviceGroups =  $project->getServiceGroups();
 		if ( $serviceGroups ) {
-			$headers = array( 'openstackmanager-servicegroupname', 'openstackmanager-members', 'openstackmanager-actions' );
+			$headers = [ 'openstackmanager-servicegroupname', 'openstackmanager-members', 'openstackmanager-actions' ];
 			foreach ( $serviceGroups as $group ) {
 				$groupName = $group->getGroupName();
-				$groupRow = array();
+				$groupRow = [];
 				$this->pushResourceColumn( $groupRow, $groupName );
 				$this->pushRawResourceColumn( $groupRow, $this->createResourceList( $group->getMembers() ) );
-				$actions = array();
+				$actions = [];
 				$specialGroupTitle = Title::newFromText( 'Special:NovaServiceGroup' );
 				$actions[] = $this->createActionLink( 'openstackmanager-manageservicegroupmembers',
-					array( 'action' => 'managemembers', 'projectname' => $projectName, 'servicegroupname' => $groupName, 'returnto' => 'Special:NovaServiceGroup' ),
+					[ 'action' => 'managemembers', 'projectname' => $projectName, 'servicegroupname' => $groupName, 'returnto' => 'Special:NovaServiceGroup' ],
 					$specialGroupTitle
 				);
-				$actions[] = $this->createActionLink( 'openstackmanager-removeservicegroup', array( 'action' => 'removeservicegroup', 'projectname' => $projectName, 'groupname' => $groupName ) );
+				$actions[] = $this->createActionLink( 'openstackmanager-removeservicegroup', [ 'action' => 'removeservicegroup', 'projectname' => $projectName, 'groupname' => $groupName ] );
 				$this->pushRawResourceColumn( $groupRow,  $this->createResourceList( $actions ) );
 				$servicegroupRows[] = $groupRow;
 			}

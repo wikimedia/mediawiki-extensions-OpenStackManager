@@ -42,7 +42,7 @@ class OpenStackNovaPurgeOldServiceGroups extends Maintenance {
 				'(objectclass=groupofnames)' );
 
 			if ( $result ) {
-				$this->serviceGroups = array();
+				$this->serviceGroups = [];
 				$groupList = LdapAuthenticationPlugin::ldap_get_entries( $ldap->ldapconn, $result );
 				if ( isset( $groupList ) ) {
 					array_shift( $groupList );
@@ -67,7 +67,7 @@ class OpenStackNovaPurgeOldServiceGroups extends Maintenance {
 				'(objectclass=person)' );
 
 			if ( $result ) {
-				$this->serviceGroups = array();
+				$this->serviceGroups = [];
 				$groupList = LdapAuthenticationPlugin::ldap_get_entries( $ldap->ldapconn, $result );
 				if ( isset( $groupList ) ) {
 					array_shift( $groupList );

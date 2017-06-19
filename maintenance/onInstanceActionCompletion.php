@@ -50,10 +50,10 @@ class OnInstanceActionComplete extends Maintenance {
 			$this->error( "Instance hostname is invalid.\n", true );
 		}
 
-		$validActions = array(
+		$validActions = [
 			'reboot',
 			'build'
-		);
+		];
 
 		if ( !in_array( $this->getOption( 'action' ), $validActions ) ) {
 			$this->error( "Unrecognised action.\n", true );
@@ -62,15 +62,15 @@ class OnInstanceActionComplete extends Maintenance {
 		$dbw = wfGetDB( DB_MASTER );
 		$result = $dbw->selectRow(
 			'openstack_notification_event',
-			array(
+			[
 				'event_actor_id',
 				'event_project',
 				'event_instance_name'
-			),
-			array(
+			],
+			[
 				'event_action' => $this->getOption( 'action' ),
 				'event_instance_host' => $this->getOption( 'instance' )
-			),
+			],
 			__METHOD__
 		);
 
@@ -78,27 +78,27 @@ class OnInstanceActionComplete extends Maintenance {
 			$this->error( "Lookup of temporary event info failed.\n", true );
 		}
 
-		$successful = EchoEvent::create( array(
+		$successful = EchoEvent::create( [
 			'type' => 'osm-instance-' . $this->getOption( 'action' ) . '-completed',
 			'title' => Title::newFromText( $result->event_project, NS_NOVA_RESOURCE ),
 			'agent' => User::newFromId( $result->event_actor_id ),
-			'extra' => array(
+			'extra' => [
 				'instanceName' => $result->event_instance_name,
 				'projectName' => $result->event_project,
 				'notifyAgent' => true
-			)
-		) );
+			]
+		] );
 
 		if ( $successful ) {
 			$dbw->delete(
 				'openstack_notification_event',
-				array(
+				[
 					'event_action' => $this->getOption( 'action' ),
 					'event_instance_host' => $this->getOption( 'instance' ),
 					'event_instance_name' => $result->event_instance_name,
 					'event_project' => $result->event_project,
 					'event_actor_id' => $result->event_actor_id
-				),
+				],
 				__METHOD__
 			);
 			$this->output( "Event created successfully.\n" );

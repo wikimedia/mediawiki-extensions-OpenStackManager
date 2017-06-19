@@ -74,7 +74,7 @@ class OpenStackNovaUser {
 			$token = $userNova->getUnscopedToken();
 		}
 
-		return array( 'token' => $token );
+		return [ 'token' => $token ];
 	}
 
 	/**
@@ -90,8 +90,8 @@ class OpenStackNovaUser {
 			$dbr = wfGetDB( DB_SLAVE );
 			$row = $dbr->selectRow(
 				'openstack_tokens',
-				array( 'token' ),
-				array( 'user_id' => $user_id ),
+				[ 'token' ],
+				[ 'user_id' => $user_id ],
 				__METHOD__ );
 
 			if ( $row ) {
@@ -115,14 +115,14 @@ class OpenStackNovaUser {
 			if ( $oldtoken ) {
 				return $dbw->update(
 					'openstack_tokens',
-					array( 'token' => $token ),
-					array( 'user_id' => $user_id ),
+					[ 'token' => $token ],
+					[ 'user_id' => $user_id ],
 					__METHOD__ );
 			} else {
 				return $dbw->insert(
 					'openstack_tokens',
-					array( 'token' => $token,
-						'user_id' => $user_id ),
+					[ 'token' => $token,
+						'user_id' => $user_id ],
 					__METHOD__ );
 			}
 		} else {
@@ -137,7 +137,7 @@ class OpenStackNovaUser {
 		$this->fetchUserInfo();
 		if ( isset( $this->userInfo[0]['sshpublickey'] ) ) {
 			$keys = $this->userInfo[0]['sshpublickey'];
-			$keypairs = array();
+			$keypairs = [];
 			array_shift( $keys );
 			foreach ( $keys as $key ) {
 				$hash = md5( $key );
@@ -147,7 +147,7 @@ class OpenStackNovaUser {
 		} else {
 			$ldap = LdapAuthenticationPlugin::getInstance();
 			$ldap->printDebug( "No keypairs found", NONSENSITIVE );
-			return array();
+			return [];
 		}
 	}
 
@@ -185,13 +185,13 @@ class OpenStackNovaUser {
 		$controller = OpenStackNovaProject::getController();
 		$assignments = $controller->getRoleAssignmentsForUser( $this->getUid() );
 
-		$everyrole = array();
+		$everyrole = [];
 		foreach ( $assignments as $projectid => $rolelist ) {
 			$everyrole = array_merge( $everyrole, $rolelist );
 		}
 		$roleids = array_unique( $everyrole );
 
-		$roles = array();
+		$roles = [];
 		foreach ( $roleids as $roleid ) {
 			$roles[] = OpenStackNovaRole::getRoleNameForId( $roleid );
 		}
@@ -264,13 +264,13 @@ class OpenStackNovaUser {
 		global $wgMemc;
 
 		$ldap = LdapAuthenticationPlugin::getInstance();
-		$keypairs = array();
+		$keypairs = [];
 		if ( isset( $this->userInfo[0]['sshpublickey'] ) ) {
 			$keypairs = $this->userInfo[0]['sshpublickey'];
 			array_shift( $keypairs );
 		}
 		$keypairs[] = $key;
-		$values = array();
+		$values = [];
 		$values['sshpublickey'] = $keypairs;
 		$success = LdapAuthenticationPlugin::ldap_modify( $ldap->ldapconn, $this->userDN, $values );
 		if ( $success ) {
@@ -303,8 +303,8 @@ class OpenStackNovaUser {
 				return false;
 			}
 			unset( $keypairs[$index] );
-			$values = array();
-			$values['sshpublickey'] = array();
+			$values = [];
+			$values['sshpublickey'] = [];
 			foreach ( $keypairs as $keypair ) {
 				$values['sshpublickey'][] = $keypair;
 			}
@@ -362,7 +362,7 @@ class OpenStackNovaUser {
 			if ( $entries ) {
 				if ( $entries['count'] != "0" ) {
 					array_shift( $entries );
-					$uids = array();
+					$uids = [];
 					foreach ( $entries as $entry ) {
 						$uids[] = $entry[$attr][0];
 					}
@@ -494,8 +494,8 @@ class OpenStackNovaUser {
 	 * @return bool
 	 */
 	static function LDAPModifyUITemplate( &$template ) {
-		$input = array( 'msg' => 'openstackmanager-shellaccountname', 'type' => 'text', 'name' => 'shellaccountname', 'value' => '', 'helptext' => 'openstackmanager-shellaccountnamehelp' );
-		$template->set( 'extraInput', array( $input ) );
+		$input = [ 'msg' => 'openstackmanager-shellaccountname', 'type' => 'text', 'name' => 'shellaccountname', 'value' => '', 'helptext' => 'openstackmanager-shellaccountnamehelp' ];
+		$template->set( 'extraInput', [ $input ] );
 
 		return true;
 	}
@@ -667,26 +667,26 @@ class OpenStackNovaUser {
 	public static function novaUserPreferences( User $user, array &$preferences ) {
 		$link = Linker::link( SpecialPage::getTitleFor( 'NovaKey' ),
 			wfMessage( 'novakey' )->escaped(),
-			array(),
-			array( 'returnto' => SpecialPage::getTitleFor( 'Preferences' )->getPrefixedText() )
+			[],
+			[ 'returnto' => SpecialPage::getTitleFor( 'Preferences' )->getPrefixedText() ]
 		);
 
 		$novaUser = new OpenStackNovaUser( $user->getName() );
 
-		$preferences['shellusername'] = array(
+		$preferences['shellusername'] = [
 			'type' => 'info',
 			'label-message' => 'openstackmanager-shellaccountname-pref',
 			'default' => $novaUser->getUid(),
 			'section' => 'personal/info',
-		);
+		];
 
-		$preferences['openstack-sshkeylist'] = array(
+		$preferences['openstack-sshkeylist'] = [
 			'type' => 'info',
 			'raw' => true,
 			'default' => self::getKeyList( $novaUser ),
 			'label-message' => 'openstackmanager-prefs-novapublickey',
 			'section' => 'openstack/openstack-keys',
-		);
+		];
 		return true;
 	}
 
@@ -696,32 +696,32 @@ class OpenStackNovaUser {
 	 */
 	static function getKeyList( $user ) {
 		global $wgOpenStackManagerNovaKeypairStorage;
-		$keyInfo = array();
+		$keyInfo = [];
 		if ( $wgOpenStackManagerNovaKeypairStorage === 'nova' ) {
 			$projects = $user->getProjects();
-			$keyInfo['keyname'] = array(
+			$keyInfo['keyname'] = [
 				'type' => 'text',
 				'label-message' => 'openstackmanager-novakeyname',
 				'default' => '',
 				'name' => 'keyname',
-			);
-			$project_keys = array();
+			];
+			$project_keys = [];
 			foreach ( $projects as $project ) {
 				$project_keys[$project] = $project;
 			}
-			$keyInfo['project'] = array(
+			$keyInfo['project'] = [
 				'type' => 'select',
 				'options' => $project_keys,
 				'label-message' => 'openstackmanager-project',
 				'name' => 'project',
-			);
+			];
 		}
-		$keyInfo['key'] = array(
+		$keyInfo['key'] = [
 			'type' => 'textarea',
 			'default' => '',
 			'label-message' => 'openstackmanager-novapublickey',
 			'name' => 'key',
-		);
+		];
 
 		$out = '';
 		if ( $wgOpenStackManagerNovaKeypairStorage === 'nova' ) {
@@ -733,11 +733,11 @@ class OpenStackNovaUser {
 				if ( !$keypairs ) {
 					continue;
 				}
-				$out .= Html::element( 'h2', array(), $project );
-				$headers = array( 'openstackmanager-name', 'openstackmanager-fingerprint' );
-				$keyRows = array();
+				$out .= Html::element( 'h2', [], $project );
+				$headers = [ 'openstackmanager-name', 'openstackmanager-fingerprint' ];
+				$keyRows = [];
 				foreach ( $keypairs as $keypair ) {
-					$keyRow = array();
+					$keyRow = [];
 					SpecialNova::pushResourceColumn( $keyRow, $keypair->getKeyName() );
 					SpecialNova::pushResourceColumn( $keyRow, $keypair->getKeyFingerprint() );
 					$keyRows[] = $keyRow;
@@ -745,20 +745,20 @@ class OpenStackNovaUser {
 				$out .= SpecialNova::createResourceTable( $headers, $keyRows );
 			}
 		} elseif ( $wgOpenStackManagerNovaKeypairStorage === 'ldap' ) {
-			$headers = array( 'openstackmanager-keys', 'openstackmanager-actions' );
+			$headers = [ 'openstackmanager-keys', 'openstackmanager-actions' ];
 			$keypairs = $user->getKeypairs();
-			$keyRows = array();
+			$keyRows = [];
 			foreach ( $keypairs as $hash => $key ) {
-				$keyRow = array();
-				SpecialNova::pushResourceColumn( $keyRow, $key, array( 'class' => 'Nova_col' ) );
-				$actions = array();
+				$keyRow = [];
+				SpecialNova::pushResourceColumn( $keyRow, $key, [ 'class' => 'Nova_col' ] );
+				$actions = [];
 				$actions[] = SpecialNova::createNovaKeyActionLink(
 					'openstackmanager-delete',
-					array(
+					[
 						'action' => 'delete',
 						'hash' => $hash,
 						'returnto' => SpecialPage::getTitleFor( 'Preferences', false, 'mw-prefsection-openstack' )->getFullText()
-					)
+					]
 				);
 				SpecialNova::pushRawResourceColumn( $keyRow, SpecialNova::createResourceList( $actions ) );
 				$keyRows[] = $keyRow;
@@ -768,8 +768,8 @@ class OpenStackNovaUser {
 		$out .= Linker::link(
 			SpecialPage::getTitleFor( 'NovaKey' ),
 			wfMessage( 'openstackmanager-addkey' )->escaped(),
-			array(),
-			array( 'returnto' => SpecialPage::getTitleFor( 'Preferences', false, 'mw-prefsection-openstack' )->getFullText() )
+			[],
+			[ 'returnto' => SpecialPage::getTitleFor( 'Preferences', false, 'mw-prefsection-openstack' )->getFullText() ]
 		);
 		return $out;
 	}

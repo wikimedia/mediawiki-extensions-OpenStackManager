@@ -61,7 +61,7 @@ class SpecialNovaResources extends SpecialNova {
 		$projects = OpenStackNovaProject::getProjectsByName( $this->userLDAP->getProjects() );
 
 		$instanceOut = '';
-		$ownedProjects = array();
+		$ownedProjects = [];
 		$instanceCount = 0;
 		foreach ( $projects as $project ) {
 			$projectName = $project->getProjectName();
@@ -69,11 +69,11 @@ class SpecialNovaResources extends SpecialNova {
 			if ( $this->userLDAP->inRole( 'projectadmin', $projectName ) ) {
 				$ownedProjects[] = $projectName;
 			}
-			$projectactions = array( 'projectadmin' => array() );
+			$projectactions = [ 'projectadmin' => [] ];
 			$regions = '';
 			$this->userNova->setProject( $projectName );
 			foreach ( $this->userNova->getRegions( 'compute' ) as $region ) {
-				$regionactions = array();
+				$regionactions = [];
 				$thisCount = 0;
 				$instances = $this->getInstances( $projectName, $region, $thisCount );
 				$instancesInProject += $thisCount;
@@ -101,10 +101,10 @@ class SpecialNovaResources extends SpecialNova {
 		}
 
 		if ( $instanceCount ) {
-			$out .= Html::rawElement( 'h1', array(), $this->msg( 'openstackmanager-ownedinstances', $instanceCount )->text() );
+			$out .= Html::rawElement( 'h1', [], $this->msg( 'openstackmanager-ownedinstances', $instanceCount )->text() );
 			$out .= $instanceOut;
 		} else {
-			$out .= Html::rawElement( 'h1', array(), $this->msg( 'openstackmanager-noownedinstances' )->text() );
+			$out .= Html::rawElement( 'h1', [], $this->msg( 'openstackmanager-noownedinstances' )->text() );
 		}
 
 		$this->getOutput()->addHTML( $out );
@@ -112,9 +112,9 @@ class SpecialNovaResources extends SpecialNova {
 
 	function getInstances( $projectName, $region, &$instanceCount ) {
 		$this->userNova->setRegion( $region );
-		$headers = array( 'openstackmanager-instancename', 'openstackmanager-instanceid', 'openstackmanager-instancestate', 'openstackmanager-instanceip', 'openstackmanager-projectname', 'openstackmanager-launchtime', 'openstackmanager-instancecreator' );
+		$headers = [ 'openstackmanager-instancename', 'openstackmanager-instanceid', 'openstackmanager-instancestate', 'openstackmanager-instanceip', 'openstackmanager-projectname', 'openstackmanager-launchtime', 'openstackmanager-instancecreator' ];
 		$instances = $this->userNova->getInstances();
-		$instanceRows = array();
+		$instanceRows = [];
 		$instanceCount = 0;
 		/**
 		 * @var $instance OpenStackNovaInstance
@@ -125,13 +125,13 @@ class SpecialNovaResources extends SpecialNova {
 				continue;
 			}
 
-			$instanceRow = array();
-			$this->pushResourceColumn( $instanceRow, $instance->getInstanceName(), array( 'class' => 'novainstancename' ) );
+			$instanceRow = [];
+			$this->pushResourceColumn( $instanceRow, $instance->getInstanceName(), [ 'class' => 'novainstancename' ] );
 			$host = $instance->getHost();
 			if ( $host ) {
-				$this->pushRawResourceColumn( $instanceRow, $this->createResourceLink( $host->getFullyQualifiedHostName() ), array( 'class' => 'novainstanceid' ) );
+				$this->pushRawResourceColumn( $instanceRow, $this->createResourceLink( $host->getFullyQualifiedHostName() ), [ 'class' => 'novainstanceid' ] );
 			} else {
-				$this->pushResourceColumn( $instanceRow, $instance->getInstanceId(), array( 'class' => 'novainstanceid' ) );
+				$this->pushResourceColumn( $instanceRow, $instance->getInstanceId(), [ 'class' => 'novainstanceid' ] );
 			}
 			$state = $instance->getInstanceState();
 			$taskState = $instance->getInstanceTaskState();
@@ -140,20 +140,20 @@ class SpecialNovaResources extends SpecialNova {
 			} else {
 				$stateDisplay = $state;
 			}
-			$this->pushResourceColumn( $instanceRow, $stateDisplay, array( 'class' => 'novainstancestate' ) );
+			$this->pushResourceColumn( $instanceRow, $stateDisplay, [ 'class' => 'novainstancestate' ] );
 			$this->pushRawResourceColumn( $instanceRow, $this->createResourceList( $instance->getInstancePrivateIPs() ) );
 			$this->pushResourceColumn( $instanceRow, $projectName );
 			$this->pushResourceColumn( $instanceRow, $instance->getLaunchTime() );
 			$this->pushResourceColumn( $instanceRow, $instance->getInstanceCreator() );
-			$actions = array();
-			$instanceDataAttributes = array(
+			$actions = [];
+			$instanceDataAttributes = [
 				'data-osid' => $instance->getInstanceOSId(),
 				'data-id' => $instance->getInstanceId(),
 				'data-name' => $instance->getInstanceName(),
 				'data-project' => $projectName,
 				'data-region' => $region,
 				'class' => 'novainstanceaction',
-			);
+			];
 			$instanceRows[] = $instanceRow;
 			$instanceCount += 1;
 		}

@@ -63,7 +63,7 @@ class SpecialNovaProxy extends SpecialNova {
 			$this->notInRole( 'projectadmin', $this->projectName );
 			return false;
 		}
-		$instance_keys = array();
+		$instance_keys = [];
 		$region = $this->getRequest()->getText( 'region' );
 		$this->userNova->setRegion( $region );
 		$instances = $this->userNova->getInstances();
@@ -78,7 +78,7 @@ class SpecialNovaProxy extends SpecialNova {
 		ksort( $instance_keys );
 
 		$domains = OpenStackNovaDomain::getAllDomains( 'public' );
-		$domain_keys = array();
+		$domain_keys = [];
 		foreach ( $domains as $domain ) {
 			$domainname = $domain->getDomainName();
 			$fqdn = $domain->getFullyQualifiedDomainName();
@@ -86,51 +86,51 @@ class SpecialNovaProxy extends SpecialNova {
 		}
 		ksort( $domain_keys );
 
-		$proxyInfo = array();
-		$proxyInfo['proxyname'] = array(
+		$proxyInfo = [];
+		$proxyInfo['proxyname'] = [
 			'type' => 'text',
 			'label-message' => 'openstackmanager-proxyname',
 			'default' => '',
 			'section' => 'frontend',
 			'name' => 'proxyname',
-		);
-		$proxyInfo['domain'] = array(
+		];
+		$proxyInfo['domain'] = [
 			'type' => 'select',
 			'options' => $domain_keys,
 			'label-message' => 'openstackmanager-dnsdomain',
 			'section' => 'frontend',
 			'name' => 'domain',
 			'default' => 'wmflabs'
-		);
-		$proxyInfo['backendhost'] = array(
+		];
+		$proxyInfo['backendhost'] = [
 			'type' => 'select',
 			'label-message' => 'openstackmanager-proxybackend',
 			'options' => $instance_keys,
 			'section' => 'backend',
 			'name' => 'backendhost',
-		);
-		$proxyInfo['backendport'] = array(
+		];
+		$proxyInfo['backendport'] = [
 			'type' => 'text',
 			'label-message' => 'openstackmanager-proxyport',
 			'default' => '80',
 			'section' => 'backend',
 			'name' => 'backendport',
-		);
-		$proxyInfo['action'] = array(
+		];
+		$proxyInfo['action'] = [
 			'type' => 'hidden',
 			'default' => 'create',
 			'name' => 'action',
-		);
-		$proxyInfo['region'] = array(
+		];
+		$proxyInfo['region'] = [
 			'type' => 'hidden',
 			'default' => $region,
 			'name' => 'region',
-		);
-		$proxyInfo['project'] = array(
+		];
+		$proxyInfo['project'] = [
 			'type' => 'hidden',
 			'default' => $this->projectName,
 			'name' => 'project',
-		);
+		];
 
 		$proxyForm = new HTMLForm(
 			$proxyInfo,
@@ -138,7 +138,7 @@ class SpecialNovaProxy extends SpecialNova {
 			'openstackmanager-novaproxy'
 		);
 		$proxyForm->setSubmitID( 'novaproxy-form-createproxysubmit' );
-		$proxyForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
+		$proxyForm->setSubmitCallback( [ $this, 'tryCreateSubmit' ] );
 		$proxyForm->show();
 
 		return true;
@@ -159,34 +159,34 @@ class SpecialNovaProxy extends SpecialNova {
 		if ( !$this->getRequest()->wasPosted() ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-deleteproxy-confirm', $proxyfqdn );
 		}
-		$proxyInfo = array();
-		$proxyInfo['proxyfqdn'] = array(
+		$proxyInfo = [];
+		$proxyInfo['proxyfqdn'] = [
 			'type' => 'hidden',
 			'default' => $proxyfqdn,
 			'name' => 'proxyfqdn',
-		);
-		$proxyInfo['project'] = array(
+		];
+		$proxyInfo['project'] = [
 			'type' => 'hidden',
 			'default' => $this->projectName,
 			'name' => 'project',
-		);
-		$proxyInfo['action'] = array(
+		];
+		$proxyInfo['action'] = [
 			'type' => 'hidden',
 			'default' => 'delete',
 			'name' => 'action',
-		);
-		$proxyInfo['region'] = array(
+		];
+		$proxyInfo['region'] = [
 			'type' => 'hidden',
 			'default' => $region,
 			'name' => 'region',
-		);
+		];
 		$proxyForm = new HTMLForm(
 			$proxyInfo,
 			$this->getContext(),
 			'openstackmanager-novaproxy'
 		);
 		$proxyForm->setSubmitID( 'novaproxy-form-deleteproxysubmit' );
-		$proxyForm->setSubmitCallback( array( $this, 'tryDeleteSubmit' ) );
+		$proxyForm->setSubmitCallback( [ $this, 'tryDeleteSubmit' ] );
 		$proxyForm->show();
 
 		return true;
@@ -222,13 +222,13 @@ class SpecialNovaProxy extends SpecialNova {
 				continue;
 			}
 			$this->userNova->setProject( $projectName );
-			$projectactions = array( 'projectadmin' => array() );
+			$projectactions = [ 'projectadmin' => [] ];
 			foreach ( $this->userNova->getRegions( 'proxy' ) as $region ) {
-				$actions = array( 'projectadmin' => array() );
+				$actions = [ 'projectadmin' => [] ];
 				if ( in_array( $region, $wgOpenStackManagerReadOnlyRegions ) ) {
 					$actions['projectadmin'][] = $this->msg( 'openstackmanager-creationdisabled' );
 				} else {
-					$actions['projectadmin'][] = $this->createActionLink( 'openstackmanager-createproxy', array( 'action' => 'create', 'project' => $projectName, 'region' => $region ) );
+					$actions['projectadmin'][] = $this->createActionLink( 'openstackmanager-createproxy', [ 'action' => 'create', 'project' => $projectName, 'region' => $region ] );
 				}
 				$regions .= $this->createRegionSection( $region, $projectName, $actions, $this->getProxies( $projectName, $region ) );
 			}
@@ -242,24 +242,24 @@ class SpecialNovaProxy extends SpecialNova {
 		$this->userNova->setProject( $projectName );
 		$this->userNova->setRegion( $region );
 		$proxies = $this->userNova->getProxiesForProject();
-		$proxyRows = array();
+		$proxyRows = [];
 		foreach ( $proxies as $proxy ) {
 			$fqdn = $proxy->getProxyFQDN();
 			if ( $fqdn ) {
-				$proxyRow = array();
+				$proxyRow = [];
 				$this->pushResourceColumn( $proxyRow, $fqdn );
 				$this->pushResourceColumn( $proxyRow, $proxy->getBackend() );
 
-				$actions = array();
+				$actions = [];
 				$actions[] = $this->createActionLink( 'openstackmanager-delete',
-					array( 'action' => 'delete', 'proxyfqdn' => $fqdn, 'project' => $projectName, 'region' => $region ) );
+					[ 'action' => 'delete', 'proxyfqdn' => $fqdn, 'project' => $projectName, 'region' => $region ] );
 				$this->pushRawResourceColumn( $proxyRow, $this->createResourceList( $actions ) );
 
 				$proxyRows[] = $proxyRow;
 			}
 		}
 		if ( $proxyRows ) {
-			$headers = array( 'openstackmanager-proxyname', 'openstackmanager-proxybackend', 'openstackmanager-actions' );
+			$headers = [ 'openstackmanager-proxyname', 'openstackmanager-proxybackend', 'openstackmanager-actions' ];
 			$out = $this->createResourceTable( $headers, $proxyRows );
 		} else {
 			$out = '';

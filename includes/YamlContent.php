@@ -72,10 +72,10 @@ class YamlContent extends TextContent {
 		ParserOptions $options, $generateHtml, ParserOutput &$output
 	) {
 		if ( $generateHtml ) {
-			$html = Html::element( 'pre', array(
+			$html = Html::element( 'pre', [
 				'class' => 'mw-code mw-yaml',
 				'dir' => 'ltr',
-			), $this->getNativeData() );
+			], $this->getNativeData() );
 
 			$output->setText( $html );
 		} else {

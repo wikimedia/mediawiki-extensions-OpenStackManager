@@ -91,7 +91,7 @@ class OpenStackNovaDomain {
 	 */
 	function updateSOA() {
 		$ldap = LdapAuthenticationPlugin::getInstance();
-		$domain = array();
+		$domain = [];
 		$domain['soarecord'] = OpenStackNovaDomain::generateSOA();
 		$success = LdapAuthenticationPlugin::ldap_modify( $ldap->ldapconn, $this->domainDN, $domain );
 		if ( $success ) {
@@ -117,7 +117,7 @@ class OpenStackNovaDomain {
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		OpenStackNovaLdapConnection::connect();
 
-		$domains = array();
+		$domains = [];
 		if ( $type === 'local' ) {
 			$query = '(&(soarecord=*)(l=*))';
 		} elseif ( $type === 'public' ) {
@@ -227,7 +227,7 @@ class OpenStackNovaDomain {
 		OpenStackNovaLdapConnection::connect();
 
 		$soa = OpenStackNovaDomain::generateSOA();
-		$domain = array();
+		$domain = [];
 		$domain['objectclass'][] = 'dcobject';
 		$domain['objectclass'][] = 'dnsdomain';
 		$domain['objectclass'][] = 'domainrelatedobject';
@@ -264,7 +264,7 @@ class OpenStackNovaDomain {
 		$domain = new OpenStackNovaDomain( $domainname );
 		if ( !$domain ) {
 			$ldap->printDebug( "Domain $domainname does not exist", NONSENSITIVE );
-			return array( false, 'openstackmanager-failedeletedomainnotfound' );
+			return [ false, 'openstackmanager-failedeletedomainnotfound' ];
 		}
 		$dn = $domain->domainDN;
 
@@ -273,16 +273,16 @@ class OpenStackNovaDomain {
 		$hosts = LdapAuthenticationPlugin::ldap_get_entries( $ldap->ldapconn, $result );
 		if ( $hosts['count'] != "0" ) {
 			$ldap->printDebug( "Failed to delete domain $domainname, since it had sub entries", NONSENSITIVE );
-			return array( false, 'openstackmanager-failedeletedomainduplicates' );
+			return [ false, 'openstackmanager-failedeletedomainduplicates' ];
 		}
 
 		$success = LdapAuthenticationPlugin::ldap_delete( $ldap->ldapconn, $dn );
 		if ( $success ) {
 			$ldap->printDebug( "Successfully deleted domain $domainname", NONSENSITIVE );
-			return array( true, '' );
+			return [ true, '' ];
 		} else {
 			$ldap->printDebug( "Failed to delete domain $domainname, since it had sub entries", NONSENSITIVE );
-			return array( false, 'openstackmanager-failedeletedomain' );
+			return [ false, 'openstackmanager-failedeletedomain' ];
 		}
 	}
 

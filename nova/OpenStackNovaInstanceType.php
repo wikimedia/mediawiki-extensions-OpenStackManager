@@ -83,7 +83,7 @@ class OpenStackNovaInstanceType {
 	}
 
 	public static function sort( &$collection ) {
-		usort( $collection, array( __CLASS__, 'sorter' ) );
+		usort( $collection, [ __CLASS__, 'sorter' ] );
 	}
 
 }

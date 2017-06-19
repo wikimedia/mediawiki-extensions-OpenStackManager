@@ -23,17 +23,17 @@ class EchoOpenStackManagerPresentationModel extends EchoEventPresentationModel {
 	}
 
 	public function getPrimaryLink() {
-		return array(
+		return [
 			'url' => $this->event->getTitle()->getFullUrl(),
 			'label' => $this->msg( 'echo-notification-goto-project' )
-		);
+		];
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function getSecondaryLinks() {
-		return array( $this->getAgentLink() );
+		return [ $this->getAgentLink() ];
 	}
 
 	public function getHeaderMessage() {

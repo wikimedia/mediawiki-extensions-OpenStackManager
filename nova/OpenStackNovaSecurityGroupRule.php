@@ -52,14 +52,14 @@ class OpenStackNovaSecurityGroupRule {
 	 * @return array
 	 */
 	function getGroup() {
-		$properties = array();
+		$properties = [];
 		$properties['groupname'] = OpenStackNovaController::_get_property( $this->rule->group, 'name' );
 		$properties['project'] = OpenStackNovaController::_get_property( $this->rule->group, 'tenant_id' );
 
 		if ( $properties['groupname'] && $properties['project'] ) {
 			return $properties;
 		} else {
-			return array();
+			return [];
 		}
 	}
 

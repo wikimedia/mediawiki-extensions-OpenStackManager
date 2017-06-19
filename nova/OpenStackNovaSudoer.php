@@ -71,7 +71,7 @@ class OpenStackNovaSudoer {
 			array_shift( $users );
 			return $users;
 		} else {
-			return array();
+			return [];
 		}
 	}
 
@@ -86,7 +86,7 @@ class OpenStackNovaSudoer {
 			array_shift( $runasusers );
 			return $runasusers;
 		} else {
-			return array();
+			return [];
 		}
 	}
 
@@ -101,7 +101,7 @@ class OpenStackNovaSudoer {
 			array_shift( $commands );
 			return $commands;
 		} else {
-			return array();
+			return [];
 		}
 	}
 
@@ -116,7 +116,7 @@ class OpenStackNovaSudoer {
 			array_shift( $options );
 			return $options;
 		} else {
-			return array();
+			return [];
 		}
 	}
 
@@ -132,20 +132,20 @@ class OpenStackNovaSudoer {
 		global $wgMemc;
 
 		$ldap = LdapAuthenticationPlugin::getInstance();
-		$sudoer = array();
-		$sudoer['sudouser'] = array();
+		$sudoer = [];
+		$sudoer['sudouser'] = [];
 		foreach ( $users as $user ) {
 			$sudoer['sudouser'][] = $user;
 		}
-		$sudoer['sudorunasuser'] = array();
+		$sudoer['sudorunasuser'] = [];
 		foreach ( $runasuser as $runas ) {
 			$sudoer['sudorunasuser'][] = $runas;
 		}
-		$sudoer['sudocommand'] = array();
+		$sudoer['sudocommand'] = [];
 		foreach ( $commands as $command ) {
 			$sudoer['sudocommand'][] = $command;
 		}
-		$sudoer['sudooption'] = array();
+		$sudoer['sudooption'] = [];
 		foreach ( $options as $option ) {
 			$sudoer['sudooption'][] = $option;
 		}
@@ -175,8 +175,8 @@ class OpenStackNovaSudoer {
 				return false;
 			}
 			unset( $sudousers[$index] );
-			$values = array();
-			$values['sudouser'] = array();
+			$values = [];
+			$values['sudouser'] = [];
 			foreach ( $sudousers as $sudouser ) {
 				$values['sudouser'][] = $sudouser;
 			}
@@ -200,7 +200,7 @@ class OpenStackNovaSudoer {
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		OpenStackNovaLdapConnection::connect();
 
-		$sudoers = array();
+		$sudoers = [];
 		$project = OpenStackNovaProject::getProjectByName( $projectName );
 		$result = LdapAuthenticationPlugin::ldap_search( $ldap->ldapconn, $project->getSudoersDN(), '(&(cn=*)(objectclass=sudorole))' );
 		if ( $result ) {
@@ -252,7 +252,7 @@ class OpenStackNovaSudoer {
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		OpenStackNovaLdapConnection::connect();
 
-		$sudoer = array();
+		$sudoer = [];
 		$sudoer['objectclass'][] = 'sudorole';
 		foreach ( $users as $user ) {
 			$sudoer['sudouser'][] = $user;

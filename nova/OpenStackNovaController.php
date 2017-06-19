@@ -86,7 +86,7 @@ class OpenStackNovaController {
 		$this->getProjectToken( $this->project );
 		$key = wfMemcKey( 'openstackmanager', 'serviceCatalog-' . $this->project, $this->username );
 		$serviceCatalog = json_decode( $wgMemc->get( $key ) );
-		$regions = array();
+		$regions = [];
 		if ( $serviceCatalog ) {
 			foreach ( $serviceCatalog as $entry ) {
 				if ( $entry->type === "identity" ) {
@@ -125,7 +125,7 @@ class OpenStackNovaController {
 	 * @return array
 	 */
 	function getAddresses() {
-		$addressesarr = array();
+		$addressesarr = [];
 		$ret = $this->restCall( 'compute', '/os-floating-ips', 'GET' );
 		$addresses = self::_get_property( $ret['body'], 'floating_ips' );
 		if ( !$addresses ) {
@@ -156,7 +156,7 @@ class OpenStackNovaController {
 	}
 
 	function createProxy( $fqdn, $backendHost, $backendPort ) {
-		$data = array( 'domain' => $fqdn, 'backends' => array( 'http://' . $backendHost . ':' . $backendPort ) );
+		$data = [ 'domain' => $fqdn, 'backends' => [ 'http://' . $backendHost . ':' . $backendPort ] ];
 		$ret = $this->restCall( 'proxy', '/mapping', 'PUT', $data );
 
 		if ( $ret['code'] !== 200 ) {
@@ -182,7 +182,7 @@ class OpenStackNovaController {
 	 */
 	function getProxiesForProject() {
 		$ldap = LdapAuthenticationPlugin::getInstance();
-		$proxyarr = array();
+		$proxyarr = [];
 		$ret = $this->restCall( 'proxy', '/mapping', 'GET' );
 		$proxies = self::_get_property( $ret['body'], 'routes' );
 		if ( !$proxies ) {
@@ -251,16 +251,16 @@ class OpenStackNovaController {
 			return $this->admintoken;
 		}
 
-		$data = array(
-			'auth' => array(
-				'passwordCredentials' => array(
+		$data = [
+			'auth' => [
+				'passwordCredentials' => [
 					'username' => $wgOpenStackManagerLDAPUsername,
-					'password' => $wgOpenStackManagerLDAPUserPassword ),
-				'tenantId' => $wgOpenStackManagerProjectId ) );
-		$headers = array(
+					'password' => $wgOpenStackManagerLDAPUserPassword ],
+				'tenantId' => $wgOpenStackManagerProjectId ] ];
+		$headers = [
 			'Accept: application/json',
 			'Content-Type: application/json',
-		);
+		];
 		$ret = $this->restCall( 'identity', '/tokens', 'POST', $data, $headers );
 		if ( $ret['code'] !== 200 ) {
 			$ldap = LdapAuthenticationPlugin::getInstance();
@@ -281,10 +281,10 @@ class OpenStackNovaController {
 	 */
 	function getProjects() {
 		$admintoken = $this->_getAdminToken();
-		$headers = array( "X-Auth-Token: $admintoken" );
+		$headers = [ "X-Auth-Token: $admintoken" ];
 
-		$projarr = array();
-		$ret = $this->restCall( 'identity', '/tenants', 'GET', array(), $headers );
+		$projarr = [];
+		$ret = $this->restCall( 'identity', '/tenants', 'GET', [], $headers );
 		$projects = self::_get_property( $ret['body'], 'tenants' );
 		if ( !$projects ) {
 			return $projarr;
@@ -302,10 +302,10 @@ class OpenStackNovaController {
 	 */
 	function getProjectName( $projectid ) {
 		$admintoken = $this->_getAdminToken();
-		$headers = array( "X-Auth-Token: $admintoken" );
+		$headers = [ "X-Auth-Token: $admintoken" ];
 
-		$userarr = array();
-		$ret = $this->restCall( 'identity', "/tenants/$projectid", 'GET', array(), $headers );
+		$userarr = [];
+		$ret = $this->restCall( 'identity', "/tenants/$projectid", 'GET', [], $headers );
 		$tenant = self::_get_property( $ret['body'], 'tenant' );
 		return $tenant->name;
 	}
@@ -315,13 +315,13 @@ class OpenStackNovaController {
 	 */
 	function createProject( $projectname ) {
 		$admintoken = $this->_getAdminToken();
-		$headers = array(
+		$headers = [
 			'Accept: application/json',
 			'Content-Type: application/json',
 			"X-Auth-Token: $admintoken"
-		);
+		];
 		$projname = urlencode( $projectname );
-		$data = array( 'tenant' => array( 'name' => $projname, 'id' => $projname ) );
+		$data = [ 'tenant' => [ 'name' => $projname, 'id' => $projname ] ];
 		$ret = $this->restCall( 'identity', '/tenants', 'POST', $data, $headers );
 		if ( $ret['code'] == 200 ) {
 			$tenant = self::_get_property( $ret['body'], 'tenant' );
@@ -332,9 +332,9 @@ class OpenStackNovaController {
 
 	function deleteProject( $projectid ) {
 		$admintoken = $this->_getAdminToken();
-		$headers = array( "X-Auth-Token: $admintoken" );
+		$headers = [ "X-Auth-Token: $admintoken" ];
 
-		$ret = $this->restCall( 'identity', "/tenants/$projectid", 'DELETE', array(), $headers );
+		$ret = $this->restCall( 'identity', "/tenants/$projectid", 'DELETE', [], $headers );
 		if ( $ret['code'] !== 200 && $ret['code'] !== 204 ) {
 			return false;
 		}
@@ -348,10 +348,10 @@ class OpenStackNovaController {
 		global $wgOpenStackHiddenUsernames;
 
 		$admintoken = $this->_getAdminToken();
-		$headers = array( "X-Auth-Token: $admintoken" );
+		$headers = [ "X-Auth-Token: $admintoken" ];
 
-		$userarr = array();
-		$ret = $this->restCall( 'identity', "/tenants/$projectid/users", 'GET', array(), $headers );
+		$userarr = [];
+		$ret = $this->restCall( 'identity', "/tenants/$projectid/users", 'GET', [], $headers );
 		$users = self::_get_property( $ret['body'], 'users' );
 		if ( !$users ) {
 			return $userarr;
@@ -379,10 +379,10 @@ class OpenStackNovaController {
 		}
 
 		$admintoken = $this->_getAdminToken();
-		$headers = array( "X-Auth-Token: $admintoken" );
+		$headers = [ "X-Auth-Token: $admintoken" ];
 
-		$rolearr = array();
-		$ret = $this->restCall( 'identity', "/OS-KSADM/roles", 'GET', array(), $headers );
+		$rolearr = [];
+		$ret = $this->restCall( 'identity', "/OS-KSADM/roles", 'GET', [], $headers );
 		$roles = self::_get_property( $ret['body'], 'roles' );
 		if ( !$roles ) {
 			return $rolearr;
@@ -409,10 +409,10 @@ class OpenStackNovaController {
 	 */
 	function getRoleAssignmentsForUser( $userid ) {
 		$admintoken = $this->_getAdminToken();
-		$headers = array( "X-Auth-Token: $admintoken" );
+		$headers = [ "X-Auth-Token: $admintoken" ];
 
-		$assignments = array();
-		$ret = $this->restCall( 'identityv3', "/role_assignments?user.id=$userid", 'GET', array(), $headers );
+		$assignments = [];
+		$ret = $this->restCall( 'identityv3', "/role_assignments?user.id=$userid", 'GET', [], $headers );
 		$role_assignments = self::_get_property( $ret['body'], 'role_assignments' );
 		if ( !$role_assignments ) {
 			return $projects;
@@ -434,11 +434,11 @@ class OpenStackNovaController {
 	 */
 	function getRoleAssignmentsForProject( $projectid ) {
 		$admintoken = $this->_getAdminToken();
-		$headers = array( "X-Auth-Token: $admintoken" );
+		$headers = [ "X-Auth-Token: $admintoken" ];
 
-		$assignments = array();
+		$assignments = [];
 
-		$ret = $this->restCall( 'identityv3', "/role_assignments?scope.project.id=$projectid", 'GET', array(), $headers );
+		$ret = $this->restCall( 'identityv3', "/role_assignments?scope.project.id=$projectid", 'GET', [], $headers );
 		$role_assignments = self::_get_property( $ret['body'], 'role_assignments' );
 		if ( !$role_assignments ) {
 			return $assignments;
@@ -458,10 +458,10 @@ class OpenStackNovaController {
 	 */
 	function getRolesForProjectAndUser( $projectid, $userid ) {
 		$admintoken = $this->_getAdminToken();
-		$headers = array( "X-Auth-Token: $admintoken" );
+		$headers = [ "X-Auth-Token: $admintoken" ];
 
-		$rolearr = array();
-		$ret = $this->restCall( 'identity', "/tenants/$projectid/users/$userid/roles", 'GET', array(), $headers );
+		$rolearr = [];
+		$ret = $this->restCall( 'identity', "/tenants/$projectid/users/$userid/roles", 'GET', [], $headers );
 		$roles = self::_get_property( $ret['body'], 'roles' );
 		if ( !$roles ) {
 			return $rolearr;
@@ -476,14 +476,14 @@ class OpenStackNovaController {
 
 	function grantRoleForProjectAndUser( $roleid, $projectid, $userid ) {
 		$admintoken = $this->_getAdminToken();
-		$headers = array(
+		$headers = [
 			'Accept: application/json',
 			'Content-Type: application/json',
 			"X-Auth-Token: $admintoken"
-		);
+		];
 
-		$rolearr = array();
-		$ret = $this->restCall( 'identity', "/tenants/$projectid/users/$userid/roles/OS-KSADM/$roleid", 'PUT', array(), $headers );
+		$rolearr = [];
+		$ret = $this->restCall( 'identity', "/tenants/$projectid/users/$userid/roles/OS-KSADM/$roleid", 'PUT', [], $headers );
 		if ( $ret['code'] !== 200 && $ret['code'] !== 201 ) {
 			return false;
 		}
@@ -492,14 +492,14 @@ class OpenStackNovaController {
 
 	function revokeRoleForProjectAndUser( $roleid, $projectid, $userid ) {
 		$admintoken = $this->_getAdminToken();
-		$headers = array(
+		$headers = [
 			'Accept: application/json',
 			'Content-Type: application/json',
 			"X-Auth-Token: $admintoken"
-		);
+		];
 
-		$rolearr = array();
-		$ret = $this->restCall( 'identity', "/tenants/$projectid/users/$userid/roles/OS-KSADM/$roleid", 'DELETE', array(), $headers );
+		$rolearr = [];
+		$ret = $this->restCall( 'identity', "/tenants/$projectid/users/$userid/roles/OS-KSADM/$roleid", 'DELETE', [], $headers );
 		if ( $ret['code'] !== 204 && $ret['code'] !== 200 ) {
 			return false;
 		}
@@ -510,7 +510,7 @@ class OpenStackNovaController {
 	 * @return OpenStackNovaInstance[]
 	 */
 	function getInstances() {
-		$instancesarr = array();
+		$instancesarr = [];
 		$ret = $this->restCall( 'compute', '/servers/detail', 'GET' );
 		$instances = self::_get_property( $ret['body'], 'servers' );
 		if ( !$instances ) {
@@ -543,7 +543,7 @@ class OpenStackNovaController {
 	 */
 	function getInstanceTypes() {
 		$ret = $this->restCall( 'compute', '/flavors/detail', 'GET' );
-		$instanceTypesarr = array();
+		$instanceTypesarr = [];
 		$instanceTypes = self::_get_property( $ret['body'], 'flavors' );
 		if ( !$instanceTypes ) {
 			return $instanceTypesarr;
@@ -576,7 +576,7 @@ class OpenStackNovaController {
 	 */
 	function getImages() {
 		$ret = $this->restCall( 'compute', '/images/detail', 'GET' );
-		$imagesarr = array();
+		$imagesarr = [];
 		$images = self::_get_property( $ret['body'], 'images' );
 		if ( !$images ) {
 			return $imagesarr;
@@ -615,7 +615,7 @@ class OpenStackNovaController {
 	 */
 	function getSecurityGroups() {
 		$ret = $this->restCall( 'compute', '/os-security-groups', 'GET' );
-		$groups = array();
+		$groups = [];
 		$securityGroups = self::_get_property( $ret['body'], 'security_groups' );
 		if ( !$securityGroups ) {
 			return $groups;
@@ -636,7 +636,7 @@ class OpenStackNovaController {
 	 */
 	function getConsoleOutput( $instanceid ) {
 		$instanceid = urlencode( $instanceid );
-		$data = array( 'os-getConsoleOutput' => array( 'length' => null ) );
+		$data = [ 'os-getConsoleOutput' => [ 'length' => null ] ];
 		$ret = $this->restCall( 'compute', '/servers/' . $instanceid . '/action', 'POST', $data );
 		if ( $ret['code'] !== 200 ) {
 			return '';
@@ -660,7 +660,7 @@ class OpenStackNovaController {
 	 */
 	function getVolumes() {
 		# unimplemented
-		return array();
+		return [];
 	}
 
 	/**
@@ -674,7 +674,7 @@ class OpenStackNovaController {
 	function createInstance( $instanceName, $image, $key, $instanceType, $groups ) {
 		global $wgOpenStackManagerInstanceUserData;
 
-		$data = array( 'server' => array() );
+		$data = [ 'server' => [] ];
 		if ( $key ) {
 			$data['key_name'] = $key;
 		}
@@ -723,9 +723,9 @@ class OpenStackNovaController {
 			$userdata .= '--';
 			$data['server']['user_data'] = base64_encode( $userdata );
 		}
-		$data['server']['security_groups'] = array();
+		$data['server']['security_groups'] = [];
 		foreach ( $groups as $group ) {
-			$data['server']['security_groups'][] = array( 'name' => $group );
+			$data['server']['security_groups'][] = [ 'name' => $group ];
 		}
 		$ret = $this->restCall( 'compute', '/servers', 'POST', $data );
 		if ( $ret['code'] !== 202 ) {
@@ -759,7 +759,7 @@ class OpenStackNovaController {
 	 * @return null|OpenStackNovaSecurityGroup
 	 */
 	function createSecurityGroup( $groupname, $description ) {
-		$data = array( 'security_group' => array( 'name' => $groupname, 'description' => $description ) );
+		$data = [ 'security_group' => [ 'name' => $groupname, 'description' => $description ] ];
 		$ret = $this->restCall( 'compute', '/os-security-groups', 'POST', $data );
 		if ( $ret['code'] !== 200 ) {
 			return null;
@@ -797,18 +797,18 @@ class OpenStackNovaController {
 		if ( $group && $range ) {
 			return false;
 		} elseif ( $range ) {
-			$data = array( 'security_group_rule' => array(
+			$data = [ 'security_group_rule' => [
 				'parent_group_id' => (int)$groupid,
 				'from_port' => $fromport,
 				'to_port' => $toport,
 				'ip_protocol' => $protocol,
-				'cidr' => $range )
-			);
+				'cidr' => $range ]
+			];
 		} elseif ( $group ) {
-			$data = array( 'security_group_rule' => array(
+			$data = [ 'security_group_rule' => [
 				'parent_group_id' => (int)$groupid,
-				'group_id' => (int)$group )
-			);
+				'group_id' => (int)$group ]
+			];
 		}
 		$ret = $this->restCall( 'compute', '/os-security-group-rules', 'POST', $data );
 
@@ -830,7 +830,7 @@ class OpenStackNovaController {
 	 * @return null|OpenStackNovaAddress
 	 */
 	function allocateAddress() {
-		$ret = $this->restCall( 'compute', '/os-floating-ips', 'POST', array() );
+		$ret = $this->restCall( 'compute', '/os-floating-ips', 'POST', [] );
 		if ( $ret['code'] !== 200 ) {
 			return null;
 		}
@@ -865,7 +865,7 @@ class OpenStackNovaController {
 	 */
 	function associateAddress( $instanceid, $ip ) {
 		$instanceid = urlencode( $instanceid );
-		$data = array( 'addFloatingIp' => array( 'address' => $ip ) );
+		$data = [ 'addFloatingIp' => [ 'address' => $ip ] ];
 		$ret = $this->restCall( 'compute', '/servers/' . $instanceid . '/action', 'POST', $data );
 
 		return ( $ret['code'] === 202 );
@@ -880,7 +880,7 @@ class OpenStackNovaController {
 	 */
 	function disassociateAddress( $instanceid, $ip ) {
 		$instanceid = urlencode( $instanceid );
-		$data = array( 'removeFloatingIp' => array( 'address' => $ip ) );
+		$data = [ 'removeFloatingIp' => [ 'address' => $ip ] ];
 		$ret = $this->restCall( 'compute', '/servers/' . $instanceid . '/action', 'POST', $data );
 
 		return ( $ret['code'] === 202 );
@@ -945,13 +945,13 @@ class OpenStackNovaController {
 	 */
 	function rebootInstance( $instanceid, $type='SOFT' ) {
 		$instanceid = urlencode( $instanceid );
-		$data = array( 'reboot' => array( 'type' => $type ) );
+		$data = [ 'reboot' => [ 'type' => $type ] ];
 		$ret = $this->restCall( 'compute', '/servers/' . $instanceid . '/action', 'POST', $data );
 		return ( $ret['code'] === 202 );
 	}
 
 	function getLimits() {
-		$ret = $this->restCall( 'compute', '/limits', 'GET', array() );
+		$ret = $this->restCall( 'compute', '/limits', 'GET', [] );
 		if ( $ret['code'] !== 200 ) {
 			return null;
 		}
@@ -969,11 +969,11 @@ class OpenStackNovaController {
 
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		$ldap->printDebug( "Entering OpenStackNovaController::authenticate", NONSENSITIVE );
-		$headers = array(
+		$headers = [
 			'Accept: application/json',
 			'Content-Type: application/json',
-		);
-		$data = array( 'auth' => array( 'passwordCredentials' => array( 'username' => $username, 'password' => $password ) ) );
+		];
+		$data = [ 'auth' => [ 'passwordCredentials' => [ 'username' => $username, 'password' => $password ] ] ];
 		$ret = $this->restCall( 'identity', '/tokens', 'POST', $data, $headers );
 		if ( $ret['code'] !== 200 ) {
 			$ldap->printDebug( "OpenStackNovaController::authenticate return code: " . $ret['code'], NONSENSITIVE );
@@ -1030,11 +1030,11 @@ class OpenStackNovaController {
 			// user will need to re-authenticate.
 			return '';
 		}
-		$headers = array(
+		$headers = [
 			'Accept: application/json',
 			'Content-Type: application/json',
-		);
-		$data = array( 'auth' => array( 'token' => array( 'id' => $token ), 'tenantName' => $project ) );
+		];
+		$data = [ 'auth' => [ 'token' => [ 'id' => $token ], 'tenantName' => $project ] ];
 		$path = '/tokens';
 		$ret = $this->restCall( 'identity', $path, 'POST', $data, $headers );
 		if ( $ret['code'] !== 200 ) {
@@ -1055,7 +1055,7 @@ class OpenStackNovaController {
 
 		$key = wfMemcKey( 'openstackmanager', 'serviceCatalog-' . $this->project, $this->username );
 		$serviceCatalog = json_decode( $wgMemc->get( $key ) );
-		$endpoints = array();
+		$endpoints = [];
 		if ( $serviceCatalog ) {
 			foreach ( $serviceCatalog as $entry ) {
 				if ( $entry->type === $service ) {
@@ -1070,16 +1070,16 @@ class OpenStackNovaController {
 
 	function getTokenHeaders( $token, $project ) {
 		// Project names can only contain a-z0-9-, strip everything else.
-		$headers = array(
+		$headers = [
 			'Accept: application/json',
 			'Content-Type: application/json',
 			'X-Auth-Project-Id: ' . preg_replace( "/[^a-z0-9-]/", "", $project ),
 			'X-Auth-Token: ' . $token,
-		);
+		];
 		return $headers;
 	}
 
-	function restCall( $service, $path, $method, $data = array(), $authHeaders='', $retrying=false ) {
+	function restCall( $service, $path, $method, $data = [], $authHeaders='', $retrying=false ) {
 		global $wgOpenStackManagerNovaIdentityURI;
 		global $wgOpenStackManagerNovaIdentityV3URI;
 		global $wgMemc;
@@ -1147,7 +1147,7 @@ class OpenStackNovaController {
 		$body = substr( $response, $header_size );
 		$body = json_decode( $body );
 
-		return array( 'code' => $code, 'body' => $body, 'response_headers' => $response_headers );
+		return [ 'code' => $code, 'body' => $body, 'response_headers' => $response_headers ];
 	}
 
 	static function _get_property( $object, $id ) {

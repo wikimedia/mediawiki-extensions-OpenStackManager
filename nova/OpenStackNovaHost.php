@@ -31,7 +31,7 @@ class OpenStackNovaHost {
 	 * @return array
 	 */
 	function getARecords() {
-		$arecords = array();
+		$arecords = [];
 		if ( isset( $this->hostInfo[0]['arecord'] ) ) {
 			$arecords = $this->hostInfo[0]['arecord'];
 			array_shift( $arecords );
@@ -47,7 +47,7 @@ class OpenStackNovaHost {
 	 * @return array
 	 */
 	function getAssociatedDomains() {
-		$associateddomain = array();
+		$associateddomain = [];
 		if ( isset( $this->hostInfo[0]['associateddomain'] ) ) {
 			$associateddomain = $this->hostInfo[0]['associateddomain'];
 			array_shift( $associateddomain );
@@ -63,7 +63,7 @@ class OpenStackNovaHost {
 	 * @return array
 	 */
 	function getCNAMERecords() {
-		$cnamerecords = array();
+		$cnamerecords = [];
 		if ( isset( $this->hostInfo[0]['cnamerecord'] ) ) {
 			$cnamerecords = $this->hostInfo[0]['cnamearecord'];
 			array_shift( $cnamerecords );
@@ -89,8 +89,8 @@ class OpenStackNovaHost {
 				return false;
 			}
 			unset( $associateddomains[$index] );
-			$values = array();
-			$values['associateddomain'] = array();
+			$values = [];
+			$values['associateddomain'] = [];
 			foreach ( $associateddomains as $associateddomain ) {
 				$values['associateddomain'][] = $associateddomain;
 			}
@@ -126,8 +126,8 @@ class OpenStackNovaHost {
 				return false;
 			}
 			unset( $arecords[$index] );
-			$values = array();
-			$values['arecord'] = array();
+			$values = [];
+			$values['arecord'] = [];
 			foreach ( $arecords as $arecord ) {
 				$values['arecord'][] = $arecord;
 			}
@@ -154,13 +154,13 @@ class OpenStackNovaHost {
 	 */
 	function addAssociatedDomain( $fqdn ) {
 		$ldap = LdapAuthenticationPlugin::getInstance();
-		$associatedomains = array();
+		$associatedomains = [];
 		if ( isset( $this->hostInfo[0]['associateddomain'] ) ) {
 			$associatedomains = $this->hostInfo[0]['associateddomain'];
 			array_shift( $associatedomains );
 		}
 		$associatedomains[] = $fqdn;
-		$values = array();
+		$values = [];
 		$values['associateddomain'] = $associatedomains;
 		$success = LdapAuthenticationPlugin::ldap_modify( $ldap->ldapconn, $this->hostDN, $values );
 		if ( $success ) {
@@ -182,13 +182,13 @@ class OpenStackNovaHost {
 	 */
 	function addARecord( $ip ) {
 		$ldap = LdapAuthenticationPlugin::getInstance();
-		$arecords = array();
+		$arecords = [];
 		if ( isset( $this->hostInfo[0]['arecord'] ) ) {
 			$arecords = $this->hostInfo[0]['arecord'];
 			array_shift( $arecords );
 		}
 		$arecords[] = $ip;
-		$values = array();
+		$values = [];
 		$values['arecord'] = $arecords;
 		$success = LdapAuthenticationPlugin::ldap_modify( $ldap->ldapconn, $this->hostDN, $values );
 		if ( $success ) {
@@ -210,7 +210,7 @@ class OpenStackNovaHost {
 	 */
 	function setARecord( $ip ) {
 		$ldap = LdapAuthenticationPlugin::getInstance();
-		$values = array( 'arecord' => array( $ip ) );
+		$values = [ 'arecord' => [ $ip ] ];
 		$success = LdapAuthenticationPlugin::ldap_modify( $ldap->ldapconn, $this->hostDN, $values );
 		if ( $success ) {
 			$ldap->printDebug( "Successfully set $ip on $this->hostDN", NONSENSITIVE );
@@ -303,7 +303,7 @@ class OpenStackNovaHost {
 			$ldap->printDebug( "Failed to add public host $hostname as the DNS entry already exists", NONSENSITIVE );
 			return null;
 		}
-		$hostEntry = array();
+		$hostEntry = [];
 		$hostEntry['objectclass'][] = 'dcobject';
 		$hostEntry['objectclass'][] = 'dnsdomain';
 		$hostEntry['objectclass'][] = 'domainrelatedobject';
