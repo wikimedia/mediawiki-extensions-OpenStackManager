@@ -6,7 +6,8 @@
 			"Orsa",
 			"ערן",
 			"Guycn2",
-			"Matanya"
+			"Matanya",
+			"המקיסט"
 		]
 	},
 	"openstackmanager-desc": "ניהול Nova ו־Swift",
@@ -399,6 +400,7 @@
 	"apihelp-query+novainstances-param-region": "באזור שהמופעים בו יהיו ברשימה.",
 	"apihelp-query+novainstances-example-1": "רשימת מופעים בפרויקט testing באזור mars",
 	"apihelp-query+novaprojects-description": "החזרת רשימת כל הפרויקטים הידועים.",
+	"apihelp-query+novaprojects-summary": "מחזיר רשימה של כל המיזמים הידועים",
 	"apihelp-query+novaprojects-example-1": "רשימת פרויקטים",
 	"apierror-openstackmanager-badproject": "ניתן מיזם בלתי־תקין."
 }
