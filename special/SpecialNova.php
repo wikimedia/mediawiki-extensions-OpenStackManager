@@ -61,7 +61,7 @@ abstract class SpecialNova extends SpecialPage {
 	function checkTwoFactor() {
 		if ( $this->getUser()->isAllowed( 'userrights' ) ) {
 			$isEnabled = false;
-			Hooks::run( 'TwoFactorIsEnabled', array( &$isEnabled ) );
+			Hooks::run( 'TwoFactorIsEnabled', [ &$isEnabled ] );
 			if ( !$isEnabled ) {
 				throw new ErrorPageError( 'openstackmanager-twofactorrequired', 'openstackmanager-twofactorrequired2' );
 			}
@@ -78,7 +78,7 @@ abstract class SpecialNova extends SpecialPage {
 		if ( !preg_match( "/^[a-z][a-z0-9-]*$/", $resourcename ) ) {
 			return Xml::element(
 				'span',
-				array( 'class' => 'error' ),
+				[ 'class' => 'error' ],
 				$this->msg( 'openstackmanager-badresourcename' )->text()
 			);
 		} else {
@@ -95,7 +95,7 @@ abstract class SpecialNova extends SpecialPage {
 		if ( !preg_match( "/^[a-z\*][a-z0-9\-]*$/", $resourcename ) ) {
 			return Xml::element(
 				'span',
-				array( 'class' => 'error' ),
+				[ 'class' => 'error' ],
 				$this->msg( 'openstackmanager-badresourcename' )->text()
 			);
 		} else {
@@ -109,7 +109,7 @@ abstract class SpecialNova extends SpecialPage {
 		if ( $wgRequest->getCookie( 'projectfilter' ) ) {
 			return explode( ',', urldecode( $wgRequest->getCookie( 'projectfilter' ) ) );
 		}
-		return array();
+		return [];
 	}
 
 	function showProjectFilter( $projects ) {
@@ -121,8 +121,8 @@ abstract class SpecialNova extends SpecialPage {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-setprojects' );
 		}
 		$currentProjects = $this->getProjectFilter();
-		$project_keys = array();
-		$defaults = array();
+		$project_keys = [];
+		$defaults = [];
 		foreach ( $projects as $project ) {
 			$projectName = $project->getProjectName();
 			$project_keys[$projectName] = $projectName;
@@ -130,8 +130,8 @@ abstract class SpecialNova extends SpecialPage {
 				$defaults[$projectName] = $projectName;
 			}
 		}
-		$projectFilter = array();
-		$projectFilter['projects'] = array(
+		$projectFilter = [];
+		$projectFilter['projects'] = [
 			'type' => 'multiselect',
 			'label-message' => 'openstackmanager-projects',
 			'section' => 'projectfilter',
@@ -139,19 +139,19 @@ abstract class SpecialNova extends SpecialPage {
 			'default' => $defaults,
 			'dropdown' => true,
 			'name' => 'projects',
-		);
-		$projectFilter['action'] = array(
+		];
+		$projectFilter['action'] = [
 			'type' => 'hidden',
 			'default' => 'setprojectfilter',
 			'name' => 'action',
-		);
+		];
 		$projectFilterForm = new HTMLForm(
 			$projectFilter,
 			$this->getContext(),
 			'openstackmanager-novaprojectfilter'
 		);
 		$projectFilterForm->setSubmitID( 'novaproject-form-setprojectfiltersubmit' );
-		$projectFilterForm->setSubmitCallback( array( $this, 'trySetProjectFilter' ) );
+		$projectFilterForm->setSubmitCallback( [ $this, 'trySetProjectFilter' ] );
 		$projectFilterForm->setSubmitTextMsg( 'openstackmanager-projectfiltersubmit' );
 		$projectFilterForm->show();
 	}
@@ -162,7 +162,7 @@ abstract class SpecialNova extends SpecialPage {
 		return Linker::link( $title, $resource );
 	}
 
-	function createActionLink( $msg, $params, $title = null, $attribs = array() ) {
+	function createActionLink( $msg, $params, $title = null, $attribs = [] ) {
 		if ( !$title ) {
 			$title = $this->getPageTitle();
 		}
@@ -170,18 +170,18 @@ abstract class SpecialNova extends SpecialPage {
 	}
 
 	public static function createNovaKeyActionLink( $msg, $params ) {
-		return Linker::link( SpecialPage::getTitleFor( 'NovaKey' ), wfMessage( $msg )->escaped(), array(), $params );
+		return Linker::link( SpecialPage::getTitleFor( 'NovaKey' ), wfMessage( $msg )->escaped(), [], $params );
 	}
 
 	public static function createResourceList( $resources ) {
 		$resourceList = '';
 		foreach ( $resources as $resource ) {
-			$resourceList .= Html::rawElement( 'li', array(), $resource );
+			$resourceList .= Html::rawElement( 'li', [], $resource );
 		}
-		return Html::rawElement( 'ul', array(), $resourceList );
+		return Html::rawElement( 'ul', [], $resourceList );
 	}
 
-	public static function pushResourceColumn( &$row, $value, $attribs = array() ) {
+	public static function pushResourceColumn( &$row, $value, $attribs = [] ) {
 		if ( array_key_exists( 'class', $attribs ) ) {
 			$attribs['class'] = $attribs['class'] . ' Nova_cell';
 		} else {
@@ -190,7 +190,7 @@ abstract class SpecialNova extends SpecialPage {
 		$row[] = Html::element( 'td', $attribs, $value );
 	}
 
-	public static function pushRawResourceColumn( &$row, $value, $attribs = array() ) {
+	public static function pushRawResourceColumn( &$row, $value, $attribs = [] ) {
 		if ( array_key_exists( 'class', $attribs ) ) {
 			$attribs['class'] = $attribs['class'] . ' Nova_cell';
 		} else {
@@ -211,16 +211,16 @@ abstract class SpecialNova extends SpecialPage {
 	public static function createResourceTable( $headers, $rows ) {
 		$table = '';
 		foreach ( $headers as $header ) {
-			$table .= Html::element( 'th', array(), wfMessage( $header )->text() );
+			$table .= Html::element( 'th', [], wfMessage( $header )->text() );
 		}
 		foreach ( $rows as $row ) {
 			$rowOut = '';
 			foreach ( $row as $column ) {
 				$rowOut .= $column;
 			}
-			$table .= Html::rawElement( 'tr', array(), $rowOut );
+			$table .= Html::rawElement( 'tr', [], $rowOut );
 		}
-		return Html::rawElement( 'table', array( 'class' => 'wikitable sortable' ), $table );
+		return Html::rawElement( 'table', [ 'class' => 'wikitable sortable' ], $table );
 	}
 
 	/**
@@ -234,7 +234,7 @@ abstract class SpecialNova extends SpecialPage {
 	 * @return string
 	 */
 	function createProjectSection( $projectName, $actionsByRole, $data ) {
-		$actions = array();
+		$actions = [];
 		foreach ( $actionsByRole as $role => $roleActions ) {
 			foreach ( $roleActions as $action ) {
 				if ( !$role || $this->userLDAP->inRole( $role, $projectName ) ) {
@@ -248,12 +248,12 @@ abstract class SpecialNova extends SpecialPage {
 		} else {
 			$actions = "";
 		}
-		$actionOut = Html::rawElement( 'span', array( 'id' => 'novaaction' ), $actions );
+		$actionOut = Html::rawElement( 'span', [ 'id' => 'novaaction' ], $actions );
 		$projectNameOut = $this->createResourceLink( $projectName );
 		# Mark this element with an id so that we can #link to it from elsewhere.
 		$elementWithId = "h2 id=\"$projectName\"";
-		$out = Html::rawElement( $elementWithId, array(), "$projectNameOut $actionOut" );
-		$out .= Html::rawElement( 'div', array(), $data );
+		$out = Html::rawElement( $elementWithId, [], "$projectNameOut $actionOut" );
+		$out .= Html::rawElement( 'div', [], $data );
 
 		return $out;
 	}
@@ -270,7 +270,7 @@ abstract class SpecialNova extends SpecialPage {
 	 * @return string
 	 */
 	function createRegionSection( $region, $projectName, $actionsByRole, $data ) {
-		$actions = array();
+		$actions = [];
 		foreach ( $actionsByRole as $role => $roleActions ) {
 			foreach ( $roleActions as $action ) {
 				if ( $this->userLDAP->inRole( $role, $projectName ) ) {
@@ -281,12 +281,12 @@ abstract class SpecialNova extends SpecialPage {
 		$escapedregion = htmlentities( $region );
 		if ( $actions ) {
 			$actions = implode( ', ', $actions );
-			$actionOut = Html::rawElement( 'span', array( 'id' => 'novaaction' ), "[$actions]" );
+			$actionOut = Html::rawElement( 'span', [ 'id' => 'novaaction' ], "[$actions]" );
 		} else {
 			$actionOut = '';
 		}
-		$out = Html::rawElement( 'h3', array(), "$escapedregion $actionOut" );
-		$out .= Html::rawElement( 'div', array(), $data );
+		$out = Html::rawElement( 'h3', [], "$escapedregion $actionOut" );
+		$out .= Html::rawElement( 'div', [], $data );
 
 		return $out;
 	}

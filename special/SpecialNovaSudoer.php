@@ -67,59 +67,59 @@ class SpecialNovaSudoer extends SpecialNova {
 		$user_keys = $userArr["keys"];
 		$runasArr = $this->getSudoRunAsUsers( $this->projectName );
 		$runas_keys = $runasArr["keys"];
-		$sudoerInfo = array();
-		$sudoerInfo['sudoername'] = array(
+		$sudoerInfo = [];
+		$sudoerInfo['sudoername'] = [
 			'type' => 'text',
 			'label-message' => 'openstackmanager-sudoername',
 			'default' => '',
 			'section' => 'sudoer',
 			'name' => 'sudoername',
-		);
-		$sudoerInfo['users'] = array(
+		];
+		$sudoerInfo['users'] = [
 			'type' => 'multiselect',
 			'label-message' => 'openstackmanager-sudoerusers',
 			'options' => $user_keys,
 			'section' => 'sudoer',
 			'name' => 'users',
-		);
-		$sudoerInfo['runas'] = array(
+		];
+		$sudoerInfo['runas'] = [
 			'type' => 'multiselect',
 			'label-message' => 'openstackmanager-sudoerrunas',
 			'options' => $runas_keys,
 			'section' => 'sudoer',
 			'name' => 'runas',
-		);
-		$sudoerInfo['commands'] = array(
+		];
+		$sudoerInfo['commands'] = [
 			'type' => 'textarea',
 			'label-message' => 'openstackmanager-sudoercommands',
 			'default' => '',
 			'section' => 'sudoer',
 			'name' => 'commands',
-		);
-		$sudoerInfo['options'] = array(
+		];
+		$sudoerInfo['options'] = [
 			'type' => 'textarea',
 			'label-message' => 'openstackmanager-sudoeroptions',
 			'default' => '',
 			'section' => 'sudoer',
 			'name' => 'options',
-		);
-		$sudoerInfo['project'] = array(
+		];
+		$sudoerInfo['project'] = [
 			'type' => 'hidden',
 			'default' => $this->projectName,
 			'name' => 'project',
-		);
-		$sudoerInfo['action'] = array(
+		];
+		$sudoerInfo['action'] = [
 			'type' => 'hidden',
 			'default' => 'create',
 			'name' => 'action',
-		);
-		$sudoerInfo['requirepassword'] = array(
+		];
+		$sudoerInfo['requirepassword'] = [
 			'type' => 'check',
 			'label-message' => 'openstackmanager-requirepassword',
 			'default' => false,
 			'section' => 'sudoer',
 			'name' => 'requirepassword',
-		);
+		];
 
 		$sudoerForm = new HTMLForm(
 			$sudoerInfo,
@@ -127,7 +127,7 @@ class SpecialNovaSudoer extends SpecialNova {
 			'openstackmanager-novasudoer'
 		);
 		$sudoerForm->setSubmitID( 'novasudoer-form-createsudoersubmit' );
-		$sudoerForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
+		$sudoerForm->setSubmitCallback( [ $this, 'tryCreateSubmit' ] );
 		$sudoerForm->show();
 
 		return true;
@@ -147,29 +147,29 @@ class SpecialNovaSudoer extends SpecialNova {
 		if ( !$this->getRequest()->wasPosted() ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-deletesudoer-confirm', $sudoername );
 		}
-		$sudoerInfo = array();
-		$sudoerInfo['sudoername'] = array(
+		$sudoerInfo = [];
+		$sudoerInfo['sudoername'] = [
 			'type' => 'hidden',
 			'default' => $sudoername,
 			'name' => 'sudoername',
-		);
-		$sudoerInfo['project'] = array(
+		];
+		$sudoerInfo['project'] = [
 			'type' => 'hidden',
 			'default' => $this->projectName,
 			'name' => 'project',
-		);
-		$sudoerInfo['action'] = array(
+		];
+		$sudoerInfo['action'] = [
 			'type' => 'hidden',
 			'default' => 'delete',
 			'name' => 'action',
-		);
+		];
 		$sudoerForm = new HTMLForm(
 			$sudoerInfo,
 			$this->getContext(),
 			'openstackmanager-novasudoer'
 		);
 		$sudoerForm->setSubmitID( 'novasudoer-form-deletesudoersubmit' );
-		$sudoerForm->setSubmitCallback( array( $this, 'tryDeleteSubmit' ) );
+		$sudoerForm->setSubmitCallback( [ $this, 'tryDeleteSubmit' ] );
 		$sudoerForm->show();
 
 		return true;
@@ -207,66 +207,66 @@ class SpecialNovaSudoer extends SpecialNova {
 			}
 		}
 		$options = implode( "\n", $optionArray );
-		$sudoerInfo = array();
-		$sudoerInfo['sudoernameinfo'] = array(
+		$sudoerInfo = [];
+		$sudoerInfo['sudoernameinfo'] = [
 			'type' => 'info',
 			'label-message' => 'openstackmanager-sudoername',
 			'default' => $sudoername,
 			'section' => 'sudoer',
 			'name' => 'sudoernameinfo',
-		);
-		$sudoerInfo['sudoername'] = array(
+		];
+		$sudoerInfo['sudoername'] = [
 			'type' => 'hidden',
 			'default' => $sudoername,
 			'name' => 'sudoername',
-		);
-		$sudoerInfo['users'] = array(
+		];
+		$sudoerInfo['users'] = [
 			'type' => 'multiselect',
 			'label-message' => 'openstackmanager-sudoerusers',
 			'options' => $user_keys,
 			'default' => $user_defaults,
 			'section' => 'sudoer',
 			'name' => 'users',
-		);
-		$sudoerInfo['runas'] = array(
+		];
+		$sudoerInfo['runas'] = [
 			'type' => 'multiselect',
 			'label-message' => 'openstackmanager-sudoerrunas',
 			'options' => $runas_keys,
 			'default' => $runas_defaults,
 			'section' => 'sudoer',
 			'name' => 'runas',
-		);
-		$sudoerInfo['commands'] = array(
+		];
+		$sudoerInfo['commands'] = [
 			'type' => 'textarea',
 			'label-message' => 'openstackmanager-sudoercommands',
 			'default' => $commands,
 			'section' => 'sudoer',
 			'name' => 'commands',
-		);
-		$sudoerInfo['options'] = array(
+		];
+		$sudoerInfo['options'] = [
 			'type' => 'textarea',
 			'label-message' => 'openstackmanager-sudoeroptions',
 			'default' => $options,
 			'section' => 'sudoer',
 			'name' => 'options',
-		);
-		$sudoerInfo['project'] = array(
+		];
+		$sudoerInfo['project'] = [
 			'type' => 'hidden',
 			'default' => $this->projectName,
 			'name' => 'project',
-		);
-		$sudoerInfo['action'] = array(
+		];
+		$sudoerInfo['action'] = [
 			'type' => 'hidden',
 			'default' => 'modify',
 			'name' => 'action',
-		);
-		$sudoerInfo['requirepassword'] = array(
+		];
+		$sudoerInfo['requirepassword'] = [
 			'type' => 'check',
 			'label-message' => 'openstackmanager-requirepassword',
 			'default' => $requirePassword,
 			'section' => 'sudoer',
 			'name' => 'requirepassword',
-		);
+		];
 
 		$sudoerForm = new HTMLForm(
 			$sudoerInfo,
@@ -274,7 +274,7 @@ class SpecialNovaSudoer extends SpecialNova {
 			'openstackmanager-novasudoer'
 		);
 		$sudoerForm->setSubmitID( 'novasudoer-form-createsudoersubmit' );
-		$sudoerForm->setSubmitCallback( array( $this, 'tryModifySubmit' ) );
+		$sudoerForm->setSubmitCallback( [ $this, 'tryModifySubmit' ] );
 		$sudoerForm->show();
 
 		return true;
@@ -285,12 +285,12 @@ class SpecialNovaSudoer extends SpecialNova {
 		$projectuids = $project->getMemberUids();
 		$projectserviceusers = $project->getServiceUsers();
 
-		$sudomembers = array();
+		$sudomembers = [];
 		if ( $sudoer ) {
 			$sudomembers = $sudoer->getSudoerUsers();
 		}
-		$user_keys = array();
-		$user_defaults = array();
+		$user_keys = [];
+		$user_defaults = [];
 
 		# Add the 'all project members' option to the top
 		$projectGroup = "%" . $project->getProjectGroupName();
@@ -316,7 +316,7 @@ class SpecialNovaSudoer extends SpecialNova {
 			}
 		}
 
-		return array( 'keys' => $user_keys, 'defaults' => $user_defaults );
+		return [ 'keys' => $user_keys, 'defaults' => $user_defaults ];
 	}
 
 	function getSudoRunAsUsers( $projectName, $sudoer = null ) {
@@ -324,13 +324,13 @@ class SpecialNovaSudoer extends SpecialNova {
 		$projectuids = $project->getMemberUids();
 		$projectserviceusers = $project->getServiceUsers();
 
-		$runasmembers = array();
+		$runasmembers = [];
 		if ( $sudoer ) {
 			$runasmembers = $sudoer->getSudoerRunAsUsers();
 		}
 
-		$runas_keys = array();
-		$runas_defaults = array();
+		$runas_keys = [];
+		$runas_defaults = [];
 
 		# 'ALL' includes all possible users, including system users and service users.
 		$runas_keys['ALL'] = 'ALL';
@@ -362,7 +362,7 @@ class SpecialNovaSudoer extends SpecialNova {
 			}
 		}
 
-		return array( 'keys' => $runas_keys, 'defaults' => $runas_defaults );
+		return [ 'keys' => $runas_keys, 'defaults' => $runas_defaults ];
 	}
 
 	/**
@@ -392,8 +392,8 @@ class SpecialNovaSudoer extends SpecialNova {
 			if ( !in_array( $projectName, $projectfilter ) ) {
 				continue;
 			}
-			$actions = array( 'projectadmin' => array() );
-			$actions['projectadmin'][] = $this->createActionLink( 'openstackmanager-createsudoer', array( 'action' => 'create', 'project' => $projectName ) );
+			$actions = [ 'projectadmin' => [] ];
+			$actions['projectadmin'][] = $this->createActionLink( 'openstackmanager-createsudoer', [ 'action' => 'create', 'project' => $projectName ] );
 			$out .= $this->createProjectSection( $projectName, $actions, $this->getSudoers( $project ) );
 		}
 
@@ -401,7 +401,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	}
 
 	function makeHumanReadableUserlist( $userList, $project ) {
-		$HRList = array();
+		$HRList = [];
 
 		$projectuids = $project->getMemberUids();
 		$leftovers = $userList;
@@ -435,16 +435,16 @@ class SpecialNovaSudoer extends SpecialNova {
 		$projectName = $project->getProjectName();
 		$this->userNova->setProject( $projectName );
 		$regions = $this->userNova->getRegions( 'compute' );
-		$headers = array( 'openstackmanager-sudoername', 'openstackmanager-sudoerusers',
+		$headers = [ 'openstackmanager-sudoername', 'openstackmanager-sudoerusers',
 				'openstackmanager-sudoerrunas', 'openstackmanager-sudoercommands',
-				'openstackmanager-sudoeroptions', 'openstackmanager-actions' );
+				'openstackmanager-sudoeroptions', 'openstackmanager-actions' ];
 		$sudoers = OpenStackNovaSudoer::getAllSudoersByProject( $projectName );
-		$sudoerRows = array();
+		$sudoerRows = [];
 		foreach ( $sudoers as $sudoer ) {
-			$sudoerRow = array();
+			$sudoerRow = [];
 			$sudoerName = $sudoer->getSudoerName();
 			$this->pushResourceColumn( $sudoerRow, $sudoerName );
-			$userNames = array();
+			$userNames = [];
 			$projectmembers = $project->getMembers();
 
 			$userNames = $this->makeHumanReadableUserlist( $sudoer->getSudoerUsers(), $project );
@@ -454,12 +454,12 @@ class SpecialNovaSudoer extends SpecialNova {
 			$this->pushRawResourceColumn( $sudoerRow, $this->createResourceList( $sudoRunAsUsers ) );
 			$this->pushRawResourceColumn( $sudoerRow, $this->createResourceList( $sudoer->getSudoerCommands() ) );
 			$this->pushRawResourceColumn( $sudoerRow, $this->createResourceList( $sudoer->getSudoerOptions() ) );
-			$actions = array();
+			$actions = [];
 			$actions[] = $this->createActionLink( 'openstackmanager-modify',
-				array( 'action' => 'modify', 'sudoername' => $sudoerName, 'project' => $projectName )
+				[ 'action' => 'modify', 'sudoername' => $sudoerName, 'project' => $projectName ]
 			);
 			$actions[] = $this->createActionLink( 'openstackmanager-delete',
-				array( 'action' => 'delete', 'sudoername' => $sudoerName, 'project' => $projectName )
+				[ 'action' => 'delete', 'sudoername' => $sudoerName, 'project' => $projectName ]
 			);
 			$this->pushRawResourceColumn( $sudoerRow, $this->createResourceList( $actions ) );
 			$sudoerRows[] = $sudoerRow;
@@ -483,7 +483,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	 *
 	 */
 	function removeALLFromUserKeys( $users ) {
-		$newusers = array();
+		$newusers = [];
 		foreach ( $users as $user ) {
 			if ( ( $user == 'ALL' ) || ( $user == $this->msg( 'openstackmanager-allmembers' )->text() ) ) {
 				$newusers[] = "%" . $this->project->getProjectGroupName();
@@ -506,7 +506,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	 *
 	 */
 	function removeALLFromRunAsUserKeys( $users ) {
-		$newusers = array();
+		$newusers = [];
 		foreach ( $users as $user ) {
 			if ( ( $user == $this->msg( 'openstackmanager-allmembers' )->text() ) ) {
 				$newusers[] = "%" . $this->project->getProjectGroupName();
@@ -526,12 +526,12 @@ class SpecialNovaSudoer extends SpecialNova {
 		if ( $formData['commands'] ) {
 			$commands = explode( "\n", $formData['commands'] );
 		} else {
-			$commands = array();
+			$commands = [];
 		}
 		if ( $formData['options'] ) {
 			$options = explode( "\n", $formData['options'] );
 		} else {
-			$options = array();
+			$options = [];
 		}
 		if ( $formData['requirepassword'] ) {
 			$options[] = 'authenticate';
@@ -591,12 +591,12 @@ class SpecialNovaSudoer extends SpecialNova {
 			if ( $formData['commands'] ) {
 				$commands = explode( "\n", $formData['commands'] );
 			} else {
-				$commands = array();
+				$commands = [];
 			}
 			if ( $formData['options'] ) {
 				$options = explode( "\n", $formData['options'] );
 			} else {
-				$options = array();
+				$options = [];
 			}
 			if ( $formData['requirepassword'] ) {
 				$options[] = 'authenticate';

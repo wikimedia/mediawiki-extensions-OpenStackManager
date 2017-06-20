@@ -46,9 +46,9 @@ class SpecialNovaKey extends SpecialNova {
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-deletekey' ) );
 		$returnto = $this->getRequest()->getVal( 'returnto' );
 
-		$keyInfo = array();
+		$keyInfo = [];
 		$hash = '';
-		$keypairs = array();
+		$keypairs = [];
 
 		if ( $wgOpenStackManagerNovaKeypairStorage === 'nova' ) {
 			$keyname = $this->getRequest()->getVal( 'keyname' );
@@ -57,51 +57,51 @@ class SpecialNovaKey extends SpecialNova {
 				$this->notInProject( $project );
 				return true;
 			}
-			$keyInfo['keyname'] = array(
+			$keyInfo['keyname'] = [
 				'type' => 'hidden',
 				'default' => $project,
 				'name' => 'keyname',
-			);
-			$keyInfo['project'] = array(
+			];
+			$keyInfo['project'] = [
 				'type' => 'hidden',
 				'default' => $keyname,
 				'name' => 'project',
-			);
+			];
 		} elseif ( $wgOpenStackManagerNovaKeypairStorage === 'ldap' ) {
 			$hash = $this->getRequest()->getVal( 'hash' );
 			$keypairs = $this->userLDAP->getKeypairs();
 			if ( !$this->getRequest()->wasPosted() ) {
-				$this->getOutput()->addHTML( Html::element( 'pre', array(), $keypairs[$hash] ) );
+				$this->getOutput()->addHTML( Html::element( 'pre', [], $keypairs[$hash] ) );
 				$this->getOutput()->addWikiMsg( 'openstackmanager-deletekeyconfirm' );
 			}
-			$keyInfo['hash'] = array(
+			$keyInfo['hash'] = [
 				'type' => 'hidden',
 				'default' => $hash,
 				'name' => 'hash',
-			);
+			];
 		}
-		$keyInfo['key'] = array(
+		$keyInfo['key'] = [
 			'type' => 'hidden',
 			'default' => $keypairs[$hash],
 			'name' => 'key',
-		);
-		$keyInfo['action'] = array(
+		];
+		$keyInfo['action'] = [
 			'type' => 'hidden',
 			'default' => 'delete',
 			'name' => 'action',
-		);
-		$keyInfo['returnto'] = array(
+		];
+		$keyInfo['returnto'] = [
 			'type' => 'hidden',
 			'default' => $returnto,
 			'name' => 'returnto',
-		);
+		];
 		$keyForm = new HTMLForm(
 			$keyInfo,
 			$this->getContext(),
 			'openstackmanager-novakey'
 		);
 		$keyForm->setSubmitID( 'novakey-form-deletekeysubmit' );
-		$keyForm->setSubmitCallback( array( $this, 'tryDeleteSubmit' ) );
+		$keyForm->setSubmitCallback( [ $this, 'tryDeleteSubmit' ] );
 		$keyForm->show();
 		return true;
 	}
@@ -113,42 +113,42 @@ class SpecialNovaKey extends SpecialNova {
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-addkey' ) );
 		$returnto = $this->getRequest()->getVal( 'returnto' );
 
-		$keyInfo = array();
+		$keyInfo = [];
 		if ( $wgOpenStackManagerNovaKeypairStorage === 'nova' ) {
 			$projects = $this->userLDAP->getProjects();
-			$keyInfo['keyname'] = array(
+			$keyInfo['keyname'] = [
 				'type' => 'text',
 				'label-message' => 'openstackmanager-novakeyname',
 				'default' => '',
 				'name' => 'keyname',
-			);
-			$project_keys = array();
+			];
+			$project_keys = [];
 			foreach ( $projects as $project ) {
 				$project_keys[$project] = $project;
 			}
-			$keyInfo['project'] = array(
+			$keyInfo['project'] = [
 				'type' => 'select',
 				'options' => $project_keys,
 				'label-message' => 'openstackmanager-project',
 				'name' => 'project',
-			);
+			];
 		}
-		$keyInfo['key'] = array(
+		$keyInfo['key'] = [
 			'type' => 'textarea',
 			'default' => '',
 			'label-message' => 'openstackmanager-novapublickey',
 			'name' => 'key',
-		);
-		$keyInfo['action'] = array(
+		];
+		$keyInfo['action'] = [
 			'type' => 'hidden',
 			'default' => 'add',
 			'name' => 'action',
-		);
-		$keyInfo['returnto'] = array(
+		];
+		$keyInfo['returnto'] = [
 			'type' => 'hidden',
 			'default' => $returnto,
 			'name' => 'returnto',
-		);
+		];
 
 		$keyForm = new HTMLForm(
 			$keyInfo,
@@ -156,7 +156,7 @@ class SpecialNovaKey extends SpecialNova {
 			'openstackmanager-novakey'
 		);
 		$keyForm->setSubmitID( 'novakey-form-createkeysubmit' );
-		$keyForm->setSubmitCallback( array( $this, 'tryImportSubmit' ) );
+		$keyForm->setSubmitCallback( [ $this, 'tryImportSubmit' ] );
 		$keyForm->show();
 	}
 
@@ -196,11 +196,11 @@ class SpecialNovaKey extends SpecialNova {
 
 		fwrite( $tmpfile, $keydata );
 
-		$descriptorspec = array(
+		$descriptorspec = [
 			0 => $tmpfile,
-			1 => array( "pipe", "w" ),
-			2 => array( "file", wfGetNull(), "a" )
-		);
+			1 => [ "pipe", "w" ],
+			2 => [ "file", wfGetNull(), "a" ]
+		];
 
 		$process = proc_open( escapeshellcmd( $wgPuttygen ) . ' -O public-openssh -o /dev/stdout /dev/stdin', $descriptorspec, $pipes );
 		if ( $process === false ) {
@@ -249,11 +249,11 @@ class SpecialNovaKey extends SpecialNova {
 			$keydata = $keydata[0] . "\n";
 		}
 
-		$descriptorspec = array(
-			0 => array( "pipe", "r" ),
-			1 => array( "pipe", "w" ),
-			2 => array( "file", wfGetNull(), "a" )
-		);
+		$descriptorspec = [
+			0 => [ "pipe", "r" ],
+			1 => [ "pipe", "w" ],
+			2 => [ "file", wfGetNull(), "a" ]
+		];
 
 		$process = proc_open( escapeshellcmd( $wgSshKeygen ) . ' -i -f /dev/stdin', $descriptorspec, $pipes );
 		if ( $process === false ) {

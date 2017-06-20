@@ -79,7 +79,7 @@ class OpenStackNovaServiceGroup {
 	 * @return array
 	 */
 	function getUidMembers() {
-		$members = array();
+		$members = [];
 		if ( isset( $this->groupInfo[0]['member'] ) ) {
 			$memberdns = $this->groupInfo[0]['member'];
 			if ( $memberdns['count'] === 0 ) {
@@ -109,7 +109,7 @@ class OpenStackNovaServiceGroup {
 	function getMembers() {
 		global $wgOpenStackManagerLDAPDomain;
 
-		$members = array();
+		$members = [];
 		if ( isset( $this->groupInfo[0]['member'] ) ) {
 			$ldap = LdapAuthenticationPlugin::getInstance();
 			$memberdns = $this->groupInfo[0]['member'];
@@ -160,8 +160,8 @@ class OpenStackNovaServiceGroup {
 				return false;
 			}
 			unset( $members[$index] );
-			$values = array();
-			$values['member'] = array();
+			$values = [];
+			$values['member'] = [];
 			foreach ( $members as $member ) {
 				$values['member'][] = $member;
 			}
@@ -183,9 +183,9 @@ class OpenStackNovaServiceGroup {
 	 * @param  $username
 	 * @return bool
 	 */
-	function setMembers( $usernames, $serviceUsernames=array() ) {
+	function setMembers( $usernames, $serviceUsernames=[] ) {
 		$ldap = LdapAuthenticationPlugin::getInstance();
-		$members = array();
+		$members = [];
 		foreach ( $usernames as $username ) {
 			$userDN = "";
 			$user = new OpenStackNovaUser( $username );
@@ -201,7 +201,7 @@ class OpenStackNovaServiceGroup {
 			$userDN = "uid=" . $serviceUsername . "," . $this->usersDN;
 			$members[] = $userDN;
 		}
-		$values = array();
+		$values = [];
 		$values['member'] = $members;
 		$success = LdapAuthenticationPlugin::ldap_modify( $ldap->ldapconn, $this->groupDN, $values );
 		if ( $success ) {
@@ -220,7 +220,7 @@ class OpenStackNovaServiceGroup {
 	 */
 	function addMember( $username ) {
 		$ldap = LdapAuthenticationPlugin::getInstance();
-		$members = array();
+		$members = [];
 		if ( isset( $this->groupInfo[0]['member'] ) ) {
 			$members = $this->groupInfo[0]['member'];
 			array_shift( $members );
@@ -235,7 +235,7 @@ class OpenStackNovaServiceGroup {
 		$userDN = $user->userDN;
 
 		$members[] = $userDN;
-		$values = array();
+		$values = [];
 		$values['member'] = $members;
 		$success = LdapAuthenticationPlugin::ldap_modify( $ldap->ldapconn, $this->groupDN, $values );
 		if ( $success ) {
@@ -302,13 +302,13 @@ class OpenStackNovaServiceGroup {
 		$key = wfMemcKey( 'openstackmanager', 'servicegroup', $groupName );
 		$wgMemc->delete( $key );
 
-		$group = array();
+		$group = [];
 		$group['objectclass'][] = 'posixgroup';
 		$group['objectclass'][] = 'groupofnames';
 		$group['cn'] = $groupName;
 		$groupdn = 'cn=' . $groupName . ',' . $wgOpenStackManagerLDAPServiceGroupBaseDN;
 		$group['gidnumber'] = OpenStackNovaUser::getNextIdNumber( $ldap, 'gidnumber' );
-		$group['member'] = array();
+		$group['member'] = [];
 		if ( $initialUser ) {
 			$group['member'][] = $initialUserDN;
 		}
@@ -329,7 +329,7 @@ class OpenStackNovaServiceGroup {
 		# Now create the special SG member
 		$newGroup = self::getServiceGroupByName( $groupName, $project );
 		$userdn = $newGroup->getSpecialUserDN();
-		$user = array();
+		$user = [];
 		$user['objectclass'][] = 'shadowaccount';
 		$user['objectclass'][] = 'posixaccount';
 		$user['objectclass'][] = 'person';
@@ -353,10 +353,10 @@ class OpenStackNovaServiceGroup {
 		# Create Sudo policy so that members of the group can sudo as the service user
 		if ( OpenStackNovaSudoer::createSudoer( 'runas-' . $groupName,
 				$project->getProjectName(),
-				array( "%" . $groupName ),
-				array( $groupName ),
-				array( 'ALL' ),
-				array( '!authenticate' ) ) ) {
+				[ "%" . $groupName ],
+				[ $groupName ],
+				[ 'ALL' ],
+				[ '!authenticate' ] ) ) {
 			$ldap->printDebug( "Successfully created run-as sudo policy for $groupName",
 				NONSENSITIVE );
 		} else {

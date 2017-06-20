@@ -18,16 +18,16 @@ class ApiListNovaProjects extends ApiQueryGeneratorBase {
 		$projects = OpenStackNovaProject::getAllProjects();
 		foreach ( $projects as $project ) {
 			$this->getResult()->addValue(
-				array( 'query', $this->getModuleName() ),
+				[ 'query', $this->getModuleName() ],
 				null,
 				$project->getName()
 			);
 		}
 
 		if ( defined( 'ApiResult::META_CONTENT' ) ) {
-			$this->getResult()->addIndexedTagName( array( 'query', $this->getModuleName() ), 'project' );
+			$this->getResult()->addIndexedTagName( [ 'query', $this->getModuleName() ], 'project' );
 		} else {
-			$this->getResult()->setIndexedTagName_internal( array( 'query', $this->getModuleName() ), 'project' );
+			$this->getResult()->setIndexedTagName_internal( [ 'query', $this->getModuleName() ], 'project' );
 		}
 	}
 
@@ -35,9 +35,9 @@ class ApiListNovaProjects extends ApiQueryGeneratorBase {
 	 * @deprecated since MediaWiki core 1.25
 	 */
 	public function getDescription() {
-		return array(
+		return [
 			'Returns a list of all the known projects'
-		);
+		];
 	}
 
 	/**
@@ -51,9 +51,9 @@ class ApiListNovaProjects extends ApiQueryGeneratorBase {
 	 * @see ApiBase::getExamplesMessages()
 	 */
 	protected function getExamplesMessages() {
-		return array(
+		return [
 			'action=query&list=novaprojects'
 				=> 'apihelp-query+novaprojects-example-1',
-		);
+		];
 	}
 }

@@ -11,7 +11,7 @@ class ApiNovaServiceGroups extends ApiBase {
 			$project = OpenStackNovaProject::getProjectByName( $this->params['project'] );
 			$project->fetchServiceGroups();
 			$serviceGroups = $project->getServiceGroups();
-			$data = array();
+			$data = [];
 			foreach ( $serviceGroups as $serviceGroup ) {
 				$serviceGroupName = $serviceGroup->getGroupName();
 				if ( $this->params['shellmembers'] ) {
@@ -29,33 +29,33 @@ class ApiNovaServiceGroups extends ApiBase {
 
 	// Face parameter.
 	public function getAllowedParams() {
-		return array(
-			'subaction' => array(
-				ApiBase::PARAM_TYPE => array(
+		return [
+			'subaction' => [
+				ApiBase::PARAM_TYPE => [
 					'getservicegroups',
-				),
+				],
 				ApiBase::PARAM_REQUIRED => true
-			),
-			'project' => array(
+			],
+			'project' => [
 				ApiBase::PARAM_TYPE => 'string',
 				ApiBase::PARAM_REQUIRED => true
-			),
-			'shellmembers' => array(
+			],
+			'shellmembers' => [
 				ApiBase::PARAM_TYPE => 'boolean',
 				ApiBase::PARAM_REQUIRED => false
-			),
-		);
+			],
+		];
 	}
 
 	/**
 	 * @deprecated since MediaWiki core 1.25
 	 */
 	public function getParamDescription() {
-		return array_merge( parent::getParamDescription(), array(
+		return array_merge( parent::getParamDescription(), [
 			'subaction' => 'The subaction to perform.',
 			'project' => 'The project to perform the subaction upon',
 			'shellmembers' => 'Return shell account names for service group members, rather than MediaWiki usernames',
-		) );
+		] );
 	}
 
 	/**
@@ -69,20 +69,20 @@ class ApiNovaServiceGroups extends ApiBase {
 	 * @deprecated since MediaWiki core 1.25
 	 */
 	public function getExamples() {
-		return array(
+		return [
 			'api.php?action=novaservicegroups&subaction=getservicegroups&project=testing'
 			=> 'Get all service groups in project testing',
-		);
+		];
 	}
 
 	/**
 	 * @see ApiBase::getExamplesMessages()
 	 */
 	protected function getExamplesMessages() {
-		return array(
+		return [
 			'action=novaservicegroups&subaction=getservicegroups&project=testing'
 				=> 'apihelp-novaservicegroups-example-1',
-		);
+		];
 	}
 
 	public function mustBePosted() {

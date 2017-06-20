@@ -40,7 +40,7 @@ class SpecialNovaRole extends SpecialNova {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-addmember' ) );
 
-		$roleInfo = array();
+		$roleInfo = [];
 		$roleid = $this->getRequest()->getText( 'roleid' );
 		$projectid = $this->getRequest()->getText( 'projectid' );
 
@@ -58,7 +58,7 @@ class SpecialNovaRole extends SpecialNova {
 			natcasesort( $projectmembers );
 			$role = new OpenStackNovaRole( $roleid, $project );
 			$rolemembers = $role->getMembers();
-			$member_keys = array();
+			$member_keys = [];
 			foreach ( $projectmembers as $projectmember ) {
 				if ( !in_array( $projectmember, $rolemembers ) ) {
 					$member_keys[$projectmember] = $projectmember;
@@ -68,36 +68,36 @@ class SpecialNovaRole extends SpecialNova {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-nomemberstoadd' );
 				return true;
 			}
-			$roleInfo['members'] = array(
+			$roleInfo['members'] = [
 				'type' => 'multiselect',
 				'label-message' => 'openstackmanager-member',
 				'options' => $member_keys,
 				'section' => 'role/info',
 				'name' => 'members',
-			);
+			];
 		} else {
 			// TODO: display error
 		}
-		$roleInfo['action'] = array(
+		$roleInfo['action'] = [
 			'type' => 'hidden',
 			'default' => 'addmember',
 			'name' => 'action',
-		);
-		$roleInfo['roleid'] = array(
+		];
+		$roleInfo['roleid'] = [
 			'type' => 'hidden',
 			'default' => $roleid,
 			'name' => 'roleid',
-		);
-		$roleInfo['projectid'] = array(
+		];
+		$roleInfo['projectid'] = [
 			'type' => 'hidden',
 			'default' => $projectid,
 			'name' => 'projectid',
-		);
-		$roleInfo['returnto'] = array(
+		];
+		$roleInfo['returnto'] = [
 			'type' => 'hidden',
 			'default' => $this->getRequest()->getText( 'returnto' ),
 			'name' => 'returnto',
-		);
+		];
 
 		$roleForm = new HTMLForm(
 			$roleInfo,
@@ -105,7 +105,7 @@ class SpecialNovaRole extends SpecialNova {
 			'openstackmanager-novarole'
 		);
 		$roleForm->setSubmitID( 'novarole-form-addmembersubmit' );
-		$roleForm->setSubmitCallback( array( $this, 'tryAddMemberSubmit' ) );
+		$roleForm->setSubmitCallback( [ $this, 'tryAddMemberSubmit' ] );
 		$roleForm->show();
 
 		return true;
@@ -134,7 +134,7 @@ class SpecialNovaRole extends SpecialNova {
 			natcasesort( $projectmembers );
 			$role = new OpenStackNovaRole( $roleid, $project );
 			$rolemembers = $role->getMembers();
-			$member_keys = array();
+			$member_keys = [];
 			foreach ( $projectmembers as $projectmember ) {
 				if ( in_array( $projectmember, $rolemembers ) ) {
 					$member_keys[$projectmember] = $projectmember;
@@ -147,34 +147,34 @@ class SpecialNovaRole extends SpecialNova {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-nomemberstoremove' );
 			return true;
 		}
-		$roleInfo = array();
-		$roleInfo['members'] = array(
+		$roleInfo = [];
+		$roleInfo['members'] = [
 			'type' => 'multiselect',
 			'label-message' => 'openstackmanager-member',
 			'options' => $member_keys,
 			'section' => 'role/info',
 			'name' => 'members',
-		);
-		$roleInfo['action'] = array(
+		];
+		$roleInfo['action'] = [
 			'type' => 'hidden',
 			'default' => 'deletemember',
 			'name' => 'action',
-		);
-		$roleInfo['roleid'] = array(
+		];
+		$roleInfo['roleid'] = [
 			'type' => 'hidden',
 			'default' => $roleid,
 			'name' => 'roleid',
-		);
-		$roleInfo['projectid'] = array(
+		];
+		$roleInfo['projectid'] = [
 			'type' => 'hidden',
 			'default' => $projectid,
 			'name' => 'projectid',
-		);
-		$roleInfo['returnto'] = array(
+		];
+		$roleInfo['returnto'] = [
 			'type' => 'hidden',
 			'default' => $this->getRequest()->getText( 'returnto' ),
 			'name' => 'returnto',
-		);
+		];
 
 		$roleForm = new HTMLForm(
 			$roleInfo,
@@ -182,7 +182,7 @@ class SpecialNovaRole extends SpecialNova {
 			'openstackmanager-novarole'
 		);
 		$roleForm->setSubmitID( 'novarole-form-deletemembersubmit' );
-		$roleForm->setSubmitCallback( array( $this, 'tryDeleteMemberSubmit' ) );
+		$roleForm->setSubmitCallback( [ $this, 'tryDeleteMemberSubmit' ] );
 		$roleForm->show();
 
 		return true;

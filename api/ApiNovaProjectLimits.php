@@ -4,9 +4,9 @@ class ApiNovaProjectLimits extends ApiBase {
 	public $userNova;
 	public $params;
 
-	public function canExecute( $rights = array() ) {
+	public function canExecute( $rights = [] ) {
 		if ( !$this->userLDAP->exists() ) {
-			if ( is_callable( array( $this, 'dieWithError' ) ) ) {
+			if ( is_callable( [ $this, 'dieWithError' ] ) ) {
 				$this->dieWithError( 'openstackmanager-nonovacred' );
 			} else {
 				$this->dieUsage( wfMessage( 'openstackmanager-nonovacred' )->escaped(), 'openstackmanager-nonovacred' );
@@ -14,8 +14,8 @@ class ApiNovaProjectLimits extends ApiBase {
 		}
 		if ( in_array( 'inproject', $rights ) || in_array( 'isprojectadmin', $rights ) ) {
 			if ( !$this->userLDAP->inProject( $this->params['project'] ) ) {
-				if ( is_callable( array( $this, 'dieWithError' ) ) ) {
-					$this->dieWithError( array( 'openstackmanager-noaccount', wfEscapeWikiText( $this->params['project'] ) ) );
+				if ( is_callable( [ $this, 'dieWithError' ] ) ) {
+					$this->dieWithError( [ 'openstackmanager-noaccount', wfEscapeWikiText( $this->params['project'] ) ] );
 				} else {
 					$this->dieUsage( wfMessage( 'openstackmanager-noaccount', $this->params['project'] )->escaped(), 'openstackmanager-noaccount' );
 				}
@@ -23,7 +23,7 @@ class ApiNovaProjectLimits extends ApiBase {
 		}
 		if ( in_array( 'isprojectadmin', $rights ) ) {
 			if ( !$this->userLDAP->inRole( 'projectadmin', $this->params['project'] ) ) {
-				if ( is_callable( array( $this, 'dieWithError' ) ) ) {
+				if ( is_callable( [ $this, 'dieWithError' ] ) ) {
 					$this->dieWithError( [
 						'openstackmanager-needrole',
 						'projectadmin',
@@ -42,19 +42,19 @@ class ApiNovaProjectLimits extends ApiBase {
 
 		switch ( $this->params['subaction'] ) {
 		case 'getlimits':
-			$this->canExecute( array( 'isprojectadmin' ) );
+			$this->canExecute( [ 'isprojectadmin' ] );
 			$this->userNova = OpenStackNovaController::newFromUser( $this->userLDAP );
 			$this->userNova->setProject( $this->params['project'] );
 			if ( isset( $this->params['region'] ) ) {
-				$regions = array( $this->params['region'] );
+				$regions = [ $this->params['region'] ];
 			} else {
 				$regions = $this->userNova->getRegions( 'compute' );
 			}
-			$limitsOut = array();
+			$limitsOut = [];
 			foreach ( $regions as $region ) {
 				$this->userNova->setRegion( $region );
 				$limits = $this->userNova->getLimits();
-				$limitsRegion = array();
+				$limitsRegion = [];
 				$limitsRegion["maxTotalRAMSize"] = $limits->getRamAvailable();
 				$limitsRegion["totalRAMUsed"] = $limits->getRamUsed();
 				$limitsRegion["maxTotalFloatingIps"] = $limits->getFloatingIpsAvailable();
@@ -65,42 +65,42 @@ class ApiNovaProjectLimits extends ApiBase {
 				$limitsRegion["totalInstancesUsed"] = $limits->getInstancesUsed();
 				$limitsRegion["maxSecurityGroups"] = $limits->getSecurityGroupsAvailable();
 				$limitsRegion["totalSecurityGroupsUsed"] = $limits->getSecurityGroupsUsed();
-				$limitsOut[$region] = array( 'absolute' => $limitsRegion );
+				$limitsOut[$region] = [ 'absolute' => $limitsRegion ];
 			}
-			$this->getResult()->addValue( null, $this->getModuleName(), array( 'regions' => $limitsOut ) );
+			$this->getResult()->addValue( null, $this->getModuleName(), [ 'regions' => $limitsOut ] );
 		}
 
 	}
 
 	// Face parameter.
 	public function getAllowedParams() {
-		return array(
-			'subaction' => array(
-				ApiBase::PARAM_TYPE => array(
+		return [
+			'subaction' => [
+				ApiBase::PARAM_TYPE => [
 					'getlimits',
-				),
+				],
 				ApiBase::PARAM_REQUIRED => true
-			),
-			'project' => array(
+			],
+			'project' => [
 				ApiBase::PARAM_TYPE => 'string',
 				ApiBase::PARAM_REQUIRED => true
-			),
-			'region' => array(
+			],
+			'region' => [
 				ApiBase::PARAM_TYPE => 'string',
 				ApiBase::PARAM_REQUIRED => false
-			),
-		);
+			],
+		];
 	}
 
 	/**
 	 * @deprecated since MediaWiki core 1.25
 	 */
 	public function getParamDescription() {
-		return array_merge( parent::getParamDescription(), array(
+		return array_merge( parent::getParamDescription(), [
 			'subaction' => 'The subaction to perform.',
 			'project' => 'The project to perform the subaction upon',
 			'region' => 'The region to perform the subaction upon',
-		) );
+		] );
 	}
 
 	/**
@@ -114,24 +114,24 @@ class ApiNovaProjectLimits extends ApiBase {
 	 * @deprecated since MediaWiki core 1.25
 	 */
 	public function getExamples() {
-		return array(
+		return [
 			'api.php?action=novaproject&subaction=limits&project=testing'
 			=> 'Get limits for all regions for the testing project',
 			'api.php?action=novaproject&subaction=limits&project=testing&region=A'
 			=> 'Get limits for region A for the testing project',
-		);
+		];
 	}
 
 	/**
 	 * @see ApiBase::getExamplesMessages()
 	 */
 	protected function getExamplesMessages() {
-		return array(
+		return [
 			'action=novaprojectlimits&subaction=limits&project=testing'
 				=> 'apihelp-novaprojectlimits-example-1',
 			'action=novaprojectlimits&subaction=limits&project=testing&region=A'
 				=> 'apihelp-novaprojectlimits-example-2',
-		);
+		];
 	}
 
 	public function mustBePosted() {

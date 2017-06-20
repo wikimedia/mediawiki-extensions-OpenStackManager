@@ -16,16 +16,16 @@ class OpenStackManagerHooks {
 		}
 		if ( $action === 'create' || $action === 'edit' ) {
 			if ( !$user->isLoggedIn() ) {
-				$result = array( 'openstackmanager-notloggedin' );
+				$result = [ 'openstackmanager-notloggedin' ];
 				return false;
 			}
 			$userLDAP = new OpenStackNovaUser();
 			if ( !$userLDAP->exists() ) {
-				$result = array( 'openstackmanager-nonovacred-admincreate' );
+				$result = [ 'openstackmanager-nonovacred-admincreate' ];
 			}
 			$project = strtolower( $title->getRootText() );
 			if ( !$userLDAP->inRole( 'projectadmin', $project ) && !$user->isAllowed( 'editallhiera' ) ) {
-				$result = array( 'openstackmanager-hiera-noadmin', $project );
+				$result = [ 'openstackmanager-hiera-noadmin', $project ];
 				return false;
 			}
 		}

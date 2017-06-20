@@ -30,14 +30,14 @@ class OpenStackNovaProject {
 	protected $serviceUsers;
 
 	// list of roles that are visible in the web UI
-	private static $visiblerolenames = array( 'projectadmin' );
+	private static $visiblerolenames = [ 'projectadmin' ];
 
 	// this is a stealth role that implies project membership
 	//  but no ability to manipulate the project or instances
 	private static $userrolename = 'user';
 
 	// short-lived cache of project objects
-	private static $projectCache = array();
+	private static $projectCache = [];
 	private static $projectCacheMaxSize = 200;
 	private static $projectGroupPrefix = 'project-';
 
@@ -102,7 +102,7 @@ class OpenStackNovaProject {
 			$this->loadProjectName();
 		}
 
-		$this->roles = array();
+		$this->roles = [];
 		foreach ( self::$visiblerolenames as $rolename ) {
 			$this->roles[] = OpenStackNovaRole::getProjectRoleByName( $rolename, $this );
 		}
@@ -123,7 +123,7 @@ class OpenStackNovaProject {
 			'(objectclass=groupofnames)'
 		);
 
-		$this->serviceGroups = array();
+		$this->serviceGroups = [];
 		if ( $result ) {
 			$groupList = LdapAuthenticationPlugin::ldap_get_entries( $ldap->ldapconn, $result );
 			if ( isset( $groupList ) ) {
@@ -145,7 +145,7 @@ class OpenStackNovaProject {
 			'(objectclass=person)'
 		);
 
-		$this->serviceUsers = array();
+		$this->serviceUsers = [];
 		if ( $result ) {
 			$userList = LdapAuthenticationPlugin::ldap_get_entries( $ldap->ldapconn, $result );
 			if ( isset( $userList ) ) {
@@ -275,7 +275,7 @@ class OpenStackNovaProject {
 	function getMemberDNs() {
 		global $wgLDAPUserBaseDNs;
 		$memberids = $this->getMemberIDs();
-		$memberDNs = array();
+		$memberDNs = [];
 		$dnstring = implode( ",", $wgLDAPUserBaseDNs );
 		foreach ( $memberids as $member ) {
 			$memberDNs[] = "uid=$member,$dnstring";
@@ -460,7 +460,7 @@ class OpenStackNovaProject {
 	}
 
 	static function getProjectsByName( $projectnames ) {
-		$projects = array();
+		$projects = [];
 		foreach ( $projectnames as $projectname ) {
 			$project = self::getProjectByName( $projectname );
 			if ( $project ) {
@@ -471,7 +471,7 @@ class OpenStackNovaProject {
 	}
 
 	static function getProjectsById( $projectids ) {
-		$projects = array();
+		$projects = [];
 		foreach ( $projectids as $projectid ) {
 			$project = self::getProjectById( $projectid );
 			if ( $project ) {
@@ -488,7 +488,7 @@ class OpenStackNovaProject {
 	 */
 	static function getAllProjectNames() {
 		$projects = self::getAllProjects();
-		$names = array();
+		$names = [];
 		foreach ( $projects as $project ) {
 			$names[] = $project->getName();
 		}
@@ -527,7 +527,7 @@ class OpenStackNovaProject {
 	 * @return OpenStackNovaProject[]
 	 */
 	static function getAllProjects() {
-		$projects = array();
+		$projects = [];
 		foreach ( OpenStackNovaProject::getProjectList() as $id => $name ) {
 			$project = new OpenStackNovaProject( $id, false );
 			$project->setName( $name );
@@ -569,7 +569,7 @@ class OpenStackNovaProject {
 		if ( $newProjectId ) {
 			# We need to create the Ldap project as well, so it's there to contain sudoers &c.
 			OpenStackNovaLdapConnection::connect();
-			$ldapproject = array();
+			$ldapproject = [];
 			$ldapproject['objectclass'][] = 'extensibleobject';
 			$ldapproject['objectclass'][] = 'groupofnames';
 			$ldapproject['cn'] = $projectname;
@@ -585,7 +585,7 @@ class OpenStackNovaProject {
 			$project = new OpenstackNovaProject( $newProjectId, false );
 			$projectdn = $project->getProjectDN();
 
-			$sudoerOU = array();
+			$sudoerOU = [];
 			$sudoerOU['objectclass'][] = 'organizationalunit';
 			$sudoerOU['ou'] = 'sudooers';
 			$sudoerOUdn = 'ou=sudoers,' . $projectdn;
@@ -595,16 +595,16 @@ class OpenStackNovaProject {
 			// Create two default, permissive sudo policies.  First,
 			//  allow sudo (as root) for all members...
 			$projectGroup = "%" . $project->getProjectGroupName();
-			if ( OpenStackNovaSudoer::createSudoer( 'default-sudo', $projectname, array( $projectGroup ),
-						array(),  array( 'ALL' ),
-						array( '!authenticate' ) ) ) {
+			if ( OpenStackNovaSudoer::createSudoer( 'default-sudo', $projectname, [ $projectGroup ],
+						[],  [ 'ALL' ],
+						[ '!authenticate' ] ) ) {
 				$ldap->printDebug( "Successfully created default sudo policy for $projectname", NONSENSITIVE );
 			}
 			// Now, allow all project members to sudo to all other users.
 			$projectGroup = "%" . $project->getProjectGroupName();
-			if ( OpenStackNovaSudoer::createSudoer( 'default-sudo-as', $projectname, array( $projectGroup ),
-						array( "$projectGroup" ),  array( 'ALL' ),
-						array( '!authenticate' ) ) ) {
+			if ( OpenStackNovaSudoer::createSudoer( 'default-sudo-as', $projectname, [ $projectGroup ],
+						[ "$projectGroup" ],  [ 'ALL' ],
+						[ '!authenticate' ] ) ) {
 				$ldap->printDebug( "Successfully created default sudo-as policy for $projectname", NONSENSITIVE );
 			}
 			OpenStackNovaProject::createServiceGroupOUs( $projectname );
@@ -631,7 +631,7 @@ class OpenStackNovaProject {
 		$ldap = LdapAuthenticationPlugin::getInstance();
 
 		// Create ou for service groups
-		$groups = array();
+		$groups = [];
 		$groups['objectclass'][] = 'organizationalunit';
 		$groups['ou'] = 'groups';
 		$groupsdn = 'ou=' . $groups['ou'] . ',' . 'cn=' . $projectname . ',' . $wgOpenStackManagerLDAPProjectBaseDN;
@@ -643,7 +643,7 @@ class OpenStackNovaProject {
 		}
 
 		// Create ou for service users
-		$users = array();
+		$users = [];
 		$users['objectclass'][] = 'organizationalunit';
 		$users['ou'] = 'people';
 		$usersdn = 'ou=' . $users['ou'] . ',' . 'cn=' . $projectname . ',' . $wgOpenStackManagerLDAPProjectBaseDN;
@@ -668,7 +668,7 @@ class OpenStackNovaProject {
 
 		$ldap = LdapAuthenticationPlugin::getInstance();
 
-		$groups = array();
+		$groups = [];
 		$groups['objectclass'][] = 'organizationalunit';
 		$groups['ou'] = 'groups';
 		$groupsdn = 'ou=' . $groups['ou'] . ',' . 'cn=' . $this->projectname . ',' . $wgOpenStackManagerLDAPProjectBaseDN;
@@ -679,7 +679,7 @@ class OpenStackNovaProject {
 			return false;
 		}
 
-		$users = array();
+		$users = [];
 		$users['objectclass'][] = 'organizationalunit';
 		$users['ou'] = 'people';
 		$usersdn = 'ou=' . $users['ou'] . ',' . 'cn=' . $this->projectname . ',' . $wgOpenStackManagerLDAPProjectBaseDN;

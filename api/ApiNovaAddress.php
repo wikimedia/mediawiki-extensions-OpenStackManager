@@ -6,7 +6,7 @@ class ApiNovaAddress extends ApiBase {
 
 	public function canExecute() {
 		if ( !$this->userLDAP->exists() ) {
-			if ( is_callable( array( $this, 'dieWithError' ) ) ) {
+			if ( is_callable( [ $this, 'dieWithError' ] ) ) {
 				$this->dieWithError( 'openstackmanager-nonovacred' );
 			} else {
 				$this->dieUsage( 'No credentials found for your account.', 'openstackmanager-nonovacred' );
@@ -17,15 +17,15 @@ class ApiNovaAddress extends ApiBase {
 
 		foreach ( $projects as $p ) {
 			if ( !$this->userLDAP->inProject( $p ) ) {
-				if ( is_callable( array( $this, 'dieWithError' ) ) ) {
-					$this->dieWithError( array( 'openstackmanager-noaccount', wfEscapeWikiText( $p ) ) );
+				if ( is_callable( [ $this, 'dieWithError' ] ) ) {
+					$this->dieWithError( [ 'openstackmanager-noaccount', wfEscapeWikiText( $p ) ] );
 				} else {
 					$this->dieUsage( 'User account is not in the project specified.', 'openstackmanager-noaccount' );
 				}
 			}
 
 			if ( !$this->userLDAP->inRole( 'projectadmin', $p ) ) {
-				if ( is_callable( array( $this, 'dieWithError' ) ) ) {
+				if ( is_callable( [ $this, 'dieWithError' ] ) ) {
 					$this->dieWithError( [
 						'openstackmanager-needrole',
 						'projectadmin',
@@ -50,7 +50,7 @@ class ApiNovaAddress extends ApiBase {
 		$this->userNova->setRegion( $this->params['region'] );
 		$address = $this->userNova->getAddress( $this->params['id'] );
 		if ( !$address ) {
-			if ( is_callable( array( $this, 'dieWithError' ) ) ) {
+			if ( is_callable( [ $this, 'dieWithError' ] ) ) {
 				$this->dieWithError( 'openstackmanager-nonexistenthost' );
 			} else {
 				$this->dieUsage( 'Address specified does not exist.', 'openstackmanager-nonexistenthost' );
@@ -69,56 +69,56 @@ class ApiNovaAddress extends ApiBase {
 				);
 
 				if ( !$success ) {
-					if ( is_callable( array( $this, 'dieWithError' ) ) ) {
-						$this->dieWithError( array( 'openstackmanager-disassociateaddressfailed', wfEscapeWikiText( $ipAddr ) ) );
+					if ( is_callable( [ $this, 'dieWithError' ] ) ) {
+						$this->dieWithError( [ 'openstackmanager-disassociateaddressfailed', wfEscapeWikiText( $ipAddr ) ] );
 					} else {
 						$this->dieUsage( 'Failed to disassociate address', 'openstackmanager-disassociateaddressfailed' );
 					}
 				}
 
-				$result->addValue( null, $this->getModuleName(), array( 'addressstate' => 'free' ) );
+				$result->addValue( null, $this->getModuleName(), [ 'addressstate' => 'free' ] );
 				break;
 		}
 	}
 
 	// Face parameter.
 	public function getAllowedParams() {
-		return array(
-			'subaction' => array(
-				self::PARAM_TYPE => array(
+		return [
+			'subaction' => [
+				self::PARAM_TYPE => [
 					'disassociate',
-				),
+				],
 				self::PARAM_REQUIRED => true,
-			),
-			'id' => array(
+			],
+			'id' => [
 				self::PARAM_TYPE => 'string',
 				self::PARAM_REQUIRED => true,
-			),
-			'project' => array(
+			],
+			'project' => [
 				self::PARAM_TYPE => 'string',
 				self::PARAM_REQUIRED => true,
-			),
-			'region' => array(
+			],
+			'region' => [
 				self::PARAM_TYPE => 'string',
 				self::PARAM_REQUIRED => true,
-			),
-			'token' => array(
+			],
+			'token' => [
 				self::PARAM_TYPE => 'string',
 				self::PARAM_REQUIRED => true,
-			),
-		);
+			],
+		];
 	}
 
 	/**
 	 * @deprecated since MediaWiki core 1.25
 	 */
 	public function getParamDescription() {
-		return array_merge( parent::getParamDescription(), array(
+		return array_merge( parent::getParamDescription(), [
 			'subaction' => 'The subaction to perform.',
 			'address' => 'The ID of the Nova IP address on which we will perform the action.',
 			'project' => 'The project in which the address exists.',
 			'region' => 'The region of the currently-associated instance.',
-		) );
+		] );
 	}
 
 	/**
@@ -132,20 +132,20 @@ class ApiNovaAddress extends ApiBase {
 	 * @deprecated since MediaWiki core 1.25
 	 */
 	public function getExamples() {
-		return array(
+		return [
 			'api.php?action=novaaddress&subaction=disassociate&address=7&project=testing&region=mars'
 			=> 'Disassociate IP 208.80.153.198 in project testing',
-		);
+		];
 	}
 
 	/**
 	 * @see ApiBase::getExamplesMessages()
 	 */
 	protected function getExamplesMessages() {
-		return array(
+		return [
 			'action=novaaddress&subaction=disassociate&address=7&project=testing&region=mars'
 				=> 'apihelp-novaaddress-example-1',
-		);
+		];
 	}
 
 	public function isWriteMode() {

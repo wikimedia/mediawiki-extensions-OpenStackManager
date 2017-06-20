@@ -23,7 +23,7 @@ class ApiListNovaInstances extends ApiQueryGeneratorBase {
 		$project = OpenStackNovaProject::getProjectByName( $params['project'] );
 		if ( !$project ) {
 			// This shouldn't be possible since the API should enforce valid names
-			if ( is_callable( array( $this, 'dieWithError' ) ) ) {
+			if ( is_callable( [ $this, 'dieWithError' ] ) ) {
 				$this->dieWithError( 'apierror-openstackmanager-badproject', 'badproject' );
 			} else {
 				$this->dieUsage( 'Invalid project specified.', 'badproject' );
@@ -41,9 +41,9 @@ class ApiListNovaInstances extends ApiQueryGeneratorBase {
 			$userNova->setRegion( $params['region'] ); // validated by API
 
 			$instances = $userNova->getInstances();
-			$instancesInfo = array();
+			$instancesInfo = [];
 			foreach ( $instances as $instance ) {
-				$instancesInfo[ ] = array(
+				$instancesInfo[ ] = [
 					'name' => $instance->getInstanceName(),
 					'state' => $instance->getInstanceState(),
 					'ip' => $instance->getInstancePrivateIPs(),
@@ -51,7 +51,7 @@ class ApiListNovaInstances extends ApiQueryGeneratorBase {
 					'floatingip' => $instance->getInstancePublicIPs(),
 					'securitygroups' => $instance->getSecurityGroups(),
 					'imageid' => $instance->getImageId(),
-				);
+				];
 			}
 			// Cache info for 1 minute, not longer since we do not invalidate
 			$wgMemc->set( $key, $instancesInfo, 60 );
@@ -63,13 +63,13 @@ class ApiListNovaInstances extends ApiQueryGeneratorBase {
 			$this->getResult()->setIndexedTagName( $info['ip'], 'ip' );
 			$this->getResult()->setIndexedTagName( $info['floatingip'], 'floatingip' );
 
-			$this->getResult()->addValue( array( 'query', $this->getModuleName() ), null, $info );
+			$this->getResult()->addValue( [ 'query', $this->getModuleName() ], null, $info );
 		}
 
 		if ( defined( 'ApiResult::META_CONTENT' ) ) {
-			$this->getResult()->addIndexedTagName( array( 'query', $this->getModuleName() ), 'instance' );
+			$this->getResult()->addIndexedTagName( [ 'query', $this->getModuleName() ], 'instance' );
 		} else {
-			$this->getResult()->setIndexedTagName_internal( array( 'query', $this->getModuleName() ), 'instance' );
+			$this->getResult()->setIndexedTagName_internal( [ 'query', $this->getModuleName() ], 'instance' );
 		}
 	}
 
@@ -82,25 +82,25 @@ class ApiListNovaInstances extends ApiQueryGeneratorBase {
 	}
 
 	public function getAllowedParams() {
-		return array(
-			'project' => array(
+		return [
+			'project' => [
 				ApiBase::PARAM_TYPE => OpenStackNovaProject::getAllProjectNames(),
 				ApiBase::PARAM_REQUIRED => true,
-			),
-			'region' => array(
+			],
+			'region' => [
 				ApiBase::PARAM_TYPE => $this->getRegions(),
 				ApiBase::PARAM_REQUIRED => true,
-			)
-		);
+			]
+		];
 	}
 
 	/**
 	 * @deprecated since MediaWiki core 1.25
 	 */
 	public function getDescription() {
-		return array(
+		return [
 			'Returns a list of instances for the given project'
-		);
+		];
 	}
 
 	/**
@@ -114,9 +114,9 @@ class ApiListNovaInstances extends ApiQueryGeneratorBase {
 	 * @see ApiBase::getExamplesMessages()
 	 */
 	protected function getExamplesMessages() {
-		return array(
+		return [
 			'action=query&list=novainstances&niproject=testing&niregion=mars'
 				=> 'apihelp-query+novainstances-example-1',
-		);
+		];
 	}
 }

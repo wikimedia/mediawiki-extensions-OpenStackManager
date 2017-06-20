@@ -2,15 +2,15 @@
 class OpenStackManagerEvent {
 	public static function createDeletionEvent( $instanceName, $project, $user ) {
 		if ( class_exists( 'EchoEvent' ) ) {
-			EchoEvent::create( array(
+			EchoEvent::create( [
 				'type' => 'osm-instance-deleted',
 				'title' => Title::newFromText( $project, NS_NOVA_RESOURCE ),
 				'agent' => $user,
-				'extra' => array(
+				'extra' => [
 					'instanceName' => $instanceName,
 					'projectName' => $project
-				)
-			) );
+				]
+			] );
 		}
 	}
 
@@ -25,13 +25,13 @@ class OpenStackManagerEvent {
 		$dbw = wfGetDB( DB_MASTER );
 		$dbw->insert(
 			'openstack_notification_event',
-			array(
+			[
 				'event_action' => $type,
 				'event_actor_id' => $user->getId(),
 				'event_instance_host' => $instance->getHost()->getFullyQualifiedHostName(),
 				'event_instance_name' => $instance->getInstanceName(),
 				'event_project' => $project
-			),
+			],
 			__METHOD__
 		);
 	}

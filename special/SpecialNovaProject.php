@@ -62,23 +62,23 @@ class SpecialNovaProject extends SpecialNova {
 			$this->notInRole( 'projectadmin', $projectname );
 			return false;
 		}
-		$projectInfo = array();
-		$projectInfo['member'] = array(
+		$projectInfo = [];
+		$projectInfo['member'] = [
 			'type' => 'text',
 			'label-message' => 'openstackmanager-member',
 			'default' => '',
 			'name' => 'member',
-		);
-		$projectInfo['action'] = array(
+		];
+		$projectInfo['action'] = [
 			'type' => 'hidden',
 			'default' => 'addmember',
 			'name' => 'action',
-		);
-		$projectInfo['projectid'] = array(
+		];
+		$projectInfo['projectid'] = [
 			'type' => 'hidden',
 			'default' => $projectid,
 			'name' => 'projectid',
-		);
+		];
 
 		$projectForm = new HTMLForm(
 			$projectInfo,
@@ -86,7 +86,7 @@ class SpecialNovaProject extends SpecialNova {
 			'openstackmanager-novaproject'
 		);
 		$projectForm->setSubmitID( 'novaproject-form-addmembersubmit' );
-		$projectForm->setSubmitCallback( array( $this, 'tryAddMemberSubmit' ) );
+		$projectForm->setSubmitCallback( [ $this, 'tryAddMemberSubmit' ] );
 		$projectForm->show();
 
 		return true;
@@ -108,27 +108,27 @@ class SpecialNovaProject extends SpecialNova {
 		}
 		$project = OpenStackNovaProject::getProjectByName( $projectname );
 		$projectmembers = $project->getMembers();
-		$member_keys = array();
+		$member_keys = [];
 		foreach ( $projectmembers as $projectmember ) {
 			$member_keys[$projectmember] = $projectmember;
 		}
-		$projectInfo = array();
-		$projectInfo['members'] = array(
+		$projectInfo = [];
+		$projectInfo['members'] = [
 			'type' => 'multiselect',
 			'label-message' => 'openstackmanager-member',
 			'options' => $member_keys,
 			'name' => 'members',
-		);
-		$projectInfo['action'] = array(
+		];
+		$projectInfo['action'] = [
 			'type' => 'hidden',
 			'default' => 'deletemember',
 			'name' => 'action',
-		);
-		$projectInfo['projectid'] = array(
+		];
+		$projectInfo['projectid'] = [
 			'type' => 'hidden',
 			'default' => $projectid,
 			'name' => 'projectid',
-		);
+		];
 
 		$projectForm = new HTMLForm(
 			$projectInfo,
@@ -136,7 +136,7 @@ class SpecialNovaProject extends SpecialNova {
 			'openstackmanager-novaproject'
 		);
 		$projectForm->setSubmitID( 'novaproject-form-deletemembersubmit' );
-		$projectForm->setSubmitCallback( array( $this, 'tryDeleteMemberSubmit' ) );
+		$projectForm->setSubmitCallback( [ $this, 'tryDeleteMemberSubmit' ] );
 		$projectForm->show();
 
 		return true;
@@ -157,24 +157,24 @@ class SpecialNovaProject extends SpecialNova {
 		if ( !$this->getRequest()->wasPosted() ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-removeprojectconfirm', $project );
 		}
-		$projectInfo = array();
-		$projectInfo['projectid'] = array(
+		$projectInfo = [];
+		$projectInfo['projectid'] = [
 			'type' => 'hidden',
 			'default' => $project,
 			'name' => 'projectid',
-		);
-		$projectInfo['action'] = array(
+		];
+		$projectInfo['action'] = [
 			'type' => 'hidden',
 			'default' => 'delete',
 			'name' => 'action',
-		);
+		];
 		$projectForm = new HTMLForm(
 			$projectInfo,
 			$this->getContext(),
 			'openstackmanager-novaproject'
 		);
 		$projectForm->setSubmitID( 'novaproject-form-deleteprojectsubmit' );
-		$projectForm->setSubmitCallback( array( $this, 'tryDeleteSubmit' ) );
+		$projectForm->setSubmitCallback( [ $this, 'tryDeleteSubmit' ] );
 		$projectForm->show();
 
 		return true;
@@ -208,7 +208,7 @@ class SpecialNovaProject extends SpecialNova {
 			if ( !in_array( $projectName, $projectfilter ) ) {
 				continue;
 			}
-			$actions = array();
+			$actions = [];
 			$out .= $this->createProjectSection( $projectName, $actions, $this->getProject( $project ) );
 		}
 
@@ -217,46 +217,46 @@ class SpecialNovaProject extends SpecialNova {
 
 	function getProject( $project ) {
 		$project->fetchProjectInfo();
-		$headers = array( 'openstackmanager-members', 'openstackmanager-roles', 'openstackmanager-actions' );
-		$projectRows = array();
-		$projectRow = array();
+		$headers = [ 'openstackmanager-members', 'openstackmanager-roles', 'openstackmanager-actions' ];
+		$projectRows = [];
+		$projectRow = [];
 		$this->pushRawResourceColumn( $projectRow, $this->createResourceList( $project->getMembers() ) );
-		$roleRows = array();
+		$roleRows = [];
 		$projectId = $project->getId();
 		$projectName = $project->getProjectName();
 		foreach ( $project->getRoles() as $role ) {
-			$roleRow = array();
+			$roleRow = [];
 			$roleName = $role->getRoleName();
 			$roleId = $role->getRoleId();
 			$this->pushResourceColumn( $roleRow, $roleName );
 			$roleMembers = $role->getMembers();
 			natcasesort( $roleMembers );
 			$this->pushRawResourceColumn( $roleRow, $this->createResourceList( $roleMembers ) );
-			$actions = array();
+			$actions = [];
 			$specialRoleTitle = Title::newFromText( 'Special:NovaRole' );
 			$actions[] = $this->createActionLink( 'openstackmanager-addrolemember',
-				array( 'action' => 'addmember', 'projectid' => $projectId, 'roleid' => $roleId, 'returnto' => 'Special:NovaProject' ),
+				[ 'action' => 'addmember', 'projectid' => $projectId, 'roleid' => $roleId, 'returnto' => 'Special:NovaProject' ],
 				$specialRoleTitle
 			);
 			$actions[] = $this->createActionLink( 'openstackmanager-removerolemember',
-				array( 'action' => 'deletemember', 'projectid' => $projectId, 'roleid' => $roleId, 'returnto' => 'Special:NovaProject' ),
+				[ 'action' => 'deletemember', 'projectid' => $projectId, 'roleid' => $roleId, 'returnto' => 'Special:NovaProject' ],
 				$specialRoleTitle
 			);
 			$this->pushRawResourceColumn( $roleRow,  $this->createResourceList( $actions ) );
 			$roleRows[] = $roleRow;
 		}
-		$roleheaders = array( 'openstackmanager-rolename', 'openstackmanager-members', 'openstackmanager-actions' );
+		$roleheaders = [ 'openstackmanager-rolename', 'openstackmanager-members', 'openstackmanager-actions' ];
 		$this->pushRawResourceColumn( $projectRow, $this->createResourceTable( $roleheaders, $roleRows ) );
 
-		$actions = array();
-		$actions[] = $this->createActionLink( 'openstackmanager-deleteproject', array( 'action' => 'delete', 'projectid' => $projectId ) );
-		$actions[] = $this->createActionLink( 'openstackmanager-addmember', array( 'action' => 'addmember', 'projectid' => $projectId ) );
-		$actions[] = $this->createActionLink( 'openstackmanager-removemember', array( 'action' => 'deletemember', 'projectid' => $projectId ) );
-		$actions[] = $this->createActionLink( 'openstackmanager-displayquotas-action', array( 'action' => 'displayquotas', 'projectid' => $projectId ) );
+		$actions = [];
+		$actions[] = $this->createActionLink( 'openstackmanager-deleteproject', [ 'action' => 'delete', 'projectid' => $projectId ] );
+		$actions[] = $this->createActionLink( 'openstackmanager-addmember', [ 'action' => 'addmember', 'projectid' => $projectId ] );
+		$actions[] = $this->createActionLink( 'openstackmanager-removemember', [ 'action' => 'deletemember', 'projectid' => $projectId ] );
+		$actions[] = $this->createActionLink( 'openstackmanager-displayquotas-action', [ 'action' => 'displayquotas', 'projectid' => $projectId ] );
 
 		$hieraTitle = Title::makeTitleSafe( NS_HIERA, $projectName );
 
-		$actions[] = $this->createActionLink( 'openstackmanager-hieraconfig', array(), $hieraTitle );
+		$actions[] = $this->createActionLink( 'openstackmanager-hieraconfig', [], $hieraTitle );
 		$this->pushRawResourceColumn( $projectRow,  $this->createResourceList( $actions ) );
 		$projectRows[] = $projectRow;
 		return $this->createResourceTable( $headers, $projectRows );
@@ -268,27 +268,27 @@ class SpecialNovaProject extends SpecialNova {
 		if ( $wgRequest->wasPosted() && $wgRequest->getVal( 'action' ) !== 'create' ) {
 			return null;
 		}
-		$projectInfo = array();
-		$projectInfo['projectname'] = array(
+		$projectInfo = [];
+		$projectInfo['projectname'] = [
 			'type' => 'text',
 			'label-message' => 'openstackmanager-projectname',
-			'validation-callback' => array( $this, 'validateText' ),
+			'validation-callback' => [ $this, 'validateText' ],
 			'default' => '',
 			'section' => 'project',
 			'name' => 'projectname',
-		);
-		$projectInfo['member'] = array(
+		];
+		$projectInfo['member'] = [
 			'type' => 'text',
 			'label-message' => 'openstackmanager-member',
 			'default' => '',
 			'section' => 'project',
 			'name' => 'member',
-		);
-		$projectInfo['action'] = array(
+		];
+		$projectInfo['action'] = [
 			'type' => 'hidden',
 			'default' => 'create',
 			'name' => 'action',
-		);
+		];
 
 		$projectForm = new HTMLForm(
 			$projectInfo,
@@ -296,7 +296,7 @@ class SpecialNovaProject extends SpecialNova {
 			'openstackmanager-novaproject'
 		);
 		$projectForm->setSubmitID( 'novaproject-form-createprojectsubmit' );
-		$projectForm->setSubmitCallback( array( $this, 'tryCreateSubmit' ) );
+		$projectForm->setSubmitCallback( [ $this, 'tryCreateSubmit' ] );
 		$projectForm->show();
 	}
 
@@ -324,13 +324,13 @@ class SpecialNovaProject extends SpecialNova {
 			$cores = $this->msg( 'openstackmanager-displayquotas-cores', $limits->getCoresUsed(), $limits->getCoresAvailable() );
 			$instances = $this->msg( 'openstackmanager-displayquotas-instances', $limits->getInstancesUsed(), $limits->getInstancesAvailable() );
 			$secGroups = $this->msg( 'openstackmanager-displayquotas-securitygroups', $limits->getSecurityGroupsUsed(), $limits->getSecurityGroupsAvailable() );
-			$limitsOut = Html::element( 'li', array(), $cores );
-			$limitsOut .= Html::element( 'li', array(), $ram );
-			$limitsOut .= Html::element( 'li', array(), $floatingIps );
-			$limitsOut .= Html::element( 'li', array(), $instances );
-			$limitsOut .= Html::element( 'li', array(), $secGroups );
-			$limitsOut = Html::rawElement( 'ul', array(), $limitsOut );
-			$limitsOut = Html::element( 'h2', array(), $region ) . $limitsOut;
+			$limitsOut = Html::element( 'li', [], $cores );
+			$limitsOut .= Html::element( 'li', [], $ram );
+			$limitsOut .= Html::element( 'li', [], $floatingIps );
+			$limitsOut .= Html::element( 'li', [], $instances );
+			$limitsOut .= Html::element( 'li', [], $secGroups );
+			$limitsOut = Html::rawElement( 'ul', [], $limitsOut );
+			$limitsOut = Html::element( 'h2', [], $region ) . $limitsOut;
 			$this->getOutput()->addHTML( $limitsOut );
 		}
 		return true;
@@ -473,12 +473,12 @@ class SpecialNovaProject extends SpecialNova {
 				}
 				$this->getOutput()->addWikiMsg( 'openstackmanager-addedto', $member, $projectName );
 				if ( class_exists( 'EchoEvent' ) ) {
-					EchoEvent::create( array(
+					EchoEvent::create( [
 						'type' => 'osm-projectmembers-add',
 						'title' => Title::newFromText( $projectName, NS_NOVA_RESOURCE ),
 						'agent' => $this->getUser(),
-						'extra' => array( 'userAdded' => $user->getId() ),
-					) );
+						'extra' => [ 'userAdded' => $user->getId() ],
+					] );
 				}
 			} else {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoadd', $member, $projectName );

@@ -85,7 +85,7 @@ class OpenStackNovaInstance {
 	 * @return string
 	 */
 	function getInstancePrivateIPs() {
-		$addrs = array();
+		$addrs = [];
 		$addresses = OpenStackNovaController::_get_property( $this->instance, 'addresses' );
 		if ( $addresses ) {
 			foreach ( $addresses as $addresslist ) {
@@ -107,7 +107,7 @@ class OpenStackNovaInstance {
 	 * @return string
 	 */
 	function getInstancePublicIPs() {
-		$addrs = array();
+		$addrs = [];
 		$addresses = OpenStackNovaController::_get_property( $this->instance, 'addresses' );
 		if ( $addresses ) {
 			foreach ( $addresses as $addresslist ) {
@@ -238,7 +238,7 @@ class OpenStackNovaInstance {
 	 */
 	function getSecurityGroups() {
 		$secgroups = OpenStackNovaController::_get_property( $this->instance, 'security_groups' );
-		$groups = array();
+		$groups = [];
 		if ( $secgroups ) {
 			foreach ( $secgroups as $secgroup ) {
 				$groups[] = OpenStackNovaController::_get_property( $secgroup, 'name' );

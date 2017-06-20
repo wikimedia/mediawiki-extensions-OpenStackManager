@@ -45,7 +45,7 @@ class UpdateDomains extends Maintenance {
 			if ( $this->hasOption( 'region' ) ) {
 				$this->error( "--all-instances cannot be used with --region.\n", true );
 			}
-			$instancelist = array();
+			$instancelist = [];
 			$user = new OpenStackNovaUser( $wgOpenStackManagerLDAPUsername );
 			$userNova = OpenStackNovaController::newFromUser( $user );
 			$projects = OpenStackNovaProject::getAllProjects();
@@ -60,7 +60,7 @@ class UpdateDomains extends Maintenance {
 					$instances = $userNova->getInstances();
 					if ( $instances ) {
 						foreach ( $instances as $instance ) {
-							$instancelist[] = array( $region, $instance->getInstanceName(), $projectName );
+							$instancelist[] = [ $region, $instance->getInstanceName(), $projectName ];
 						}
 					}
 				}
@@ -72,7 +72,7 @@ class UpdateDomains extends Maintenance {
 			if ( !$this->hasOption( 'project' ) ) {
 				$this->error( "--name requires --project.\n", true );
 			}
-			$instancelist = array( array( $this->getOption( 'region' ), $this->getOption( 'name' ), $this->getOption( 'project' ), ) );
+			$instancelist = [ [ $this->getOption( 'region' ), $this->getOption( 'name' ), $this->getOption( 'project' ), ] ];
 		} else {
 			$this->error( "Must specify either --name or --all-instances.\n", true );
 		}
