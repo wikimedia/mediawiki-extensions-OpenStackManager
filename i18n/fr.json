@@ -22,7 +22,8 @@
 			"Hercule",
 			"Wladek92",
 			"Orlodrim",
-			"McDutchie"
+			"McDutchie",
+			"Thibaut120094"
 		]
 	},
 	"openstackmanager-desc": "Permet aux utilisateurs autorisés de créer et gérer des instances de serveurs virtuels avec un gestionnaire compatible OpenStack, tel que Nova ou Swift.",
@@ -387,6 +388,7 @@
 	"apihelp-novaaddress-param-region": "La région de l’instance actuellement associée.",
 	"apihelp-novaaddress-example-1": "Dissocier l’adresse d’ID 7 dans le projet de test dans la région de Mars",
 	"apihelp-novainstance-description": "Effectuer les actions sur les instances.",
+	"apihelp-novainstance-summary": "Effectuer les actions sur les instances.",
 	"apihelp-novainstance-param-subaction": "La sous-action à effectuer.",
 	"apihelp-novainstance-param-instanceid": "L’ID de l’instance Nova sur laquelle effectuer une sous-action.",
 	"apihelp-novainstance-param-project": "Le projet dans lequel existe l’instance.",
@@ -415,6 +417,7 @@
 	"apihelp-novaservicegroups-param-shellmembers": "Renvoyer les noms de compte shell pour les membres du groupe de service, plutôt que les noms d’utilisateur MédiaWiki.",
 	"apihelp-novaservicegroups-example-1": "Obtenir tous les groupes de service dans le projet de test",
 	"apihelp-query+novainstances-description": "Renvoie une liste des instances pour le projet donné.",
+	"apihelp-query+novainstances-summary": "Renvoie une liste des instances pour le projet donné.",
 	"apihelp-query+novainstances-param-project": "Le projet pour lequel lister les instances.",
 	"apihelp-query+novainstances-param-region": "La région pour laquelle lister les instances.",
 	"apihelp-query+novainstances-example-1": "Lister les instances dans le projet de test pour la région de Mars",
