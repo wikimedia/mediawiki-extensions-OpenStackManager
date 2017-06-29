@@ -239,21 +239,22 @@ $wgResourceModules['ext.openstack'] = [
 	'position' => 'top',
 
 	'styles' => 'modules/ext.openstack.css',
+] + $commonModuleInfo;
 
+$wgResourceModules['ext.openstack.base'] = [
 	'dependencies' => [
+		'ext.openstack',
 		'jquery.spinner',
 		'mediawiki.api',
 		'jquery.ui.dialog',
 	],
 
-	'scripts' => [
-		'modules/ext.openstack.js',
-	],
+	'scripts' => 'modules/ext.openstack.js',
 ] + $commonModuleInfo;
 
 $wgResourceModules['ext.openstack.Instance'] = [
 	'dependencies' => [
-		'ext.openstack',
+		'ext.openstack.base',
 	],
 
 	'messages' => [
@@ -273,7 +274,7 @@ $wgResourceModules['ext.openstack.Instance'] = [
 
 $wgResourceModules['ext.openstack.Address'] = [
 	'dependencies' => [
-		'ext.openstack',
+		'ext.openstack.base',
 	],
 
 	'messages' => [
