@@ -9,7 +9,8 @@
 			"Cwlin0416",
 			"LNDDYL",
 			"Liuxinyu970226",
-			"Alexsh"
+			"Alexsh",
+			"A2093064"
 		]
 	},
 	"openstackmanager-desc": "讓使用者能夠管理 Nova 與 Swift",
@@ -345,7 +346,7 @@
 	"openstackmanager-backproxylist": "返回代理伺服器清單",
 	"openstackmanager-email-subject": "已準備登入您的實例。",
 	"openstackmanager-email-body": "已建立下列實例，並已準備登入：",
-	"openstackmanager-twofactorrequired": "需要雙重認証。",
+	"openstackmanager-twofactorrequired": "需要雙重認證。",
 	"openstackmanager-twofactorrequired2": "需要雙重認証，請開啟雙重認証並再試一次。",
 	"right-manageproject": "管理 OpenStack 專案及身份",
 	"action-manageproject": "管理 OpenStack 專案及身份",
