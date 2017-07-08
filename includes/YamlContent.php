@@ -44,7 +44,6 @@ class YamlContent extends TextContent {
 			return null;
 		}
 		return Spyc::YAMLDump( $decoded, 4, 0 );
-
 	}
 
 	/**

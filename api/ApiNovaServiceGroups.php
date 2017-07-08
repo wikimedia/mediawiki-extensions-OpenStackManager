@@ -24,7 +24,6 @@ class ApiNovaServiceGroups extends ApiBase {
 			$this->getResult()->addValue( null, $this->getModuleName(), $data );
 			break;
 		}
-
 	}
 
 	// Face parameter.

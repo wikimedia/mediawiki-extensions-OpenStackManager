@@ -53,4 +53,3 @@ class OpenStackNovaSecondaryAuthenticationProvider
 		return $sv;
 	}
 }
-

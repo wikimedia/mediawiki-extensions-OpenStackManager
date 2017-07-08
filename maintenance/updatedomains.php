@@ -65,7 +65,7 @@ class UpdateDomains extends Maintenance {
 					}
 				}
 			}
-		} elseif ( $this->hasOption( 'name' ) )  {
+		} elseif ( $this->hasOption( 'name' ) ) {
 			if ( !$this->hasOption( 'region' ) ) {
 				$this->error( "--name requires --region.\n", true );
 			}

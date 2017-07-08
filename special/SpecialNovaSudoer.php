@@ -562,7 +562,6 @@ class SpecialNovaSudoer extends SpecialNova {
 	 * @return bool
 	 */
 	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
-
 		$success = OpenStackNovaSudoer::deleteSudoer( $formData['sudoername'], $formData['project'] );
 		if ( $success ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-deletedsudoer' );

@@ -69,7 +69,6 @@ class ApiNovaProjectLimits extends ApiBase {
 			}
 			$this->getResult()->addValue( null, $this->getModuleName(), [ 'regions' => $limitsOut ] );
 		}
-
 	}
 
 	// Face parameter.

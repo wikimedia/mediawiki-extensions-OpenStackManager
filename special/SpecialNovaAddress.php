@@ -156,7 +156,6 @@ class SpecialNovaAddress extends SpecialNova {
 	 * @return bool
 	 */
 	function associateAddress() {
-
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-associateaddress' ) );
 
@@ -341,7 +340,6 @@ class SpecialNovaAddress extends SpecialNova {
 	 * @return bool
 	 */
 	function removeHost() {
-
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-removehost' ) );
 

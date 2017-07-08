@@ -37,8 +37,8 @@ class OpenStackNovaSyncProjectGroups extends Maintenance {
 			$attempt_count++;
 
 			// -1: failure
-			//  0: no change
-			//  1: successful sync
+			// 0: no change
+			// 1: successful sync
 
 			if ( $retval != 0 ) {
 				$this->output( ( $retval ? "Succeeded" : "Failed" )  . " syncing members for project $projectName and group " . $project->projectGroup->getProjectGroupName() );

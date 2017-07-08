@@ -250,7 +250,7 @@ class OpenStackNovaUser {
 		if ( in_array( $this->getUsername(), $role->getMembers() ) ) {
 			$ret = true;
 		}
-		//  Invalidating this properly is hard, so cache just long enough for a single action
+		// Invalidating this properly is hard, so cache just long enough for a single action
 		$wgMemc->set( $key, (int)$ret, 30 );
 
 		return $ret;

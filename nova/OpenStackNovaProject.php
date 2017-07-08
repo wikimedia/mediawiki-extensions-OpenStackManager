@@ -33,7 +33,7 @@ class OpenStackNovaProject {
 	private static $visiblerolenames = [ 'projectadmin' ];
 
 	// this is a stealth role that implies project membership
-	//  but no ability to manipulate the project or instances
+	// but no ability to manipulate the project or instances
 	private static $userrolename = 'user';
 
 	// short-lived cache of project objects
@@ -94,7 +94,7 @@ class OpenStackNovaProject {
 	 * Fetch the project from keystone initialize the object
 	 */
 	function fetchProjectInfo( $refresh = true ) {
-		if ( $this->loaded and !$refresh ) {
+		if ( $this->loaded && !$refresh ) {
 			return;
 		}
 
@@ -593,7 +593,7 @@ class OpenStackNovaProject {
 			# TODO: If sudoerOU creation fails we need to be able to fail gracefully
 
 			// Create two default, permissive sudo policies.  First,
-			//  allow sudo (as root) for all members...
+			// allow sudo (as root) for all members...
 			$projectGroup = "%" . $project->getProjectGroupName();
 			if ( OpenStackNovaSudoer::createSudoer( 'default-sudo', $projectname, [ $projectGroup ],
 						[],  [ 'ALL' ],
@@ -716,7 +716,7 @@ class OpenStackNovaProject {
 		$sudoers = OpenStackNovaSudoer::getAllSudoersByProject( $project->getProjectName() );
 		foreach ( $sudoers as $sudoer ) {
 			$success = OpenStackNovaSudoer::deleteSudoer( $sudoer->getSudoerName(), $project->getProjectName() );
-			if ( $success ){
+			if ( $success ) {
 				$ldap->printDebug( "Successfully deleted sudoer " . $sudoer->getSudoerName(), NONSENSITIVE );
 			} else {
 				$ldap->printDebug( "Failed to delete sudoer " . $sudoer->getSudoerName(), NONSENSITIVE );
@@ -733,7 +733,7 @@ class OpenStackNovaProject {
 		foreach ( $servicegroups as $group ) {
 			$groupName = $group->groupName;
 			$success = OpenStackNovaServiceGroup::deleteServiceGroup( $groupName, $project );
-			if ( $success ){
+			if ( $success ) {
 				$ldap->printDebug( "Successfully deleted service group " . $groupName, NONSENSITIVE );
 			} else {
 				$ldap->printDebug( "Failed to delete service group " . $groupName, NONSENSITIVE );
@@ -827,7 +827,7 @@ RESOURCEINFO;
 			array_shift( $infos );
 			foreach ( $infos as $info ) {
 				$substrings = explode( '=', $info );
-				if ( ( count( $substrings ) == 2 ) and ( $substrings[0] == 'servicegrouphomedirpattern' ) ) {
+				if ( ( count( $substrings ) == 2 ) && ( $substrings[0] == 'servicegrouphomedirpattern' ) ) {
 					$pattern = $substrings[1];
 					break;
 				}

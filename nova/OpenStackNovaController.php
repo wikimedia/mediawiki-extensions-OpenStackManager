@@ -199,7 +199,7 @@ class OpenStackNovaController {
 			$backendarray = explode( ':', $backends[0] );
 
 			if ( strpos( $backend, "http" ) === 0 ) {
-				if ( ( count( $backendarray ) < 2 ) or ( count( $backendarray ) > 3 ) ) {
+				if ( ( count( $backendarray ) < 2 ) || ( count( $backendarray ) > 3 ) ) {
 					$ldap->printDebug( "Unable to parse backend $backend, discarding.", NONSENSITIVE );
 				} elseif ( count( $backendarray ) == 2 ) {
 					$backendHost = $backend;
@@ -209,7 +209,7 @@ class OpenStackNovaController {
 					$backendPort = $backendarray[2];
 				}
 			} else {
-				if ( ( count( $backendarray ) < 1 ) or ( count( $backendarray ) > 2 ) ) {
+				if ( ( count( $backendarray ) < 1 ) || ( count( $backendarray ) > 2 ) ) {
 					$ldap->printDebug( "Unable to parse backend $backend, discarding.", NONSENSITIVE );
 				} elseif ( count( $backendarray ) == 1 ) {
 					$backendHost = $backend;
