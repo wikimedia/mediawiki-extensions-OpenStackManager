@@ -1,7 +1,7 @@
 <?php
 /**
- * This script should be run when an instance build is completed or when an instance reboot is completed.
- * It triggers an Echo notification to the relevant users
+ * This script should be run when an instance build is completed or when an instance reboot is
+ * completed. It triggers an Echo notification to the relevant users
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,8 +39,10 @@ require_once "$IP/maintenance/Maintenance.php";
 class OnInstanceActionComplete extends Maintenance {
 	public function __construct() {
 		parent::__construct();
-		$this->addOption( 'action', 'The action which was taken. Either build or reboot.', true, true );
-		$this->addOption( 'instance', 'The instance hostname, e.g. i-00000001.pmtpa.wmflabs.', true, true );
+		$this->addOption( 'action',
+			'The action which was taken. Either build or reboot.', true, true );
+		$this->addOption( 'instance',
+			'The instance hostname, e.g. i-00000001.pmtpa.wmflabs.', true, true );
 	}
 
 	public function execute() {

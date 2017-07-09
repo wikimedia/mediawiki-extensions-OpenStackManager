@@ -23,7 +23,9 @@ class OpenStackNovaQualifyInstancePages extends Maintenance {
 		# a project token is returned, so we need to feed it a project. Ideally this
 		# should be configurable, and not hardcoded like this.
 		$userNova->setProject( 'bastion' );
-		$userNova->authenticate( $wgOpenStackManagerLDAPUsername, $wgOpenStackManagerLDAPUserPassword );
+		$userNova->authenticate(
+			$wgOpenStackManagerLDAPUsername, $wgOpenStackManagerLDAPUserPassword
+		);
 		$regions = $userNova->getRegions( 'compute' );
 		foreach ( $regions as $region ) {
 			$this->output( "Running region: " . $region . "\n" );
@@ -41,12 +43,15 @@ class OpenStackNovaQualifyInstancePages extends Maintenance {
 				foreach ( $instances as $instance ) {
 					$host = $instance->getHost();
 					if ( !$host ) {
-						$this->output( "Skipping instance due to missing host entry: " . $instance->getInstanceId() . "\n" );
+						$this->output( "Skipping instance due to missing host entry: " .
+							$instance->getInstanceId() . "\n" );
 						continue;
 					}
 					$this->output( "Renaming instance: " . $instance->getInstanceId() . "\n" );
 					$ot = Title::newFromText( $instance->getInstanceId(), NS_NOVA_RESOURCE );
-					$nt = Title::newFromText( $host->getFullyQualifiedHostName(), NS_NOVA_RESOURCE );
+					$nt = Title::newFromText(
+						$host->getFullyQualifiedHostName(), NS_NOVA_RESOURCE
+					);
 					$ot->moveTo( $nt, false, 'Maintenance script move from id to fqdn.' );
 				}
 			}

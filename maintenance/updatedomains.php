@@ -50,7 +50,9 @@ class UpdateDomains extends Maintenance {
 			$userNova = OpenStackNovaController::newFromUser( $user );
 			$projects = OpenStackNovaProject::getAllProjects();
 			$userNova->setProject( 'bastion' );
-			$userNova->authenticate( $wgOpenStackManagerLDAPUsername, $wgOpenStackManagerLDAPUserPassword );
+			$userNova->authenticate(
+				$wgOpenStackManagerLDAPUsername, $wgOpenStackManagerLDAPUserPassword
+			);
 			$regions = $userNova->getRegions( 'compute' );
 			foreach ( $regions as $region ) {
 				foreach ( $projects as $project ) {
@@ -60,7 +62,9 @@ class UpdateDomains extends Maintenance {
 					$instances = $userNova->getInstances();
 					if ( $instances ) {
 						foreach ( $instances as $instance ) {
-							$instancelist[] = [ $region, $instance->getInstanceName(), $projectName ];
+							$instancelist[] = [
+								$region, $instance->getInstanceName(), $projectName
+							];
 						}
 					}
 				}
@@ -72,7 +76,11 @@ class UpdateDomains extends Maintenance {
 			if ( !$this->hasOption( 'project' ) ) {
 				$this->error( "--name requires --project.\n", true );
 			}
-			$instancelist = [ [ $this->getOption( 'region' ), $this->getOption( 'name' ), $this->getOption( 'project' ), ] ];
+			$instancelist = [ [
+				$this->getOption( 'region' ),
+				$this->getOption( 'name' ),
+				$this->getOption( 'project' ),
+			] ];
 		} else {
 			$this->error( "Must specify either --name or --all-instances.\n", true );
 		}
@@ -83,15 +91,19 @@ class UpdateDomains extends Maintenance {
 		OpenStackNovaLdapConnection::connect();
 		foreach ( $instancelist as $instancepair ) {
 			list( $instanceregion, $instancename, $instanceproject ) = $instancepair;
-			$host = OpenStackNovaHost::getHostByNameAndProject( $instancename, $instanceproject, $instanceregion );
+			$host = OpenStackNovaHost::getHostByNameAndProject(
+				$instancename, $instanceproject, $instanceregion
+			);
 			if ( !$host ) {
 				print "Skipping $instancename.$instanceproject.$instanceregion; not found.\n";
 				continue;
 			}
 
-			print "\nFor instance $instancename in region $instanceregion and project $instanceproject:\n\n";
+			print "\nFor instance $instancename in region $instanceregion and " .
+				" project $instanceproject:\n\n";
 
-			$namefqdn = $instancename . '.' . $instanceproject . '.' . $instanceregion . '.' . 'wmflabs';
+			$namefqdn = $instancename . '.' . $instanceproject . '.' . $instanceregion .
+				'.' . 'wmflabs';
 			$host->addAssociatedDomain( $namefqdn );
 		}
 	}

@@ -201,7 +201,11 @@ class SpecialNovaKey extends SpecialNova {
 			2 => [ "file", wfGetNull(), "a" ]
 		];
 
-		$process = proc_open( escapeshellcmd( $wgPuttygen ) . ' -O public-openssh -o /dev/stdout /dev/stdin', $descriptorspec, $pipes );
+		$process = proc_open(
+			escapeshellcmd( $wgPuttygen ) . ' -O public-openssh -o /dev/stdout /dev/stdin',
+			$descriptorspec,
+			$pipes
+		);
 		if ( $process === false ) {
 			return false;
 		}
@@ -222,7 +226,9 @@ class SpecialNovaKey extends SpecialNova {
 		 * need not to keep such information we should have never been given.
 		 */
 		rewind( $tmpfile );
-		fwrite( $tmpfile, str_repeat( "\0", strlen( $keydata ) + 4096 - strlen( $keydata ) % 4096 ) );
+		fwrite( $tmpfile,
+			str_repeat( "\0", strlen( $keydata ) + 4096 - strlen( $keydata ) % 4096 )
+		);
 		fclose( $tmpfile );
 
 		if ( $data === false || !preg_match( '/(^| )ssh-(rsa|dss) /', $data ) ) {
@@ -254,7 +260,9 @@ class SpecialNovaKey extends SpecialNova {
 			2 => [ "file", wfGetNull(), "a" ]
 		];
 
-		$process = proc_open( escapeshellcmd( $wgSshKeygen ) . ' -i -f /dev/stdin', $descriptorspec, $pipes );
+		$process = proc_open(
+			escapeshellcmd( $wgSshKeygen ) . ' -i -f /dev/stdin', $descriptorspec, $pipes
+		);
 		if ( $process === false ) {
 			return false;
 		}
@@ -283,41 +291,46 @@ class SpecialNovaKey extends SpecialNova {
 
 		$key = trim( $formData['key'] ); # Because people copy paste it with an accidental newline
 		$returnto = Title::newFromText( $formData['returnto'] );
+		$out = $this->getOutput();
 		if ( !preg_match( '/(^| )(ssh-(rsa|dss|ed25519)|ecdsa-sha2-nistp256) /', $key ) ) {
 			# This doesn't look like openssh format, it's probably a
 			# Windows user providing it in PuTTY format.
 			$key = self::opensshFormatKey( $key );
 			if ( $key === false ) {
-				$this->getOutput()->addWikiMsg( 'openstackmanager-keypairformatwrong' );
+				$out->addWikiMsg( 'openstackmanager-keypairformatwrong' );
 				if ( $returnto ) {
-					$this->getOutput()->addReturnTo( $returnto );
+					$out->addReturnTo( $returnto );
 				}
 				return false;
 			}
-			$this->getOutput()->addWikiMsg( 'openstackmanager-keypairformatconverted' );
+			$out->addWikiMsg( 'openstackmanager-keypairformatconverted' );
 		}
 
 		if ( $wgOpenStackManagerNovaKeypairStorage === 'ldap' ) {
 			$success = $this->userLDAP->importKeypair( $key );
 			if ( $success ) {
-				$this->getOutput()->addWikiMsg( 'openstackmanager-keypairimported' );
+				$out->addWikiMsg( 'openstackmanager-keypairimported' );
 			} else {
-				$this->getOutput()->addWikiMsg( 'openstackmanager-keypairimportfailed' );
+				$out->addWikiMsg( 'openstackmanager-keypairimportfailed' );
 				if ( $returnto ) {
-					$this->getOutput()->addReturnTo( $returnto );
+					$out->addReturnTo( $returnto );
 				}
 				return false;
 			}
 		} elseif ( $wgOpenStackManagerNovaKeypairStorage === 'nova' ) {
 			$keypair = $this->userNova->importKeypair( $formData['keyname'], $key );
 
-			$this->getOutput()->addWikiMsg( 'openstackmanager-keypairimportedfingerprint', $keypair->getKeyName(), $keypair->getKeyFingerprint() );
+			$out->addWikiMsg(
+				'openstackmanager-keypairimportedfingerprint',
+				$keypair->getKeyName(),
+				$keypair->getKeyFingerprint()
+			);
 		} else {
-			$this->getOutput()->addWikiMsg( 'openstackmanager-invalidkeypair' );
+			$out->addWikiMsg( 'openstackmanager-invalidkeypair' );
 		}
 
 		if ( $returnto ) {
-			$this->getOutput()->addReturnTo( $returnto );
+			$out->addReturnTo( $returnto );
 		}
 		return true;
 	}

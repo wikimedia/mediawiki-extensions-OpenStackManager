@@ -228,9 +228,21 @@ class SpecialNovaProxy extends SpecialNova {
 				if ( in_array( $region, $wgOpenStackManagerReadOnlyRegions ) ) {
 					$actions['projectadmin'][] = $this->msg( 'openstackmanager-creationdisabled' );
 				} else {
-					$actions['projectadmin'][] = $this->createActionLink( 'openstackmanager-createproxy', [ 'action' => 'create', 'project' => $projectName, 'region' => $region ] );
+					$actions['projectadmin'][] = $this->createActionLink(
+						'openstackmanager-createproxy',
+						[
+							'action' => 'create',
+							'project' => $projectName,
+							'region' => $region
+						]
+					);
 				}
-				$regions .= $this->createRegionSection( $region, $projectName, $actions, $this->getProxies( $projectName, $region ) );
+				$regions .= $this->createRegionSection(
+					$region,
+					$projectName,
+					$actions,
+					$this->getProxies( $projectName, $region )
+				);
 			}
 			$out .= $this->createProjectSection( $projectName, $projectactions, $regions );
 		}
@@ -251,15 +263,26 @@ class SpecialNovaProxy extends SpecialNova {
 				$this->pushResourceColumn( $proxyRow, $proxy->getBackend() );
 
 				$actions = [];
-				$actions[] = $this->createActionLink( 'openstackmanager-delete',
-					[ 'action' => 'delete', 'proxyfqdn' => $fqdn, 'project' => $projectName, 'region' => $region ] );
+				$actions[] = $this->createActionLink(
+					'openstackmanager-delete',
+					[
+						'action' => 'delete',
+						'proxyfqdn' => $fqdn,
+						'project' => $projectName,
+						'region' => $region
+					]
+				);
 				$this->pushRawResourceColumn( $proxyRow, $this->createResourceList( $actions ) );
 
 				$proxyRows[] = $proxyRow;
 			}
 		}
 		if ( $proxyRows ) {
-			$headers = [ 'openstackmanager-proxyname', 'openstackmanager-proxybackend', 'openstackmanager-actions' ];
+			$headers = [
+				'openstackmanager-proxyname',
+				'openstackmanager-proxybackend',
+				'openstackmanager-actions'
+			];
 			$out = $this->createResourceTable( $headers, $proxyRows );
 		} else {
 			$out = '';
@@ -396,7 +419,9 @@ class SpecialNovaProxy extends SpecialNova {
 		$newProxy =  $this->userNova->createProxy( $fqdn, $backendHost, $backendPort );
 
 		if ( $newProxy ) {
-			$outputPage->addWikiMsg( 'openstackmanager-createdproxy', $fqdn, $backendHost . ":" . $backendPort );
+			$outputPage->addWikiMsg(
+				'openstackmanager-createdproxy', $fqdn, $backendHost . ":" . $backendPort
+			);
 		} else {
 			$outputPage->addWikiMsg( 'openstackmanager-createproxyfailed', $fqdn );
 			$this->deleteHost( $fqdn, $gatewayIP );

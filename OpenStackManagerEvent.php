@@ -15,7 +15,8 @@ class OpenStackManagerEvent {
 	}
 
 	/**
-	 * Store the event information in a DB table. We'll get this back out in the maintenance/onInstanceActionCompletion.php script.
+	 * Store the event information in a DB table. We'll get this back out in the
+	 * maintenance/onInstanceActionCompletion.php script.
 	 * @param $type string
 	 * @param $user User
 	 * @param $instance OpenStackNovaInstance

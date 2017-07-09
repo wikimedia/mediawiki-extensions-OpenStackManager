@@ -9,7 +9,9 @@ require_once "$IP/maintenance/Maintenance.php";
 class OpenStackNovaTransitionServiceGroups extends Maintenance {
 	public function __construct() {
 		parent::__construct();
-		$this->mDescription = "Copy each cn=local-<servicegroup>,ou=groups,cn=<project>,ou=projects,dc=wikimedia,dc=org to cn=<project>.<servicegroup>,ou=groups,cn=<project>,ou=projects,dc=wikimedia,dc=org";
+		$this->mDescription = "Copy each cn=local-<servicegroup>,ou=groups,cn=<project>," .
+			"ou=projects,dc=wikimedia,dc=org to cn=<project>.<servicegroup>,ou=groups," .
+			"cn=<project>,ou=projects,dc=wikimedia,dc=org";
 	}
 
 	public function updateMemberName( $member, $project ) {
@@ -52,7 +54,9 @@ class OpenStackNovaTransitionServiceGroups extends Maintenance {
 				$fullGroupName = $serviceGroup->getGroupName();
 
 				if ( strpos( $fullGroupName, $wgOpenStackManagerServiceGroupPrefix, 0 ) === 0 ) {
-					$groupName = substr( $fullGroupName, strlen( $wgOpenStackManagerServiceGroupPrefix ) );
+					$groupName = substr(
+						$fullGroupName, strlen( $wgOpenStackManagerServiceGroupPrefix )
+					);
 				} else {
 					$groupName = $fullGroupName;
 				}
@@ -64,7 +68,9 @@ class OpenStackNovaTransitionServiceGroups extends Maintenance {
 				}
 
 				$originalMember = $groupMembers[0];
-				$retval = OpenStackNovaServiceGroup::createServiceGroup( $groupName, $project, $this->updateMemberName( $originalMember, $project ) );
+				$retval = OpenStackNovaServiceGroup::createServiceGroup(
+					$groupName, $project, $this->updateMemberName( $originalMember, $project )
+				);
 				$attempt_count++;
 
 				if ( $retval ) {
@@ -84,7 +90,8 @@ class OpenStackNovaTransitionServiceGroups extends Maintenance {
 			}
 		}
 
-		$this->output( "$attempt_count service groups were synced, $synced_count changed, $failed_count failed.\n" );
+		$this->output( "$attempt_count service groups were synced, $synced_count changed, " .
+			"$failed_count failed.\n" );
 		$this->output( "Done.\n" );
 
 		// return true if there were no failed syncs

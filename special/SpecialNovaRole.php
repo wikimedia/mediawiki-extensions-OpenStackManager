@@ -50,7 +50,9 @@ class SpecialNovaRole extends SpecialNova {
 			$projectname = $project->getProjectName();
 			$rolename = $role->getRoleName();
 
-			if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( $rolename, $projectname ) ) {
+			if ( !$this->userCanExecute( $this->getUser() ) &&
+				!$this->userLDAP->inRole( $rolename, $projectname )
+			) {
 				$this->displayRestrictionError();
 				return false;
 			}
@@ -126,7 +128,9 @@ class SpecialNovaRole extends SpecialNova {
 			$role = new OpenStackNovaRole( $roleid, $project );
 			$projectname = $project->getProjectName();
 			$rolename = $role->getRoleName();
-			if ( !$this->userCanExecute( $this->getUser() ) && !$this->userLDAP->inRole( $rolename, $projectname ) ) {
+			if ( !$this->userCanExecute( $this->getUser() ) &&
+				!$this->userLDAP->inRole( $rolename, $projectname )
+			) {
 				$this->displayRestrictionError();
 				return false;
 			}
@@ -216,7 +220,9 @@ class SpecialNovaRole extends SpecialNova {
 			if ( $success ) {
 				$this->getOutput()->addWikiMsg( 'openstackmanager-addedto', $member, $rolename );
 			} else {
-				$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoadd', $member, $rolename );
+				$this->getOutput()->addWikiMsg(
+					'openstackmanager-failedtoadd', $member, $rolename
+				);
 			}
 		}
 
@@ -238,10 +244,11 @@ class SpecialNovaRole extends SpecialNova {
 	 */
 	function tryDeleteMemberSubmit( $formData, $entryPoint = 'internal' ) {
 		$projectid = $formData['projectid'];
+		$out = $this->getOutput();
 		if ( $projectid ) {
 			$project = OpenStackNovaProject::getProjectById( $projectid );
 			if ( !$project ) {
-				$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistentproject' );
+				$out->addWikiMsg( 'openstackmanager-nonexistentproject' );
 				return true;
 			}
 			$role = new OpenStackNovaRole( $formData['roleid'], $project );
@@ -250,15 +257,15 @@ class SpecialNovaRole extends SpecialNova {
 			// TODO: display error
 		}
 		if ( !$role ) {
-			$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistentrole' );
+			$out->addWikiMsg( 'openstackmanager-nonexistentrole' );
 			return true;
 		}
 		foreach ( $formData['members'] as $member ) {
 			$success = $role->deleteMember( $member );
 			if ( $success ) {
-				$this->getOutput()->addWikiMsg( 'openstackmanager-removedfrom', $member, $rolename );
+				$out->addWikiMsg( 'openstackmanager-removedfrom', $member, $rolename );
 			} else {
-				$this->getOutput()->addWikiMsg( 'openstackmanager-failedtoremove', $member, $rolename );
+				$out->addWikiMsg( 'openstackmanager-failedtoremove', $member, $rolename );
 			}
 		}
 
@@ -268,7 +275,7 @@ class SpecialNovaRole extends SpecialNova {
 			$returnto,
 			$this->msg( 'openstackmanager-backprojectlist' )->escaped()
 		);
-		$this->getOutput()->addHTML( $out );
+		$out->addHTML( $out );
 
 		return true;
 	}

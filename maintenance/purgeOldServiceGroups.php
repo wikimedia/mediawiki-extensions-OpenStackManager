@@ -9,7 +9,8 @@ require_once "$IP/maintenance/Maintenance.php";
 class OpenStackNovaPurgeOldServiceGroups extends Maintenance {
 	public function __construct() {
 		parent::__construct();
-		$this->mDescription = "Delete all service users and groups of the form n=local-<servicegroup>,ou=groups,cn=<project>,ou=projects,dc=wikimedia,dc=org";
+		$this->mDescription = "Delete all service users and groups of the form " .
+			"n=local-<servicegroup>,ou=groups,cn=<project>,ou=projects,dc=wikimedia,dc=org";
 	}
 
 	public function execute() {
@@ -50,7 +51,9 @@ class OpenStackNovaPurgeOldServiceGroups extends Maintenance {
 						$deleteme = "cn=" . $groupEntry['cn'][0] . "," . $oldServiceGroupOUDN;
 						print "needs deleting: " . $deleteme . "...";
 						$attempt_count++;
-						$success = LdapAuthenticationPlugin::ldap_delete( $ldap->ldapconn, $deleteme );
+						$success = LdapAuthenticationPlugin::ldap_delete(
+							$ldap->ldapconn, $deleteme
+						);
 						if ( $success ) {
 							$synced_count++;
 							print "done.\n";
@@ -75,7 +78,9 @@ class OpenStackNovaPurgeOldServiceGroups extends Maintenance {
 						$deleteme = "uid=" . $groupEntry['cn'][0] . "," . $oldServiceUserOUDN;
 						print "user needs deleting: " . $deleteme . "...";
 						$attempt_count++;
-						$success = LdapAuthenticationPlugin::ldap_delete( $ldap->ldapconn, $deleteme );
+						$success = LdapAuthenticationPlugin::ldap_delete(
+							$ldap->ldapconn, $deleteme
+						);
 						if ( $success ) {
 							$synced_count++;
 							print "done.\n";
@@ -112,7 +117,8 @@ class OpenStackNovaPurgeOldServiceGroups extends Maintenance {
 			}
 		}
 
-		$this->output( "$attempt_count items needed cleanup. $synced_count removed, $failed_count failed.\n" );
+		$this->output( "$attempt_count items needed cleanup. $synced_count removed, " .
+			"$failed_count failed.\n" );
 		$this->output( "Done.\n" );
 
 		return ( $failed_count == 0 );

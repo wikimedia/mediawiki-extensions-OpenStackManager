@@ -78,11 +78,15 @@ class SpecialNovaResources extends SpecialNova {
 				$instances = $this->getInstances( $projectName, $region, $thisCount );
 				$instancesInProject += $thisCount;
 				if ( $thisCount > 0 ) {
-					$regions .= $this->createRegionSection( $region, $projectName, $regionactions, $instances );
+					$regions .= $this->createRegionSection(
+						$region, $projectName, $regionactions, $instances
+					);
 				}
 			}
 			if ( $instancesInProject ) {
-				$instanceOut .= $this->createProjectSection( $projectName, $projectactions, $regions );
+				$instanceOut .= $this->createProjectSection(
+					$projectName, $projectactions, $regions
+				);
 				$instanceCount += $instancesInProject;
 			} else {
 			}
@@ -91,7 +95,9 @@ class SpecialNovaResources extends SpecialNova {
 		$out = '';
 
 		if ( $ownedProjects ) {
-			$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-ownedprojects', count( $ownedProjects ) ) );
+			$this->getOutput()->setPageTitle(
+				$this->msg( 'openstackmanager-ownedprojects', count( $ownedProjects ) )
+			);
 			foreach ( $ownedProjects as $ownedProject ) {
 				$projectNameOut = $this->createResourceLink( $ownedProject );
 				$out .= $projectNameOut . " ";
@@ -101,10 +107,14 @@ class SpecialNovaResources extends SpecialNova {
 		}
 
 		if ( $instanceCount ) {
-			$out .= Html::rawElement( 'h1', [], $this->msg( 'openstackmanager-ownedinstances', $instanceCount )->text() );
+			$out .= Html::rawElement( 'h1', [],
+				$this->msg( 'openstackmanager-ownedinstances', $instanceCount )->text()
+			);
 			$out .= $instanceOut;
 		} else {
-			$out .= Html::rawElement( 'h1', [], $this->msg( 'openstackmanager-noownedinstances' )->text() );
+			$out .= Html::rawElement( 'h1', [],
+				$this->msg( 'openstackmanager-noownedinstances' )->text()
+			);
 		}
 
 		$this->getOutput()->addHTML( $out );
@@ -112,7 +122,15 @@ class SpecialNovaResources extends SpecialNova {
 
 	function getInstances( $projectName, $region, &$instanceCount ) {
 		$this->userNova->setRegion( $region );
-		$headers = [ 'openstackmanager-instancename', 'openstackmanager-instanceid', 'openstackmanager-instancestate', 'openstackmanager-instanceip', 'openstackmanager-projectname', 'openstackmanager-launchtime', 'openstackmanager-instancecreator' ];
+		$headers = [
+			'openstackmanager-instancename',
+			'openstackmanager-instanceid',
+			'openstackmanager-instancestate',
+			'openstackmanager-instanceip',
+			'openstackmanager-projectname',
+			'openstackmanager-launchtime',
+			'openstackmanager-instancecreator'
+		];
 		$instances = $this->userNova->getInstances();
 		$instanceRows = [];
 		$instanceCount = 0;
@@ -126,12 +144,20 @@ class SpecialNovaResources extends SpecialNova {
 			}
 
 			$instanceRow = [];
-			$this->pushResourceColumn( $instanceRow, $instance->getInstanceName(), [ 'class' => 'novainstancename' ] );
+			$this->pushResourceColumn(
+				$instanceRow, $instance->getInstanceName(), [ 'class' => 'novainstancename' ]
+			);
 			$host = $instance->getHost();
 			if ( $host ) {
-				$this->pushRawResourceColumn( $instanceRow, $this->createResourceLink( $host->getFullyQualifiedHostName() ), [ 'class' => 'novainstanceid' ] );
+				$this->pushRawResourceColumn(
+					$instanceRow,
+					$this->createResourceLink( $host->getFullyQualifiedHostName() ),
+					[ 'class' => 'novainstanceid' ]
+				);
 			} else {
-				$this->pushResourceColumn( $instanceRow, $instance->getInstanceId(), [ 'class' => 'novainstanceid' ] );
+				$this->pushResourceColumn(
+					$instanceRow, $instance->getInstanceId(), [ 'class' => 'novainstanceid' ]
+				);
 			}
 			$state = $instance->getInstanceState();
 			$taskState = $instance->getInstanceTaskState();
@@ -140,8 +166,12 @@ class SpecialNovaResources extends SpecialNova {
 			} else {
 				$stateDisplay = $state;
 			}
-			$this->pushResourceColumn( $instanceRow, $stateDisplay, [ 'class' => 'novainstancestate' ] );
-			$this->pushRawResourceColumn( $instanceRow, $this->createResourceList( $instance->getInstancePrivateIPs() ) );
+			$this->pushResourceColumn(
+				$instanceRow, $stateDisplay, [ 'class' => 'novainstancestate' ]
+			);
+			$this->pushRawResourceColumn(
+				$instanceRow, $this->createResourceList( $instance->getInstancePrivateIPs() )
+			);
 			$this->pushResourceColumn( $instanceRow, $projectName );
 			$this->pushResourceColumn( $instanceRow, $instance->getLaunchTime() );
 			$this->pushResourceColumn( $instanceRow, $instance->getInstanceCreator() );

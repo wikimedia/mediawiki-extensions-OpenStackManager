@@ -9,7 +9,8 @@ require_once "$IP/maintenance/Maintenance.php";
 class OpenStackNovaSyncProjectGroups extends Maintenance {
 	public function __construct() {
 		parent::__construct();
-		$this->mDescription = "Sync each cn=<project-name>,ou=projects members to cn=project-<project-name>,ou=groups";
+		$this->mDescription = "Sync each cn=<project-name>,ou=projects members to " .
+			"cn=project-<project-name>,ou=groups";
 	}
 
 	public function execute() {
@@ -41,7 +42,9 @@ class OpenStackNovaSyncProjectGroups extends Maintenance {
 			// 1: successful sync
 
 			if ( $retval != 0 ) {
-				$this->output( ( $retval ? "Succeeded" : "Failed" )  . " syncing members for project $projectName and group " . $project->projectGroup->getProjectGroupName() );
+				$this->output( ( $retval ? "Succeeded" : "Failed" ) .
+					" syncing members for project $projectName and group " .
+					$project->projectGroup->getProjectGroupName() );
 				if ( $retval < 0 ) {
 					$failedSync = true;
 					$failed_count++;
@@ -56,7 +59,8 @@ class OpenStackNovaSyncProjectGroups extends Maintenance {
 			// print_r( $projectGroup->getMemberDNs() );
 		}
 
-		$this->output( "$attempt_count project groups were synced, $synced_count changed, $failed_count failed.\n" );
+		$this->output( "$attempt_count project groups were synced, $synced_count changed, " .
+			"$failed_count failed.\n" );
 		$this->output( "Done.\n" );
 
 		// return true if there were no failed syncs

@@ -435,7 +435,11 @@ class SpecialNovaAddress extends SpecialNova {
 			$this->userNova->setProject( $projectName );
 			foreach ( $this->userNova->getRegions( 'compute' ) as $region ) {
 				if ( in_array( $region, $wgOpenStackManagerReadOnlyRegions ) ) {
-					$regionactions = [ 'projectadmin' => [ $this->msg( 'openstackmanager-creationdisabled' ) ] ];
+					$regionactions = [
+						'projectadmin' => [
+							$this->msg( 'openstackmanager-creationdisabled' )
+						]
+					];
 				} else {
 					$regionactions = [
 						'projectadmin' => [
@@ -451,7 +455,9 @@ class SpecialNovaAddress extends SpecialNova {
 					];
 				}
 				$addresses = $this->getAddresses( $projectName, $region );
-				$regions .= $this->createRegionSection( $region, $projectName, $regionactions, $addresses );
+				$regions .= $this->createRegionSection(
+					$region, $projectName, $regionactions, $addresses
+				);
 			}
 			$out .= $this->createProjectSection( $projectName, $projectactions, $regions );
 		}
@@ -462,8 +468,13 @@ class SpecialNovaAddress extends SpecialNova {
 
 	function getAddresses( $projectName, $region ) {
 		$this->userNova->setRegion( $region );
-		$headers = [ 'openstackmanager-address', 'openstackmanager-instanceid', 'openstackmanager-instancename',
-			'openstackmanager-hostnames', 'openstackmanager-actions' ];
+		$headers = [
+			'openstackmanager-address',
+			'openstackmanager-instanceid',
+			'openstackmanager-instancename',
+			'openstackmanager-hostnames',
+			'openstackmanager-actions'
+		];
 		$addresses = $this->userNova->getAddresses();
 		$instances = $this->userNova->getInstances();
 		$addressRows = [];
@@ -482,9 +493,13 @@ class SpecialNovaAddress extends SpecialNova {
 				$instanceid = $instances[$instanceosid]->getInstanceId();
 				$host = $instances[$instanceosid]->getHost();
 				if ( $host ) {
-					$this->pushRawResourceColumn( $addressRow, $this->createResourceLink( $host->getFullyQualifiedHostName() ), [
-						'class' => 'instance-id'
-					] );
+					$this->pushRawResourceColumn(
+						$addressRow,
+						$this->createResourceLink( $host->getFullyQualifiedHostName() ),
+						[
+							'class' => 'instance-id'
+						]
+					);
 				} else {
 					$this->pushResourceColumn( $addressRow, $instanceid, [
 						'class' => 'instance-id'
@@ -557,16 +572,31 @@ class SpecialNovaAddress extends SpecialNova {
 			} else {
 				$actions[] = $this->createActionLink(
 					'openstackmanager-releaseaddress',
-					[ 'action' => 'release', 'id' => $id, 'project' => $projectName, 'region' => $region ]
+					[
+						'action' => 'release',
+						'id' => $id,
+						'project' => $projectName,
+						'region' => $region
+					]
 				);
 				$actions[] = $this->createActionLink(
 					'openstackmanager-associateaddress',
-					[ 'action' => 'associate', 'id' => $id, 'project' => $projectName, 'region' => $region ]
+					[
+						'action' => 'associate',
+						'id' => $id,
+						'project' => $projectName,
+						'region' => $region
+					]
 				);
 			}
 			$actions[] = $this->createActionLink(
 				'openstackmanager-addhost',
-				[ 'action' => 'addhost', 'id' => $id, 'project' => $projectName, 'region' => $region ]
+				[
+					'action' => 'addhost',
+					'id' => $id,
+					'project' => $projectName,
+					'region' => $region
+				]
 			);
 			$this->pushRawResourceColumn( $addressRow, $this->createResourceList( $actions ) );
 			$addressRows[] = $addressRow;

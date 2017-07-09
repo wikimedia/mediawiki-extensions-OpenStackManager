@@ -118,7 +118,12 @@ class SpecialNovaDomain extends SpecialNova {
 		$domainForm->setSubmitCallback( [ $this, 'tryCreateSubmit' ] );
 		$domainForm->show();
 
-		$headers = [ 'openstackmanager-domainname', 'openstackmanager-fqdn', 'openstackmanager-location', 'openstackmanager-actions' ];
+		$headers = [
+			'openstackmanager-domainname',
+			'openstackmanager-fqdn',
+			'openstackmanager-location',
+			'openstackmanager-actions'
+		];
 		$domains = OpenStackNovaDomain::getAllDomains();
 		$domainRows = [];
 		foreach ( $domains as $domain ) {
@@ -127,7 +132,13 @@ class SpecialNovaDomain extends SpecialNova {
 			$this->pushResourceColumn( $domainRow, $domainName );
 			$this->pushResourceColumn( $domainRow, $domain->getFullyQualifiedDomainName() );
 			$this->pushResourceColumn( $domainRow, $domain->getLocation() );
-			$this->pushRawResourceColumn( $domainRow, $this->createActionLink( 'openstackmanager-delete', [ 'action' => 'delete', 'domainname' => $domainName ] ) );
+			$this->pushRawResourceColumn(
+				$domainRow,
+				$this->createActionLink(
+					'openstackmanager-delete',
+					[ 'action' => 'delete', 'domainname' => $domainName ]
+				)
+			);
 			$domainRows[] = $domainRow;
 		}
 		if ( $domainRows ) {
@@ -145,7 +156,9 @@ class SpecialNovaDomain extends SpecialNova {
 	 * @return bool
 	 */
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
-		$success = OpenStackNovaDomain::createDomain( $formData['domainname'], $formData['fqdn'], $formData['location'] );
+		$success = OpenStackNovaDomain::createDomain(
+			$formData['domainname'], $formData['fqdn'], $formData['location']
+		);
 		if ( !$success ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-createdomainfailed' );
 			return false;

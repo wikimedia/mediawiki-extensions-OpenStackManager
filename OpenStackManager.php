@@ -173,7 +173,8 @@ $wgAutoloadClasses['OpenStackNovaPublicHost'] = $dir . 'nova/OpenStackNovaPublic
 $wgAutoloadClasses['OpenStackNovaPrivateHost'] = $dir . 'nova/OpenStackNovaPrivateHost.php';
 $wgAutoloadClasses['OpenStackNovaAddress'] = $dir . 'nova/OpenStackNovaAddress.php';
 $wgAutoloadClasses['OpenStackNovaSecurityGroup'] = $dir . 'nova/OpenStackNovaSecurityGroup.php';
-$wgAutoloadClasses['OpenStackNovaSecurityGroupRule'] = $dir . 'nova/OpenStackNovaSecurityGroupRule.php';
+$wgAutoloadClasses['OpenStackNovaSecurityGroupRule'] =
+	$dir . 'nova/OpenStackNovaSecurityGroupRule.php';
 $wgAutoloadClasses['OpenStackNovaRole'] = $dir . 'nova/OpenStackNovaRole.php';
 $wgAutoloadClasses['OpenStackNovaServiceGroup'] = $dir . 'nova/OpenStackNovaServiceGroup.php';
 $wgAutoloadClasses['OpenStackNovaVolume'] = $dir . 'nova/OpenStackNovaVolume.php';
@@ -183,8 +184,10 @@ $wgAutoloadClasses['OpenStackNovaArticle'] = $dir . 'nova/OpenStackNovaArticle.p
 $wgAutoloadClasses['OpenStackNovaLdapConnection'] = $dir . 'nova/OpenStackNovaLdapConnection.php';
 $wgAutoloadClasses['OpenStackNovaProject'] = $dir . 'nova/OpenStackNovaProject.php';
 $wgAutoloadClasses['OpenStackNovaProjectLimits'] = $dir . 'nova/OpenStackNovaProjectLimits.php';
-$wgAutoloadClasses['OpenStackNovaShellAccountNameRequest'] = $dir . 'nova/OpenStackNovaShellAccountNameRequest.php';
-$wgAutoloadClasses['OpenStackNovaSecondaryAuthenticationProvider'] = $dir . '/nova/OpenStackNovaSecondaryAuthenticationProvider.php';
+$wgAutoloadClasses['OpenStackNovaShellAccountNameRequest'] =
+	$dir . 'nova/OpenStackNovaShellAccountNameRequest.php';
+$wgAutoloadClasses['OpenStackNovaSecondaryAuthenticationProvider'] =
+	$dir . '/nova/OpenStackNovaSecondaryAuthenticationProvider.php';
 $wgAutoloadClasses['SpecialNovaKey'] = $dir . 'special/SpecialNovaKey.php';
 $wgAutoloadClasses['SpecialNovaProject'] = $dir . 'special/SpecialNovaProject.php';
 $wgAutoloadClasses['SpecialNovaDomain'] = $dir . 'special/SpecialNovaDomain.php';
@@ -203,7 +206,8 @@ $wgAutoloadClasses['ApiNovaProjectLimits'] = $dir . 'api/ApiNovaProjectLimits.ph
 $wgAutoloadClasses['ApiNovaServiceGroups'] = $dir . 'api/ApiNovaServiceGroups.php';
 $wgAutoloadClasses['ApiListNovaProjects'] = $dir . 'api/ApiListNovaProjects.php';
 $wgAutoloadClasses['ApiListNovaInstances'] = $dir . 'api/ApiListNovaInstances.php';
-$wgAutoloadClasses['EchoOpenStackManagerPresentationModel'] = $dir . 'EchoOpenStackManagerPresentationModel.php';
+$wgAutoloadClasses['EchoOpenStackManagerPresentationModel'] =
+	$dir . 'EchoOpenStackManagerPresentationModel.php';
 $wgAutoloadClasses['OpenStackManagerEvent'] = $dir . 'OpenStackManagerEvent.php';
 $wgSpecialPages['NovaKey'] = 'SpecialNovaKey';
 $wgSpecialPages['NovaProject'] = 'SpecialNovaProject';
@@ -311,8 +315,17 @@ function efOpenStackSchemaUpdates( $updater ) {
 	switch ( $updater->getDB()->getType() ) {
 	case 'mysql':
 		$updater->addExtensionTable( 'openstack_tokens', "$base/schema-changes/tokens.sql" );
-		$updater->addExtensionTable( 'openstack_notification_event', "$base/schema-changes/openstack_add_notification_events_table.sql" );
-		$updater->addExtensionUpdate( [ 'modifyField', 'openstack_tokens', 'token', "$base/schema-changes/openstack_change_token_size.sql", true ] );
+		$updater->addExtensionTable(
+			'openstack_notification_event',
+			"$base/schema-changes/openstack_add_notification_events_table.sql"
+		);
+		$updater->addExtensionUpdate( [
+			'modifyField',
+			'openstack_tokens',
+			'token',
+			"$base/schema-changes/openstack_change_token_size.sql",
+			true
+		] );
 		break;
 	}
 	return true;
@@ -377,7 +390,9 @@ function efOpenStackGetDefaultNotifiedUsers( $event, &$users ) {
 		$event->getType() == 'osm-instance-deleted'
 	) {
 		$extra = $event->getExtra();
-		foreach ( OpenStackNovaProject::getProjectByName( $extra['projectName'] )->getRoles() as $role ) {
+		foreach (
+			OpenStackNovaProject::getProjectByName( $extra['projectName'] )->getRoles() as $role
+		) {
 			if ( $role->getRoleName() == 'projectadmin' ) {
 				foreach ( $role->getMembers() as $roleMember ) {
 					$roleMemberUser = User::newFromName( $roleMember );

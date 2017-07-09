@@ -354,9 +354,19 @@ class SpecialNovaVolume extends SpecialNova {
 			$regions = '';
 			$this->userNova->setProject( $projectName );
 			foreach ( $this->userNova->getRegions( 'compute' ) as $region ) {
-				$regionactions = [ 'projectadmin' => [ $this->createActionLink( 'openstackmanager-createvolume', [ 'action' => 'create', 'project' => $projectName, 'region' => $region ] ) ] ];
+				$regionactions = [
+					'projectadmin' => [
+						$this->createActionLink( 'openstackmanager-createvolume', [
+							'action' => 'create',
+							'project' => $projectName,
+							'region' => $region
+						] )
+					]
+				];
 				$volumes = $this->getVolumes( $projectName, $region );
-				$regions .= $this->createRegionSection( $region, $projectName, $regionactions, $volumes );
+				$regions .= $this->createRegionSection(
+					$region, $projectName, $regionactions, $volumes
+				);
 			}
 			$out .= $this->createProjectSection( $projectName, $projectactions, $regions );
 		}
@@ -365,11 +375,13 @@ class SpecialNovaVolume extends SpecialNova {
 	}
 
 	function getVolumes( $projectName, $region ) {
-		$headers = [ 'openstackmanager-volumename', 'openstackmanager-volumeid', 'openstackmanager-volumedescription',
-				'openstackmanager-volumeattachmentinstance',
-				'openstackmanager-volumeattachmentdevice', 'openstackmanager-volumeattachmentstatus',
-				'openstackmanager-volumesize',
-				'openstackmanager-volumecreationtime', 'openstackmanager-actions' ];
+		$headers = [ 'openstackmanager-volumename',
+			'openstackmanager-volumeid', 'openstackmanager-volumedescription',
+			'openstackmanager-volumeattachmentinstance',
+			'openstackmanager-volumeattachmentdevice', 'openstackmanager-volumeattachmentstatus',
+			'openstackmanager-volumesize',
+			'openstackmanager-volumecreationtime', 'openstackmanager-actions'
+		];
 		$this->userNova->setRegion( $region );
 		$volumes = $this->userNova->getVolumes();
 		$volumeRows = [];
@@ -385,15 +397,18 @@ class SpecialNovaVolume extends SpecialNova {
 			$this->pushResourceColumn( $volumeRow, $volume->getVolumeSize() );
 			$this->pushResourceColumn( $volumeRow, $volume->getVolumeCreationTime() );
 			$actions = [];
-			$actions[] = $this->createActionLink( 'openstackmanager-delete',
-				[ 'action' => 'delete', 'project' => $projectName, 'region' => $region, 'volumeid' => $volumeId ]
-			);
-			$actions[] = $this->createActionLink( 'openstackmanager-attach',
-				[ 'action' => 'attach', 'project' => $projectName, 'region' => $region, 'volumeid' => $volumeId ]
-			);
-			$actions[] = $this->createActionLink( 'openstackmanager-detach',
-				[ 'action' => 'detach', 'project' => $projectName, 'region' => $region, 'volumeid' => $volumeId ]
-			);
+			$actions[] = $this->createActionLink( 'openstackmanager-delete', [
+				'action' => 'delete', 'project' => $projectName,
+				'region' => $region, 'volumeid' => $volumeId
+			] );
+			$actions[] = $this->createActionLink( 'openstackmanager-attach', [
+				'action' => 'attach', 'project' => $projectName,
+				'region' => $region, 'volumeid' => $volumeId
+			] );
+			$actions[] = $this->createActionLink( 'openstackmanager-detach', [
+				'action' => 'detach', 'project' => $projectName,
+				'region' => $region, 'volumeid' => $volumeId
+			] );
 			$this->pushRawResourceColumn( $volumeRow, $this->createResourceList( $actions ) );
 			$volumeRows[] = $volumeRow;
 		}
@@ -410,9 +425,16 @@ class SpecialNovaVolume extends SpecialNova {
 	 * @return bool
 	 */
 	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
-		$volume = $this->userNova->createVolume( '', $formData['volumeSize'], $formData['volumename'], $formData['volumedescription'] );
+		$volume = $this->userNova->createVolume(
+			'',
+			$formData['volumeSize'],
+			$formData['volumename'],
+			$formData['volumedescription']
+		);
 		if ( $volume ) {
-			$this->getOutput()->addWikiMsg( 'openstackmanager-createdvolume', $volume->getVolumeID() );
+			$this->getOutput()->addWikiMsg(
+				'openstackmanager-createdvolume', $volume->getVolumeID()
+			);
 		} else {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-createevolumefailed' );
 		}
@@ -462,7 +484,9 @@ class SpecialNovaVolume extends SpecialNova {
 	 * @return bool
 	 */
 	function tryAttachSubmit( $formData, $entryPoint = 'internal' ) {
-		$success = $this->userNova->attachVolume( $formData['volumeid'], $formData['instanceid'], $formData['device'] );
+		$success = $this->userNova->attachVolume(
+			$formData['volumeid'], $formData['instanceid'], $formData['device']
+		);
 		if ( $success ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-attachedvolume' );
 		} else {

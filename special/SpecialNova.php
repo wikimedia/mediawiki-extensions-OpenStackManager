@@ -54,7 +54,9 @@ abstract class SpecialNova extends SpecialPage {
 	 */
 	function notInRole( $role, $project ) {
 		$this->setHeaders();
-		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-needrole', $role, $project ) );
+		$this->getOutput()->setPageTitle(
+			$this->msg( 'openstackmanager-needrole', $role, $project )
+		);
 		$this->getOutput()->addWikiMsg( 'openstackmanager-needrole2', $role, $project );
 	}
 
@@ -63,7 +65,9 @@ abstract class SpecialNova extends SpecialPage {
 			$isEnabled = false;
 			Hooks::run( 'TwoFactorIsEnabled', [ &$isEnabled ] );
 			if ( !$isEnabled ) {
-				throw new ErrorPageError( 'openstackmanager-twofactorrequired', 'openstackmanager-twofactorrequired2' );
+				throw new ErrorPageError(
+					'openstackmanager-twofactorrequired', 'openstackmanager-twofactorrequired2'
+				);
 			}
 		}
 	}
@@ -113,7 +117,9 @@ abstract class SpecialNova extends SpecialPage {
 	}
 
 	function showProjectFilter( $projects ) {
-		if ( $this->getRequest()->wasPosted() && $this->getRequest()->getVal( 'action' ) !== 'setprojectfilter' ) {
+		if ( $this->getRequest()->wasPosted() &&
+			$this->getRequest()->getVal( 'action' ) !== 'setprojectfilter'
+		) {
 			return null;
 		}
 		$showmsg = $this->getRequest()->getText( 'showmsg' );
@@ -170,7 +176,12 @@ abstract class SpecialNova extends SpecialPage {
 	}
 
 	public static function createNovaKeyActionLink( $msg, $params ) {
-		return Linker::link( SpecialPage::getTitleFor( 'NovaKey' ), wfMessage( $msg )->escaped(), [], $params );
+		return Linker::link(
+			SpecialPage::getTitleFor( 'NovaKey' ),
+			wfMessage( $msg )->escaped(),
+			[],
+			$params
+		);
 	}
 
 	public static function createResourceList( $resources ) {

@@ -393,8 +393,12 @@ class SpecialNovaSudoer extends SpecialNova {
 				continue;
 			}
 			$actions = [ 'projectadmin' => [] ];
-			$actions['projectadmin'][] = $this->createActionLink( 'openstackmanager-createsudoer', [ 'action' => 'create', 'project' => $projectName ] );
-			$out .= $this->createProjectSection( $projectName, $actions, $this->getSudoers( $project ) );
+			$actions['projectadmin'][] = $this->createActionLink(
+				'openstackmanager-createsudoer', [ 'action' => 'create', 'project' => $projectName ]
+			);
+			$out .= $this->createProjectSection(
+				$projectName, $actions, $this->getSudoers( $project )
+			);
 		}
 
 		$this->getOutput()->addHTML( $out );
@@ -421,7 +425,9 @@ class SpecialNovaSudoer extends SpecialNova {
 			if ( $leftover == $AllProjectMembers ) {
 				array_unshift( $HRList, $this->msg( 'openstackmanager-allmembers' )->text() );
 			} elseif ( $leftover[0] == '%' ) {
-				array_unshift( $HRList, $this->msg( 'openstackmanager-membersofgroup', substr( $leftover, 1 ) ) );
+				array_unshift( $HRList,
+					$this->msg( 'openstackmanager-membersofgroup', substr( $leftover, 1 ) )
+				);
 			} else {
 				array_unshift( $HRList, $leftover );
 			}
@@ -448,12 +454,22 @@ class SpecialNovaSudoer extends SpecialNova {
 			$projectmembers = $project->getMembers();
 
 			$userNames = $this->makeHumanReadableUserlist( $sudoer->getSudoerUsers(), $project );
-			$sudoRunAsUsers = $this->makeHumanReadableUserlist( $sudoer->getSudoerRunAsUsers(), $project );
+			$sudoRunAsUsers = $this->makeHumanReadableUserlist(
+				$sudoer->getSudoerRunAsUsers(), $project
+			);
 
-			$this->pushRawResourceColumn( $sudoerRow, $this->createResourceList( $userNames ) );
-			$this->pushRawResourceColumn( $sudoerRow, $this->createResourceList( $sudoRunAsUsers ) );
-			$this->pushRawResourceColumn( $sudoerRow, $this->createResourceList( $sudoer->getSudoerCommands() ) );
-			$this->pushRawResourceColumn( $sudoerRow, $this->createResourceList( $sudoer->getSudoerOptions() ) );
+			$this->pushRawResourceColumn(
+				$sudoerRow, $this->createResourceList( $userNames )
+			);
+			$this->pushRawResourceColumn(
+				$sudoerRow, $this->createResourceList( $sudoRunAsUsers )
+			);
+			$this->pushRawResourceColumn(
+				$sudoerRow, $this->createResourceList( $sudoer->getSudoerCommands() )
+			);
+			$this->pushRawResourceColumn(
+				$sudoerRow, $this->createResourceList( $sudoer->getSudoerOptions() )
+			);
 			$actions = [];
 			$actions[] = $this->createActionLink( 'openstackmanager-modify',
 				[ 'action' => 'modify', 'sudoername' => $sudoerName, 'project' => $projectName ]
@@ -485,7 +501,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	function removeALLFromUserKeys( $users ) {
 		$newusers = [];
 		foreach ( $users as $user ) {
-			if ( ( $user == 'ALL' ) || ( $user == $this->msg( 'openstackmanager-allmembers' )->text() ) ) {
+			if ( $user == 'ALL' || $user == $this->msg( 'openstackmanager-allmembers' )->text() ) {
 				$newusers[] = "%" . $this->project->getProjectGroupName();
 			} else {
 				$newusers[] = $user;
@@ -539,7 +555,14 @@ class SpecialNovaSudoer extends SpecialNova {
 			$options[] = '!authenticate';
 		}
 		$runasusers = $this->removeALLFromRunAsUserKeys( $formData['runas'] );
-		$success = OpenStackNovaSudoer::createSudoer( $formData['sudoername'], $formData['project'], $this->removeALLFromUserKeys( $formData['users'] ), $runasusers, $commands, $options );
+		$success = OpenStackNovaSudoer::createSudoer(
+			$formData['sudoername'],
+			$formData['project'],
+			$this->removeALLFromUserKeys( $formData['users'] ),
+			$runasusers,
+			$commands,
+			$options
+		);
 		if ( !$success ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-createsudoerfailed' );
 			return false;
@@ -562,7 +585,9 @@ class SpecialNovaSudoer extends SpecialNova {
 	 * @return bool
 	 */
 	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
-		$success = OpenStackNovaSudoer::deleteSudoer( $formData['sudoername'], $formData['project'] );
+		$success = OpenStackNovaSudoer::deleteSudoer(
+			$formData['sudoername'], $formData['project']
+		);
 		if ( $success ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-deletedsudoer' );
 		} else {
@@ -585,7 +610,9 @@ class SpecialNovaSudoer extends SpecialNova {
 	 * @return bool
 	 */
 	function tryModifySubmit( $formData, $entryPoint = 'internal' ) {
-		$sudoer = OpenStackNovaSudoer::getSudoerByName( $formData['sudoername'], $formData['project'] );
+		$sudoer = OpenStackNovaSudoer::getSudoerByName(
+			$formData['sudoername'], $formData['project']
+		);
 		if ( $sudoer ) {
 			if ( $formData['commands'] ) {
 				$commands = explode( "\n", $formData['commands'] );
@@ -615,7 +642,9 @@ class SpecialNovaSudoer extends SpecialNova {
 				# Anything in this list that isn't a user or  ALL
 				# wasn't exposed to user selection so needs to stay.
 				if ( $candidate != $projectGroup ) {
-					if ( ( !in_array( $candidate, $projectuids ) ) && ( !in_array( $candidate, $projectserviceusers ) ) ) {
+					if ( !in_array( $candidate, $projectuids ) &&
+						!in_array( $candidate, $projectserviceusers )
+					) {
 						$users[] = $candidate;
 					}
 				}
@@ -624,7 +653,9 @@ class SpecialNovaSudoer extends SpecialNova {
 			$runasusers = $this->removeALLFromRunAsUserKeys( $formData['runas'] );
 			foreach ( $sudoer->getSudoerRunAsUsers() as $candidate ) {
 				if ( ( $candidate != $projectGroup ) && ( $candidate != 'ALL' ) ) {
-					if ( ( !in_array( $candidate, $projectuids ) ) && ( !in_array( $candidate, $projectserviceusers ) ) ) {
+					if ( !in_array( $candidate, $projectuids ) &&
+						!in_array( $candidate, $projectserviceusers )
+					) {
 						$runasusers[] = $candidate;
 					}
 				}
