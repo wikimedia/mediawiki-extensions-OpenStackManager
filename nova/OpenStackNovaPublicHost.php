@@ -34,7 +34,9 @@ class OpenStackNovaPublicHost extends OpenStackNovaHost {
 
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		$this->ip = $ldap->getLdapEscapedString( $this->ip );
-		$result = LdapAuthenticationPlugin::ldap_search( $ldap->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, '(dc=' . $this->ip . ')' );
+		$result = LdapAuthenticationPlugin::ldap_search(
+			$ldap->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, '(dc=' . $this->ip . ')'
+		);
 		$this->hostInfo = LdapAuthenticationPlugin::ldap_get_entries( $ldap->ldapconn, $result );
 		if ( $this->hostInfo["count"] == "0" ) {
 			$this->hostInfo = null;
@@ -53,7 +55,10 @@ class OpenStackNovaPublicHost extends OpenStackNovaHost {
 			$this->domainCache = OpenStackNovaDomain::getDomainByHostIP( $this->ip );
 			if ( !$this->domainCache ) {
 				$ldap = LdapAuthenticationPlugin::getInstance();
-				$ldap->printDebug( "Looked up domain for ip $this->ip but domainCache is still empty.", NONSENSITIVE );
+				$ldap->printDebug(
+					"Looked up domain for ip $this->ip but domainCache is still empty.",
+					NONSENSITIVE
+				);
 			}
 		}
 		return $this->domainCache;

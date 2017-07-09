@@ -91,7 +91,9 @@ class OpenStackNovaController {
 			foreach ( $serviceCatalog as $entry ) {
 				if ( $entry->type === "identity" ) {
 					foreach ( $entry->endpoints as $endpoint ) {
-						if ( !$wgUser->isAllowed( 'accessrestrictedregions' ) && in_array( $endpoint->region, $wgOpenStackManagerRestrictedRegions ) ) {
+						if ( !$wgUser->isAllowed( 'accessrestrictedregions' ) &&
+							in_array( $endpoint->region, $wgOpenStackManagerRestrictedRegions )
+						) {
 							continue;
 						}
 						$regions[] = $endpoint->region;
@@ -156,7 +158,10 @@ class OpenStackNovaController {
 	}
 
 	function createProxy( $fqdn, $backendHost, $backendPort ) {
-		$data = [ 'domain' => $fqdn, 'backends' => [ 'http://' . $backendHost . ':' . $backendPort ] ];
+		$data = [
+			'domain' => $fqdn,
+			'backends' => [ 'http://' . $backendHost . ':' . $backendPort ]
+		];
 		$ret = $this->restCall( 'proxy', '/mapping', 'PUT', $data );
 
 		if ( $ret['code'] !== 200 ) {
@@ -193,14 +198,17 @@ class OpenStackNovaController {
 			$backends = self::_get_property( $proxy, 'backends' );
 
 			if ( ( count( $backends ) ) > 1 ) {
-				$ldap->printDebug( "Warning!  proxy $domain has multiple backends but we only support one backend per proxy.", NONSENSITIVE );
+				$ldap->printDebug( "Warning!  proxy $domain has multiple backends " .
+					"but we only support one backend per proxy.", NONSENSITIVE );
 			}
 			$backend = $backends[0];
 			$backendarray = explode( ':', $backends[0] );
 
 			if ( strpos( $backend, "http" ) === 0 ) {
 				if ( ( count( $backendarray ) < 2 ) || ( count( $backendarray ) > 3 ) ) {
-					$ldap->printDebug( "Unable to parse backend $backend, discarding.", NONSENSITIVE );
+					$ldap->printDebug(
+						"Unable to parse backend $backend, discarding.", NONSENSITIVE
+					);
 				} elseif ( count( $backendarray ) == 2 ) {
 					$backendHost = $backend;
 					$backendPort = null;
@@ -210,7 +218,9 @@ class OpenStackNovaController {
 				}
 			} else {
 				if ( ( count( $backendarray ) < 1 ) || ( count( $backendarray ) > 2 ) ) {
-					$ldap->printDebug( "Unable to parse backend $backend, discarding.", NONSENSITIVE );
+					$ldap->printDebug(
+						"Unable to parse backend $backend, discarding.", NONSENSITIVE
+					);
 				} elseif ( count( $backendarray ) == 1 ) {
 					$backendHost = $backend;
 					$backendPort = null;
@@ -221,7 +231,9 @@ class OpenStackNovaController {
 			}
 
 			if ( $backendPort ) {
-				$proxyObj = new OpenStackNovaProxy( $this->project, $domain, $backendHost, $backendPort );
+				$proxyObj = new OpenStackNovaProxy(
+					$this->project, $domain, $backendHost, $backendPort
+				);
 			} else {
 				$proxyObj = new OpenStackNovaProxy( $this->project, $domain, $backendHost );
 			}
@@ -264,7 +276,9 @@ class OpenStackNovaController {
 		$ret = $this->restCall( 'identity', '/tokens', 'POST', $data, $headers );
 		if ( $ret['code'] !== 200 ) {
 			$ldap = LdapAuthenticationPlugin::getInstance();
-			$ldap->printDebug( "OpenStackNovaController::_getAdminToken return code: " . $ret['code'], NONSENSITIVE );
+			$ldap->printDebug(
+				"OpenStackNovaController::_getAdminToken return code: " . $ret['code'], NONSENSITIVE
+			);
 			return "";
 		}
 
@@ -412,7 +426,9 @@ class OpenStackNovaController {
 		$headers = [ "X-Auth-Token: $admintoken" ];
 
 		$assignments = [];
-		$ret = $this->restCall( 'identityv3', "/role_assignments?user.id=$userid", 'GET', [], $headers );
+		$ret = $this->restCall(
+			'identityv3', "/role_assignments?user.id=$userid", 'GET', [], $headers
+		);
 		$role_assignments = self::_get_property( $ret['body'], 'role_assignments' );
 		if ( !$role_assignments ) {
 			return $projects;
@@ -438,7 +454,9 @@ class OpenStackNovaController {
 
 		$assignments = [];
 
-		$ret = $this->restCall( 'identityv3', "/role_assignments?scope.project.id=$projectid", 'GET', [], $headers );
+		$ret = $this->restCall(
+			'identityv3', "/role_assignments?scope.project.id=$projectid", 'GET', [], $headers
+		);
 		$role_assignments = self::_get_property( $ret['body'], 'role_assignments' );
 		if ( !$role_assignments ) {
 			return $assignments;
@@ -461,7 +479,9 @@ class OpenStackNovaController {
 		$headers = [ "X-Auth-Token: $admintoken" ];
 
 		$rolearr = [];
-		$ret = $this->restCall( 'identity', "/tenants/$projectid/users/$userid/roles", 'GET', [], $headers );
+		$ret = $this->restCall(
+			'identity', "/tenants/$projectid/users/$userid/roles", 'GET', [], $headers
+		);
 		$roles = self::_get_property( $ret['body'], 'roles' );
 		if ( !$roles ) {
 			return $rolearr;
@@ -483,7 +503,10 @@ class OpenStackNovaController {
 		];
 
 		$rolearr = [];
-		$ret = $this->restCall( 'identity', "/tenants/$projectid/users/$userid/roles/OS-KSADM/$roleid", 'PUT', [], $headers );
+		$ret = $this->restCall(
+			'identity', "/tenants/$projectid/users/$userid/roles/OS-KSADM/$roleid",
+			'PUT', [], $headers
+		);
 		if ( $ret['code'] !== 200 && $ret['code'] !== 201 ) {
 			return false;
 		}
@@ -499,7 +522,10 @@ class OpenStackNovaController {
 		];
 
 		$rolearr = [];
-		$ret = $this->restCall( 'identity', "/tenants/$projectid/users/$userid/roles/OS-KSADM/$roleid", 'DELETE', [], $headers );
+		$ret = $this->restCall(
+			'identity', "/tenants/$projectid/users/$userid/roles/OS-KSADM/$roleid",
+			'DELETE', [], $headers
+		);
 		if ( $ret['code'] !== 204 && $ret['code'] !== 200 ) {
 			return false;
 		}
@@ -691,11 +717,17 @@ class OpenStackNovaController {
 			$userdata .= $endl;
 			$userdata .= $boundary;
 			if ( $wgOpenStackManagerInstanceUserData['cloud-config'] ) {
-				$userdata .= $endl . $this->getAttachmentMime( Spyc::YAMLDump( $wgOpenStackManagerInstanceUserData['cloud-config'] ), 'text/cloud-config', 'cloud-config.txt' );
+				$userdata .= $endl . $this->getAttachmentMime(
+					Spyc::YAMLDump( $wgOpenStackManagerInstanceUserData['cloud-config'] ),
+					'text/cloud-config',
+					'cloud-config.txt'
+				);
 				$userdata .= $endl . $boundary;
 			}
 			if ( $wgOpenStackManagerInstanceUserData['scripts'] ) {
-				foreach ( $wgOpenStackManagerInstanceUserData['scripts'] as $scriptname => $script ) {
+				foreach (
+					$wgOpenStackManagerInstanceUserData['scripts'] as $scriptname => $script
+				) {
 					wfSuppressWarnings();
 					$stat = stat( $script );
 					wfRestoreWarnings();
@@ -703,12 +735,16 @@ class OpenStackNovaController {
 						continue;
 					}
 					$scripttext = file_get_contents( $script );
-					$userdata .= $endl . $this->getAttachmentMime( $scripttext, 'text/x-shellscript', $scriptname );
+					$userdata .= $endl . $this->getAttachmentMime(
+						$scripttext, 'text/x-shellscript', $scriptname
+					);
 					$userdata .= $endl . $boundary;
 				}
 			}
 			if ( $wgOpenStackManagerInstanceUserData['upstarts'] ) {
-				foreach ( $wgOpenStackManagerInstanceUserData['upstarts'] as $upstartname => $upstart ) {
+				foreach (
+					$wgOpenStackManagerInstanceUserData['upstarts'] as $upstartname => $upstart
+				) {
 					wfSuppressWarnings();
 					$stat = stat( $upstart );
 					wfRestoreWarnings();
@@ -716,7 +752,9 @@ class OpenStackNovaController {
 						continue;
 					}
 					$upstarttext = file_get_contents( $upstart );
-					$userdata .= $endl . $this->getAttachmentMime( $upstarttext, 'text/upstart-job', $upstartname );
+					$userdata .= $endl . $this->getAttachmentMime(
+						$upstarttext, 'text/upstart-job', $upstartname
+					);
 					$userdata .= $endl . $boundary;
 				}
 			}
@@ -793,7 +831,9 @@ class OpenStackNovaController {
 	 * @param string $group
 	 * @return bool
 	 */
-	function addSecurityGroupRule( $groupid, $fromport='', $toport='', $protocol='', $range='', $group='' ) {
+	function addSecurityGroupRule(
+		$groupid, $fromport = '', $toport = '', $protocol = '', $range = '', $group = ''
+	) {
 		if ( $group && $range ) {
 			return false;
 		} elseif ( $range ) {
@@ -973,10 +1013,19 @@ class OpenStackNovaController {
 			'Accept: application/json',
 			'Content-Type: application/json',
 		];
-		$data = [ 'auth' => [ 'passwordCredentials' => [ 'username' => $username, 'password' => $password ] ] ];
+		$data = [
+			'auth' => [
+				'passwordCredentials' => [
+					'username' => $username,
+					'password' => $password
+				]
+			]
+		];
 		$ret = $this->restCall( 'identity', '/tokens', 'POST', $data, $headers );
 		if ( $ret['code'] !== 200 ) {
-			$ldap->printDebug( "OpenStackNovaController::authenticate return code: " . $ret['code'], NONSENSITIVE );
+			$ldap->printDebug(
+				"OpenStackNovaController::authenticate return code: " . $ret['code'], NONSENSITIVE
+			);
 			return '';
 		}
 		$user = $ret['body'];

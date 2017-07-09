@@ -26,7 +26,9 @@ class ApiNovaProjects extends ApiBase {
 				foreach ( $project->getRoles() as $role ) {
 					$roleName = $role->getRoleName();
 					$data[$projectName]['roles'][$roleName] = [ 'members' => $role->getMembers() ];
-					$this->getResult()->setIndexedTagName( $data[$projectName]['roles'][$roleName]['members'], 'member' );
+					$this->getResult()->setIndexedTagName(
+						$data[$projectName]['roles'][$roleName]['members'], 'member'
+					);
 				}
 				$this->getResult()->setIndexedTagName( $data[$projectName]['members'], 'member' );
 				$this->getResult()->setIndexedTagName( $data[$projectName]['roles'], 'roles' );

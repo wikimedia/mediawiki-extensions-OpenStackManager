@@ -30,12 +30,15 @@ class ApiListNovaInstances extends ApiQueryGeneratorBase {
 			}
 		}
 
-		$key = wfMemcKey( 'openstackmanager', 'apilistnovainstances', $params['region'], $params['project'] );
+		$key = wfMemcKey( 'openstackmanager', 'apilistnovainstances',
+			$params['region'], $params['project'] );
 		$instancesInfo = $wgMemc->get( $key );
 		if ( $instancesInfo === false ) {
 			$user = new OpenStackNovaUser( $wgOpenStackManagerLDAPUsername );
 			$userNova = OpenStackNovaController::newFromUser( $user );
-			$userNova->authenticate( $wgOpenStackManagerLDAPUsername, $wgOpenStackManagerLDAPUserPassword );
+			$userNova->authenticate(
+				$wgOpenStackManagerLDAPUsername, $wgOpenStackManagerLDAPUserPassword
+			);
 
 			$userNova->setProject( $project->getName() );
 			$userNova->setRegion( $params['region'] ); // validated by API
@@ -67,9 +70,13 @@ class ApiListNovaInstances extends ApiQueryGeneratorBase {
 		}
 
 		if ( defined( 'ApiResult::META_CONTENT' ) ) {
-			$this->getResult()->addIndexedTagName( [ 'query', $this->getModuleName() ], 'instance' );
+			$this->getResult()->addIndexedTagName(
+				[ 'query', $this->getModuleName() ], 'instance'
+			);
 		} else {
-			$this->getResult()->setIndexedTagName_internal( [ 'query', $this->getModuleName() ], 'instance' );
+			$this->getResult()->setIndexedTagName_internal(
+				[ 'query', $this->getModuleName() ], 'instance'
+			);
 		}
 	}
 

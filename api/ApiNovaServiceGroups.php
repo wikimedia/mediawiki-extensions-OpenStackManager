@@ -19,7 +19,9 @@ class ApiNovaServiceGroups extends ApiBase {
 				} else {
 					$data[$serviceGroupName]['members'] = $serviceGroup->getMembers();
 				}
-				$this->getResult()->setIndexedTagName( $data[$serviceGroupName]['members'], 'member' );
+				$this->getResult()->setIndexedTagName(
+					$data[$serviceGroupName]['members'], 'member'
+				);
 			}
 			$this->getResult()->addValue( null, $this->getModuleName(), $data );
 			break;
@@ -53,7 +55,8 @@ class ApiNovaServiceGroups extends ApiBase {
 		return array_merge( parent::getParamDescription(), [
 			'subaction' => 'The subaction to perform.',
 			'project' => 'The project to perform the subaction upon',
-			'shellmembers' => 'Return shell account names for service group members, rather than MediaWiki usernames',
+			'shellmembers' => 'Return shell account names for service group members, ' .
+				'rather than MediaWiki usernames',
 		] );
 	}
 

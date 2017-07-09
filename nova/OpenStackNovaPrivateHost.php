@@ -45,13 +45,16 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		if ( $this->getDomain() ) {
-			$fqdn = $this->instancename . '.' . $this->instanceproject . '.' . $this->getDomain()->getFullyQualifiedDomainName();
+			$fqdn = $this->instancename . '.' . $this->instanceproject . '.' .
+				$this->getDomain()->getFullyQualifiedDomainName();
 		} else {
 			# No domain means no instance!
 			$this->hostInfo = null;
 			return;
 		}
-		$result = LdapAuthenticationPlugin::ldap_search( $ldap->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, '(dc=' . $fqdn . ')' );
+		$result = LdapAuthenticationPlugin::ldap_search(
+			$ldap->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, '(dc=' . $fqdn . ')'
+		);
 		$this->hostInfo = LdapAuthenticationPlugin::ldap_get_entries( $ldap->ldapconn, $result );
 		if ( $this->hostInfo["count"] == "0" ) {
 			$this->hostInfo = null;
@@ -70,11 +73,14 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 	 */
 	function getFullyQualifiedDisplayName() {
 		if ( $this->getDomain() ) {
-			$fqdn = $this->instancename . '.' . $this->instanceproject . '.' . $this->getDomain()->getFullyQualifiedDomainName();
+			$fqdn = $this->instancename . '.' . $this->instanceproject . '.' .
+				$this->getDomain()->getFullyQualifiedDomainName();
 			return $fqdn;
 		} else {
 			$ldap = LdapAuthenticationPlugin::getInstance();
-			$ldap->printDebug( "Error: Unable to determine instancename of " . $this->instancename, NONSENSITIVE );
+			$ldap->printDebug(
+				"Error: Unable to determine instancename of " . $this->instancename, NONSENSITIVE
+			);
 			return "";
 		}
 	}
@@ -89,7 +95,10 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 			$this->domainCache = OpenStackNovaDomain::getDomainByRegion( $this->region );
 			if ( !$this->domainCache ) {
 				$ldap = LdapAuthenticationPlugin::getInstance();
-				$ldap->printDebug( "Looked up domain for region $this->region but domainCache is still empty.", NONSENSITIVE );
+				$ldap->printDebug(
+					"Looked up domain for region $this->region but domainCache is still empty.",
+					NONSENSITIVE
+				);
 			}
 		}
 		return $this->domainCache;

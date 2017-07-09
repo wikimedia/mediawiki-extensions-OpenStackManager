@@ -33,7 +33,9 @@ class OpenStackNovaSudoer {
 	function fetchSudoerInfo() {
 		global $wgMemc;
 
-		$key = wfMemcKey( 'openstackmanager', 'sudoerinfo', $this->project->getProjectName() . $this->sudoername );
+		$key = wfMemcKey( 'openstackmanager', 'sudoerinfo',
+			$this->project->getProjectName() . $this->sudoername
+		);
 
 		$sudoerInfo = $wgMemc->get( $key );
 
@@ -41,9 +43,14 @@ class OpenStackNovaSudoer {
 			$this->sudoerInfo = $sudoerInfo;
 		} else {
 			$ldap = LdapAuthenticationPlugin::getInstance();
-			$result = LdapAuthenticationPlugin::ldap_search( $ldap->ldapconn, $this->project->getSudoersDN(),
-									'(cn=' . $this->sudoername . ')' );
-			$this->sudoerInfo = LdapAuthenticationPlugin::ldap_get_entries( $ldap->ldapconn, $result );
+			$result = LdapAuthenticationPlugin::ldap_search(
+				$ldap->ldapconn,
+				$this->project->getSudoersDN(),
+				'(cn=' . $this->sudoername . ')'
+			);
+			$this->sudoerInfo = LdapAuthenticationPlugin::ldap_get_entries(
+				$ldap->ldapconn, $result
+			);
 			$wgMemc->set( $key, $this->sudoerInfo, 3600 * 24 );
 		}
 		if ( $this->sudoerInfo ) {
@@ -150,10 +157,14 @@ class OpenStackNovaSudoer {
 			$sudoer['sudooption'][] = $option;
 		}
 
-		$success = LdapAuthenticationPlugin::ldap_modify( $ldap->ldapconn, $this->sudoerDN, $sudoer );
+		$success = LdapAuthenticationPlugin::ldap_modify(
+			$ldap->ldapconn, $this->sudoerDN, $sudoer
+		);
 		if ( $success ) {
 			$ldap->printDebug( "Successfully modified sudoer $this->sudoerDN", NONSENSITIVE );
-			$key = wfMemcKey( 'openstackmanager', 'sudoerinfo', $this->project->getProjectName() . $this->sudoername );
+			$key = wfMemcKey( 'openstackmanager', 'sudoerinfo',
+				$this->project->getProjectName() . $this->sudoername
+			);
 			$wgMemc->delete( $key );
 			return true;
 		} else {
@@ -180,9 +191,13 @@ class OpenStackNovaSudoer {
 			foreach ( $sudousers as $sudouser ) {
 				$values['sudouser'][] = $sudouser;
 			}
-			$success = LdapAuthenticationPlugin::ldap_modify( $ldap->ldapconn, $this->sudoerDN, $values );
+			$success = LdapAuthenticationPlugin::ldap_modify(
+				$ldap->ldapconn, $this->sudoerDN, $values
+			);
 			if ( $success ) {
-				$key = wfMemcKey( 'openstackmanager', 'sudoerinfo', $this->project->getProjectName() . $this->sudoername );
+				$key = wfMemcKey( 'openstackmanager', 'sudoerinfo',
+					$this->project->getProjectName() . $this->sudoername
+				);
 				$wgMemc->delete( $key );
 				return true;
 			}
@@ -202,7 +217,9 @@ class OpenStackNovaSudoer {
 
 		$sudoers = [];
 		$project = OpenStackNovaProject::getProjectByName( $projectName );
-		$result = LdapAuthenticationPlugin::ldap_search( $ldap->ldapconn, $project->getSudoersDN(), '(&(cn=*)(objectclass=sudorole))' );
+		$result = LdapAuthenticationPlugin::ldap_search(
+			$ldap->ldapconn, $project->getSudoersDN(), '(&(cn=*)(objectclass=sudorole))'
+		);
 		if ( $result ) {
 			$entries = LdapAuthenticationPlugin::ldap_get_entries( $ldap->ldapconn, $result );
 			if ( $entries ) {
@@ -248,7 +265,9 @@ class OpenStackNovaSudoer {
 	 * @param  $options
 	 * @return null|OpenStackNovaSudoer
 	 */
-	static function createSudoer( $sudoername, $projectName, $users, $runasuser, $commands, $options ) {
+	static function createSudoer(
+		$sudoername, $projectName, $users, $runasuser, $commands, $options
+	) {
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		OpenStackNovaLdapConnection::connect();
 

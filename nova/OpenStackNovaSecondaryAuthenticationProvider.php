@@ -32,7 +32,9 @@ class OpenStackNovaSecondaryAuthenticationProvider
 
 		$ldap->connect();
 		$base = $ldap->getBaseDN( USERDN );
-		$result = LdapAuthenticationPlugin::ldap_search( $ldap->ldapconn, $base, "(uid=$shellaccountname)" );
+		$result = LdapAuthenticationPlugin::ldap_search(
+			$ldap->ldapconn, $base, "(uid=$shellaccountname)"
+		);
 		if ( $result ) {
 			$entries = LdapAuthenticationPlugin::ldap_get_entries( $ldap->ldapconn, $result );
 			if ( (int)$entries['count'] > 0 ) {
@@ -47,7 +49,12 @@ class OpenStackNovaSecondaryAuthenticationProvider
 
 		$sv = StatusValue::newGood();
 		if ( class_exists( 'TitleBlacklist' ) ) {
-			$sv->merge( TitleBlacklistHooks::testUserName( $shellaccountname, $creator, $override = false, $log = true ) );
+			$sv->merge( TitleBlacklistHooks::testUserName(
+				$shellaccountname,
+				$creator,
+				$override = false,
+				$log = true
+			) );
 		}
 
 		return $sv;

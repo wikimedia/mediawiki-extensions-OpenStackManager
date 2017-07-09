@@ -132,7 +132,9 @@ class OpenStackNovaProject {
 					# Now we have every group.  Check if this one belongs to us.
 					$matchstring = $this->projectname . ".";
 					if ( strpos( $groupEntry['cn'][0], $matchstring ) === 0 ) {
-						$this->serviceGroups[] = new OpenStackNovaServiceGroup( $groupEntry['cn'][0], $this );
+						$this->serviceGroups[] = new OpenStackNovaServiceGroup(
+							$groupEntry['cn'][0], $this
+						);
 					}
 				}
 			}
@@ -333,17 +335,25 @@ class OpenStackNovaProject {
 			foreach ( $sudoers as $sudoer ) {
 				$success = $sudoer->deleteUser( $username );
 				if ( $success ) {
-					$ldap->printDebug( "Successfully removed $username from " . $sudoer->getSudoerName(), NONSENSITIVE );
+					$ldap->printDebug(
+						"Successfully removed $username from " . $sudoer->getSudoerName(),
+						NONSENSITIVE
+					);
 				} else {
-					$ldap->printDebug( "Failed to remove $username from " . $sudoer->getSudoerName(), NONSENSITIVE );
+					$ldap->printDebug(
+						"Failed to remove $username from " . $sudoer->getSudoerName(), NONSENSITIVE
+					);
 				}
 			}
 			$user = new OpenStackNovaUser( $username );
-			$ldap->printDebug( "Successfully removed $user->userDN from $this->projectname", NONSENSITIVE );
+			$ldap->printDebug(
+				"Successfully removed $user->userDN from $this->projectname", NONSENSITIVE
+			);
 			$this->deleteRoleCaches( $username );
 			return true;
 		} else {
-			$ldap->printDebug( "Failed to remove $username from $this->projectname: " . ldap_error( $ldap->ldapconn ), NONSENSITIVE );
+			$ldap->printDebug( "Failed to remove $username from $this->projectname: " .
+				ldap_error( $ldap->ldapconn ), NONSENSITIVE );
 			return false;
 		}
 	}
@@ -576,9 +586,13 @@ class OpenStackNovaProject {
 			$ldapproject['member'] = $wgOpenStackManagerLDAPUser;
 			$projectdn = 'cn=' . $projectname . ',' . $wgOpenStackManagerLDAPProjectBaseDN;
 
-			$success = LdapAuthenticationPlugin::ldap_add( $ldap->ldapconn, $projectdn, $ldapproject );
+			$success = LdapAuthenticationPlugin::ldap_add(
+				$ldap->ldapconn, $projectdn, $ldapproject
+			);
 			if ( !$success ) {
-				$ldap->printDebug( "Creation of ldap project container failed for $projectname", NONSENSITIVE );
+				$ldap->printDebug(
+					"Creation of ldap project container failed for $projectname", NONSENSITIVE
+				);
 			}
 
 			$ldap->printDebug( "Added ldap project container $projectname", NONSENSITIVE );
@@ -598,14 +612,21 @@ class OpenStackNovaProject {
 			if ( OpenStackNovaSudoer::createSudoer( 'default-sudo', $projectname, [ $projectGroup ],
 						[],  [ 'ALL' ],
 						[ '!authenticate' ] ) ) {
-				$ldap->printDebug( "Successfully created default sudo policy for $projectname", NONSENSITIVE );
+				$ldap->printDebug(
+					"Successfully created default sudo policy for $projectname", NONSENSITIVE
+				);
 			}
 			// Now, allow all project members to sudo to all other users.
 			$projectGroup = "%" . $project->getProjectGroupName();
-			if ( OpenStackNovaSudoer::createSudoer( 'default-sudo-as', $projectname, [ $projectGroup ],
-						[ "$projectGroup" ],  [ 'ALL' ],
-						[ '!authenticate' ] ) ) {
-				$ldap->printDebug( "Successfully created default sudo-as policy for $projectname", NONSENSITIVE );
+			if (
+				OpenStackNovaSudoer::createSudoer(
+					'default-sudo-as', $projectname, [ $projectGroup ],
+					[ "$projectGroup" ], [ 'ALL' ], [ '!authenticate' ]
+				)
+			) {
+				$ldap->printDebug(
+					"Successfully created default sudo-as policy for $projectname", NONSENSITIVE
+				);
 			}
 			OpenStackNovaProject::createServiceGroupOUs( $projectname );
 		} else {
@@ -634,11 +655,14 @@ class OpenStackNovaProject {
 		$groups = [];
 		$groups['objectclass'][] = 'organizationalunit';
 		$groups['ou'] = 'groups';
-		$groupsdn = 'ou=' . $groups['ou'] . ',' . 'cn=' . $projectname . ',' . $wgOpenStackManagerLDAPProjectBaseDN;
+		$groupsdn = 'ou=' . $groups['ou'] . ',' . 'cn=' . $projectname . ',' .
+			$wgOpenStackManagerLDAPProjectBaseDN;
 
 		$success = LdapAuthenticationPlugin::ldap_add( $ldap->ldapconn, $groupsdn, $groups );
 		if ( !$success ) {
-			$ldap->printDebug( "Failed to create service group ou for  project $projectname", NONSENSITIVE );
+			$ldap->printDebug(
+				"Failed to create service group ou for  project $projectname", NONSENSITIVE
+			);
 			return false;
 		}
 
@@ -646,11 +670,14 @@ class OpenStackNovaProject {
 		$users = [];
 		$users['objectclass'][] = 'organizationalunit';
 		$users['ou'] = 'people';
-		$usersdn = 'ou=' . $users['ou'] . ',' . 'cn=' . $projectname . ',' . $wgOpenStackManagerLDAPProjectBaseDN;
+		$usersdn = 'ou=' . $users['ou'] . ',' . 'cn=' . $projectname . ',' .
+			$wgOpenStackManagerLDAPProjectBaseDN;
 
 		$success = LdapAuthenticationPlugin::ldap_add( $ldap->ldapconn, $usersdn, $users );
 		if ( !$success ) {
-			$ldap->printDebug( "Failed to create service user ou for project $projectname", NONSENSITIVE );
+			$ldap->printDebug(
+				"Failed to create service user ou for project $projectname", NONSENSITIVE
+			);
 			return false;
 		}
 
@@ -671,22 +698,28 @@ class OpenStackNovaProject {
 		$groups = [];
 		$groups['objectclass'][] = 'organizationalunit';
 		$groups['ou'] = 'groups';
-		$groupsdn = 'ou=' . $groups['ou'] . ',' . 'cn=' . $this->projectname . ',' . $wgOpenStackManagerLDAPProjectBaseDN;
+		$groupsdn = 'ou=' . $groups['ou'] . ',' . 'cn=' . $this->projectname . ',' .
+			$wgOpenStackManagerLDAPProjectBaseDN;
 
 		$success = LdapAuthenticationPlugin::ldap_delete( $ldap->ldapconn, $groupsdn );
 		if ( !$success ) {
-			$ldap->printDebug( "Failed to delete service group ou for  project $this->projectname", NONSENSITIVE );
+			$ldap->printDebug(
+				"Failed to delete service group ou for  project $this->projectname", NONSENSITIVE
+			);
 			return false;
 		}
 
 		$users = [];
 		$users['objectclass'][] = 'organizationalunit';
 		$users['ou'] = 'people';
-		$usersdn = 'ou=' . $users['ou'] . ',' . 'cn=' . $this->projectname . ',' . $wgOpenStackManagerLDAPProjectBaseDN;
+		$usersdn = 'ou=' . $users['ou'] . ',' . 'cn=' . $this->projectname . ',' .
+			$wgOpenStackManagerLDAPProjectBaseDN;
 
 		$success = LdapAuthenticationPlugin::ldap_delete( $ldap->ldapconn, $usersdn );
 		if ( !$success ) {
-			$ldap->printDebug( "Failed to delete service user ou for project $this->projectname", NONSENSITIVE );
+			$ldap->printDebug(
+				"Failed to delete service user ou for project $this->projectname", NONSENSITIVE
+			);
 			return false;
 		}
 
@@ -715,18 +748,28 @@ class OpenStackNovaProject {
 		# Projects have a sudo OU and sudoers entries below that OU, we must delete them first
 		$sudoers = OpenStackNovaSudoer::getAllSudoersByProject( $project->getProjectName() );
 		foreach ( $sudoers as $sudoer ) {
-			$success = OpenStackNovaSudoer::deleteSudoer( $sudoer->getSudoerName(), $project->getProjectName() );
+			$success = OpenStackNovaSudoer::deleteSudoer(
+				$sudoer->getSudoerName(), $project->getProjectName()
+			);
 			if ( $success ) {
-				$ldap->printDebug( "Successfully deleted sudoer " . $sudoer->getSudoerName(), NONSENSITIVE );
+				$ldap->printDebug(
+					"Successfully deleted sudoer " . $sudoer->getSudoerName(), NONSENSITIVE
+				);
 			} else {
-				$ldap->printDebug( "Failed to delete sudoer " . $sudoer->getSudoerName(), NONSENSITIVE );
+				$ldap->printDebug(
+					"Failed to delete sudoer " . $sudoer->getSudoerName(), NONSENSITIVE
+				);
 			}
 		}
 		$success = LdapAuthenticationPlugin::ldap_delete( $ldap->ldapconn, $project->getSudoersDN() );
 		if ( $success ) {
-			$ldap->printDebug( "Successfully deleted sudoers OU " .  $project->getSudoersDN(), NONSENSITIVE );
+			$ldap->printDebug(
+				"Successfully deleted sudoers OU " . $project->getSudoersDN(), NONSENSITIVE
+			);
 		} else {
-			$ldap->printDebug( "Failed to delete sudoers OU " .  $project->getSudoersDN(), NONSENSITIVE );
+			$ldap->printDebug(
+				"Failed to delete sudoers OU " . $project->getSudoersDN(), NONSENSITIVE
+			);
 		}
 		# And, we need to clean up service groups.
 		$servicegroups = $project->getServiceGroups();
@@ -734,7 +777,9 @@ class OpenStackNovaProject {
 			$groupName = $group->groupName;
 			$success = OpenStackNovaServiceGroup::deleteServiceGroup( $groupName, $project );
 			if ( $success ) {
-				$ldap->printDebug( "Successfully deleted service group " . $groupName, NONSENSITIVE );
+				$ldap->printDebug(
+					"Successfully deleted service group " . $groupName, NONSENSITIVE
+				);
 			} else {
 				$ldap->printDebug( "Failed to delete service group " . $groupName, NONSENSITIVE );
 			}
@@ -777,7 +822,9 @@ RESOURCEINFO;
 		$text = sprintf( $format,
 			$this->getProjectName()
 		);
-		OpenStackNovaArticle::editArticle( $this->getProjectName(), $text, $wgOpenStackManagerProjectNamespace );
+		OpenStackNovaArticle::editArticle(
+			$this->getProjectName(), $text, $wgOpenStackManagerProjectNamespace
+		);
 		if ( $wgOpenStackManagerCreateProjectSALPages ) {
 			$pagename = $this->getProjectName() . "/SAL";
 			$title = Title::newFromText( $pagename, $wgOpenStackManagerProjectNamespace );
@@ -788,14 +835,18 @@ RESOURCEINFO;
 			}
 			$text = "{{SAL|Project Name=" . $this->getProjectName() . "}}";
 			if ( !strstr( $content, $text ) ) {
-				OpenStackNovaArticle::editArticle( $pagename, $text, $wgOpenStackManagerProjectNamespace );
+				OpenStackNovaArticle::editArticle(
+					$pagename, $text, $wgOpenStackManagerProjectNamespace
+				);
 			}
 		}
 	}
 
 	function deleteArticle() {
 		global $wgOpenStackManagerProjectNamespace;
-		OpenStackNovaArticle::deleteArticle( $this->getProjectName(), $wgOpenStackManagerProjectNamespace );
+		OpenStackNovaArticle::deleteArticle(
+			$this->getProjectName(), $wgOpenStackManagerProjectNamespace
+		);
 	}
 
 	/**
@@ -816,8 +867,11 @@ RESOURCEINFO;
 		$pattern = $wgOpenStackManagerServiceGroupHomedirPattern;
 
 		$ldap = LdapAuthenticationPlugin::getInstance();
-		$result = LdapAuthenticationPlugin::ldap_search( $ldap->ldapconn, $wgOpenStackManagerLDAPProjectBaseDN,
-								'(&(cn=' . $this->getProjectName() . ')(objectclass=groupofnames))' );
+		$result = LdapAuthenticationPlugin::ldap_search(
+			$ldap->ldapconn,
+			$wgOpenStackManagerLDAPProjectBaseDN,
+			'(&(cn=' . $this->getProjectName() . ')(objectclass=groupofnames))'
+		);
 		$projectInfo = LdapAuthenticationPlugin::ldap_get_entries( $ldap->ldapconn, $result );
 
 		if ( isset( $projectInfo[0]['info'] ) ) {
@@ -827,7 +881,7 @@ RESOURCEINFO;
 			array_shift( $infos );
 			foreach ( $infos as $info ) {
 				$substrings = explode( '=', $info );
-				if ( ( count( $substrings ) == 2 ) && ( $substrings[0] == 'servicegrouphomedirpattern' ) ) {
+				if ( count( $substrings ) == 2 && $substrings[0] == 'servicegrouphomedirpattern' ) {
 					$pattern = $substrings[1];
 					break;
 				}

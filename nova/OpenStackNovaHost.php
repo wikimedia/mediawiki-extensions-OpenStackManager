@@ -94,7 +94,9 @@ class OpenStackNovaHost {
 			foreach ( $associateddomains as $associateddomain ) {
 				$values['associateddomain'][] = $associateddomain;
 			}
-			$success = LdapAuthenticationPlugin::ldap_modify( $ldap->ldapconn, $this->hostDN, $values );
+			$success = LdapAuthenticationPlugin::ldap_modify(
+				$ldap->ldapconn, $this->hostDN, $values
+			);
 			if ( $success ) {
 				$ldap->printDebug( "Successfully removed $fqdn from $this->hostDN", NONSENSITIVE );
 				$this->getDomain()->updateSOA();
@@ -131,7 +133,9 @@ class OpenStackNovaHost {
 			foreach ( $arecords as $arecord ) {
 				$values['arecord'][] = $arecord;
 			}
-			$success = LdapAuthenticationPlugin::ldap_modify( $ldap->ldapconn, $this->hostDN, $values );
+			$success = LdapAuthenticationPlugin::ldap_modify(
+				$ldap->ldapconn, $this->hostDN, $values
+			);
 			if ( $success ) {
 				$ldap->printDebug( "Successfully removed $ip from $this->hostDN", NONSENSITIVE );
 				$this->getDomain()->updateSOA();
@@ -300,7 +304,9 @@ class OpenStackNovaHost {
 		$domainname = $domain->getFullyQualifiedDomainName();
 		$host = OpenStackNovaHost::getHostByPublicIP( $ip );
 		if ( $host ) {
-			$ldap->printDebug( "Failed to add public host $hostname as the DNS entry already exists", NONSENSITIVE );
+			$ldap->printDebug(
+				"Failed to add public host $hostname as the DNS entry already exists", NONSENSITIVE
+			);
 			return null;
 		}
 		$hostEntry = [];
@@ -329,7 +335,9 @@ class OpenStackNovaHost {
 	 */
 	static function validateHostname( $hostname ) {
 		# Does not handle trailing dots, purposely
-		return (bool)preg_match( "/^(?=.{1,255}$)[0-9A-Za-z](?:(?:[0-9A-Za-z]|\b-){0,61}[0-9A-Za-z])?(?:\.[0-9A-Za-z](?:(?:[0-9A-Za-z]|\b-){0,61}[0-9A-Za-z])?)*$/", $hostname );
+		return (bool)preg_match( "/^(?=.{1,255}$)[0-9A-Za-z](?:(?:[0-9A-Za-z]|\b-){0,61}" .
+			"[0-9A-Za-z])?(?:\.[0-9A-Za-z](?:(?:[0-9A-Za-z]|\b-){0,61}[0-9A-Za-z])?)*$/", $hostname
+		);
 	}
 
 }

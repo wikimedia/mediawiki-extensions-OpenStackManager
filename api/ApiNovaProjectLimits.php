@@ -9,15 +9,24 @@ class ApiNovaProjectLimits extends ApiBase {
 			if ( is_callable( [ $this, 'dieWithError' ] ) ) {
 				$this->dieWithError( 'openstackmanager-nonovacred' );
 			} else {
-				$this->dieUsage( wfMessage( 'openstackmanager-nonovacred' )->escaped(), 'openstackmanager-nonovacred' );
+				$this->dieUsage(
+					wfMessage( 'openstackmanager-nonovacred' )->escaped(),
+					'openstackmanager-nonovacred'
+				);
 			}
 		}
 		if ( in_array( 'inproject', $rights ) || in_array( 'isprojectadmin', $rights ) ) {
 			if ( !$this->userLDAP->inProject( $this->params['project'] ) ) {
 				if ( is_callable( [ $this, 'dieWithError' ] ) ) {
-					$this->dieWithError( [ 'openstackmanager-noaccount', wfEscapeWikiText( $this->params['project'] ) ] );
+					$this->dieWithError( [
+						'openstackmanager-noaccount', wfEscapeWikiText( $this->params['project'] )
+					] );
 				} else {
-					$this->dieUsage( wfMessage( 'openstackmanager-noaccount', $this->params['project'] )->escaped(), 'openstackmanager-noaccount' );
+					$this->dieUsage(
+						wfMessage( 'openstackmanager-noaccount', $this->params['project'] )
+							->escaped(),
+						'openstackmanager-noaccount'
+					);
 				}
 			}
 		}
@@ -30,7 +39,12 @@ class ApiNovaProjectLimits extends ApiBase {
 						wfEscapeWikiText( $this->params['project'] ),
 					] );
 				} else {
-					$this->dieUsage( wfMessage( 'openstackmanager-needrole', 'projectadmin', $this->params['project'] )->escaped(), 'openstackmanager-needrole' );
+					$this->dieUsage(
+						wfMessage(
+							'openstackmanager-needrole', 'projectadmin', $this->params['project']
+						)->escaped(),
+						'openstackmanager-needrole'
+					);
 				}
 			}
 		}
@@ -67,7 +81,9 @@ class ApiNovaProjectLimits extends ApiBase {
 				$limitsRegion["totalSecurityGroupsUsed"] = $limits->getSecurityGroupsUsed();
 				$limitsOut[$region] = [ 'absolute' => $limitsRegion ];
 			}
-			$this->getResult()->addValue( null, $this->getModuleName(), [ 'regions' => $limitsOut ] );
+			$this->getResult()->addValue(
+				null, $this->getModuleName(), [ 'regions' => $limitsOut ]
+			);
 		}
 	}
 

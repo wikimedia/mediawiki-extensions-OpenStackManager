@@ -36,7 +36,9 @@ class OpenStackNovaInstance {
 	}
 
 	function loadHost() {
-		$this->host = OpenStackNovaHost::getHostByNameAndProject( $this->getInstanceName(), $this->getProject(), $this->region );
+		$this->host = OpenStackNovaHost::getHostByNameAndProject(
+			$this->getInstanceName(), $this->getProject(), $this->region
+		);
 	}
 
 	/**
@@ -67,7 +69,9 @@ class OpenStackNovaInstance {
 	 * @return string
 	 */
 	function getInstanceId() {
-		return OpenStackNovaController::_get_property( $this->instance, 'OS-EXT-SRV-ATTR:instance_name' );
+		return OpenStackNovaController::_get_property(
+			$this->instance, 'OS-EXT-SRV-ATTR:instance_name'
+		);
 	}
 
 	/**
@@ -91,7 +95,9 @@ class OpenStackNovaInstance {
 			foreach ( $addresses as $addresslist ) {
 				foreach ( $addresslist as $address ) {
 					$addr = OpenStackNovaController::_get_property( $address, 'addr' );
-					if ( $addr && !filter_var( $addr, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE ) ) {
+					if ( $addr &&
+						!filter_var( $addr, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE )
+					) {
 						$addrs[] = $addr;
 					}
 				}
@@ -113,7 +119,9 @@ class OpenStackNovaInstance {
 			foreach ( $addresses as $addresslist ) {
 				foreach ( $addresslist as $address ) {
 					$addr = OpenStackNovaController::_get_property( $address, 'addr' );
-					if ( $addr && filter_var( $addr, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE ) ) {
+					if ( $addr &&
+						filter_var( $addr, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE )
+					) {
 						$addrs[] = $addr;
 					}
 				}
@@ -270,7 +278,9 @@ class OpenStackNovaInstance {
 		if ( !$success ) {
 			return false;
 		}
-		OpenStackManagerEvent::createDeletionEvent( $this->getInstanceName(), $this->getProject(), $wgUser );
+		OpenStackManagerEvent::createDeletionEvent(
+			$this->getInstanceName(), $this->getProject(), $wgUser
+		);
 		$this->deleteArticle();
 		return true;
 	}

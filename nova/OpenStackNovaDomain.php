@@ -40,9 +40,14 @@ class OpenStackNovaDomain {
 			$this->domainInfo = $domainInfo;
 		} else {
 			$ldap = LdapAuthenticationPlugin::getInstance();
-			$result = LdapAuthenticationPlugin::ldap_search( $ldap->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN,
-									'(dc=' . $this->domainname . ')' );
-			$this->domainInfo = LdapAuthenticationPlugin::ldap_get_entries( $ldap->ldapconn, $result );
+			$result = LdapAuthenticationPlugin::ldap_search(
+				$ldap->ldapconn,
+				$wgOpenStackManagerLDAPInstanceBaseDN,
+				'(dc=' . $this->domainname . ')'
+			);
+			$this->domainInfo = LdapAuthenticationPlugin::ldap_get_entries(
+				$ldap->ldapconn, $result
+			);
 			$wgMemc->set( $key, $this->domainInfo, 3600 * 24 );
 		}
 		if ( $this->domainInfo ) {
@@ -93,13 +98,19 @@ class OpenStackNovaDomain {
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		$domain = [];
 		$domain['soarecord'] = OpenStackNovaDomain::generateSOA();
-		$success = LdapAuthenticationPlugin::ldap_modify( $ldap->ldapconn, $this->domainDN, $domain );
+		$success = LdapAuthenticationPlugin::ldap_modify(
+			$ldap->ldapconn, $this->domainDN, $domain
+		);
 		if ( $success ) {
-			$ldap->printDebug( "Successfully modified soarecord for " . $this->domainDN, NONSENSITIVE );
+			$ldap->printDebug(
+				"Successfully modified soarecord for " . $this->domainDN, NONSENSITIVE
+			);
 			$this->fetchDomainInfo();
 			return true;
 		} else {
-			$ldap->printDebug( "Failed to modify soarecord for " . $this->domainDN, NONSENSITIVE );
+			$ldap->printDebug(
+				"Failed to modify soarecord for " . $this->domainDN, NONSENSITIVE
+			);
 			return false;
 		}
 	}
@@ -125,7 +136,9 @@ class OpenStackNovaDomain {
 		} else {
 			$query = '(soarecord=*)';
 		}
-		$result = LdapAuthenticationPlugin::ldap_search( $ldap->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, $query );
+		$result = LdapAuthenticationPlugin::ldap_search(
+			$ldap->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN, $query
+		);
 		if ( $result ) {
 			$entries = LdapAuthenticationPlugin::ldap_get_entries( $ldap->ldapconn, $result );
 			if ( $entries ) {
@@ -172,8 +185,11 @@ class OpenStackNovaDomain {
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		OpenStackNovaLdapConnection::connect();
 
-		$result = LdapAuthenticationPlugin::ldap_search( $ldap->ldapconn, $wgOpenStackManagerLDAPInstanceBaseDN,
-								'(arecord=' . $ip . ')' );
+		$result = LdapAuthenticationPlugin::ldap_search(
+			$ldap->ldapconn,
+			$wgOpenStackManagerLDAPInstanceBaseDN,
+			'(arecord=' . $ip . ')'
+		);
 		$hostInfo = LdapAuthenticationPlugin::ldap_get_entries( $ldap->ldapconn, $result );
 		if ( $hostInfo['count'] == "0" ) {
 			return null;
@@ -272,7 +288,9 @@ class OpenStackNovaDomain {
 		$result = LdapAuthenticationPlugin::ldap_list( $ldap->ldapconn, $dn, 'objectclass=*' );
 		$hosts = LdapAuthenticationPlugin::ldap_get_entries( $ldap->ldapconn, $result );
 		if ( $hosts['count'] != "0" ) {
-			$ldap->printDebug( "Failed to delete domain $domainname, since it had sub entries", NONSENSITIVE );
+			$ldap->printDebug(
+				"Failed to delete domain $domainname, since it had sub entries", NONSENSITIVE
+			);
 			return [ false, 'openstackmanager-failedeletedomainduplicates' ];
 		}
 
@@ -281,7 +299,9 @@ class OpenStackNovaDomain {
 			$ldap->printDebug( "Successfully deleted domain $domainname", NONSENSITIVE );
 			return [ true, '' ];
 		} else {
-			$ldap->printDebug( "Failed to delete domain $domainname, since it had sub entries", NONSENSITIVE );
+			$ldap->printDebug(
+				"Failed to delete domain $domainname, since it had sub entries", NONSENSITIVE
+			);
 			return [ false, 'openstackmanager-failedeletedomain' ];
 		}
 	}

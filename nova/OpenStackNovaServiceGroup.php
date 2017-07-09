@@ -49,7 +49,9 @@ class OpenStackNovaServiceGroup {
 		} else {
 			$ldap = LdapAuthenticationPlugin::getInstance();
 			$result = LdapAuthenticationPlugin::ldap_search( $ldap->ldapconn, $dn, $query );
-			$this->groupInfo = LdapAuthenticationPlugin::ldap_get_entries( $ldap->ldapconn, $result );
+			$this->groupInfo = LdapAuthenticationPlugin::ldap_get_entries(
+				$ldap->ldapconn, $result
+			);
 			$wgMemc->set( $key, $this->groupInfo, 3600 * 24 );
 		}
 
@@ -165,12 +167,18 @@ class OpenStackNovaServiceGroup {
 			foreach ( $members as $member ) {
 				$values['member'][] = $member;
 			}
-			$success = LdapAuthenticationPlugin::ldap_modify( $ldap->ldapconn, $this->groupDN, $values );
+			$success = LdapAuthenticationPlugin::ldap_modify(
+				$ldap->ldapconn, $this->groupDN, $values
+			);
 			if ( $success ) {
 				$this->fetchGroupInfo();
-				$ldap->printDebug( "Successfully removed $user->userDN from $this->groupDN", NONSENSITIVE );
+				$ldap->printDebug(
+					"Successfully removed $user->userDN from $this->groupDN", NONSENSITIVE
+				);
 			} else {
-				$ldap->printDebug( "Failed to remove $user->userDN from $this->groupDN", NONSENSITIVE );
+				$ldap->printDebug(
+					"Failed to remove $user->userDN from $this->groupDN", NONSENSITIVE
+				);
 				return false;
 			}
 		} else {
@@ -203,7 +211,9 @@ class OpenStackNovaServiceGroup {
 		}
 		$values = [];
 		$values['member'] = $members;
-		$success = LdapAuthenticationPlugin::ldap_modify( $ldap->ldapconn, $this->groupDN, $values );
+		$success = LdapAuthenticationPlugin::ldap_modify(
+			$ldap->ldapconn, $this->groupDN, $values
+		);
 		if ( $success ) {
 			$this->fetchGroupInfo();
 			$ldap->printDebug( "Successfully set members for $this->groupDN", NONSENSITIVE );
@@ -237,7 +247,9 @@ class OpenStackNovaServiceGroup {
 		$members[] = $userDN;
 		$values = [];
 		$values['member'] = $members;
-		$success = LdapAuthenticationPlugin::ldap_modify( $ldap->ldapconn, $this->groupDN, $values );
+		$success = LdapAuthenticationPlugin::ldap_modify(
+			$ldap->ldapconn, $this->groupDN, $values
+		);
 		if ( $success ) {
 			$this->fetchGroupInfo();
 			$ldap->printDebug( "Successfully added $userDN to $this->groupDN", NONSENSITIVE );
@@ -293,7 +305,10 @@ class OpenStackNovaServiceGroup {
 		if ( $initialUser ) {
 			$user = new OpenStackNovaUser( $initialUser );
 			if ( !$user->userDN ) {
-				$ldap->printDebug( "Unable to find initial user $initialUser for new group $groupName", NONSENSITIVE );
+				$ldap->printDebug(
+					"Unable to find initial user $initialUser for new group $groupName",
+					NONSENSITIVE
+				);
 				return null;
 			}
 			$initialUserDN = $user->userDN;
@@ -379,12 +394,16 @@ class OpenStackNovaServiceGroup {
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		$group = self::getServiceGroupByName( $groupName, $project );
 		if ( !$group ) {
-			$ldap->printDebug( "We are trying to delete a nonexistent service group, $groupName", NONSENSITIVE );
+			$ldap->printDebug(
+				"We are trying to delete a nonexistent service group, $groupName", NONSENSITIVE
+			);
 			return false;
 		}
 
 		# Delete our special member.
-		$success = LdapAuthenticationPlugin::ldap_delete( $ldap->ldapconn, $group->getSpecialUserDN() );
+		$success = LdapAuthenticationPlugin::ldap_delete(
+			$ldap->ldapconn, $group->getSpecialUserDN()
+		);
 		if ( $success ) {
 			$ldap->printDebug( "Successfully deleted service user $groupName", NONSENSITIVE );
 		} else {

@@ -34,7 +34,9 @@ class OpenStackNovaUser {
 			$ldap->printDebug( "Fetching userdn using username: $this->userDN ", NONSENSITIVE );
 			if ( !$this->userDN ) {
 				$this->userDN = $ldap->getUserDN( strtolower( $this->username ), false, "uid" );
-				$ldap->printDebug( "Fetching userdn using shell name: $this->userDN ", NONSENSITIVE );
+				$ldap->printDebug(
+					"Fetching userdn using shell name: $this->userDN ", NONSENSITIVE
+				);
 
 				# We want the actual username, not the id that was passed in.
 				$this->userInfo = $ldap->userInfo;
@@ -43,7 +45,9 @@ class OpenStackNovaUser {
 		} else {
 			$this->userDN = $ldap->getUserDN( strtolower( $wgUser->getName() ) );
 			$this->username = $wgUser->getName();
-			$ldap->printDebug( "Fetching userdn using wiki name: " . $wgUser->getName(), NONSENSITIVE );
+			$ldap->printDebug(
+				"Fetching userdn using wiki name: " . $wgUser->getName(), NONSENSITIVE
+			);
 		}
 		$this->userInfo = $ldap->userInfo;
 	}
@@ -308,7 +312,9 @@ class OpenStackNovaUser {
 			foreach ( $keypairs as $keypair ) {
 				$values['sshpublickey'][] = $keypair;
 			}
-			$success = LdapAuthenticationPlugin::ldap_modify( $ldap->ldapconn, $this->userDN, $values );
+			$success = LdapAuthenticationPlugin::ldap_modify(
+				$ldap->ldapconn, $this->userDN, $values
+			);
 			if ( $success ) {
 				$ldap->printDebug( "Successfully deleted the user's sshpublickey", NONSENSITIVE );
 				$key = wfMemcKey( 'ldapauthentication', "userinfo", $this->userDN );
@@ -370,7 +376,9 @@ class OpenStackNovaUser {
 					$highest = array_pop( $uids ) + 1;
 				}
 			} else {
-				$auth->printDebug( "Failed to find any entries when searching for next $attr", NONSENSITIVE );
+				$auth->printDebug(
+					"Failed to find any entries when searching for next $attr", NONSENSITIVE
+				);
 			}
 		} else {
 			$auth->printDebug( "Failed to get a result searching for next $attr", NONSENSITIVE );
@@ -396,7 +404,9 @@ class OpenStackNovaUser {
 	 * @param  $result
 	 * @return bool
 	 */
-	static function LDAPSetCreationValues( $auth, $username, &$values, $writeloc, &$userdn, &$result ) {
+	static function LDAPSetCreationValues(
+		$auth, $username, &$values, $writeloc, &$userdn, &$result
+	) {
 		global $wgOpenStackManagerLDAPDefaultGid;
 		global $wgOpenStackManagerLDAPDefaultShell;
 		global $wgRequest;
@@ -415,7 +425,9 @@ class OpenStackNovaUser {
 		if ( '' !== $auth->realname ) {
 			$values['displayname'] = $auth->realname;
 		}
-		if ( class_exists( \MediaWiki\Auth\AuthManager::class ) && empty( $wgDisableAuthManager ) ) {
+		if ( class_exists( \MediaWiki\Auth\AuthManager::class ) &&
+			empty( $wgDisableAuthManager )
+		) {
 			$shellaccountname = \MediaWiki\Auth\AuthManager::singleton()
 				->getAuthenticationSessionData( 'osm-shellaccountname', '' );
 		} else {
@@ -436,7 +448,9 @@ class OpenStackNovaUser {
 		$base = $auth->getBaseDN( USERDN );
 		# Though the LDAP plugin checks to see if the user account exists,
 		# it does not check to see if the uid attribute is already used.
-		$result = LdapAuthenticationPlugin::ldap_search( $auth->ldapconn, $base, "(uid=$shellaccountname)" );
+		$result = LdapAuthenticationPlugin::ldap_search(
+			$auth->ldapconn, $base, "(uid=$shellaccountname)"
+		);
 		if ( $result ) {
 			$entries = LdapAuthenticationPlugin::ldap_get_entries( $auth->ldapconn, $result );
 			if ( (int)$entries['count'] > 0 ) {
@@ -452,7 +466,9 @@ class OpenStackNovaUser {
 		$values['loginshell'] = $wgOpenStackManagerLDAPDefaultShell;
 
 		if ( $writeloc === '' ) {
-			$auth->printDebug( "Trying to set the userdn, but write location isn't set.", NONSENSITIVE );
+			$auth->printDebug(
+				"Trying to set the userdn, but write location isn't set.", NONSENSITIVE
+			);
 			return false;
 		} else {
 			$userdn = 'uid=' . $shellaccountname . ',' . $writeloc;
@@ -476,7 +492,9 @@ class OpenStackNovaUser {
 	 * @param  $result
 	 * @return bool
 	 */
-	static function LDAPRetrySetCreationValues( $auth, $username, &$values, $writeloc, &$userdn, &$result ) {
+	static function LDAPRetrySetCreationValues(
+		$auth, $username, &$values, $writeloc, &$userdn, &$result
+	) {
 		$uidnumber = OpenStackNovaUser::getNextIdNumber( $auth, 'uidnumber' );
 		if ( !$uidnumber ) {
 			$result = false;
@@ -494,7 +512,13 @@ class OpenStackNovaUser {
 	 * @return bool
 	 */
 	static function LDAPModifyUITemplate( &$template ) {
-		$input = [ 'msg' => 'openstackmanager-shellaccountname', 'type' => 'text', 'name' => 'shellaccountname', 'value' => '', 'helptext' => 'openstackmanager-shellaccountnamehelp' ];
+		$input = [
+			'msg' => 'openstackmanager-shellaccountname',
+			'type' => 'text',
+			'name' => 'shellaccountname',
+			'value' => '',
+			'helptext' => 'openstackmanager-shellaccountnamehelp'
+		];
 		$template->set( 'extraInput', [ $input ] );
 
 		return true;
@@ -520,7 +544,9 @@ class OpenStackNovaUser {
 		global $wgUser;
 		global $wgDisableAuthManager;
 
-		if ( class_exists( \MediaWiki\Auth\AuthManager::class ) && empty( $wgDisableAuthManager ) ) {
+		if ( class_exists( \MediaWiki\Auth\AuthManager::class ) &&
+			empty( $wgDisableAuthManager )
+		) {
 			// handled in OpenStackNovaSecondaryAuthenticationProvider
 			return true;
 		}
@@ -534,7 +560,9 @@ class OpenStackNovaUser {
 		}
 
 		$base = USERDN;
-		$result = LdapAuthenticationPlugin::ldap_search( $ldap->ldapconn, $base, "(uid=$shellaccountname)" );
+		$result = LdapAuthenticationPlugin::ldap_search(
+			$ldap->ldapconn, $base, "(uid=$shellaccountname)"
+		);
 		if ( $result ) {
 			$entries = LdapAuthenticationPlugin::ldap_get_entries( $ldap->ldapconn, $result );
 			if ( (int)$entries['count'] > 0 ) {
@@ -545,7 +573,9 @@ class OpenStackNovaUser {
 		}
 
 		if ( class_exists( 'TitleBlacklist' ) ) {
-			return TitleBlacklistHooks::acceptNewUserName( $shellaccountname, $wgUser, $message, $override = false, $log = true );
+			return TitleBlacklistHooks::acceptNewUserName(
+				$shellaccountname, $wgUser, $message, $override = false, $log = true
+			);
 		} else {
 			return true;
 		}
@@ -757,10 +787,14 @@ class OpenStackNovaUser {
 					[
 						'action' => 'delete',
 						'hash' => $hash,
-						'returnto' => SpecialPage::getTitleFor( 'Preferences', false, 'mw-prefsection-openstack' )->getFullText()
+						'returnto' => SpecialPage::getTitleFor(
+							'Preferences', false, 'mw-prefsection-openstack'
+						)->getFullText()
 					]
 				);
-				SpecialNova::pushRawResourceColumn( $keyRow, SpecialNova::createResourceList( $actions ) );
+				SpecialNova::pushRawResourceColumn(
+					$keyRow, SpecialNova::createResourceList( $actions )
+				);
 				$keyRows[] = $keyRow;
 			}
 			$out .= SpecialNova::createResourceTable( $headers, $keyRows );
@@ -769,7 +803,11 @@ class OpenStackNovaUser {
 			SpecialPage::getTitleFor( 'NovaKey' ),
 			wfMessage( 'openstackmanager-addkey' )->escaped(),
 			[],
-			[ 'returnto' => SpecialPage::getTitleFor( 'Preferences', false, 'mw-prefsection-openstack' )->getFullText() ]
+			[
+				'returnto' => SpecialPage::getTitleFor(
+					'Preferences', false, 'mw-prefsection-openstack'
+				)->getFullText()
+			]
 		);
 		return $out;
 	}
