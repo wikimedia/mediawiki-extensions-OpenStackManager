@@ -347,7 +347,7 @@
 	"openstackmanager-email-subject": "已準備登入您的實例。",
 	"openstackmanager-email-body": "已建立下列實例，並已準備登入：",
 	"openstackmanager-twofactorrequired": "需要雙重認證。",
-	"openstackmanager-twofactorrequired2": "需要雙重認証，請開啟雙重認証並再試一次。",
+	"openstackmanager-twofactorrequired2": "需要雙重認證，請開啟雙重認證並再試一次。",
 	"right-manageproject": "管理 OpenStack 專案及身份",
 	"action-manageproject": "管理 OpenStack 專案及身份",
 	"right-loginviashell": "透過 Shell 登入",

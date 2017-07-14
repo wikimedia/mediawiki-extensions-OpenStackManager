@@ -185,6 +185,11 @@
 	"openstackmanager-proxybackend": "Instância",
 	"right-loginviashell": "Login via shell",
 	"prefs-openstack-keys": "Lista de chaves",
+	"apihelp-novaaddress-param-subaction": "A subação a executar.",
+	"apihelp-novainstance-param-subaction": "A subação a executar.",
+	"apihelp-novaprojectlimits-param-subaction": "A subação a executar.",
+	"apihelp-novaprojects-param-subaction": "A subação a executar.",
 	"apihelp-novaprojects-example-1": "Obter todos os projetos",
+	"apihelp-novaservicegroups-param-subaction": "A subação a executar.",
 	"apihelp-query+novaprojects-example-1": "Listar projetos"
 }
