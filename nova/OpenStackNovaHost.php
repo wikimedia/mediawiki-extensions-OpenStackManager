@@ -302,7 +302,7 @@ class OpenStackNovaHost {
 		OpenStackNovaLdapConnection::connect();
 
 		$domainname = $domain->getFullyQualifiedDomainName();
-		$host = OpenStackNovaHost::getHostByPublicIP( $ip );
+		$host = self::getHostByPublicIP( $ip );
 		if ( $host ) {
 			$ldap->printDebug(
 				"Failed to add public host $hostname as the DNS entry already exists", NONSENSITIVE

@@ -538,7 +538,7 @@ class OpenStackNovaProject {
 	 */
 	static function getAllProjects() {
 		$projects = [];
-		foreach ( OpenStackNovaProject::getProjectList() as $id => $name ) {
+		foreach ( self::getProjectList() as $id => $name ) {
 			$project = new OpenStackNovaProject( $id, false );
 			$project->setName( $name );
 			$projects[] = $project;
@@ -628,7 +628,7 @@ class OpenStackNovaProject {
 					"Successfully created default sudo-as policy for $projectname", NONSENSITIVE
 				);
 			}
-			OpenStackNovaProject::createServiceGroupOUs( $projectname );
+			self::createServiceGroupOUs( $projectname );
 		} else {
 			$ldap->printDebug( "Failed to add project $projectname", NONSENSITIVE );
 			return null;

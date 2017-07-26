@@ -415,7 +415,7 @@ class OpenStackNovaUser {
 		$values['objectclass'][] = 'ldappublickey';
 		$values['objectclass'][] = 'posixaccount';
 		$values['objectclass'][] = 'shadowaccount';
-		$uidnumber = OpenStackNovaUser::getNextIdNumber( $auth, 'uidnumber' );
+		$uidnumber = self::getNextIdNumber( $auth, 'uidnumber' );
 		if ( !$uidnumber ) {
 			$auth->printDebug( "Unable to allocate a UID", NONSENSITIVE );
 			$result = false;
@@ -495,7 +495,7 @@ class OpenStackNovaUser {
 	static function LDAPRetrySetCreationValues(
 		$auth, $username, &$values, $writeloc, &$userdn, &$result
 	) {
-		$uidnumber = OpenStackNovaUser::getNextIdNumber( $auth, 'uidnumber' );
+		$uidnumber = self::getNextIdNumber( $auth, 'uidnumber' );
 		if ( !$uidnumber ) {
 			$result = false;
 			return false;

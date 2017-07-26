@@ -24,7 +24,7 @@ class OpenStackNovaRole {
 		$this->project = $project;
 		OpenStackNovaLdapConnection::connect();
 
-		$this->rolename = OpenStackNovaRole::getRoleNameForId( $this->roleid );
+		$this->rolename = self::getRoleNameForId( $this->roleid );
 	}
 
 	/**

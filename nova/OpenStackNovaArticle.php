@@ -29,7 +29,7 @@ class OpenStackNovaArticle {
 	}
 
 	public static function deleteArticle( $titletext, $namespace = NS_NOVA_RESOURCE ) {
-		if ( !OpenStackNovaArticle::canCreatePages() ) {
+		if ( !self::canCreatePages() ) {
 			return;
 		}
 		$title = Title::newFromText( $titletext, $namespace );
