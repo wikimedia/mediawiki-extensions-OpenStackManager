@@ -97,7 +97,7 @@ class OpenStackNovaDomain {
 	function updateSOA() {
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		$domain = [];
-		$domain['soarecord'] = OpenStackNovaDomain::generateSOA();
+		$domain['soarecord'] = self::generateSOA();
 		$success = LdapAuthenticationPlugin::ldap_modify(
 			$ldap->ldapconn, $this->domainDN, $domain
 		);
@@ -214,7 +214,7 @@ class OpenStackNovaDomain {
 	 * @return null|OpenStackNovaDomain
 	 */
 	static function getDomainByRegion( $region ) {
-		$domain = OpenStackNovaDomain::getDomainByName( $region );
+		$domain = self::getDomainByName( $region );
 		if ( $domain ) {
 			if ( $domain->getLocation() ) {
 				return $domain;
@@ -242,7 +242,7 @@ class OpenStackNovaDomain {
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		OpenStackNovaLdapConnection::connect();
 
-		$soa = OpenStackNovaDomain::generateSOA();
+		$soa = self::generateSOA();
 		$domain = [];
 		$domain['objectclass'][] = 'dcobject';
 		$domain['objectclass'][] = 'dnsdomain';

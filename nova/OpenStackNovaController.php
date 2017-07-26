@@ -709,7 +709,7 @@ class OpenStackNovaController {
 		$data['server']['name'] = $instanceName;
 		if ( $wgOpenStackManagerInstanceUserData ) {
 			$random_hash = md5( date( 'r', time() ) );
-			$endl = OpenStackNovaController::getLineEnding();
+			$endl = self::getLineEnding();
 			$boundary = '===============' . $random_hash .'==';
 			$userdata = 'Content-Type: multipart/mixed; boundary="' . $boundary .'"' . $endl;
 			$userdata .= 'MIME-Version: 1.0' . $endl;
