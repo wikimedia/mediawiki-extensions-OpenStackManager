@@ -269,13 +269,13 @@ class SpecialNovaRole extends SpecialNova {
 			}
 		}
 
-		$out = '<br />';
+		$outHtml = '<br />';
 		$returnto = Title::newFromText( $formData['returnto'] );
-		$out .= Linker::link(
+		$outHtml .= Linker::link(
 			$returnto,
 			$this->msg( 'openstackmanager-backprojectlist' )->escaped()
 		);
-		$out->addHTML( $out );
+		$out->addHTML( $outHtml );
 
 		return true;
 	}
