@@ -130,7 +130,7 @@ class ApiNovaAddress extends ApiBase {
 	public function getParamDescription() {
 		return array_merge( parent::getParamDescription(), [
 			'subaction' => 'The subaction to perform.',
-			'address' => 'The ID of the Nova IP address on which we will perform the action.',
+			'id' => 'The ID of the Nova IP address on which we will perform the action.',
 			'project' => 'The project in which the address exists.',
 			'region' => 'The region of the currently-associated instance.',
 		] );
@@ -149,7 +149,7 @@ class ApiNovaAddress extends ApiBase {
 	public function getExamples() {
 		return [
 			'api.php?action=novaaddress&subaction=disassociate' .
-				'&address=7&project=testing&region=mars'
+				'&id=7&project=testing&region=mars'
 			=> 'Disassociate IP 208.80.153.198 in project testing',
 		];
 	}
@@ -159,7 +159,7 @@ class ApiNovaAddress extends ApiBase {
 	 */
 	protected function getExamplesMessages() {
 		return [
-			'action=novaaddress&subaction=disassociate&address=7&project=testing&region=mars'
+			'action=novaaddress&subaction=disassociate&id=7&project=testing&region=mars'
 				=> 'apihelp-novaaddress-example-1',
 		];
 	}
