@@ -363,7 +363,7 @@
 	"apihelp-novaaddress-description": "Perform actions on Nova IP addresses.",
 	"apihelp-novaaddress-summary": "Perform actions on Nova IP addresses.",
 	"apihelp-novaaddress-param-subaction": "The subaction to perform.",
-	"apihelp-novaaddress-param-id": "",
+	"apihelp-novaaddress-param-id": "The ID of the Nova IP address on which we will perform the action.",
 	"apihelp-novaaddress-param-project": "The project in which the address exists.",
 	"apihelp-novaaddress-param-region": "The region of the currently-associated instance.",
 	"apihelp-novaaddress-example-1": "Disassociate the address with ID 7 in project testing in region mars",
