@@ -133,7 +133,7 @@ class OpenStackNovaSudoer {
 	 * @param  $users
 	 * @param  $commands
 	 * @param  $options
-	 * @return boolean
+	 * @return bool
 	 */
 	function modifySudoer( $users, $runasuser, $commands, $options ) {
 		global $wgMemc;

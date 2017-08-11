@@ -357,7 +357,7 @@ class SpecialNovaProxy extends SpecialNova {
 			$this->msg( 'openstackmanager-backproxylist' )->escaped()
 		);
 
-		$success =  $this->userNova->deleteProxy( $fqdn );
+		$success = $this->userNova->deleteProxy( $fqdn );
 		if ( $success ) {
 			$success = $this->deleteHost( $fqdn, $wgOpenStackManagerProxyGateways[$region] );
 			if ( !$success ) {
@@ -416,7 +416,7 @@ class SpecialNovaProxy extends SpecialNova {
 		}
 
 		# DNS looks good, now we can set up the proxy.
-		$newProxy =  $this->userNova->createProxy( $fqdn, $backendHost, $backendPort );
+		$newProxy = $this->userNova->createProxy( $fqdn, $backendHost, $backendPort );
 
 		if ( $newProxy ) {
 			$outputPage->addWikiMsg(

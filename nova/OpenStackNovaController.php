@@ -944,7 +944,7 @@ class OpenStackNovaController {
 	 * Delete a Nova volume
 	 *
 	 * @param  $volumeid
-	 * @return boolean
+	 * @return bool
 	 */
 	function deleteVolume( $volumeid ) {
 		# unimplemented
@@ -957,7 +957,7 @@ class OpenStackNovaController {
 	 * @param volumeid
 	 * @param instanceid
 	 * @param device
-	 * @return boolean
+	 * @return bool
 	 */
 	function attachVolume( $volumeid, $instanceid, $device ) {
 		# unimplemented
@@ -969,7 +969,7 @@ class OpenStackNovaController {
 	 *
 	 * @param volumeid
 	 * @param force
-	 * @return boolean
+	 * @return bool
 	 */
 	function detachVolume( $volumeid, $force ) {
 		# unimplemented
@@ -981,7 +981,7 @@ class OpenStackNovaController {
 	 *
 	 * @param type
 	 * @param string $type
-	 * @return boolean
+	 * @return bool
 	 */
 	function rebootInstance( $instanceid, $type='SOFT' ) {
 		$instanceid = urlencode( $instanceid );

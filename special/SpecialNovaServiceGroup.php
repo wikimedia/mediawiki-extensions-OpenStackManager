@@ -267,7 +267,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 	function getServiceGroups( $project ) {
 		$project->fetchProjectInfo();
 		$projectName = $project->getProjectName();
-		$serviceGroups =  $project->getServiceGroups();
+		$serviceGroups = $project->getServiceGroups();
 		if ( $serviceGroups ) {
 			$headers = [
 				'openstackmanager-servicegroupname',
