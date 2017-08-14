@@ -384,6 +384,7 @@
 	"apihelp-novaaddress-description": "Effectuer des actions sur les adresses IP de Nova.",
 	"apihelp-novaaddress-summary": "Effectuer des actions sur les adresses IP Nova.",
 	"apihelp-novaaddress-param-subaction": "La sous-action à effectuer.",
+	"apihelp-novaaddress-param-id": "L’ID de l’adresse IP de Nova sur laquelle nous devons effectuer l’action.",
 	"apihelp-novaaddress-param-project": "Le projet dans lequel existe l’adresse.",
 	"apihelp-novaaddress-param-region": "La région de l’instance actuellement associée.",
 	"apihelp-novaaddress-example-1": "Dissocier l’adresse d’ID 7 dans le projet de test dans la région de Mars",

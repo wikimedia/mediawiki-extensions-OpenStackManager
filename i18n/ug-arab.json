@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Sahran"
+			"Sahran",
+			"Uzdil"
 		]
 	},
 	"openstackmanager-delete": "ئۆچۈر",
@@ -9,7 +10,6 @@
 	"openstackmanager-actions": "مەشغۇلات",
 	"openstackmanager-notloggedin": "تىزىمغا كىرىڭ",
 	"openstackmanager-location": "ئورنى",
-	"openstackmanager-puppetclasses": "تىپلار",
 	"openstackmanager-imagetype": "سۈرەت تىپى",
 	"openstackmanager-novavolume-volume": "ئاۋاز مىقدارى",
 	"openstackmanager-device": "ئۈسكۈنە",
@@ -17,7 +17,7 @@
 	"openstackmanager-fingerprint": "بارماق ئىزى",
 	"openstackmanager-keys": "كۇنۇپكا",
 	"openstackmanager-createproject": "قۇرۇلۇش قوش",
-	"openstackmanager-projectname": "قۇرۇلۇش ئاتى",
+	"openstackmanager-projectname": "تۈر نامى",
 	"openstackmanager-members": "ئەزالار",
 	"openstackmanager-member": "ئەزا",
 	"openstackmanager-action": "مەشغۇلات",
@@ -36,7 +36,5 @@
 	"openstackmanager-createnewsecuritygroup": "گۇرۇپپا قوش",
 	"openstackmanager-sudoerusers": "ئىشلەتكۈچىلەر",
 	"openstackmanager-sudoercommands": "بۇيرۇقلار",
-	"openstackmanager-sudoeroptions": "تاللانما",
-	"openstackmanager-createpuppetgroup": "گۇرۇپپا قوش",
-	"openstackmanager-puppetvars": "ئۆزگەرگۈچى مىقدار"
+	"openstackmanager-sudoeroptions": "تاللانما"
 }

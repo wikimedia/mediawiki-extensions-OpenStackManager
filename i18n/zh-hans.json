@@ -374,6 +374,7 @@
 	"apihelp-novaaddress-description": "在Nova IP地址执行操作。",
 	"apihelp-novaaddress-summary": "在Nova IP地址执行操作。",
 	"apihelp-novaaddress-param-subaction": "要执行的子操作。",
+	"apihelp-novaaddress-param-id": "我们将执行操作的Nova IP地址的ID。",
 	"apihelp-novaaddress-param-project": "存在地址的项目。",
 	"apihelp-novaaddress-param-region": "当前关联实例的地域。",
 	"apihelp-novaaddress-example-1": "分离火星地区上项目测试中ID为7的地址",
