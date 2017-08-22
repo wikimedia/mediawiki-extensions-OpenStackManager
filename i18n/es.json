@@ -316,7 +316,7 @@
 	"openstackmanager-commadelimiter": "Separados por comas",
 	"openstackmanager-sudoerusers": "Usuarios",
 	"openstackmanager-sudoerrunas": "Permitir ejecutar como",
-	"openstackmanager-sudoercommands": "Comandos",
+	"openstackmanager-sudoercommands": "Órdenes",
 	"openstackmanager-requirepassword": "Requerir autenticación",
 	"openstackmanager-sudoeroptions": "Opciones",
 	"openstackmanager-allmembers": "Todos los miembros del proyecto",
