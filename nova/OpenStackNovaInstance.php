@@ -23,7 +23,7 @@ class OpenStackNovaInstance {
 
 	/**
 	 * @param  $apiInstanceResponse
-	 * @param bool $loadhost, optional
+	 * @param bool $loadhost optional
 	 */
 	function __construct( $apiInstanceResponse, $region, $loadhost = false ) {
 		$this->instance = $apiInstanceResponse;

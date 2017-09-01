@@ -165,7 +165,7 @@ class OpenStackNovaProject {
 	}
 
 	/**
-	 * @return  string
+	 * @return string
 	 */
 	function getProjectName() {
 		return $this->getName();

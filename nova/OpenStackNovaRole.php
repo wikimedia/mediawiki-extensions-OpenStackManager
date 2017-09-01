@@ -17,7 +17,7 @@ class OpenStackNovaRole {
 
 	/**
 	 * @param $roleid
-	 * @param null $project, optional
+	 * @param null $project optional
 	 */
 	function __construct( $roleid, $project ) {
 		$this->roleid = $roleid;
