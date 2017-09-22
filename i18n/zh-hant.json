@@ -29,7 +29,7 @@
 	"novaproject": "管理 OpenStack 專案",
 	"novaservicegroup": "管理服務群組",
 	"novasecuritygroup": "管理防火牆安全群組",
-	"novarole": "管理全域身份",
+	"novarole": "管理全域角色",
 	"novavolume": "管理儲存空間磁碟區",
 	"novasudoer": "管理 sudo 原則",
 	"novaproxy": "管理實例代理伺服器",
