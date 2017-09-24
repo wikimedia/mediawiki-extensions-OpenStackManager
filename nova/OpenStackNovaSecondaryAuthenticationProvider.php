@@ -2,7 +2,6 @@
 
 use MediaWiki\Auth\AbstractPreAuthenticationProvider;
 use MediaWiki\Auth\AuthenticationRequest;
-use MediaWiki\Auth\AuthenticationResponse;
 use MediaWiki\Auth\AuthManager;
 
 class OpenStackNovaSecondaryAuthenticationProvider
