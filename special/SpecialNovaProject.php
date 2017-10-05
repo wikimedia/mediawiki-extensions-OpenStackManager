@@ -401,7 +401,7 @@ class SpecialNovaProject extends SpecialNova {
 	}
 
 	/**
-	 * @param  $formData
+	 * @param array $formData
 	 * @param string $entryPoint
 	 * @return bool
 	 */
@@ -491,7 +491,7 @@ class SpecialNovaProject extends SpecialNova {
 	}
 
 	/**
-	 * @param  $formData
+	 * @param array $formData
 	 * @param string $entryPoint
 	 * @return bool
 	 */
@@ -516,7 +516,7 @@ class SpecialNovaProject extends SpecialNova {
 	}
 
 	/**
-	 * @param  $formData
+	 * @param array $formData
 	 * @param string $entryPoint
 	 * @return bool
 	 */
@@ -563,7 +563,7 @@ class SpecialNovaProject extends SpecialNova {
 	}
 
 	/**
-	 * @param  $formData
+	 * @param array $formData
 	 * @param string $entryPoint
 	 * @return bool
 	 */

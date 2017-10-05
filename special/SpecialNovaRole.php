@@ -193,7 +193,7 @@ class SpecialNovaRole extends SpecialNova {
 	}
 
 	/**
-	 * @param  $formData
+	 * @param array $formData
 	 * @param string $entryPoint
 	 * @return bool
 	 */
@@ -238,7 +238,7 @@ class SpecialNovaRole extends SpecialNova {
 	}
 
 	/**
-	 * @param  $formData
+	 * @param array $formData
 	 * @param string $entryPoint
 	 * @return bool
 	 */

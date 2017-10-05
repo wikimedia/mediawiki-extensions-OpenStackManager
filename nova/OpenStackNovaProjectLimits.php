@@ -14,8 +14,7 @@ class OpenStackNovaProjectLimits {
 	private $absolute;
 
 	/**
-	 * @param  $apiLimitsResponse
-	 * @param bool $loadhost optional
+	 * @param string $apiLimitsResponse
 	 */
 	function __construct( $apiLimitsResponse ) {
 		$this->limits = $apiLimitsResponse;

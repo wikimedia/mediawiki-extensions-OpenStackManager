@@ -312,7 +312,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 	}
 
 	/**
-	 * @param  $formData
+	 * @param array $formData
 	 * @param string $entryPoint
 	 * @return bool
 	 */
@@ -339,7 +339,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 	}
 
 	/**
-	 * @param  $formData
+	 * @param array $formData
 	 * @param string $entryPoint
 	 * @return bool
 	 */
@@ -389,7 +389,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 	}
 
 	/**
-	 * @param  $formData
+	 * @param array $formData
 	 * @param string $entryPoint
 	 * @return bool
 	 */

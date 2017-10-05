@@ -14,8 +14,8 @@ class OpenStackNovaServiceGroup {
 	public $project;
 
 	/**
-	 * @param  $groupname string
-	 * @param  $project OpenStackNovaProject
+	 * @param string $groupName
+	 * @param OpenStackNovaProject $project
 	 */
 	function __construct( $groupName, $project ) {
 		$this->project = $project;
@@ -26,6 +26,7 @@ class OpenStackNovaServiceGroup {
 	}
 
 	/**
+	 * @param bool $refreshCache
 	 * @return void
 	 */
 	function fetchGroupInfo( $refreshCache = true ) {
@@ -133,7 +134,7 @@ class OpenStackNovaServiceGroup {
 	}
 
 	/**
-	 * @param $username
+	 * @param string $username
 	 * @return bool
 	 */
 	function isMember( $username ) {
@@ -141,7 +142,7 @@ class OpenStackNovaServiceGroup {
 	}
 
 	/**
-	 * @param  $username
+	 * @param string $username
 	 * @return bool
 	 */
 	function deleteMember( $username ) {
@@ -188,7 +189,8 @@ class OpenStackNovaServiceGroup {
 	}
 
 	/**
-	 * @param  $username
+	 * @param array $usernames
+	 * @param array $serviceUsernames
 	 * @return bool
 	 */
 	function setMembers( $usernames, $serviceUsernames=[] ) {
@@ -225,7 +227,7 @@ class OpenStackNovaServiceGroup {
 	}
 
 	/**
-	 * @param  $username
+	 * @param string $username
 	 * @return bool
 	 */
 	function addMember( $username ) {
@@ -262,8 +264,8 @@ class OpenStackNovaServiceGroup {
 
 	/**
 	 * @static
-	 * @param  $groupName
-	 * @param  $project OpenStackNovaProject
+	 * @param string $groupName
+	 * @param OpenStackNovaProject $project
 	 * @return null|OpenStackNovaServiceGroup
 	 */
 	static function getServiceGroupByName( $groupName, $project ) {
@@ -277,9 +279,9 @@ class OpenStackNovaServiceGroup {
 
 	/**
 	 * @static
-	 * @param  $groupName
-	 * @param  $project OpenStackNovaProject
-	 * @param  $initialUser
+	 * @param string $inGroupName
+	 * @param OpenStackNovaProject $project
+	 * @param string $initialUser
 	 * @return null|OpenStackNovaServiceGroup
 	 */
 	static function createServiceGroup( $inGroupName, $project, $initialUser ) {
@@ -384,8 +386,8 @@ class OpenStackNovaServiceGroup {
 
 	/**
 	 * @static
-	 * @param  $groupName
-	 * @param  $project OpenStackNovaProject
+	 * @param string $groupName
+	 * @param string $project OpenStackNovaProject
 	 * @return bool
 	 */
 	static function deleteServiceGroup( $groupName, $project ) {

@@ -16,7 +16,7 @@ class OpenStackNovaController {
 	public $admintoken;
 
 	/**
-	 * @param $user string
+	 * @param string $user
 	 */
 	function __construct( $user ) {
 		$this->project = '';
@@ -27,7 +27,7 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @param $user string
+	 * @param string $user
 	 * @return OpenStackNovaController
 	 */
 	static function newFromUser( $user ) {
@@ -39,9 +39,9 @@ class OpenStackNovaController {
 	 * No parameters are escaped in this function. This function should never be
 	 * called when dealing with end-user provided data.
 	 *
-	 * @param $attachmenttext
-	 * @param $mimetype
-	 * @param $filename
+	 * @param string $attachmenttext
+	 * @param string $mimetype
+	 * @param string $filename
 	 *
 	 * @return string
 	 */
@@ -109,7 +109,7 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @param $id
+	 * @param string $id
 	 * @return null
 	 */
 	function getAddress( $id ) {
@@ -142,7 +142,7 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @param  $instanceId
+	 * @param string $instanceId
 	 * @return null|OpenStackNovaInstance
 	 */
 	function getInstance( $instanceId ) {
@@ -312,6 +312,7 @@ class OpenStackNovaController {
 	}
 
 	/**
+	 * @param string $projectid
 	 * @return string
 	 */
 	function getProjectName( $projectid ) {
@@ -325,7 +326,8 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @return id of new project or "" on failure
+	 * @param string $projectname
+	 * @return string id of new project or "" on failure
 	 */
 	function createProject( $projectname ) {
 		$admintoken = $this->_getAdminToken();
@@ -356,6 +358,7 @@ class OpenStackNovaController {
 	}
 
 	/**
+	 * @param string $projectid
 	 * @return array of user IDs => user names
 	 */
 	function getUsersInProject( $projectid ) {
@@ -413,6 +416,7 @@ class OpenStackNovaController {
 	}
 
 	/**
+	 * @param string $userid
 	 * @return array of arrays:  project ID => role IDs
 	 *
 	 *  Return array only includes entries for projects
@@ -446,6 +450,7 @@ class OpenStackNovaController {
 	}
 
 	/**
+	 * @param string $projectid
 	 * @return array of arrays:  role ID => user IDs
 	 */
 	function getRoleAssignmentsForProject( $projectid ) {
@@ -472,6 +477,8 @@ class OpenStackNovaController {
 	}
 
 	/**
+	 * @param string $projectid
+	 * @param string $userid
 	 * @return array role IDs => role Names
 	 */
 	function getRolesForProjectAndUser( $projectid, $userid ) {
@@ -551,7 +558,7 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @param $instancetypeid
+	 * @param string $instancetypeid
 	 * @return OpenStackNovaInstanceType
 	 */
 	function getInstanceType( $instancetypeid ) {
@@ -584,7 +591,7 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @param $imageid
+	 * @param string $imageid
 	 * @return null|\OpenStackNovaImage
 	 */
 	function getImage( $imageid ) {
@@ -622,7 +629,7 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @param $groupid
+	 * @param string $groupid
 	 * @return OpenStackNovaSecurityGroup
 	 */
 	function getSecurityGroup( $groupid ) {
@@ -657,7 +664,7 @@ class OpenStackNovaController {
 	/**
 	 * Get the console output of an instance
 	 *
-	 * @param $instanceid string
+	 * @param string $instanceid
 	 * @return string
 	 */
 	function getConsoleOutput( $instanceid ) {
@@ -671,7 +678,7 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @param  $volumeId
+	 * @param string $volumeId
 	 * @return null|OpenStackNovaVolume
 	 */
 	function getVolume( $volumeId ) {
@@ -690,11 +697,11 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @param  $instanceName
-	 * @param  $image
-	 * @param  $key
-	 * @param  $instanceType
-	 * @param  $groups
+	 * @param string $instanceName
+	 * @param string $image
+	 * @param string $key
+	 * @param string $instanceType
+	 * @param array $groups
 	 * @return null|OpenStackNovaInstance
 	 */
 	function createInstance( $instanceName, $image, $key, $instanceType, $groups ) {
@@ -775,7 +782,7 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @param $instanceid
+	 * @param string $instanceid
 	 * @return bool
 	 */
 	function terminateInstance( $instanceid ) {
@@ -792,8 +799,8 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @param  $groupname
-	 * @param  $description
+	 * @param string $groupname
+	 * @param string $description
 	 * @return null|OpenStackNovaSecurityGroup
 	 */
 	function createSecurityGroup( $groupname, $description ) {
@@ -812,7 +819,7 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @param $groupid
+	 * @param string $groupid
 	 * @return bool
 	 */
 	function deleteSecurityGroup( $groupid ) {
@@ -823,7 +830,7 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @param $groupid
+	 * @param string $groupid
 	 * @param string $fromport
 	 * @param string $toport
 	 * @param string $protocol
@@ -856,7 +863,7 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @param $ruleid
+	 * @param string $ruleid
 	 * @return bool
 	 */
 	function removeSecurityGroupRule( $ruleid ) {
@@ -886,7 +893,7 @@ class OpenStackNovaController {
 	/**
 	 * Release ip address
 	 *
-	 * @param $id
+	 * @param string $id
 	 * @return bool
 	 */
 	function releaseAddress( $id ) {
@@ -899,8 +906,8 @@ class OpenStackNovaController {
 	/**
 	 * Attach new ip address to instance
 	 *
-	 * @param  $instanceid
-	 * @param  $ip
+	 * @param string $instanceid
+	 * @param string $ip
 	 * @return bool
 	 */
 	function associateAddress( $instanceid, $ip ) {
@@ -914,8 +921,8 @@ class OpenStackNovaController {
 	/**
 	 * Disassociate address from an instance
 	 *
-	 * @param $instanceid
-	 * @param  $ip
+	 * @param string $instanceid
+	 * @param string $ip
 	 * @return bool
 	 */
 	function disassociateAddress( $instanceid, $ip ) {
@@ -929,10 +936,10 @@ class OpenStackNovaController {
 	/**
 	 * Create a Nova volume
 	 *
-	 * @param  $zone
-	 * @param  $size
-	 * @param  $name
-	 * @param  $description
+	 * @param string $zone
+	 * @param string $size
+	 * @param string $name
+	 * @param string $description
 	 * @return OpenStackNovaVolume
 	 */
 	function createVolume( $zone, $size, $name, $description ) {
@@ -943,7 +950,7 @@ class OpenStackNovaController {
 	/**
 	 * Delete a Nova volume
 	 *
-	 * @param  $volumeid
+	 * @param string $volumeid
 	 * @return bool
 	 */
 	function deleteVolume( $volumeid ) {
@@ -954,9 +961,9 @@ class OpenStackNovaController {
 	/**
 	 * Attach a nova volume to the specified device on an instance
 	 *
-	 * @param volumeid
-	 * @param instanceid
-	 * @param device
+	 * @param string $volumeid
+	 * @param string $instanceid
+	 * @param string $device
 	 * @return bool
 	 */
 	function attachVolume( $volumeid, $instanceid, $device ) {
@@ -967,8 +974,8 @@ class OpenStackNovaController {
 	/**
 	 * Detaches a nova volume from an instance
 	 *
-	 * @param volumeid
-	 * @param force
+	 * @param string $volumeid
+	 * @param string $force
 	 * @return bool
 	 */
 	function detachVolume( $volumeid, $force ) {
@@ -979,7 +986,7 @@ class OpenStackNovaController {
 	/**
 	 * Reboots an instance
 	 *
-	 * @param type
+	 * @param string $instanceid
 	 * @param string $type
 	 * @return bool
 	 */

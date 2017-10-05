@@ -307,7 +307,7 @@ $wgAPIListModules['novainstances'] = 'ApiListNovaInstances';
 $wgHooks['LoadExtensionSchemaUpdates'][] = 'efOpenStackSchemaUpdates';
 
 /**
- * @param $updater DatabaseUpdater
+ * @param DatabaseUpdater $updater
  * @return bool
  */
 function efOpenStackSchemaUpdates( $updater ) {
@@ -345,8 +345,9 @@ $wgDefaultUserOptions['echo-subscriptions-email-osm-projectmembers-add'] = true;
 /**
  * Add OSM events to Echo.
  *
- * @param array $notifications Echo notifications
- * @param array $notificationCategories Echo notification categories
+ * @param array &$notifications Echo notifications
+ * @param array &$notificationCategories Echo notification categories
+ * @return true
  */
 function efOpenStackOnBeforeCreateEchoEvent(
 	&$notifications, &$notificationCategories
@@ -381,8 +382,8 @@ function efOpenStackOnBeforeCreateEchoEvent(
 /**
  * Define who gets notifications for an event.
  *
- * @param $event EchoEvent to get implicitly subscribed users for
- * @param &$users array to append implicitly subscribed users to.
+ * @param EchoEvent $event EchoEvent to get implicitly subscribed users for
+ * @param array &$users array to append implicitly subscribed users to.
  * @return bool true in all cases
  */
 function efOpenStackGetDefaultNotifiedUsers( $event, &$users ) {
@@ -414,8 +415,8 @@ function efOpenStackGetDefaultNotifiedUsers( $event, &$users ) {
 $wgHooks['BeforePageDisplay'][] = 'efOpenStackBeforePageDisplay';
 
 /**
- * @param $out OutputPage
- * @param $skin Skin
+ * @param OutputPage $out
+ * @param Skin $skin
  * @return bool
  */
 function efOpenStackBeforePageDisplay( $out, $skin ) {

@@ -12,7 +12,7 @@ class OpenStackNovaKeypair {
 	public $keypair;
 
 	/**
-	 * @param  $apiKeypairResponse
+	 * @param string $apiKeypairResponse
 	 */
 	function __construct( $apiKeypairResponse ) {
 		$this->keypair = $apiKeypairResponse;

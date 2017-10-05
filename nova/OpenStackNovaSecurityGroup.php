@@ -13,7 +13,7 @@ class OpenStackNovaSecurityGroup {
 	public $rules;
 
 	/**
-	 * @param $apiInstanceResponse
+	 * @param array $apiInstanceResponse
 	 */
 	function __construct( $apiInstanceResponse ) {
 		$this->group = $apiInstanceResponse;

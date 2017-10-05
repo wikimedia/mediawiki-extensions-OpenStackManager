@@ -12,7 +12,7 @@ class OpenStackNovaImage {
 	public $image;
 
 	/**
-	 * @param  $apiInstanceResponse
+	 * @param string $apiInstanceResponse
 	 */
 	function __construct( $apiInstanceResponse ) {
 		$this->image = $apiInstanceResponse;
@@ -48,6 +48,7 @@ class OpenStackNovaImage {
 	/**
 	 * Return the value of the metadata key requested
 	 *
+	 * @param string $key
 	 * @return string
 	 */
 	function getImageMetadata( $key ) {

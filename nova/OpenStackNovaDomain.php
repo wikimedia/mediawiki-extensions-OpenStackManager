@@ -15,7 +15,7 @@ class OpenStackNovaDomain {
 	public $fqdn; // fq domain name
 
 	/**
-	 * @param  $domainname
+	 * @param string $domainname
 	 */
 	function __construct( $domainname ) {
 		$this->domainname = $domainname;
@@ -159,7 +159,7 @@ class OpenStackNovaDomain {
 	 * return null.
 	 *
 	 * @static
-	 * @param  $domainname
+	 * @param string $domainname
 	 * @return null|OpenStackNovaDomain
 	 */
 	static function getDomainByName( $domainname ) {
@@ -176,7 +176,7 @@ class OpenStackNovaDomain {
 	 * exist, return null.
 	 *
 	 * @static
-	 * @param  $ip
+	 * @param string $ip
 	 * @return null|OpenStackNovaDomain
 	 */
 	static function getDomainByHostIP( $ip ) {
@@ -210,7 +210,7 @@ class OpenStackNovaDomain {
 	 * does not exist.
 	 *
 	 * @static
-	 * @param  $instanceid
+	 * @param string $region
 	 * @return null|OpenStackNovaDomain
 	 */
 	static function getDomainByRegion( $region ) {
@@ -231,9 +231,9 @@ class OpenStackNovaDomain {
 	 * creation. Returns null on domain creation failure.
 	 *
 	 * @static
-	 * @param  $domainname
-	 * @param  $fqdn
-	 * @param  $location
+	 * @param string $domainname
+	 * @param string $fqdn
+	 * @param string $location
 	 * @return null|OpenStackNovaDomain
 	 */
 	static function createDomain( $domainname, $fqdn, $location ) {
@@ -270,7 +270,7 @@ class OpenStackNovaDomain {
 	 * delete the domain if any host entries still exist in the domain.
 	 *
 	 * @static
-	 * @param  $domainname
+	 * @param string $domainname
 	 * @return bool
 	 */
 	static function deleteDomain( $domainname ) {

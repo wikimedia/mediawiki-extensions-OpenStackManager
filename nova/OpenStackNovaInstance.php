@@ -9,6 +9,9 @@
 
 class OpenStackNovaInstance {
 
+	/**
+	 * @var string
+	 */
 	public $instance;
 
 	/**
@@ -22,7 +25,8 @@ class OpenStackNovaInstance {
 	public $host;
 
 	/**
-	 * @param  $apiInstanceResponse
+	 * @param string $apiInstanceResponse
+	 * @param string $region
 	 * @param bool $loadhost optional
 	 */
 	function __construct( $apiInstanceResponse, $region, $loadhost = false ) {
@@ -43,7 +47,7 @@ class OpenStackNovaInstance {
 
 	/**
 	 * Manually set an OpenStackNovaHost object to this instance.
-	 * @param  $host OpenStackNovaHost
+	 * @param OpenStackNovaHost $host
 	 * @return void
 	 */
 	function setHost( $host ) {

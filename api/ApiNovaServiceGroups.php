@@ -28,7 +28,10 @@ class ApiNovaServiceGroups extends ApiBase {
 		}
 	}
 
-	// Face parameter.
+	/**
+	 * Face parameter
+	 * @return array
+	 */
 	public function getAllowedParams() {
 		return [
 			'subaction' => [
@@ -79,6 +82,7 @@ class ApiNovaServiceGroups extends ApiBase {
 
 	/**
 	 * @see ApiBase::getExamplesMessages()
+	 * @return array
 	 */
 	protected function getExamplesMessages() {
 		return [

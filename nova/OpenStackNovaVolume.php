@@ -12,7 +12,7 @@ class OpenStackNovaVolume {
 	public $volume;
 
 	/**
-	 * @param $apiVolumeResponse
+	 * @param array $apiVolumeResponse
 	 */
 	function __construct( $apiVolumeResponse ) {
 		$this->volume = $apiVolumeResponse;

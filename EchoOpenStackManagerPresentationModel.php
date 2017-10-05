@@ -30,7 +30,7 @@ class EchoOpenStackManagerPresentationModel extends EchoEventPresentationModel {
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * @inheritDoc
 	 */
 	public function getSecondaryLinks() {
 		return [ $this->getAgentLink() ];

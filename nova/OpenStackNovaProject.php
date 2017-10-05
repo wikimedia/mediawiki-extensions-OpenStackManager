@@ -42,7 +42,7 @@ class OpenStackNovaProject {
 	private static $projectGroupPrefix = 'project-';
 
 	/**
-	 * @param  $projectname
+	 * @param string $projectid
 	 * @param bool $load
 	 */
 	function __construct( $projectid, $load = true ) {
@@ -92,6 +92,7 @@ class OpenStackNovaProject {
 
 	/**
 	 * Fetch the project from keystone initialize the object
+	 * @param bool $refresh
 	 */
 	function fetchProjectInfo( $refresh = true ) {
 		if ( $this->loaded && !$refresh ) {
@@ -300,7 +301,7 @@ class OpenStackNovaProject {
 	 * Inform role objects that membership has changed and they
 	 *  need to refresh their caches.
 	 *
-	 * @param  $user OpenStackNovaUser
+	 * @param OpenStackNovaUser $username
 	 */
 	function deleteRoleCaches( $username ) {
 		$user = new OpenStackNovaUser( $username );
@@ -315,7 +316,7 @@ class OpenStackNovaProject {
 	/**
 	 * Remove a member from the project based on username
 	 *
-	 * @param  $username string
+	 * @param string $username
 	 * @return bool
 	 */
 	function deleteMember( $username ) {
@@ -361,7 +362,8 @@ class OpenStackNovaProject {
 	/**
 	 * Add a service group to this project
 	 *
-	 * @param $groupname string
+	 * @param string $groupName
+	 * @param string $initialUser
 	 * @return bool
 	 */
 	function addServiceGroup( $groupName, $initialUser ) {
@@ -379,7 +381,7 @@ class OpenStackNovaProject {
 	/**
 	 * Remove a service group from the project
 	 *
-	 * @param  $groupName string
+	 * @param string $groupName
 	 * @return bool
 	 */
 	function deleteServiceGroup( $groupName ) {
@@ -392,7 +394,7 @@ class OpenStackNovaProject {
 	/**
 	 * Add a member to this project based on username
 	 *
-	 * @param $username string
+	 * @param string $username
 	 * @return bool
 	 */
 	function addMember( $username ) {
@@ -421,7 +423,7 @@ class OpenStackNovaProject {
 	 *  This function is terrible and should be used sparingly
 	 *
 	 * @static
-	 * @param  $projectname
+	 * @param string $projectname
 	 * @return null|OpenStackNovaProject
 	 */
 	static function getProjectByName( $projectname ) {
@@ -438,7 +440,7 @@ class OpenStackNovaProject {
 	 * Return a project by its project id. Returns null if the project does not exist.
 	 *
 	 * @static
-	 * @param  $projectname
+	 * @param string $projectid
 	 * @return null|OpenStackNovaProject
 	 */
 	static function getProjectById( $projectid ) {
@@ -563,7 +565,7 @@ class OpenStackNovaProject {
 	 * all roles needed by the project.
 	 *
 	 * @static
-	 * @param  $projectname
+	 * @param string $projectname
 	 * @return OpenStackNovaProject
 	 */
 	static function createProject( $projectname ) {
@@ -643,7 +645,7 @@ class OpenStackNovaProject {
 	 * This is in a separate function so we can call it for old entries
 	 * for reverse-compatibility
 	 *
-	 * @param  $projectname String
+	 * @param string $projectname
 	 * @return bool
 	 */
 	static function createServiceGroupOUs( $projectname ) {
@@ -687,7 +689,6 @@ class OpenStackNovaProject {
 	/**
 	 * Remove the top-level entry for Service Groups to this project.
 	 *
-	 * @param  $projectname String
 	 * @return bool
 	 */
 	function deleteServiceGroupOUs() {
@@ -730,7 +731,7 @@ class OpenStackNovaProject {
 	 * Deletes a project based on project id. This function will also delete all roles
 	 * associated with the project.
 	 *
-	 * @param  $projectid String
+	 * @param string $projectid
 	 * @return bool
 	 */
 	static function deleteProject( $projectid ) {

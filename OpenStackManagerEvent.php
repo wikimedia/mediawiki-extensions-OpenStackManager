@@ -17,10 +17,10 @@ class OpenStackManagerEvent {
 	/**
 	 * Store the event information in a DB table. We'll get this back out in the
 	 * maintenance/onInstanceActionCompletion.php script.
-	 * @param $type string
-	 * @param $user User
-	 * @param $instance OpenStackNovaInstance
-	 * @param $project string
+	 * @param string $type
+	 * @param User $user
+	 * @param OpenStackNovaInstance $instance
+	 * @param string $project
 	 */
 	public static function storeEventInfo( $type, $user, $instance, $project ) {
 		$dbw = wfGetDB( DB_MASTER );

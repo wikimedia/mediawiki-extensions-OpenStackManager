@@ -5,37 +5,35 @@ class OpenStackNovaSecurityGroupRule {
 	public $rule;
 
 	/**
-	 * @param  $apiInstanceResponse
+	 * @param string $apiInstanceResponse
 	 */
 	function __construct( $apiInstanceResponse ) {
 		$this->rule = $apiInstanceResponse;
 	}
 
 	/**
-	 * @return
-	 *
+	 * @return string
 	 */
 	function getId() {
 		return OpenStackNovaController::_get_property( $this->rule, 'id' );
 	}
 
 	/**
-	 * @return
-	 *
+	 * @return string
 	 */
 	function getToPort() {
 		return OpenStackNovaController::_get_property( $this->rule, 'to_port' );
 	}
 
 	/**
-	 * @return
+	 * @return string
 	 */
 	function getFromPort() {
 		return OpenStackNovaController::_get_property( $this->rule, 'from_port' );
 	}
 
 	/**
-	 * @return
+	 * @return string
 	 */
 	function getIPProtocol() {
 		return OpenStackNovaController::_get_property( $this->rule, 'ip_protocol' );

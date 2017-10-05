@@ -205,7 +205,7 @@ class OpenStackNovaUser {
 	}
 
 	/**
-	 * @param  $project
+	 * @param string $project
 	 * @return bool
 	 */
 	function inProject( $project ) {
@@ -225,7 +225,7 @@ class OpenStackNovaUser {
 	}
 
 	/**
-	 * @param $role
+	 * @param string $role
 	 * @param string $projectname
 	 * @return bool
 	 */
@@ -261,7 +261,7 @@ class OpenStackNovaUser {
 	}
 
 	/**
-	 * @param  $key
+	 * @param string $key
 	 * @return bool
 	 */
 	function importKeypair( $key ) {
@@ -291,7 +291,7 @@ class OpenStackNovaUser {
 	}
 
 	/**
-	 * @param  $key
+	 * @param string $key
 	 * @return bool
 	 */
 	function deleteKeypair( $key ) {
@@ -343,8 +343,8 @@ class OpenStackNovaUser {
 	 * TODO: Make $wgOpenStackManagerIdRanges use a set of ranges.
 	 *
 	 * @static
-	 * @param  $auth
-	 * @param  $attr
+	 * @param string $auth
+	 * @param string $attr
 	 * @return mixed|string
 	 */
 	static function getNextIdNumber( $auth, $attr ) {
@@ -396,12 +396,12 @@ class OpenStackNovaUser {
 	 * Hook to add objectclasses and attributes for users being created.
 	 *
 	 * @static
-	 * @param  $auth
-	 * @param  $username
-	 * @param  $values
-	 * @param  $writeloc
-	 * @param  $userdn
-	 * @param  $result
+	 * @param string $auth
+	 * @param string $username
+	 * @param array &$values
+	 * @param string $writeloc
+	 * @param string &$userdn
+	 * @param bool &$result
 	 * @return bool
 	 */
 	static function LDAPSetCreationValues(
@@ -484,12 +484,12 @@ class OpenStackNovaUser {
 	 * uid in case there's a race condition.
 	 *
 	 * @static
-	 * @param  $auth
-	 * @param  $username
-	 * @param  $values
-	 * @param  $writeloc
-	 * @param  $userdn
-	 * @param  $result
+	 * @param string $auth
+	 * @param string $username
+	 * @param array &$values
+	 * @param string $writeloc
+	 * @param string &$userdn
+	 * @param string &$result
 	 * @return bool
 	 */
 	static function LDAPRetrySetCreationValues(
@@ -508,7 +508,7 @@ class OpenStackNovaUser {
 
 	/**
 	 * @static
-	 * @param $template
+	 * @param UserLoginTemplate &$template
 	 * @return bool
 	 */
 	static function LDAPModifyUITemplate( &$template ) {
@@ -527,7 +527,7 @@ class OpenStackNovaUser {
 	/**
 	 * @param \MediaWiki\Auth\AuthenticationRequest[] $requests
 	 * @param array $fieldInfo
-	 * @param array $formDescriptor
+	 * @param array &$formDescriptor
 	 * @param string $action
 	 */
 	static function AuthChangeFormFields( $requests, $fieldInfo, &$formDescriptor, $action ) {
@@ -583,7 +583,7 @@ class OpenStackNovaUser {
 
 	/**
 	 * @static
-	 * @param $user
+	 * @param User &$wikiUser
 	 * @return bool
 	 */
 	static function LDAPUpdateUser( &$wikiUser ) {
@@ -596,9 +596,9 @@ class OpenStackNovaUser {
 	}
 
 	/**
-	 * @param $username string
-	 * @param $password string
-	 * @param $result bool
+	 * @param string $username
+	 * @param string $password
+	 * @param bool &$result
 	 * @return bool
 	 */
 	static function ChainAuth( $username, $password, &$result ) {
@@ -690,8 +690,8 @@ class OpenStackNovaUser {
 	}
 
 	/**
-	 * @param $user User
-	 * @param $preferences array
+	 * @param User $user
+	 * @param array &$preferences
 	 * @return bool True
 	 */
 	public static function novaUserPreferences( User $user, array &$preferences ) {
@@ -721,7 +721,7 @@ class OpenStackNovaUser {
 	}
 
 	/**
-	 * @param $user OpenStackNovaUser
+	 * @param OpenStackNovaUser $user
 	 * @return string
 	 */
 	static function getKeyList( $user ) {

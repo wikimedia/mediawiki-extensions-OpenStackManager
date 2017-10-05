@@ -65,7 +65,10 @@ class ApiNovaProjects extends ApiBase {
 		}
 	}
 
-	// Face parameter.
+	/**
+	 * Face parameter
+	 * @return array
+	 */
 	public function getAllowedParams() {
 		return [
 			'subaction' => [
@@ -120,6 +123,7 @@ class ApiNovaProjects extends ApiBase {
 
 	/**
 	 * @see ApiBase::getExamplesMessages()
+	 * @return array
 	 */
 	protected function getExamplesMessages() {
 		return [

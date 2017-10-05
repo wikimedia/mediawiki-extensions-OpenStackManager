@@ -49,6 +49,7 @@ class ApiListNovaProjects extends ApiQueryGeneratorBase {
 
 	/**
 	 * @see ApiBase::getExamplesMessages()
+	 * @return array
 	 */
 	protected function getExamplesMessages() {
 		return [

@@ -341,7 +341,7 @@ class SpecialNovaProxy extends SpecialNova {
 	}
 
 	/**
-	 * @param  $formData
+	 * @param array $formData
 	 * @param string $entryPoint
 	 * @return bool
 	 */
@@ -376,7 +376,7 @@ class SpecialNovaProxy extends SpecialNova {
 	}
 
 	/**
-	 * @param  $formData
+	 * @param array $formData
 	 * @param string $entryPoint
 	 * @return bool
 	 */

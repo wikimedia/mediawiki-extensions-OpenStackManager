@@ -21,9 +21,9 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 	public $region;
 
 	/**
-	 * @param  $instancename
-	 * @param  $instanceproject
-	 * @param  $region
+	 * @param string $instancename
+	 * @param string $instanceproject
+	 * @param string $region
 	 */
 	function __construct( $instancename, $instanceproject, $region ) {
 		$ldap = LdapAuthenticationPlugin::getInstance();

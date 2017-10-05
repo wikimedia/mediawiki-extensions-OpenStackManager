@@ -15,7 +15,7 @@ class OpenStackNovaPublicHost extends OpenStackNovaHost {
 	public $ip;
 
 	/**
-	 * @param  $ip
+	 * @param string $ip
 	 */
 	function __construct( $ip ) {
 		$this->domainCache = null;

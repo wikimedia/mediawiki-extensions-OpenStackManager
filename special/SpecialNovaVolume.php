@@ -420,7 +420,7 @@ class SpecialNovaVolume extends SpecialNova {
 	}
 
 	/**
-	 * @param  $formData
+	 * @param array $formData
 	 * @param string $entryPoint
 	 * @return bool
 	 */
@@ -450,7 +450,7 @@ class SpecialNovaVolume extends SpecialNova {
 	}
 
 	/**
-	 * @param  $formData
+	 * @param array $formData
 	 * @param string $entryPoint
 	 * @return bool
 	 */
@@ -479,7 +479,7 @@ class SpecialNovaVolume extends SpecialNova {
 	}
 
 	/**
-	 * @param  $formData
+	 * @param array $formData
 	 * @param string $entryPoint
 	 * @return bool
 	 */
@@ -504,7 +504,7 @@ class SpecialNovaVolume extends SpecialNova {
 	}
 
 	/**
-	 * @param  $formData
+	 * @param array $formData
 	 * @param string $entryPoint
 	 * @return bool
 	 */

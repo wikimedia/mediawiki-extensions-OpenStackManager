@@ -15,8 +15,8 @@ class OpenStackNovaSudoer {
 	public $sudoerInfo;
 
 	/**
-	 * @param $sudoername
-	 * @param $project
+	 * @param string $sudoername
+	 * @param string $project
 	 */
 	function __construct( $sudoername, $project ) {
 		$this->sudoername = $sudoername;
@@ -130,9 +130,10 @@ class OpenStackNovaSudoer {
 	/**
 	 * Modify a sudoer based on users, commands, and options.
 	 *
-	 * @param  $users
-	 * @param  $commands
-	 * @param  $options
+	 * @param array $users
+	 * @param array $runasuser
+	 * @param array $commands
+	 * @param array $options
 	 * @return bool
 	 */
 	function modifySudoer( $users, $runasuser, $commands, $options ) {
@@ -208,7 +209,7 @@ class OpenStackNovaSudoer {
 	/**
 	 * Get all sudo policies
 	 *
-	 * @param $projectName
+	 * @param string $projectName
 	 * @return array of OpenStackNovaSudoer
 	 */
 	static function getAllSudoersByProject( $projectName ) {
@@ -239,8 +240,8 @@ class OpenStackNovaSudoer {
 	 * Get a sudoer policy by name.
 	 *
 	 * @static
-	 * @param $sudoerName
-	 * @param $projectName
+	 * @param string $sudoerName
+	 * @param string $projectName
 	 * @return null|OpenStackNovaSudoer
 	 */
 	static function getSudoerByName( $sudoerName, $projectName ) {
@@ -258,11 +259,12 @@ class OpenStackNovaSudoer {
 	 * Returns null on sudoer creation failure.
 	 *
 	 * @static
-	 * @param  $sudoername
-	 * @param $projectName
-	 * @param  $users
-	 * @param  $commands
-	 * @param  $options
+	 * @param string $sudoername
+	 * @param string $projectName
+	 * @param array $users
+	 * @param array $runasuser
+	 * @param array $commands
+	 * @param array $options
 	 * @return null|OpenStackNovaSudoer
 	 */
 	static function createSudoer(
@@ -304,8 +306,8 @@ class OpenStackNovaSudoer {
 	 * Deletes a sudo policy based on the policy name.
 	 *
 	 * @static
-	 * @param  $sudoername
-	 * @param $projectName
+	 * @param string $sudoername
+	 * @param string $projectName
 	 * @return bool
 	 */
 	static function deleteSudoer( $sudoername, $projectName ) {

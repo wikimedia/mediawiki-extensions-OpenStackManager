@@ -12,7 +12,7 @@ class OpenStackNovaAddress {
 	public $address;
 
 	/**
-	 * @param  $apiInstanceResponse
+	 * @param array $apiInstanceResponse
 	 */
 	function __construct( $apiInstanceResponse ) {
 		$this->address = $apiInstanceResponse;

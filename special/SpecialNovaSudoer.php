@@ -490,13 +490,11 @@ class SpecialNovaSudoer extends SpecialNova {
 	}
 
 	/**
+	 * This function replaces 'ALL' and 'All project members' with a reference
+	 * to the project user group.
 	 *
-	 *  @ param $users: a list of usernames and/or 'openstackmanager-allmembers'
-	 *  @ return modified list of usernames
-	 *
-	 *  This function replaces 'ALL' and 'All project members' with a reference
-	 *   to the project user group.
-	 *
+	 * @param array $users a list of usernames and/or 'openstackmanager-allmembers'
+	 * @return array modified list of usernames
 	 */
 	function removeALLFromUserKeys( $users ) {
 		$newusers = [];
@@ -511,15 +509,13 @@ class SpecialNovaSudoer extends SpecialNova {
 	}
 
 	/**
+	 * This function replaces 'All project members' with a reference
+	 * to the project user group.  It differes from Remove ALLFromUserKeys
+	 * because it preserves the string 'ALL' which is useful in the 'run as'
+	 * context.
 	 *
-	 *  @ param $users: a list of usernames and/or 'openstackmanager-allmembers'
-	 *  @ return modified list of usernames
-	 *
-	 *  This function replaces 'All project members' with a reference
-	 *   to the project user group.  It differes from Remove ALLFromUserKeys
-	 *   because it preserves the string 'ALL' which is useful in the 'run as'
-	 *   context.
-	 *
+	 * @param array $users a list of usernames and/or 'openstackmanager-allmembers'
+	 * @return array modified list of usernames
 	 */
 	function removeALLFromRunAsUserKeys( $users ) {
 		$newusers = [];
@@ -534,7 +530,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	}
 
 	/**
-	 * @param  $formData
+	 * @param array $formData
 	 * @param string $entryPoint
 	 * @return bool
 	 */
@@ -580,7 +576,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	}
 
 	/**
-	 * @param  $formData
+	 * @param array $formData
 	 * @param string $entryPoint
 	 * @return bool
 	 */
@@ -605,7 +601,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	}
 
 	/**
-	 * @param  $formData
+	 * @param array $formData
 	 * @param string $entryPoint
 	 * @return bool
 	 */

@@ -16,7 +16,7 @@ class OpenStackNovaRole {
 	private $rolename;
 
 	/**
-	 * @param $roleid
+	 * @param string $roleid
 	 * @param null $project optional
 	 */
 	function __construct( $roleid, $project ) {
@@ -87,7 +87,7 @@ class OpenStackNovaRole {
 	}
 
 	/**
-	 * @param  $username
+	 * @param string $username
 	 * @return bool
 	 */
 	function deleteMember( $username ) {
@@ -109,7 +109,7 @@ class OpenStackNovaRole {
 	}
 
 	/**
-	 * @param  $username
+	 * @param string $username
 	 * @return bool
 	 */
 	function addMember( $username ) {
@@ -131,7 +131,7 @@ class OpenStackNovaRole {
 	}
 
 	/**
-	 * @param $user
+	 * @param string $user
 	 * @return String string
 	 */
 	function deleteMemcKeys( $user ) {
@@ -154,7 +154,7 @@ class OpenStackNovaRole {
 	}
 
 	/**
-	 * @param $userLDAP
+	 * @param string $userLDAP
 	 * @return bool
 	 */
 	function userInRole( $userLDAP ) {
@@ -172,8 +172,8 @@ class OpenStackNovaRole {
 
 	/**
 	 * @static
-	 * @param  $rolename
-	 * @param  $project
+	 * @param string $rolename
+	 * @param string $project
 	 * @return null|OpenStackNovaRole
 	 */
 	static function getProjectRoleByName( $rolename, $project ) {
@@ -189,7 +189,7 @@ class OpenStackNovaRole {
 
 	/**
 	 * @static
-	 * @param  $roleid
+	 * @param string $roleid
 	 * @return role name
 	 */
 	static function getRoleNameForId( $roleid ) {

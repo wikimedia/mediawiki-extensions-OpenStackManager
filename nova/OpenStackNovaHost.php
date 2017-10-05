@@ -75,7 +75,7 @@ class OpenStackNovaHost {
 	/**
 	 * Remove an associated domain record from this entry.
 	 *
-	 * @param  $fqdn
+	 * @param string $fqdn
 	 * @return bool
 	 */
 	function deleteAssociatedDomain( $fqdn ) {
@@ -114,7 +114,7 @@ class OpenStackNovaHost {
 	/**
 	 * Remove an arecord from the host.
 	 *
-	 * @param  $ip
+	 * @param string $ip
 	 * @return bool
 	 */
 	function deleteARecord( $ip ) {
@@ -153,7 +153,7 @@ class OpenStackNovaHost {
 	/**
 	 * Add an associated domain record to this host.
 	 *
-	 * @param  $fqdn
+	 * @param string $fqdn
 	 * @return bool
 	 */
 	function addAssociatedDomain( $fqdn ) {
@@ -181,7 +181,7 @@ class OpenStackNovaHost {
 	/**
 	 * Add an arecord entry to this host.
 	 *
-	 * @param  $ip
+	 * @param string $ip
 	 * @return bool
 	 */
 	function addARecord( $ip ) {
@@ -209,7 +209,7 @@ class OpenStackNovaHost {
 	/**
 	 * Replace all arecords on this host with $ip.
 	 *
-	 * @param  $ip
+	 * @param string $ip
 	 * @return bool
 	 */
 	function setARecord( $ip ) {
@@ -232,7 +232,7 @@ class OpenStackNovaHost {
 	 * null if the entry does not exist.
 	 *
 	 * @static
-	 * @param  $ip
+	 * @param string $ip
 	 * @return OpenStackNovaHost
 	 */
 	static function getHostByPublicIP( $ip ) {
@@ -248,9 +248,9 @@ class OpenStackNovaHost {
 	 * Get a host by an instance ID. Returns null if the entry does not exist.
 	 *
 	 * @static
-	 * @param  $instancename
-	 * @param  $instanceproject
-	 * @param  $region
+	 * @param string $instancename
+	 * @param string $instanceproject
+	 * @param string $region
 	 * @return OpenStackNovaHost
 	 */
 	static function getHostByNameAndProject( $instancename, $instanceproject, $region ) {
@@ -290,9 +290,9 @@ class OpenStackNovaHost {
 	 * for adding public DNS entries.
 	 *
 	 * @static
-	 * @param  $hostname
-	 * @param  $ip
-	 * @param  $domain OpenStackNovaDomain
+	 * @param string $hostname
+	 * @param string $ip
+	 * @param string $domain OpenStackNovaDomain
 	 * @return bool|null|OpenStackNovaHost
 	 */
 	static function addPublicHost( $hostname, $ip, $domain ) {
@@ -330,7 +330,7 @@ class OpenStackNovaHost {
 	}
 
 	/**
-	 * @param $hostname
+	 * @param string $hostname
 	 * @return bool
 	 */
 	static function validateHostname( $hostname ) {

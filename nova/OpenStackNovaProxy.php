@@ -14,8 +14,10 @@ class OpenStackNovaProxy {
 	public $backendPort;
 
 	/**
-	 * @param $sudoername
-	 * @param $projectName
+	 * @param string $projectName
+	 * @param string $proxyFQDN
+	 * @param string $backendName
+	 * @param string $backendPort
 	 */
 	function __construct( $projectName, $proxyFQDN, $backendName = "", $backendPort = '80' ) {
 		$this->projectName = $projectName;

@@ -31,6 +31,7 @@ abstract class SpecialNova extends SpecialPage {
 	}
 
 	/**
+	 * @param string $project
 	 * @return void
 	 */
 	function notInProject( $project ) {
@@ -49,7 +50,8 @@ abstract class SpecialNova extends SpecialPage {
 	}
 
 	/**
-	 * @param  $role
+	 * @param string $role
+	 * @param string $project
 	 * @return void
 	 */
 	function notInRole( $role, $project ) {
@@ -73,8 +75,8 @@ abstract class SpecialNova extends SpecialPage {
 	}
 
 	/**
-	 * @param $resourcename
-	 * @param $alldata
+	 * @param string $resourcename
+	 * @param string $alldata
 	 * @internal param $error
 	 * @return bool|string
 	 */
@@ -91,8 +93,8 @@ abstract class SpecialNova extends SpecialPage {
 	}
 
 	/**
-	 * @param $resourcename
-	 * @param $alldata
+	 * @param string $resourcename
+	 * @param string $alldata
 	 * @return bool|string
 	 */
 	function validateDomain( $resourcename, $alldata ) {
@@ -214,8 +216,8 @@ abstract class SpecialNova extends SpecialPage {
 	 * Create a table of resources based on headers and rows. Warning: $rows is not
 	 * escaped in this function and must be escaped prior to this call.
 	 *
-	 * @param $headers
-	 * @param $rows
+	 * @param string $headers
+	 * @param stdClass $rows
 	 *
 	 * @return string
 	 */
@@ -238,9 +240,9 @@ abstract class SpecialNova extends SpecialPage {
 	 * Create a project section to be displayed in a list page. Warning: neither $actionsByRole nor
 	 * $data escaped in this function and must be escaped prior to this call.
 	 *
-	 * @param $projectName
-	 * @param $actionsByRole
-	 * @param $data
+	 * @param string $projectName
+	 * @param string $actionsByRole
+	 * @param string $data
 	 *
 	 * @return string
 	 */
@@ -273,10 +275,10 @@ abstract class SpecialNova extends SpecialPage {
 	 * Create a region section to be displayed in a list page. Warning: neither $actionsByRole nor
 	 * $data are escaped in this function and must be escaped prior to this call.
 	 *
-	 * @param $region
-	 * @param $projectName
-	 * @param $actionsByRole
-	 * @param $data
+	 * @param string $region
+	 * @param string $projectName
+	 * @param array $actionsByRole
+	 * @param string $data
 	 *
 	 * @return string
 	 */
