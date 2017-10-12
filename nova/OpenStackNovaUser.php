@@ -409,7 +409,6 @@ class OpenStackNovaUser {
 	) {
 		global $wgOpenStackManagerLDAPDefaultGid;
 		global $wgOpenStackManagerLDAPDefaultShell;
-		global $wgRequest;
 
 		$values['objectclass'][] = 'person';
 		$values['objectclass'][] = 'ldappublickey';
@@ -425,14 +424,10 @@ class OpenStackNovaUser {
 		if ( '' !== $auth->realname ) {
 			$values['displayname'] = $auth->realname;
 		}
-		if ( class_exists( \MediaWiki\Auth\AuthManager::class ) &&
-			empty( $wgDisableAuthManager )
-		) {
-			$shellaccountname = \MediaWiki\Auth\AuthManager::singleton()
-				->getAuthenticationSessionData( 'osm-shellaccountname', '' );
-		} else {
-			$shellaccountname = $wgRequest->getText( 'shellaccountname' );
-		}
+
+		$shellaccountname = \MediaWiki\Auth\AuthManager::singleton()
+			->getAuthenticationSessionData( 'osm-shellaccountname', '' );
+
 		if ( !preg_match( "/^[a-z][a-z0-9\-_]*$/", $shellaccountname ) ) {
 			$auth->printDebug( "Invalid shell name $shellaccountname", NONSENSITIVE );
 			$result = false;
@@ -537,48 +532,6 @@ class OpenStackNovaUser {
 				'weight' => 90,
 			];
 		};
-	}
-
-	static function AbortNewAccount( $user, &$message ) {
-		global $wgRequest;
-		global $wgUser;
-		global $wgDisableAuthManager;
-
-		if ( class_exists( \MediaWiki\Auth\AuthManager::class ) &&
-			empty( $wgDisableAuthManager )
-		) {
-			// handled in OpenStackNovaSecondaryAuthenticationProvider
-			return true;
-		}
-
-		$ldap = LdapAuthenticationPlugin::getInstance();
-		$shellaccountname = $wgRequest->getText( 'shellaccountname' );
-		if ( !preg_match( "/^[a-z][a-z0-9\-_]*$/", $shellaccountname ) ) {
-			$ldap->printDebug( "Invalid shell name $shellaccountname", NONSENSITIVE );
-			$message = wfMessage( 'openstackmanager-shellaccountvalidationfail' )->parse();
-			return false;
-		}
-
-		$base = USERDN;
-		$result = LdapAuthenticationPlugin::ldap_search(
-			$ldap->ldapconn, $base, "(uid=$shellaccountname)"
-		);
-		if ( $result ) {
-			$entries = LdapAuthenticationPlugin::ldap_get_entries( $ldap->ldapconn, $result );
-			if ( (int)$entries['count'] > 0 ) {
-				$ldap->printDebug( "User $shellaccountname already exists.", NONSENSITIVE );
-				$message = wfMessage( 'openstackmanager-shellaccountexists' )->parse();
-				return false;
-			}
-		}
-
-		if ( class_exists( 'TitleBlacklist' ) ) {
-			return TitleBlacklistHooks::acceptNewUserName(
-				$shellaccountname, $wgUser, $message, $override = false, $log = true
-			);
-		} else {
-			return true;
-		}
 	}
 
 	/**

@@ -220,7 +220,6 @@ $wgSpecialPages['NovaResources'] = 'SpecialNovaResources';
 $wgHooks['LDAPSetCreationValues'][] = 'OpenStackNovaUser::LDAPSetCreationValues';
 $wgHooks['LDAPRetrySetCreationValues'][] = 'OpenStackNovaUser::LDAPRetrySetCreationValues';
 $wgHooks['LDAPModifyUITemplate'][] = 'OpenStackNovaUser::LDAPModifyUITemplate';
-$wgHooks['AbortNewAccount'][] = 'OpenStackNovaUser::AbortNewAccount';
 $wgHooks['LDAPUpdateUser'][] = 'OpenStackNovaUser::LDAPUpdateUser';
 $wgHooks['DynamicSidebarGetGroups'][] = 'OpenStackNovaUser::DynamicSidebarGetGroups';
 $wgHooks['ChainAuth'][] = 'OpenStackNovaUser::ChainAuth';
