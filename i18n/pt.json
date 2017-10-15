@@ -372,6 +372,7 @@
 	"apihelp-novaaddress-description": "Efetuar ações em endereços IP Nova.",
 	"apihelp-novaaddress-summary": "Efetuar ações em endereços IP Nova.",
 	"apihelp-novaaddress-param-subaction": "A subação a ser efetuada.",
+	"apihelp-novaaddress-param-id": "O identificador do endereço IP Nova no qual executaremos a operação.",
 	"apihelp-novaaddress-param-project": "O projeto no qual o endereço existe.",
 	"apihelp-novaaddress-param-region": "A região da instância presentemente associada.",
 	"apihelp-novaaddress-example-1": "Desassociar o endereço com o identificador 7 no projeto \"testing\" da região \"mars\"",
