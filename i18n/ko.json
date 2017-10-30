@@ -337,7 +337,7 @@
 	"openstackmanager-deleteproxysuccess": "$1의 삭제된 프록시",
 	"openstackmanager-deleteproxyfailed": "$1의 프록시를 삭제하는 데 실패했습니다",
 	"openstackmanager-deleteproxy-confirm": "$1의 프록시를 삭제하시겠습니까?",
-	"openstackmanager-proxyname": "DNS 호스트 ㅣ름",
+	"openstackmanager-proxyname": "DNS 호스트 이름",
 	"openstackmanager-proxybackend": "인스턴스",
 	"openstackmanager-proxyport": "인스턴스 포트",
 	"openstackmanager-novaproxy-frontend": "새로운 프록시 프론트엔드",

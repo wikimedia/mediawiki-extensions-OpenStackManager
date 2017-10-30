@@ -329,7 +329,7 @@
 	"openstackmanager-addadditionalsudoer": "Añadir otra normativa de sudo.",
 	"openstackmanager-deletedsudoer": "Se ha eliminado la normativa de sudo.",
 	"openstackmanager-failedeletedsudoer": "Error al eliminar la normativa de sudo.",
-	"openstackmanager-sudoerlist": "Lista de políticas de sudo",
+	"openstackmanager-sudoerlist": "Lista de normativas de sudo",
 	"openstackmanager-modifysudoer": "Modificar normativa de sudo",
 	"openstackmanager-modifysudoerfailed": "Error al modificar la normativa de sudo.",
 	"openstackmanager-modifiedsudoer": "Se ha modificado la normativa de sudo.",
