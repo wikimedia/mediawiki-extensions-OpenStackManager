@@ -362,6 +362,7 @@
 	"apihelp-novaaddress-description": "Вршење на дејства врз IP-адреси од Nova.",
 	"apihelp-novaaddress-summary": "Вршење на дејства врз IP-адреси од Nova.",
 	"apihelp-novaaddress-param-subaction": "Поддејството што треба да се изврши.",
+	"apihelp-novaaddress-param-id": "Назнаката на IP-адресата на Нова врз која ќе се примени дејството.",
 	"apihelp-novaaddress-param-project": "Во кој проект постои адресата.",
 	"apihelp-novaaddress-param-region": "Регион на тековно здружениот примерок.",
 	"apihelp-novaaddress-example-1": "Оддели ја адресата со назнака 7 во проектното испробување во регионот Марс",
