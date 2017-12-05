@@ -48,10 +48,5 @@
 	"openstackmanager-addrulefailed": "Reegli lisamine nurjus.",
 	"openstackmanager-commadelimiter": "Komaga eraldatud",
 	"openstackmanager-sudoerusers": "Kasutajad",
-	"openstackmanager-sudoercommands": "Käsud",
-	"openstackmanager-puppetallprojects": "Kõik projektid",
-	"openstackmanager-createpuppetgroup": "Lisa rühm",
-	"openstackmanager-puppetvars": "Muutujad",
-	"openstackmanager-addpuppetvar": "Lisa muutuja",
-	"openstackmanager-puppetvarname": "Muutuja nimi"
+	"openstackmanager-sudoercommands": "Käsud"
 }

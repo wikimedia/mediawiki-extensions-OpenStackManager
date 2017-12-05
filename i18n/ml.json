@@ -5,7 +5,6 @@
 		]
 	},
 	"openstackmanager-delete": "മായ്ക്കുക",
-	"openstackmanager-configure": "ക്രമീകരിക്കുക",
 	"openstackmanager-modify": "മാറ്റം വരുത്തുക",
 	"openstackmanager-rename": "പുനഃർനാമകരണം ചെയ്യുക",
 	"openstackmanager-reboot": "റീബൂട്ട്",
@@ -31,6 +30,5 @@
 	"openstackmanager-securitygroupdescription": "വിവരണം",
 	"openstackmanager-securitygrouprule-protocol": "പ്രോട്ടോകോൾ",
 	"openstackmanager-sudoerusers": "ഉപയോക്താക്കൾ",
-	"openstackmanager-sudoeroptions": "ഐച്ഛികങ്ങൾ",
-	"openstackmanager-puppetallprojects": "എല്ലാ പദ്ധതികളും"
+	"openstackmanager-sudoeroptions": "ഐച്ഛികങ്ങൾ"
 }

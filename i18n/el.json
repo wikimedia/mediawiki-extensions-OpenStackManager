@@ -7,7 +7,6 @@
 	},
 	"openstackmanager-novaproject": "Εγχείρημα Nova",
 	"openstackmanager-delete": "διαγραφή",
-	"openstackmanager-configure": "ρύθμιση παραμέτρων",
 	"openstackmanager-modify": "τροποποίηση",
 	"openstackmanager-rename": "μετονομασία",
 	"openstackmanager-reboot": "επανεκκίνηση",
@@ -48,11 +47,5 @@
 	"openstackmanager-sudoerusers": "Χρήστες",
 	"openstackmanager-sudoercommands": "Εντολές",
 	"openstackmanager-sudoeroptions": "Επιλογές",
-	"openstackmanager-deletesudoer": "Διαγραφή Πολιτικής Sudo",
-	"openstackmanager-puppetallprojects": "Όλα τα Εγχειρήματα",
-	"openstackmanager-createpuppetgroup": "Προσθήκη ομάδας",
-	"openstackmanager-puppetvars": "Μεταβλητές",
-	"openstackmanager-addpuppetvar": "Προσθήκη μεταβλητής",
-	"openstackmanager-puppetvarname": "Όνομα μεταβλητής",
-	"openstackmanager-puppetvarposition": "Θέση μεταβλητής"
+	"openstackmanager-deletesudoer": "Διαγραφή Πολιτικής Sudo"
 }

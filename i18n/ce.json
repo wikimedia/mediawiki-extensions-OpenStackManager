@@ -14,7 +14,5 @@
 	"openstackmanager-action": "Дийраш",
 	"openstackmanager-projects": "Проекташ",
 	"openstackmanager-deleteproxy": "ДӀаяккха прокси",
-	"openstackmanager-deleteproxyfailed": "Прокси $1 дӀаяккха цаелира",
-	"notification-osm-instance-deleted": "$1 {{GENDER:$1|дӀаяьккхина}} хӀума '$3' [[$2]] проектехь",
-	"notification-osm-instance-reboot-completed": "$1 {{GENDER:$1|дӀаяьккхина}} хӀума '$3' [[$2]] проектехь"
+	"openstackmanager-deleteproxyfailed": "Прокси $1 дӀаяккха цаелира"
 }

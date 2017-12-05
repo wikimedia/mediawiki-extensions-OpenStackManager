@@ -14,7 +14,6 @@
 	"openstackmanager-domainname": "شپول نوم",
 	"openstackmanager-location": "ځای",
 	"openstackmanager-dnsdomain": "DNS شپول",
-	"openstackmanager-puppetclasses": "ټولګي",
 	"openstackmanager-novainstance-global": "نړېوالې ډلې",
 	"openstackmanager-imageid": "انځور پېژند",
 	"openstackmanager-imagetype": "انځور ډول",
@@ -37,8 +36,6 @@
 	"openstackmanager-createnewsecuritygroup": "ډله ورگډول",
 	"openstackmanager-sudoerusers": "کارنان",
 	"openstackmanager-sudoeroptions": "خوښنې",
-	"openstackmanager-puppetallprojects": "ټولې پروژې",
-	"openstackmanager-createpuppetgroup": "ډله ورگډول",
 	"notification-header-osm-projectmembers-add": "$1 تاسې د $3 په پروژه کې {{GENDER:$2|ورگډ کړئ}}",
 	"echo-notification-goto-project": "پروژه کتل"
 }

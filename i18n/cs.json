@@ -5,12 +5,12 @@
 			"Littledogboy",
 			"Mormegil",
 			"Vks",
-			"Urbanecm"
+			"Urbanecm",
+			"Martin Urbanec"
 		]
 	},
 	"openstackmanager-desc": "Umožňuje uživatelům spravovat OpenStack Nova a Swift",
 	"openstackmanager-delete": "smazat",
-	"openstackmanager-configure": "nastavit",
 	"openstackmanager-modify": "upravit",
 	"openstackmanager-rename": "přejmenovat",
 	"openstackmanager-reboot": "restartovat",
@@ -80,15 +80,6 @@
 	"openstackmanager-addrule": "Přidat pravidlo",
 	"openstackmanager-sudoerusers": "Uživatelé",
 	"openstackmanager-sudoeroptions": "Možnosti",
-	"openstackmanager-puppetallprojects": "Všechny projekty",
-	"openstackmanager-createpuppetgroup": "Přidat skupinu",
-	"openstackmanager-addpuppetclass": "Přidat třídu",
-	"openstackmanager-addedpuppetclass": "Přidána třída Puppetu.",
-	"openstackmanager-failedtoaddpuppetclass": "Nepodařilo se přidat třídu Puppetu.",
-	"openstackmanager-puppetclassname": "Název třídy",
-	"openstackmanager-puppetvars": "Proměnné",
-	"openstackmanager-addpuppetvar": "Přidat proměnnou",
-	"openstackmanager-puppetvarname": "Název proměnné",
 	"echo-category-title-osm-instance-deleted": "smazání instance (tam, kde jsem projektový správce)",
 	"echo-category-title-osm-instance-build-completed": "vytvoření instance (tam, kde jsem projektový správce)",
 	"echo-category-title-osm-instance-reboot-completed": "dokončení restartu instance"

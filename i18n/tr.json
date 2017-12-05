@@ -18,10 +18,6 @@
 	"openstackmanager-addrolemember": "Üye ekle",
 	"openstackmanager-addrule-action": "kural ekle",
 	"openstackmanager-sudoerusers": "Kullanıcılar",
-	"openstackmanager-puppetallprojects": "Tüm projeler",
-	"openstackmanager-deletepuppetgroup": "Kukla grubunu sil",
-	"openstackmanager-deletedpuppetgroup": "Silinen kukla grubu.",
-	"openstackmanager-puppetgroupname": "Kukla grubu adı",
 	"notification-header-osm-projectmembers-add": "$1, sizi $3 projesine {{GENDER:$2|ekledi}}",
 	"echo-notification-goto-project": "Projeyi görüntüle"
 }

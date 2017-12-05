@@ -11,7 +11,6 @@
 	"openstackmanager-actions": "اعمال",
 	"openstackmanager-notloggedin": "لاگ ان درکار",
 	"openstackmanager-noaccount": "اپنے اکاؤنٹ میں اس منصوبے کی درخواست نہیں ہے.",
-	"openstackmanager-nonexistentresource": "کے مخصوص وسائل موجود نہیں.",
 	"openstackmanager-createdomain": "ڈومین تخلیق کریں",
 	"openstackmanager-deletedomain": "ڈومین کو خارج",
 	"openstackmanager-novadomain-domain": "ڈومین شامل کریں",
@@ -48,10 +47,5 @@
 	"openstackmanager-createnewsecuritygroup": "گروپ میں شامل",
 	"openstackmanager-sudoerusers": "صارفین",
 	"openstackmanager-sudoercommands": "کمانڈ",
-	"openstackmanager-sudoeroptions": "اختیارات",
-	"openstackmanager-puppetclassname": "کلاس کا نام",
-	"openstackmanager-puppetvars": "متغیرات",
-	"openstackmanager-addpuppetvar": "متغیر شامل کریں",
-	"openstackmanager-puppetvarname": "متغیر کا نام",
-	"openstackmanager-puppetvarposition": "متغیر کی پوزیشن"
+	"openstackmanager-sudoeroptions": "اختیارات"
 }

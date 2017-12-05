@@ -5,7 +5,6 @@
 		]
 	},
 	"openstackmanager-badresourcename": "نام منبع بد ارائه شده‌است.\nنام‌های منبع با a-z شروع می‌شوند، و می‌تواند فقط شامل a-z, 0-9, و مشخصهٔ - باشد.",
-	"openstackmanager-nonexistentresource": "منبع تعیین شده وجود ندارد.",
 	"openstackmanager-volumedescription": "توصیف حجم",
 	"openstackmanager-securitygroupdescription": "توضیحةل"
 }

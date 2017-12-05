@@ -89,11 +89,5 @@
 	"openstackmanager-addrule": "விதியைச் சேர்",
 	"openstackmanager-sudoerusers": "பயனர்கள்",
 	"openstackmanager-sudoercommands": "கட்டளைகள்",
-	"openstackmanager-sudoeroptions": "விருப்பத் தேர்வுகள்",
-	"openstackmanager-puppetallprojects": "திட்டங்கள் அனைத்தும்",
-	"openstackmanager-createpuppetgroup": "குழுவைச் சேர்க்கவும்",
-	"openstackmanager-puppetvars": "மாறிகள்",
-	"openstackmanager-addpuppetvar": "மாறியைச் சேர்க்கவும்",
-	"openstackmanager-puppetvarname": "மாறியின் பெயர்",
-	"openstackmanager-puppetvarposition": "மாறியின் நிலை"
+	"openstackmanager-sudoeroptions": "விருப்பத் தேர்வுகள்"
 }
