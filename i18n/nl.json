@@ -11,7 +11,8 @@
 			"JurgenNL",
 			"Robin0van0der0vliet",
 			"Robin van der Vliet",
-			"Mainframe98"
+			"Mainframe98",
+			"Mar(c)"
 		]
 	},
 	"openstackmanager-desc": "Laat gebruikers Nova en Swift beheren",
@@ -51,10 +52,10 @@
 	"openstackmanager-notloggedin": "Aanmelden verplicht",
 	"openstackmanager-mustbeloggedin": "U moet aangemeld zijn om deze handeling uit te voeren.",
 	"openstackmanager-creationdisabled": "Aanmaken is uitgeschakeld",
-	"openstackmanager-nonovacred": "Er zijn geen Nova-referenties gevonden voor uw gebruiker.",
-	"openstackmanager-nonovacred-admincreate": "Er zijn geen Nova-referenties gevonden voor uw gebruiker. Vraag een Nova-beheerder om deze toe te voegen.",
+	"openstackmanager-nonovacred": "Er zijn geen Nova-referenties gevonden voor uw account.",
+	"openstackmanager-nonovacred-admincreate": "Er zijn geen Nova-gebruikersgegevens gevonden voor uw gebruikersaccount. Vraag een Nova-beheerder om deze aan te maken.",
 	"openstackmanager-noaccount": "Uw account is geen lid van het project $1.",
-	"openstackmanager-noaccount2": "U kunt de gevraagde handeling niet uitvoeren met uw gebruiker omdat deze geen lid is van het project $1.",
+	"openstackmanager-noaccount2": "U kunt de gevraagde handeling niet uitvoeren omdat uw gebruikersaccount geen lid is van het project $1.",
 	"openstackmanager-createdomain": "Domein aanmaken",
 	"openstackmanager-deletedomain": "Domein verwijderen",
 	"openstackmanager-deletedomain-confirm": "Weet u zeker dat u het domein \"$1\" wilt verwijderen? Deze handeling heeft gevolgen voor alle VM's. Voer deze handeling niet zomaar uit!",
