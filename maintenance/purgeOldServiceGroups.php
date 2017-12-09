@@ -6,7 +6,7 @@ if ( getenv( 'MW_INSTALL_PATH' ) ) {
 }
 require_once "$IP/maintenance/Maintenance.php";
 
-class OpenStackNovaPurgeOldServiceGroups extends Maintenance {
+class PurgeOldServiceGroups extends Maintenance {
 	public function __construct() {
 		parent::__construct();
 		$this->mDescription = "Delete all service users and groups of the form " .
@@ -125,5 +125,5 @@ class OpenStackNovaPurgeOldServiceGroups extends Maintenance {
 	}
 }
 
-$maintClass = "OpenStackNovaPurgeOldServiceGroups";
+$maintClass = "PurgeOldServiceGroups";
 require_once RUN_MAINTENANCE_IF_MAIN;

@@ -6,7 +6,7 @@ if ( getenv( 'MW_INSTALL_PATH' ) ) {
 }
 require_once "$IP/maintenance/Maintenance.php";
 
-class OpenStackNovaQualifyInstancePages extends Maintenance {
+class QualifyInstancePages extends Maintenance {
 	public function __construct() {
 		parent::__construct();
 		$this->mDescription = "Move instance pages from id to fqdn.";
@@ -62,5 +62,5 @@ class OpenStackNovaQualifyInstancePages extends Maintenance {
 
 }
 
-$maintClass = "OpenStackNovaQualifyInstancePages";
+$maintClass = "QualifyInstancePages";
 require_once RUN_MAINTENANCE_IF_MAIN;

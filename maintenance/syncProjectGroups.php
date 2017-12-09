@@ -6,7 +6,7 @@ if ( getenv( 'MW_INSTALL_PATH' ) ) {
 }
 require_once "$IP/maintenance/Maintenance.php";
 
-class OpenStackNovaSyncProjectGroups extends Maintenance {
+class SyncProjectGroups extends Maintenance {
 	public function __construct() {
 		parent::__construct();
 		$this->mDescription = "Sync each cn=<project-name>,ou=projects members to " .
@@ -69,5 +69,5 @@ class OpenStackNovaSyncProjectGroups extends Maintenance {
 
 }
 
-$maintClass = "OpenStackNovaSyncProjectGroups";
+$maintClass = "SyncProjectGroups";
 require_once RUN_MAINTENANCE_IF_MAIN;
