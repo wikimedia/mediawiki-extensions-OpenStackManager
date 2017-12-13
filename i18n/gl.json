@@ -364,6 +364,7 @@
 	"apihelp-novaaddress-description": "Realizar accións en direccións Nova IP.",
 	"apihelp-novaaddress-summary": "Realizar accións en direccións Nova IP.",
 	"apihelp-novaaddress-param-subaction": "Que subacción realizar.",
+	"apihelp-novaaddress-param-id": "O identificador do enderzo IP de Nova no cal executaremos a operación.",
 	"apihelp-novaaddress-param-project": "O proxecto no que existe a dirección.",
 	"apihelp-novaaddress-param-region": "A rexión da instacia asociada actualmente.",
 	"apihelp-novaaddress-example-1": "Disociar a dirección con identificador 7 no proxecto de probas na rexión Marte",
