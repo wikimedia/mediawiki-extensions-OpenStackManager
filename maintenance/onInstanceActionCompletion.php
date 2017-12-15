@@ -36,7 +36,7 @@ require_once "$IP/maintenance/Maintenance.php";
  *
  * @ingroup Maintenance
  */
-class OnInstanceActionComplete extends Maintenance {
+class OnInstanceActionCompletion extends Maintenance {
 	public function __construct() {
 		parent::__construct();
 		$this->addOption( 'action',
@@ -110,5 +110,5 @@ class OnInstanceActionComplete extends Maintenance {
 	}
 }
 
-$maintClass = "OnInstanceActionComplete";
+$maintClass = "OnInstanceActionCompletion";
 require_once RUN_MAINTENANCE_IF_MAIN;

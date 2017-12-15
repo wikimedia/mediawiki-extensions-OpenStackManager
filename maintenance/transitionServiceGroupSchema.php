@@ -6,7 +6,7 @@ if ( getenv( 'MW_INSTALL_PATH' ) ) {
 }
 require_once "$IP/maintenance/Maintenance.php";
 
-class OpenStackNovaTransitionServiceGroups extends Maintenance {
+class TransitionServiceGroupSchema extends Maintenance {
 	public function __construct() {
 		parent::__construct();
 		$this->mDescription = "Copy each cn=local-<servicegroup>,ou=groups,cn=<project>," .
@@ -100,5 +100,5 @@ class OpenStackNovaTransitionServiceGroups extends Maintenance {
 
 }
 
-$maintClass = "OpenStackNovaTransitionServiceGroups";
+$maintClass = "TransitionServiceGroupSchema";
 require_once RUN_MAINTENANCE_IF_MAIN;
