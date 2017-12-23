@@ -326,6 +326,7 @@
 	"openstackmanager-proxyname": "DNS-vertnavn",
 	"openstackmanager-proxybackend": "Instans",
 	"openstackmanager-proxyport": "Instansport",
+	"openstackmanager-twofactorrequired": "Tofaktor-autentisering kreves",
 	"notification-header-osm-projectmembers-add": "{{GENDER:$5|Du}} ble lagt til prosjektet $3.",
 	"echo-notification-goto-project": "Vis prosjekt",
 	"echo-category-title-osm-instance-deleted": "Instanssletting (der du er prosjektadministrator)",
