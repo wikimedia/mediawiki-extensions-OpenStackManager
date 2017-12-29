@@ -4,7 +4,8 @@
 			"Eitvys200",
 			"Reedy",
 			"Pofka",
-			"Zygimantus"
+			"Zygimantus",
+			"Manvydasz"
 		]
 	},
 	"novaaddress": "Valdyti viešus IP adresus",
@@ -20,7 +21,7 @@
 	"openstackmanager-createdomainfailed": "Nepavyko sukurti domeno.",
 	"openstackmanager-createddomain": "Sukurtas domenas.",
 	"openstackmanager-domainlist": "Domeno sąrašas",
-	"openstackmanager-deleteddomain": "Sėkmingai ištrintas domenas.",
+	"openstackmanager-deleteddomain": "Ištrintas domenas.",
 	"openstackmanager-failedeletedomain": "Nepavyko ištrinti domeno.",
 	"openstackmanager-domainname": "Domeno vardas",
 	"openstackmanager-location": "Vietovė",
@@ -56,9 +57,9 @@
 	"openstackmanager-name": "Pavadinimas",
 	"openstackmanager-fingerprint": "Piršto atspaudas",
 	"openstackmanager-deletedkey": "Ištrinti raktą.",
-	"openstackmanager-addmember": "Pridėti projekto narį",
+	"openstackmanager-addmember": "Pridėti narį",
 	"openstackmanager-removemember": "Pašalinti narį",
-	"openstackmanager-createproject": "Sukurti naują projektą",
+	"openstackmanager-createproject": "Pridėti projektą",
 	"openstackmanager-projectname": "Projekto pavadinimas",
 	"openstackmanager-members": "Nariai",
 	"openstackmanager-member": "Narys",
