@@ -3,7 +3,8 @@
 		"authors": [
 			"Luckas",
 			"Araceletorres",
-			"Felipe L. Ewald"
+			"Felipe L. Ewald",
+			"Eduardo Addad de Oliveira"
 		]
 	},
 	"openstackmanager-desc": "Permite aos usuários gerenciar Nova e Swift",
@@ -364,6 +365,7 @@
 	"apihelp-novaaddress-description": "Execute ações nos endereços IP do Nova.",
 	"apihelp-novaaddress-summary": "Execute ações nos endereços IP do Nova.",
 	"apihelp-novaaddress-param-subaction": "A subação a executar.",
+	"apihelp-novaaddress-param-id": "O identificador do endereço IP Nova no qual executaremos a operação.",
 	"apihelp-novaaddress-param-project": "O projeto no qual o endereço existe.",
 	"apihelp-novaaddress-param-region": "A região da instância atualmente associada.",
 	"apihelp-novaaddress-example-1": "Desassociar o endereço com ID 7 no teste de projeto na região mars",
