@@ -6,7 +6,8 @@
 			"Михајло Анђелковић",
 			"Srdjan m",
 			"Сербијана",
-			"Obsuser"
+			"Obsuser",
+			"Zoranzoki21"
 		]
 	},
 	"openstackmanager-novainstance": "Примерак Нове",
@@ -44,8 +45,8 @@
 	"openstackmanager-instanceid": "ИД примерка",
 	"openstackmanager-instancestate": "Стање примерка",
 	"openstackmanager-instancetype": "Врста примерка",
-	"openstackmanager-instanceip": "ИП адреса примерка",
-	"openstackmanager-instancepublicip": "Променљива ИП адреса примерка",
+	"openstackmanager-instanceip": "IP адреса примерка",
+	"openstackmanager-instancepublicip": "Променљива IP адреса примерка",
 	"openstackmanager-securitygroups": "Безбедносне групе",
 	"openstackmanager-availabilityzone": "Подручје доступности",
 	"openstackmanager-imageid": "ИД слике",
@@ -145,7 +146,7 @@
 	"openstackmanager-reassociateaddress": "Поново здружи ИП адресу",
 	"openstackmanager-disassociateaddress": "Раздели ИП адресу",
 	"openstackmanager-allocateaddressfailed": "Не могу да задам нову јавну ИП адресу.",
-	"openstackmanager-allocatedaddress": "Задата је нова јавна ИП адреса: $1",
+	"openstackmanager-allocatedaddress": "Задата је нова јавна IP адреса: $1",
 	"openstackmanager-backaddresslist": "Назад на списак адреса",
 	"openstackmanager-releasedaddress": "Објављена адреса: $1",
 	"openstackmanager-releaseaddressfailed": "Не могу да објавим адресу: $1",
