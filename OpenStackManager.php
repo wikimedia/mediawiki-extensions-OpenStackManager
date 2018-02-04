@@ -239,8 +239,6 @@ $commonModuleInfo = [
 ];
 
 $wgResourceModules['ext.openstack'] = [
-	'position' => 'top',
-
 	'styles' => 'modules/ext.openstack.css',
 ] + $commonModuleInfo;
 
