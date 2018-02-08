@@ -82,7 +82,7 @@ class OpenStackNovaProject {
 
 			# Projectname doesn't ever change once a project is created, so
 			# we can cache this a good long time.
-			$wgMemc->set( $key, $this->projectname );
+			$wgMemc->set( $key, $this->projectname, BagOStuff::TTL_MONTH );
 		}
 
 		# We still keep things like sudoers in ldap, so we need a unique dn for this
@@ -219,7 +219,7 @@ class OpenStackNovaProject {
 		$controller = OpenstackNovaProject::getController();
 		$this->members = $controller->getUsersInProject( $this->projectid );
 
-		$wgMemc->set( $key, $this->members, '3600' );
+		$wgMemc->set( $key, $this->members, 3600 );
 	}
 
 	/**
@@ -525,7 +525,7 @@ class OpenStackNovaProject {
 
 		$controller = OpenstackNovaProject::getController();
 		$projectList = $controller->getProjects();
-		$wgMemc->set( $key, $projectList, '3600' );
+		$wgMemc->set( $key, $projectList, 3600 );
 
 		return $projectList;
 	}
