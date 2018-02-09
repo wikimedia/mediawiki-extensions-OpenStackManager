@@ -43,12 +43,12 @@ class OnInstanceActionCompletion extends Maintenance {
 			'The action which was taken. Either build or reboot.', true, true );
 		$this->addOption( 'instance',
 			'The instance hostname, e.g. i-00000001.pmtpa.wmflabs.', true, true );
+
+		$this->requireExtension( 'Echo' );
 	}
 
 	public function execute() {
-		if ( !class_exists( 'EchoEvent' ) ) {
-			$this->error( "Couldn't find EchoEvent class.\n", true );
-		} elseif ( !OpenStackNovaHost::validateHostname( $this->getOption( 'instance' ) ) ) {
+		if ( !OpenStackNovaHost::validateHostname( $this->getOption( 'instance' ) ) ) {
 			$this->error( "Instance hostname is invalid.\n", true );
 		}
 

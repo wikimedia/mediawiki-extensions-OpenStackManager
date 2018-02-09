@@ -47,7 +47,7 @@ class OpenStackNovaSecondaryAuthenticationProvider
 		$this->manager->setAuthenticationSessionData( 'osm-shellaccountname', $shellaccountname );
 
 		$sv = StatusValue::newGood();
-		if ( class_exists( 'TitleBlacklist' ) ) {
+		if ( ExtensionRegistry::getInstance()->isLoaded( 'TitleBlacklist' ) ) {
 			$sv->merge( TitleBlacklistHooks::testUserName(
 				$shellaccountname,
 				$creator,

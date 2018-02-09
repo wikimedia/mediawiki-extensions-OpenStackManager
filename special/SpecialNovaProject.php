@@ -539,7 +539,7 @@ class SpecialNovaProject extends SpecialNova {
 					$user->addGroup( 'shell' );
 				}
 				$out->addWikiMsg( 'openstackmanager-addedto', $member, $projectName );
-				if ( class_exists( 'EchoEvent' ) ) {
+				if ( ExtensionRegistry::getInstance()->isLoaded( 'Echo' ) ) {
 					EchoEvent::create( [
 						'type' => 'osm-projectmembers-add',
 						'title' => Title::newFromText( $projectName, NS_NOVA_RESOURCE ),
