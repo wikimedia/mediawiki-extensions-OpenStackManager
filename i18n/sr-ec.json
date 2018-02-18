@@ -7,7 +7,8 @@
 			"Srdjan m",
 			"Сербијана",
 			"Obsuser",
-			"Zoranzoki21"
+			"Zoranzoki21",
+			"Acamicamacaraca"
 		]
 	},
 	"openstackmanager-novainstance": "Примерак Нове",
@@ -199,7 +200,7 @@
 	"openstackmanager-commadelimiter": "Раздвојено запетама",
 	"openstackmanager-sudoerusers": "Корисници",
 	"openstackmanager-sudoercommands": "Команде",
-	"openstackmanager-sudoeroptions": "Опције",
+	"openstackmanager-sudoeroptions": "Подешавања",
 	"echo-category-title-osm-instance-deleted": "Тренутно брисање (где сте админ пројекта)",
 	"echo-category-title-osm-instance-build-completed": "Тренутно прављење (где сте админ пројекта)",
 	"echo-category-title-osm-instance-reboot-completed": "Тренутно завршавање рибута",
