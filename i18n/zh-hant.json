@@ -10,7 +10,8 @@
 			"LNDDYL",
 			"Liuxinyu970226",
 			"Alexsh",
-			"A2093064"
+			"A2093064",
+			"Hello903hello"
 		]
 	},
 	"openstackmanager-desc": "讓使用者能夠管理 Nova 與 Swift",
@@ -62,7 +63,7 @@
 	"openstackmanager-domainlist": "網域清單",
 	"openstackmanager-backdomainlist": "返回網域清單",
 	"openstackmanager-addadditionaldomain": "新增其他網域。",
-	"openstackmanager-deleteddomain": "已成功刪除網域。",
+	"openstackmanager-deleteddomain": "已經刪除網域。",
 	"openstackmanager-failedeletedomain": "刪除網域失敗。",
 	"openstackmanager-failedeletedomainduplicates": "該網域擁有子項目，無法刪除。",
 	"openstackmanager-failedeletedomainnotfound": "查無網域，刪除網域失敗。",
@@ -106,8 +107,8 @@
 	"openstackmanager-createinstancefailed": "建立實例失敗。",
 	"openstackmanager-backinstancelist": "返回實例清單",
 	"openstackmanager-deletedinstance": "已刪除實例 $1 ($2)。",
-	"openstackmanager-deletedinstance-faileddns": "已成功刪除實例 $1 ($2)，但移除該實例的 DNS 項目失敗。",
-	"openstackmanager-modifiedinstance": "已成功修改實例 $1 ($2)。",
+	"openstackmanager-deletedinstance-faileddns": "已經刪除實例 $1 ($2)，但移除該實例的DNS項目失敗。",
+	"openstackmanager-modifiedinstance": "已經修改實例 $1（$2）。",
 	"openstackmanager-deleteinstancefailed": "刪除實例 $1 ($2) 失敗。",
 	"openstackmanager-consoleoutput": "$1 ($2) 的主控台輸出",
 	"openstackmanager-getconsoleoutput": "取得主控台輸出",
