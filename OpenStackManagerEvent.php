@@ -1,7 +1,7 @@
 <?php
 class OpenStackManagerEvent {
 	public static function createDeletionEvent( $instanceName, $project, $user ) {
-		if ( class_exists( 'EchoEvent' ) ) {
+		if ( ExtensionRegistry::getInstance()->isLoaded( 'Echo' ) ) {
 			EchoEvent::create( [
 				'type' => 'osm-instance-deleted',
 				'title' => Title::newFromText( $project, NS_NOVA_RESOURCE ),
