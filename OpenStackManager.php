@@ -24,7 +24,7 @@ $wgExtensionCredits['other'][] = [
 	'version' => '2.2.0',
 	'url' => 'https://mediawiki.org/wiki/Extension:OpenStackManager',
 	'descriptionmsg' => 'openstackmanager-desc',
-	'license-name' => 'GPL-2.0+',
+	'license-name' => 'GPL-2.0-or-later',
 ];
 
 define( 'CONTENT_MODEL_YAML', 'yaml' );
