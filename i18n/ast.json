@@ -159,5 +159,20 @@
 	"openstackmanager-deletedkeyfailed": "Nun pudo desaniciase la clave.",
 	"openstackmanager-addmember": "Amestar miembru",
 	"openstackmanager-removemember": "Desaniciar miembru",
-	"openstackmanager-displayquotas-ram": "RAM: $1/$2"
+	"openstackmanager-displayquotas-ram": "RAM: $1/$2",
+	"openstackmanager-createproject": "Amestar proyeutu",
+	"openstackmanager-projectname": "Nome del proyeutu",
+	"openstackmanager-members": "Miembros",
+	"openstackmanager-member": "Miembru",
+	"openstackmanager-action": "Aición",
+	"openstackmanager-createprojectfailed": "Nun pudo crease'l proyeutu.",
+	"openstackmanager-createdproject": "Creóse'l proyeutu.",
+	"openstackmanager-projectlist": "Llista de proyeutos",
+	"openstackmanager-backprojectlist": "Volver a la llista de proyeutos",
+	"openstackmanager-addadditionalproject": "Añadir otru proyeutu.",
+	"openstackmanager-deleteproject": "Desaniciar",
+	"openstackmanager-deletedproject": "Proyeutu desaniciáu.",
+	"openstackmanager-deleteprojectfailed": "Nun pudo desaniciase'l proyeutu.",
+	"openstackmanager-addedto": "Añadióse $1 a $2.",
+	"openstackmanager-failedtoadd": "Nun pudo añadise $1 a $2."
 }
