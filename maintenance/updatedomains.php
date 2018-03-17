@@ -28,7 +28,7 @@ if ( $IP === false ) {
 }
 require_once "$IP/maintenance/Maintenance.php";
 
-class UpdateDomains extends Maintenance {
+class Updatedomains extends Maintenance {
 	public function __construct() {
 		parent::__construct();
 		$this->addOption( 'name', 'The instance hostname, e.g. bastion1', false, true );
@@ -109,5 +109,5 @@ class UpdateDomains extends Maintenance {
 	}
 }
 
-$maintClass = "UpdateDomains";
+$maintClass = "Updatedomains";
 require_once RUN_MAINTENANCE_IF_MAIN;
