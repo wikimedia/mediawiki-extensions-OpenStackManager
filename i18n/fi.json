@@ -10,7 +10,8 @@
 			"Silvonen",
 			"VezonThunder",
 			"Pxos",
-			"Mikahama"
+			"Mikahama",
+			"Pahkiqaz"
 		]
 	},
 	"openstackmanager-desc": "Mahdollistaa Novan ja Swiftin hallinnan wikin kautta",
@@ -40,12 +41,12 @@
 	"openstackmanager-noaccount2": "Et voi suorittaa tätä toimintoa, koska käyttäjätunnuksesi ei ole projektissa $1.",
 	"openstackmanager-createdomain": "Luo domain",
 	"openstackmanager-deletedomain": "Poista domain",
-	"openstackmanager-novadomain-domain": "Domain",
+	"openstackmanager-novadomain-domain": "Lisää domain",
 	"openstackmanager-createdomainfailed": "Domainin luonti epäonnistui.",
 	"openstackmanager-createddomain": "Domain luotiin.",
 	"openstackmanager-domainlist": "Domain-lista",
 	"openstackmanager-backdomainlist": "Takaisin domain-listaan",
-	"openstackmanager-deleteddomain": "Domainin poisto suoritettu.",
+	"openstackmanager-deleteddomain": "Poistettu domain.",
 	"openstackmanager-failedeletedomain": "Domainin poisto epäonnistui.",
 	"openstackmanager-domainname": "Domain-nimi",
 	"openstackmanager-location": "Sijainti",
@@ -67,7 +68,7 @@
 	"openstackmanager-addkey": "Lisää julkinen SSH-avain",
 	"openstackmanager-name": "Nimi",
 	"openstackmanager-keys": "Avaimet",
-	"openstackmanager-deletedkey": "Avaimen poisto onnistui.",
+	"openstackmanager-deletedkey": "Avain poistettu.",
 	"openstackmanager-deletedkeyfailed": "Avaimen poisto epäonnistui.",
 	"openstackmanager-addmember": "Lisää jäsen",
 	"openstackmanager-removemember": "Poista jäsen",
