@@ -170,7 +170,7 @@
 	"openstackmanager-manageservicegroupmembers-title": "Xestionar os membros do grupo de servizo",
 	"openstackmanager-manageservicegroupmembers": "Xestionar os membros",
 	"openstackmanager-removeservicegroupconfirm": "Está seguro de querer borrar o grupo de servizo \"$1\"?\nIsto pode desactivar as ferramentas ou os bots que necesitan este grupo para funcionar.",
-	"openstackmanager-servicegrouprecursewarning": "Atención! Engadir un usuario de servizo a este grupo ha permitir a todos os membros dese grupo acceder a este grupo.\nTamén dará acceso aos membros de calquera grupo engadido a ese grupo e así sucesivamente. Asegúrese de que confía en todos\ne de que sabe o que fai antes de seleccionar nada na sección \"Usuario de servizo\".",
+	"openstackmanager-servicegrouprecursewarning": "Atención! Engadir un usuario de servizo a este grupo vai permitir a todos os membros dese grupo acceder a este grupo.\nTamén dará acceso aos membros de calquera grupo engadido a ese grupo e así sucesivamente. Asegúrese de que confía en todos\ne de que sabe o que fai antes de seleccionar nada na sección \"{{int:openstackmanager-serviceuser}}\".",
 	"openstackmanager-createservicegroupfailed": "Erro ao crear o grupo de servizo.",
 	"openstackmanager-createdservicegroup": "Creouse o grupo de servizo.",
 	"openstackmanager-removedservicegroup": "Borrouse o grupo de servizo.",
