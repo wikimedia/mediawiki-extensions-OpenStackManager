@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Glavkos",
-			"ZaDiak"
+			"ZaDiak",
+			"Nikosgranturismogt"
 		]
 	},
 	"openstackmanager-novaproject": "Εγχείρημα Nova",
@@ -40,7 +41,7 @@
 	"openstackmanager-addrule-action": "προσθήκη κανόνα",
 	"openstackmanager-removerule-action": "απομάκρυνση κανόνα",
 	"openstackmanager-removerule": "απομάκρυνση κανόνα",
-	"openstackmanager-removedrule": "Ο κανόνας απομακρύνθηκε επιτυχώς.",
+	"openstackmanager-removedrule": "Ο κανόνας αφαιρέθηκε.",
 	"openstackmanager-removerulefailed": "Απέτυχε η απομάκρυνση κανόνα.",
 	"openstackmanager-addrule": "προσθήκη κανόνα",
 	"openstackmanager-novasudoer-sudoer": "Προσθήκη πολιτικής sudo",
