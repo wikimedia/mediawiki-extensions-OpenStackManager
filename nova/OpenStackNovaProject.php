@@ -807,8 +807,7 @@ class OpenStackNovaProject {
 	}
 
 	public function editArticle() {
-		global $wgOpenStackManagerCreateProjectSALPages, $wgOpenStackManagerProjectNamespace,
-			$wgOpenStackManagerBastionProjectName;
+		global $wgOpenStackManagerCreateProjectSALPages, $wgOpenStackManagerProjectNamespace;
 
 		if ( !OpenStackNovaArticle::canCreatePages() ) {
 			return;
