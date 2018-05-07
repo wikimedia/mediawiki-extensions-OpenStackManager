@@ -503,7 +503,7 @@ class OpenStackNovaUser {
 
 	/**
 	 * @static
-	 * @param UserLoginTemplate &$template
+	 * @param BaseTemplate &$template
 	 * @return bool
 	 */
 	static function LDAPModifyUITemplate( &$template ) {
