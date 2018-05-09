@@ -292,7 +292,7 @@ class OpenStackNovaHost {
 	 * @static
 	 * @param string $hostname
 	 * @param string $ip
-	 * @param string $domain OpenStackNovaDomain
+	 * @param OpenStackNovaDomain $domain
 	 * @return bool|null|OpenStackNovaHost
 	 */
 	static function addPublicHost( $hostname, $ip, $domain ) {

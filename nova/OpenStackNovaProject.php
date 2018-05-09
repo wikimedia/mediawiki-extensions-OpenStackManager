@@ -203,8 +203,6 @@ class OpenStackNovaProject {
 	 * Fill $this->members.
 	 *
 	 * $this->members uses the uid as index and the name as value.
-	 *
-	 * @return array
 	 */
 	function loadMembers() {
 		global $wgMemc;
@@ -301,7 +299,7 @@ class OpenStackNovaProject {
 	 * Inform role objects that membership has changed and they
 	 *  need to refresh their caches.
 	 *
-	 * @param OpenStackNovaUser $username
+	 * @param string $username
 	 */
 	function deleteRoleCaches( $username ) {
 		$user = new OpenStackNovaUser( $username );

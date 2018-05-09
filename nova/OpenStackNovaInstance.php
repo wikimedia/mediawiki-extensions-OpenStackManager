@@ -10,7 +10,7 @@
 class OpenStackNovaInstance {
 
 	/**
-	 * @var string
+	 * @var stdClass
 	 */
 	public $instance;
 
@@ -25,7 +25,7 @@ class OpenStackNovaInstance {
 	public $host;
 
 	/**
-	 * @param string $apiInstanceResponse
+	 * @param stdClass $apiInstanceResponse
 	 * @param string $region
 	 * @param bool $loadhost optional
 	 */
@@ -90,7 +90,7 @@ class OpenStackNovaInstance {
 	/**
 	 * Return the private IP address assigned to this instance
 	 *
-	 * @return string
+	 * @return string[]
 	 */
 	function getInstancePrivateIPs() {
 		$addrs = [];
@@ -114,7 +114,7 @@ class OpenStackNovaInstance {
 	 * Return the public IP address associated with this object. If there is no
 	 * public IP associated, this will return the same as getInstancePrivateIPs().
 	 *
-	 * @return string
+	 * @return string[]
 	 */
 	function getInstancePublicIPs() {
 		$addrs = [];

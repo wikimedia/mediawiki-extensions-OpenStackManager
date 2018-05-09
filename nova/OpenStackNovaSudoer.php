@@ -16,7 +16,7 @@ class OpenStackNovaSudoer {
 
 	/**
 	 * @param string $sudoername
-	 * @param string $project
+	 * @param OpenStackNovaProject $project
 	 */
 	function __construct( $sudoername, $project ) {
 		$this->sudoername = $sudoername;

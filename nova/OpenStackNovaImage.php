@@ -12,7 +12,7 @@ class OpenStackNovaImage {
 	public $image;
 
 	/**
-	 * @param string $apiInstanceResponse
+	 * @param stdClass $apiInstanceResponse
 	 */
 	function __construct( $apiInstanceResponse ) {
 		$this->image = $apiInstanceResponse;

@@ -271,7 +271,7 @@ class OpenStackNovaDomain {
 	 *
 	 * @static
 	 * @param string $domainname
-	 * @return bool
+	 * @return array
 	 */
 	static function deleteDomain( $domainname ) {
 		$ldap = LdapAuthenticationPlugin::getInstance();
