@@ -16,7 +16,7 @@ class OpenStackNovaController {
 	public $admintoken;
 
 	/**
-	 * @param string $user
+	 * @param OpenStackNovaUser $user
 	 */
 	function __construct( $user ) {
 		$this->project = '';
@@ -27,7 +27,7 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @param string $user
+	 * @param OpenStackNovaUser $user
 	 * @return OpenStackNovaController
 	 */
 	static function newFromUser( $user ) {
@@ -244,7 +244,7 @@ class OpenStackNovaController {
 	}
 
 	/**
-	 * @return a token for $wgOpenStackManagerLDAPUsername
+	 * @return string a token for $wgOpenStackManagerLDAPUsername
 	 *  who happens to have admin rights in Keystone.
 	 */
 	function _getAdminToken() {

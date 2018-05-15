@@ -17,7 +17,7 @@ class OpenStackNovaRole {
 
 	/**
 	 * @param string $roleid
-	 * @param null $project optional
+	 * @param OpenStackNovaProject|null $project
 	 */
 	function __construct( $roleid, $project ) {
 		$this->roleid = $roleid;
@@ -131,8 +131,7 @@ class OpenStackNovaRole {
 	}
 
 	/**
-	 * @param string $user
-	 * @return String string
+	 * @param OpenStackNovaUser $user
 	 */
 	function deleteMemcKeys( $user ) {
 		global $wgMemc;
@@ -173,7 +172,7 @@ class OpenStackNovaRole {
 	/**
 	 * @static
 	 * @param string $rolename
-	 * @param string $project
+	 * @param OpenStackNovaProject $project
 	 * @return null|OpenStackNovaRole
 	 */
 	static function getProjectRoleByName( $rolename, $project ) {
@@ -190,7 +189,7 @@ class OpenStackNovaRole {
 	/**
 	 * @static
 	 * @param string $roleid
-	 * @return role name
+	 * @return string role name
 	 */
 	static function getRoleNameForId( $roleid ) {
 		global $wgMemc;

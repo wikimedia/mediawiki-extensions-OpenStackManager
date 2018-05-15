@@ -387,7 +387,7 @@ class OpenStackNovaServiceGroup {
 	/**
 	 * @static
 	 * @param string $groupName
-	 * @param string $project OpenStackNovaProject
+	 * @param OpenStackNovaProject $project
 	 * @return bool
 	 */
 	static function deleteServiceGroup( $groupName, $project ) {

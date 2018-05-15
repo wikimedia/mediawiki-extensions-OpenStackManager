@@ -216,8 +216,8 @@ abstract class SpecialNova extends SpecialPage {
 	 * Create a table of resources based on headers and rows. Warning: $rows is not
 	 * escaped in this function and must be escaped prior to this call.
 	 *
-	 * @param string $headers
-	 * @param stdClass $rows
+	 * @param string[] $headers
+	 * @param array[] $rows
 	 *
 	 * @return string
 	 */
@@ -241,7 +241,7 @@ abstract class SpecialNova extends SpecialPage {
 	 * $data escaped in this function and must be escaped prior to this call.
 	 *
 	 * @param string $projectName
-	 * @param string $actionsByRole
+	 * @param array[] $actionsByRole
 	 * @param string $data
 	 *
 	 * @return string

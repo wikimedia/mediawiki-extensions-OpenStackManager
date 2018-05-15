@@ -5,7 +5,7 @@ class OpenStackNovaSecurityGroupRule {
 	public $rule;
 
 	/**
-	 * @param string $apiInstanceResponse
+	 * @param stdClass $apiInstanceResponse
 	 */
 	function __construct( $apiInstanceResponse ) {
 		$this->rule = $apiInstanceResponse;

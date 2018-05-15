@@ -534,7 +534,7 @@ class SpecialNovaVolume extends SpecialNova {
 	/**
 	 * Return an array of drive devices
 	 *
-	 * @return string
+	 * @return string[]
 	 */
 	function getDrives() {
 		$drives = [];

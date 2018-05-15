@@ -12,7 +12,7 @@ class OpenStackNovaInstanceType {
 	public $instanceType;
 
 	/**
-	 * @param string $apiInstanceResponse
+	 * @param stdClass $apiInstanceResponse
 	 */
 	function __construct( $apiInstanceResponse ) {
 		$this->instanceType = $apiInstanceResponse;
