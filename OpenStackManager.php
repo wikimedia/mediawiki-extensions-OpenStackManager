@@ -342,10 +342,11 @@ $wgDefaultUserOptions['echo-subscriptions-email-osm-projectmembers-add'] = true;
  *
  * @param array &$notifications Echo notifications
  * @param array &$notificationCategories Echo notification categories
+ * @param array &$icons Echo icons
  * @return true
  */
 function efOpenStackOnBeforeCreateEchoEvent(
-	&$notifications, &$notificationCategories
+	&$notifications, &$notificationCategories, &$icons
 ) {
 	$notifications['osm-instance-build-completed'] = [
 		'presentation-model' => 'EchoOpenStackManagerPresentationModel',
@@ -370,6 +371,8 @@ function efOpenStackOnBeforeCreateEchoEvent(
 		'category' => 'osm-projectmembers-add',
 		'section' => 'message',
 	];
+
+	$icons['trash'] = 'OpenStackManager/modules/images/trash.svg';
 
 	return true;
 }
