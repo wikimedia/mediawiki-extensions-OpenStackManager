@@ -9,7 +9,6 @@
 		<exclude name="MediaWiki.NamingConventions.LowerCamelFunctionsName.FunctionName" />
 		<exclude name="MediaWiki.Usage.ForbiddenFunctions.escapeshellcmd" />
 		<exclude name="MediaWiki.Usage.ForbiddenFunctions.proc_open" />
-		<exclude name="MediaWiki.Usage.InArrayUsage.Found" />
 		<exclude name="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment.NewLineComment"/>
 	</rule>
 	<file>.</file>

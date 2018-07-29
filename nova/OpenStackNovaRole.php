@@ -55,7 +55,7 @@ class OpenStackNovaRole {
 		}
 
 		$this->members = [];
-		if ( in_array( $this->roleid, array_keys( $assignments ) ) ) {
+		if ( isset( $assignments[$this->roleid] ) ) {
 			foreach ( $assignments[$this->roleid] as $userid ) {
 				$this->members[] = $this->project->memberForUid( $userid );
 			}
