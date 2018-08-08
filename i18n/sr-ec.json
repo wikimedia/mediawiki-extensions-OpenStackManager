@@ -12,6 +12,7 @@
 			"BadDog"
 		]
 	},
+	"action-listall": "прикажете све информације о ресурсу",
 	"openstackmanager-novainstance": "Примерак Нове",
 	"openstackmanager-novakey": "Кључ Нове",
 	"openstackmanager-novaproject": "Пројекат Нова",
