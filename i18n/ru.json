@@ -230,6 +230,7 @@
 	"openstackmanager-backproxylist": "Вернуться к списку прокси",
 	"openstackmanager-twofactorrequired": "Требуется двухфакторная аутентификация",
 	"openstackmanager-twofactorrequired2": "Требуется двухфакторная аутентификация. Пожалуйста, включите ее и повторите попытку.",
+	"right-manageproject": "управление проектами и ролями OpenStack",
 	"notification-header-osm-projectmembers-add": "{{GENDER:$5|Вы}} были добавлены в проект $3.",
 	"prefs-openstack-keys": "Список ключей"
 }
