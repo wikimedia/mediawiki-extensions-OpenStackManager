@@ -107,12 +107,12 @@ class SpecialNovaResources extends SpecialNova {
 		}
 
 		if ( $instanceCount ) {
-			$out .= Html::rawElement( 'h1', [],
+			$out .= Html::element( 'h1', [],
 				$this->msg( 'openstackmanager-ownedinstances', $instanceCount )->text()
 			);
 			$out .= $instanceOut;
 		} else {
-			$out .= Html::rawElement( 'h1', [],
+			$out .= Html::element( 'h1', [],
 				$this->msg( 'openstackmanager-noownedinstances' )->text()
 			);
 		}
