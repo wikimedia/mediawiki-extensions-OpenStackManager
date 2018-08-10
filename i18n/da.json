@@ -1,8 +1,34 @@
 {
 	"@metadata": {
 		"authors": [
-			"Luckas"
+			"Luckas",
+			"Saederup92"
 		]
 	},
-	"openstackmanager-securitygroupdescription": "Beskrivelse"
+	"openstackmanager-delete": "slet",
+	"openstackmanager-rename": "omdøb",
+	"openstackmanager-reboot": "genstart",
+	"openstackmanager-actions": "Handlinger",
+	"openstackmanager-deletedomain": "Slet domæne",
+	"openstackmanager-novadomain-domain": "Tilføj domæne",
+	"openstackmanager-domainlist": "Domæneliste",
+	"openstackmanager-dnsdomain": "DNS domæne",
+	"openstackmanager-novainstance-global": "Globale grupper",
+	"openstackmanager-securitygroups": "Sikkerhedgrupper",
+	"openstackmanager-name": "Navn",
+	"openstackmanager-fingerprint": "Fingeraftryk",
+	"openstackmanager-createproject": "Tilføj projekt",
+	"openstackmanager-deleteproject": "Slet",
+	"openstackmanager-deletedproject": "Slettede projekt.",
+	"openstackmanager-removedfrom": "Fjernede $1 fra $2.",
+	"openstackmanager-novaproject-project": "Tilføj projekt",
+	"openstackmanager-projects": "Projekter",
+	"openstackmanager-roles": "Roller",
+	"openstackmanager-rolename": "Rolle",
+	"openstackmanager-removedhost": "Fjernede $1.",
+	"openstackmanager-securitygroupdescription": "Beskrivelse",
+	"openstackmanager-securitygrouprule": "Regler",
+	"openstackmanager-createnewsecuritygroup": "Tilføj gruppe",
+	"openstackmanager-sudoerusers": "Brugere",
+	"echo-notification-goto-project": "Vis projekt"
 }
