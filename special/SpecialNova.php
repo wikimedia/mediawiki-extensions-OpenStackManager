@@ -264,8 +264,11 @@ abstract class SpecialNova extends SpecialPage {
 		$actionOut = Html::rawElement( 'span', [ 'id' => 'novaaction' ], $actions );
 		$projectNameOut = $this->createResourceLink( $projectName );
 		# Mark this element with an id so that we can #link to it from elsewhere.
-		$elementWithId = "h2 id=\"$projectName\"";
-		$out = Html::rawElement( $elementWithId, [], "$projectNameOut $actionOut" );
+		$out = Html::rawElement(
+			'h2',
+			[ 'id' => Sanitizer::escapeIdForAttribute( $projectName ) ],
+			$projectNameOut . ' ' . $actionOut
+		);
 		$out .= Html::rawElement( 'div', [], $data );
 
 		return $out;
