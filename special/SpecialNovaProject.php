@@ -367,27 +367,27 @@ class SpecialNovaProject extends SpecialNova {
 				'openstackmanager-displayquotas-ram',
 				$limits->getRamUsed(),
 				$limits->getRamAvailable()
-			);
+			)->text();
 			$floatingIps = $this->msg(
 				'openstackmanager-displayquotas-floatingips',
 				$limits->getFloatingIpsUsed(),
 				$limits->getFloatingIpsAvailable()
-			);
+			)->text();
 			$cores = $this->msg(
 				'openstackmanager-displayquotas-cores',
 				$limits->getCoresUsed(),
 				$limits->getCoresAvailable()
-			);
+			)->text();
 			$instances = $this->msg(
 				'openstackmanager-displayquotas-instances',
 				$limits->getInstancesUsed(),
 				$limits->getInstancesAvailable()
-			);
+			)->text();
 			$secGroups = $this->msg(
 				'openstackmanager-displayquotas-securitygroups',
 				$limits->getSecurityGroupsUsed(),
 				$limits->getSecurityGroupsAvailable()
-			);
+			)->text();
 			$limitsOut = Html::element( 'li', [], $cores );
 			$limitsOut .= Html::element( 'li', [], $ram );
 			$limitsOut .= Html::element( 'li', [], $floatingIps );
