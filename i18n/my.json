@@ -1,8 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ninjastrikers"
+			"Ninjastrikers",
+			"Dr Lotus Black"
 		]
 	},
+	"openstackmanager-delete": "ဖျက်ပါ",
+	"openstackmanager-deleteproject": "ဖျက်ပါ",
 	"echo-notification-goto-project": "ပရောဂျက်ကို ကြည့်ရန်"
 }
