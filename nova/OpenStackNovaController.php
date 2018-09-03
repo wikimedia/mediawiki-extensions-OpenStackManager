@@ -47,7 +47,7 @@ class OpenStackNovaController {
 	 */
 	function getAttachmentMime( $attachmenttext, $mimetype, $filename ) {
 		$endl = $this->getLineEnding();
-		$attachment = 'Content-Type: ' . $mimetype . '; charset="us-ascii"'. $endl;
+		$attachment = 'Content-Type: ' . $mimetype . '; charset="us-ascii"' . $endl;
 		$attachment .= 'MIME-Version: 1.0' . $endl;
 		$attachment .= 'Content-Transfer-Encoding: 7bit' . $endl;
 		$attachment .= 'Content-Disposition: attachment; filename="' . $filename . '"' . $endl;
@@ -717,8 +717,8 @@ class OpenStackNovaController {
 		if ( $wgOpenStackManagerInstanceUserData ) {
 			$random_hash = md5( date( 'r', time() ) );
 			$endl = self::getLineEnding();
-			$boundary = '===============' . $random_hash .'==';
-			$userdata = 'Content-Type: multipart/mixed; boundary="' . $boundary .'"' . $endl;
+			$boundary = '===============' . $random_hash . '==';
+			$userdata = 'Content-Type: multipart/mixed; boundary="' . $boundary . '"' . $endl;
 			$userdata .= 'MIME-Version: 1.0' . $endl;
 			$boundary = '--' . $boundary;
 			$userdata .= $endl;
@@ -990,7 +990,7 @@ class OpenStackNovaController {
 	 * @param string $type
 	 * @return bool
 	 */
-	function rebootInstance( $instanceid, $type='SOFT' ) {
+	function rebootInstance( $instanceid, $type = 'SOFT' ) {
 		$instanceid = urlencode( $instanceid );
 		$data = [ 'reboot' => [ 'type' => $type ] ];
 		$ret = $this->restCall( 'compute', '/servers/' . $instanceid . '/action', 'POST', $data );
@@ -1135,7 +1135,7 @@ class OpenStackNovaController {
 		return $headers;
 	}
 
-	function restCall( $service, $path, $method, $data = [], $authHeaders='', $retrying=false ) {
+	function restCall( $service, $path, $method, $data = [], $authHeaders = '', $retrying = false ) {
 		global $wgOpenStackManagerNovaIdentityURI;
 		global $wgOpenStackManagerNovaIdentityV3URI;
 		global $wgMemc;

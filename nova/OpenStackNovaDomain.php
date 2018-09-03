@@ -122,7 +122,7 @@ class OpenStackNovaDomain {
 	 * @param string $type
 	 * @return array of OpenNovaDomain
 	 */
-	static function getAllDomains( $type='all' ) {
+	static function getAllDomains( $type = 'all' ) {
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
 
 		$ldap = LdapAuthenticationPlugin::getInstance();

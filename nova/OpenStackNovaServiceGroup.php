@@ -193,7 +193,7 @@ class OpenStackNovaServiceGroup {
 	 * @param array $serviceUsernames
 	 * @return bool
 	 */
-	function setMembers( $usernames, $serviceUsernames=[] ) {
+	function setMembers( $usernames, $serviceUsernames = [] ) {
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		$members = [];
 		foreach ( $usernames as $username ) {
