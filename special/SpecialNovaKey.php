@@ -218,7 +218,7 @@ class SpecialNovaKey extends SpecialNova {
 		 * This shouldn't be needed, as it is a public key material, and
 		 * it's going to be stored in a place from which it's probably
 		 * easier to retrieve than a deleted file.
-		 * However, there's no reason to have it innecesary copies, in
+		 * However, there's no reason to have it unnecessary copies, in
 		 * some cases (certain DSA keys) the private key can be extracted
 		 * from public one, and there could be worse attacks in the future.
 		 * Moreover, if someone provided the private key to Special:NovaKey,
