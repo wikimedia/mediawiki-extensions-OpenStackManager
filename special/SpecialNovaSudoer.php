@@ -295,24 +295,24 @@ class SpecialNovaSudoer extends SpecialNova {
 		# Add the 'all project members' option to the top
 		$projectGroup = "%" . $project->getProjectGroupName();
 		$all_members = $this->msg( 'openstackmanager-allmembers' )->text();
-		$user_keys[$all_members] = $all_members;
+		$user_keys[htmlspecialchars( $all_members )] = $all_members;
 		if ( in_array( 'ALL', $sudomembers ) || in_array( $projectGroup, $sudomembers ) ) {
-			$user_defaults[$all_members] = $all_members;
+			$user_defaults[] = $all_members;
 		}
 
 		foreach ( $projectuids as $userUid ) {
 			$projectmember = $project->memberForUid( $userUid );
 
-			$user_keys[$projectmember] = $userUid;
+			$user_keys[htmlspecialchars( $projectmember )] = $userUid;
 			if ( in_array( $userUid, $sudomembers ) ) {
-				$user_defaults[$projectmember] = $userUid;
+				$user_defaults[] = $userUid;
 			}
 		}
 
 		foreach ( $projectserviceusers as $serviceuser ) {
-			$user_keys[$serviceuser] = $serviceuser;
+			$user_keys[htmlspecialchars( $serviceuser )] = $serviceuser;
 			if ( in_array( $serviceuser, $sudomembers ) ) {
-				$user_defaults[$serviceuser] = $serviceuser;
+				$user_defaults[] = $serviceuser;
 			}
 		}
 
