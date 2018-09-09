@@ -420,7 +420,6 @@ class OpenStackNovaProject {
 	 * Return a project by its project name. Returns null if the project does not exist.
 	 *  This function is terrible and should be used sparingly
 	 *
-	 * @static
 	 * @param string $projectname
 	 * @return null|OpenStackNovaProject
 	 */
@@ -437,7 +436,6 @@ class OpenStackNovaProject {
 	/**
 	 * Return a project by its project id. Returns null if the project does not exist.
 	 *
-	 * @static
 	 * @param string $projectid
 	 * @return null|OpenStackNovaProject
 	 */
@@ -509,7 +507,6 @@ class OpenStackNovaProject {
 	/**
 	 * Get the list of projects from Keystone.
 	 *
-	 * @static
 	 * @return array of projectid => projectname
 	 */
 	static function getProjectList() {
@@ -533,7 +530,6 @@ class OpenStackNovaProject {
 	 * lazy loads the projects. Objects will be returned unloaded. If you wish to receive more
 	 * than just the project's name, you'll need to call the project's fetchProjectInfo() function.
 	 *
-	 * @static
 	 * @return OpenStackNovaProject[]
 	 */
 	static function getAllProjects() {
@@ -562,7 +558,6 @@ class OpenStackNovaProject {
 	 * Create a new project based on project name. This function will also create
 	 * all roles needed by the project.
 	 *
-	 * @static
 	 * @param string $projectname
 	 * @return OpenStackNovaProject
 	 */

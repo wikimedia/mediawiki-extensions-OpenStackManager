@@ -342,7 +342,6 @@ class OpenStackNovaUser {
 	 * TODO: Make use of $wgOpenStackManagerIdRanges for all cases.
 	 * TODO: Make $wgOpenStackManagerIdRanges use a set of ranges.
 	 *
-	 * @static
 	 * @param LdapAuthenticationPlugin $auth
 	 * @param string $attr
 	 * @return mixed|string
@@ -395,7 +394,6 @@ class OpenStackNovaUser {
 	/**
 	 * Hook to add objectclasses and attributes for users being created.
 	 *
-	 * @static
 	 * @param LdapAuthenticationPlugin $auth
 	 * @param string $username
 	 * @param array &$values
@@ -478,7 +476,6 @@ class OpenStackNovaUser {
 	 * Hook to retry setting the creation values. Specifically, this will try to set a new
 	 * uid in case there's a race condition.
 	 *
-	 * @static
 	 * @param LdapAuthenticationPlugin $auth
 	 * @param string $username
 	 * @param array &$values
@@ -502,7 +499,6 @@ class OpenStackNovaUser {
 	}
 
 	/**
-	 * @static
 	 * @param BaseTemplate &$template
 	 * @return bool
 	 */
@@ -535,7 +531,6 @@ class OpenStackNovaUser {
 	}
 
 	/**
-	 * @static
 	 * @param User &$wikiUser
 	 * @return bool
 	 */

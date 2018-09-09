@@ -231,7 +231,6 @@ class OpenStackNovaHost {
 	 * Get a public host by the host's ip. Returns
 	 * null if the entry does not exist.
 	 *
-	 * @static
 	 * @param string $ip
 	 * @return OpenStackNovaHost
 	 */
@@ -247,7 +246,6 @@ class OpenStackNovaHost {
 	/**
 	 * Get a host by an instance ID. Returns null if the entry does not exist.
 	 *
-	 * @static
 	 * @param string $instancename
 	 * @param string $instanceproject
 	 * @param string $region
@@ -289,7 +287,6 @@ class OpenStackNovaHost {
 	 * if the entry already exists, or if the additional fails. This function should be used
 	 * for adding public DNS entries.
 	 *
-	 * @static
 	 * @param string $hostname
 	 * @param string $ip
 	 * @param OpenStackNovaDomain $domain

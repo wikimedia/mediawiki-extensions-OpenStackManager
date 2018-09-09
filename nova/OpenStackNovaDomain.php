@@ -118,7 +118,6 @@ class OpenStackNovaDomain {
 	/**
 	 * Get all domains of a specific type. Valid types are local, public, and all.
 	 *
-	 * @static
 	 * @param string $type
 	 * @return array of OpenNovaDomain
 	 */
@@ -158,7 +157,6 @@ class OpenStackNovaDomain {
 	 * Get a domain object by short name. If the domain is not found
 	 * return null.
 	 *
-	 * @static
 	 * @param string $domainname
 	 * @return null|OpenStackNovaDomain
 	 */
@@ -175,7 +173,6 @@ class OpenStackNovaDomain {
 	 * Find a domain by a host entry's IP address. If the host entry doesn't
 	 * exist, return null.
 	 *
-	 * @static
 	 * @param string $ip
 	 * @return null|OpenStackNovaDomain
 	 */
@@ -209,7 +206,6 @@ class OpenStackNovaDomain {
 	 * Get a domain by a region. Return null if the region
 	 * does not exist.
 	 *
-	 * @static
 	 * @param string $region
 	 * @return null|OpenStackNovaDomain
 	 */
@@ -230,7 +226,6 @@ class OpenStackNovaDomain {
 	 * be a public domain, otherwise it will be a private domain for instance
 	 * creation. Returns null on domain creation failure.
 	 *
-	 * @static
 	 * @param string $domainname
 	 * @param string $fqdn
 	 * @param string $location
@@ -269,7 +264,6 @@ class OpenStackNovaDomain {
 	 * Deletes a domain based on the domain's short name. Will fail to
 	 * delete the domain if any host entries still exist in the domain.
 	 *
-	 * @static
 	 * @param string $domainname
 	 * @return array
 	 */
@@ -309,7 +303,6 @@ class OpenStackNovaDomain {
 	/**
 	 * Generates a valid SOA string based on configuration and current time.
 	 *
-	 * @static
 	 * @return string
 	 */
 	static function generateSOA() {

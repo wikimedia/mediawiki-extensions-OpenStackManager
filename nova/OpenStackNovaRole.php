@@ -170,7 +170,6 @@ class OpenStackNovaRole {
 	}
 
 	/**
-	 * @static
 	 * @param string $rolename
 	 * @param OpenStackNovaProject $project
 	 * @return null|OpenStackNovaRole
@@ -187,7 +186,6 @@ class OpenStackNovaRole {
 	}
 
 	/**
-	 * @static
 	 * @param string $roleid
 	 * @return string role name
 	 */

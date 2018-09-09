@@ -73,7 +73,6 @@ class OpenStackNovaInstanceType {
 	}
 
 	/**
-	 * @static
 	 * @param OpenStackNovaInstanceType $a
 	 * @param OpenStackNovaInstanceType $b
 	 * @return bool

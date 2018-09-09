@@ -263,7 +263,6 @@ class OpenStackNovaServiceGroup {
 	}
 
 	/**
-	 * @static
 	 * @param string $groupName
 	 * @param OpenStackNovaProject $project
 	 * @return null|OpenStackNovaServiceGroup
@@ -278,7 +277,6 @@ class OpenStackNovaServiceGroup {
 	}
 
 	/**
-	 * @static
 	 * @param string $inGroupName
 	 * @param OpenStackNovaProject $project
 	 * @param string $initialUser
@@ -385,7 +383,6 @@ class OpenStackNovaServiceGroup {
 	}
 
 	/**
-	 * @static
 	 * @param string $groupName
 	 * @param OpenStackNovaProject $project
 	 * @return bool

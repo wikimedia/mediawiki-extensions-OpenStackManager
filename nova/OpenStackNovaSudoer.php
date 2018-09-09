@@ -239,7 +239,6 @@ class OpenStackNovaSudoer {
 	/**
 	 * Get a sudoer policy by name.
 	 *
-	 * @static
 	 * @param string $sudoerName
 	 * @param string $projectName
 	 * @return null|OpenStackNovaSudoer
@@ -258,7 +257,6 @@ class OpenStackNovaSudoer {
 	 * Create a new sudoer based on name, users, commands, and options.
 	 * Returns null on sudoer creation failure.
 	 *
-	 * @static
 	 * @param string $sudoername
 	 * @param string $projectName
 	 * @param array $users
@@ -305,7 +303,6 @@ class OpenStackNovaSudoer {
 	/**
 	 * Deletes a sudo policy based on the policy name.
 	 *
-	 * @static
 	 * @param string $sudoername
 	 * @param string $projectName
 	 * @return bool
