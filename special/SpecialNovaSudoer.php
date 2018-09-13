@@ -280,6 +280,11 @@ class SpecialNovaSudoer extends SpecialNova {
 		return true;
 	}
 
+	/**
+	 * @param $projectName
+	 * @param $sudoer
+	 * @return-taint onlysafefor_html
+	 */
 	function getSudoUsers( $projectName, $sudoer = null ) {
 		$project = OpenStackNovaProject::getProjectByName( $projectName );
 		$projectuids = $project->getMemberUids();
@@ -319,6 +324,11 @@ class SpecialNovaSudoer extends SpecialNova {
 		return [ 'keys' => $user_keys, 'defaults' => $user_defaults ];
 	}
 
+	/**
+	 * @param $projectName
+	 * @param $sudoer
+	 * @return-taint onlysafefor_html
+	 */
 	function getSudoRunAsUsers( $projectName, $sudoer = null ) {
 		$project = OpenStackNovaProject::getProjectByName( $projectName );
 		$projectuids = $project->getMemberUids();
@@ -335,30 +345,30 @@ class SpecialNovaSudoer extends SpecialNova {
 		# 'ALL' includes all possible users, including system users and service users.
 		$runas_keys['ALL'] = 'ALL';
 		if ( in_array( 'ALL', $runasmembers ) ) {
-			$runas_defaults['ALL'] = 'ALL';
+			$runas_defaults[] = 'ALL';
 		}
 
 		# A safer option is 'all project members'
 		$projectGroup = "%" . $project->getProjectGroupName();
 		$all_members = $this->msg( 'openstackmanager-allmembers' )->text();
-		$runas_keys[$all_members] = $all_members;
+		$runas_keys[htmlspecialchars( $all_members )] = $all_members;
 		if ( in_array( $projectGroup, $runasmembers ) ) {
-			$runas_defaults[$all_members] = $all_members;
+			$runas_defaults[] = $all_members;
 		}
 
 		foreach ( $projectuids as $userUid ) {
 			$projectmember = $project->memberForUid( $userUid );
 
-			$runas_keys[$projectmember] = $userUid;
+			$runas_keys[htmlspecialchars( $projectmember )] = $userUid;
 			if ( in_array( $userUid, $runasmembers ) ) {
-				$runas_defaults[$projectmember] = $userUid;
+				$runas_defaults[] = $userUid;
 			}
 		}
 
 		foreach ( $projectserviceusers as $serviceuser ) {
-			$runas_keys[$serviceuser] = $serviceuser;
+			$runas_keys[htmlspecialchars( $serviceuser )] = $serviceuser;
 			if ( in_array( $serviceuser, $runasmembers ) ) {
-				$runas_defaults[$serviceuser] = $serviceuser;
+				$runas_defaults[] = $serviceuser;
 			}
 		}
 
