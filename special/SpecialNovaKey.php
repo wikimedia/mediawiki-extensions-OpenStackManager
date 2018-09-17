@@ -95,14 +95,16 @@ class SpecialNovaKey extends SpecialNova {
 			'default' => $returnto,
 			'name' => 'returnto',
 		];
-		$keyForm = new HTMLForm(
+		$keyForm = HTMLForm::factory( 'ooui',
 			$keyInfo,
 			$this->getContext(),
 			'openstackmanager-novakey'
 		);
-		$keyForm->setSubmitID( 'novakey-form-deletekeysubmit' );
-		$keyForm->setSubmitCallback( [ $this, 'tryDeleteSubmit' ] );
-		$keyForm->show();
+		$keyForm
+			->setSubmitID( 'novakey-form-deletekeysubmit' )
+			->setSubmitCallback( [ $this, 'tryDeleteSubmit' ] )
+			->setSubmitDestructive()
+			->show();
 		return true;
 	}
 
@@ -150,14 +152,15 @@ class SpecialNovaKey extends SpecialNova {
 			'name' => 'returnto',
 		];
 
-		$keyForm = new HTMLForm(
+		$keyForm = HTMLForm::factory( 'ooui',
 			$keyInfo,
 			$this->getContext(),
 			'openstackmanager-novakey'
 		);
-		$keyForm->setSubmitID( 'novakey-form-createkeysubmit' );
-		$keyForm->setSubmitCallback( [ $this, 'tryImportSubmit' ] );
-		$keyForm->show();
+		$keyForm
+			->setSubmitID( 'novakey-form-createkeysubmit' )
+			->setSubmitCallback( [ $this, 'tryImportSubmit' ] )
+			->show();
 	}
 
 	/**
