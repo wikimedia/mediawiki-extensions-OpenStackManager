@@ -61,7 +61,7 @@
 	"openstackmanager-launchtime": "Време покретања",
 	"openstackmanager-createinstance": "Додавање примерка",
 	"openstackmanager-invaliddomain": "Захтевани домен је неисправан.",
-	"openstackmanager-createfailedldap": "Не могу да направим примерак јер не могу да додам домаћина у LDAP.",
+	"openstackmanager-createfailedldap": "Прављење примерка није успело јер није могуће додати домаћина у LDAP.",
 	"openstackmanager-createinstancefailed": "Не могу да направим примерак.",
 	"openstackmanager-backinstancelist": "Назад на списак примерака",
 	"openstackmanager-deletedinstance": "Примерак $1 ($2) је обрисан.",
