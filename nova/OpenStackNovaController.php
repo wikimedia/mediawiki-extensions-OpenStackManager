@@ -435,7 +435,7 @@ class OpenStackNovaController {
 		);
 		$role_assignments = self::_get_property( $ret['body'], 'role_assignments' );
 		if ( !$role_assignments ) {
-			return $projects;
+			return $assignments;
 		}
 		foreach ( $role_assignments as $assignment ) {
 			$scope = self::_get_property( $assignment, 'scope' );
