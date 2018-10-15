@@ -6,37 +6,19 @@ class ApiNovaInstance extends ApiBase {
 
 	public function canExecute() {
 		if ( !$this->userLDAP->exists() ) {
-			if ( is_callable( [ $this, 'dieWithError' ] ) ) {
-				$this->dieWithError( 'openstackmanager-nonovacred' );
-			} else {
-				$this->dieUsage(
-					'No credentials found for your account.', 'openstackmanager-nonovacred'
-				);
-			}
+			$this->dieWithError( 'openstackmanager-nonovacred' );
 		}
 		if ( !$this->userLDAP->inProject( $this->params['project'] ) ) {
-			if ( is_callable( [ $this, 'dieWithError' ] ) ) {
-				$this->dieWithError( [
-					'openstackmanager-noaccount', wfEscapeWikiText( $this->params['project'] )
-				] );
-			} else {
-				$this->dieUsage(
-					'User account is not in the project specified.', 'openstackmanager-noaccount'
-				);
-			}
+			$this->dieWithError( [
+				'openstackmanager-noaccount', wfEscapeWikiText( $this->params['project'] )
+			] );
 		}
 		if ( !$this->userLDAP->inRole( 'projectadmin', $this->params['project'] ) ) {
-			if ( is_callable( [ $this, 'dieWithError' ] ) ) {
-				$this->dieWithError( [
-					'openstackmanager-needrole',
-					'projectadmin',
-					wfEscapeWikiText( $this->params['project'] ),
-				] );
-			} else {
-				$this->dieUsage(
-					'User account is not in the projectadmin role.', 'openstackmanager-needrole'
-				);
-			}
+			$this->dieWithError( [
+				'openstackmanager-needrole',
+				'projectadmin',
+				wfEscapeWikiText( $this->params['project'] ),
+			] );
 		}
 	}
 
@@ -53,16 +35,10 @@ class ApiNovaInstance extends ApiBase {
 		case 'reboot':
 			$success = $this->userNova->rebootInstance( $this->params['instanceid'] );
 			if ( !$success ) {
-				if ( is_callable( [ $this, 'dieWithError' ] ) ) {
-					$this->dieWithError( [
-						'openstackmanager-rebootinstancefailed',
-						wfEscapeWikiText( $this->params['instanceid'] )
-					] );
-				} else {
-					$this->dieUsage(
-						'Failed to reboot instance.', 'openstackmanager-rebootinstancefailed'
-					);
-				}
+				$this->dieWithError( [
+					'openstackmanager-rebootinstancefailed',
+					wfEscapeWikiText( $this->params['instanceid'] )
+				] );
 			}
 			$instance = $this->userNova->getInstance( $this->params['instanceid'] );
 			if ( $instance ) {
@@ -83,29 +59,15 @@ class ApiNovaInstance extends ApiBase {
 			$instanceOSID = $this->params['instanceid'];
 			$instance = $this->userNova->getInstance( $instanceOSID );
 			if ( !$instance ) {
-				if ( is_callable( [ $this, 'dieWithError' ] ) ) {
-					$this->dieWithError( 'openstackmanager-nonexistenthost' );
-				} else {
-					$this->dieUsage(
-						'The instance requested does not exist.',
-						'openstackmanager-nonexistanthost'
-					);
-				}
+				$this->dieWithError( 'openstackmanager-nonexistenthost' );
 			}
 			$result = $instance->deleteInstance( $this->userNova );
 			if ( !$result ) {
-				if ( is_callable( [ $this, 'dieWithError' ] ) ) {
-					$this->dieWithError( [
-						'openstackmanager-deleteinstancefailed',
-						$instance->getInstanceId(),
-						wfEscapeWikiText( $instance->getInstanceName() ),
-					] );
-				} else {
-					$this->dieUsage(
-						'Failed to delete the instance.',
-						'openstackmanager-deleteinstancefailed'
-					);
-				}
+				$this->dieWithError( [
+					'openstackmanager-deleteinstancefailed',
+					$instance->getInstanceId(),
+					wfEscapeWikiText( $instance->getInstanceName() ),
+				] );
 			}
 
 			break;

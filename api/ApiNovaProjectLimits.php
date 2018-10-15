@@ -6,46 +6,22 @@ class ApiNovaProjectLimits extends ApiBase {
 
 	public function canExecute( $rights = [] ) {
 		if ( !$this->userLDAP->exists() ) {
-			if ( is_callable( [ $this, 'dieWithError' ] ) ) {
-				$this->dieWithError( 'openstackmanager-nonovacred' );
-			} else {
-				$this->dieUsage(
-					wfMessage( 'openstackmanager-nonovacred' )->escaped(),
-					'openstackmanager-nonovacred'
-				);
-			}
+			$this->dieWithError( 'openstackmanager-nonovacred' );
 		}
 		if ( in_array( 'inproject', $rights ) || in_array( 'isprojectadmin', $rights ) ) {
 			if ( !$this->userLDAP->inProject( $this->params['project'] ) ) {
-				if ( is_callable( [ $this, 'dieWithError' ] ) ) {
-					$this->dieWithError( [
-						'openstackmanager-noaccount', wfEscapeWikiText( $this->params['project'] )
-					] );
-				} else {
-					$this->dieUsage(
-						wfMessage( 'openstackmanager-noaccount', $this->params['project'] )
-							->escaped(),
-						'openstackmanager-noaccount'
-					);
-				}
+				$this->dieWithError( [
+					'openstackmanager-noaccount', wfEscapeWikiText( $this->params['project'] )
+				] );
 			}
 		}
 		if ( in_array( 'isprojectadmin', $rights ) ) {
 			if ( !$this->userLDAP->inRole( 'projectadmin', $this->params['project'] ) ) {
-				if ( is_callable( [ $this, 'dieWithError' ] ) ) {
-					$this->dieWithError( [
-						'openstackmanager-needrole',
-						'projectadmin',
-						wfEscapeWikiText( $this->params['project'] ),
-					] );
-				} else {
-					$this->dieUsage(
-						wfMessage(
-							'openstackmanager-needrole', 'projectadmin', $this->params['project']
-						)->escaped(),
-						'openstackmanager-needrole'
-					);
-				}
+				$this->dieWithError( [
+					'openstackmanager-needrole',
+					'projectadmin',
+					wfEscapeWikiText( $this->params['project'] ),
+				] );
 			}
 		}
 	}

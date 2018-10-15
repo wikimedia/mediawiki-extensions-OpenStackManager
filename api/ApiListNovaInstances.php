@@ -23,11 +23,7 @@ class ApiListNovaInstances extends ApiQueryGeneratorBase {
 		$project = OpenStackNovaProject::getProjectByName( $params['project'] );
 		if ( !$project ) {
 			// This shouldn't be possible since the API should enforce valid names
-			if ( is_callable( [ $this, 'dieWithError' ] ) ) {
-				$this->dieWithError( 'apierror-openstackmanager-badproject', 'badproject' );
-			} else {
-				$this->dieUsage( 'Invalid project specified.', 'badproject' );
-			}
+			$this->dieWithError( 'apierror-openstackmanager-badproject', 'badproject' );
 		}
 
 		$key = wfMemcKey( 'openstackmanager', 'apilistnovainstances',

@@ -6,41 +6,22 @@ class ApiNovaAddress extends ApiBase {
 
 	public function canExecute() {
 		if ( !$this->userLDAP->exists() ) {
-			if ( is_callable( [ $this, 'dieWithError' ] ) ) {
-				$this->dieWithError( 'openstackmanager-nonovacred' );
-			} else {
-				$this->dieUsage(
-					'No credentials found for your account.', 'openstackmanager-nonovacred'
-				);
-			}
+			$this->dieWithError( 'openstackmanager-nonovacred' );
 		}
 
 		$projects = explode( ',', $this->params['project'] );
 
 		foreach ( $projects as $p ) {
 			if ( !$this->userLDAP->inProject( $p ) ) {
-				if ( is_callable( [ $this, 'dieWithError' ] ) ) {
-					$this->dieWithError( [ 'openstackmanager-noaccount', wfEscapeWikiText( $p ) ] );
-				} else {
-					$this->dieUsage(
-						'User account is not in the project specified.',
-						'openstackmanager-noaccount'
-					);
-				}
+				$this->dieWithError( [ 'openstackmanager-noaccount', wfEscapeWikiText( $p ) ] );
 			}
 
 			if ( !$this->userLDAP->inRole( 'projectadmin', $p ) ) {
-				if ( is_callable( [ $this, 'dieWithError' ] ) ) {
-					$this->dieWithError( [
-						'openstackmanager-needrole',
-						'projectadmin',
-						wfEscapeWikiText( $p ),
-					] );
-				} else {
-					$this->dieUsage(
-						'User account is not in the projectadmin role.', 'openstackmanager-needrole'
-					);
-				}
+				$this->dieWithError( [
+					'openstackmanager-needrole',
+					'projectadmin',
+					wfEscapeWikiText( $p ),
+				] );
 			}
 		}
 	}
@@ -57,13 +38,7 @@ class ApiNovaAddress extends ApiBase {
 		$this->userNova->setRegion( $this->params['region'] );
 		$address = $this->userNova->getAddress( $this->params['id'] );
 		if ( !$address ) {
-			if ( is_callable( [ $this, 'dieWithError' ] ) ) {
-				$this->dieWithError( 'openstackmanager-nonexistenthost' );
-			} else {
-				$this->dieUsage(
-					'Address specified does not exist.', 'openstackmanager-nonexistenthost'
-				);
-			}
+			$this->dieWithError( 'openstackmanager-nonexistenthost' );
 		}
 		$ipAddr = $address->getPublicIp();
 		$instanceId = $address->getInstanceId();
@@ -78,17 +53,10 @@ class ApiNovaAddress extends ApiBase {
 				);
 
 				if ( !$success ) {
-					if ( is_callable( [ $this, 'dieWithError' ] ) ) {
-						$this->dieWithError( [
-							'openstackmanager-disassociateaddressfailed',
-							wfEscapeWikiText( $ipAddr )
-						] );
-					} else {
-						$this->dieUsage(
-							'Failed to disassociate address',
-							'openstackmanager-disassociateaddressfailed'
-						);
-					}
+					$this->dieWithError( [
+						'openstackmanager-disassociateaddressfailed',
+						wfEscapeWikiText( $ipAddr )
+					] );
 				}
 
 				$result->addValue( null, $this->getModuleName(), [ 'addressstate' => 'free' ] );
