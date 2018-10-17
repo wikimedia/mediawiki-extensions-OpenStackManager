@@ -16,7 +16,8 @@
 	"openstackmanager-location": "Местоположение",
 	"openstackmanager-name": "Име",
 	"openstackmanager-action": "Действие",
-	"openstackmanager-deleteproject": "Изтрий",
+	"openstackmanager-deleteproject": "Изтриване",
+	"openstackmanager-toggle": "Превключване",
 	"openstackmanager-securitygroupdescription": "Описание",
 	"openstackmanager-twofactorrequired": "Изисква се двукомпонентно удостоверяване",
 	"openstackmanager-twofactorrequired2": "Изисква се двукомпонентно удостоверяване. Моля, активирайте го и опитайте пак."
