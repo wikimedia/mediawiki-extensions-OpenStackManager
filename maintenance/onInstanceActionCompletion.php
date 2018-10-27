@@ -87,7 +87,6 @@ class OnInstanceActionCompletion extends Maintenance {
 			'extra' => [
 				'instanceName' => $result->event_instance_name,
 				'projectName' => $result->event_project,
-				'notifyAgent' => true
 			]
 		] );
 

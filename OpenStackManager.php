@@ -352,12 +352,14 @@ function efOpenStackOnBeforeCreateEchoEvent(
 		'presentation-model' => 'EchoOpenStackManagerPresentationModel',
 		'category' => 'osm-instance-build-completed',
 		'section' => 'message',
+		'canNotifyAgent' => true,
 	];
 
 	$notifications['osm-instance-reboot-completed'] = [
 		'presentation-model' => 'EchoOpenStackManagerPresentationModel',
 		'category' => 'osm-instance-reboot-completed',
 		'section' => 'message',
+		'canNotifyAgent' => true,
 	];
 
 	$notifications['osm-instance-deleted'] = [
