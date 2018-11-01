@@ -385,6 +385,7 @@
 	"apihelp-novaprojects-description": "Informationen über Projekte abrufen.",
 	"apihelp-novaprojects-summary": "Ruft Informationen zu Projekten ab.",
 	"apihelp-novaprojects-param-subaction": "Die auszuführende Unteraktion.",
+	"apihelp-novaprojects-param-project": "Das Projekt, auf dem die Unteraktion ausgeführt wird.",
 	"apihelp-novaprojects-param-username": "Der Benutzername, über den die Informationen abgerufen werden sollen.",
 	"apihelp-novaprojects-example-1": "Alle Projekte abrufen",
 	"apihelp-novaprojects-example-2": "Ruft alle Projekte und Rolleninformationen für den angemeldeten Benutzer ab",
