@@ -281,8 +281,9 @@ class SpecialNovaSudoer extends SpecialNova {
 	}
 
 	/**
-	 * @param $projectName
-	 * @param $sudoer
+	 * @param string $projectName Name of project
+	 * @param null|OpenStackNovaSudoer $sudoer Sudoer
+	 * @return array
 	 * @return-taint onlysafefor_html
 	 */
 	function getSudoUsers( $projectName, $sudoer = null ) {
@@ -325,9 +326,10 @@ class SpecialNovaSudoer extends SpecialNova {
 	}
 
 	/**
-	 * @param $projectName
-	 * @param $sudoer
+	 * @param string $projectName Project name
+	 * @param null|OpenStackNovaSudoer $sudoer Sudoer
 	 * @return-taint onlysafefor_html
+	 * @return array
 	 */
 	function getSudoRunAsUsers( $projectName, $sudoer = null ) {
 		$project = OpenStackNovaProject::getProjectByName( $projectName );
