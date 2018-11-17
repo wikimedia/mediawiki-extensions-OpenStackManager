@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Milicevic01"
+			"Milicevic01",
+			"Zoranzoki21"
 		]
 	},
 	"openstackmanager-novainstance": "Primerak Nove",
@@ -96,6 +97,7 @@
 	"openstackmanager-deletekey": "Brisanje javnog SSH ključa",
 	"openstackmanager-deletekeyconfirm": "Želite li da obrišete gorenavedeni ključ?",
 	"openstackmanager-keylist": "Spisak javnih SSH ključeva",
+	"openstackmanager-addkey": "Dodaj javni SSH ključ",
 	"openstackmanager-name": "Naziv",
 	"openstackmanager-fingerprint": "Otisak",
 	"openstackmanager-keys": "Ključevi",
@@ -191,5 +193,6 @@
 	"openstackmanager-commadelimiter": "Razdvojeno zapetama",
 	"openstackmanager-sudoerusers": "Korisnici",
 	"openstackmanager-sudoercommands": "Komande",
-	"openstackmanager-sudoeroptions": "Opcije"
+	"openstackmanager-sudoeroptions": "Opcije",
+	"prefs-openstack-keys": "Spisak ključeva"
 }
