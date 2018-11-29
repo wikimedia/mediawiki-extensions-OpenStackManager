@@ -95,6 +95,10 @@
 	"openstackmanager-keys": "Chiave",
 	"openstackmanager-addmember": "Aggiunge membre",
 	"openstackmanager-removemember": "Live 'nu membre",
+	"openstackmanager-displayquotas-ram": "RAM: $1/$2",
+	"openstackmanager-displayquotas-cores": "Core: $1/$2",
+	"openstackmanager-displayquotas-instances": "Istanze: $1/$2",
+	"openstackmanager-displayquotas-securitygroups": "Gruppe de securezze: $1/$2",
 	"openstackmanager-createproject": "Aggiunge 'nu proggette",
 	"openstackmanager-projectname": "Nome d'u proggette",
 	"openstackmanager-members": "Membre",
@@ -142,5 +146,9 @@
 	"openstackmanager-requirepassword": "Richiede autendicazione",
 	"openstackmanager-sudoeroptions": "Opziune",
 	"openstackmanager-allmembers": "Tutte le membre d'u proggette",
-	"echo-category-title-osm-instance-reboot-completed": "Riavvie de l'istanze combletate"
+	"echo-category-title-osm-instance-reboot-completed": "Riavvie de l'istanze combletate",
+	"apihelp-novaprojects-description": "Pigghie le 'mbormaziune sus a le pruggette.",
+	"apihelp-novaprojects-summary": "Pigghie le 'mbormaziune sus a le pruggette.",
+	"apihelp-novaservicegroups-description": "Pigghie le 'mbormaziune sus a le gruppe de servizie.",
+	"apihelp-novaservicegroups-summary": "Pigghie le 'mbormaziune sus a le gruppe de servizie."
 }
