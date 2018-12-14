@@ -3,7 +3,8 @@
 		"authors": [
 			"AnakngAraw",
 			"Stranger195",
-			"Leeheonjin"
+			"Leeheonjin",
+			"Jojit fb"
 		]
 	},
 	"openstackmanager-desc": "Nagpapahintulot sa mga tagagamit na pamahalaan ang Nova at Swift",
@@ -32,7 +33,7 @@
 	"openstackmanager-rename": "muling pangalanan",
 	"openstackmanager-reboot": "paandarin uli",
 	"openstackmanager-actions": "Mga galaw",
-	"openstackmanager-notloggedin": "Kailangan ang paglagda",
+	"openstackmanager-notloggedin": "Kailangan ang pag-login",
 	"openstackmanager-mustbeloggedin": "Dapat kang nakalagda upang maisagawa ang galaw na ito.",
 	"openstackmanager-nonovacred": "Walang natagpuang mga kredensyal ng Nova para sa akawnt mo.",
 	"openstackmanager-nonovacred-admincreate": "Walang natagpuang mga kredensyal ng Nova para sa akawnt na pangtagagamit mo.  Mangyaring hilingin sa isang tagapangasiwa ng Nova na lumikha ng mga kredensyal para sa iyo.",
