@@ -101,6 +101,8 @@
 	"openstackmanager-name": "Naziv",
 	"openstackmanager-fingerprint": "Otisak",
 	"openstackmanager-keys": "Ključevi",
+	"openstackmanager-keypairimportfailed": "Došlo je do greške prilikom uvoza ključa.",
+	"openstackmanager-keypairimported": "Ključ je uspešno uvezen.",
 	"openstackmanager-deletedkey": "Ključ je uspešno obrisan.",
 	"openstackmanager-deletedkeyfailed": "Ne mogu da obrišem ključ.",
 	"openstackmanager-addmember": "Dodavanje člana",

@@ -109,6 +109,8 @@
 	"openstackmanager-name": "Назив",
 	"openstackmanager-fingerprint": "Отисак",
 	"openstackmanager-keys": "Кључеви",
+	"openstackmanager-keypairimportfailed": "Увожење пара кључева није успело.",
+	"openstackmanager-keypairimported": "Пар кључева је увезен.",
 	"openstackmanager-deletedkey": "Кључ је обрисан.",
 	"openstackmanager-deletedkeyfailed": "Не могу да обришем кључ.",
 	"openstackmanager-addmember": "Додавање члана",
