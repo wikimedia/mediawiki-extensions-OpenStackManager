@@ -127,6 +127,7 @@
 	"openstackmanager-novaprojectfilter-projectfilter": "Filter projekta",
 	"openstackmanager-projects": "Projekti",
 	"openstackmanager-setprojects": "Filter projekta je uspešno postavljen.",
+	"openstackmanager-setprojectfilter": "Molimo odaberite projekte za prikazivanje koristeći filtriranje projekata.",
 	"openstackmanager-roles": "Uloge",
 	"openstackmanager-rolename": "Naziv uloge",
 	"openstackmanager-removerolemember": "Ukloni člana",
