@@ -136,7 +136,7 @@
 	"openstackmanager-novaprojectfilter-projectfilter": "Филтер пројекта",
 	"openstackmanager-projects": "Пројекти",
 	"openstackmanager-setprojects": "Филтер пројекта је постављен.",
-	"openstackmanager-setprojectfilter": "Молимо одаберите пројекте за приказивање користећи филтрирање пројеката.",
+	"openstackmanager-setprojectfilter": "Изаберите пројекте за приказ коришћењем филтера.",
 	"openstackmanager-projectfiltersubmit": "Постави филтер",
 	"openstackmanager-roles": "Улоге",
 	"openstackmanager-rolename": "Улога",
