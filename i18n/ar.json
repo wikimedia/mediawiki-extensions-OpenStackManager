@@ -360,6 +360,7 @@
 	"echo-category-title-osm-instance-build-completed": "بناء المثيل (أينما كنت إداري مشروع)",
 	"echo-category-title-osm-instance-reboot-completed": "الانتهاء من إعادة تشغيل المثيل",
 	"echo-category-title-osm-projectmembers-add": "إضافة عضوية المشروع",
+	"prefs-openstack": "أوبن ستاك",
 	"prefs-openstack-keys": "القائمة الرئيسية",
 	"apihelp-novaaddress-description": "تنفيذ إجراءات على عناوين آيبي نوفا.",
 	"apihelp-novaaddress-summary": "تنفيذ إجراءات على عناوين آيبي نوفا.",
