@@ -735,9 +735,9 @@ class OpenStackNovaController {
 				foreach (
 					$wgOpenStackManagerInstanceUserData['scripts'] as $scriptname => $script
 				) {
-					wfSuppressWarnings();
+					Wikimedia\suppressWarnings();
 					$stat = stat( $script );
-					wfRestoreWarnings();
+					Wikimedia\restoreWarnings();
 					if ( !$stat ) {
 						continue;
 					}
@@ -752,9 +752,9 @@ class OpenStackNovaController {
 				foreach (
 					$wgOpenStackManagerInstanceUserData['upstarts'] as $upstartname => $upstart
 				) {
-					wfSuppressWarnings();
+					Wikimedia\suppressWarnings();
 					$stat = stat( $upstart );
-					wfRestoreWarnings();
+					Wikimedia\restoreWarnings();
 					if ( !$stat ) {
 						continue;
 					}
