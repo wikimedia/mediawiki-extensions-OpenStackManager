@@ -1056,7 +1056,11 @@ class OpenStackNovaController {
 			$token = $fulltoken;
 		} else {
 			if ( !$this->token ) {
-				$wikiuser = User::newFromName( $this->user->getUsername() );
+				$wikiuser = User::newFromName( $this->username );
+				if ( !$wikiuser ) {
+					// No user, no token
+					return '';
+				}
 				$token = OpenStackNovaUser::loadToken( $wikiuser );
 				if ( !$token ) {
 					// Log this user out!
