@@ -20,7 +20,7 @@ class SpecialNovaProxy extends SpecialNova {
 			$this->notLoggedIn();
 			return;
 		}
-		$this->userLDAP = new OpenStackNovaUser();
+		$this->userLDAP = new OpenStackNovaUser( $this->getUser()->getName() );
 		if ( !$this->userLDAP->exists() ) {
 			$this->noCredentials();
 			return;

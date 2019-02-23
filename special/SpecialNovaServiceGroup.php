@@ -12,8 +12,6 @@ class SpecialNovaServiceGroup extends SpecialNova {
 
 	function __construct() {
 		parent::__construct( 'NovaServiceGroup', 'manageproject' );
-
-		$this->userLDAP = new OpenStackNovaUser();
 	}
 
 	function execute( $par ) {
@@ -22,7 +20,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 			return;
 		}
 		$this->checkTwoFactor();
-		$this->userLDAP = new OpenStackNovaUser();
+		$this->userLDAP = new OpenStackNovaUser( $this->getUser()->getName() );
 		$action = $this->getRequest()->getVal( 'action' );
 		if ( $action === "managemembers" ) {
 			$this->manageMembers();

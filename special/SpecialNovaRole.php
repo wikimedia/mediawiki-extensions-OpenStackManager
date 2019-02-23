@@ -12,8 +12,6 @@ class SpecialNovaRole extends SpecialNova {
 
 	function __construct() {
 		parent::__construct( 'NovaRole', 'manageproject' );
-
-		$this->userLDAP = new OpenStackNovaUser();
 	}
 
 	function execute( $par ) {
@@ -22,7 +20,7 @@ class SpecialNovaRole extends SpecialNova {
 			return;
 		}
 		$this->checkTwoFactor();
-		$this->userLDAP = new OpenStackNovaUser();
+		$this->userLDAP = new OpenStackNovaUser( $this->getUser()->getName() );
 		$action = $this->getRequest()->getVal( 'action' );
 		if ( $action === "addmember" ) {
 			$this->addMember();

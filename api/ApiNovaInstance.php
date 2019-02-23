@@ -25,7 +25,7 @@ class ApiNovaInstance extends ApiBase {
 	function execute() {
 		$this->params = $this->extractRequestParams();
 
-		$this->userLDAP = new OpenStackNovaUser();
+		$this->userLDAP = new OpenStackNovaUser( $this->getUser()->getName() );
 		$this->canExecute();
 		$this->userNova = OpenStackNovaController::newFromUser( $this->userLDAP );
 		$this->userNova->setProject( $this->params['project'] );

@@ -19,7 +19,7 @@ class OpenStackManagerHooks {
 				$result = [ 'openstackmanager-notloggedin' ];
 				return false;
 			}
-			$userLDAP = new OpenStackNovaUser();
+			$userLDAP = new OpenStackNovaUser( $user->getName() );
 			if ( !$userLDAP->exists() ) {
 				$result = [ 'openstackmanager-nonovacred-admincreate' ];
 			}

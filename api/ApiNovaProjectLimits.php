@@ -28,7 +28,7 @@ class ApiNovaProjectLimits extends ApiBase {
 
 	function execute() {
 		$this->params = $this->extractRequestParams();
-		$this->userLDAP = new OpenStackNovaUser();
+		$this->userLDAP = new OpenStackNovaUser( $this->getUser()->getName() );
 
 		switch ( $this->params['subaction'] ) {
 		case 'getlimits':
