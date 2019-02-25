@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Milicevic01",
-			"Zoranzoki21"
+			"Zoranzoki21",
+			"Vlad5250"
 		]
 	},
 	"openstackmanager-novainstance": "Primerak Nove",
@@ -153,7 +154,7 @@
 	"openstackmanager-removehost": "Brisanje hosta",
 	"openstackmanager-removehost-action": "(brisanje naziva hosta)",
 	"openstackmanager-removehost-confirm": "Jeste li sigurni da želite da obrišete host $1 iz $2?",
-	"openstackmanager-removedhost": "$1 je uspešno obrisan.",
+	"openstackmanager-removedhost": "$1 je uklonjen.",
 	"openstackmanager-removehostfailed": "Brisanje $1 nije uspelo.",
 	"openstackmanager-nonexistenthost": "Zahtevani host ne postoji.",
 	"openstackmanager-createsecuritygroup": "Pravljenje besbednosne grupe",

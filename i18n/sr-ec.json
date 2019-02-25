@@ -9,7 +9,8 @@
 			"Obsuser",
 			"Zoranzoki21",
 			"Acamicamacaraca",
-			"BadDog"
+			"BadDog",
+			"Vlad5250"
 		]
 	},
 	"action-listall": "прикажете све информације о ресурсу",
@@ -163,7 +164,7 @@
 	"openstackmanager-removehost": "Брисање хоста",
 	"openstackmanager-removehost-action": "(брисање назива хоста)",
 	"openstackmanager-removehost-confirm": "Јесте ли сигурни да желите да обришете хост $1 из $2?",
-	"openstackmanager-removedhost": "$1 је обрисан.",
+	"openstackmanager-removedhost": "$1 је уклоњен.",
 	"openstackmanager-removehostfailed": "Брисање $1 није успело.",
 	"openstackmanager-nonexistenthost": "Захтевани хост не постоји.",
 	"openstackmanager-createsecuritygroup": "Прављење бесбедносне групе",

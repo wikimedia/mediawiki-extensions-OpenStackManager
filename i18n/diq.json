@@ -27,7 +27,8 @@
 	"openstackmanager-rolename": "Namey roler",
 	"openstackmanager-removerolemember": "Ezay hewad",
 	"openstackmanager-addrolemember": "Eza cı ke",
+	"openstackmanager-removedhost": "$1 dariya we.",
 	"openstackmanager-securitygroupdescription": "Şınasnayış",
 	"openstackmanager-sudoerusers": "Karberi",
-	"openstackmanager-sudoeroptions": "Weçinegi"
+	"openstackmanager-sudoeroptions": "Weçinıteki"
 }

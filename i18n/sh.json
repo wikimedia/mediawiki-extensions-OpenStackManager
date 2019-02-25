@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Vlad5250"
+		]
+	},
+	"right-listall": "Prikaz svih informacija o resursima",
+	"right-editallhiera": "Uređivanje svih Hiera: stranica",
+	"right-managednsdomain": "Upravljanje globalnim DNS-modelima",
+	"right-accessrestrictedregions": "Pristup ograničenim područjima",
+	"right-manageproject": "Upravljanje projektima i ulozima u OpenStacku",
+	"right-loginviashell": "Prijavljivanje putem obvivke"
+}
