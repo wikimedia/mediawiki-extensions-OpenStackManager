@@ -29,6 +29,7 @@
 	"openstackmanager-addrolemember": "Eza cı ke",
 	"openstackmanager-removedhost": "$1 dariya we.",
 	"openstackmanager-securitygroupdescription": "Şınasnayış",
+	"openstackmanager-createnewsecuritygroup": "Grube cı ke",
 	"openstackmanager-sudoerusers": "Karberi",
 	"openstackmanager-sudoeroptions": "Weçinıteki"
 }
