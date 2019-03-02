@@ -109,5 +109,5 @@ class OnInstanceActionCompletion extends Maintenance {
 	}
 }
 
-$maintClass = "OnInstanceActionCompletion";
+$maintClass = OnInstanceActionCompletion::class;
 require_once RUN_MAINTENANCE_IF_MAIN;
