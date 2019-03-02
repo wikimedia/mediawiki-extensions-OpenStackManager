@@ -85,9 +85,6 @@ class Updatedomains extends Maintenance {
 			$this->error( "Must specify either --name or --all-instances.\n", true );
 		}
 
-		if ( !class_exists( 'OpenStackNovaHost' ) ) {
-			$this->error( "Couldn't find OpenStackNovaHost class.\n", true );
-		}
 		OpenStackNovaLdapConnection::connect();
 		foreach ( $instancelist as $instancepair ) {
 			list( $instanceregion, $instancename, $instanceproject ) = $instancepair;
