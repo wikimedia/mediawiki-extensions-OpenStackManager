@@ -69,5 +69,5 @@ class SyncProjectGroups extends Maintenance {
 
 }
 
-$maintClass = "SyncProjectGroups";
+$maintClass = SyncProjectGroups::class;
 require_once RUN_MAINTENANCE_IF_MAIN;

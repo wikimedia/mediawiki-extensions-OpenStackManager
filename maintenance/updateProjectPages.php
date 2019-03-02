@@ -26,5 +26,5 @@ class UpdateProjectPages extends Maintenance {
 
 }
 
-$maintClass = "UpdateProjectPages";
+$maintClass = UpdateProjectPages::class;
 require_once RUN_MAINTENANCE_IF_MAIN;

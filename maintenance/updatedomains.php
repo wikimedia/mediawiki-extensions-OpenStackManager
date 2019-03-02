@@ -106,5 +106,5 @@ class Updatedomains extends Maintenance {
 	}
 }
 
-$maintClass = "Updatedomains";
+$maintClass = Updatedomains::class;
 require_once RUN_MAINTENANCE_IF_MAIN;

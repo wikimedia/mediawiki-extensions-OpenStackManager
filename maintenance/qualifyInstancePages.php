@@ -62,5 +62,5 @@ class QualifyInstancePages extends Maintenance {
 
 }
 
-$maintClass = "QualifyInstancePages";
+$maintClass = QualifyInstancePages::class;
 require_once RUN_MAINTENANCE_IF_MAIN;
