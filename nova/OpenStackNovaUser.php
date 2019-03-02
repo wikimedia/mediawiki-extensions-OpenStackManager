@@ -570,7 +570,7 @@ class OpenStackNovaUser {
 			$key = wfMemcKey( 'openstackmanager', 'roles', $wgUser->getName() );
 			$roles = $wgMemc->get( $key );
 			if ( !is_array( $roles ) ) {
-				$user = new OpenStackNovaUser();
+				$user = new OpenStackNovaUser( $wgUser->getName() );
 				$roles = $user->getRoles();
 			}
 			$groups = array_unique( array_merge( $groups, $roles ) );
