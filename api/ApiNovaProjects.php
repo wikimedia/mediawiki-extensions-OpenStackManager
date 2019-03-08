@@ -90,38 +90,6 @@ class ApiNovaProjects extends ApiBase {
 	}
 
 	/**
-	 * @deprecated since MediaWiki core 1.25
-	 */
-	public function getParamDescription() {
-		return array_merge( parent::getParamDescription(), [
-			'subaction' => 'The subaction to perform.',
-			'project' => 'The project to perform the subaction upon',
-			'username' => 'The username to get information about',
-		] );
-	}
-
-	/**
-	 * @deprecated since MediaWiki core 1.25
-	 */
-	public function getDescription() {
-		return 'Gets information on projects.';
-	}
-
-	/**
-	 * @deprecated since MediaWiki core 1.25
-	 */
-	public function getExamples() {
-		return [
-			'api.php?action=novaprojects&subaction=getall'
-			=> 'Get all projects',
-			'api.php?action=novaprojects&subaction=getuser'
-			=> 'Get all projects and role info for the logged-in user',
-			'api.php?action=novaprojects&subaction=getuser&username=testuser'
-			=> 'Get all projects and role info for testuser',
-		];
-	}
-
-	/**
 	 * @see ApiBase::getExamplesMessages()
 	 * @return array
 	 */

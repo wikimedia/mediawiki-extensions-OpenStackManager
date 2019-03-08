@@ -108,42 +108,6 @@ class ApiNovaInstance extends ApiBase {
 	}
 
 	/**
-	 * @deprecated since MediaWiki core 1.25
-	 */
-	public function getParamDescription() {
-		return [
-			'subaction' => 'The subaction to perform.',
-			'instanceid' => 'The Nova instance ID to perform a subaction on',
-			'project' => 'The project in which the instance exists',
-			'region' => 'The region in which the instance exists',
-			'token' => 'An edit token',
-		];
-	}
-
-	/**
-	 * @deprecated since MediaWiki core 1.25
-	 */
-	public function getDescription() {
-		return 'Perform actions on instances.';
-	}
-
-	/**
-	 * @deprecated since MediaWiki core 1.25
-	 */
-	public function getExamples() {
-		return [
-			'api.php?action=novainstance&subaction=reboot&instanceid=' .
-				'eb195097-8539-4e66-b0b5-be8347d8caec&project=testing&region=mars&token=123ABC'
-			=> 'Reboot instance id eb195097-8539-4e66-b0b5-be8347d8caec in project testing in ' .
-				'region mars',
-			'api.php?action=novainstance&subaction=consoleoutput&instanceid=' .
-				'eb195097-8539-4e66-b0b5-be8347d8caec&project=testing&region=mars&token=123ABC'
-			=> 'Display console output for instance id eb195097-8539-4e66-b0b5-be8347d8caec in ' .
-				'project testing in region mars',
-		];
-	}
-
-	/**
 	 * @see ApiBase::getExamplesMessages()
 	 * @return array
 	 */

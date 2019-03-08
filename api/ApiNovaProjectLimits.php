@@ -87,36 +87,6 @@ class ApiNovaProjectLimits extends ApiBase {
 	}
 
 	/**
-	 * @deprecated since MediaWiki core 1.25
-	 */
-	public function getParamDescription() {
-		return array_merge( parent::getParamDescription(), [
-			'subaction' => 'The subaction to perform.',
-			'project' => 'The project to perform the subaction upon',
-			'region' => 'The region to perform the subaction upon',
-		] );
-	}
-
-	/**
-	 * @deprecated since MediaWiki core 1.25
-	 */
-	public function getDescription() {
-		return 'Gets information on projects.';
-	}
-
-	/**
-	 * @deprecated since MediaWiki core 1.25
-	 */
-	public function getExamples() {
-		return [
-			'api.php?action=novaproject&subaction=limits&project=testing'
-			=> 'Get limits for all regions for the testing project',
-			'api.php?action=novaproject&subaction=limits&project=testing&region=A'
-			=> 'Get limits for region A for the testing project',
-		];
-	}
-
-	/**
 	 * @see ApiBase::getExamplesMessages()
 	 * @return array
 	 */

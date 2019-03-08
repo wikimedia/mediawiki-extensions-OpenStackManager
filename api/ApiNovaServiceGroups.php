@@ -52,35 +52,6 @@ class ApiNovaServiceGroups extends ApiBase {
 	}
 
 	/**
-	 * @deprecated since MediaWiki core 1.25
-	 */
-	public function getParamDescription() {
-		return array_merge( parent::getParamDescription(), [
-			'subaction' => 'The subaction to perform.',
-			'project' => 'The project to perform the subaction upon',
-			'shellmembers' => 'Return shell account names for service group members, ' .
-				'rather than MediaWiki usernames',
-		] );
-	}
-
-	/**
-	 * @deprecated since MediaWiki core 1.25
-	 */
-	public function getDescription() {
-		return 'Gets information on service groups.';
-	}
-
-	/**
-	 * @deprecated since MediaWiki core 1.25
-	 */
-	public function getExamples() {
-		return [
-			'api.php?action=novaservicegroups&subaction=getservicegroups&project=testing'
-			=> 'Get all service groups in project testing',
-		];
-	}
-
-	/**
 	 * @see ApiBase::getExamplesMessages()
 	 * @return array
 	 */

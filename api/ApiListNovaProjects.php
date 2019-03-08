@@ -32,22 +32,6 @@ class ApiListNovaProjects extends ApiQueryGeneratorBase {
 	}
 
 	/**
-	 * @deprecated since MediaWiki core 1.25
-	 */
-	public function getDescription() {
-		return [
-			'Returns a list of all the known projects'
-		];
-	}
-
-	/**
-	 * @deprecated since MediaWiki core 1.25
-	 */
-	public function getExamples() {
-		return 'api.php?action=query&list=novaprojects';
-	}
-
-	/**
 	 * @see ApiBase::getExamplesMessages()
 	 * @return array
 	 */

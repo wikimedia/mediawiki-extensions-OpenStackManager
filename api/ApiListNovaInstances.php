@@ -98,22 +98,6 @@ class ApiListNovaInstances extends ApiQueryGeneratorBase {
 	}
 
 	/**
-	 * @deprecated since MediaWiki core 1.25
-	 */
-	public function getDescription() {
-		return [
-			'Returns a list of instances for the given project'
-		];
-	}
-
-	/**
-	 * @deprecated since MediaWiki core 1.25
-	 */
-	public function getExamples() {
-		return 'api.php?action=query&list=novainstances&niproject=cvn&niregion=eqiad';
-	}
-
-	/**
 	 * @see ApiBase::getExamplesMessages()
 	 * @return array
 	 */

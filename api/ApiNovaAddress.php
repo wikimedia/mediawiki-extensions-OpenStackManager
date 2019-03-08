@@ -96,36 +96,6 @@ class ApiNovaAddress extends ApiBase {
 	}
 
 	/**
-	 * @deprecated since MediaWiki core 1.25
-	 */
-	public function getParamDescription() {
-		return array_merge( parent::getParamDescription(), [
-			'subaction' => 'The subaction to perform.',
-			'id' => 'The ID of the Nova IP address on which we will perform the action.',
-			'project' => 'The project in which the address exists.',
-			'region' => 'The region of the currently-associated instance.',
-		] );
-	}
-
-	/**
-	 * @deprecated since MediaWiki core 1.25
-	 */
-	public function getDescription() {
-		return 'Perform actions on Nova IP addresses.';
-	}
-
-	/**
-	 * @deprecated since MediaWiki core 1.25
-	 */
-	public function getExamples() {
-		return [
-			'api.php?action=novaaddress&subaction=disassociate' .
-				'&id=7&project=testing&region=mars'
-			=> 'Disassociate IP 208.80.153.198 in project testing',
-		];
-	}
-
-	/**
 	 * @see ApiBase::getExamplesMessages()
 	 * @return array
 	 */
