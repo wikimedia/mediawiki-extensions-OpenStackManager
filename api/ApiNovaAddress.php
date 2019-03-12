@@ -26,7 +26,7 @@ class ApiNovaAddress extends ApiBase {
 		}
 	}
 
-	function execute() {
+	public function execute() {
 		$result = $this->getResult();
 
 		$this->params = $this->extractRequestParams();

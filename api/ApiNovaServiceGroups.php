@@ -3,7 +3,7 @@ class ApiNovaServiceGroups extends ApiBase {
 	public $userLDAP;
 	public $params;
 
-	function execute() {
+	public function execute() {
 		$this->params = $this->extractRequestParams();
 
 		switch ( $this->params['subaction'] ) {

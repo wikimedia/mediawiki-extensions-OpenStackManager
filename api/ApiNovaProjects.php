@@ -3,7 +3,7 @@ class ApiNovaProjects extends ApiBase {
 	public $userLDAP;
 	public $params;
 
-	function execute() {
+	public function execute() {
 		$this->params = $this->extractRequestParams();
 		$this->userLDAP = new OpenStackNovaUser( $this->getUser()->getName() );
 
