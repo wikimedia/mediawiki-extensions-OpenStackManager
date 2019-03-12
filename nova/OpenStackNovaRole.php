@@ -202,6 +202,6 @@ class OpenStackNovaRole {
 			$wgMemc->set( $key, $globalrolelist );
 		}
 
-		return isset( $globalrolelist[$roleid] ) ? $globalrolelist[$roleid] : "unknown role";
+		return $globalrolelist[$roleid] ?? "unknown role";
 	}
 }
