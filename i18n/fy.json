@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Robin0van0der0vliet",
-			"Robin van der Vliet"
+			"Robin van der Vliet",
+			"PiefPafPier"
 		]
 	},
 	"openstackmanager-delete": "fuortsmite",
@@ -10,6 +11,6 @@
 	"openstackmanager-name": "Namme",
 	"openstackmanager-deleteproject": "Fuortsmite",
 	"openstackmanager-projects": "Projekten",
-	"openstackmanager-sudoerusers": "Brûkers",
+	"openstackmanager-sudoerusers": "Meidoggers",
 	"openstackmanager-sudoeroptions": "Opsjes"
 }
