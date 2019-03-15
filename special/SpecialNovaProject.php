@@ -14,11 +14,11 @@ class SpecialNovaProject extends SpecialNova {
 	 */
 	public $userNova;
 
-	function __construct() {
+	public function __construct() {
 		parent::__construct( 'NovaProject', 'manageproject' );
 	}
 
-	function execute( $par ) {
+	public function execute( $par ) {
 		if ( !$this->getUser()->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return;
@@ -47,7 +47,7 @@ class SpecialNovaProject extends SpecialNova {
 	/**
 	 * @return bool
 	 */
-	function addMember() {
+	private function addMember() {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-addmember' ) );
 
@@ -93,7 +93,7 @@ class SpecialNovaProject extends SpecialNova {
 	/**
 	 * @return bool
 	 */
-	function deleteMember() {
+	private function deleteMember() {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-removemember' ) );
 
@@ -145,7 +145,7 @@ class SpecialNovaProject extends SpecialNova {
 	/**
 	 * @return bool
 	 */
-	function deleteProject() {
+	private function deleteProject() {
 		$this->setHeaders();
 		if ( !$this->userCanExecute( $this->getUser() ) ) {
 			$this->displayRestrictionError();
@@ -183,7 +183,7 @@ class SpecialNovaProject extends SpecialNova {
 	/**
 	 * @return void
 	 */
-	function listProjects() {
+	private function listProjects() {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-projectlist' ) );
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
@@ -217,7 +217,7 @@ class SpecialNovaProject extends SpecialNova {
 		$this->getOutput()->addHTML( $out );
 	}
 
-	function getProject( $project ) {
+	private function getProject( $project ) {
 		$project->fetchProjectInfo();
 		$headers = [
 			'openstackmanager-members',
@@ -298,7 +298,7 @@ class SpecialNovaProject extends SpecialNova {
 		return $this->createResourceTable( $headers, $projectRows );
 	}
 
-	function showCreateProject() {
+	private function showCreateProject() {
 		global $wgRequest;
 
 		if ( $wgRequest->wasPosted() && $wgRequest->getVal( 'action' ) !== 'create' ) {
@@ -339,7 +339,7 @@ class SpecialNovaProject extends SpecialNova {
 	/**
 	 * @return bool
 	 */
-	function displayQuotas() {
+	private function displayQuotas() {
 		$this->setHeaders();
 		$projectId = $this->getRequest()->getText( 'projectid' );
 		$project = new OpenStackNovaProject( $projectId );
@@ -401,7 +401,7 @@ class SpecialNovaProject extends SpecialNova {
 	 * @param string $entryPoint
 	 * @return bool
 	 */
-	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
+	public function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOpenStackManagerDefaultSecurityGroupRules;
 		global $wgOpenStackManagerLDAPUsername;
 
@@ -491,7 +491,7 @@ class SpecialNovaProject extends SpecialNova {
 	 * @param string $entryPoint
 	 * @return bool
 	 */
-	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
+	public function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
 		$project = OpenStackNovaProject::getProjectById( $formData['projectid'] );
 		$success = OpenStackNovaProject::deleteProject( $formData['projectid'] );
 		if ( $success ) {
@@ -516,7 +516,7 @@ class SpecialNovaProject extends SpecialNova {
 	 * @param string $entryPoint
 	 * @return bool
 	 */
-	function tryAddMemberSubmit( $formData, $entryPoint = 'internal' ) {
+	public function tryAddMemberSubmit( $formData, $entryPoint = 'internal' ) {
 		$project = new OpenStackNovaProject( $formData['projectid'] );
 		$projectName = $project->getName();
 		$members = explode( ',', $formData['member'] );
@@ -563,7 +563,7 @@ class SpecialNovaProject extends SpecialNova {
 	 * @param string $entryPoint
 	 * @return bool
 	 */
-	function tryDeleteMemberSubmit( $formData, $entryPoint = 'internal' ) {
+	public function tryDeleteMemberSubmit( $formData, $entryPoint = 'internal' ) {
 		$project = OpenStackNovaProject::getProjectById( $formData['projectid'] );
 		$projectName = $project->getName();
 		$out = $this->getOutput();

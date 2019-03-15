@@ -19,7 +19,7 @@ abstract class SpecialNova extends SpecialPage {
 	/**
 	 * @return void
 	 */
-	function notLoggedIn() {
+	protected function notLoggedIn() {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-notloggedin' ) );
 		$this->getOutput()->addWikiMsg( 'openstackmanager-mustbeloggedin' );
@@ -28,7 +28,7 @@ abstract class SpecialNova extends SpecialPage {
 	/**
 	 * @return void
 	 */
-	function noCredentials() {
+	protected function noCredentials() {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-nonovacred' ) );
 		$this->getOutput()->addWikiMsg( 'openstackmanager-nonovacred-admincreate' );
@@ -38,7 +38,7 @@ abstract class SpecialNova extends SpecialPage {
 	 * @param string $project
 	 * @return void
 	 */
-	function notInProject( $project ) {
+	protected function notInProject( $project ) {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-noaccount', $project ) );
 		$this->getOutput()->addWikiMsg( 'openstackmanager-noaccount2', $project );
@@ -47,7 +47,7 @@ abstract class SpecialNova extends SpecialPage {
 	/**
 	 * @return void
 	 */
-	function notInServiceGroup() {
+	protected function notInServiceGroup() {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-notinservicegroup' ) );
 		$this->getOutput()->addWikiMsg( 'openstackmanager-needservicegroup' );
@@ -58,7 +58,7 @@ abstract class SpecialNova extends SpecialPage {
 	 * @param string $project
 	 * @return void
 	 */
-	function notInRole( $role, $project ) {
+	protected function notInRole( $role, $project ) {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle(
 			$this->msg( 'openstackmanager-needrole', $role, $project )
@@ -66,7 +66,7 @@ abstract class SpecialNova extends SpecialPage {
 		$this->getOutput()->addWikiMsg( 'openstackmanager-needrole2', $role, $project );
 	}
 
-	function checkTwoFactor() {
+	protected function checkTwoFactor() {
 		if ( $this->getUser()->isAllowed( 'userrights' ) ) {
 			$isEnabled = false;
 			Hooks::run( 'TwoFactorIsEnabled', [ &$isEnabled ] );
@@ -85,7 +85,7 @@ abstract class SpecialNova extends SpecialPage {
 	 * @internal param $error
 	 * @return bool|string
 	 */
-	function validateText( $resourcename, $alldata ) {
+	protected function validateText( $resourcename, $alldata ) {
 		if ( !preg_match( "/^[a-z][a-z0-9-]*$/", $resourcename ) ) {
 			return Xml::element(
 				'span',
@@ -102,7 +102,7 @@ abstract class SpecialNova extends SpecialPage {
 	 * @param string $alldata
 	 * @return bool|string
 	 */
-	function validateDomain( $resourcename, $alldata ) {
+	protected function validateDomain( $resourcename, $alldata ) {
 		if ( !preg_match( "/^[a-z\*][a-z0-9\-]*$/", $resourcename ) ) {
 			return Xml::element(
 				'span',
@@ -114,7 +114,7 @@ abstract class SpecialNova extends SpecialPage {
 		}
 	}
 
-	function getProjectFilter() {
+	protected function getProjectFilter() {
 		global $wgRequest;
 
 		if ( $wgRequest->getCookie( 'projectfilter' ) ) {
@@ -123,7 +123,7 @@ abstract class SpecialNova extends SpecialPage {
 		return [];
 	}
 
-	function showProjectFilter( $projects ) {
+	protected function showProjectFilter( $projects ) {
 		if ( $this->getRequest()->wasPosted() &&
 			$this->getRequest()->getVal( 'action' ) !== 'setprojectfilter'
 		) {
@@ -175,7 +175,7 @@ abstract class SpecialNova extends SpecialPage {
 		return Linker::link( $title, $res );
 	}
 
-	function createActionLink( $msg, $params, $title = null, $attribs = [] ) {
+	protected function createActionLink( $msg, $params, $title = null, $attribs = [] ) {
 		if ( !$title ) {
 			$title = $this->getPageTitle();
 		}
@@ -251,7 +251,7 @@ abstract class SpecialNova extends SpecialPage {
 	 *
 	 * @return string
 	 */
-	function createProjectSection( $projectName, $actionsByRole, $data ) {
+	protected function createProjectSection( $projectName, $actionsByRole, $data ) {
 		$actions = [];
 		foreach ( $actionsByRole as $role => $roleActions ) {
 			foreach ( $roleActions as $action ) {
@@ -290,7 +290,7 @@ abstract class SpecialNova extends SpecialPage {
 	 *
 	 * @return string
 	 */
-	function createRegionSection( $region, $projectName, $actionsByRole, $data ) {
+	protected function createRegionSection( $region, $projectName, $actionsByRole, $data ) {
 		$actions = [];
 		foreach ( $actionsByRole as $role => $roleActions ) {
 			foreach ( $roleActions as $action ) {
@@ -312,7 +312,7 @@ abstract class SpecialNova extends SpecialPage {
 		return $out;
 	}
 
-	function trySetProjectFilter( $formData, $entryPoint = 'internal' ) {
+	public function trySetProjectFilter( $formData, $entryPoint = 'internal' ) {
 		global $wgRequest;
 
 		if ( !$formData['projects'] ) {

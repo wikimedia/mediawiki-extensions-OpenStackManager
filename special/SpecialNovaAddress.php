@@ -11,11 +11,11 @@ class SpecialNovaAddress extends SpecialNova {
 	/** @var OpenStackNovaController */
 	public $userNova;
 
-	function __construct() {
+	public function __construct() {
 		parent::__construct( 'NovaAddress' );
 	}
 
-	function execute( $par ) {
+	public function execute( $par ) {
 		if ( !$this->getUser()->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return;
@@ -53,7 +53,7 @@ class SpecialNovaAddress extends SpecialNova {
 	/**
 	 * @return bool
 	 */
-	function allocateAddress() {
+	private function allocateAddress() {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-allocateaddress' ) );
 
@@ -98,7 +98,7 @@ class SpecialNovaAddress extends SpecialNova {
 	/**
 	 * @return bool
 	 */
-	function releaseAddress() {
+	private function releaseAddress() {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-releaseaddress' ) );
 
@@ -151,7 +151,7 @@ class SpecialNovaAddress extends SpecialNova {
 	/**
 	 * @return bool
 	 */
-	function associateAddress() {
+	private function associateAddress() {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-associateaddress' ) );
 
@@ -216,7 +216,7 @@ class SpecialNovaAddress extends SpecialNova {
 	/**
 	 * @return bool
 	 */
-	function disassociateAddress() {
+	private function disassociateAddress() {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-disassociateaddress' ) );
 
@@ -269,7 +269,7 @@ class SpecialNovaAddress extends SpecialNova {
 	/**
 	 * @return bool
 	 */
-	function addHost() {
+	private function addHost() {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-addhost' ) );
 
@@ -335,7 +335,7 @@ class SpecialNovaAddress extends SpecialNova {
 	/**
 	 * @return bool
 	 */
-	function removeHost() {
+	private function removeHost() {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-removehost' ) );
 
@@ -400,7 +400,7 @@ class SpecialNovaAddress extends SpecialNova {
 	/**
 	 * @return bool
 	 */
-	function listAddresses() {
+	private function listAddresses() {
 		global $wgOpenStackManagerReadOnlyRegions;
 
 		$this->setHeaders();
@@ -462,7 +462,7 @@ class SpecialNovaAddress extends SpecialNova {
 		return true;
 	}
 
-	function getAddresses( $projectName, $region ) {
+	private function getAddresses( $projectName, $region ) {
 		$this->userNova->setRegion( $region );
 		$headers = [
 			'openstackmanager-address',
@@ -610,7 +610,7 @@ class SpecialNovaAddress extends SpecialNova {
 	 * @param string $entryPoint
 	 * @return bool
 	 */
-	function tryAllocateSubmit( $formData, $entryPoint = 'internal' ) {
+	public function tryAllocateSubmit( $formData, $entryPoint = 'internal' ) {
 		$address = $this->userNova->allocateAddress();
 		if ( !$address ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-allocateaddressfailed' );
@@ -633,7 +633,7 @@ class SpecialNovaAddress extends SpecialNova {
 	 * @param string $entryPoint
 	 * @return bool
 	 */
-	function tryReleaseSubmit( $formData, $entryPoint = 'internal' ) {
+	public function tryReleaseSubmit( $formData, $entryPoint = 'internal' ) {
 		$id = $formData['id'];
 		# TODO: Instead of throwing an error when host exist or the IP
 		# is associated, remove all host entries and disassociate the IP
@@ -672,7 +672,7 @@ class SpecialNovaAddress extends SpecialNova {
 	 * @param string $entryPoint
 	 * @return bool
 	 */
-	function tryAssociateSubmit( $formData, $entryPoint = 'internal' ) {
+	public function tryAssociateSubmit( $formData, $entryPoint = 'internal' ) {
 		$instanceid = $formData['instanceid'];
 		$id = $formData['id'];
 		$address = $this->userNova->getAddress( $id );
@@ -709,7 +709,7 @@ class SpecialNovaAddress extends SpecialNova {
 	 * @param string $entryPoint
 	 * @return bool
 	 */
-	function tryDisassociateSubmit( $formData, $entryPoint = 'internal' ) {
+	public function tryDisassociateSubmit( $formData, $entryPoint = 'internal' ) {
 		$id = $formData['id'];
 		$address = $this->userNova->getAddress( $id );
 		$ip = $address->getPublicIp();
@@ -737,7 +737,7 @@ class SpecialNovaAddress extends SpecialNova {
 	 * @param string $entryPoint
 	 * @return bool
 	 */
-	function tryAddHostSubmit( $formData, $entryPoint = 'internal' ) {
+	public function tryAddHostSubmit( $formData, $entryPoint = 'internal' ) {
 		$id = $formData['id'];
 		$address = $this->userNova->getAddress( $id );
 		$ip = $address->getPublicIp();
@@ -784,7 +784,7 @@ class SpecialNovaAddress extends SpecialNova {
 	 * @param string $entryPoint
 	 * @return bool
 	 */
-	function tryRemoveHostSubmit( $formData, $entryPoint = 'internal' ) {
+	public function tryRemoveHostSubmit( $formData, $entryPoint = 'internal' ) {
 		$id = $formData['id'];
 		$address = $this->userNova->getAddress( $id );
 		$outputPage = $this->getOutput();

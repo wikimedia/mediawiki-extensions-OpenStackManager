@@ -17,11 +17,11 @@ class SpecialNovaProxy extends SpecialNova {
 	/** @var OpenStackNovaProject */
 	private $project;
 
-	function __construct() {
+	public function __construct() {
 		parent::__construct( 'NovaProxy' );
 	}
 
-	function execute( $par ) {
+	public function execute( $par ) {
 		if ( !$this->getUser()->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return;
@@ -62,7 +62,7 @@ class SpecialNovaProxy extends SpecialNova {
 	/**
 	 * @return bool
 	 */
-	function createProxy() {
+	private function createProxy() {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-createproxy' ) );
 		if ( !$this->userLDAP->inRole( 'projectadmin', $this->projectName ) ) {
@@ -155,7 +155,7 @@ class SpecialNovaProxy extends SpecialNova {
 	/**
 	 * @return bool
 	 */
-	function deleteProxy() {
+	private function deleteProxy() {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-deleteproxy' ) );
 		if ( !$this->userLDAP->inRole( 'projectadmin', $this->projectName ) ) {
@@ -203,7 +203,7 @@ class SpecialNovaProxy extends SpecialNova {
 	/**
 	 * @return void
 	 */
-	function listProxies() {
+	private function listProxies() {
 		global $wgOpenStackManagerReadOnlyRegions;
 		$this->setHeaders();
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
@@ -258,7 +258,7 @@ class SpecialNovaProxy extends SpecialNova {
 		$this->getOutput()->addHTML( $out );
 	}
 
-	function getProxies( $projectName, $region ) {
+	private function getProxies( $projectName, $region ) {
 		$this->userNova->setProject( $projectName );
 		$this->userNova->setRegion( $region );
 		$proxies = $this->userNova->getProxiesForProject();
@@ -299,7 +299,7 @@ class SpecialNovaProxy extends SpecialNova {
 		return $out;
 	}
 
-	function addHost( $hostName, $domain, $ip ) {
+	private function addHost( $hostName, $domain, $ip ) {
 		$domain = OpenStackNovaDomain::getDomainByName( $domain );
 		$hostbyip = OpenStackNovaHost::getHostByPublicIP( $ip );
 		$fqdn = $hostName . '.' . $domain->getFullyQualifiedDomainName();
@@ -321,7 +321,7 @@ class SpecialNovaProxy extends SpecialNova {
 		return true;
 	}
 
-	function deleteHost( $fqdn, $ip ) {
+	private function deleteHost( $fqdn, $ip ) {
 		$host = OpenStackNovaHost::getHostByPublicIP( $ip );
 		if ( $host ) {
 			$records = $host->getAssociatedDomains();
@@ -353,7 +353,7 @@ class SpecialNovaProxy extends SpecialNova {
 	 * @param string $entryPoint
 	 * @return bool
 	 */
-	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
+	public function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOpenStackManagerProxyGateways;
 
 		$outputPage = $this->getOutput();
@@ -388,7 +388,7 @@ class SpecialNovaProxy extends SpecialNova {
 	 * @param string $entryPoint
 	 * @return bool
 	 */
-	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
+	public function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOpenStackManagerProxyGateways;
 		$goback = '<br />';
 		$goback .= Linker::link(

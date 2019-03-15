@@ -13,11 +13,11 @@ class SpecialNovaVolume extends SpecialNova {
 	 */
 	public $userNova;
 
-	function __construct() {
+	public function __construct() {
 		parent::__construct( 'NovaVolume' );
 	}
 
-	function execute( $par ) {
+	public function execute( $par ) {
 		if ( !$this->getUser()->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return;
@@ -68,7 +68,7 @@ class SpecialNovaVolume extends SpecialNova {
 	/**
 	 * @return bool
 	 */
-	function createVolume() {
+	private function createVolume() {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-createvolume' ) );
 
@@ -131,7 +131,7 @@ class SpecialNovaVolume extends SpecialNova {
 	/**
 	 * @return bool
 	 */
-	function deleteVolume() {
+	private function deleteVolume() {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-deletevolume' ) );
 
@@ -181,7 +181,7 @@ class SpecialNovaVolume extends SpecialNova {
 	/**
 	 * @return bool
 	 */
-	function attachVolume() {
+	private function attachVolume() {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-attachvolume' ) );
 
@@ -263,7 +263,7 @@ class SpecialNovaVolume extends SpecialNova {
 	/**
 	 * @return bool
 	 */
-	function detachVolume() {
+	private function detachVolume() {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-detachvolume' ) );
 
@@ -323,7 +323,7 @@ class SpecialNovaVolume extends SpecialNova {
 	/**
 	 * @return void
 	 */
-	function listVolumes() {
+	private function listVolumes() {
 		$this->setHeaders();
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-volumelist' ) );
@@ -370,7 +370,7 @@ class SpecialNovaVolume extends SpecialNova {
 		$this->getOutput()->addHTML( $out );
 	}
 
-	function getVolumes( $projectName, $region ) {
+	public function getVolumes( $projectName, $region ) {
 		$headers = [ 'openstackmanager-volumename',
 			'openstackmanager-volumeid', 'openstackmanager-volumedescription',
 			'openstackmanager-volumeattachmentinstance',
@@ -420,7 +420,7 @@ class SpecialNovaVolume extends SpecialNova {
 	 * @param string $entryPoint
 	 * @return bool
 	 */
-	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
+	public function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
 		$volume = $this->userNova->createVolume(
 			'',
 			$formData['volumeSize'],
@@ -450,7 +450,7 @@ class SpecialNovaVolume extends SpecialNova {
 	 * @param string $entryPoint
 	 * @return bool
 	 */
-	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
+	public function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
 		$volume = $this->userNova->getVolume( $formData['volumeid'] );
 		if ( !$volume ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-nonexistantvolume' );
@@ -479,7 +479,7 @@ class SpecialNovaVolume extends SpecialNova {
 	 * @param string $entryPoint
 	 * @return bool
 	 */
-	function tryAttachSubmit( $formData, $entryPoint = 'internal' ) {
+	public function tryAttachSubmit( $formData, $entryPoint = 'internal' ) {
 		$success = $this->userNova->attachVolume(
 			$formData['volumeid'], $formData['instanceid'], $formData['device']
 		);
@@ -504,7 +504,7 @@ class SpecialNovaVolume extends SpecialNova {
 	 * @param string $entryPoint
 	 * @return bool
 	 */
-	function tryDetachSubmit( $formData, $entryPoint = 'internal' ) {
+	public function tryDetachSubmit( $formData, $entryPoint = 'internal' ) {
 		if ( isset( $formData['force'] ) && $formData['force'] ) {
 			$force = true;
 		} else {
@@ -532,7 +532,7 @@ class SpecialNovaVolume extends SpecialNova {
 	 *
 	 * @return string[]
 	 */
-	function getDrives() {
+	private function getDrives() {
 		$drives = [];
 		foreach ( range( 'a', 'z' ) as $letter ) {
 			$drive = '/dev/vd' . $letter;

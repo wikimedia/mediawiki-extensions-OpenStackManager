@@ -11,11 +11,11 @@ class SpecialNovaKey extends SpecialNova {
 	/** @var OpenStackNovaController */
 	public $userNova;
 
-	function __construct() {
+	public function __construct() {
 		parent::__construct( 'NovaKey' );
 	}
 
-	function execute( $par ) {
+	public function execute( $par ) {
 		if ( !$this->getUser()->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return;
@@ -36,7 +36,7 @@ class SpecialNovaKey extends SpecialNova {
 	/**
 	 * @return bool
 	 */
-	function deleteKey() {
+	private function deleteKey() {
 		global $wgOpenStackManagerNovaKeypairStorage;
 
 		$this->setHeaders();
@@ -105,7 +105,7 @@ class SpecialNovaKey extends SpecialNova {
 		return true;
 	}
 
-	function addKey() {
+	private function addKey() {
 		global $wgOpenStackManagerNovaKeypairStorage;
 
 		$this->setHeaders();
@@ -165,7 +165,7 @@ class SpecialNovaKey extends SpecialNova {
 	 * @param string $keydata SSH public/private key in some format
 	 * @return mixed Public key in openssh format or false
 	 */
-	static function opensshFormatKey( $keydata ) {
+	private static function opensshFormatKey( $keydata ) {
 		$public = self::opensshFormatKeySshKeygen( $keydata );
 
 		if ( !$public ) {
@@ -180,7 +180,7 @@ class SpecialNovaKey extends SpecialNova {
 	 * @param string $keydata SSH public/private key in some format
 	 * @return mixed Public key in openssh format or false
 	 */
-	static function opensshFormatKeyPuttygen( $keydata ) {
+	private static function opensshFormatKeyPuttygen( $keydata ) {
 		global $wgPuttygen;
 
 		if ( wfIsWindows() || !$wgPuttygen ) {
@@ -243,7 +243,7 @@ class SpecialNovaKey extends SpecialNova {
 	 * @param string $keydata SSH public/private key in some format
 	 * @return mixed Public key in openssh format or false
 	 */
-	static function opensshFormatKeySshKeygen( $keydata ) {
+	private static function opensshFormatKeySshKeygen( $keydata ) {
 		global $wgSshKeygen;
 
 		if ( wfIsWindows() || !$wgSshKeygen ) {
@@ -287,7 +287,7 @@ class SpecialNovaKey extends SpecialNova {
 	 * @param string $entryPoint
 	 * @return bool
 	 */
-	function tryImportSubmit( $formData, $entryPoint = 'internal' ) {
+	public function tryImportSubmit( $formData, $entryPoint = 'internal' ) {
 		global $wgOpenStackManagerNovaKeypairStorage;
 
 		$key = trim( $formData['key'] ); # Because people copy paste it with an accidental newline
@@ -342,7 +342,7 @@ class SpecialNovaKey extends SpecialNova {
 	 * @param string $entryPoint
 	 * @return bool
 	 */
-	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
+	public function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
 		$success = $this->userLDAP->deleteKeypair( $formData['key'] );
 		if ( $success ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-deletedkey' );

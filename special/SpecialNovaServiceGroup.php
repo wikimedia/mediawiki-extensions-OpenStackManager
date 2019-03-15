@@ -9,11 +9,11 @@
 
 class SpecialNovaServiceGroup extends SpecialNova {
 
-	function __construct() {
+	public function __construct() {
 		parent::__construct( 'NovaServiceGroup', 'manageproject' );
 	}
 
-	function execute( $par ) {
+	public function execute( $par ) {
 		if ( !$this->getUser()->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return;
@@ -35,7 +35,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 	/**
 	 * @return bool
 	 */
-	function manageMembers() {
+	private function manageMembers() {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle(
 			$this->msg( 'openstackmanager-manageservicegroupmembers-title' )
@@ -128,7 +128,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 	/**
 	 * @return bool
 	 */
-	function addServiceGroup() {
+	private function addServiceGroup() {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-addservicegroup' ) );
 
@@ -172,7 +172,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 	/**
 	 * @return bool
 	 */
-	function removeServiceGroup() {
+	private function removeServiceGroup() {
 		$this->setHeaders();
 		$project = $this->getRequest()->getText( 'projectname' );
 
@@ -221,7 +221,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 	/**
 	 * @return void
 	 */
-	function listServiceGroups() {
+	private function listServiceGroups() {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-servicegrouplist' ) );
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
@@ -261,7 +261,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 		$this->getOutput()->addHTML( $out );
 	}
 
-	function getServiceGroups( $project ) {
+	private function getServiceGroups( $project ) {
 		$project->fetchProjectInfo();
 		$projectName = $project->getProjectName();
 		$serviceGroups = $project->getServiceGroups();
@@ -314,7 +314,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 	 * @param string $entryPoint
 	 * @return bool
 	 */
-	function tryCreateServiceGroupSubmit( $formData, $entryPoint = 'internal' ) {
+	public function tryCreateServiceGroupSubmit( $formData, $entryPoint = 'internal' ) {
 		$project = OpenStackNovaProject::getProjectByName( $formData['projectname'] );
 		$username = $this->userLDAP->getUsername();
 
@@ -341,7 +341,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 	 * @param string $entryPoint
 	 * @return bool
 	 */
-	function tryManageMembersSubmit( $formData, $entryPoint = 'internal' ) {
+	public function tryManageMembersSubmit( $formData, $entryPoint = 'internal' ) {
 		$projectname = $formData['projectname'];
 		if ( $projectname ) {
 			$project = OpenStackNovaProject::getProjectByName( $projectname );
@@ -391,7 +391,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 	 * @param string $entryPoint
 	 * @return bool
 	 */
-	function tryRemoveServiceGroupSubmit( $formData, $entryPoint = 'internal' ) {
+	public function tryRemoveServiceGroupSubmit( $formData, $entryPoint = 'internal' ) {
 		$project = OpenStackNovaProject::getProjectByName( $formData['projectname'] );
 
 		$success = $project->deleteServiceGroup( $formData['groupname'] );

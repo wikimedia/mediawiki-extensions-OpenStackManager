@@ -21,11 +21,11 @@ class SpecialNovaResources extends SpecialNova {
 	 */
 	private $userNova;
 
-	function __construct() {
+	public function __construct() {
 		parent::__construct( 'NovaResources' );
 	}
 
-	function execute( $par ) {
+	public function execute( $par ) {
 		if ( !$this->getUser()->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return;
@@ -49,7 +49,7 @@ class SpecialNovaResources extends SpecialNova {
 	 * Default action
 	 * @return void
 	 */
-	function listInstances() {
+	private function listInstances() {
 		$this->setHeaders();
 		$this->getOutput()->addModules( 'ext.openstack.Instance' );
 
@@ -115,7 +115,7 @@ class SpecialNovaResources extends SpecialNova {
 		$this->getOutput()->addHTML( $out );
 	}
 
-	function getInstances( $projectName, $region, &$instanceCount ) {
+	private function getInstances( $projectName, $region, &$instanceCount ) {
 		$this->userNova->setRegion( $region );
 		$headers = [
 			'openstackmanager-instancename',

@@ -9,11 +9,11 @@
 
 class SpecialNovaRole extends SpecialNova {
 
-	function __construct() {
+	public function __construct() {
 		parent::__construct( 'NovaRole', 'manageproject' );
 	}
 
-	function execute( $par ) {
+	public function execute( $par ) {
 		if ( !$this->getUser()->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return;
@@ -33,7 +33,7 @@ class SpecialNovaRole extends SpecialNova {
 	/**
 	 * @return bool
 	 */
-	function addMember() {
+	private function addMember() {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-addmember' ) );
 
@@ -113,7 +113,7 @@ class SpecialNovaRole extends SpecialNova {
 	/**
 	 * @return bool
 	 */
-	function deleteMember() {
+	private function deleteMember() {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-removerolemember' ) );
 
@@ -194,7 +194,7 @@ class SpecialNovaRole extends SpecialNova {
 	 * @param string $entryPoint
 	 * @return bool
 	 */
-	function tryAddMemberSubmit( $formData, $entryPoint = 'internal' ) {
+	public function tryAddMemberSubmit( $formData, $entryPoint = 'internal' ) {
 		$projectid = $formData['projectid'];
 		if ( $projectid ) {
 			$project = OpenStackNovaProject::getProjectById( $projectid );
@@ -239,7 +239,7 @@ class SpecialNovaRole extends SpecialNova {
 	 * @param string $entryPoint
 	 * @return bool
 	 */
-	function tryDeleteMemberSubmit( $formData, $entryPoint = 'internal' ) {
+	public function tryDeleteMemberSubmit( $formData, $entryPoint = 'internal' ) {
 		$projectid = $formData['projectid'];
 		$out = $this->getOutput();
 		if ( $projectid ) {

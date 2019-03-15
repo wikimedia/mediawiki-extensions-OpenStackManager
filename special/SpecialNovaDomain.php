@@ -9,11 +9,11 @@
 
 class SpecialNovaDomain extends SpecialNova {
 
-	function __construct() {
+	public function __construct() {
 		parent::__construct( 'NovaDomain', 'managednsdomain' );
 	}
 
-	function execute( $par ) {
+	public function execute( $par ) {
 		if ( !$this->getUser()->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return;
@@ -40,7 +40,7 @@ class SpecialNovaDomain extends SpecialNova {
 	/**
 	 * @return bool
 	 */
-	function deleteDomain() {
+	private function deleteDomain() {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-deletedomain' ) );
 
@@ -74,7 +74,7 @@ class SpecialNovaDomain extends SpecialNova {
 	/**
 	 * @return void
 	 */
-	function listDomains() {
+	private function listDomains() {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-domainlist' ) );
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
@@ -154,7 +154,7 @@ class SpecialNovaDomain extends SpecialNova {
 	 * @param string $entryPoint
 	 * @return bool
 	 */
-	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
+	public function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
 		$success = OpenStackNovaDomain::createDomain(
 			$formData['domainname'], $formData['fqdn'], $formData['location']
 		);
@@ -179,7 +179,7 @@ class SpecialNovaDomain extends SpecialNova {
 	 * @param string $entryPoint
 	 * @return bool
 	 */
-	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
+	public function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
 		list( $success, $errmsg ) = OpenStackNovaDomain::deleteDomain( $formData['domainname'] );
 		if ( $success ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-deleteddomain' );

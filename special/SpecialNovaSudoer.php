@@ -18,11 +18,11 @@ class SpecialNovaSudoer extends SpecialNova {
 	/** @var OpenStackNovaProject */
 	private $project;
 
-	function __construct() {
+	public function __construct() {
 		parent::__construct( 'NovaSudoer' );
 	}
 
-	function execute( $par ) {
+	public function execute( $par ) {
 		if ( !$this->getUser()->isLoggedIn() ) {
 			$this->notLoggedIn();
 			return;
@@ -63,7 +63,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	/**
 	 * @return bool
 	 */
-	function createSudoer() {
+	private function createSudoer() {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-modifysudoer' ) );
 		if ( !$this->userLDAP->inRole( 'projectadmin', $this->projectName ) ) {
@@ -144,7 +144,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	/**
 	 * @return bool
 	 */
-	function deleteSudoer() {
+	private function deleteSudoer() {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-deletesudoer' ) );
 		if ( !$this->userLDAP->inRole( 'projectadmin', $this->projectName ) ) {
@@ -186,7 +186,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	/**
 	 * @return bool
 	 */
-	function modifySudoer() {
+	private function modifySudoer() {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-modifysudoer' ) );
 		if ( !$this->userLDAP->inRole( 'projectadmin', $this->projectName ) ) {
@@ -294,7 +294,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	 * @return array
 	 * @return-taint onlysafefor_html
 	 */
-	function getSudoUsers( $projectName, $sudoer = null ) {
+	private function getSudoUsers( $projectName, $sudoer = null ) {
 		$project = OpenStackNovaProject::getProjectByName( $projectName );
 		$projectuids = $project->getMemberUids();
 		$projectserviceusers = $project->getServiceUsers();
@@ -339,7 +339,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	 * @return-taint onlysafefor_html
 	 * @return array
 	 */
-	function getSudoRunAsUsers( $projectName, $sudoer = null ) {
+	private function getSudoRunAsUsers( $projectName, $sudoer = null ) {
 		$project = OpenStackNovaProject::getProjectByName( $projectName );
 		$projectuids = $project->getMemberUids();
 		$projectserviceusers = $project->getServiceUsers();
@@ -388,7 +388,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	/**
 	 * @return void
 	 */
-	function listSudoers() {
+	private function listSudoers() {
 		$this->setHeaders();
 		$this->getOutput()->addModuleStyles( 'ext.openstack' );
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-sudoerlist' ) );
@@ -424,7 +424,7 @@ class SpecialNovaSudoer extends SpecialNova {
 		$this->getOutput()->addHTML( $out );
 	}
 
-	function makeHumanReadableUserlist( $userList, $project ) {
+	private function makeHumanReadableUserlist( $userList, $project ) {
 		$HRList = [];
 
 		$projectuids = $project->getMemberUids();
@@ -456,7 +456,7 @@ class SpecialNovaSudoer extends SpecialNova {
 		return $HRList;
 	}
 
-	function getSudoers( $project ) {
+	private function getSudoers( $project ) {
 		$project->fetchProjectInfo();
 		$projectName = $project->getProjectName();
 		$this->userNova->setProject( $projectName );
@@ -516,7 +516,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	 * @param array $users a list of usernames and/or 'openstackmanager-allmembers'
 	 * @return array modified list of usernames
 	 */
-	function removeALLFromUserKeys( $users ) {
+	private function removeALLFromUserKeys( $users ) {
 		$newusers = [];
 		foreach ( $users as $user ) {
 			if ( $user == 'ALL' || $user == $this->msg( 'openstackmanager-allmembers' )->text() ) {
@@ -537,7 +537,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	 * @param array $users a list of usernames and/or 'openstackmanager-allmembers'
 	 * @return array modified list of usernames
 	 */
-	function removeALLFromRunAsUserKeys( $users ) {
+	private function removeALLFromRunAsUserKeys( $users ) {
 		$newusers = [];
 		foreach ( $users as $user ) {
 			if ( ( $user == $this->msg( 'openstackmanager-allmembers' )->text() ) ) {
@@ -554,7 +554,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	 * @param string $entryPoint
 	 * @return bool
 	 */
-	function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
+	public function tryCreateSubmit( $formData, $entryPoint = 'internal' ) {
 		if ( $formData['commands'] ) {
 			$commands = explode( "\n", $formData['commands'] );
 		} else {
@@ -600,7 +600,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	 * @param string $entryPoint
 	 * @return bool
 	 */
-	function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
+	public function tryDeleteSubmit( $formData, $entryPoint = 'internal' ) {
 		$success = OpenStackNovaSudoer::deleteSudoer(
 			$formData['sudoername'], $formData['project']
 		);
@@ -625,7 +625,7 @@ class SpecialNovaSudoer extends SpecialNova {
 	 * @param string $entryPoint
 	 * @return bool
 	 */
-	function tryModifySubmit( $formData, $entryPoint = 'internal' ) {
+	public function tryModifySubmit( $formData, $entryPoint = 'internal' ) {
 		$sudoer = OpenStackNovaSudoer::getSudoerByName(
 			$formData['sudoername'], $formData['project']
 		);
