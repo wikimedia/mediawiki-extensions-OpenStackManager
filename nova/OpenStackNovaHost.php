@@ -30,7 +30,7 @@ abstract class OpenStackNovaHost {
 	 *
 	 * @return array
 	 */
-	function getARecords() {
+	public function getARecords() {
 		$arecords = [];
 		if ( isset( $this->hostInfo[0]['arecord'] ) ) {
 			$arecords = $this->hostInfo[0]['arecord'];
@@ -46,7 +46,7 @@ abstract class OpenStackNovaHost {
 	 *
 	 * @return array
 	 */
-	function getAssociatedDomains() {
+	public function getAssociatedDomains() {
 		$associateddomain = [];
 		if ( isset( $this->hostInfo[0]['associateddomain'] ) ) {
 			$associateddomain = $this->hostInfo[0]['associateddomain'];
@@ -62,7 +62,7 @@ abstract class OpenStackNovaHost {
 	 *
 	 * @return array
 	 */
-	function getCNAMERecords() {
+	public function getCNAMERecords() {
 		$cnamerecords = [];
 		if ( isset( $this->hostInfo[0]['cnamerecord'] ) ) {
 			$cnamerecords = $this->hostInfo[0]['cnamearecord'];
@@ -78,7 +78,7 @@ abstract class OpenStackNovaHost {
 	 * @param string $fqdn
 	 * @return bool
 	 */
-	function deleteAssociatedDomain( $fqdn ) {
+	public function deleteAssociatedDomain( $fqdn ) {
 		if ( isset( $this->hostInfo[0]['associateddomain'] ) ) {
 			$ldap = LdapAuthenticationPlugin::getInstance();
 			$associateddomains = $this->hostInfo[0]['associateddomain'];
@@ -117,7 +117,7 @@ abstract class OpenStackNovaHost {
 	 * @param string $ip
 	 * @return bool
 	 */
-	function deleteARecord( $ip ) {
+	public function deleteARecord( $ip ) {
 		if ( isset( $this->hostInfo[0]['arecord'] ) ) {
 			$ldap = LdapAuthenticationPlugin::getInstance();
 			$arecords = $this->hostInfo[0]['arecord'];
@@ -156,7 +156,7 @@ abstract class OpenStackNovaHost {
 	 * @param string $fqdn
 	 * @return bool
 	 */
-	function addAssociatedDomain( $fqdn ) {
+	public function addAssociatedDomain( $fqdn ) {
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		$associatedomains = [];
 		if ( isset( $this->hostInfo[0]['associateddomain'] ) ) {
@@ -184,7 +184,7 @@ abstract class OpenStackNovaHost {
 	 * @param string $ip
 	 * @return bool
 	 */
-	function addARecord( $ip ) {
+	public function addARecord( $ip ) {
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		$arecords = [];
 		if ( isset( $this->hostInfo[0]['arecord'] ) ) {
@@ -212,7 +212,7 @@ abstract class OpenStackNovaHost {
 	 * @param string $ip
 	 * @return bool
 	 */
-	function setARecord( $ip ) {
+	public function setARecord( $ip ) {
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		$values = [ 'arecord' => [ $ip ] ];
 		$success = LdapAuthenticationPlugin::ldap_modify( $ldap->ldapconn, $this->hostDN, $values );
@@ -234,7 +234,7 @@ abstract class OpenStackNovaHost {
 	 * @param string $ip
 	 * @return OpenStackNovaHost
 	 */
-	static function getHostByPublicIP( $ip ) {
+	public static function getHostByPublicIP( $ip ) {
 		$host = new OpenStackNovaPublicHost( $ip );
 		if ( $host->hostInfo ) {
 			return $host;
@@ -251,7 +251,7 @@ abstract class OpenStackNovaHost {
 	 * @param string $region
 	 * @return OpenStackNovaHost
 	 */
-	static function getHostByNameAndProject( $instancename, $instanceproject, $region ) {
+	public static function getHostByNameAndProject( $instancename, $instanceproject, $region ) {
 		$host = new OpenStackNovaPrivateHost( $instancename, $instanceproject, $region );
 		if ( $host->hostInfo ) {
 			return $host;
@@ -265,7 +265,7 @@ abstract class OpenStackNovaHost {
 	 *
 	 * @return bool
 	 */
-	function deleteHost() {
+	public function deleteHost() {
 		$ldap = LdapAuthenticationPlugin::getInstance();
 
 		# Grab the domain now, before we delete the entry and it's no longer there to grab.
@@ -287,14 +287,14 @@ abstract class OpenStackNovaHost {
 	 *
 	 * @return OpenStackNovaDomain
 	 */
-	abstract function getDomain();
+	abstract public function getDomain();
 
 	/**
 	 * Fetch the host from LDAP and initialize the object
 	 *
 	 * @return void
 	 */
-	abstract function fetchHostInfo();
+	abstract public function fetchHostInfo();
 
 	/**
 	 * Adds a host entry based on the hostname, IP addrss, and a domain. Returns null
@@ -306,7 +306,7 @@ abstract class OpenStackNovaHost {
 	 * @param OpenStackNovaDomain $domain
 	 * @return bool|null|OpenStackNovaHost
 	 */
-	static function addPublicHost( $hostname, $ip, $domain ) {
+	public static function addPublicHost( $hostname, $ip, $domain ) {
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
 
 		$ldap = LdapAuthenticationPlugin::getInstance();
@@ -344,7 +344,7 @@ abstract class OpenStackNovaHost {
 	 * @param string $hostname
 	 * @return bool
 	 */
-	static function validateHostname( $hostname ) {
+	public static function validateHostname( $hostname ) {
 		# Does not handle trailing dots, purposely
 		return (bool)preg_match( "/^(?=.{1,255}$)[0-9A-Za-z](?:(?:[0-9A-Za-z]|\b-){0,61}" .
 			"[0-9A-Za-z])?(?:\.[0-9A-Za-z](?:(?:[0-9A-Za-z]|\b-){0,61}[0-9A-Za-z])?)*$/", $hostname

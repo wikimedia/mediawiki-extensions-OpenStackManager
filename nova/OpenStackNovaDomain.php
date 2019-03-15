@@ -17,7 +17,7 @@ class OpenStackNovaDomain {
 	/**
 	 * @param string $domainname
 	 */
-	function __construct( $domainname ) {
+	public function __construct( $domainname ) {
 		$this->domainname = $domainname;
 		OpenStackNovaLdapConnection::connect();
 		$this->fetchDomainInfo();
@@ -28,7 +28,7 @@ class OpenStackNovaDomain {
 	 *
 	 * @return void
 	 */
-	function fetchDomainInfo() {
+	public function fetchDomainInfo() {
 		global $wgMemc;
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
 
@@ -61,7 +61,7 @@ class OpenStackNovaDomain {
 	 *
 	 * @return string
 	 */
-	function getDomainName() {
+	public function getDomainName() {
 		return $this->domainname;
 	}
 
@@ -70,7 +70,7 @@ class OpenStackNovaDomain {
 	 *
 	 * @return string
 	 */
-	function getFullyQualifiedDomainName() {
+	public function getFullyQualifiedDomainName() {
 		return $this->fqdn;
 	}
 
@@ -80,7 +80,7 @@ class OpenStackNovaDomain {
 	 *
 	 * @return string
 	 */
-	function getLocation() {
+	public function getLocation() {
 		if ( isset( $this->domainInfo[0]['l'] ) ) {
 			return $this->domainInfo[0]['l'][0];
 		} else {
@@ -94,7 +94,7 @@ class OpenStackNovaDomain {
 	 *
 	 * @return bool
 	 */
-	function updateSOA() {
+	public function updateSOA() {
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		$domain = [];
 		$domain['soarecord'] = self::generateSOA();
@@ -121,7 +121,7 @@ class OpenStackNovaDomain {
 	 * @param string $type
 	 * @return array of OpenNovaDomain
 	 */
-	static function getAllDomains( $type = 'all' ) {
+	public static function getAllDomains( $type = 'all' ) {
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
 
 		$ldap = LdapAuthenticationPlugin::getInstance();
@@ -160,7 +160,7 @@ class OpenStackNovaDomain {
 	 * @param string $domainname
 	 * @return null|OpenStackNovaDomain
 	 */
-	static function getDomainByName( $domainname ) {
+	public static function getDomainByName( $domainname ) {
 		$domain = new OpenStackNovaDomain( $domainname );
 		if ( $domain->domainInfo ) {
 			return $domain;
@@ -176,7 +176,7 @@ class OpenStackNovaDomain {
 	 * @param string $ip
 	 * @return null|OpenStackNovaDomain
 	 */
-	static function getDomainByHostIP( $ip ) {
+	public static function getDomainByHostIP( $ip ) {
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
 
 		$ldap = LdapAuthenticationPlugin::getInstance();
@@ -209,7 +209,7 @@ class OpenStackNovaDomain {
 	 * @param string $region
 	 * @return null|OpenStackNovaDomain
 	 */
-	static function getDomainByRegion( $region ) {
+	public static function getDomainByRegion( $region ) {
 		$domain = self::getDomainByName( $region );
 		if ( $domain ) {
 			if ( $domain->getLocation() ) {
@@ -232,7 +232,7 @@ class OpenStackNovaDomain {
 	 * @param string $location
 	 * @return null|OpenStackNovaDomain
 	 */
-	static function createDomain( $domainname, $fqdn, $location ) {
+	public static function createDomain( $domainname, $fqdn, $location ) {
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
 
 		$ldap = LdapAuthenticationPlugin::getInstance();
@@ -268,7 +268,7 @@ class OpenStackNovaDomain {
 	 * @param string $domainname
 	 * @return array
 	 */
-	static function deleteDomain( $domainname ) {
+	public static function deleteDomain( $domainname ) {
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		OpenStackNovaLdapConnection::connect();
 
@@ -302,7 +302,7 @@ class OpenStackNovaDomain {
 	 *
 	 * @return string
 	 */
-	static function generateSOA() {
+	public static function generateSOA() {
 		global $wgOpenStackManagerDNSOptions;
 
 		$serial = date( 'U' );

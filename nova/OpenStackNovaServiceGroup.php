@@ -18,7 +18,7 @@ class OpenStackNovaServiceGroup {
 	 * @param string $groupName
 	 * @param OpenStackNovaProject $project
 	 */
-	function __construct( $groupName, $project ) {
+	public function __construct( $groupName, $project ) {
 		$this->project = $project;
 		OpenStackNovaLdapConnection::connect();
 
@@ -30,7 +30,7 @@ class OpenStackNovaServiceGroup {
 	 * @param bool $refreshCache
 	 * @return void
 	 */
-	function fetchGroupInfo( $refreshCache = true ) {
+	public function fetchGroupInfo( $refreshCache = true ) {
 		global $wgOpenStackManagerLDAPServiceGroupBaseDN;
 		global $wgMemc;
 
@@ -67,14 +67,14 @@ class OpenStackNovaServiceGroup {
 	/**
 	 * @return string
 	 */
-	function getGroupName() {
+	public function getGroupName() {
 		return $this->groupName;
 	}
 
 	/**
 	 * @return string
 	 */
-	function getSpecialUserDN() {
+	public function getSpecialUserDN() {
 		$userDN = "uid=" . $this->groupName . "," . $this->usersDN;
 		return $userDN;
 	}
@@ -82,7 +82,7 @@ class OpenStackNovaServiceGroup {
 	/**
 	 * @return array
 	 */
-	function getUidMembers() {
+	public function getUidMembers() {
 		$members = [];
 		if ( isset( $this->groupInfo[0]['member'] ) ) {
 			$memberdns = $this->groupInfo[0]['member'];
@@ -110,7 +110,7 @@ class OpenStackNovaServiceGroup {
 	/**
 	 * @return array
 	 */
-	function getMembers() {
+	public function getMembers() {
 		global $wgOpenStackManagerLDAPDomain;
 
 		$members = [];
@@ -138,7 +138,7 @@ class OpenStackNovaServiceGroup {
 	 * @param string $username
 	 * @return bool
 	 */
-	function isMember( $username ) {
+	public function isMember( $username ) {
 		return in_array( $username, $this->getMembers() );
 	}
 
@@ -146,7 +146,7 @@ class OpenStackNovaServiceGroup {
 	 * @param string $username
 	 * @return bool
 	 */
-	function deleteMember( $username ) {
+	public function deleteMember( $username ) {
 		if ( isset( $this->groupInfo[0]['member'] ) ) {
 			$ldap = LdapAuthenticationPlugin::getInstance();
 			$members = $this->groupInfo[0]['member'];
@@ -194,7 +194,7 @@ class OpenStackNovaServiceGroup {
 	 * @param array $serviceUsernames
 	 * @return bool
 	 */
-	function setMembers( $usernames, $serviceUsernames = [] ) {
+	public function setMembers( $usernames, $serviceUsernames = [] ) {
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		$members = [];
 		foreach ( $usernames as $username ) {
@@ -231,7 +231,7 @@ class OpenStackNovaServiceGroup {
 	 * @param string $username
 	 * @return bool
 	 */
-	function addMember( $username ) {
+	public function addMember( $username ) {
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		$members = [];
 		if ( isset( $this->groupInfo[0]['member'] ) ) {
@@ -268,7 +268,7 @@ class OpenStackNovaServiceGroup {
 	 * @param OpenStackNovaProject $project
 	 * @return null|OpenStackNovaServiceGroup
 	 */
-	static function getServiceGroupByName( $groupName, $project ) {
+	public static function getServiceGroupByName( $groupName, $project ) {
 		$group = new OpenStackNovaserviceGroup( $groupName, $project );
 		if ( $group->groupInfo ) {
 			return $group;
@@ -283,7 +283,7 @@ class OpenStackNovaServiceGroup {
 	 * @param string $initialUser
 	 * @return null|OpenStackNovaServiceGroup
 	 */
-	static function createServiceGroup( $inGroupName, $project, $initialUser ) {
+	public static function createServiceGroup( $inGroupName, $project, $initialUser ) {
 		global $wgOpenStackManagerLDAPDefaultShell;
 		global $wgOpenStackManagerLDAPServiceGroupBaseDN;
 		global $wgMemc;
@@ -388,7 +388,7 @@ class OpenStackNovaServiceGroup {
 	 * @param OpenStackNovaProject $project
 	 * @return bool
 	 */
-	static function deleteServiceGroup( $groupName, $project ) {
+	public static function deleteServiceGroup( $groupName, $project ) {
 		global $wgMemc;
 
 		$ldap = LdapAuthenticationPlugin::getInstance();

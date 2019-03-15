@@ -14,7 +14,7 @@ class OpenStackNovaAddress {
 	/**
 	 * @param array $apiInstanceResponse
 	 */
-	function __construct( $apiInstanceResponse ) {
+	public function __construct( $apiInstanceResponse ) {
 		$this->address = $apiInstanceResponse;
 	}
 
@@ -24,7 +24,7 @@ class OpenStackNovaAddress {
 	 *
 	 * @return string
 	 */
-	function getInstanceId() {
+	public function getInstanceId() {
 		return OpenStackNovaController::_get_property( $this->address, 'instance_id' );
 	}
 
@@ -33,11 +33,11 @@ class OpenStackNovaAddress {
 	 *
 	 * @return string
 	 */
-	function getPublicIP() {
+	public function getPublicIP() {
 		return OpenStackNovaController::_get_property( $this->address, 'ip' );
 	}
 
-	function getAddressId() {
+	public function getAddressId() {
 		return OpenStackNovaController::_get_property( $this->address, 'id' );
 	}
 

@@ -7,49 +7,49 @@ class OpenStackNovaSecurityGroupRule {
 	/**
 	 * @param stdClass $apiInstanceResponse
 	 */
-	function __construct( $apiInstanceResponse ) {
+	public function __construct( $apiInstanceResponse ) {
 		$this->rule = $apiInstanceResponse;
 	}
 
 	/**
 	 * @return string
 	 */
-	function getId() {
+	public function getId() {
 		return OpenStackNovaController::_get_property( $this->rule, 'id' );
 	}
 
 	/**
 	 * @return string
 	 */
-	function getToPort() {
+	public function getToPort() {
 		return OpenStackNovaController::_get_property( $this->rule, 'to_port' );
 	}
 
 	/**
 	 * @return string
 	 */
-	function getFromPort() {
+	public function getFromPort() {
 		return OpenStackNovaController::_get_property( $this->rule, 'from_port' );
 	}
 
 	/**
 	 * @return string
 	 */
-	function getIPProtocol() {
+	public function getIPProtocol() {
 		return OpenStackNovaController::_get_property( $this->rule, 'ip_protocol' );
 	}
 
 	/**
 	 * @return string
 	 */
-	function getIPRange() {
+	public function getIPRange() {
 		return OpenStackNovaController::_get_property( $this->rule->ip_range, 'cidr' );
 	}
 
 	/**
 	 * @return array
 	 */
-	function getGroup() {
+	public function getGroup() {
 		$properties = [];
 		$properties['groupname'] = OpenStackNovaController::_get_property(
 			$this->rule->group, 'name'

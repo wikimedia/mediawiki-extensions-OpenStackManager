@@ -18,7 +18,7 @@ class OpenStackNovaSudoer {
 	 * @param string $sudoername
 	 * @param OpenStackNovaProject $project
 	 */
-	function __construct( $sudoername, $project ) {
+	public function __construct( $sudoername, $project ) {
 		$this->sudoername = $sudoername;
 		$this->project = $project;
 		OpenStackNovaLdapConnection::connect();
@@ -30,7 +30,7 @@ class OpenStackNovaSudoer {
 	 *
 	 * @return void
 	 */
-	function fetchSudoerInfo() {
+	public function fetchSudoerInfo() {
 		global $wgMemc;
 
 		$key = wfMemcKey( 'openstackmanager', 'sudoerinfo',
@@ -63,7 +63,7 @@ class OpenStackNovaSudoer {
 	 *
 	 * @return string
 	 */
-	function getSudoerName() {
+	public function getSudoerName() {
 		return $this->sudoername;
 	}
 
@@ -72,7 +72,7 @@ class OpenStackNovaSudoer {
 	 *
 	 * @return array
 	 */
-	function getSudoerUsers() {
+	public function getSudoerUsers() {
 		if ( isset( $this->sudoerInfo[0]['sudouser'] ) ) {
 			$users = $this->sudoerInfo[0]['sudouser'];
 			array_shift( $users );
@@ -87,7 +87,7 @@ class OpenStackNovaSudoer {
 	 *
 	 * @return array
 	 */
-	function getSudoerRunAsUsers() {
+	public function getSudoerRunAsUsers() {
 		if ( isset( $this->sudoerInfo[0]['sudorunasuser'] ) ) {
 			$runasusers = $this->sudoerInfo[0]['sudorunasuser'];
 			array_shift( $runasusers );
@@ -102,7 +102,7 @@ class OpenStackNovaSudoer {
 	 *
 	 * @return array
 	 */
-	function getSudoerCommands() {
+	public function getSudoerCommands() {
 		if ( isset( $this->sudoerInfo[0]['sudocommand'] ) ) {
 			$commands = $this->sudoerInfo[0]['sudocommand'];
 			array_shift( $commands );
@@ -117,7 +117,7 @@ class OpenStackNovaSudoer {
 	 *
 	 * @return array
 	 */
-	function getSudoerOptions() {
+	public function getSudoerOptions() {
 		if ( isset( $this->sudoerInfo[0]['sudooption'] ) ) {
 			$options = $this->sudoerInfo[0]['sudooption'];
 			array_shift( $options );
@@ -136,7 +136,7 @@ class OpenStackNovaSudoer {
 	 * @param array $options
 	 * @return bool
 	 */
-	function modifySudoer( $users, $runasuser, $commands, $options ) {
+	public function modifySudoer( $users, $runasuser, $commands, $options ) {
 		global $wgMemc;
 
 		$ldap = LdapAuthenticationPlugin::getInstance();
@@ -174,7 +174,7 @@ class OpenStackNovaSudoer {
 		}
 	}
 
-	function deleteUser( $username ) {
+	public function deleteUser( $username ) {
 		global $wgMemc;
 
 		if ( isset( $this->sudoerInfo[0]['sudouser'] ) ) {
@@ -212,7 +212,7 @@ class OpenStackNovaSudoer {
 	 * @param string $projectName
 	 * @return array of OpenStackNovaSudoer
 	 */
-	static function getAllSudoersByProject( $projectName ) {
+	public static function getAllSudoersByProject( $projectName ) {
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		OpenStackNovaLdapConnection::connect();
 
@@ -243,7 +243,7 @@ class OpenStackNovaSudoer {
 	 * @param string $projectName
 	 * @return null|OpenStackNovaSudoer
 	 */
-	static function getSudoerByName( $sudoerName, $projectName ) {
+	public static function getSudoerByName( $sudoerName, $projectName ) {
 		$project = OpenStackNovaProject::getProjectByName( $projectName );
 		$sudoer = new OpenStackNovaSudoer( $sudoerName, $project );
 		if ( $sudoer->sudoerInfo ) {
@@ -265,7 +265,7 @@ class OpenStackNovaSudoer {
 	 * @param array $options
 	 * @return null|OpenStackNovaSudoer
 	 */
-	static function createSudoer(
+	public static function createSudoer(
 		$sudoername, $projectName, $users, $runasuser, $commands, $options
 	) {
 		$ldap = LdapAuthenticationPlugin::getInstance();
@@ -307,7 +307,7 @@ class OpenStackNovaSudoer {
 	 * @param string $projectName
 	 * @return bool
 	 */
-	static function deleteSudoer( $sudoername, $projectName ) {
+	public static function deleteSudoer( $sudoername, $projectName ) {
 		global $wgMemc;
 
 		$ldap = LdapAuthenticationPlugin::getInstance();

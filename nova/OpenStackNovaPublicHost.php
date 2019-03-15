@@ -17,7 +17,7 @@ class OpenStackNovaPublicHost extends OpenStackNovaHost {
 	/**
 	 * @param string $ip
 	 */
-	function __construct( $ip ) {
+	public function __construct( $ip ) {
 		$this->domainCache = null;
 		$this->ip = $ip;
 		OpenStackNovaLdapConnection::connect();
@@ -29,7 +29,7 @@ class OpenStackNovaPublicHost extends OpenStackNovaHost {
 	 *
 	 * @return void
 	 */
-	function fetchHostInfo() {
+	public function fetchHostInfo() {
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
 
 		$ldap = LdapAuthenticationPlugin::getInstance();
@@ -50,7 +50,7 @@ class OpenStackNovaPublicHost extends OpenStackNovaHost {
 	 *
 	 * @return OpenStackNovaDomain
 	 */
-	function getDomain() {
+	public function getDomain() {
 		if ( !$this->domainCache ) {
 			$this->domainCache = OpenStackNovaDomain::getDomainByHostIP( $this->ip );
 			if ( !$this->domainCache ) {

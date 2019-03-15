@@ -20,7 +20,7 @@ class OpenStackNovaProxy {
 	 * @param string $backendName
 	 * @param string $backendPort
 	 */
-	function __construct( $projectName, $proxyFQDN, $backendName = "", $backendPort = '80' ) {
+	public function __construct( $projectName, $proxyFQDN, $backendName = "", $backendPort = '80' ) {
 		$this->projectName = $projectName;
 		$this->proxyFQDN = $proxyFQDN;
 		$this->backendName = $backendName;
@@ -32,7 +32,7 @@ class OpenStackNovaProxy {
 	 *
 	 * @return string
 	 */
-	function getProxyFQDN() {
+	public function getProxyFQDN() {
 		return $this->proxyFQDN;
 	}
 
@@ -41,7 +41,7 @@ class OpenStackNovaProxy {
 	 *
 	 * @return string
 	 */
-	function getBackend() {
+	public function getBackend() {
 		$backend = $this->backendName . ":" . $this->backendPort;
 		return $backend;
 	}

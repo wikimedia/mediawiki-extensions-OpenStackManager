@@ -47,7 +47,7 @@ class OpenStackNovaProject {
 	 * @param string $projectid
 	 * @param bool $load
 	 */
-	function __construct( $projectid, $load = true ) {
+	public function __construct( $projectid, $load = true ) {
 		$this->projectid = $projectid;
 		$this->projectname = "";
 		if ( $load ) {
@@ -72,7 +72,7 @@ class OpenStackNovaProject {
 		return $this->projectid;
 	}
 
-	function loadProjectName() {
+	public function loadProjectName() {
 		global $wgOpenStackManagerLDAPProjectBaseDN;
 		global $wgMemc;
 
@@ -96,7 +96,7 @@ class OpenStackNovaProject {
 	 * Fetch the project from keystone initialize the object
 	 * @param bool $refresh
 	 */
-	function fetchProjectInfo( $refresh = true ) {
+	public function fetchProjectInfo( $refresh = true ) {
 		if ( $this->loaded && !$refresh ) {
 			return;
 		}
@@ -116,7 +116,7 @@ class OpenStackNovaProject {
 		$this->loaded = true;
 	}
 
-	function fetchServiceGroups() {
+	public function fetchServiceGroups() {
 		global $wgOpenStackManagerLDAPServiceGroupBaseDN;
 
 		$ldap = LdapAuthenticationPlugin::getInstance();
@@ -170,7 +170,7 @@ class OpenStackNovaProject {
 	/**
 	 * @return string
 	 */
-	function getProjectName() {
+	public function getProjectName() {
 		return $this->getName();
 	}
 
@@ -178,7 +178,7 @@ class OpenStackNovaProject {
 	 * Return all roles for this project
 	 * @return array
 	 */
-	function getRoles() {
+	public function getRoles() {
 		$this->fetchProjectInfo();
 		return $this->roles;
 	}
@@ -187,7 +187,7 @@ class OpenStackNovaProject {
 	 * Return all service groups for this project
 	 * @return array
 	 */
-	function getServiceGroups() {
+	public function getServiceGroups() {
 		$this->fetchProjectInfo();
 		return $this->serviceGroups;
 	}
@@ -196,7 +196,7 @@ class OpenStackNovaProject {
 	 * Return all service users for this project
 	 * @return array
 	 */
-	function getServiceUsers() {
+	public function getServiceUsers() {
 		$this->fetchProjectInfo();
 		return $this->serviceUsers;
 	}
@@ -206,7 +206,7 @@ class OpenStackNovaProject {
 	 *
 	 * $this->members uses the uid as index and the name as value.
 	 */
-	function loadMembers() {
+	public function loadMembers() {
 		global $wgMemc;
 
 		$key = wfMemcKey( 'openstackmanager', 'projectuidsandmembers', $this->projectname );
@@ -230,7 +230,7 @@ class OpenStackNovaProject {
 	 *
 	 * @return array
 	 */
-	function getMemberUids() {
+	public function getMemberUids() {
 		$this->loadMembers();
 		return array_keys( $this->members );
 	}
@@ -240,7 +240,7 @@ class OpenStackNovaProject {
 	 *
 	 * @return array
 	 */
-	function getMembers() {
+	public function getMembers() {
 		$this->loadMembers();
 		return array_values( $this->members );
 	}
@@ -250,17 +250,17 @@ class OpenStackNovaProject {
 	 *
 	 * @return array
 	 */
-	function getMemberIds() {
+	public function getMemberIds() {
 		$this->loadMembers();
 		return array_keys( $this->members );
 	}
 
-	function memberForUid( $uid ) {
+	public function memberForUid( $uid ) {
 		$this->loadMembers();
 		return $this->members[$uid];
 	}
 
-	function uidForMember( $username ) {
+	public function uidForMember( $username ) {
 		$this->loadMembers();
 		foreach ( $this->members as $id => $name ) {
 			if ( $username == $name ) {
@@ -275,7 +275,7 @@ class OpenStackNovaProject {
 	 *
 	 * @return array
 	 */
-	function getMemberDNs() {
+	public function getMemberDNs() {
 		global $wgLDAPUserBaseDNs;
 		$memberids = $this->getMemberIDs();
 		$memberDNs = [];
@@ -286,14 +286,14 @@ class OpenStackNovaProject {
 		return $memberDNs;
 	}
 
-	function getProjectDN() {
+	public function getProjectDN() {
 		if ( !$this->projectDN ) {
 			$this->loadProjectName();
 		}
 		return $this->projectDN;
 	}
 
-	function getSudoersDN() {
+	public function getSudoersDN() {
 		return 'ou=sudoers,' . $this->getProjectDN();
 	}
 
@@ -303,7 +303,7 @@ class OpenStackNovaProject {
 	 *
 	 * @param string $username
 	 */
-	function deleteRoleCaches( $username ) {
+	public function deleteRoleCaches( $username ) {
 		$user = new OpenStackNovaUser( $username );
 		if ( $this->roles ) {
 			foreach ( $this->roles as $role ) {
@@ -319,7 +319,7 @@ class OpenStackNovaProject {
 	 * @param string $username
 	 * @return bool
 	 */
-	function deleteMember( $username ) {
+	public function deleteMember( $username ) {
 		global $wgMemc;
 
 		$ldap = LdapAuthenticationPlugin::getInstance();
@@ -366,7 +366,7 @@ class OpenStackNovaProject {
 	 * @param string $initialUser
 	 * @return bool
 	 */
-	function addServiceGroup( $groupName, $initialUser ) {
+	public function addServiceGroup( $groupName, $initialUser ) {
 		$group = OpenStackNovaServiceGroup::createServiceGroup( $groupName, $this, $initialUser );
 		if ( !$group ) {
 			$ldap = LdapAuthenticationPlugin::getInstance();
@@ -384,7 +384,7 @@ class OpenStackNovaProject {
 	 * @param string $groupName
 	 * @return bool
 	 */
-	function deleteServiceGroup( $groupName ) {
+	public function deleteServiceGroup( $groupName ) {
 		$success = OpenStackNovaServiceGroup::deleteServiceGroup( $groupName, $this );
 
 		$this->fetchServiceGroups();
@@ -397,7 +397,7 @@ class OpenStackNovaProject {
 	 * @param string $username
 	 * @return bool
 	 */
-	function addMember( $username ) {
+	public function addMember( $username ) {
 		global $wgMemc;
 
 		$ldap = LdapAuthenticationPlugin::getInstance();
@@ -425,7 +425,7 @@ class OpenStackNovaProject {
 	 * @param string $projectname
 	 * @return null|OpenStackNovaProject
 	 */
-	static function getProjectByName( $projectname ) {
+	public static function getProjectByName( $projectname ) {
 		$projects = self::getAllProjects();
 		foreach ( $projects as $project ) {
 			if ( $project->getProjectName() == $projectname ) {
@@ -441,7 +441,7 @@ class OpenStackNovaProject {
 	 * @param string $projectid
 	 * @return null|OpenStackNovaProject
 	 */
-	static function getProjectById( $projectid ) {
+	public static function getProjectById( $projectid ) {
 		if ( isset( self::$projectCache[ $projectid ] ) ) {
 			return self::$projectCache[ $projectid ];
 		}
@@ -453,7 +453,7 @@ class OpenStackNovaProject {
 		return $project;
 	}
 
-	static function getController() {
+	public static function getController() {
 		# Because of weird issues in the Keystone auth model, we can't
 		#  really modify project info as the current user.  For now
 		#  we're doing this with a global all-powerful account,
@@ -465,7 +465,7 @@ class OpenStackNovaProject {
 		return OpenStackNovaController::newFromUser( $userLDAP );
 	}
 
-	static function getProjectsByName( $projectnames ) {
+	public static function getProjectsByName( $projectnames ) {
 		$projects = [];
 		foreach ( $projectnames as $projectname ) {
 			$project = self::getProjectByName( $projectname );
@@ -476,7 +476,7 @@ class OpenStackNovaProject {
 		return $projects;
 	}
 
-	static function getProjectsById( $projectids ) {
+	public static function getProjectsById( $projectids ) {
 		$projects = [];
 		foreach ( $projectids as $projectid ) {
 			$project = self::getProjectById( $projectid );
@@ -492,7 +492,7 @@ class OpenStackNovaProject {
 	 *
 	 * @return string[]
 	 */
-	static function getAllProjectNames() {
+	public static function getAllProjectNames() {
 		$projects = self::getAllProjects();
 		$names = [];
 		foreach ( $projects as $project ) {
@@ -507,7 +507,7 @@ class OpenStackNovaProject {
 	 *
 	 * @return array of projectid => projectname
 	 */
-	static function getProjectList() {
+	public static function getProjectList() {
 		global $wgMemc;
 
 		$key = wfMemcKey( 'openstackmanager', 'projectlist' );
@@ -530,7 +530,7 @@ class OpenStackNovaProject {
 	 *
 	 * @return OpenStackNovaProject[]
 	 */
-	static function getAllProjects() {
+	public static function getAllProjects() {
 		$projects = [];
 		foreach ( self::getProjectList() as $id => $name ) {
 			$project = new OpenStackNovaProject( $id, false );
@@ -548,7 +548,7 @@ class OpenStackNovaProject {
 	 *
 	 * @return string
 	 */
-	function getProjectGroupName() {
+	public function getProjectGroupName() {
 		return self::$projectGroupPrefix . $this->projectname;
 	}
 
@@ -559,7 +559,7 @@ class OpenStackNovaProject {
 	 * @param string $projectname
 	 * @return OpenStackNovaProject
 	 */
-	static function createProject( $projectname ) {
+	public static function createProject( $projectname ) {
 		global $wgMemc;
 		global $wgOpenStackManagerLDAPUser;
 		global $wgOpenStackManagerLDAPProjectBaseDN;
@@ -639,7 +639,7 @@ class OpenStackNovaProject {
 	 * @param string $projectname
 	 * @return bool
 	 */
-	static function createServiceGroupOUs( $projectname ) {
+	public static function createServiceGroupOUs( $projectname ) {
 		global $wgOpenStackManagerLDAPProjectBaseDN;
 
 		$ldap = LdapAuthenticationPlugin::getInstance();
@@ -682,7 +682,7 @@ class OpenStackNovaProject {
 	 *
 	 * @return bool
 	 */
-	function deleteServiceGroupOUs() {
+	public function deleteServiceGroupOUs() {
 		global $wgOpenStackManagerLDAPProjectBaseDN;
 
 		$ldap = LdapAuthenticationPlugin::getInstance();
@@ -725,7 +725,7 @@ class OpenStackNovaProject {
 	 * @param string $projectid
 	 * @return bool
 	 */
-	static function deleteProject( $projectid ) {
+	public static function deleteProject( $projectid ) {
 		global $wgMemc;
 
 		$project = new OpenStackNovaProject( $projectid );
@@ -830,7 +830,7 @@ RESOURCEINFO;
 		}
 	}
 
-	function deleteArticle() {
+	public function deleteArticle() {
 		global $wgOpenStackManagerProjectNamespace;
 		OpenStackNovaArticle::deleteArticle(
 			$this->getProjectName(), $wgOpenStackManagerProjectNamespace
@@ -849,7 +849,7 @@ RESOURCEINFO;
 	 *
 	 * @return string
 	 */
-	function getServiceGroupHomedirPattern() {
+	public function getServiceGroupHomedirPattern() {
 		global $wgOpenStackManagerServiceGroupHomedirPattern;
 		global $wgOpenStackManagerLDAPProjectBaseDN;
 		$pattern = $wgOpenStackManagerServiceGroupHomedirPattern;

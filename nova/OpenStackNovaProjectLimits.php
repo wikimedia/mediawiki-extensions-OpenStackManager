@@ -16,7 +16,7 @@ class OpenStackNovaProjectLimits {
 	/**
 	 * @param string $apiLimitsResponse
 	 */
-	function __construct( $apiLimitsResponse ) {
+	public function __construct( $apiLimitsResponse ) {
 		$this->limits = $apiLimitsResponse;
 		$this->rate = OpenStackNovaController::_get_property( $this->limits, 'rate' );
 		$this->absolute = OpenStackNovaController::_get_property( $this->limits, 'absolute' );
@@ -27,7 +27,7 @@ class OpenStackNovaProjectLimits {
 	 *
 	 * @return string
 	 */
-	function getRamAvailable() {
+	public function getRamAvailable() {
 		return OpenStackNovaController::_get_property( $this->absolute, 'maxTotalRAMSize' );
 	}
 
@@ -36,7 +36,7 @@ class OpenStackNovaProjectLimits {
 	 *
 	 * @return string
 	 */
-	function getRamUsed() {
+	public function getRamUsed() {
 		return OpenStackNovaController::_get_property( $this->absolute, 'totalRAMUsed' );
 	}
 
@@ -45,7 +45,7 @@ class OpenStackNovaProjectLimits {
 	 *
 	 * @return string
 	 */
-	function getFloatingIpsAvailable() {
+	public function getFloatingIpsAvailable() {
 		return OpenStackNovaController::_get_property( $this->absolute, 'maxTotalFloatingIps' );
 	}
 
@@ -54,7 +54,7 @@ class OpenStackNovaProjectLimits {
 	 *
 	 * @return string
 	 */
-	function getFloatingIpsUsed() {
+	public function getFloatingIpsUsed() {
 		return OpenStackNovaController::_get_property( $this->absolute, 'totalFloatingIpsUsed' );
 	}
 
@@ -63,7 +63,7 @@ class OpenStackNovaProjectLimits {
 	 *
 	 * @return string
 	 */
-	function getCoresAvailable() {
+	public function getCoresAvailable() {
 		return OpenStackNovaController::_get_property( $this->absolute, 'maxTotalCores' );
 	}
 
@@ -72,7 +72,7 @@ class OpenStackNovaProjectLimits {
 	 *
 	 * @return string
 	 */
-	function getCoresUsed() {
+	public function getCoresUsed() {
 		return OpenStackNovaController::_get_property( $this->absolute, 'totalCoresUsed' );
 	}
 
@@ -81,7 +81,7 @@ class OpenStackNovaProjectLimits {
 	 *
 	 * @return string
 	 */
-	function getInstancesAvailable() {
+	public function getInstancesAvailable() {
 		return OpenStackNovaController::_get_property( $this->absolute, 'maxTotalInstances' );
 	}
 
@@ -90,7 +90,7 @@ class OpenStackNovaProjectLimits {
 	 *
 	 * @return string
 	 */
-	function getInstancesUsed() {
+	public function getInstancesUsed() {
 		return OpenStackNovaController::_get_property( $this->absolute, 'totalInstancesUsed' );
 	}
 
@@ -99,7 +99,7 @@ class OpenStackNovaProjectLimits {
 	 *
 	 * @return string
 	 */
-	function getSecurityGroupsAvailable() {
+	public function getSecurityGroupsAvailable() {
 		return OpenStackNovaController::_get_property( $this->absolute, 'maxSecurityGroups' );
 	}
 
@@ -108,7 +108,7 @@ class OpenStackNovaProjectLimits {
 	 *
 	 * @return string
 	 */
-	function getSecurityGroupsUsed() {
+	public function getSecurityGroupsUsed() {
 		return OpenStackNovaController::_get_property( $this->absolute, 'totalSecurityGroupsUsed' );
 	}
 

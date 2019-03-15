@@ -25,7 +25,7 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 	 * @param string $instanceproject
 	 * @param string $region
 	 */
-	function __construct( $instancename, $instanceproject, $region ) {
+	public function __construct( $instancename, $instanceproject, $region ) {
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		$this->instancename = $ldap->getLdapEscapedString( $instancename );
 		$this->instanceproject = $ldap->getLdapEscapedString( $instanceproject );
@@ -40,7 +40,7 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 	 *
 	 * @return void
 	 */
-	function fetchHostInfo() {
+	public function fetchHostInfo() {
 		global $wgOpenStackManagerLDAPInstanceBaseDN;
 
 		$ldap = LdapAuthenticationPlugin::getInstance();
@@ -71,7 +71,7 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 	 *
 	 * @return string
 	 */
-	function getFullyQualifiedDisplayName() {
+	public function getFullyQualifiedDisplayName() {
 		if ( $this->getDomain() ) {
 			$fqdn = $this->instancename . '.' . $this->instanceproject . '.' .
 				$this->getDomain()->getFullyQualifiedDomainName();
@@ -90,7 +90,7 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 	 *
 	 * @return OpenStackNovaDomain
 	 */
-	function getDomain() {
+	public function getDomain() {
 		if ( !$this->domainCache ) {
 			$this->domainCache = OpenStackNovaDomain::getDomainByRegion( $this->region );
 			if ( !$this->domainCache ) {
@@ -109,7 +109,7 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 	 *
 	 * @return string
 	 */
-	function getDisplayName() {
+	public function getDisplayName() {
 		$pieces = explode( '.', $this->getFullyQualifiedDisplayName() );
 		return $pieces[0];
 	}
@@ -123,7 +123,7 @@ class OpenStackNovaPrivateHost extends OpenStackNovaHost {
 	 *
 	 * @return string
 	 */
-	function getFullyQualifiedHostName() {
+	public function getFullyQualifiedHostName() {
 		return $this->getFullyQualifiedDisplayName();
 	}
 }

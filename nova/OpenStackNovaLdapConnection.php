@@ -11,7 +11,7 @@ class OpenStackNovaLdapConnection {
 	/**
 	 * Connect to LDAP as the open stack manager account using LdapAuthenticationPlugin
 	 */
-	static function connect() {
+	public static function connect() {
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPDomain;
 

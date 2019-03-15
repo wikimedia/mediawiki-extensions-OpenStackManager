@@ -14,7 +14,7 @@ class OpenStackNovaImage {
 	/**
 	 * @param stdClass $apiInstanceResponse
 	 */
-	function __construct( $apiInstanceResponse ) {
+	public function __construct( $apiInstanceResponse ) {
 		$this->image = $apiInstanceResponse;
 	}
 
@@ -23,7 +23,7 @@ class OpenStackNovaImage {
 	 *
 	 * @return string
 	 */
-	function getImageName() {
+	public function getImageName() {
 		return $this->image->name;
 	}
 
@@ -32,7 +32,7 @@ class OpenStackNovaImage {
 	 *
 	 * @return string
 	 */
-	function getImageId() {
+	public function getImageId() {
 		return $this->image->id;
 	}
 
@@ -41,7 +41,7 @@ class OpenStackNovaImage {
 	 *
 	 * @return string
 	 */
-	function getImageState() {
+	public function getImageState() {
 		return $this->image->status;
 	}
 
@@ -51,7 +51,7 @@ class OpenStackNovaImage {
 	 * @param string $key
 	 * @return string
 	 */
-	function getImageMetadata( $key ) {
+	public function getImageMetadata( $key ) {
 		return OpenStackNovaController::_get_property( $this->image->metadata, $key );
 	}
 }

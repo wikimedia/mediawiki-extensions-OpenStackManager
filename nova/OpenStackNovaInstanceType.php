@@ -14,7 +14,7 @@ class OpenStackNovaInstanceType {
 	/**
 	 * @param stdClass $apiInstanceResponse
 	 */
-	function __construct( $apiInstanceResponse ) {
+	public function __construct( $apiInstanceResponse ) {
 		$this->instanceType = $apiInstanceResponse;
 	}
 
@@ -23,7 +23,7 @@ class OpenStackNovaInstanceType {
 	 *
 	 * @return string
 	 */
-	function getMemorySize() {
+	public function getMemorySize() {
 		return $this->instanceType->ram;
 	}
 
@@ -32,7 +32,7 @@ class OpenStackNovaInstanceType {
 	 *
 	 * @return string
 	 */
-	function getNumberOfCPUs() {
+	public function getNumberOfCPUs() {
 		return $this->instanceType->vcpus;
 	}
 
@@ -41,7 +41,7 @@ class OpenStackNovaInstanceType {
 	 *
 	 * @return string
 	 */
-	function getInstanceTypeName() {
+	public function getInstanceTypeName() {
 		return $this->instanceType->name;
 	}
 
@@ -50,7 +50,7 @@ class OpenStackNovaInstanceType {
 	 *
 	 * @return string
 	 */
-	function getRootStorageSize() {
+	public function getRootStorageSize() {
 		return $this->instanceType->disk;
 	}
 
@@ -59,7 +59,7 @@ class OpenStackNovaInstanceType {
 	 *
 	 * @return string
 	 */
-	function getStorageSize() {
+	public function getStorageSize() {
 		return $this->instanceType->{'OS-FLV-EXT-DATA:ephemeral'};
 	}
 
@@ -68,7 +68,7 @@ class OpenStackNovaInstanceType {
 	 *
 	 * @return int
 	 */
-	function getInstanceTypeId() {
+	public function getInstanceTypeId() {
 		return $this->instanceType->id;
 	}
 

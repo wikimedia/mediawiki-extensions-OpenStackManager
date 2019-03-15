@@ -14,7 +14,7 @@ class OpenStackNovaKeypair {
 	/**
 	 * @param string $apiKeypairResponse
 	 */
-	function __construct( $apiKeypairResponse ) {
+	public function __construct( $apiKeypairResponse ) {
 		$this->keypair = $apiKeypairResponse;
 	}
 
@@ -23,7 +23,7 @@ class OpenStackNovaKeypair {
 	 *
 	 * @return string
 	 */
-	function getKeyName() {
+	public function getKeyName() {
 		# not implemented
 		return '';
 	}
@@ -33,7 +33,7 @@ class OpenStackNovaKeypair {
 	 *
 	 * @return string
 	 */
-	function getKeyFingerprint() {
+	public function getKeyFingerprint() {
 		# not implemented
 		return '';
 	}

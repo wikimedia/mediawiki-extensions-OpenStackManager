@@ -29,7 +29,7 @@ class OpenStackNovaInstance {
 	 * @param string $region
 	 * @param bool $loadhost optional
 	 */
-	function __construct( $apiInstanceResponse, $region, $loadhost = false ) {
+	public function __construct( $apiInstanceResponse, $region, $loadhost = false ) {
 		$this->instance = $apiInstanceResponse;
 		$this->region = $region;
 		if ( $loadhost ) {
@@ -39,7 +39,7 @@ class OpenStackNovaInstance {
 		}
 	}
 
-	function loadHost() {
+	public function loadHost() {
 		$this->host = OpenStackNovaHost::getHostByNameAndProject(
 			$this->getInstanceName(), $this->getProject(), $this->region
 		);
@@ -50,7 +50,7 @@ class OpenStackNovaInstance {
 	 * @param OpenStackNovaHost $host
 	 * @return void
 	 */
-	function setHost( $host ) {
+	public function setHost( $host ) {
 		$this->host = $host;
 	}
 
@@ -60,7 +60,7 @@ class OpenStackNovaInstance {
 	 *
 	 * @return null|OpenStackNovaHost
 	 */
-	function getHost() {
+	public function getHost() {
 		if ( !$this->host ) {
 			$this->loadHost();
 		}
@@ -72,7 +72,7 @@ class OpenStackNovaInstance {
 	 *
 	 * @return string
 	 */
-	function getInstanceId() {
+	public function getInstanceId() {
 		return OpenStackNovaController::_get_property(
 			$this->instance, 'OS-EXT-SRV-ATTR:instance_name'
 		);
@@ -83,7 +83,7 @@ class OpenStackNovaInstance {
 	 *
 	 * @return string
 	 */
-	function getInstanceOSId() {
+	public function getInstanceOSId() {
 		return OpenStackNovaController::_get_property( $this->instance, 'id' );
 	}
 
@@ -92,7 +92,7 @@ class OpenStackNovaInstance {
 	 *
 	 * @return string[]
 	 */
-	function getInstancePrivateIPs() {
+	public function getInstancePrivateIPs() {
 		$addrs = [];
 		$addresses = OpenStackNovaController::_get_property( $this->instance, 'addresses' );
 		if ( $addresses ) {
@@ -116,7 +116,7 @@ class OpenStackNovaInstance {
 	 *
 	 * @return string[]
 	 */
-	function getInstancePublicIPs() {
+	public function getInstancePublicIPs() {
 		$addrs = [];
 		$addresses = OpenStackNovaController::_get_property( $this->instance, 'addresses' );
 		if ( $addresses ) {
@@ -139,7 +139,7 @@ class OpenStackNovaInstance {
 	 *
 	 * @return string
 	 */
-	function getInstanceName() {
+	public function getInstanceName() {
 		return OpenStackNovaController::_get_property( $this->instance, 'name' );
 	}
 
@@ -148,7 +148,7 @@ class OpenStackNovaInstance {
 	 *
 	 * @return string
 	 */
-	function getInstanceCreator() {
+	public function getInstanceCreator() {
 		return OpenStackNovaController::_get_property( $this->instance, 'user_id' );
 	}
 
@@ -157,7 +157,7 @@ class OpenStackNovaInstance {
 	 *
 	 * @return string
 	 */
-	function getInstanceForDisplay() {
+	public function getInstanceForDisplay() {
 		return wfMessage( 'openstackmanager-modifiedinstance' )
 			->inContentLanguage()
 			->params( $this->getInstanceId(), $this->getInstanceName() )
@@ -169,7 +169,7 @@ class OpenStackNovaInstance {
 	 *
 	 * @return string
 	 */
-	function getInstanceState() {
+	public function getInstanceState() {
 		return OpenStackNovaController::_get_property( $this->instance, 'status' );
 	}
 
@@ -178,7 +178,7 @@ class OpenStackNovaInstance {
 	 *
 	 * @return string
 	 */
-	function getInstanceTaskState() {
+	public function getInstanceTaskState() {
 		return OpenStackNovaController::_get_property( $this->instance, 'OS-EXT-STS:task_state' );
 	}
 
@@ -187,7 +187,7 @@ class OpenStackNovaInstance {
 	 *
 	 * @return string
 	 */
-	function getInstanceType() {
+	public function getInstanceType() {
 		return OpenStackNovaController::_get_property( $this->instance->flavor, 'id' );
 	}
 
@@ -196,7 +196,7 @@ class OpenStackNovaInstance {
 	 *
 	 * @return string
 	 */
-	function getImageId() {
+	public function getImageId() {
 		return OpenStackNovaController::_get_property( $this->instance->image, 'id' );
 	}
 
@@ -205,7 +205,7 @@ class OpenStackNovaInstance {
 	 *
 	 * @return string
 	 */
-	function getKeyName() {
+	public function getKeyName() {
 		return OpenStackNovaController::_get_property( $this->instance, 'key_name' );
 	}
 
@@ -214,7 +214,7 @@ class OpenStackNovaInstance {
 	 *
 	 * @return string
 	 */
-	function getProject() {
+	public function getProject() {
 		return OpenStackNovaController::_get_property( $this->instance, 'tenant_id' );
 	}
 
@@ -223,7 +223,7 @@ class OpenStackNovaInstance {
 	 *
 	 * @return string
 	 */
-	function getInstanceHost() {
+	public function getInstanceHost() {
 		return OpenStackNovaController::_get_property( $this->instance, 'OS-EXT-SRV-ATTR:host' );
 	}
 
@@ -231,7 +231,7 @@ class OpenStackNovaInstance {
 	 * Return the availability zone this instance is associated with
 	 * @return string
 	 */
-	function getAvailabilityZone() {
+	public function getAvailabilityZone() {
 		return 'Unimplemented';
 	}
 
@@ -240,7 +240,7 @@ class OpenStackNovaInstance {
 	 *
 	 * @return string
 	 */
-	function getRegion() {
+	public function getRegion() {
 		return 'Unimplemented';
 	}
 
@@ -248,7 +248,7 @@ class OpenStackNovaInstance {
 	 * Return all security groups to which this instance belongs
 	 * @return array
 	 */
-	function getSecurityGroups() {
+	public function getSecurityGroups() {
 		$secgroups = OpenStackNovaController::_get_property( $this->instance, 'security_groups' );
 		$groups = [];
 		if ( $secgroups ) {
@@ -264,11 +264,11 @@ class OpenStackNovaInstance {
 	 *
 	 * @return string
 	 */
-	function getLaunchTime() {
+	public function getLaunchTime() {
 		return OpenStackNovaController::_get_property( $this->instance, 'created' );
 	}
 
-	function deleteArticle() {
+	public function deleteArticle() {
 		$host = $this->getHost();
 		if ( $host ) {
 			'@phan-var OpenStackNovaPrivateHost $host';
@@ -276,7 +276,7 @@ class OpenStackNovaInstance {
 		}
 	}
 
-	function deleteInstance( $userNova ) {
+	public function deleteInstance( $userNova ) {
 		global $wgUser;
 
 		$success = $userNova->terminateInstance( $this->getInstanceOsId() );

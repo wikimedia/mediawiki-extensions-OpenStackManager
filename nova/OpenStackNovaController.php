@@ -18,7 +18,7 @@ class OpenStackNovaController {
 	/**
 	 * @param OpenStackNovaUser $user
 	 */
-	function __construct( $user ) {
+	public function __construct( $user ) {
 		$this->project = '';
 		$this->token = '';
 
@@ -30,7 +30,7 @@ class OpenStackNovaController {
 	 * @param OpenStackNovaUser $user
 	 * @return OpenStackNovaController
 	 */
-	static function newFromUser( $user ) {
+	public static function newFromUser( $user ) {
 		return new OpenStackNovaController( $user );
 	}
 
@@ -45,7 +45,7 @@ class OpenStackNovaController {
 	 *
 	 * @return string
 	 */
-	function getAttachmentMime( $attachmenttext, $mimetype, $filename ) {
+	public function getAttachmentMime( $attachmenttext, $mimetype, $filename ) {
 		$endl = $this->getLineEnding();
 		$attachment = 'Content-Type: ' . $mimetype . '; charset="us-ascii"' . $endl;
 		$attachment .= 'MIME-Version: 1.0' . $endl;
@@ -56,7 +56,7 @@ class OpenStackNovaController {
 		return $attachment;
 	}
 
-	function getLineEnding() {
+	public function getLineEnding() {
 		if ( wfIsWindows() ) {
 			return "\r\n";
 		} else {
@@ -64,19 +64,19 @@ class OpenStackNovaController {
 		}
 	}
 
-	function getProject() {
+	public function getProject() {
 		return $this->project;
 	}
 
-	function setProject( $project ) {
+	public function setProject( $project ) {
 		$this->project = $project;
 	}
 
-	function getRegion() {
+	public function getRegion() {
 		return $this->region;
 	}
 
-	function getRegions( $service ) {
+	public function getRegions( $service ) {
 		global $wgMemc;
 		global $wgUser;
 		global $wgOpenStackManagerRestrictedRegions;
@@ -104,7 +104,7 @@ class OpenStackNovaController {
 		return array_unique( $regions );
 	}
 
-	function setRegion( $region ) {
+	public function setRegion( $region ) {
 		$this->region = $region;
 	}
 
@@ -112,7 +112,7 @@ class OpenStackNovaController {
 	 * @param string $id
 	 * @return null
 	 */
-	function getAddress( $id ) {
+	public function getAddress( $id ) {
 		$id = urlencode( $id );
 		$ret = $this->restCall( 'compute', '/os-floating-ips/' . $id, 'GET' );
 		$address = self::_get_property( $ret['body'], 'floating_ip' );
@@ -126,7 +126,7 @@ class OpenStackNovaController {
 	/**
 	 * @return array
 	 */
-	function getAddresses() {
+	public function getAddresses() {
 		$addressesarr = [];
 		$ret = $this->restCall( 'compute', '/os-floating-ips', 'GET' );
 		$addresses = self::_get_property( $ret['body'], 'floating_ips' );
@@ -145,7 +145,7 @@ class OpenStackNovaController {
 	 * @param string $instanceId
 	 * @return null|OpenStackNovaInstance
 	 */
-	function getInstance( $instanceId ) {
+	public function getInstance( $instanceId ) {
 		$instanceId = urlencode( $instanceId );
 		$ret = $this->restCall( 'compute', '/servers/' . $instanceId, 'GET' );
 		if ( self::isApiError( $ret['code'] ) ) {
@@ -157,7 +157,7 @@ class OpenStackNovaController {
 		}
 	}
 
-	function createProxy( $fqdn, $backendHost, $backendPort ) {
+	public function createProxy( $fqdn, $backendHost, $backendPort ) {
 		$data = [
 			'domain' => $fqdn,
 			'backends' => [ 'http://' . $backendHost . ':' . $backendPort ]
@@ -172,7 +172,7 @@ class OpenStackNovaController {
 		return $proxyObj;
 	}
 
-	function deleteProxy( $fqdn ) {
+	public function deleteProxy( $fqdn ) {
 		$ret = $this->restCall( 'proxy', '/mapping/' . $fqdn, 'DELETE' );
 		return self::isApiSuccess( $ret['code'] );
 	}
@@ -180,7 +180,7 @@ class OpenStackNovaController {
 	/**
 	 * @return array
 	 */
-	function getProxiesForProject() {
+	public function getProxiesForProject() {
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		$proxyarr = [];
 		$ret = $this->restCall( 'proxy', '/mapping', 'GET' );
@@ -243,7 +243,7 @@ class OpenStackNovaController {
 	 * @return string a token for $wgOpenStackManagerLDAPUsername
 	 *  who happens to have admin rights in Keystone.
 	 */
-	function _getAdminToken() {
+	private function _getAdminToken() {
 		global $wgOpenStackManagerLDAPUsername, $wgOpenStackManagerLDAPUserPassword;
 		global $wgMemc;
 
@@ -303,7 +303,7 @@ class OpenStackNovaController {
 	/**
 	 * @return array of project ids => project names
 	 */
-	function getProjects() {
+	public function getProjects() {
 		$admintoken = $this->_getAdminToken();
 		$headers = [ "X-Auth-Token: $admintoken" ];
 
@@ -326,7 +326,7 @@ class OpenStackNovaController {
 	 * @param string $projectid
 	 * @return string
 	 */
-	function getProjectName( $projectid ) {
+	public function getProjectName( $projectid ) {
 		$admintoken = $this->_getAdminToken();
 		$headers = [ "X-Auth-Token: $admintoken" ];
 
@@ -342,7 +342,7 @@ class OpenStackNovaController {
 	 * @param string $projectname
 	 * @return string id of new project or "" on failure
 	 */
-	function createProject( $projectname ) {
+	public function createProject( $projectname ) {
 		// TODO: test this or remove
 		$admintoken = $this->_getAdminToken();
 		$headers = [
@@ -366,7 +366,7 @@ class OpenStackNovaController {
 		return self::_get_property( $tenant, 'id' );
 	}
 
-	function deleteProject( $projectid ) {
+	public function deleteProject( $projectid ) {
 		// TODO: test this or remove
 		$admintoken = $this->_getAdminToken();
 		$headers = [ "X-Auth-Token: $admintoken" ];
@@ -380,7 +380,7 @@ class OpenStackNovaController {
 	 * @param string $projectid
 	 * @return array of user IDs => user names
 	 */
-	function getUsersInProject( $projectid ) {
+	public function getUsersInProject( $projectid ) {
 		global $wgOpenStackHiddenUsernames;
 
 		$admintoken = $this->_getAdminToken();
@@ -415,7 +415,7 @@ class OpenStackNovaController {
 	/**
 	 * @return array of $roleid => $rolename
 	 */
-	function getKeystoneRoles() {
+	public function getKeystoneRoles() {
 		global $wgMemc;
 
 		$key = wfMemcKey( 'openstackmanager', 'keystoneroles' );
@@ -453,7 +453,7 @@ class OpenStackNovaController {
 	 *  on the return value will answer the question
 	 *  'what projects is this user in?'
 	 */
-	function getRoleAssignmentsForUser( $userid ) {
+	public function getRoleAssignmentsForUser( $userid ) {
 		$admintoken = $this->_getAdminToken();
 		$headers = [ "X-Auth-Token: $admintoken" ];
 
@@ -482,7 +482,7 @@ class OpenStackNovaController {
 	 * @param string $projectid
 	 * @return array of arrays:  role ID => user IDs
 	 */
-	function getRoleAssignmentsForProject( $projectid ) {
+	public function getRoleAssignmentsForProject( $projectid ) {
 		$admintoken = $this->_getAdminToken();
 		$headers = [ "X-Auth-Token: $admintoken" ];
 
@@ -512,7 +512,7 @@ class OpenStackNovaController {
 	 * @param string $userid
 	 * @return array role IDs => role Names
 	 */
-	function getRolesForProjectAndUser( $projectid, $userid ) {
+	public function getRolesForProjectAndUser( $projectid, $userid ) {
 		$admintoken = $this->_getAdminToken();
 		$headers = [ "X-Auth-Token: $admintoken" ];
 
@@ -535,7 +535,7 @@ class OpenStackNovaController {
 		return $rolearr;
 	}
 
-	function grantRoleForProjectAndUser( $roleid, $projectid, $userid ) {
+	public function grantRoleForProjectAndUser( $roleid, $projectid, $userid ) {
 		$admintoken = $this->_getAdminToken();
 		$headers = [
 			'Accept: application/json',
@@ -553,7 +553,7 @@ class OpenStackNovaController {
 		return self::isApiSuccess( $ret['code'] );
 	}
 
-	function revokeRoleForProjectAndUser( $roleid, $projectid, $userid ) {
+	public function revokeRoleForProjectAndUser( $roleid, $projectid, $userid ) {
 		$admintoken = $this->_getAdminToken();
 		$headers = [
 			'Accept: application/json',
@@ -574,7 +574,7 @@ class OpenStackNovaController {
 	/**
 	 * @return OpenStackNovaInstance[]
 	 */
-	function getInstances() {
+	public function getInstances() {
 		$instancesarr = [];
 		$ret = $this->restCall( 'compute', '/servers/detail', 'GET' );
 		$instances = self::_get_property( $ret['body'], 'servers' );
@@ -593,7 +593,7 @@ class OpenStackNovaController {
 	 * @param string $instancetypeid
 	 * @return OpenStackNovaInstanceType
 	 */
-	function getInstanceType( $instancetypeid ) {
+	public function getInstanceType( $instancetypeid ) {
 		$instancetypeid = urlencode( $instancetypeid );
 		$ret = $this->restCall( 'compute', '/flavors/' . $instancetypeid, 'GET' );
 		$flavor = self::_get_property( $ret['body'], 'flavor' );
@@ -606,7 +606,7 @@ class OpenStackNovaController {
 	/**
 	 * @return array
 	 */
-	function getInstanceTypes() {
+	public function getInstanceTypes() {
 		$ret = $this->restCall( 'compute', '/flavors/detail', 'GET' );
 		$instanceTypesarr = [];
 		$instanceTypes = self::_get_property( $ret['body'], 'flavors' );
@@ -626,7 +626,7 @@ class OpenStackNovaController {
 	 * @param string $imageid
 	 * @return null|\OpenStackNovaImage
 	 */
-	function getImage( $imageid ) {
+	public function getImage( $imageid ) {
 		$imageid = urlencode( $imageid );
 		$ret = $this->restCall( 'compute', '/images/' . $imageid, 'GET' );
 		$image = self::_get_property( $ret['body'], 'image' );
@@ -639,7 +639,7 @@ class OpenStackNovaController {
 	/**
 	 * @return array
 	 */
-	function getImages() {
+	public function getImages() {
 		$ret = $this->restCall( 'compute', '/images/detail', 'GET' );
 		$imagesarr = [];
 		$images = self::_get_property( $ret['body'], 'images' );
@@ -656,7 +656,7 @@ class OpenStackNovaController {
 
 	/**
 	 */
-	function getKeypairs() {
+	public function getKeypairs() {
 		// Currently unimplemented
 	}
 
@@ -664,7 +664,7 @@ class OpenStackNovaController {
 	 * @param string $groupid
 	 * @return OpenStackNovaSecurityGroup
 	 */
-	function getSecurityGroup( $groupid ) {
+	public function getSecurityGroup( $groupid ) {
 		// The API annoyingly doesn't allow you to pull a single group
 		// pull them all, then return a single entry.
 		$groups = $this->getSecurityGroups();
@@ -678,7 +678,7 @@ class OpenStackNovaController {
 	/**
 	 * @return array
 	 */
-	function getSecurityGroups() {
+	public function getSecurityGroups() {
 		$ret = $this->restCall( 'compute', '/os-security-groups', 'GET' );
 		$groups = [];
 		$securityGroups = self::_get_property( $ret['body'], 'security_groups' );
@@ -699,7 +699,7 @@ class OpenStackNovaController {
 	 * @param string $instanceid
 	 * @return string
 	 */
-	function getConsoleOutput( $instanceid ) {
+	public function getConsoleOutput( $instanceid ) {
 		$instanceid = urlencode( $instanceid );
 		$data = [ 'os-getConsoleOutput' => [ 'length' => null ] ];
 		$ret = $this->restCall( 'compute', '/servers/' . $instanceid . '/action', 'POST', $data );
@@ -713,7 +713,7 @@ class OpenStackNovaController {
 	 * @param string $volumeId
 	 * @return null|OpenStackNovaVolume
 	 */
-	function getVolume( $volumeId ) {
+	public function getVolume( $volumeId ) {
 		# unimplemented
 		return null;
 	}
@@ -723,7 +723,7 @@ class OpenStackNovaController {
 	 *
 	 * @return array
 	 */
-	function getVolumes() {
+	public function getVolumes() {
 		# unimplemented
 		return [];
 	}
@@ -736,7 +736,7 @@ class OpenStackNovaController {
 	 * @param array $groups
 	 * @return null|OpenStackNovaInstance
 	 */
-	function createInstance( $instanceName, $image, $key, $instanceType, $groups ) {
+	public function createInstance( $instanceName, $image, $key, $instanceType, $groups ) {
 		global $wgOpenStackManagerInstanceUserData;
 
 		$data = [ 'server' => [] ];
@@ -817,7 +817,7 @@ class OpenStackNovaController {
 	 * @param string $instanceid
 	 * @return bool
 	 */
-	function terminateInstance( $instanceid ) {
+	public function terminateInstance( $instanceid ) {
 		$addresses = $this->getAddresses();
 		foreach ( $addresses as $address ) {
 			if ( $address->getInstanceId() === $instanceid ) {
@@ -835,7 +835,7 @@ class OpenStackNovaController {
 	 * @param string $description
 	 * @return null|OpenStackNovaSecurityGroup
 	 */
-	function createSecurityGroup( $groupname, $description ) {
+	public function createSecurityGroup( $groupname, $description ) {
 		$data = [ 'security_group' => [ 'name' => $groupname, 'description' => $description ] ];
 		$ret = $this->restCall( 'compute', '/os-security-groups', 'POST', $data );
 		if ( self::isApiError( $ret['code'] ) ) {
@@ -854,7 +854,7 @@ class OpenStackNovaController {
 	 * @param string $groupid
 	 * @return bool
 	 */
-	function deleteSecurityGroup( $groupid ) {
+	public function deleteSecurityGroup( $groupid ) {
 		$groupid = urlencode( $groupid );
 		$ret = $this->restCall( 'compute', '/os-security-groups/' . $groupid, 'DELETE' );
 
@@ -870,7 +870,7 @@ class OpenStackNovaController {
 	 * @param string $group
 	 * @return bool
 	 */
-	function addSecurityGroupRule(
+	public function addSecurityGroupRule(
 		$groupid, $fromport = '', $toport = '', $protocol = '', $range = '', $group = ''
 	) {
 		if ( $group && $range ) {
@@ -898,7 +898,7 @@ class OpenStackNovaController {
 	 * @param string $ruleid
 	 * @return bool
 	 */
-	function removeSecurityGroupRule( $ruleid ) {
+	public function removeSecurityGroupRule( $ruleid ) {
 		$ruleid = urlencode( $ruleid );
 		$ret = $this->restCall( 'compute', '/os-security-group-rules/' . $ruleid, 'DELETE' );
 
@@ -908,7 +908,7 @@ class OpenStackNovaController {
 	/**
 	 * @return null|OpenStackNovaAddress
 	 */
-	function allocateAddress() {
+	public function allocateAddress() {
 		$ret = $this->restCall( 'compute', '/os-floating-ips', 'POST', [] );
 		if ( self::isApiError( $ret['code'] ) ) {
 			return null;
@@ -928,7 +928,7 @@ class OpenStackNovaController {
 	 * @param string $id
 	 * @return bool
 	 */
-	function releaseAddress( $id ) {
+	public function releaseAddress( $id ) {
 		$id = urlencode( $id );
 		$ret = $this->restCall( 'compute', '/os-floating-ips/' . $id, 'DELETE' );
 
@@ -942,7 +942,7 @@ class OpenStackNovaController {
 	 * @param string $ip
 	 * @return bool
 	 */
-	function associateAddress( $instanceid, $ip ) {
+	public function associateAddress( $instanceid, $ip ) {
 		$instanceid = urlencode( $instanceid );
 		$data = [ 'addFloatingIp' => [ 'address' => $ip ] ];
 		$ret = $this->restCall( 'compute', '/servers/' . $instanceid . '/action', 'POST', $data );
@@ -957,7 +957,7 @@ class OpenStackNovaController {
 	 * @param string $ip
 	 * @return bool
 	 */
-	function disassociateAddress( $instanceid, $ip ) {
+	public function disassociateAddress( $instanceid, $ip ) {
 		$instanceid = urlencode( $instanceid );
 		$data = [ 'removeFloatingIp' => [ 'address' => $ip ] ];
 		$ret = $this->restCall( 'compute', '/servers/' . $instanceid . '/action', 'POST', $data );
@@ -974,7 +974,7 @@ class OpenStackNovaController {
 	 * @param string $description
 	 * @return OpenStackNovaVolume
 	 */
-	function createVolume( $zone, $size, $name, $description ) {
+	public function createVolume( $zone, $size, $name, $description ) {
 		# Unimplemented
 		return null;
 	}
@@ -985,7 +985,7 @@ class OpenStackNovaController {
 	 * @param string $volumeid
 	 * @return bool
 	 */
-	function deleteVolume( $volumeid ) {
+	public function deleteVolume( $volumeid ) {
 		# unimplemented
 		return false;
 	}
@@ -998,7 +998,7 @@ class OpenStackNovaController {
 	 * @param string $device
 	 * @return bool
 	 */
-	function attachVolume( $volumeid, $instanceid, $device ) {
+	public function attachVolume( $volumeid, $instanceid, $device ) {
 		# unimplemented
 		return false;
 	}
@@ -1010,7 +1010,7 @@ class OpenStackNovaController {
 	 * @param string $force
 	 * @return bool
 	 */
-	function detachVolume( $volumeid, $force ) {
+	public function detachVolume( $volumeid, $force ) {
 		# unimplemented
 		return false;
 	}
@@ -1022,14 +1022,14 @@ class OpenStackNovaController {
 	 * @param string $type
 	 * @return bool
 	 */
-	function rebootInstance( $instanceid, $type = 'SOFT' ) {
+	public function rebootInstance( $instanceid, $type = 'SOFT' ) {
 		$instanceid = urlencode( $instanceid );
 		$data = [ 'reboot' => [ 'type' => $type ] ];
 		$ret = $this->restCall( 'compute', '/servers/' . $instanceid . '/action', 'POST', $data );
 		return self::isApiSuccess( $ret['code'] );
 	}
 
-	function getLimits() {
+	public function getLimits() {
 		$ret = $this->restCall( 'compute', '/limits', 'GET', [] );
 		if ( self::isApiError( $ret['code'] ) ) {
 			return null;
@@ -1043,7 +1043,7 @@ class OpenStackNovaController {
 		return $limits;
 	}
 
-	function authenticate( $username, $password ) {
+	public function authenticate( $username, $password ) {
 		global $wgMemc;
 
 		$ldap = LdapAuthenticationPlugin::getInstance();
@@ -1090,7 +1090,7 @@ class OpenStackNovaController {
 		return $this->token;
 	}
 
-	function getUnscopedToken() {
+	public function getUnscopedToken() {
 		global $wgMemc;
 
 		$token = '';
@@ -1119,7 +1119,7 @@ class OpenStackNovaController {
 		return $token;
 	}
 
-	function getProjectToken( $project ) {
+	public function getProjectToken( $project ) {
 		global $wgMemc;
 
 		// Try to fetch the project token
@@ -1154,7 +1154,7 @@ class OpenStackNovaController {
 		return $token;
 	}
 
-	function getEndpoints( $service ) {
+	public function getEndpoints( $service ) {
 		global $wgMemc;
 
 		$key = wfMemcKey( 'openstackmanager', 'serviceCatalog-' . $this->project, $this->username );
@@ -1172,7 +1172,7 @@ class OpenStackNovaController {
 		return $endpoints;
 	}
 
-	function getTokenHeaders( $token, $project ) {
+	public function getTokenHeaders( $token, $project ) {
 		// Project names can only contain a-z0-9-, strip everything else.
 		$headers = [
 			'Accept: application/json',
@@ -1183,7 +1183,9 @@ class OpenStackNovaController {
 		return $headers;
 	}
 
-	function restCall( $service, $path, $method, $data = [], $authHeaders = '', $retrying = false ) {
+	public function restCall(
+		$service, $path, $method, $data = [], $authHeaders = '', $retrying = false
+	) {
 		global $wgOpenStackManagerNovaIdentityURI;
 		global $wgOpenStackManagerNovaIdentityV3URI;
 		global $wgMemc;
@@ -1268,7 +1270,7 @@ class OpenStackNovaController {
 		];
 	}
 
-	static function _get_property( $object, $id ) {
+	public static function _get_property( $object, $id ) {
 		if ( isset( $object ) && is_object( $object ) ) {
 			if ( property_exists( $object, $id ) ) {
 				return $object->$id;
@@ -1283,7 +1285,7 @@ class OpenStackNovaController {
 	 * @param int $code
 	 * @return bool
 	 */
-	static function isApiSuccess( $code ) {
+	public static function isApiSuccess( $code ) {
 		return $code >= 200 && $code < 300;
 	}
 
@@ -1293,7 +1295,7 @@ class OpenStackNovaController {
 	 * @param int $code
 	 * @return bool
 	 */
-	static function isApiError( $code ) {
+	public static function isApiError( $code ) {
 		return $code < 200 || $code >= 300;
 	}
 }

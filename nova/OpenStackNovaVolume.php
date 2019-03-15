@@ -14,7 +14,7 @@ class OpenStackNovaVolume {
 	/**
 	 * @param array $apiVolumeResponse
 	 */
-	function __construct( $apiVolumeResponse ) {
+	public function __construct( $apiVolumeResponse ) {
 		$this->volume = $apiVolumeResponse;
 	}
 
@@ -23,7 +23,7 @@ class OpenStackNovaVolume {
 	 *
 	 * @return string
 	 */
-	function getVolumeName() {
+	public function getVolumeName() {
 		return OpenStackNovaController::_get_property( $this->volume, 'display_name' );
 	}
 
@@ -32,7 +32,7 @@ class OpenStackNovaVolume {
 	 *
 	 * @return string
 	 */
-	function getVolumeDescription() {
+	public function getVolumeDescription() {
 		return OpenStackNovaController::_get_property( $this->volume, 'display_description' );
 	}
 
@@ -41,7 +41,7 @@ class OpenStackNovaVolume {
 	 *
 	 * @return string
 	 */
-	function getVolumeId() {
+	public function getVolumeId() {
 		return OpenStackNovaController::_get_property( $this->volume, 'id' );
 	}
 
@@ -51,7 +51,7 @@ class OpenStackNovaVolume {
 	 *
 	 * @return string
 	 */
-	function getAttachedInstanceId() {
+	public function getAttachedInstanceId() {
 		# unimplemented
 		return '';
 	}
@@ -61,7 +61,7 @@ class OpenStackNovaVolume {
 	 *
 	 * @return string
 	 */
-	function getAttachmentStatus() {
+	public function getAttachmentStatus() {
 		# unimplemented
 		return '';
 	}
@@ -71,7 +71,7 @@ class OpenStackNovaVolume {
 	 *
 	 * @return string
 	 */
-	function getAttachmentTime() {
+	public function getAttachmentTime() {
 		# unimplemented
 		return '';
 	}
@@ -81,7 +81,7 @@ class OpenStackNovaVolume {
 	 *
 	 * @return string
 	 */
-	function getAttachedDevice() {
+	public function getAttachedDevice() {
 		# unimplemented
 		return '';
 	}
@@ -91,7 +91,7 @@ class OpenStackNovaVolume {
 	 *
 	 * @return int
 	 */
-	function getVolumeSize() {
+	public function getVolumeSize() {
 		return OpenStackNovaController::_get_property( $this->volume, 'size' );
 	}
 
@@ -100,7 +100,7 @@ class OpenStackNovaVolume {
 	 *
 	 * @return string
 	 */
-	function getVolumeCreationTime() {
+	public function getVolumeCreationTime() {
 		return OpenStackNovaController::_get_property( $this->volume, 'created_at' );
 	}
 
@@ -109,7 +109,7 @@ class OpenStackNovaVolume {
 	 *
 	 * @return string
 	 */
-	function getVolumeAvailabilityZone() {
+	public function getVolumeAvailabilityZone() {
 		return OpenStackNovaController::_get_property( $this->volume, 'availability_zone' );
 	}
 

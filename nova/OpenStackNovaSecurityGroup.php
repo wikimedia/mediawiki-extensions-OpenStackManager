@@ -15,7 +15,7 @@ class OpenStackNovaSecurityGroup {
 	/**
 	 * @param array $apiInstanceResponse
 	 */
-	function __construct( $apiInstanceResponse ) {
+	public function __construct( $apiInstanceResponse ) {
 		$this->group = $apiInstanceResponse;
 		$this->rules = [];
 		// @phan-suppress-next-line PhanTypeMismatchForeach
@@ -27,35 +27,35 @@ class OpenStackNovaSecurityGroup {
 	/**
 	 * @return string
 	 */
-	function getGroupName() {
+	public function getGroupName() {
 		return OpenStackNovaController::_get_property( $this->group, 'name' );
 	}
 
 	/**
 	 * @return string
 	 */
-	function getGroupId() {
+	public function getGroupId() {
 		return OpenStackNovaController::_get_property( $this->group, 'id' );
 	}
 
 	/**
 	 * @return string
 	 */
-	function getGroupDescription() {
+	public function getGroupDescription() {
 		return OpenStackNovaController::_get_property( $this->group, 'description' );
 	}
 
 	/**
 	 * @return string
 	 */
-	function getProject() {
+	public function getProject() {
 		return OpenStackNovaController::_get_property( $this->group, 'tenant_id' );
 	}
 
 	/**
 	 * @return array|OpenStackNovaSecurityGroupRule
 	 */
-	function getRules() {
+	public function getRules() {
 		return $this->rules;
 	}
 

@@ -16,7 +16,7 @@ class OpenStackNovaUser {
 	/**
 	 * @param string $username
 	 */
-	function __construct( $username = '' ) {
+	public function __construct( $username = '' ) {
 		$this->username = $username;
 		OpenStackNovaLdapConnection::connect();
 		$this->fetchUserInfo();
@@ -25,7 +25,7 @@ class OpenStackNovaUser {
 	/**
 	 * @return void
 	 */
-	function fetchUserInfo() {
+	public function fetchUserInfo() {
 		global $wgUser;
 
 		$ldap = LdapAuthenticationPlugin::getInstance();
@@ -55,14 +55,14 @@ class OpenStackNovaUser {
 	/**
 	 * @return string
 	 */
-	function getUid() {
+	public function getUid() {
 		return $this->userInfo[0]['uid'][0];
 	}
 
 	/**
 	 * @return string
 	 */
-	function getUsername() {
+	public function getUsername() {
 		return $this->username;
 	}
 
@@ -70,7 +70,7 @@ class OpenStackNovaUser {
 	 * @param string $project
 	 * @return array
 	 */
-	function getCredentials( $project = '' ) {
+	public function getCredentials( $project = '' ) {
 		$userNova = OpenStackNovaController::newFromUser( $this );
 		if ( $project ) {
 			$token = $userNova->getProjectToken( $project );
@@ -85,7 +85,7 @@ class OpenStackNovaUser {
 	 * @param User $user
 	 * @return string
 	 */
-	static function loadToken( $user ) {
+	public static function loadToken( $user ) {
 		if ( !$user ) {
 			return null;
 		}
@@ -111,7 +111,7 @@ class OpenStackNovaUser {
 	 * @param string $token
 	 * @return bool
 	 */
-	static function saveToken( $user, $token ) {
+	public static function saveToken( $user, $token ) {
 		$user_id = $user->getId();
 		if ( $user_id != 0 ) {
 			$dbw = wfGetDB( DB_MASTER );
@@ -137,7 +137,7 @@ class OpenStackNovaUser {
 	/**
 	 * @return array
 	 */
-	function getKeypairs() {
+	public function getKeypairs() {
 		$this->fetchUserInfo();
 		if ( isset( $this->userInfo[0]['sshpublickey'] ) ) {
 			$keys = $this->userInfo[0]['sshpublickey'];
@@ -158,7 +158,7 @@ class OpenStackNovaUser {
 	/**
 	 * @return bool
 	 */
-	function exists() {
+	public function exists() {
 		$credentials = $this->getCredentials();
 		return (bool)$credentials['token'];
 	}
@@ -166,7 +166,7 @@ class OpenStackNovaUser {
 	/**
 	 * @return array
 	 */
-	function getProjects() {
+	public function getProjects() {
 		$controller = OpenStackNovaProject::getController();
 		$projects = array_keys( $controller->getRoleAssignmentsForUser( $this->getUid() ) );
 		return $projects;
@@ -177,7 +177,7 @@ class OpenStackNovaUser {
 	 * all projects.
 	 * @return array of rolenames
 	 */
-	function getRoles() {
+	public function getRoles() {
 		global $wgMemc;
 
 		$key = wfMemcKey( 'openstackmanager', 'roles', $this->username );
@@ -208,7 +208,7 @@ class OpenStackNovaUser {
 	 * @param string $project
 	 * @return bool
 	 */
-	function inProject( $project ) {
+	public function inProject( $project ) {
 		global $wgMemc;
 
 		$key = wfMemcKey( 'openstackmanager', "project-$project", $this->userDN );
@@ -229,7 +229,7 @@ class OpenStackNovaUser {
 	 * @param string $projectname
 	 * @return bool
 	 */
-	function inRole( $role, $projectname ) {
+	public function inRole( $role, $projectname ) {
 		global $wgMemc;
 
 		if ( !$projectname ) {
@@ -264,7 +264,7 @@ class OpenStackNovaUser {
 	 * @param string $key
 	 * @return bool
 	 */
-	function importKeypair( $key ) {
+	public function importKeypair( $key ) {
 		global $wgMemc;
 
 		$ldap = LdapAuthenticationPlugin::getInstance();
@@ -294,7 +294,7 @@ class OpenStackNovaUser {
 	 * @param string $key
 	 * @return bool
 	 */
-	function deleteKeypair( $key ) {
+	public function deleteKeypair( $key ) {
 		global $wgMemc;
 
 		$ldap = LdapAuthenticationPlugin::getInstance();
@@ -346,7 +346,7 @@ class OpenStackNovaUser {
 	 * @param string $attr
 	 * @return mixed|string
 	 */
-	static function getNextIdNumber( $auth, $attr ) {
+	public static function getNextIdNumber( $auth, $attr ) {
 		global $wgOpenStackManagerIdRanges;
 
 		$highest = '';
@@ -402,7 +402,7 @@ class OpenStackNovaUser {
 	 * @param bool &$result
 	 * @return bool
 	 */
-	static function LDAPSetCreationValues(
+	public static function LDAPSetCreationValues(
 		$auth, $username, &$values, $writeloc, &$userdn, &$result
 	) {
 		global $wgOpenStackManagerLDAPDefaultGid;
@@ -484,7 +484,7 @@ class OpenStackNovaUser {
 	 * @param string &$result
 	 * @return bool
 	 */
-	static function LDAPRetrySetCreationValues(
+	public static function LDAPRetrySetCreationValues(
 		$auth, $username, &$values, $writeloc, &$userdn, &$result
 	) {
 		$uidnumber = self::getNextIdNumber( $auth, 'uidnumber' );
@@ -502,7 +502,7 @@ class OpenStackNovaUser {
 	 * @param BaseTemplate &$template
 	 * @return bool
 	 */
-	static function LDAPModifyUITemplate( &$template ) {
+	public static function LDAPModifyUITemplate( &$template ) {
 		$input = [
 			'msg' => 'openstackmanager-shellaccountname',
 			'type' => 'text',
@@ -521,7 +521,7 @@ class OpenStackNovaUser {
 	 * @param array &$formDescriptor
 	 * @param string $action
 	 */
-	static function AuthChangeFormFields( $requests, $fieldInfo, &$formDescriptor, $action ) {
+	public static function AuthChangeFormFields( $requests, $fieldInfo, &$formDescriptor, $action ) {
 		if ( isset( $formDescriptor['shellaccountname'] ) ) {
 			$formDescriptor['shellaccountname'] += [
 				'help-message' => 'openstackmanager-shellaccountnamehelp',
@@ -534,7 +534,7 @@ class OpenStackNovaUser {
 	 * @param User &$wikiUser
 	 * @return bool
 	 */
-	static function LDAPUpdateUser( &$wikiUser ) {
+	public static function LDAPUpdateUser( &$wikiUser ) {
 		if ( $wikiUser->getToken( false ) && isset( $_SESSION['wsOpenStackToken'] ) ) {
 			# If the user has a long-lived token, save the token,
 			# so that it can be refetched.
@@ -549,7 +549,7 @@ class OpenStackNovaUser {
 	 * @param bool &$result
 	 * @return bool
 	 */
-	static function ChainAuth( $username, $password, &$result ) {
+	public static function ChainAuth( $username, $password, &$result ) {
 		$user = new OpenStackNovaUser( $username );
 		$userNova = OpenStackNovaController::newFromUser( $user );
 		$token = $userNova->authenticate( $username, $password );
@@ -564,7 +564,7 @@ class OpenStackNovaUser {
 		return $result;
 	}
 
-	static function DynamicSidebarGetGroups( &$groups ) {
+	public static function DynamicSidebarGetGroups( &$groups ) {
 		global $wgUser, $wgMemc;
 		if ( $wgUser->isLoggedIn() ) {
 			$key = wfMemcKey( 'openstackmanager', 'roles', $wgUser->getName() );
@@ -672,7 +672,7 @@ class OpenStackNovaUser {
 	 * @param OpenStackNovaUser $user
 	 * @return string
 	 */
-	static function getKeyList( $user ) {
+	public static function getKeyList( $user ) {
 		global $wgOpenStackManagerNovaKeypairStorage;
 		$keyInfo = [];
 		if ( $wgOpenStackManagerNovaKeypairStorage === 'nova' ) {

@@ -20,7 +20,7 @@ class OpenStackNovaRole {
 	 * @param string $roleid
 	 * @param OpenStackNovaProject|null $project
 	 */
-	function __construct( $roleid, $project ) {
+	public function __construct( $roleid, $project ) {
 		$this->roleid = $roleid;
 		$this->project = $project;
 		OpenStackNovaLdapConnection::connect();
@@ -31,7 +31,7 @@ class OpenStackNovaRole {
 	/**
 	 * @return void
 	 */
-	function loadMembers() {
+	public function loadMembers() {
 		global $wgMemc;
 
 		$roleid = $this->roleid;
@@ -68,21 +68,21 @@ class OpenStackNovaRole {
 	/**
 	 * @return string
 	 */
-	function getRoleName() {
+	public function getRoleName() {
 		return $this->rolename;
 	}
 
 	/**
 	 * @return string
 	 */
-	function getRoleId() {
+	public function getRoleId() {
 		return $this->roleid;
 	}
 
 	/**
 	 * @return array
 	 */
-	function getMembers() {
+	public function getMembers() {
 		$this->loadMembers();
 		return $this->members;
 	}
@@ -91,7 +91,7 @@ class OpenStackNovaRole {
 	 * @param string $username
 	 * @return bool
 	 */
-	function deleteMember( $username ) {
+	public function deleteMember( $username ) {
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		$user = new OpenStackNovaUser( $username );
 		$userid = $user->getUid();
@@ -113,7 +113,7 @@ class OpenStackNovaRole {
 	 * @param string $username
 	 * @return bool
 	 */
-	function addMember( $username ) {
+	public function addMember( $username ) {
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		$user = new OpenStackNovaUser( $username );
 		$userid = $user->getUid();
@@ -134,7 +134,7 @@ class OpenStackNovaRole {
 	/**
 	 * @param OpenStackNovaUser $user
 	 */
-	function deleteMemcKeys( $user ) {
+	public function deleteMemcKeys( $user ) {
 		global $wgMemc;
 
 		$projectid = $this->project->getId();
@@ -157,7 +157,7 @@ class OpenStackNovaRole {
 	 * @param string $userLDAP
 	 * @return bool
 	 */
-	function userInRole( $userLDAP ) {
+	public function userInRole( $userLDAP ) {
 		$this->loadMembers();
 
 		if ( !$userLDAP ) {
@@ -175,7 +175,7 @@ class OpenStackNovaRole {
 	 * @param OpenStackNovaProject $project
 	 * @return null|OpenStackNovaRole
 	 */
-	static function getProjectRoleByName( $rolename, $project ) {
+	public static function getProjectRoleByName( $rolename, $project ) {
 		$controller = OpenstackNovaProject::getController();
 		$globalrolelist = $controller->getKeystoneRoles();
 		foreach ( $globalrolelist as $id => $name ) {
@@ -190,7 +190,7 @@ class OpenStackNovaRole {
 	 * @param string $roleid
 	 * @return string role name
 	 */
-	static function getRoleNameForId( $roleid ) {
+	public static function getRoleNameForId( $roleid ) {
 		global $wgMemc;
 
 		$key = wfMemcKey( 'openstackmanager', 'globalrolelist' );
