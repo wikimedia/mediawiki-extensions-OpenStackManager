@@ -10,7 +10,8 @@
 			"Александр Сигачёв",
 			"Тест",
 			"Meshkov.a",
-			"Vlad5250"
+			"Vlad5250",
+			"Diralik"
 		]
 	},
 	"openstackmanager-desc": "Позволяет пользователям управлять Nova и Swift",
@@ -50,7 +51,7 @@
 	"openstackmanager-notloggedin": "Требуется авторизация",
 	"openstackmanager-mustbeloggedin": "Для выполнения этого действия вы должны быть авторизованы.",
 	"openstackmanager-creationdisabled": "Создание отключено",
-	"openstackmanager-noaccount": "Ваша учетная запись не состоит в проекте  $1 .",
+	"openstackmanager-noaccount": "Ваша учётная запись не состоит в проекте  $1 .",
 	"openstackmanager-createdomain": "Создать домен",
 	"openstackmanager-deletedomain": "Удалить домен",
 	"openstackmanager-novadomain-domain": "Добавить домен",
@@ -134,7 +135,7 @@
 	"openstackmanager-createdproject": "Проект был создан.",
 	"openstackmanager-projectlist": "Список проектов",
 	"openstackmanager-backprojectlist": "Вернуться к списку проектов",
-	"openstackmanager-addadditionalproject": "Добавить еще один проект.",
+	"openstackmanager-addadditionalproject": "Добавить ещё один проект.",
 	"openstackmanager-deleteproject": "Удалить",
 	"openstackmanager-deletedproject": "Удалён проект.",
 	"openstackmanager-deleteprojectfailed": "Не удалось удалить проект.",
@@ -229,7 +230,7 @@
 	"openstackmanager-createdproxy": "Создан новый прокси $1 для $2.",
 	"openstackmanager-backproxylist": "Вернуться к списку прокси",
 	"openstackmanager-twofactorrequired": "Требуется двухфакторная аутентификация",
-	"openstackmanager-twofactorrequired2": "Требуется двухфакторная аутентификация. Пожалуйста, включите ее и повторите попытку.",
+	"openstackmanager-twofactorrequired2": "Требуется двухфакторная аутентификация. Пожалуйста, включите её и повторите попытку.",
 	"right-manageproject": "управление проектами и ролями OpenStack",
 	"right-loginviashell": "вход через оболочку",
 	"notification-header-osm-projectmembers-add": "{{GENDER:$5|Вы}} были добавлены в проект $3.",
