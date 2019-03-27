@@ -23,7 +23,7 @@ class YamlContent extends TextContent {
 	 * @return array
 	 */
 	public function getYamlData() {
-		return Spyc::YAMLLoadString( $this->getNativeData(), true );
+		return Spyc::YAMLLoadString( $this->getText(), true );
 	}
 
 	/**
@@ -74,7 +74,7 @@ class YamlContent extends TextContent {
 			$html = Html::element( 'pre', [
 				'class' => 'mw-code mw-yaml',
 				'dir' => 'ltr',
-			], $this->getNativeData() );
+			], $this->getText() );
 
 			$output->setText( $html );
 		} else {
