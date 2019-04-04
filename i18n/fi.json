@@ -11,7 +11,8 @@
 			"VezonThunder",
 			"Pxos",
 			"Mikahama",
-			"Pahkiqaz"
+			"Pahkiqaz",
+			"Pyscowicz"
 		]
 	},
 	"openstackmanager-desc": "Mahdollistaa Novan ja Swiftin hallinnan wikin kautta",
@@ -88,7 +89,7 @@
 	"openstackmanager-backprojectlist": "Takaisin projektiluetteloon",
 	"openstackmanager-addadditionalproject": "Lisää toinen projekti.",
 	"openstackmanager-deleteproject": "Poista",
-	"openstackmanager-deletedproject": "Projektin poisto onnistui.",
+	"openstackmanager-deletedproject": "Projekti poistettu.",
 	"openstackmanager-deleteprojectfailed": "Projektin poisto epäonnistui.",
 	"openstackmanager-novaproject-project": "Lisää projekti",
 	"openstackmanager-novaprojectfilter-projectfilter": "Projektisuodatin",
