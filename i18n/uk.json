@@ -8,7 +8,8 @@
 			"SteveR",
 			"Тест",
 			"Ата",
-			"Piramidion"
+			"Piramidion",
+			"Vlad5250"
 		]
 	},
 	"openstackmanager-desc": "Дозволяє користувачам керувати Nova і Swift",
@@ -18,9 +19,11 @@
 	"openstackmanager-badresourcename": "Вказано погану назву ресурсу. Назви ресурсів розпочинаються із a-z і можуть містити лише a-z, 0-9 і - символи.",
 	"action-listall": "показ усієї інформації про ресурси",
 	"right-listall": "показ усієї інформації про ресурси",
+	"action-editallhiera": "редагування усіх сторінок Hiera:",
 	"right-editallhiera": "редагування усіх сторінок Hiera:",
 	"action-managednsdomain": "керування доменами DNS",
 	"right-managednsdomain": "керування глобальними доменами DNS",
+	"action-accessrestrictedregions": "доступ до обмежених регіонів",
 	"right-accessrestrictedregions": "доступ до обмежених регіонів",
 	"specialpages-group-nova": "OpenStack Nova",
 	"novaaddress": "Управління публічними IP-адресами",
@@ -355,6 +358,7 @@
 	"right-manageproject": "Управління проектами та ролями OpenStack",
 	"action-manageproject": "управляти проектами та ролями OpenStack",
 	"right-loginviashell": "Вхід через оболонку",
+	"action-loginviashell": "вхід через оболонку",
 	"notification-header-osm-instance-build-completed": "Примірник «$4» побудовано в проекті $3.",
 	"notification-header-osm-instance-reboot-completed": "Примірник «$4» перезавантажено в проекті $3.",
 	"notification-header-osm-instance-deleted": "Примірник «$4» вилучено в проекті $3.",
