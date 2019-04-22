@@ -335,6 +335,7 @@
 	"right-manageproject": "Hantera OpenStack-projekt och -roller",
 	"action-manageproject": "hantera OpenStack-projekt och -roller",
 	"right-loginviashell": "Logga in via shell",
+	"action-loginviashell": "logga in via shell",
 	"notification-header-osm-instance-deleted": "Instansen \"$4\" raderades i projektet $3.",
 	"notification-header-osm-projectmembers-add": "{{GENDER:$5|Du}} lades till i projektet $3.",
 	"echo-category-title-osm-instance-deleted": "Borttagning av instans (där du är projektetadministratör)",
