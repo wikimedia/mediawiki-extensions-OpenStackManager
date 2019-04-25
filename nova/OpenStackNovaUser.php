@@ -30,10 +30,10 @@ class OpenStackNovaUser {
 
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		if ( $this->username ) {
-			$this->userDN = $ldap->getUserDN( strtolower( $this->username ) );
+			$this->userDN = $ldap->getUserDN( $this->username );
 			$ldap->printDebug( "Fetching userdn using username: $this->userDN ", NONSENSITIVE );
 			if ( !$this->userDN ) {
-				$this->userDN = $ldap->getUserDN( strtolower( $this->username ), false, "uid" );
+				$this->userDN = $ldap->getUserDN( $this->username, false, "uid" );
 				$ldap->printDebug(
 					"Fetching userdn using shell name: $this->userDN ", NONSENSITIVE
 				);
@@ -43,7 +43,7 @@ class OpenStackNovaUser {
 				$this->username = $this->userInfo[0]['cn'][0];
 			}
 		} else {
-			$this->userDN = $ldap->getUserDN( strtolower( $wgUser->getName() ) );
+			$this->userDN = $ldap->getUserDN( $wgUser->getName() );
 			$this->username = $wgUser->getName();
 			$ldap->printDebug(
 				"Fetching userdn using wiki name: " . $wgUser->getName(), NONSENSITIVE
