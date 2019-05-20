@@ -26,7 +26,7 @@ class ApiNovaProjectLimits extends ApiBase {
 		}
 	}
 
-	function execute() {
+	public function execute() {
 		$this->params = $this->extractRequestParams();
 		$this->userLDAP = new OpenStackNovaUser( $this->getUser()->getName() );
 
