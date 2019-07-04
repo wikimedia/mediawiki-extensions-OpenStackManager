@@ -275,6 +275,7 @@ $wgResourceModules['ext.openstack.Instance'] = [
 $wgResourceModules['ext.openstack.Address'] = [
 	'dependencies' => [
 		'ext.openstack.base',
+		'mediawiki.util',
 	],
 
 	'messages' => [

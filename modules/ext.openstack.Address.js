@@ -48,9 +48,7 @@
 		$link.addClass( toClass );
 		$link.text( mw.msg( linkText ) );
 		$link.attr( 'href',
-			mw.config.get( 'wgScript' ) + '?' +
-			$.param( {
-				title: 'Special:NovaAddress',
+			mw.util.getUrl( 'Special:NovaAddress', {
 				action: action,
 				id: this.addressId,
 				project: this.project,
