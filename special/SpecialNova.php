@@ -165,9 +165,9 @@ abstract class SpecialNova extends SpecialPage {
 	}
 
 	public static function createResourceLink( $resource ) {
-		$resource = htmlentities( $resource );
-		$title = Title::newFromText( $resource, NS_NOVA_RESOURCE );
-		return Linker::link( $title, $resource );
+		$res = htmlentities( $resource );
+		$title = Title::newFromText( $res, NS_NOVA_RESOURCE );
+		return Linker::link( $title, $res );
 	}
 
 	function createActionLink( $msg, $params, $title = null, $attribs = [] ) {
