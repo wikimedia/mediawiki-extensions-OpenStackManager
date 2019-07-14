@@ -240,6 +240,7 @@ class SpecialNovaKey extends SpecialNova {
 
 		return $data;
 	}
+
 	/**
 	 * Converts a public ssh key to openssh format, using ssh-keygen.
 	 * @param string $keydata SSH public/private key in some format

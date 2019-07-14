@@ -324,6 +324,7 @@ class SpecialNovaVolume extends SpecialNova {
 
 		return true;
 	}
+
 	/**
 	 * @return void
 	 */

@@ -220,6 +220,7 @@ class OpenStackNovaDomain {
 	}
 
 	# TODO: Allow generic domains; get rid of config set base name
+
 	/**
 	 * Create a new domain based on shortname, fully qualified domain name
 	 * and location. If location is an empty string, the domain created will
