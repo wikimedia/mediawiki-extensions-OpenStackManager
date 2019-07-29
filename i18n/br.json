@@ -3,7 +3,8 @@
 		"authors": [
 			"Fohanno",
 			"Fulup",
-			"Y-M D"
+			"Y-M D",
+			"Huñvreüs"
 		]
 	},
 	"openstackmanager-desc": "Lezel a ra an implijerien da verañ Nova ha Swift",
@@ -255,6 +256,7 @@
 	"openstackmanager-deleteproxy": "Dilemel ur proksi",
 	"openstackmanager-email-subject": "Prest eo hoc'h urzhiataer galloudel da vezañ kevreet.",
 	"openstackmanager-email-body": "Krouet eo bet an urzhiataerioù galloudel-mañ ha prest int da vezañ kevreet :",
+	"openstackmanager-twofactorrequired": "Dilesadur div-elfenn dre ret",
 	"right-manageproject": "Merañ raktresoù ha rolloù Openstack",
 	"prefs-openstack-keys": "Roll an alc'hwezioù"
 }
