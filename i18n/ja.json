@@ -14,6 +14,8 @@
 	"openstackmanager-title": "OpenStackManager",
 	"action-listall": "すべてのリソース情報の閲覧",
 	"right-listall": "リソース情報をすべて表示",
+	"action-editallhiera": "あらゆる Hiera: ページの編集",
+	"right-editallhiera": "あらゆる Hiera: ページを編集",
 	"action-managednsdomain": "DNS ドメインの管理",
 	"right-managednsdomain": "グローバルDNSドメインを管理",
 	"specialpages-group-nova": "OpenStack Nova",
