@@ -9,7 +9,7 @@ require_once "$IP/maintenance/Maintenance.php";
 class QualifyInstancePages extends Maintenance {
 	public function __construct() {
 		parent::__construct();
-		$this->mDescription = "Move instance pages from id to fqdn.";
+		$this->addDescription( "Move instance pages from id to fqdn." );
 	}
 
 	public function execute() {

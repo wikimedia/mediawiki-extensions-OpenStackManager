@@ -9,7 +9,7 @@ require_once "$IP/maintenance/Maintenance.php";
 class UpdateProjectPages extends Maintenance {
 	public function __construct() {
 		parent::__construct();
-		$this->mDescription = "Update all project pages in the wiki";
+		$this->addDescription( "Update all project pages in the wiki" );
 	}
 
 	public function execute() {

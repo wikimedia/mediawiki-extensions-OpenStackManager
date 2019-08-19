@@ -9,9 +9,9 @@ require_once "$IP/maintenance/Maintenance.php";
 class TransitionServiceGroupSchema extends Maintenance {
 	public function __construct() {
 		parent::__construct();
-		$this->mDescription = "Copy each cn=local-<servicegroup>,ou=groups,cn=<project>," .
+		$this->addDescription( "Copy each cn=local-<servicegroup>,ou=groups,cn=<project>," .
 			"ou=projects,dc=wikimedia,dc=org to cn=<project>.<servicegroup>,ou=groups," .
-			"cn=<project>,ou=projects,dc=wikimedia,dc=org";
+			"cn=<project>,ou=projects,dc=wikimedia,dc=org" );
 	}
 
 	public function updateMemberName( $member, $project ) {

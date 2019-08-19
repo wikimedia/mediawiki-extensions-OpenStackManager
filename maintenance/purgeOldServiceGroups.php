@@ -9,8 +9,8 @@ require_once "$IP/maintenance/Maintenance.php";
 class PurgeOldServiceGroups extends Maintenance {
 	public function __construct() {
 		parent::__construct();
-		$this->mDescription = "Delete all service users and groups of the form " .
-			"n=local-<servicegroup>,ou=groups,cn=<project>,ou=projects,dc=wikimedia,dc=org";
+		$this->addDescription( "Delete all service users and groups of the form " .
+			"n=local-<servicegroup>,ou=groups,cn=<project>,ou=projects,dc=wikimedia,dc=org" );
 	}
 
 	public function execute() {

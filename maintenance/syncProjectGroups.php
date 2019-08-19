@@ -9,8 +9,8 @@ require_once "$IP/maintenance/Maintenance.php";
 class SyncProjectGroups extends Maintenance {
 	public function __construct() {
 		parent::__construct();
-		$this->mDescription = "Sync each cn=<project-name>,ou=projects members to " .
-			"cn=project-<project-name>,ou=groups";
+		$this->addDescription( "Sync each cn=<project-name>,ou=projects members to " .
+			"cn=project-<project-name>,ou=groups" );
 	}
 
 	public function execute() {
