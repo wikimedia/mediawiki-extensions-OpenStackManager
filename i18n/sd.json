@@ -5,5 +5,7 @@
 		]
 	},
 	"right-accessrestrictedregions": "محدود علائقن تي رسائي ڪريو",
-	"openstackmanager-removedhost": "ھٽايو $1."
+	"openstackmanager-removedfrom": "$1 کي $2 تان ھٽايو ويو.",
+	"openstackmanager-removedhost": "ھٽايو $1.",
+	"openstackmanager-removedrule": "ھٽايل اصول"
 }
