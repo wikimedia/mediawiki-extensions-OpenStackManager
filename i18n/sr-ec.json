@@ -103,6 +103,7 @@
 	"openstackmanager-detachedvolume": "Јединица је откачена.",
 	"openstackmanager-detachvolumefailed": "Не могу да откачим јединицу.",
 	"openstackmanager-novapublickey": "Јавни SSH кључ",
+	"openstackmanager-prefs-novapublickey": "Јавни SSH кључеви:",
 	"openstackmanager-deletekey": "Брисање јавног SSH кључа",
 	"openstackmanager-deletekeyconfirm": "Желите ли да обришете горенаведени кључ?",
 	"openstackmanager-keylist": "Списак јавних SSH кључева",
@@ -212,5 +213,7 @@
 	"echo-category-title-osm-instance-build-completed": "Тренутно прављење (где сте админ пројекта)",
 	"echo-category-title-osm-instance-reboot-completed": "Тренутно завршавање рибута",
 	"echo-category-title-osm-projectmembers-add": "Додавање у чланство пројекта",
-	"prefs-openstack-keys": "Списак кључева"
+	"prefs-openstack-keys": "Списак кључева",
+	"apihelp-query+novaprojects-example-1": "Списак пројеката",
+	"apierror-openstackmanager-badproject": "Некоректан пројекат је наведен."
 }
