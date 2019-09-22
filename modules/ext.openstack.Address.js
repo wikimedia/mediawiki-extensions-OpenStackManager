@@ -125,7 +125,7 @@
 				project: this.project,
 				id: this.addressId,
 				region: this.region,
-				token: mw.user.tokens.get( 'editToken' ),
+				token: mw.user.tokens.get( 'csrfToken' ),
 				subaction: subaction
 			}, params ) );
 

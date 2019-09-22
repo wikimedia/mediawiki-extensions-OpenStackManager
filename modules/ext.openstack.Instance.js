@@ -153,7 +153,7 @@
 				instanceid: self.osid,
 				project: self.project,
 				region: self.region,
-				token: mw.user.tokens.get( 'editToken' ),
+				token: mw.user.tokens.get( 'csrfToken' ),
 				subaction: subaction
 			}, params ) );
 
