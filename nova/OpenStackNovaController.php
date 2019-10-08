@@ -148,13 +148,13 @@ class OpenStackNovaController {
 	function getInstance( $instanceId ) {
 		$instanceId = urlencode( $instanceId );
 		$ret = $this->restCall( 'compute', '/servers/' . $instanceId, 'GET' );
-		if ( $ret['code'] === 200 ) {
-			$server = self::_get_property( $ret['body'], 'server' );
-			if ( $server ) {
-				return new OpenStackNovaInstance( $server, $this->getRegion(), true );
-			}
+		if ( self::isApiError( $ret['code'] ) ) {
+			return null;
 		}
-		return null;
+		$server = self::_get_property( $ret['body'], 'server' );
+		if ( $server ) {
+			return new OpenStackNovaInstance( $server, $this->getRegion(), true );
+		}
 	}
 
 	function createProxy( $fqdn, $backendHost, $backendPort ) {
@@ -164,7 +164,7 @@ class OpenStackNovaController {
 		];
 		$ret = $this->restCall( 'proxy', '/mapping', 'PUT', $data );
 
-		if ( $ret['code'] !== 200 ) {
+		if ( self::isApiError( $ret['code'] ) ) {
 			return null;
 		}
 
@@ -174,12 +174,7 @@ class OpenStackNovaController {
 
 	function deleteProxy( $fqdn ) {
 		$ret = $this->restCall( 'proxy', '/mapping/' . $fqdn, 'DELETE' );
-
-		if ( $ret['code'] !== 200 ) {
-			return false;
-		}
-
-		return true;
+		return self::isApiSuccess( $ret['code'] );
 	}
 
 	/**
@@ -249,8 +244,9 @@ class OpenStackNovaController {
 	 */
 	function _getAdminToken() {
 		global $wgOpenStackManagerLDAPUsername, $wgOpenStackManagerLDAPUserPassword;
-		global $wgOpenStackManagerProjectId;
 		global $wgMemc;
+
+		$ldap = LdapAuthenticationPlugin::getInstance();
 
 		if ( $this->admintoken ) {
 			return $this->admintoken;
@@ -265,27 +261,40 @@ class OpenStackNovaController {
 
 		$data = [
 			'auth' => [
-				'passwordCredentials' => [
-					'username' => $wgOpenStackManagerLDAPUsername,
-					'password' => $wgOpenStackManagerLDAPUserPassword ],
-				'tenantId' => $wgOpenStackManagerProjectId ] ];
+				'identity' => [
+					'methods' => [
+						'password'
+					],
+					'password' => [
+						'user' => [
+							'domain' => [
+								'name' => 'Default'
+							],
+							'name' => $wgOpenStackManagerLDAPUsername,
+							'password' => $wgOpenStackManagerLDAPUserPassword,
+						]
+					]
+				]
+			]
+		];
 		$headers = [
 			'Accept: application/json',
 			'Content-Type: application/json',
 		];
-		$ret = $this->restCall( 'identity', '/tokens', 'POST', $data, $headers );
-		if ( $ret['code'] !== 200 ) {
-			$ldap = LdapAuthenticationPlugin::getInstance();
+		$ret = $this->restCall(
+			'identityv3', '/auth/tokens', 'POST', $data, $headers );
+		if ( self::isApiError( $ret['code'] ) ) {
 			$ldap->printDebug(
 				"OpenStackNovaController::_getAdminToken return code: " . $ret['code'], NONSENSITIVE
 			);
 			return "";
 		}
 
-		$body = $ret['body'];
-		$this->admintoken = self::_get_property( $body->access->token, 'id' );
-
-		$wgMemc->set( $key, $this->admintoken, 300 );
+		// Keystone v3 returns the admin token as a header
+		$this->admintoken = $ret['headers']['X-Subject-Token'] ?? '*BOGUS*';
+		if ( $this->admintoken !== '*BOGUS*' ) {
+			$wgMemc->set( $key, $this->admintoken, 300 );
+		}
 
 		return $this->admintoken;
 	}
@@ -298,8 +307,9 @@ class OpenStackNovaController {
 		$headers = [ "X-Auth-Token: $admintoken" ];
 
 		$projarr = [];
-		$ret = $this->restCall( 'identity', '/tenants', 'GET', [], $headers );
-		$projects = self::_get_property( $ret['body'], 'tenants' );
+		$ret = $this->restCall(
+			'identityv3', '/projects', 'GET', [], $headers );
+		$projects = self::_get_property( $ret['body'], 'projects' );
 		if ( !$projects ) {
 			return $projarr;
 		}
@@ -320,8 +330,9 @@ class OpenStackNovaController {
 		$headers = [ "X-Auth-Token: $admintoken" ];
 
 		$userarr = [];
-		$ret = $this->restCall( 'identity', "/tenants/$projectid", 'GET', [], $headers );
-		$tenant = self::_get_property( $ret['body'], 'tenant' );
+		$ret = $this->restCall(
+			'identityv3', "/projects/$projectid", 'GET', [], $headers );
+		$tenant = self::_get_property( $ret['body'], 'project' );
 		return $tenant->name;
 	}
 
@@ -330,6 +341,7 @@ class OpenStackNovaController {
 	 * @return string id of new project or "" on failure
 	 */
 	function createProject( $projectname ) {
+		// TODO: test this or remove
 		$admintoken = $this->_getAdminToken();
 		$headers = [
 			'Accept: application/json',
@@ -337,24 +349,29 @@ class OpenStackNovaController {
 			"X-Auth-Token: $admintoken"
 		];
 		$projname = urlencode( $projectname );
-		$data = [ 'tenant' => [ 'name' => $projname, 'id' => $projname ] ];
-		$ret = $this->restCall( 'identity', '/tenants', 'POST', $data, $headers );
-		if ( $ret['code'] == 200 ) {
-			$tenant = self::_get_property( $ret['body'], 'tenant' );
-			return self::_get_property( $tenant, 'id' );
+		$data = [
+			"project" => [
+				"name" => $projname,
+			],
+		];
+
+		$ret = $this->restCall(
+			'identityv3', '/projects', 'POST', $data, $headers );
+		if ( self::isApiError( $ret['code'] ) ) {
+			return "";
 		}
-		return "";
+		$tenant = self::_get_property( $ret['body'], 'project' );
+		return self::_get_property( $tenant, 'id' );
 	}
 
 	function deleteProject( $projectid ) {
+		// TODO: test this or remove
 		$admintoken = $this->_getAdminToken();
 		$headers = [ "X-Auth-Token: $admintoken" ];
 
-		$ret = $this->restCall( 'identity', "/tenants/$projectid", 'DELETE', [], $headers );
-		if ( $ret['code'] !== 200 && $ret['code'] !== 204 ) {
-			return false;
-		}
-		return true;
+		$ret = $this->restCall(
+			'identityv3', "/projects/$projectid", 'DELETE', [], $headers );
+		return self::isApiSuccess( $ret['code'] );
 	}
 
 	/**
@@ -368,16 +385,26 @@ class OpenStackNovaController {
 		$headers = [ "X-Auth-Token: $admintoken" ];
 
 		$userarr = [];
-		$ret = $this->restCall( 'identity', "/tenants/$projectid/users", 'GET', [], $headers );
-		$users = self::_get_property( $ret['body'], 'users' );
-		if ( !$users ) {
+		$ret = $this->restCall(
+			'identityv3',
+			"/role_assignments?scope.project.id=" . urlencode( $projectid )
+				. "&include_names=1",
+			'GET', [], $headers
+		);
+
+		$role_assignments = self::_get_property(
+			$ret['body'], 'role_assignments' );
+		if ( !$role_assignments ) {
 			return $userarr;
 		}
-		foreach ( $users as $user ) {
-			$name = self::_get_property( $user, 'name' );
-			$id = self::_get_property( $user, 'id' );
-			if ( !in_array( $id, $wgOpenStackHiddenUsernames ) ) {
-				$userarr[$id] = $name;
+		foreach ( $role_assignments as $assignment ) {
+			$user = self::_get_property( $assignment, 'user' );
+			if ( $user ) {
+				$name = self::_get_property( $user, 'name' );
+				$id = self::_get_property( $user, 'id' );
+				if ( !in_array( $id, $wgOpenStackHiddenUsernames ) ) {
+					$userarr[$id] = $name;
+				}
 			}
 		}
 		return $userarr;
@@ -399,7 +426,7 @@ class OpenStackNovaController {
 		$headers = [ "X-Auth-Token: $admintoken" ];
 
 		$rolearr = [];
-		$ret = $this->restCall( 'identity', "/OS-KSADM/roles", 'GET', [], $headers );
+		$ret = $this->restCall( 'identityv3', "/roles", 'GET', [], $headers );
 		$roles = self::_get_property( $ret['body'], 'roles' );
 		if ( !$roles ) {
 			return $rolearr;
@@ -423,7 +450,6 @@ class OpenStackNovaController {
 	 *  with roles assigned, so calling array_keys
 	 *  on the return value will answer the question
 	 *  'what projects is this user in?'
-	 *
 	 */
 	function getRoleAssignmentsForUser( $userid ) {
 		$admintoken = $this->_getAdminToken();
@@ -431,7 +457,8 @@ class OpenStackNovaController {
 
 		$assignments = [];
 		$ret = $this->restCall(
-			'identityv3', "/role_assignments?user.id=$userid", 'GET', [], $headers
+			'identityv3', "/role_assignments?user.id=" . urlencode( $userid ),
+			'GET', [], $headers
 		);
 		$role_assignments = self::_get_property( $ret['body'], 'role_assignments' );
 		if ( !$role_assignments ) {
@@ -460,7 +487,9 @@ class OpenStackNovaController {
 		$assignments = [];
 
 		$ret = $this->restCall(
-			'identityv3', "/role_assignments?scope.project.id=$projectid", 'GET', [], $headers
+			'identityv3',
+			"/role_assignments?scope.project.id=" . urlencode( $projectid ),
+			'GET', [], $headers
 		);
 		$role_assignments = self::_get_property( $ret['body'], 'role_assignments' );
 		if ( !$role_assignments ) {
@@ -487,7 +516,10 @@ class OpenStackNovaController {
 
 		$rolearr = [];
 		$ret = $this->restCall(
-			'identity', "/tenants/$projectid/users/$userid/roles", 'GET', [], $headers
+			'identityv3',
+			"/projects/" . urlencode( $projectid ) . "/users/"
+				. urlencode( $userid ) . "/roles",
+			'GET', [], $headers
 		);
 		$roles = self::_get_property( $ret['body'], 'roles' );
 		if ( !$roles ) {
@@ -511,13 +543,12 @@ class OpenStackNovaController {
 
 		$rolearr = [];
 		$ret = $this->restCall(
-			'identity', "/tenants/$projectid/users/$userid/roles/OS-KSADM/$roleid",
+			'identityv3',
+			"/projects/" . urlencode( $projectid ) . "/users/"
+				. urlencode( $userid ) . "/roles/" . urlencode( $roleid ),
 			'PUT', [], $headers
 		);
-		if ( $ret['code'] !== 200 && $ret['code'] !== 201 ) {
-			return false;
-		}
-		return true;
+		return self::isApiSuccess( $ret['code'] );
 	}
 
 	function revokeRoleForProjectAndUser( $roleid, $projectid, $userid ) {
@@ -530,13 +561,12 @@ class OpenStackNovaController {
 
 		$rolearr = [];
 		$ret = $this->restCall(
-			'identity', "/tenants/$projectid/users/$userid/roles/OS-KSADM/$roleid",
+			'identityv3',
+			"/projects/" . urlencode( $projectid ) . "/users/"
+				. urlencode( $userid ) . "/roles/" . urlencode( $roleid ),
 			'DELETE', [], $headers
 		);
-		if ( $ret['code'] !== 204 && $ret['code'] !== 200 ) {
-			return false;
-		}
-		return true;
+		return self::isApiSuccess( $ret['code'] );
 	}
 
 	/**
@@ -671,7 +701,7 @@ class OpenStackNovaController {
 		$instanceid = urlencode( $instanceid );
 		$data = [ 'os-getConsoleOutput' => [ 'length' => null ] ];
 		$ret = $this->restCall( 'compute', '/servers/' . $instanceid . '/action', 'POST', $data );
-		if ( $ret['code'] !== 200 ) {
+		if ( self::isApiError( $ret['code'] ) ) {
 			return '';
 		}
 		return self::_get_property( $ret['body'], 'output' );
@@ -773,7 +803,7 @@ class OpenStackNovaController {
 			$data['server']['security_groups'][] = [ 'name' => $group ];
 		}
 		$ret = $this->restCall( 'compute', '/servers', 'POST', $data );
-		if ( $ret['code'] !== 202 ) {
+		if ( self::isApiError( $ret['code'] ) ) {
 			return null;
 		}
 		$instance = new OpenStackNovaInstance( $ret['body']->server, $this->getRegion() );
@@ -795,7 +825,7 @@ class OpenStackNovaController {
 		$instanceid = urlencode( $instanceid );
 		$ret = $this->restCall( 'compute', '/servers/' . $instanceid, 'DELETE' );
 
-		return ( $ret['code'] === 204 );
+		return self::isApiSuccess( $ret['code'] );
 	}
 
 	/**
@@ -806,7 +836,7 @@ class OpenStackNovaController {
 	function createSecurityGroup( $groupname, $description ) {
 		$data = [ 'security_group' => [ 'name' => $groupname, 'description' => $description ] ];
 		$ret = $this->restCall( 'compute', '/os-security-groups', 'POST', $data );
-		if ( $ret['code'] !== 200 ) {
+		if ( self::isApiError( $ret['code'] ) ) {
 			return null;
 		}
 		$attr = self::_get_property( $ret['body'], 'security_group' );
@@ -826,7 +856,7 @@ class OpenStackNovaController {
 		$groupid = urlencode( $groupid );
 		$ret = $this->restCall( 'compute', '/os-security-groups/' . $groupid, 'DELETE' );
 
-		return ( $ret['code'] === 202 );
+		return self::isApiSuccess( $ret['code'] );
 	}
 
 	/**
@@ -859,7 +889,7 @@ class OpenStackNovaController {
 		}
 		$ret = $this->restCall( 'compute', '/os-security-group-rules', 'POST', $data );
 
-		return ( $ret['code'] === 200 );
+		return self::isApiSuccess( $ret['code'] );
 	}
 
 	/**
@@ -870,7 +900,7 @@ class OpenStackNovaController {
 		$ruleid = urlencode( $ruleid );
 		$ret = $this->restCall( 'compute', '/os-security-group-rules/' . $ruleid, 'DELETE' );
 
-		return ( $ret['code'] === 202 );
+		return self::isApiSuccess( $ret['code'] );
 	}
 
 	/**
@@ -878,7 +908,7 @@ class OpenStackNovaController {
 	 */
 	function allocateAddress() {
 		$ret = $this->restCall( 'compute', '/os-floating-ips', 'POST', [] );
-		if ( $ret['code'] !== 200 ) {
+		if ( self::isApiError( $ret['code'] ) ) {
 			return null;
 		}
 		$floating_ip = self::_get_property( $ret['body'], 'floating_ip' );
@@ -900,7 +930,7 @@ class OpenStackNovaController {
 		$id = urlencode( $id );
 		$ret = $this->restCall( 'compute', '/os-floating-ips/' . $id, 'DELETE' );
 
-		return ( $ret['code'] === 202 );
+		return self::isApiSuccess( $ret['code'] );
 	}
 
 	/**
@@ -915,7 +945,7 @@ class OpenStackNovaController {
 		$data = [ 'addFloatingIp' => [ 'address' => $ip ] ];
 		$ret = $this->restCall( 'compute', '/servers/' . $instanceid . '/action', 'POST', $data );
 
-		return ( $ret['code'] === 202 );
+		return self::isApiSuccess( $ret['code'] );
 	}
 
 	/**
@@ -930,7 +960,7 @@ class OpenStackNovaController {
 		$data = [ 'removeFloatingIp' => [ 'address' => $ip ] ];
 		$ret = $this->restCall( 'compute', '/servers/' . $instanceid . '/action', 'POST', $data );
 
-		return ( $ret['code'] === 202 );
+		return self::isApiSuccess( $ret['code'] );
 	}
 
 	/**
@@ -994,12 +1024,12 @@ class OpenStackNovaController {
 		$instanceid = urlencode( $instanceid );
 		$data = [ 'reboot' => [ 'type' => $type ] ];
 		$ret = $this->restCall( 'compute', '/servers/' . $instanceid . '/action', 'POST', $data );
-		return ( $ret['code'] === 202 );
+		return self::isApiSuccess( $ret['code'] );
 	}
 
 	function getLimits() {
 		$ret = $this->restCall( 'compute', '/limits', 'GET', [] );
-		if ( $ret['code'] !== 200 ) {
+		if ( self::isApiError( $ret['code'] ) ) {
 			return null;
 		}
 		$limits = self::_get_property( $ret['body'], 'limits' );
@@ -1022,26 +1052,38 @@ class OpenStackNovaController {
 		];
 		$data = [
 			'auth' => [
-				'passwordCredentials' => [
-					'username' => $username,
-					'password' => $password
+				'identity' => [
+					'methods' => [
+						'password'
+					],
+					'password' => [
+						'user' => [
+							'name' => $username,
+							'domain' => [
+								'name' => 'Default'
+							],
+							'password' => $password
+						]
+					]
 				]
 			]
 		];
-		$ret = $this->restCall( 'identity', '/tokens', 'POST', $data, $headers );
-		if ( $ret['code'] !== 200 ) {
+		$ret = $this->restCall(
+			'identityv3', '/auth/tokens', 'POST', $data, $headers );
+		if ( self::isApiError( $ret['code'] ) ) {
 			$ldap->printDebug(
 				"OpenStackNovaController::authenticate return code: " . $ret['code'], NONSENSITIVE
 			);
 			return '';
 		}
-		$user = $ret['body'];
-		$this->token = $this->_get_property( $user->access->token, 'id' );
-		$key = wfMemcKey( 'openstackmanager', 'fulltoken', $username );
-		// Expiration time is unnecessary. Token expiration is expected
-		// to be longer than MediaWiki's token, so a re-auth will occur
-		// before the generic token expires.
-		$wgMemc->set( $key, $this->token );
+		$this->token = $ret['headers']['X-Subject-Token'] ?? '*BOGUS*';
+		if ( $this->token !== '*BOGUS*' ) {
+			$key = wfMemcKey( 'openstackmanager', 'fulltoken', $username );
+			// Expiration time is unnecessary. Token expiration is expected
+			// to be longer than MediaWiki's token, so a re-auth will occur
+			// before the generic token expires.
+			$wgMemc->set( $key, $this->token );
+		}
 
 		return $this->token;
 	}
@@ -1097,7 +1139,7 @@ class OpenStackNovaController {
 		$data = [ 'auth' => [ 'token' => [ 'id' => $token ], 'tenantName' => $project ] ];
 		$path = '/tokens';
 		$ret = $this->restCall( 'identity', $path, 'POST', $data, $headers );
-		if ( $ret['code'] !== 200 ) {
+		if ( self::isApiError( $ret['code'] ) ) {
 			return '';
 		}
 		$user = $ret['body'];
@@ -1203,11 +1245,25 @@ class OpenStackNovaController {
 		}
 
 		$header_size = curl_getinfo( $handle, CURLINFO_HEADER_SIZE );
-		$response_headers = substr( $response, 0, $header_size );
+		$raw_headers = substr( $response, 0, $header_size );
 		$body = substr( $response, $header_size );
 		$body = json_decode( $body );
 
-		return [ 'code' => $code, 'body' => $body, 'response_headers' => $response_headers ];
+		// Parse response headers to make using them easier
+		$headers = [];
+		foreach ( explode( "\r\n", $raw_headers ) as $line ) {
+			if ( strpos( $line, ':' ) !== false ) {
+				// Ignore HTTP status response and blank lines
+				list( $key, $value ) = explode( ': ', $line );
+				$headers[$key] = $value;
+			}
+		}
+
+		return [
+			'code' => $code,
+			'body' => $body,
+			'headers' => $headers,
+		];
 	}
 
 	static function _get_property( $object, $id ) {
@@ -1217,5 +1273,25 @@ class OpenStackNovaController {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Is this http status code a sign of success?
+	 *
+	 * @param int $code
+	 * @return bool
+	 */
+	static function isApiSuccess( $code ) {
+		return $code >= 200 && $code < 300;
+	}
+
+	/**
+	 * Is this http status code a sign of failure?
+	 *
+	 * @param int $code
+	 * @return bool
+	 */
+	static function isApiError( $code ) {
+		return $code < 200 || $code >= 300;
 	}
 }
