@@ -13,11 +13,6 @@ class SpecialNovaVolume extends SpecialNova {
 	 */
 	public $userNova;
 
-	/**
-	 * @var OpenStackNovaUser
-	 */
-	public $userLDAP;
-
 	function __construct() {
 		parent::__construct( 'NovaVolume' );
 	}

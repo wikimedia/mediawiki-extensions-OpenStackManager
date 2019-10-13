@@ -196,6 +196,7 @@ class OpenStackNovaController {
 				$ldap->printDebug( "Warning!  proxy $domain has multiple backends " .
 					"but we only support one backend per proxy.", NONSENSITIVE );
 			}
+			'@phan-var array $backends';
 			$backend = $backends[0];
 			$backendarray = explode( ':', $backends[0] );
 
@@ -333,6 +334,7 @@ class OpenStackNovaController {
 		$ret = $this->restCall(
 			'identityv3', "/projects/$projectid", 'GET', [], $headers );
 		$tenant = self::_get_property( $ret['body'], 'project' );
+		// @phan-suppress-next-line PhanTypeExpectedObjectPropAccessButGotNull
 		return $tenant->name;
 	}
 

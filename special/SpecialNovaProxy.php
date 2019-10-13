@@ -8,8 +8,14 @@
  */
 
 class SpecialNovaProxy extends SpecialNova {
-	public $userLDAP;
+	/** @var OpenStackNovaController */
 	public $userNova;
+
+	/** @var string */
+	private $projectName;
+
+	/** @var OpenStackNovaProject */
+	private $project;
 
 	function __construct() {
 		parent::__construct( 'NovaProxy' );
@@ -69,8 +75,10 @@ class SpecialNovaProxy extends SpecialNova {
 		$instances = $this->userNova->getInstances();
 		foreach ( $instances as $instance ) {
 			if ( $instance->getProject() === $this->projectName ) {
-				if ( $instance->getHost() ) {
-					$instancename = $instance->getHost()->getFullyQualifiedDisplayName();
+				$host = $instance->getHost();
+				'@phan-var OpenStackNovaPrivateHost $host';
+				if ( $host ) {
+					$instancename = $host->getFullyQualifiedDisplayName();
 					$instance_keys[$instancename] = $instancename;
 				}
 			}

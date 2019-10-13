@@ -271,6 +271,7 @@ class OpenStackNovaInstance {
 	function deleteArticle() {
 		$host = $this->getHost();
 		if ( $host ) {
+			'@phan-var OpenStackNovaPrivateHost $host';
 			OpenStackNovaArticle::deleteArticle( $host->getFullyQualifiedHostName() );
 		}
 	}

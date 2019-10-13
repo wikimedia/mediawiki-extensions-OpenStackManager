@@ -8,7 +8,15 @@
  */
 
 class SpecialNovaSudoer extends SpecialNova {
-	public $userLDAP;
+
+	/** @var OpenStackNovaController */
+	public $userNova;
+
+	/** @var string */
+	private $projectName;
+
+	/** @var OpenStackNovaProject */
+	private $project;
 
 	function __construct() {
 		parent::__construct( 'NovaSudoer' );

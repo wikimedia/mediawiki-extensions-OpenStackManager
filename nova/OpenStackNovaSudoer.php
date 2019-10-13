@@ -315,10 +315,6 @@ class OpenStackNovaSudoer {
 
 		$project = OpenStackNovaProject::getProjectByName( $projectName );
 		$sudoer = new OpenStackNovaSudoer( $sudoername, $project );
-		if ( !$sudoer ) {
-			$ldap->printDebug( "Sudoer $sudoername does not exist", NONSENSITIVE );
-			return false;
-		}
 		$dn = $sudoer->sudoerDN;
 
 		$success = LdapAuthenticationPlugin::ldap_delete( $ldap->ldapconn, $dn );

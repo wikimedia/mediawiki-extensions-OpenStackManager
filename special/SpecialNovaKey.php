@@ -8,12 +8,8 @@
  */
 
 class SpecialNovaKey extends SpecialNova {
+	/** @var OpenStackNovaController */
 	public $userNova;
-
-	/**
-	 * @var OpenStackNovaUser
-	 */
-	public $userLDAP;
 
 	function __construct() {
 		parent::__construct( 'NovaKey' );
@@ -28,6 +24,7 @@ class SpecialNovaKey extends SpecialNova {
 
 		$action = $this->getRequest()->getVal( 'action' );
 		if ( $action === "import" ) {
+			// @phan-suppress-next-line PhanUndeclaredMethod
 			$this->importKey(); // FIXME: Method is undefined
 		} elseif ( $action === "delete" ) {
 			$this->deleteKey();
@@ -322,6 +319,7 @@ class SpecialNovaKey extends SpecialNova {
 				return false;
 			}
 		} elseif ( $wgOpenStackManagerNovaKeypairStorage === 'nova' ) {
+			// @phan-suppress-next-line PhanUndeclaredMethod
 			$keypair = $this->userNova->importKeypair( $formData['keyname'], $key );
 
 			$out->addWikiMsg(

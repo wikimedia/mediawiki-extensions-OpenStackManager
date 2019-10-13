@@ -8,7 +8,6 @@
  */
 
 class SpecialNovaDomain extends SpecialNova {
-	public $userLDAP;
 
 	function __construct() {
 		parent::__construct( 'NovaDomain', 'managednsdomain' );

@@ -47,6 +47,7 @@ class QualifyInstancePages extends Maintenance {
 							$instance->getInstanceId() . "\n" );
 						continue;
 					}
+					'@phan-var OpenStackNovaPrivateHost $host';
 					$this->output( "Renaming instance: " . $instance->getInstanceId() . "\n" );
 					$ot = Title::newFromText( $instance->getInstanceId(), NS_NOVA_RESOURCE );
 					$nt = Title::newFromText(

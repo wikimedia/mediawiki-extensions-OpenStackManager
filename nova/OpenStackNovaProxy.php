@@ -9,6 +9,7 @@
 
 class OpenStackNovaProxy {
 
+	public $projectName;
 	public $proxyFQDN;
 	public $backendName;
 	public $backendPort;

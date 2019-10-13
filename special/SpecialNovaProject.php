@@ -8,10 +8,6 @@
  */
 
 class SpecialNovaProject extends SpecialNova {
-	/**
-	 * @var OpenStackNovaUser
-	 */
-	public $userLDAP;
 
 	/**
 	 * @var OpenStackNovaController

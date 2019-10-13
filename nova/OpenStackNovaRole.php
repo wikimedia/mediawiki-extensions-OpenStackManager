@@ -14,6 +14,7 @@ class OpenStackNovaRole {
 	public $project;
 
 	private $rolename;
+	private $members;
 
 	/**
 	 * @param string $roleid

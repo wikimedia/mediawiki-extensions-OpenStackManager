@@ -8,6 +8,10 @@
  */
 
 abstract class SpecialNova extends SpecialPage {
+
+	/** @var OpenStackNovaUser */
+	protected $userLDAP;
+
 	public function doesWrites() {
 		return true;
 	}
@@ -66,6 +70,7 @@ abstract class SpecialNova extends SpecialPage {
 		if ( $this->getUser()->isAllowed( 'userrights' ) ) {
 			$isEnabled = false;
 			Hooks::run( 'TwoFactorIsEnabled', [ &$isEnabled ] );
+			// @phan-suppress-next-line PhanRedundantCondition
 			if ( !$isEnabled ) {
 				throw new ErrorPageError(
 					'openstackmanager-twofactorrequired', 'openstackmanager-twofactorrequired2'

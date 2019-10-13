@@ -7,7 +7,7 @@
  * @ingroup Extensions
  */
 
-class OpenStackNovaHost {
+abstract class OpenStackNovaHost {
 
 	/**
 	 * @var string
@@ -283,6 +283,20 @@ class OpenStackNovaHost {
 	}
 
 	/**
+	 * Return the domain associated with this host
+	 *
+	 * @return OpenStackNovaDomain
+	 */
+	abstract function getDomain();
+
+	/**
+	 * Fetch the host from LDAP and initialize the object
+	 *
+	 * @return void
+	 */
+	abstract function fetchHostInfo();
+
+	/**
 	 * Adds a host entry based on the hostname, IP addrss, and a domain. Returns null
 	 * if the entry already exists, or if the additional fails. This function should be used
 	 * for adding public DNS entries.
@@ -319,7 +333,7 @@ class OpenStackNovaHost {
 		if ( $success ) {
 			$domain->updateSOA();
 			$ldap->printDebug( "Successfully added public host $hostname", NONSENSITIVE );
-			return new OpenStackNovaHost( false, null, $ip );
+			return new OpenStackNovaPrivateHost( false, null, $ip );
 		} else {
 			$ldap->printDebug( "Failed to add public host $hostname with dn = $dn", NONSENSITIVE );
 			return null;

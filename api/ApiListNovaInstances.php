@@ -70,6 +70,7 @@ class ApiListNovaInstances extends ApiQueryGeneratorBase {
 				[ 'query', $this->getModuleName() ], 'instance'
 			);
 		} else {
+			// @phan-suppress-next-line PhanUndeclaredMethod
 			$this->getResult()->setIndexedTagName_internal(
 				[ 'query', $this->getModuleName() ], 'instance'
 			);

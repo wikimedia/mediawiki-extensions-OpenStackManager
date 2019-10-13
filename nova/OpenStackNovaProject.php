@@ -23,9 +23,11 @@
 class OpenStackNovaProject {
 	public $projectname;
 	public $projectDN;
+	public $projectid;
 	public $roles;
 	public $userrole;
 	public $loaded;
+	public $members;
 	protected $serviceGroups;
 	protected $serviceUsers;
 
@@ -444,15 +446,11 @@ class OpenStackNovaProject {
 			return self::$projectCache[ $projectid ];
 		}
 		$project = new OpenStackNovaProject( $projectid );
-		if ( $project ) {
-			if ( count( self::$projectCache ) >= self::$projectCacheMaxSize ) {
-				array_shift( self::$projectCache );
-			}
-			self::$projectCache[ $projectid ] = $project;
-			return $project;
-		} else {
-			return null;
+		if ( count( self::$projectCache ) >= self::$projectCacheMaxSize ) {
+			array_shift( self::$projectCache );
 		}
+		self::$projectCache[ $projectid ] = $project;
+		return $project;
 	}
 
 	static function getController() {
@@ -731,9 +729,6 @@ class OpenStackNovaProject {
 		global $wgMemc;
 
 		$project = new OpenStackNovaProject( $projectid );
-		if ( !$project ) {
-			return false;
-		}
 		$projectname = $project->getName();
 
 		$ldap = LdapAuthenticationPlugin::getInstance();

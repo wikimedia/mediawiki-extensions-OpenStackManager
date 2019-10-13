@@ -21,11 +21,6 @@ class SpecialNovaResources extends SpecialNova {
 	 */
 	private $userNova;
 
-	/**
-	 * @var OpenStackNovaUser
-	 */
-	private $userLDAP;
-
 	function __construct() {
 		parent::__construct( 'NovaResources' );
 	}
@@ -149,6 +144,7 @@ class SpecialNovaResources extends SpecialNova {
 			);
 			$host = $instance->getHost();
 			if ( $host ) {
+				'@phan-var OpenStackNovaPrivateHost $host';
 				$this->pushRawResourceColumn(
 					$instanceRow,
 					$this->createResourceLink( $host->getFullyQualifiedHostName() ),

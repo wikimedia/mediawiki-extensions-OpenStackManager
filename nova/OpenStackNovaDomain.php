@@ -273,10 +273,6 @@ class OpenStackNovaDomain {
 		OpenStackNovaLdapConnection::connect();
 
 		$domain = new OpenStackNovaDomain( $domainname );
-		if ( !$domain ) {
-			$ldap->printDebug( "Domain $domainname does not exist", NONSENSITIVE );
-			return [ false, 'openstackmanager-failedeletedomainnotfound' ];
-		}
 		$dn = $domain->domainDN;
 
 		# Domains can have records as sub entries. If sub-entries exist, fail.

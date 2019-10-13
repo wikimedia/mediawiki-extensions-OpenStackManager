@@ -24,12 +24,14 @@ class OpenStackManagerEvent {
 	 */
 	public static function storeEventInfo( $type, $user, $instance, $project ) {
 		$dbw = wfGetDB( DB_MASTER );
+		$host = $instance->getHost();
+		'@phan-var OpenStackNovaPrivateHost $host';
 		$dbw->insert(
 			'openstack_notification_event',
 			[
 				'event_action' => $type,
 				'event_actor_id' => $user->getId(),
-				'event_instance_host' => $instance->getHost()->getFullyQualifiedHostName(),
+				'event_instance_host' => $host->getFullyQualifiedHostName(),
 				'event_instance_name' => $instance->getInstanceName(),
 				'event_project' => $project
 			],

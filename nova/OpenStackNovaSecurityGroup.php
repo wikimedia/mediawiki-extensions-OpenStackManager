@@ -18,6 +18,7 @@ class OpenStackNovaSecurityGroup {
 	function __construct( $apiInstanceResponse ) {
 		$this->group = $apiInstanceResponse;
 		$this->rules = [];
+		// @phan-suppress-next-line PhanTypeMismatchForeach
 		foreach ( OpenStackNovaController::_get_property( $this->group, 'rules' ) as $permission ) {
 			$this->rules[] = new OpenStackNovaSecurityGroupRule( $permission );
 		}

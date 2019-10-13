@@ -705,8 +705,7 @@ class OpenStackNovaUser {
 		if ( $wgOpenStackManagerNovaKeypairStorage === 'nova' ) {
 			# TODO: add project filter
 			foreach ( $projects as $project ) {
-				$userCredentials = $user->getCredentials();
-				$userNova = new OpenStackNovaController( $userCredentials, $project );
+				$userNova = new OpenStackNovaController( $user );
 				$keypairs = $userNova->getKeypairs();
 				if ( !$keypairs ) {
 					continue;

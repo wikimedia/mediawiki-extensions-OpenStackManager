@@ -27,6 +27,7 @@ class ApiListNovaProjects extends ApiQueryGeneratorBase {
 		if ( defined( 'ApiResult::META_CONTENT' ) ) {
 			$this->getResult()->addIndexedTagName( [ 'query', $this->getModuleName() ], 'project' );
 		} else {
+			// @phan-suppress-next-line PhanUndeclaredMethod
 			$this->getResult()->setIndexedTagName_internal( [ 'query', $this->getModuleName() ], 'project' );
 		}
 	}

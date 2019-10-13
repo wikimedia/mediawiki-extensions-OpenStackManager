@@ -8,12 +8,8 @@
  */
 
 class SpecialNovaAddress extends SpecialNova {
+	/** @var OpenStackNovaController */
 	public $userNova;
-
-	/**
-	 * @var OpenStackNovaUser
-	 */
-	public $userLDAP;
 
 	function __construct() {
 		parent::__construct( 'NovaAddress' );
@@ -493,6 +489,7 @@ class SpecialNovaAddress extends SpecialNova {
 				$instanceid = $instances[$instanceosid]->getInstanceId();
 				$host = $instances[$instanceosid]->getHost();
 				if ( $host ) {
+					'@phan-var OpenStackNovaPrivateHost $host';
 					$this->pushRawResourceColumn(
 						$addressRow,
 						$this->createResourceLink( $host->getFullyQualifiedHostName() ),

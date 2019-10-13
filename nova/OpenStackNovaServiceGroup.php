@@ -12,6 +12,7 @@ class OpenStackNovaServiceGroup {
 	public $groupDN;
 	public $groupInfo;
 	public $project;
+	public $usersDN;
 
 	/**
 	 * @param string $groupName

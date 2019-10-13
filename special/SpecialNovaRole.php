@@ -8,7 +8,6 @@
  */
 
 class SpecialNovaRole extends SpecialNova {
-	public $userLDAP;
 
 	function __construct() {
 		parent::__construct( 'NovaRole', 'manageproject' );

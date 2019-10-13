@@ -34,6 +34,7 @@ class SyncProjectGroups extends Maintenance {
 			$project->fetchProjectInfo();
 			$projectName = $project->getProjectName();
 
+			// @phan-suppress-next-line PhanUndeclaredMethod
 			$retval = $project->syncProjectGroupMembers();
 			$attempt_count++;
 
@@ -44,6 +45,7 @@ class SyncProjectGroups extends Maintenance {
 			if ( $retval != 0 ) {
 				$this->output( ( $retval ? "Succeeded" : "Failed" ) .
 					" syncing members for project $projectName and group " .
+					// @phan-suppress-next-line PhanUndeclaredProperty
 					$project->projectGroup->getProjectGroupName() );
 				if ( $retval < 0 ) {
 					$failedSync = true;

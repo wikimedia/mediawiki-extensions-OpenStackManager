@@ -8,7 +8,6 @@
  */
 
 class SpecialNovaServiceGroup extends SpecialNova {
-	public $userLDAP;
 
 	function __construct() {
 		parent::__construct( 'NovaServiceGroup', 'manageproject' );
@@ -272,6 +271,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 				'openstackmanager-members',
 				'openstackmanager-actions'
 			];
+			$servicegroupRows = [];
 			foreach ( $serviceGroups as $group ) {
 				$groupName = $group->getGroupName();
 				$groupRow = [];
@@ -394,7 +394,7 @@ class SpecialNovaServiceGroup extends SpecialNova {
 	function tryRemoveServiceGroupSubmit( $formData, $entryPoint = 'internal' ) {
 		$project = OpenStackNovaProject::getProjectByName( $formData['projectname'] );
 
-		$success = $project->deleteServiceGroup( $formData['groupname'], $project );
+		$success = $project->deleteServiceGroup( $formData['groupname'] );
 		if ( $success ) {
 			$this->getOutput()->addWikiMsg( 'openstackmanager-removedservicegroup' );
 		} else {
