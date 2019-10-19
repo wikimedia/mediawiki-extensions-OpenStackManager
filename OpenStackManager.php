@@ -246,7 +246,7 @@ $wgResourceModules['ext.openstack.base'] = [
 		'ext.openstack',
 		'jquery.spinner',
 		'mediawiki.api',
-		'jquery.ui.dialog',
+		'jquery.ui',
 	],
 
 	'scripts' => 'modules/ext.openstack.js',
