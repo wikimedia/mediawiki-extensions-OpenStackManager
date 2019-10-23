@@ -85,7 +85,7 @@ abstract class SpecialNova extends SpecialPage {
 	 * @internal param $error
 	 * @return bool|string
 	 */
-	protected function validateText( $resourcename, $alldata ) {
+	public function validateText( $resourcename, $alldata ) {
 		if ( !preg_match( "/^[a-z][a-z0-9-]*$/", $resourcename ) ) {
 			return Xml::element(
 				'span',
@@ -102,7 +102,7 @@ abstract class SpecialNova extends SpecialPage {
 	 * @param string $alldata
 	 * @return bool|string
 	 */
-	protected function validateDomain( $resourcename, $alldata ) {
+	public function validateDomain( $resourcename, $alldata ) {
 		if ( !preg_match( "/^[a-z\*][a-z0-9\-]*$/", $resourcename ) ) {
 			return Xml::element(
 				'span',
