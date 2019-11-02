@@ -100,7 +100,9 @@ class OpenStackNovaServiceGroup {
 				} else {
 					$ldap = LdapAuthenticationPlugin::getInstance();
 					$userInfo = $ldap->getUserInfoStateless( $memberdn );
-					$members[] = $userInfo[0]['uid'][0];
+					if ( $userInfo !== null ) {
+						$members[] = $userInfo[0]['uid'][0];
+					}
 				}
 			}
 		}
@@ -122,7 +124,9 @@ class OpenStackNovaServiceGroup {
 				$searchattr = $ldap->getConf( 'SearchAttribute', $wgOpenStackManagerLDAPDomain );
 				if ( $searchattr ) {
 					$userInfo = $ldap->getUserInfoStateless( $memberdn );
-					$members[] = $userInfo[0][$searchattr][0];
+					if ( $userInfo !== null ) {
+						$members[] = $userInfo[0][$searchattr][0];
+					}
 				} else {
 					$member = explode( '=', $memberdn );
 					$member = explode( ',', $member[1] );
