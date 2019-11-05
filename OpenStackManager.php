@@ -51,7 +51,6 @@ $wgAvailableRights[] = 'manageproject';
 $wgAvailableRights[] = 'managednsdomain';
 $wgAvailableRights[] = 'loginviashell';
 $wgAvailableRights[] = 'accessrestrictedregions';
-$wgAvailableRights[] = 'editallhiera';
 
 $wgHooks['UserAddGroup'][] = 'OpenStackNovaUser::addUserToBastionProject';
 $wgHooks['UserRemoveGroup'][] = 'OpenStackNovaUser::removeUserFromBastionProject';
