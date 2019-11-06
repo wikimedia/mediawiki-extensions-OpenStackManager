@@ -21,7 +21,7 @@ $wgExtensionCredits['other'][] = [
 	'path' => __FILE__,
 	'name' => 'OpenStackManager',
 	'author' => 'Ryan Lane',
-	'version' => '2.2.0',
+	'version' => '3.0.0',
 	'url' => 'https://mediawiki.org/wiki/Extension:OpenStackManager',
 	'descriptionmsg' => 'openstackmanager-desc',
 	'license-name' => 'GPL-2.0-or-later',
@@ -52,13 +52,7 @@ $wgAvailableRights[] = 'managednsdomain';
 $wgAvailableRights[] = 'loginviashell';
 $wgAvailableRights[] = 'accessrestrictedregions';
 
-$wgHooks['UserAddGroup'][] = 'OpenStackNovaUser::addUserToBastionProject';
-$wgHooks['UserRemoveGroup'][] = 'OpenStackNovaUser::removeUserFromBastionProject';
 $wgHooks['getUserPermissionsErrors'][] = 'OpenStackManagerHooks::getUserPermissionsErrors';
-
-// Keystone identity URI
-$wgOpenStackManagerNovaIdentityURI = 'http://localhost:5000/v2.0';
-$wgOpenStackManagerNovaIdentityV3URI = 'http://localhost:5000/v3';
 
 // SSH key storage location, ldap or nova
 $wgOpenStackManagerNovaKeypairStorage = 'ldap';
@@ -160,29 +154,9 @@ $wgExtensionMessagesFiles['OpenStackManagerAlias'] = $dir . 'OpenStackManager.al
 $wgAutoloadClasses['YamlContent'] = $dir . 'includes/YamlContent.php';
 $wgAutoloadClasses['YamlContentHandler'] = $dir . 'includes/YamlContentHandler.php';
 $wgAutoloadClasses['OpenStackManagerHooks'] = $dir . 'OpenStackManagerHooks.php';
-$wgAutoloadClasses['OpenStackNovaInstance'] = $dir . 'nova/OpenStackNovaInstance.php';
-$wgAutoloadClasses['OpenStackNovaInstanceType'] = $dir . 'nova/OpenStackNovaInstanceType.php';
-$wgAutoloadClasses['OpenStackNovaImage'] = $dir . 'nova/OpenStackNovaImage.php';
 $wgAutoloadClasses['OpenStackNovaKeypair'] = $dir . 'nova/OpenStackNovaKeypair.php';
-$wgAutoloadClasses['OpenStackNovaController'] = $dir . 'nova/OpenStackNovaController.php';
 $wgAutoloadClasses['OpenStackNovaUser'] = $dir . 'nova/OpenStackNovaUser.php';
-$wgAutoloadClasses['OpenStackNovaDomain'] = $dir . 'nova/OpenStackNovaDomain.php';
-$wgAutoloadClasses['OpenStackNovaHost'] = $dir . 'nova/OpenStackNovaHost.php';
-$wgAutoloadClasses['OpenStackNovaPublicHost'] = $dir . 'nova/OpenStackNovaPublicHost.php';
-$wgAutoloadClasses['OpenStackNovaPrivateHost'] = $dir . 'nova/OpenStackNovaPrivateHost.php';
-$wgAutoloadClasses['OpenStackNovaAddress'] = $dir . 'nova/OpenStackNovaAddress.php';
-$wgAutoloadClasses['OpenStackNovaSecurityGroup'] = $dir . 'nova/OpenStackNovaSecurityGroup.php';
-$wgAutoloadClasses['OpenStackNovaSecurityGroupRule'] =
-	$dir . 'nova/OpenStackNovaSecurityGroupRule.php';
-$wgAutoloadClasses['OpenStackNovaRole'] = $dir . 'nova/OpenStackNovaRole.php';
-$wgAutoloadClasses['OpenStackNovaServiceGroup'] = $dir . 'nova/OpenStackNovaServiceGroup.php';
-$wgAutoloadClasses['OpenStackNovaVolume'] = $dir . 'nova/OpenStackNovaVolume.php';
-$wgAutoloadClasses['OpenStackNovaSudoer'] = $dir . 'nova/OpenStackNovaSudoer.php';
-$wgAutoloadClasses['OpenStackNovaProxy'] = $dir . 'nova/OpenStackNovaProxy.php';
-$wgAutoloadClasses['OpenStackNovaArticle'] = $dir . 'nova/OpenStackNovaArticle.php';
 $wgAutoloadClasses['OpenStackNovaLdapConnection'] = $dir . 'nova/OpenStackNovaLdapConnection.php';
-$wgAutoloadClasses['OpenStackNovaProject'] = $dir . 'nova/OpenStackNovaProject.php';
-$wgAutoloadClasses['OpenStackNovaProjectLimits'] = $dir . 'nova/OpenStackNovaProjectLimits.php';
 $wgAutoloadClasses['OpenStackNovaShellAccountNameRequest'] =
 	$dir . 'nova/OpenStackNovaShellAccountNameRequest.php';
 $wgAutoloadClasses['OpenStackNovaSecondaryAuthenticationProvider'] =
@@ -190,20 +164,11 @@ $wgAutoloadClasses['OpenStackNovaSecondaryAuthenticationProvider'] =
 $wgAutoloadClasses['SpecialNovaKey'] = $dir . 'special/SpecialNovaKey.php';
 $wgAutoloadClasses['SpecialNova'] = $dir . 'special/SpecialNova.php';
 $wgSpecialPages['NovaKey'] = 'SpecialNovaKey';
-$wgAutoloadClasses['ApiNovaInstance'] = $dir . 'api/ApiNovaInstance.php';
-$wgAutoloadClasses['ApiNovaAddress'] = $dir . 'api/ApiNovaAddress.php';
-$wgAutoloadClasses['ApiNovaProjects'] = $dir . 'api/ApiNovaProjects.php';
-$wgAutoloadClasses['ApiNovaProjectLimits'] = $dir . 'api/ApiNovaProjectLimits.php';
-$wgAutoloadClasses['ApiNovaServiceGroups'] = $dir . 'api/ApiNovaServiceGroups.php';
-$wgAutoloadClasses['ApiListNovaProjects'] = $dir . 'api/ApiListNovaProjects.php';
-$wgAutoloadClasses['ApiListNovaInstances'] = $dir . 'api/ApiListNovaInstances.php';
 
 $wgHooks['LDAPSetCreationValues'][] = 'OpenStackNovaUser::LDAPSetCreationValues';
 $wgHooks['LDAPRetrySetCreationValues'][] = 'OpenStackNovaUser::LDAPRetrySetCreationValues';
 $wgHooks['LDAPModifyUITemplate'][] = 'OpenStackNovaUser::LDAPModifyUITemplate';
 $wgHooks['LDAPUpdateUser'][] = 'OpenStackNovaUser::LDAPUpdateUser';
-$wgHooks['DynamicSidebarGetGroups'][] = 'OpenStackNovaUser::DynamicSidebarGetGroups';
-$wgHooks['ChainAuth'][] = 'OpenStackNovaUser::ChainAuth';
 $wgHooks['GetPreferences'][] = 'OpenStackNovaUser::novaUserPreferences';
 $wgHooks['AuthChangeFormFields'][] = 'OpenStackNovaUser::AuthChangeFormFields';
 
@@ -218,68 +183,6 @@ $commonModuleInfo = [
 	'localBasePath' => __DIR__,
 	'remoteExtPath' => 'OpenStackManager',
 ];
-
-$wgResourceModules['ext.openstack'] = [
-	'styles' => 'modules/ext.openstack.css',
-] + $commonModuleInfo;
-
-$wgResourceModules['ext.openstack.base'] = [
-	'dependencies' => [
-		'ext.openstack',
-		'jquery.spinner',
-		'mediawiki.api',
-		'jquery.ui',
-	],
-
-	'scripts' => 'modules/ext.openstack.js',
-] + $commonModuleInfo;
-
-$wgResourceModules['ext.openstack.Instance'] = [
-	'dependencies' => [
-		'ext.openstack.base',
-	],
-
-	'messages' => [
-		'openstackmanager-rebootinstancefailed',
-		'openstackmanager-rebootedinstance',
-		'openstackmanager-consoleoutput',
-		'openstackmanager-getconsoleoutputfailed',
-		'openstackmanager-deletedinstance',
-		'openstackmanager-deleteinstancefailed',
-		'openstackmanager-deleteinstance',
-		'openstackmanager-deleteinstancequestion',
-	],
-	'scripts' => [
-		'modules/ext.openstack.Instance.js',
-	],
-] + $commonModuleInfo;
-
-$wgResourceModules['ext.openstack.Address'] = [
-	'dependencies' => [
-		'ext.openstack.base',
-		'mediawiki.util',
-	],
-
-	'messages' => [
-		'openstackmanager-disassociateaddressfailed',
-		'openstackmanager-disassociateaddress-confirm',
-		'openstackmanager-disassociatedaddress',
-		'openstackmanager-associateaddress',
-		'openstackmanager-releaseaddress',
-		'openstackmanager-unknownerror',
-	],
-
-	'scripts' => [
-		'modules/ext.openstack.Address.js',
-	],
-] + $commonModuleInfo;
-
-$wgAPIModules['novainstance'] = 'ApiNovaInstance';
-$wgAPIModules['novaaddress'] = 'ApiNovaAddress';
-$wgAPIModules['novaprojects'] = 'ApiNovaProjects';
-$wgAPIModules['novaprojectlimits'] = 'ApiNovaProjectLimits';
-$wgAPIListModules['novaprojects'] = 'ApiListNovaProjects';
-$wgAPIListModules['novainstances'] = 'ApiListNovaInstances';
 
 # Schema changes
 $wgHooks['LoadExtensionSchemaUpdates'][] = 'efOpenStackSchemaUpdates';

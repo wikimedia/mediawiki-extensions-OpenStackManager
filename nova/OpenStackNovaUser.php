@@ -67,74 +67,6 @@ class OpenStackNovaUser {
 	}
 
 	/**
-	 * @param string $project
-	 * @return array
-	 */
-	public function getCredentials( $project = '' ) {
-		$userNova = OpenStackNovaController::newFromUser( $this );
-		if ( $project ) {
-			$token = $userNova->getProjectToken( $project );
-		} else {
-			$token = $userNova->getUnscopedToken();
-		}
-
-		return [ 'token' => $token ];
-	}
-
-	/**
-	 * @param User $user
-	 * @return string
-	 */
-	public static function loadToken( $user ) {
-		if ( !$user ) {
-			return null;
-		}
-		$user_id = $user->getId();
-		if ( $user_id != 0 ) {
-			$dbr = wfGetDB( DB_REPLICA );
-			$row = $dbr->selectRow(
-				'openstack_tokens',
-				[ 'token' ],
-				[ 'user_id' => $user_id ],
-				__METHOD__ );
-
-			if ( $row ) {
-				return $row->token;
-			}
-		}
-
-		return null;
-	}
-
-	/**
-	 * @param User $user
-	 * @param string $token
-	 * @return bool
-	 */
-	public static function saveToken( $user, $token ) {
-		$user_id = $user->getId();
-		if ( $user_id != 0 ) {
-			$dbw = wfGetDB( DB_MASTER );
-			$oldtoken = self::loadToken( $user );
-			if ( $oldtoken ) {
-				return $dbw->update(
-					'openstack_tokens',
-					[ 'token' => $token ],
-					[ 'user_id' => $user_id ],
-					__METHOD__ );
-			} else {
-				return $dbw->insert(
-					'openstack_tokens',
-					[ 'token' => $token,
-						'user_id' => $user_id ],
-					__METHOD__ );
-			}
-		} else {
-			return false;
-		}
-	}
-
-	/**
 	 * @return array
 	 */
 	public function getKeypairs() {
@@ -153,111 +85,6 @@ class OpenStackNovaUser {
 			$ldap->printDebug( "No keypairs found", NONSENSITIVE );
 			return [];
 		}
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function exists() {
-		$credentials = $this->getCredentials();
-		return (bool)$credentials['token'];
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getProjects() {
-		$controller = OpenStackNovaProject::getController();
-		$projects = array_keys( $controller->getRoleAssignmentsForUser( $this->getUid() ) );
-		return $projects;
-	}
-
-	/**
-	 * Returns a list of role this user is a member of. Includes
-	 * all projects.
-	 * @return array of rolenames
-	 */
-	public function getRoles() {
-		global $wgMemc;
-
-		$key = wfMemcKey( 'openstackmanager', 'roles', $this->username );
-		$roles = $wgMemc->get( $key );
-		if ( is_array( $roles ) ) {
-			return $roles;
-		}
-
-		$controller = OpenStackNovaProject::getController();
-		$assignments = $controller->getRoleAssignmentsForUser( $this->getUid() );
-
-		$everyrole = [];
-		foreach ( $assignments as $projectid => $rolelist ) {
-			$everyrole = array_merge( $everyrole, $rolelist );
-		}
-		$roleids = array_unique( $everyrole );
-
-		$roles = [];
-		foreach ( $roleids as $roleid ) {
-			$roles[] = OpenStackNovaRole::getRoleNameForId( $roleid );
-		}
-
-		$wgMemc->set( $key, $roles, '3600' );
-		return $roles;
-	}
-
-	/**
-	 * @param string $project
-	 * @return bool
-	 */
-	public function inProject( $project ) {
-		global $wgMemc;
-
-		$key = wfMemcKey( 'openstackmanager', "project-$project", $this->userDN );
-		$cacheLength = 3600;
-		$inProject = $wgMemc->get( $key );
-		if ( is_int( $inProject ) ) {
-			return (bool)$inProject;
-		}
-
-		$ret = in_array( $project, $this->getProjects() );
-
-		$wgMemc->set( $key, (int)$ret, $cacheLength );
-		return $ret;
-	}
-
-	/**
-	 * @param string $role
-	 * @param string $projectname
-	 * @return bool
-	 */
-	public function inRole( $role, $projectname ) {
-		global $wgMemc;
-
-		if ( !$projectname ) {
-			return false;
-		}
-		$key = wfMemcKey( 'openstackmanager', "projectrole-$projectname-$role", $this->userDN );
-		$inRole = $wgMemc->get( $key );
-		if ( is_int( $inRole ) ) {
-			return (bool)$inRole;
-		}
-
-		$project = OpenStackNovaProject::getProjectByName( $projectname );
-		if ( !$project ) {
-			return false;
-		}
-		$role = OpenStackNovaRole::getProjectRoleByName( $role, $project );
-		if ( !$role ) {
-			return false;
-		}
-
-		$ret = false;
-		if ( in_array( $this->getUsername(), $role->getMembers() ) ) {
-			$ret = true;
-		}
-		// Invalidating this properly is hard, so cache just long enough for a single action
-		$wgMemc->set( $key, (int)$ret, 30 );
-
-		return $ret;
 	}
 
 	/**
@@ -531,113 +358,6 @@ class OpenStackNovaUser {
 	}
 
 	/**
-	 * @param User &$wikiUser
-	 * @return bool
-	 */
-	public static function LDAPUpdateUser( &$wikiUser ) {
-		if ( $wikiUser->getToken( false ) && isset( $_SESSION['wsOpenStackToken'] ) ) {
-			# If the user has a long-lived token, save the token,
-			# so that it can be refetched.
-			self::saveToken( $wikiUser, $_SESSION['wsOpenStackToken'] );
-		}
-		return true;
-	}
-
-	/**
-	 * @param string $username
-	 * @param string $password
-	 * @param bool &$result
-	 * @return bool
-	 */
-	public static function ChainAuth( $username, $password, &$result ) {
-		$user = new OpenStackNovaUser( $username );
-		$userNova = OpenStackNovaController::newFromUser( $user );
-		$token = $userNova->authenticate( $username, $password );
-		if ( $token ) {
-			$result = true;
-			# Add token to session, so that it can be referenced later
-			$_SESSION['wsOpenStackToken'] = $token;
-		} else {
-			$result = false;
-		}
-
-		return $result;
-	}
-
-	public static function DynamicSidebarGetGroups( &$groups ) {
-		global $wgUser, $wgMemc;
-		if ( $wgUser->isLoggedIn() ) {
-			$key = wfMemcKey( 'openstackmanager', 'roles', $wgUser->getName() );
-			$roles = $wgMemc->get( $key );
-			if ( !is_array( $roles ) ) {
-				$user = new OpenStackNovaUser( $wgUser->getName() );
-				$roles = $user->getRoles();
-			}
-			$groups = array_unique( array_merge( $groups, $roles ) );
-		}
-
-		return true;
-	}
-
-	public static function addUserToBastionProject( $user, &$group ) {
-		global $wgOpenStackManagerBastionProjectId;
-
-		if ( User::groupHasPermission( $group, 'loginviashell' ) ) {
-			// Add the user to the bastion project if not already a
-			// member.
-			$username = $user->getName();
-			$project = new OpenStackNovaProject( $wgOpenStackManagerBastionProjectId );
-			if ( !in_array( $username, $project->getMembers() ) ) {
-				$project->addMember( $username );
-			}
-		}
-		return true;
-	}
-
-	public static function removeUserFromBastionProject( $user, &$group ) {
-		global $wgOpenStackManagerRemoveUserFromBastionProjectOnShellDisable;
-		global $wgOpenStackManagerRemoveUserFromAllProjectsOnShellDisable;
-		global $wgOpenStackManagerBastionProjectId;
-
-		// Check whether after removing the group the user would still
-		// have the loginviashell permission.
-		foreach ( $user->getEffectiveGroups() as $g ) {
-			// Ignore the group that will be removed.
-			if ( $g === $group ) {
-				continue;
-			}
-			// If the user still has the loginviashell permission, we
-			// can immediately return.
-			if ( User::groupHasPermission( $g, 'loginviashell' ) ) {
-				return true;
-			}
-		}
-
-		// At this point we know that the user will not have the
-		// loginviashell permission after the group is removed so we
-		// can remove him from the bastion projects if the
-		// configuration requires that.
-		$username = $user->getName();
-
-		if ( $wgOpenStackManagerRemoveUserFromAllProjectsOnShellDisable ) {
-			// Get a users projects
-			$userLDAP = new OpenStackNovaUser( $username );
-			foreach ( $userLDAP->getProjects() as $projectId ) {
-				// Remove the user from the project
-				$project = new OpenStackNovaProject( $projectId );
-				$project->deleteMember( $username );
-			}
-		} elseif ( $wgOpenStackManagerRemoveUserFromBastionProjectOnShellDisable ) {
-			// Remove the user from the bastion project
-			$project = new OpenStackNovaProject( $wgOpenStackManagerBastionProjectId );
-			if ( in_array( $username, $project->getMembers() ) ) {
-				$project->deleteMember( $username );
-			}
-		}
-		return true;
-	}
-
-	/**
 	 * @param User $user
 	 * @param array &$preferences
 	 * @return bool True
@@ -675,25 +395,6 @@ class OpenStackNovaUser {
 	public static function getKeyList( $user ) {
 		global $wgOpenStackManagerNovaKeypairStorage;
 		$keyInfo = [];
-		if ( $wgOpenStackManagerNovaKeypairStorage === 'nova' ) {
-			$projects = $user->getProjects();
-			$keyInfo['keyname'] = [
-				'type' => 'text',
-				'label-message' => 'openstackmanager-novakeyname',
-				'default' => '',
-				'name' => 'keyname',
-			];
-			$project_keys = [];
-			foreach ( $projects as $project ) {
-				$project_keys[$project] = $project;
-			}
-			$keyInfo['project'] = [
-				'type' => 'select',
-				'options' => $project_keys,
-				'label-message' => 'openstackmanager-project',
-				'name' => 'project',
-			];
-		}
 		$keyInfo['key'] = [
 			'type' => 'textarea',
 			'default' => '',
@@ -702,26 +403,7 @@ class OpenStackNovaUser {
 		];
 
 		$out = '';
-		if ( $wgOpenStackManagerNovaKeypairStorage === 'nova' ) {
-			# TODO: add project filter
-			foreach ( $projects as $project ) {
-				$userNova = new OpenStackNovaController( $user );
-				$keypairs = $userNova->getKeypairs();
-				if ( !$keypairs ) {
-					continue;
-				}
-				$out .= Html::element( 'h2', [], $project );
-				$headers = [ 'openstackmanager-name', 'openstackmanager-fingerprint' ];
-				$keyRows = [];
-				foreach ( $keypairs as $keypair ) {
-					$keyRow = [];
-					SpecialNova::pushResourceColumn( $keyRow, $keypair->getKeyName() );
-					SpecialNova::pushResourceColumn( $keyRow, $keypair->getKeyFingerprint() );
-					$keyRows[] = $keyRow;
-				}
-				$out .= SpecialNova::createResourceTable( $headers, $keyRows );
-			}
-		} elseif ( $wgOpenStackManagerNovaKeypairStorage === 'ldap' ) {
+		if ( $wgOpenStackManagerNovaKeypairStorage === 'ldap' ) {
 			$headers = [ 'openstackmanager-keys', 'openstackmanager-actions' ];
 			$keypairs = $user->getKeypairs();
 			$keyRows = [];
