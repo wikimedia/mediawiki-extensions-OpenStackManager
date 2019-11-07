@@ -14,7 +14,6 @@
 	"openstackmanager-badresourcename": "Ugyldig ressursnavn oppgitt.\nRessursnavn starter med a–z, og kan kun inneholde tegnene a–z, 0–9 og -.",
 	"action-listall": "vis all ressursinformasjon",
 	"right-listall": "Vise all ressursinformasjon",
-	"right-editallhiera": "Redigere alle Hiera:-sider",
 	"action-managednsdomain": "behandle DNS-domener",
 	"right-managednsdomain": "Behandle globale DNS-domener",
 	"right-accessrestrictedregions": "Få tilgang til begrensede regioner",

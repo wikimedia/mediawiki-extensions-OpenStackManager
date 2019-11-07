@@ -10,8 +10,6 @@
 	"openstackmanager-title": "OpenStackManager",
 	"action-listall": "prikaz svih informacija o resursima",
 	"right-listall": "Prikaz svih informacija o resursima",
-	"action-editallhiera": "uređivanje svih Hiera: stranica",
-	"right-editallhiera": "Uređivanje svih Hiera: stranica",
 	"action-managednsdomain": "upravljanje dns-domenama",
 	"right-managednsdomain": "Upravljanje globalnim DNS-modelima",
 	"action-accessrestrictedregions": "pristup ograničenim područjima",

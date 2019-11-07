@@ -171,7 +171,6 @@
 	"openstackmanager-proxyname": "Dä Rääschnernahme em <i lang=\"en\" xml:lang=\"en\" dir=\"ltr\" title=\"Domain Name System\">DNS</i>",
 	"openstackmanager-twofactorrequired": "En Zwai-Faktor-Aanmälldong e nühdesch",
 	"openstackmanager-twofactorrequired2": "En Zwai-Faktor-Aanmälldong e nühdesch. Bes esu johd un lohß se zoh un versöhg et norr_ens.",
-	"openstackmanager-hiera-noadmin": "Blohß de alljemeine Verwallder vun dä jannze <i lang=\"en\" xml:lang=\"en\" dir=\"ltr\" title=\"„Wollk“\">cloud</i> un de Verwallder vum Projäk $1 künne heh di Sigg beärbeijde.",
 	"right-manageproject": "<i lang=\"en\" xml:lang=\"en\" dir=\"ltr\" title=\"a free and open-source cloud computing software platform - „freije Projramme för et Rääschne en ener Wolk med offe Quälle“\">OpenStack</i>-Projäkde un Rolle verwallde",
 	"action-manageproject": "<i lang=\"en\" xml:lang=\"en\" dir=\"ltr\" title=\"a free and open-source cloud computing software platform - „freije Projramme för et Rääschne en ener Wolk med offe Quälle“\">OpenStack</i>-Projäkde un Rolle ze verwallde",
 	"right-loginviashell": "Obb en  shell enlogge",

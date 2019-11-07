@@ -20,7 +20,6 @@
 	"openstackmanager-title": "OpenStackManager",
 	"action-listall": "отобразить все сведения о ресурсе",
 	"right-listall": "отображение всех сведений о ресурсе",
-	"right-editallhiera": "изменение всех страниц Hiera:",
 	"action-managednsdomain": "управление DNS доменами",
 	"right-managednsdomain": "управление глобальными доменами DNS",
 	"right-accessrestrictedregions": "доступ к ограниченным регионам",

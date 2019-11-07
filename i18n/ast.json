@@ -11,7 +11,6 @@
 	"openstackmanager-badresourcename": "Nome de recursu incorreutu.\nLos nomes de recursos tienen d'empezar con a-z y namái pueden contener los caráuteres a-z, 0-9, - y _.",
 	"action-listall": "amosar tola información de recursos",
 	"right-listall": "Amosar tola información de recursos",
-	"right-editallhiera": "Editar toles páxines Hiera:",
 	"action-managednsdomain": "xestionar dominios DNS",
 	"right-managednsdomain": "Alministrar dominios DNS globales",
 	"right-accessrestrictedregions": "Aportar a rexones acutaes",
