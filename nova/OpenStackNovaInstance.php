@@ -277,15 +277,10 @@ class OpenStackNovaInstance {
 	}
 
 	public function deleteInstance( $userNova ) {
-		global $wgUser;
-
 		$success = $userNova->terminateInstance( $this->getInstanceOsId() );
 		if ( !$success ) {
 			return false;
 		}
-		OpenStackManagerEvent::createDeletionEvent(
-			$this->getInstanceName(), $this->getProject(), $wgUser
-		);
 		$this->deleteArticle();
 		return true;
 	}

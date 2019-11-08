@@ -197,9 +197,6 @@ $wgAutoloadClasses['ApiNovaProjectLimits'] = $dir . 'api/ApiNovaProjectLimits.ph
 $wgAutoloadClasses['ApiNovaServiceGroups'] = $dir . 'api/ApiNovaServiceGroups.php';
 $wgAutoloadClasses['ApiListNovaProjects'] = $dir . 'api/ApiListNovaProjects.php';
 $wgAutoloadClasses['ApiListNovaInstances'] = $dir . 'api/ApiListNovaInstances.php';
-$wgAutoloadClasses['EchoOpenStackManagerPresentationModel'] =
-	$dir . 'EchoOpenStackManagerPresentationModel.php';
-$wgAutoloadClasses['OpenStackManagerEvent'] = $dir . 'OpenStackManagerEvent.php';
 
 $wgHooks['LDAPSetCreationValues'][] = 'OpenStackNovaUser::LDAPSetCreationValues';
 $wgHooks['LDAPRetrySetCreationValues'][] = 'OpenStackNovaUser::LDAPRetrySetCreationValues';
@@ -296,10 +293,6 @@ function efOpenStackSchemaUpdates( $updater ) {
 	switch ( $updater->getDB()->getType() ) {
 	case 'mysql':
 		$updater->addExtensionTable( 'openstack_tokens', "$base/schema-changes/tokens.sql" );
-		$updater->addExtensionTable(
-			'openstack_notification_event',
-			"$base/schema-changes/openstack_add_notification_events_table.sql"
-		);
 		$updater->addExtensionUpdate( [
 			'modifyField',
 			'openstack_tokens',
@@ -309,92 +302,6 @@ function efOpenStackSchemaUpdates( $updater ) {
 		] );
 		break;
 	}
-	return true;
-}
-
-# Echo integration
-$wgHooks['BeforeCreateEchoEvent'][] = 'efOpenStackOnBeforeCreateEchoEvent';
-$wgHooks['EchoGetDefaultNotifiedUsers'][] = 'efOpenStackGetDefaultNotifiedUsers';
-$wgDefaultUserOptions['echo-subscriptions-web-osm-instance-build-completed'] = true;
-$wgDefaultUserOptions['echo-subscriptions-email-osm-instance-build-completed'] = true;
-$wgDefaultUserOptions['echo-subscriptions-web-osm-instance-reboot-completed'] = true;
-$wgDefaultUserOptions['echo-subscriptions-web-osm-instance-deleted'] = true;
-$wgDefaultUserOptions['echo-subscriptions-email-osm-instance-deleted'] = true;
-$wgDefaultUserOptions['echo-subscriptions-web-osm-projectmembers-add'] = true;
-$wgDefaultUserOptions['echo-subscriptions-email-osm-projectmembers-add'] = true;
-
-/**
- * Add OSM events to Echo.
- *
- * @param array &$notifications Echo notifications
- * @param array &$notificationCategories Echo notification categories
- * @param array &$icons Echo icons
- * @return true
- */
-function efOpenStackOnBeforeCreateEchoEvent(
-	&$notifications, &$notificationCategories, &$icons
-) {
-	$notifications['osm-instance-build-completed'] = [
-		'presentation-model' => 'EchoOpenStackManagerPresentationModel',
-		'category' => 'osm-instance-build-completed',
-		'section' => 'message',
-		'canNotifyAgent' => true,
-	];
-
-	$notifications['osm-instance-reboot-completed'] = [
-		'presentation-model' => 'EchoOpenStackManagerPresentationModel',
-		'category' => 'osm-instance-reboot-completed',
-		'section' => 'message',
-		'canNotifyAgent' => true,
-	];
-
-	$notifications['osm-instance-deleted'] = [
-		'presentation-model' => 'EchoOpenStackManagerPresentationModel',
-		'category' => 'osm-instance-deleted',
-		'section' => 'message',
-	];
-
-	$notifications['osm-projectmembers-add'] = [
-		'presentation-model' => 'EchoOpenStackManagerPresentationModel',
-		'category' => 'osm-projectmembers-add',
-		'section' => 'message',
-	];
-
-	$icons['trash'] = 'OpenStackManager/modules/images/trash.svg';
-
-	return true;
-}
-
-/**
- * Define who gets notifications for an event.
- *
- * @param EchoEvent $event EchoEvent to get implicitly subscribed users for
- * @param array &$users array to append implicitly subscribed users to.
- * @return bool true in all cases
- */
-function efOpenStackGetDefaultNotifiedUsers( $event, &$users ) {
-	if ( $event->getType() == 'osm-instance-build-completed' ||
-		$event->getType() == 'osm-instance-deleted'
-	) {
-		$extra = $event->getExtra();
-		foreach (
-			OpenStackNovaProject::getProjectByName( $extra['projectName'] )->getRoles() as $role
-		) {
-			if ( $role->getRoleName() == 'projectadmin' ) {
-				foreach ( $role->getMembers() as $roleMember ) {
-					$roleMemberUser = User::newFromName( $roleMember );
-					$users[$roleMemberUser->getId()] = $roleMemberUser;
-				}
-			}
-		}
-	} elseif ( $event->getType() == 'osm-instance-reboot-completed' ) {
-		// Only notify the person who initiated the reboot.
-		$users[$event->getAgent()->getId()] = $event->getAgent();
-	} elseif ( $event->getType() == 'osm-projectmembers-add' ) {
-		$extra = $event->getExtra();
-		$users[$extra['userAdded']] = User::newFromId( $extra['userAdded'] );
-	}
-	unset( $users[0] );
 	return true;
 }
 
