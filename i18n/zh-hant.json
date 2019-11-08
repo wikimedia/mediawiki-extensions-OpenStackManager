@@ -49,6 +49,7 @@
 	"openstackmanager-ownedinstances": "您已建立{{PLURAL:$1|此實例|這些實例}}：",
 	"openstackmanager-delete": "刪除",
 	"openstackmanager-hieraconfig": "查看 Hiera 設定",
+	"openstackmanager-hiera-disabled": "這些頁面不再被 cloud-vps 所使用。Puppet 與 hiera 的設定可在 Horizon 裡變動。",
 	"openstackmanager-modify": "修改",
 	"openstackmanager-rename": "重新命名",
 	"openstackmanager-reboot": "重新開機",

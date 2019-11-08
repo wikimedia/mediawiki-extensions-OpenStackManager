@@ -41,6 +41,7 @@
 	"openstackmanager-ownedinstances": "Você criou {{PLURAL:$1|esta instância|estas instâncias}}:",
 	"openstackmanager-delete": "excluir",
 	"openstackmanager-hieraconfig": "Ver configuração Hiera",
+	"openstackmanager-hiera-disabled": "Essas páginas não são mais usadas pelo cloud-vps. A configuração de marionetes e hiera pode ser modificada no Horizon.",
 	"openstackmanager-modify": "modificar",
 	"openstackmanager-rename": "renomear",
 	"openstackmanager-reboot": "reiniciar",

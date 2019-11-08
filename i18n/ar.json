@@ -41,6 +41,7 @@
 	"openstackmanager-ownedinstances": "لقد أنشأت {{PLURAL:$1|هذا المثيل|هذه الأمثلة}}:",
 	"openstackmanager-delete": "حذف",
 	"openstackmanager-hieraconfig": "عرض تكوين هيرا",
+	"openstackmanager-hiera-disabled": "هذه الصفحات لم تعد مستخدمة من قبل cloud-vps؛ يمكن تعديل الدمية وhiera config في Horizon.",
 	"openstackmanager-modify": "تعديل",
 	"openstackmanager-rename": "إعادة تسمية",
 	"openstackmanager-reboot": "إعادة التشغيل",
