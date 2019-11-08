@@ -8,9 +8,6 @@
  */
 
 class SpecialNovaKey extends SpecialNova {
-	/** @var OpenStackNovaController */
-	public $userNova;
-
 	public function __construct() {
 		parent::__construct( 'NovaKey' );
 	}
@@ -47,24 +44,7 @@ class SpecialNovaKey extends SpecialNova {
 		$hash = '';
 		$keypairs = [];
 
-		if ( $wgOpenStackManagerNovaKeypairStorage === 'nova' ) {
-			$keyname = $this->getRequest()->getVal( 'keyname' );
-			$project = $this->getRequest()->getVal( 'project' );
-			if ( $project && !$this->userLDAP->inProject( $project ) ) {
-				$this->notInProject( $project );
-				return true;
-			}
-			$keyInfo['keyname'] = [
-				'type' => 'hidden',
-				'default' => $project,
-				'name' => 'keyname',
-			];
-			$keyInfo['project'] = [
-				'type' => 'hidden',
-				'default' => $keyname,
-				'name' => 'project',
-			];
-		} elseif ( $wgOpenStackManagerNovaKeypairStorage === 'ldap' ) {
+		if ( $wgOpenStackManagerNovaKeypairStorage === 'ldap' ) {
 			$hash = $this->getRequest()->getVal( 'hash' );
 			$keypairs = $this->userLDAP->getKeypairs();
 			if ( !$this->getRequest()->wasPosted() ) {
@@ -106,32 +86,11 @@ class SpecialNovaKey extends SpecialNova {
 	}
 
 	private function addKey() {
-		global $wgOpenStackManagerNovaKeypairStorage;
-
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-addkey' ) );
 		$returnto = $this->getRequest()->getVal( 'returnto' );
 
 		$keyInfo = [];
-		if ( $wgOpenStackManagerNovaKeypairStorage === 'nova' ) {
-			$projects = $this->userLDAP->getProjects();
-			$keyInfo['keyname'] = [
-				'type' => 'text',
-				'label-message' => 'openstackmanager-novakeyname',
-				'default' => '',
-				'name' => 'keyname',
-			];
-			$project_keys = [];
-			foreach ( $projects as $project ) {
-				$project_keys[$project] = $project;
-			}
-			$keyInfo['project'] = [
-				'type' => 'select',
-				'options' => $project_keys,
-				'label-message' => 'openstackmanager-project',
-				'name' => 'project',
-			];
-		}
 		$keyInfo['key'] = [
 			'type' => 'textarea',
 			'default' => '',
@@ -318,15 +277,6 @@ class SpecialNovaKey extends SpecialNova {
 				}
 				return false;
 			}
-		} elseif ( $wgOpenStackManagerNovaKeypairStorage === 'nova' ) {
-			// @phan-suppress-next-line PhanUndeclaredMethod
-			$keypair = $this->userNova->importKeypair( $formData['keyname'], $key );
-
-			$out->addWikiMsg(
-				'openstackmanager-keypairimportedfingerprint',
-				$keypair->getKeyName(),
-				$keypair->getKeyFingerprint()
-			);
 		} else {
 			$out->addWikiMsg( 'openstackmanager-invalidkeypair' );
 		}

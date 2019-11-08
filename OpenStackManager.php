@@ -188,16 +188,8 @@ $wgAutoloadClasses['OpenStackNovaShellAccountNameRequest'] =
 $wgAutoloadClasses['OpenStackNovaSecondaryAuthenticationProvider'] =
 	$dir . '/nova/OpenStackNovaSecondaryAuthenticationProvider.php';
 $wgAutoloadClasses['SpecialNovaKey'] = $dir . 'special/SpecialNovaKey.php';
-$wgAutoloadClasses['SpecialNovaProject'] = $dir . 'special/SpecialNovaProject.php';
-$wgAutoloadClasses['SpecialNovaDomain'] = $dir . 'special/SpecialNovaDomain.php';
-$wgAutoloadClasses['SpecialNovaAddress'] = $dir . 'special/SpecialNovaAddress.php';
-$wgAutoloadClasses['SpecialNovaRole'] = $dir . 'special/SpecialNovaRole.php';
-$wgAutoloadClasses['SpecialNovaServiceGroup'] = $dir . 'special/SpecialNovaServiceGroup.php';
-$wgAutoloadClasses['SpecialNovaVolume'] = $dir . 'special/SpecialNovaVolume.php';
-$wgAutoloadClasses['SpecialNovaSudoer'] = $dir . 'special/SpecialNovaSudoer.php';
-$wgAutoloadClasses['SpecialNovaProxy'] = $dir . 'special/SpecialNovaProxy.php';
-$wgAutoloadClasses['SpecialNovaResources'] = $dir . 'special/SpecialNovaResources.php';
 $wgAutoloadClasses['SpecialNova'] = $dir . 'special/SpecialNova.php';
+$wgSpecialPages['NovaKey'] = 'SpecialNovaKey';
 $wgAutoloadClasses['ApiNovaInstance'] = $dir . 'api/ApiNovaInstance.php';
 $wgAutoloadClasses['ApiNovaAddress'] = $dir . 'api/ApiNovaAddress.php';
 $wgAutoloadClasses['ApiNovaProjects'] = $dir . 'api/ApiNovaProjects.php';
@@ -208,12 +200,6 @@ $wgAutoloadClasses['ApiListNovaInstances'] = $dir . 'api/ApiListNovaInstances.ph
 $wgAutoloadClasses['EchoOpenStackManagerPresentationModel'] =
 	$dir . 'EchoOpenStackManagerPresentationModel.php';
 $wgAutoloadClasses['OpenStackManagerEvent'] = $dir . 'OpenStackManagerEvent.php';
-$wgSpecialPages['NovaKey'] = 'SpecialNovaKey';
-$wgSpecialPages['NovaProject'] = 'SpecialNovaProject';
-$wgSpecialPages['NovaRole'] = 'SpecialNovaRole';
-$wgSpecialPages['NovaVolume'] = 'SpecialNovaVolume';
-$wgSpecialPages['NovaSudoer'] = 'SpecialNovaSudoer';
-$wgSpecialPages['NovaResources'] = 'SpecialNovaResources';
 
 $wgHooks['LDAPSetCreationValues'][] = 'OpenStackNovaUser::LDAPSetCreationValues';
 $wgHooks['LDAPRetrySetCreationValues'][] = 'OpenStackNovaUser::LDAPRetrySetCreationValues';
@@ -409,20 +395,6 @@ function efOpenStackGetDefaultNotifiedUsers( $event, &$users ) {
 		$users[$extra['userAdded']] = User::newFromId( $extra['userAdded'] );
 	}
 	unset( $users[0] );
-	return true;
-}
-
-$wgHooks['BeforePageDisplay'][] = 'efOpenStackBeforePageDisplay';
-
-/**
- * @param OutputPage $out
- * @param Skin $skin
- * @return bool
- */
-function efOpenStackBeforePageDisplay( $out, $skin ) {
-	if ( $out->getTitle()->isSpecial( 'Preferences' ) ) {
-		$out->addModuleStyles( 'ext.openstack' );
-	}
 	return true;
 }
 
