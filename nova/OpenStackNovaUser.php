@@ -409,9 +409,9 @@ class OpenStackNovaUser {
 			$keyRows = [];
 			foreach ( $keypairs as $hash => $key ) {
 				$keyRow = [];
-				SpecialNova::pushResourceColumn( $keyRow, $key, [ 'class' => 'Nova_col' ] );
+				SpecialNovaKey::pushResourceColumn( $keyRow, $key, [ 'class' => 'Nova_col' ] );
 				$actions = [];
-				$actions[] = SpecialNova::createNovaKeyActionLink(
+				$actions[] = SpecialNovaKey::createNovaKeyActionLink(
 					'openstackmanager-delete',
 					[
 						'action' => 'delete',
@@ -421,12 +421,12 @@ class OpenStackNovaUser {
 						)->getFullText()
 					]
 				);
-				SpecialNova::pushRawResourceColumn(
-					$keyRow, SpecialNova::createResourceList( $actions )
+				SpecialNovaKey::pushRawResourceColumn(
+					$keyRow, SpecialNovaKey::createResourceList( $actions )
 				);
 				$keyRows[] = $keyRow;
 			}
-			$out .= SpecialNova::createResourceTable( $headers, $keyRows );
+			$out .= SpecialNovaKey::createResourceTable( $headers, $keyRows );
 		}
 		$out .= Linker::link(
 			SpecialPage::getTitleFor( 'NovaKey' ),

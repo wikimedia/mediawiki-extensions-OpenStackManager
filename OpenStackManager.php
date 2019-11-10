@@ -162,7 +162,6 @@ $wgAutoloadClasses['OpenStackNovaShellAccountNameRequest'] =
 $wgAutoloadClasses['OpenStackNovaSecondaryAuthenticationProvider'] =
 	$dir . '/nova/OpenStackNovaSecondaryAuthenticationProvider.php';
 $wgAutoloadClasses['SpecialNovaKey'] = $dir . 'special/SpecialNovaKey.php';
-$wgAutoloadClasses['SpecialNova'] = $dir . 'special/SpecialNova.php';
 $wgSpecialPages['NovaKey'] = 'SpecialNovaKey';
 
 $wgHooks['LDAPSetCreationValues'][] = 'OpenStackNovaUser::LDAPSetCreationValues';
