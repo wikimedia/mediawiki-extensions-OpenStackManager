@@ -50,30 +50,6 @@ $wgOpenStackManagerLDAPUser = '';
 $wgOpenStackManagerLDAPUsername = '';
 // Password used to bind
 $wgOpenStackManagerLDAPUserPassword = '';
-// Project that $wgOpenStackManagerLDAPUsername has admin on
-$wgOpenStackManagerProject = '';
-// Keystone ID of same
-$wgOpenStackManagerProjectId = '';
-// DN location of projects
-$wgOpenStackManagerLDAPProjectBaseDN = '';
-// DN location of hosts/instances
-$wgOpenStackManagerLDAPProjectBaseDN = '';
-// DN location of service groups
-$wgOpenStackManagerLDAPServiceGroupBaseDN = '';
-// Service groups will be automatically prefaced with this;
-// e.g. if the user asks for 'fancytool' the group will be called
-// 'local-fancytool'.
-$wgOpenStackManagerServiceGroupPrefix = 'local-';
-// Default pattern for service group homedir creation.
-// %u is username, %p is $wgOpenStackManagerServiceGroupPrefix.
-$wgOpenStackManagerServiceGroupHomedirPattern = '/home/%p%u/';
-
-// Username for special observer user -- hidden
-// from the OSM front end.
-$wgOpenStackHiddenUsernames = [ 'novaobserver' ];
-
-// Key/value pairs like array( 'region1' => '10.4.0.11', 'region2' => '10.68.1.35' )
-$wgOpenStackManagerProxyGateways = [];
 
 $wgOpenStackManagerIdRanges = [
 	'service' => [
@@ -81,38 +57,6 @@ $wgOpenStackManagerIdRanges = [
 	],
 ];
 
-// DN location for posix groups based on projects
-$wgOpenStackManagerLDAPDefaultGid = '500';
-// Shell used when creating users
-$wgOpenStackManagerLDAPDefaultShell = '/bin/bash';
-// DNS servers, used in SOA record
-$wgOpenStackManagerDNSServers = [ 'primary' => 'localhost', 'secondary' => 'localhost' ];
-// SOA attributes
-$wgOpenStackManagerDNSSOA = [
-	'hostmaster' => 'hostmaster@localhost.localdomain',
-	'refresh' => '1800',
-	'retry' => '3600',
-	'expiry' => '86400',
-	'minimum' => '7200'
-	];
-// User data to inject into instances when created
-$wgOpenStackManagerInstanceUserData = [
-	'cloud-config' => [],
-	'scripts' => [],
-	'upstarts' => [],
-	];
-// Default security rules to add to a project when created
-$wgOpenStackManagerDefaultSecurityGroupRules = [];
-// List of instance type names to not display on instance creation interface
-$wgOpenStackManagerInstanceBannedInstanceTypes = [];
-// Whether resource pages should be managed on instance/project creation/deletion
-$wgOpenStackManagerCreateResourcePages = true;
-// Whether a Server Admin Log page should be created with project pages
-$wgOpenStackManagerCreateProjectSALPages = true;
-
-// 'bastion' project name
-$wgOpenStackManagerBastionProjectName = 'bastion';
-$wgOpenStackManagerBastionProjectId = 'bastion';
 /**
  * Path to the ssh-keygen utility. Used for converting ssh key formats. False to disable its use.
  */
@@ -121,14 +65,6 @@ $wgSshKeygen = 'ssh-keygen';
  * Path to the puttygen utility. Used for converting ssh key formats. False to disable its use.
  */
 $wgPuttygen = 'puttygen';
-// Custom namespace for projects
-$wgOpenStackManagerProjectNamespace = NS_NOVA_RESOURCE;
-
-// A list of regions restricted to a group by right
-$wgOpenStackManagerRestrictedRegions = [];
-
-// A list of regions which are visible yet disabled (e.g. instance creation forbidden)
-$wgOpenStackManagerReadOnlyRegions = [];
 
 $dir = __DIR__ . '/';
 
