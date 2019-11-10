@@ -156,7 +156,6 @@ $wgAutoloadClasses['YamlContentHandler'] = $dir . 'includes/YamlContentHandler.p
 $wgAutoloadClasses['OpenStackManagerHooks'] = $dir . 'OpenStackManagerHooks.php';
 $wgAutoloadClasses['OpenStackNovaKeypair'] = $dir . 'nova/OpenStackNovaKeypair.php';
 $wgAutoloadClasses['OpenStackNovaUser'] = $dir . 'nova/OpenStackNovaUser.php';
-$wgAutoloadClasses['OpenStackNovaLdapConnection'] = $dir . 'nova/OpenStackNovaLdapConnection.php';
 $wgAutoloadClasses['OpenStackNovaShellAccountNameRequest'] =
 	$dir . 'nova/OpenStackNovaShellAccountNameRequest.php';
 $wgAutoloadClasses['OpenStackNovaSecondaryAuthenticationProvider'] =
