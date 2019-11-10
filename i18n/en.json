@@ -5,7 +5,7 @@
 			"Sam Reed <reedy@wikimedia.org>"
 		]
 	},
-	"openstackmanager-desc": "Lets users manage Nova and Swift",
+	"openstackmanager-desc": "Lets users register shell accounts and manage their SSH keys",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "Manage your public SSH keys",
 	"openstackmanager-novakey": "Nova key",
