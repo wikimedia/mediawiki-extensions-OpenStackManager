@@ -18,8 +18,23 @@ class OpenStackNovaUser {
 	 */
 	public function __construct( $username = '' ) {
 		$this->username = $username;
-		OpenStackNovaLdapConnection::connect();
+		self::connectToLdap();
 		$this->fetchUserInfo();
+	}
+
+	/**
+	 * Connect to LDAP as the open stack manager account using LdapAuthenticationPlugin
+	 */
+	private static function connectToLdap() {
+		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
+		global $wgOpenStackManagerLDAPDomain;
+
+		// Only reconnect/rebind if we aren't alredy bound
+		$ldap = LdapAuthenticationPlugin::getInstance();
+		if ( $ldap->boundAs !== $wgOpenStackManagerLDAPUser ) {
+			$ldap->connect( $wgOpenStackManagerLDAPDomain );
+			$ldap->bindAs( $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword );
+		}
 	}
 
 	/**
