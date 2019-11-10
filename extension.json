@@ -38,7 +38,6 @@
 		"getUserPermissionsErrors": "OpenStackNovaUser::getUserPermissionsErrors",
 		"LDAPSetCreationValues": "OpenStackNovaUser::LDAPSetCreationValues",
 		"LDAPRetrySetCreationValues": "OpenStackNovaUser::LDAPRetrySetCreationValues",
-		"LDAPModifyUITemplate": "OpenStackNovaUser::LDAPModifyUITemplate",
 		"GetPreferences": "OpenStackNovaUser::novaUserPreferences",
 		"AuthChangeFormFields": "OpenStackNovaUser::AuthChangeFormFields"
 	},

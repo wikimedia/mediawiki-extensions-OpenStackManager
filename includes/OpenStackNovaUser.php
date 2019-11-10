@@ -339,23 +339,6 @@ class OpenStackNovaUser {
 	}
 
 	/**
-	 * @param BaseTemplate &$template
-	 * @return bool
-	 */
-	public static function LDAPModifyUITemplate( &$template ) {
-		$input = [
-			'msg' => 'openstackmanager-shellaccountname',
-			'type' => 'text',
-			'name' => 'shellaccountname',
-			'value' => '',
-			'helptext' => 'openstackmanager-shellaccountnamehelp'
-		];
-		$template->set( 'extraInput', [ $input ] );
-
-		return true;
-	}
-
-	/**
 	 * @param \MediaWiki\Auth\AuthenticationRequest[] $requests
 	 * @param array $fieldInfo
 	 * @param array &$formDescriptor
