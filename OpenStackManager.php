@@ -165,7 +165,6 @@ $wgSpecialPages['NovaKey'] = 'SpecialNovaKey';
 $wgHooks['LDAPSetCreationValues'][] = 'OpenStackNovaUser::LDAPSetCreationValues';
 $wgHooks['LDAPRetrySetCreationValues'][] = 'OpenStackNovaUser::LDAPRetrySetCreationValues';
 $wgHooks['LDAPModifyUITemplate'][] = 'OpenStackNovaUser::LDAPModifyUITemplate';
-$wgHooks['LDAPUpdateUser'][] = 'OpenStackNovaUser::LDAPUpdateUser';
 $wgHooks['GetPreferences'][] = 'OpenStackNovaUser::novaUserPreferences';
 $wgHooks['AuthChangeFormFields'][] = 'OpenStackNovaUser::AuthChangeFormFields';
 
@@ -175,35 +174,6 @@ $wgAuthManagerAutoConfig['preauth'] += [
 			'sort' => 0, // non-UI providers should run early
 	],
 ];
-
-$commonModuleInfo = [
-	'localBasePath' => __DIR__,
-	'remoteExtPath' => 'OpenStackManager',
-];
-
-# Schema changes
-$wgHooks['LoadExtensionSchemaUpdates'][] = 'efOpenStackSchemaUpdates';
-
-/**
- * @param DatabaseUpdater $updater
- * @return bool
- */
-function efOpenStackSchemaUpdates( $updater ) {
-	$base = __DIR__;
-	switch ( $updater->getDB()->getType() ) {
-	case 'mysql':
-		$updater->addExtensionTable( 'openstack_tokens', "$base/schema-changes/tokens.sql" );
-		$updater->addExtensionUpdate( [
-			'modifyField',
-			'openstack_tokens',
-			'token',
-			"$base/schema-changes/openstack_change_token_size.sql",
-			true
-		] );
-		break;
-	}
-	return true;
-}
 
 if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 	require_once __DIR__ . '/vendor/autoload.php';
