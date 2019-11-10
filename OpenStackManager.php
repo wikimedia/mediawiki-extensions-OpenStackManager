@@ -66,17 +66,17 @@ $wgSshKeygen = 'ssh-keygen';
  */
 $wgPuttygen = 'puttygen';
 
-$dir = __DIR__ . '/';
+$dir = __DIR__ . '/includes/';
 
 $wgMessagesDirs['OpenStackManager'] = __DIR__ . '/i18n';
-$wgExtensionMessagesFiles['OpenStackManagerAlias'] = $dir . 'OpenStackManager.alias.php';
+$wgExtensionMessagesFiles['OpenStackManagerAlias'] = __DIR__ . '/OpenStackManager.alias.php';
 $wgAutoloadClasses['OpenStackManagerHooks'] = $dir . 'OpenStackManagerHooks.php';
-$wgAutoloadClasses['OpenStackNovaUser'] = $dir . 'nova/OpenStackNovaUser.php';
+$wgAutoloadClasses['OpenStackNovaUser'] = $dir . 'OpenStackNovaUser.php';
 $wgAutoloadClasses['OpenStackNovaShellAccountNameRequest'] =
-	$dir . 'nova/OpenStackNovaShellAccountNameRequest.php';
+	$dir . 'OpenStackNovaShellAccountNameRequest.php';
 $wgAutoloadClasses['OpenStackNovaSecondaryAuthenticationProvider'] =
-	$dir . '/nova/OpenStackNovaSecondaryAuthenticationProvider.php';
-$wgAutoloadClasses['SpecialNovaKey'] = $dir . 'special/SpecialNovaKey.php';
+	$dir . 'OpenStackNovaSecondaryAuthenticationProvider.php';
+$wgAutoloadClasses['SpecialNovaKey'] = $dir . 'SpecialNovaKey.php';
 $wgSpecialPages['NovaKey'] = 'SpecialNovaKey';
 
 $wgHooks['LDAPSetCreationValues'][] = 'OpenStackNovaUser::LDAPSetCreationValues';
