@@ -7,7 +7,10 @@
  * @ingroup Extensions
  */
 
-class SpecialNovaKey extends SpecialNova {
+class SpecialNovaKey extends SpecialPage {
+	/** @var OpenStackNovaUser */
+	protected $userLDAP;
+
 	public function __construct() {
 		parent::__construct( 'NovaKey' );
 	}
@@ -20,10 +23,7 @@ class SpecialNovaKey extends SpecialNova {
 		$this->userLDAP = new OpenStackNovaUser( $this->getUser()->getName() );
 
 		$action = $this->getRequest()->getVal( 'action' );
-		if ( $action === "import" ) {
-			// @phan-suppress-next-line PhanUndeclaredMethod
-			$this->importKey(); // FIXME: Method is undefined
-		} elseif ( $action === "delete" ) {
+		if ( $action === "delete" ) {
 			$this->deleteKey();
 		} else {
 			$this->addKey();
@@ -309,5 +309,77 @@ class SpecialNovaKey extends SpecialNova {
 
 	protected function getGroupName() {
 		return 'nova';
+	}
+
+	public function doesWrites() {
+		return true;
+	}
+
+	/**
+	 * @return void
+	 */
+	protected function notLoggedIn() {
+		$this->setHeaders();
+		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-notloggedin' ) );
+		$this->getOutput()->addWikiMsg( 'openstackmanager-mustbeloggedin' );
+	}
+
+	public static function createNovaKeyActionLink( $msg, $params ) {
+		return Linker::link(
+			SpecialPage::getTitleFor( 'NovaKey' ),
+			wfMessage( $msg )->escaped(),
+			[],
+			$params
+		);
+	}
+
+	public static function createResourceList( $resources ) {
+		$resourceList = '';
+		foreach ( $resources as $resource ) {
+			$resourceList .= Html::rawElement( 'li', [], $resource );
+		}
+		return Html::rawElement( 'ul', [], $resourceList );
+	}
+
+	public static function pushResourceColumn( &$row, $value, $attribs = [] ) {
+		if ( array_key_exists( 'class', $attribs ) ) {
+			$attribs['class'] = $attribs['class'] . ' Nova_cell';
+		} else {
+			$attribs['class'] = 'Nova_cell';
+		}
+		$row[] = Html::element( 'td', $attribs, $value );
+	}
+
+	public static function pushRawResourceColumn( &$row, $value, $attribs = [] ) {
+		if ( array_key_exists( 'class', $attribs ) ) {
+			$attribs['class'] = $attribs['class'] . ' Nova_cell';
+		} else {
+			$attribs['class'] = 'Nova_cell';
+		}
+		$row[] = Html::rawElement( 'td', $attribs, $value );
+	}
+
+	/**
+	 * Create a table of resources based on headers and rows. Warning: $rows is not
+	 * escaped in this function and must be escaped prior to this call.
+	 *
+	 * @param string[] $headers
+	 * @param array[] $rows
+	 *
+	 * @return string
+	 */
+	public static function createResourceTable( $headers, $rows ) {
+		$table = '';
+		foreach ( $headers as $header ) {
+			$table .= Html::element( 'th', [], wfMessage( $header )->text() );
+		}
+		foreach ( $rows as $row ) {
+			$rowOut = '';
+			foreach ( $row as $column ) {
+				$rowOut .= $column;
+			}
+			$table .= Html::rawElement( 'tr', [], $rowOut );
+		}
+		return Html::rawElement( 'table', [ 'class' => 'wikitable sortable' ], $table );
 	}
 }
