@@ -27,9 +27,6 @@ $wgExtensionCredits['other'][] = [
 	'license-name' => 'GPL-2.0-or-later',
 ];
 
-define( 'CONTENT_MODEL_YAML', 'yaml' );
-define( 'CONTENT_FORMAT_YAML', 'application/yaml' );
-
 define( "NS_NOVA_RESOURCE", 498 );
 define( "NS_NOVA_RESOURCE_TALK", 499 );
 define( 'NS_HIERA', 666 );
@@ -37,10 +34,6 @@ define( 'NS_HIERA_TALK', 667 );
 
 $wgExtraNamespaces[NS_HIERA] = 'Hiera';
 $wgExtraNamespaces[NS_HIERA_TALK] = 'Hiera_Talk';
-$wgContentHandlers[CONTENT_MODEL_YAML] = 'YamlContentHandler';
-$wgNamespaceContentModels[NS_HIERA] = CONTENT_MODEL_YAML;
-
-$wgSyntaxHighlightModels[CONTENT_MODEL_YAML] = 'yaml';
 
 $wgExtraNamespaces[NS_NOVA_RESOURCE] = 'Nova_Resource';
 $wgExtraNamespaces[NS_NOVA_RESOURCE_TALK] = 'Nova_Resource_Talk';
@@ -151,8 +144,6 @@ $dir = __DIR__ . '/';
 
 $wgMessagesDirs['OpenStackManager'] = __DIR__ . '/i18n';
 $wgExtensionMessagesFiles['OpenStackManagerAlias'] = $dir . 'OpenStackManager.alias.php';
-$wgAutoloadClasses['YamlContent'] = $dir . 'includes/YamlContent.php';
-$wgAutoloadClasses['YamlContentHandler'] = $dir . 'includes/YamlContentHandler.php';
 $wgAutoloadClasses['OpenStackManagerHooks'] = $dir . 'OpenStackManagerHooks.php';
 $wgAutoloadClasses['OpenStackNovaUser'] = $dir . 'nova/OpenStackNovaUser.php';
 $wgAutoloadClasses['OpenStackNovaShellAccountNameRequest'] =
@@ -174,7 +165,3 @@ $wgAuthManagerAutoConfig['preauth'] += [
 			'sort' => 0, // non-UI providers should run early
 	],
 ];
-
-if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
-	require_once __DIR__ . '/vendor/autoload.php';
-}
