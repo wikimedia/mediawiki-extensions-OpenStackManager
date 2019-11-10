@@ -1,7 +1,6 @@
 <?php
 /**
- * OpenStackManager extension - lets users manage nova and swift
- *
+ * OpenStackManager extension
  *
  * For more info see https://mediawiki.org/wiki/Extension:OpenStackManager
  *
@@ -38,12 +37,6 @@ $wgExtraNamespaces[NS_HIERA_TALK] = 'Hiera_Talk';
 $wgExtraNamespaces[NS_NOVA_RESOURCE] = 'Nova_Resource';
 $wgExtraNamespaces[NS_NOVA_RESOURCE_TALK] = 'Nova_Resource_Talk';
 $wgContentNamespaces[] = NS_NOVA_RESOURCE;
-
-$wgAvailableRights[] = 'listall';
-$wgAvailableRights[] = 'manageproject';
-$wgAvailableRights[] = 'managednsdomain';
-$wgAvailableRights[] = 'loginviashell';
-$wgAvailableRights[] = 'accessrestrictedregions';
 
 $wgHooks['getUserPermissionsErrors'][] = 'OpenStackManagerHooks::getUserPermissionsErrors';
 
@@ -116,10 +109,7 @@ $wgOpenStackManagerInstanceBannedInstanceTypes = [];
 $wgOpenStackManagerCreateResourcePages = true;
 // Whether a Server Admin Log page should be created with project pages
 $wgOpenStackManagerCreateProjectSALPages = true;
-// Whether we should remove a user from all projects on removal of loginviashell
-$wgOpenStackManagerRemoveUserFromAllProjectsOnShellDisable = true;
-// Whether we should remove a user from bastion on removal of loginviashell
-$wgOpenStackManagerRemoveUserFromBastionProjectOnShellDisable = false;
+
 // 'bastion' project name
 $wgOpenStackManagerBastionProjectName = 'bastion';
 $wgOpenStackManagerBastionProjectId = 'bastion';
@@ -161,7 +151,7 @@ $wgHooks['AuthChangeFormFields'][] = 'OpenStackNovaUser::AuthChangeFormFields';
 
 $wgAuthManagerAutoConfig['preauth'] += [
 	OpenStackNovaSecondaryAuthenticationProvider::class => [
-			'class' => OpenStackNovaSecondaryAuthenticationProvider::class,
-			'sort' => 0, // non-UI providers should run early
+		'class' => OpenStackNovaSecondaryAuthenticationProvider::class,
+		'sort' => 0, // non-UI providers should run early
 	],
 ];
