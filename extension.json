@@ -29,14 +29,13 @@
 		"OpenStackManagerAlias": "OpenStackManager.alias.php"
 	},
 	"AutoloadClasses": {
-		"OpenStackManagerHooks": "includes/OpenStackManagerHooks.php",
 		"OpenStackNovaUser": "includes/OpenStackNovaUser.php",
 		"OpenStackNovaShellAccountNameRequest": "includes/OpenStackNovaShellAccountNameRequest.php",
 		"OpenStackNovaSecondaryAuthenticationProvider": "includes/OpenStackNovaSecondaryAuthenticationProvider.php",
 		"SpecialNovaKey": "includes/SpecialNovaKey.php"
 	},
 	"Hooks": {
-		"getUserPermissionsErrors": "OpenStackManagerHooks::getUserPermissionsErrors",
+		"getUserPermissionsErrors": "OpenStackNovaUser::getUserPermissionsErrors",
 		"LDAPSetCreationValues": "OpenStackNovaUser::LDAPSetCreationValues",
 		"LDAPRetrySetCreationValues": "OpenStackNovaUser::LDAPRetrySetCreationValues",
 		"LDAPModifyUITemplate": "OpenStackNovaUser::LDAPModifyUITemplate",
