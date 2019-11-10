@@ -1,8 +1,6 @@
 <?php
 
 /**
- * todo comment me
- *
  * @file
  * @ingroup Extensions
  */
@@ -23,13 +21,13 @@ class OpenStackNovaUser {
 	}
 
 	/**
-	 * Connect to LDAP as the open stack manager account using LdapAuthenticationPlugin
+	 * Connect to LDAP as the openstack manager account using LdapAuthenticationPlugin
 	 */
 	private static function connectToLdap() {
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPDomain;
 
-		// Only reconnect/rebind if we aren't alredy bound
+		// Only reconnect/rebind if we aren't already bound
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		if ( $ldap->boundAs !== $wgOpenStackManagerLDAPUser ) {
 			$ldap->connect( $wgOpenStackManagerLDAPDomain );
