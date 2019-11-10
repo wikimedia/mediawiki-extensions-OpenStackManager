@@ -107,6 +107,14 @@
 				}
 			}
 		},
+		"OpenStackManagerLDAPDefaultGid": {
+			"description": "DN location for posix groups based on projects",
+			"value": 500
+		},
+		"OpenStackManagerLDAPDefaultShell": {
+			"description": "Shell used when creating users",
+			"value": "/bin/bash"
+		},
 		"SshKeygen": {
 			"description": "Path to the ssh-keygen utility. Used for converting ssh key formats. False to disable its use",
 			"value": "ssh-keygen"
