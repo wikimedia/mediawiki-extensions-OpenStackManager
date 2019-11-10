@@ -154,7 +154,6 @@ $wgExtensionMessagesFiles['OpenStackManagerAlias'] = $dir . 'OpenStackManager.al
 $wgAutoloadClasses['YamlContent'] = $dir . 'includes/YamlContent.php';
 $wgAutoloadClasses['YamlContentHandler'] = $dir . 'includes/YamlContentHandler.php';
 $wgAutoloadClasses['OpenStackManagerHooks'] = $dir . 'OpenStackManagerHooks.php';
-$wgAutoloadClasses['OpenStackNovaKeypair'] = $dir . 'nova/OpenStackNovaKeypair.php';
 $wgAutoloadClasses['OpenStackNovaUser'] = $dir . 'nova/OpenStackNovaUser.php';
 $wgAutoloadClasses['OpenStackNovaShellAccountNameRequest'] =
 	$dir . 'nova/OpenStackNovaShellAccountNameRequest.php';
