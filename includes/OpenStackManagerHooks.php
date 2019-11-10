@@ -11,7 +11,7 @@ class OpenStackManagerHooks {
 	 * @return bool
 	 */
 	public static function getUserPermissionsErrors( Title $title, User $user, $action, &$result ) {
-		if ( $title->inNamespace( NS_HIERA ) ) {
+		if ( $title->inNamespace( 666 /*NS_HIERA*/ ) ) {
 			if ( $action === 'create' || $action === 'edit' ) {
 				$result = [ 'openstackmanager-hiera-disabled' ];
 				return false;
