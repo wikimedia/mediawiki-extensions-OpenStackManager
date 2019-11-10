@@ -34,8 +34,6 @@ class SpecialNovaKey extends SpecialPage {
 	 * @return bool
 	 */
 	private function deleteKey() {
-		global $wgOpenStackManagerNovaKeypairStorage;
-
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-deletekey' ) );
 		$returnto = $this->getRequest()->getVal( 'returnto' );
@@ -44,19 +42,18 @@ class SpecialNovaKey extends SpecialPage {
 		$hash = '';
 		$keypairs = [];
 
-		if ( $wgOpenStackManagerNovaKeypairStorage === 'ldap' ) {
-			$hash = $this->getRequest()->getVal( 'hash' );
-			$keypairs = $this->userLDAP->getKeypairs();
-			if ( !$this->getRequest()->wasPosted() ) {
-				$this->getOutput()->addHTML( Html::element( 'pre', [], $keypairs[$hash] ) );
-				$this->getOutput()->addWikiMsg( 'openstackmanager-deletekeyconfirm' );
-			}
-			$keyInfo['hash'] = [
-				'type' => 'hidden',
-				'default' => $hash,
-				'name' => 'hash',
-			];
+		$hash = $this->getRequest()->getVal( 'hash' );
+		$keypairs = $this->userLDAP->getKeypairs();
+		if ( !$this->getRequest()->wasPosted() ) {
+			$this->getOutput()->addHTML( Html::element( 'pre', [], $keypairs[$hash] ) );
+			$this->getOutput()->addWikiMsg( 'openstackmanager-deletekeyconfirm' );
 		}
+		$keyInfo['hash'] = [
+			'type' => 'hidden',
+			'default' => $hash,
+			'name' => 'hash',
+		];
+
 		$keyInfo['key'] = [
 			'type' => 'hidden',
 			'default' => $keypairs[$hash],
@@ -247,8 +244,6 @@ class SpecialNovaKey extends SpecialPage {
 	 * @return bool
 	 */
 	public function tryImportSubmit( $formData, $entryPoint = 'internal' ) {
-		global $wgOpenStackManagerNovaKeypairStorage;
-
 		$key = trim( $formData['key'] ); # Because people copy paste it with an accidental newline
 		$returnto = Title::newFromText( $formData['returnto'] );
 		$out = $this->getOutput();
@@ -266,19 +261,15 @@ class SpecialNovaKey extends SpecialPage {
 			$out->addWikiMsg( 'openstackmanager-keypairformatconverted' );
 		}
 
-		if ( $wgOpenStackManagerNovaKeypairStorage === 'ldap' ) {
-			$success = $this->userLDAP->importKeypair( $key );
-			if ( $success ) {
-				$out->addWikiMsg( 'openstackmanager-keypairimported' );
-			} else {
-				$out->addWikiMsg( 'openstackmanager-keypairimportfailed' );
-				if ( $returnto ) {
-					$out->addReturnTo( $returnto );
-				}
-				return false;
-			}
+		$success = $this->userLDAP->importKeypair( $key );
+		if ( $success ) {
+			$out->addWikiMsg( 'openstackmanager-keypairimported' );
 		} else {
-			$out->addWikiMsg( 'openstackmanager-invalidkeypair' );
+			$out->addWikiMsg( 'openstackmanager-keypairimportfailed' );
+			if ( $returnto ) {
+				$out->addReturnTo( $returnto );
+			}
+			return false;
 		}
 
 		if ( $returnto ) {

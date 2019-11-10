@@ -23,7 +23,6 @@
 	"openstackmanager-name": "Name",
 	"openstackmanager-fingerprint": "Fingerprint",
 	"openstackmanager-keys": "Keys",
-	"openstackmanager-invalidkeypair": "Invalid keypair location configured.",
 	"openstackmanager-keypairimportfailed": "Failed to import keypair.",
 	"openstackmanager-keypairimported": "Imported keypair.",
 	"openstackmanager-keypairimportedfingerprint": "Imported keypair $1 with fingerprint $2.",

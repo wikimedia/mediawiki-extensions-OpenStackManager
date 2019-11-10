@@ -406,7 +406,6 @@ class OpenStackNovaUser {
 	 * @return string
 	 */
 	public static function getKeyList( $user ) {
-		global $wgOpenStackManagerNovaKeypairStorage;
 		$keyInfo = [];
 		$keyInfo['key'] = [
 			'type' => 'textarea',
@@ -416,31 +415,30 @@ class OpenStackNovaUser {
 		];
 
 		$out = '';
-		if ( $wgOpenStackManagerNovaKeypairStorage === 'ldap' ) {
-			$headers = [ 'openstackmanager-keys', 'openstackmanager-actions' ];
-			$keypairs = $user->getKeypairs();
-			$keyRows = [];
-			foreach ( $keypairs as $hash => $key ) {
-				$keyRow = [];
-				SpecialNovaKey::pushResourceColumn( $keyRow, $key, [ 'class' => 'Nova_col' ] );
-				$actions = [];
-				$actions[] = SpecialNovaKey::createNovaKeyActionLink(
-					'openstackmanager-delete',
-					[
-						'action' => 'delete',
-						'hash' => $hash,
-						'returnto' => SpecialPage::getTitleFor(
-							'Preferences', false, 'mw-prefsection-openstack'
-						)->getFullText()
-					]
-				);
-				SpecialNovaKey::pushRawResourceColumn(
-					$keyRow, SpecialNovaKey::createResourceList( $actions )
-				);
-				$keyRows[] = $keyRow;
-			}
-			$out .= SpecialNovaKey::createResourceTable( $headers, $keyRows );
+		$headers = [ 'openstackmanager-keys', 'openstackmanager-actions' ];
+		$keypairs = $user->getKeypairs();
+		$keyRows = [];
+		foreach ( $keypairs as $hash => $key ) {
+			$keyRow = [];
+			SpecialNovaKey::pushResourceColumn( $keyRow, $key, [ 'class' => 'Nova_col' ] );
+			$actions = [];
+			$actions[] = SpecialNovaKey::createNovaKeyActionLink(
+				'openstackmanager-delete',
+				[
+					'action' => 'delete',
+					'hash' => $hash,
+					'returnto' => SpecialPage::getTitleFor(
+						'Preferences', false, 'mw-prefsection-openstack'
+					)->getFullText()
+				]
+			);
+			SpecialNovaKey::pushRawResourceColumn(
+				$keyRow, SpecialNovaKey::createResourceList( $actions )
+			);
+			$keyRows[] = $keyRow;
 		}
+		$out .= SpecialNovaKey::createResourceTable( $headers, $keyRows );
+
 		$out .= Linker::link(
 			SpecialPage::getTitleFor( 'NovaKey' ),
 			wfMessage( 'openstackmanager-addkey' )->escaped(),

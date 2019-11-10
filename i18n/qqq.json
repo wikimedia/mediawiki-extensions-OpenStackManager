@@ -40,7 +40,6 @@
 	"openstackmanager-name": "{{Identical|Name}}",
 	"openstackmanager-fingerprint": "Used as heading cell in \"resource\" table.",
 	"openstackmanager-keys": "Used as column header of the {{msg-mw|Openstackmanager-prefs-novapublickey}} table in [[Special:Preferences]].\n{{Identical|Key}}",
-	"openstackmanager-invalidkeypair": "Used as error message in Special:NovaKey, when importing SSH key.",
 	"openstackmanager-keypairimportfailed": "Used as failure message in Special:NovaKey.\n\nThis message indicates the keypair has been failed to import.\n\nSee also:\n* {{msg-mw|Openstackmanager-keypairimported}}",
 	"openstackmanager-keypairimported": "Used as success message in Special:NovaKey.\n\nThis message indicates the keypair has been imported successfully.\n\nSee also:\n* {{msg-mw|Openstackmanager-keypairimportfailed}}",
 	"openstackmanager-keypairimportedfingerprint": "Used in Special:NovaKey.\n\nThis message indicates keypair with fingerprint has been imported.\n\nParameters:\n* $1 - key name\n* $2 - key fingerprint",
