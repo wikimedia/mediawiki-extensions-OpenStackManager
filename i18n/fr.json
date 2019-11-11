@@ -27,7 +27,7 @@
 			"Urhixidur"
 		]
 	},
-	"openstackmanager-desc": "Permet aux utilisateurs autorisés de créer et gérer des instances de serveurs virtuels avec un gestionnaire compatible OpenStack, tel que Nova ou Swift.",
+	"openstackmanager-desc": "Permet aux utilisateurs d’inscrire leurs comptes d’interpréteur de commande et de gérer leurs clés d’accès SSH.",
 	"openstackmanager": "Gestionnaire OpenStack",
 	"novakey": "Gérez vos clés publiques SSH",
 	"openstackmanager-novakey": "Clé Nova",
