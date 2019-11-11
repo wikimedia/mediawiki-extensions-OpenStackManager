@@ -6,30 +6,8 @@
 			"Janezdrilc"
 		]
 	},
-	"openstackmanager-novaproject": "Projekt Nova",
 	"openstackmanager-delete": "Izbriši",
-	"openstackmanager-modify": "Spremeni",
-	"openstackmanager-rename": "preimenuj",
-	"openstackmanager-reboot": "ponovno zaženi",
 	"openstackmanager-actions": "Dejanja",
 	"openstackmanager-notloggedin": "Zahteva se prijava.",
-	"openstackmanager-mustbeloggedin": "Za izvedbo tega dejanja se morate prijaviti.",
-	"openstackmanager-nonovacred-admincreate": "Za Vaš račun nismo našli nobene poverilnice. Prosimo, zaprosite administratorja Nove, da ustvari poverilnice za Vas.",
-	"openstackmanager-noaccount": "Vaš račun ni v projektu $1.",
-	"openstackmanager-noaccount2": "Dejanja ne morete dokončati, saj vaš račun ni v projektu $1.",
-	"openstackmanager-createdomain": "Ustvarite domeno",
-	"openstackmanager-deletedomain": "Brisanje domene",
-	"openstackmanager-deletedomain-confirm": "Ste prepričani, da želite izbrisati domeno $1? To dejanje vpiva na vse VM. Ne počnite tega brez razmisleka!",
-	"openstackmanager-novadomain-domain": "Dodajte domeno",
-	"openstackmanager-createdomainfailed": "Ustvarjanje domene ni uspelo.",
-	"openstackmanager-createddomain": "Domena je ustvarjena.",
-	"openstackmanager-domainlist": "Seznam domen",
-	"openstackmanager-backdomainlist": "Nazaj na seznam domen.",
-	"openstackmanager-addadditionaldomain": "Dodajte drugo domeno.",
-	"openstackmanager-deleteddomain": "Domeno smo izbrisali.",
-	"echo-notification-goto-project": "Poglej projekt",
-	"echo-category-title-osm-instance-deleted": "Takojšnji izbris (na projektu, kjer si administrator)",
-	"echo-category-title-osm-instance-build-completed": "Takojšnji napredek (na projektih, kjer si administrator)",
-	"echo-category-title-osm-instance-reboot-completed": "Takojšnji ponovni zagon za dokončanje",
-	"echo-category-title-osm-projectmembers-add": "Dodatno pri članstvu projekta"
+	"openstackmanager-mustbeloggedin": "Za izvedbo tega dejanja se morate prijaviti."
 }

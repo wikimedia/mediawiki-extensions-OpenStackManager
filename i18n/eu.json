@@ -6,22 +6,5 @@
 		]
 	},
 	"openstackmanager-delete": "ezabatu",
-	"openstackmanager-rename": "Berrizendatu",
-	"openstackmanager-location": "Kokapena",
-	"openstackmanager-device": "Gailua",
-	"openstackmanager-name": "Izena",
-	"openstackmanager-displayquotas-ram": "RAM: $1/$2",
-	"openstackmanager-projectname": "Proiektuaren izena",
-	"openstackmanager-members": "Kideak",
-	"openstackmanager-member": "Kidea",
-	"openstackmanager-action": "Ekintza",
-	"openstackmanager-deleteproject": "Ezabatu",
-	"openstackmanager-projects": "Proiektuak",
-	"openstackmanager-addresslist": "IP helbide publikoen zerrenda",
-	"openstackmanager-address": "IP helbide publikoa",
-	"openstackmanager-securitygroupdescription": "Deskribapen",
-	"openstackmanager-sudoerusers": "Erabiltzaileak",
-	"openstackmanager-sudoercommands": "Komandoak",
-	"openstackmanager-sudoeroptions": "Aukerak",
-	"echo-notification-goto-project": "Ikusi proiektua"
+	"openstackmanager-name": "Izena"
 }

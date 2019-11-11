@@ -6,8 +6,5 @@
 			"Fitoschido"
 		]
 	},
-	"openstackmanager-name": "Nom",
-	"openstackmanager-deleteproject": "Esborrar",
-	"openstackmanager-unknownerror": "S’ha produït un error.",
-	"openstackmanager-securitygroupdescription": "Descripció"
+	"openstackmanager-name": "Nom"
 }

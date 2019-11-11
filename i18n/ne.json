@@ -6,12 +6,6 @@
 		]
 	},
 	"openstackmanager-delete": "मेटिएको",
-	"openstackmanager-modify": "सच्याउने",
-	"openstackmanager-rename": "पुन: नामाकरण",
 	"openstackmanager-actions": "कार्यहरू",
-	"openstackmanager-location": "स्थान",
-	"openstackmanager-name": "नाम",
-	"openstackmanager-action": "कार्य",
-	"openstackmanager-deleteproject": "हटाउने",
-	"openstackmanager-securitygroupdescription": "विवरण"
+	"openstackmanager-name": "नाम"
 }

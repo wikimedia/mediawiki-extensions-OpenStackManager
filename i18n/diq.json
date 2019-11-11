@@ -6,30 +6,9 @@
 			"Kumkumuk"
 		]
 	},
-	"specialpages-group-nova": "OpenStack Nova",
 	"openstackmanager-delete": "bestere",
-	"openstackmanager-modify": "bıvurne",
 	"openstackmanager-actions": "Kerdışi",
 	"openstackmanager-notloggedin": "Cı kewetış icab keno",
-	"openstackmanager-location": "Lokasyon",
-	"openstackmanager-novavolume-volume": "Venge",
-	"openstackmanager-device": "Cihaz",
 	"openstackmanager-name": "Name",
-	"openstackmanager-keys": "Kıliti",
-	"openstackmanager-members": "Ezay",
-	"openstackmanager-member": "Eza",
-	"openstackmanager-action": "Kerdış",
-	"openstackmanager-deleteproject": "Bestere",
-	"openstackmanager-novaproject-project": "Proce cı ke",
-	"openstackmanager-projects": "Proceyi",
-	"openstackmanager-toggle": "Toggle",
-	"openstackmanager-roles": "Roli",
-	"openstackmanager-rolename": "Namey roler",
-	"openstackmanager-removerolemember": "Ezay hewad",
-	"openstackmanager-addrolemember": "Eza cı ke",
-	"openstackmanager-removedhost": "$1 dariya we.",
-	"openstackmanager-securitygroupdescription": "Şınasnayış",
-	"openstackmanager-createnewsecuritygroup": "Grube cı ke",
-	"openstackmanager-sudoerusers": "Karberi",
-	"openstackmanager-sudoeroptions": "Weçinıteki"
+	"openstackmanager-keys": "Kıliti"
 }

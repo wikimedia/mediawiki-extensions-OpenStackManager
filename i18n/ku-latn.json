@@ -7,11 +7,5 @@
 		]
 	},
 	"openstackmanager-delete": "jê bibe",
-	"openstackmanager-missingimage": "(Kêm)",
-	"openstackmanager-name": "Nav",
-	"openstackmanager-projectname": "Navê projeyê",
-	"openstackmanager-members": "Endam",
-	"openstackmanager-member": "Endam",
-	"openstackmanager-projectlist": "Lîsteya projeyan",
-	"openstackmanager-deleteproject": "Jê bibe"
+	"openstackmanager-name": "Nav"
 }

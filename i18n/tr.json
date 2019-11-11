@@ -7,17 +7,5 @@
 		]
 	},
 	"openstackmanager-delete": "sil",
-	"openstackmanager-location": "Konum",
-	"openstackmanager-name": "Ad",
-	"openstackmanager-addmember": "Üye ekle",
-	"openstackmanager-createproject": "Proje ekle",
-	"openstackmanager-members": "Üyeler",
-	"openstackmanager-projectlist": "Proje listesi",
-	"openstackmanager-deleteproject": "Sil",
-	"openstackmanager-novaproject-project": "Proje ekle",
-	"openstackmanager-addrolemember": "Üye ekle",
-	"openstackmanager-addrule-action": "kural ekle",
-	"openstackmanager-sudoerusers": "Kullanıcılar",
-	"notification-header-osm-projectmembers-add": "$1, sizi $3 projesine {{GENDER:$2|ekledi}}",
-	"echo-notification-goto-project": "Projeyi görüntüle"
+	"openstackmanager-name": "Ad"
 }

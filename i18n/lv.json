@@ -6,10 +6,5 @@
 		]
 	},
 	"openstackmanager-delete": "dzēst",
-	"openstackmanager-modify": "mainīt",
-	"openstackmanager-rename": "pārdēvēt",
-	"openstackmanager-reboot": "atsāknēt",
-	"openstackmanager-actions": "Darbības",
-	"openstackmanager-sudoerrunas": "Atļaut darbību ka",
-	"openstackmanager-membersofgroup": "Dala no grupas $1"
+	"openstackmanager-actions": "Darbības"
 }

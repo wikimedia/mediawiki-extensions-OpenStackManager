@@ -7,10 +7,5 @@
 		]
 	},
 	"openstackmanager-delete": "fuortsmite",
-	"openstackmanager-location": "Lokaasje",
-	"openstackmanager-name": "Namme",
-	"openstackmanager-deleteproject": "Fuortsmite",
-	"openstackmanager-projects": "Projekten",
-	"openstackmanager-sudoerusers": "Meidoggers",
-	"openstackmanager-sudoeroptions": "Opsjes"
+	"openstackmanager-name": "Namme"
 }

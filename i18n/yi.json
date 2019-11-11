@@ -7,21 +7,6 @@
 		]
 	},
 	"openstackmanager-delete": "אויסמעקן",
-	"openstackmanager-modify": "ענדערן",
 	"openstackmanager-notloggedin": "אריינלאגירן פארלאנגט זיך",
-	"openstackmanager-createdomain": "שאפן געביט",
-	"openstackmanager-deletedomain": "אויסמעקן געביט",
-	"openstackmanager-location": "אָרט",
-	"openstackmanager-novainstance-instance": "אינסטאנץ",
-	"openstackmanager-novainstance-global": "גלאבאלע גרופעס",
-	"openstackmanager-name": "נאָמען",
-	"openstackmanager-manageservicegroupmembers": "פארוואלטן מיטגלידער",
-	"openstackmanager-servicegrouplist": "דינסטגרופע ליסטע",
-	"openstackmanager-action": "אַקציע",
-	"openstackmanager-deleteproject": "אויסמעקן",
-	"openstackmanager-setgroupmembers": "געשטעלט גרופע מיטגלידער פאר $1",
-	"openstackmanager-projects": "פראיעקטן",
-	"openstackmanager-securitygroupdescription": "באַשרײַבונג",
-	"openstackmanager-sudoerusers": "באַניצער",
-	"openstackmanager-sudoeroptions": "ברירות"
+	"openstackmanager-name": "נאָמען"
 }

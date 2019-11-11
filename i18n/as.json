@@ -5,12 +5,5 @@
 		]
 	},
 	"openstackmanager-delete": "বিলোপ কৰক",
-	"openstackmanager-location": "অৱস্থান",
-	"openstackmanager-name": "নাম",
-	"openstackmanager-members": "সদস্যবৃন্দ",
-	"openstackmanager-member": "সদস্য",
-	"openstackmanager-securitygroupdescription": "বিৱৰণ",
-	"openstackmanager-sudoerusers": "সদস্যসকল",
-	"openstackmanager-sudoercommands": "নিৰ্দেশসমূহ",
-	"openstackmanager-sudoeroptions": "বিকল্পসমূহ"
+	"openstackmanager-name": "নাম"
 }

@@ -8,17 +8,6 @@
 		]
 	},
 	"openstackmanager-delete": "изтриване",
-	"openstackmanager-modify": "промяна",
-	"openstackmanager-rename": "преименуване",
-	"openstackmanager-reboot": "рестартиране",
 	"openstackmanager-actions": "Действия",
-	"openstackmanager-creationdisabled": "Създаването е забранено",
-	"openstackmanager-location": "Местоположение",
-	"openstackmanager-name": "Име",
-	"openstackmanager-action": "Действие",
-	"openstackmanager-deleteproject": "Изтриване",
-	"openstackmanager-toggle": "Превключване",
-	"openstackmanager-securitygroupdescription": "Описание",
-	"openstackmanager-twofactorrequired": "Изисква се двукомпонентно удостоверяване",
-	"openstackmanager-twofactorrequired2": "Изисква се двукомпонентно удостоверяване. Моля, активирайте го и опитайте пак."
+	"openstackmanager-name": "Име"
 }

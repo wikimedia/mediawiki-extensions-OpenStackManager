@@ -5,11 +5,5 @@
 			"Dr Lotus Black"
 		]
 	},
-	"openstackmanager-delete": "ဖျက်ပါ",
-	"openstackmanager-deleteproject": "ဖျက်ပါ",
-	"openstackmanager-novaproject-project": "ပရောဂျက် ပေါင်းထည့်ရန်",
-	"openstackmanager-projects": "ပရောဂျက်များ",
-	"openstackmanager-securitygroupdescription": "ဖော်ပြချက်",
-	"openstackmanager-sudoeroptions": "ရွေးချယ်စရာများ",
-	"echo-notification-goto-project": "ပရောဂျက်ကို ကြည့်ရန်"
+	"openstackmanager-delete": "ဖျက်ပါ"
 }
