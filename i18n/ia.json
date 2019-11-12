@@ -4,7 +4,7 @@
 			"McDutchie"
 		]
 	},
-	"openstackmanager-desc": "Permitte al usatores de gerer Nova e Swift",
+	"openstackmanager-desc": "Permitte al usatores de crear contos shell e gerer lor claves SSH",
 	"openstackmanager": "Gerentia de OpenStack",
 	"novakey": "Gerer tu claves SSH public",
 	"openstackmanager-novakey": "Clave de Nova",
