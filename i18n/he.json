@@ -10,7 +10,7 @@
 			"המקיסט"
 		]
 	},
-	"openstackmanager-desc": "ניהול Nova ו־Swift",
+	"openstackmanager-desc": "מאפשרת למשתמשים לרשום חשבונות מסוף ולנהל את מפתחות ה־SSH שלהם",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "ניהול מפתחות SSH ציבוריים",
 	"openstackmanager-novakey": "מפתח Nova",

@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Purodha"
+			"Purodha",
+			"Amire80"
 		]
 	},
 	"openstackmanager-desc": "Määd et müjjelesch föt Metmaacher, <i lang=\"en\">Nova</i> un <i lang=\"en\">Swift</i> ze verwallde.",
@@ -28,9 +29,9 @@
 	"openstackmanager-keypairformatconverted": "Dat Fommaht vum Schlößel för <i lang=\"en\" xml:lang=\"en\" dir=\"ltr\" title=\"Secure Shell - „seschere Kommandoh-Bövverfläsch“\">SSH</i> wohd automattesch jewanndelt.",
 	"openstackmanager-deletedkey": "Dä Schlößel es fottjeschmeße.",
 	"openstackmanager-deletedkeyfailed": "Mer kunnte dä Schlößel nit fott schmiiße.",
-	"openstackmanager-shellaccountnamehelp": "Ene Nahme för der  shell-Zohjang es nühdesch.\nDä moß met a…z aanfange un et künne söns blohß kleine Bohchschtave a…z, 0…9, un Bendeschtresche - dren sin.",
-	"openstackmanager-shellaccountvalidationfail": "Dä aanjejovve Nahme för der  shell-Zohjang es nit jöltesch.\nDä moß met a…z aanfange un et künne söns blohß kleine Bohchschtave a…z, 0…9, un Bendeschtresche - dren sin.",
-	"openstackmanager-shellaccountexists": "Dä Nahme för ene Zohjang övver de  shell es ald en Jebruch.",
+	"openstackmanager-shellaccountnamehelp": "Ene Nahme för der shell-Zohjang es nühdesch.\nDä moß met a…z aanfange un et künne söns blohß kleine Bohchschtave a…z, 0…9, un Bendeschtresche - dren sin.",
+	"openstackmanager-shellaccountvalidationfail": "Dä aanjejovve Nahme för der shell-Zohjang es nit jöltesch.\nDä moß met a…z aanfange un et künne söns blohß kleine Bohchschtave a…z, 0…9, un Bendeschtresche - dren sin.",
+	"openstackmanager-shellaccountexists": "Dä Nahme för ene Zohjang övver de shell es ald en Jebruch.",
 	"prefs-openstack": "<i lang=\"en\" xml:lang=\"en\">OpenStack</i>",
 	"prefs-openstack-keys": "Leß vun de Schlößßelle"
 }

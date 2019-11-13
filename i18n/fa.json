@@ -10,7 +10,8 @@
 			"جواد",
 			"Alirezaaa",
 			"Hosseinblue",
-			"Ladsgroup"
+			"Ladsgroup",
+			"Amire80"
 		]
 	},
 	"openstackmanager-desc": "اجازه دادن به کاربران برای اداره کردن نوا و سوییفت",
@@ -32,7 +33,7 @@
 	"openstackmanager-keys": "کلیدها",
 	"openstackmanager-keypairimportfailed": "عدم موافقت برای واردات جفت کلید.",
 	"openstackmanager-keypairimported": "جفت کلید وارد شده.",
-	"openstackmanager-keypairimportedfingerprint": "جفت کلید وارد شدهٔ $1 با  اثر انگشت $2.",
+	"openstackmanager-keypairimportedfingerprint": "جفت کلید وارد شدهٔ $1 با اثر انگشت $2.",
 	"openstackmanager-keypairformatwrong": "کلید اس‌اس‌اچ ارائه شده اشتباه بود یا در فرمت ناشناخته بود.",
 	"openstackmanager-keypairformatconverted": "فرمت کلید اس‌اس‌اچ به طور خودکار تبدیل شده‌است.",
 	"openstackmanager-deletedkey": "حذف کلید.",
