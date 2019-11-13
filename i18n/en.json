@@ -10,7 +10,7 @@
 	"novakey": "Manage your public SSH keys",
 	"openstackmanager-novakey": "Nova key",
 	"openstackmanager-delete": "delete",
-	"openstackmanager-hiera-disabled": "These pages are no longer used by cloud-vps.  Puppet and hiera config can be modified in Horizon.",
+	"openstackmanager-hiera-disabled": "These pages are no longer used by cloud-vps. Puppet and hiera config can be modified in Horizon.",
 	"openstackmanager-actions": "Actions",
 	"openstackmanager-notloggedin": "Login required",
 	"openstackmanager-mustbeloggedin": "You must be logged in to perform this action.",
