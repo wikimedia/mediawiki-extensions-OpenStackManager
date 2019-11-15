@@ -4,7 +4,7 @@
 			"Bjankuloski06"
 		]
 	},
-	"openstackmanager-desc": "Им овозможува на корисниците да раководат со Nova и Swift",
+	"openstackmanager-desc": "Му овозможува на корисникот да регистрира лушпени сметки и да раководи со неговите SSH-клучеви",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "Раководство со вашите јавни SSH-клучеви",
 	"openstackmanager-novakey": "Клуч на Nova",

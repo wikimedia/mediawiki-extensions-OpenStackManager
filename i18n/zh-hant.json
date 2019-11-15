@@ -15,7 +15,7 @@
 			"Kly"
 		]
 	},
-	"openstackmanager-desc": "讓使用者能夠管理 Nova 與 Swift",
+	"openstackmanager-desc": "讓使用者能夠註冊殼層帳號並管理他們的 SSH 密鑰",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "管理您 SSH 公開金鑰",
 	"openstackmanager-novakey": "Nova 金鑰",

@@ -15,6 +15,7 @@
 	"novakey": "ניהול מפתחות SSH ציבוריים",
 	"openstackmanager-novakey": "מפתח Nova",
 	"openstackmanager-delete": "מחיקה",
+	"openstackmanager-hiera-disabled": "הדפים האלה כבר לא בשימוש של cloud-vps. אפשר לשנות את ההגדרות של Puppet ו־hiera ב־Horizon.",
 	"openstackmanager-actions": "פעולות",
 	"openstackmanager-notloggedin": "נדרשת כניסה לחשבון",
 	"openstackmanager-mustbeloggedin": "צריך להיכנס לחשבון כדי לבצע את הפעולה הזאת.",

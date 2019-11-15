@@ -9,10 +9,11 @@
 			"Тест",
 			"Ата",
 			"Piramidion",
-			"Vlad5250"
+			"Vlad5250",
+			"Movses"
 		]
 	},
-	"openstackmanager-desc": "Дозволяє користувачам керувати Nova і Swift",
+	"openstackmanager-desc": "Дозволяє користувачам зареєструвати обліковий запис оболонки та керувати SSH-ключами",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "Управління публічними ключами SSH",
 	"openstackmanager-novakey": "Ключ Nova",
