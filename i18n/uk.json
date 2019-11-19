@@ -18,6 +18,7 @@
 	"novakey": "Управління публічними ключами SSH",
 	"openstackmanager-novakey": "Ключ Nova",
 	"openstackmanager-delete": "вилучити",
+	"openstackmanager-hiera-disabled": "Ці сторінки більше не використовуються cloud-vps. Налаштування \"Puppet\" та \"hiera\" можуть бути вказані у \"Horizon\".",
 	"openstackmanager-actions": "Дії",
 	"openstackmanager-notloggedin": "Необхідно увійти до системи",
 	"openstackmanager-mustbeloggedin": "Ви повинні увійти в систему для виконання цієї дії.",

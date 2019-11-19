@@ -8,7 +8,7 @@
 			"Renessaince"
 		]
 	},
-	"openstackmanager-desc": "Дазваляе удзельнікам кіраваць Nova і Swift",
+	"openstackmanager-desc": "Дазваляе удзельнікам рэгістраваць уліковы запіс абалонкі і кіраваць сваімі ключамі SSH",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "Кіраваць Вашымі публічнымі SSH-ключамі",
 	"openstackmanager-novakey": "Ключ Nova",
