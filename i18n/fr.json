@@ -32,7 +32,7 @@
 	"novakey": "Gérez vos clés publiques SSH",
 	"openstackmanager-novakey": "Clé Nova",
 	"openstackmanager-delete": "supprimer",
-	"openstackmanager-hiera-disabled": "Ces pages ne sont plus utilisées par ''cloud-cps''. Les configurations de ''puppet'' et ''hiera'' peuvent être modifiées dans ''Horizon''.",
+	"openstackmanager-hiera-disabled": "Ces pages ne sont plus utilisées par ''cloud-cps''. Les configurations de puppet et hiera peuvent être modifiées dans Horizon.",
 	"openstackmanager-actions": "Actions",
 	"openstackmanager-notloggedin": "Connexion nécessaire",
 	"openstackmanager-mustbeloggedin": "Vous devez être connecté pour effectuer cette action.",
