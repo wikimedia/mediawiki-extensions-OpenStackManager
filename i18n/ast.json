@@ -4,11 +4,12 @@
 			"Xuacu"
 		]
 	},
-	"openstackmanager-desc": "Permite a los usuarios alministrar Nova y Swift",
+	"openstackmanager-desc": "Permite a los usuarios rexistrar cuentes de shell y alministrar les sos claves SSH",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "Alministrar les tos claves públiques de SSH",
 	"openstackmanager-novakey": "Clave de Nova",
 	"openstackmanager-delete": "desaniciar",
+	"openstackmanager-hiera-disabled": "Estes páxines yá nun s'usen por cloud-vps. La configuración de puppet y hiera pue camudase'n Horizon.",
 	"openstackmanager-actions": "Aiciones",
 	"openstackmanager-notloggedin": "Ríquese aniciar sesión",
 	"openstackmanager-mustbeloggedin": "Tienes d'aniciar sesión pa facer esta aición.",
@@ -27,5 +28,11 @@
 	"openstackmanager-keypairformatwrong": "La clave SSH suministrada ye incorreuta o ta nun formatu desconocíu.",
 	"openstackmanager-keypairformatconverted": "El formatu de la clave SSH convertióse automáticamente.",
 	"openstackmanager-deletedkey": "Clave desaniciada.",
-	"openstackmanager-deletedkeyfailed": "Nun pudo desaniciase la clave."
+	"openstackmanager-deletedkeyfailed": "Nun pudo desaniciase la clave.",
+	"openstackmanager-shellaccountname": "Nome de la cuenta shell de la instancia",
+	"openstackmanager-shellaccountname-pref": "Nome de la cuenta shell de la instancia:",
+	"openstackmanager-shellaccountnamehelp": "Ríquese un nome de cuenta shell.\nTien d'empezar por a-z, y sólo pue contener los caráuteres en minúscules a-z, 0-9, y -.",
+	"openstackmanager-shellaccountvalidationfail": "El nome de la cuenta shell nun ye válidu.\nTien d'empezar por a-z, y sólo pue contener los caráuteres en minúscules a-z, 0-9, y -.",
+	"openstackmanager-shellaccountexists": "Esi nome de cuenta shell y'ta usándose.",
+	"prefs-openstack-keys": "Llista de claves"
 }
