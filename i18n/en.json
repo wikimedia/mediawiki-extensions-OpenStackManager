@@ -8,6 +8,7 @@
 	"openstackmanager-desc": "Lets users register shell accounts and manage their SSH keys",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "Manage your public SSH keys",
+	"specialpages-group-nova": "OpenStack Manager authentication",
 	"openstackmanager-novakey": "Nova key",
 	"openstackmanager-delete": "delete",
 	"openstackmanager-hiera-disabled": "These pages are no longer used by cloud-vps. Puppet and hiera config can be modified in Horizon.",

@@ -25,6 +25,7 @@
 	"openstackmanager-desc": "{{desc|name=Open Stack Manager|url=https://www.mediawiki.org/wiki/Extension:OpenStackManager}}",
 	"openstackmanager": "{{Identical|OpenStackManager}}",
 	"novakey": "{{doc-special|NovaKey}}",
+	"specialpages-group-nova": "{{doc-special-group}}",
 	"openstackmanager-novakey": "Used as title for the form in Special:NovaKey.",
 	"openstackmanager-delete": "Used as action link text in several Special pages.\n{{Identical|Delete}}",
 	"openstackmanager-hiera-disabled": "Caption explaining that OSM no longer edits hiera.",
