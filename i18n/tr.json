@@ -3,9 +3,39 @@
 		"authors": [
 			"Incelemeelemani",
 			"Suelnur",
-			"Sayginer"
+			"Sayginer",
+			"BaRaN6161 TURK"
 		]
 	},
+	"openstackmanager-desc": "Kullanıcıların kabuk hesaplarını kaydetmelerini ve SSH anahtarlarını yönetmelerini sağlar",
+	"openstackmanager": "OpenStackManager",
+	"novakey": "Genel SSH anahtarlarınızı yönetin",
+	"openstackmanager-novakey": "Nova Anahtarı",
 	"openstackmanager-delete": "sil",
-	"openstackmanager-name": "Ad"
+	"openstackmanager-hiera-disabled": "Bu sayfalar artık cloud-vps tarafından kullanılmamaktadır. Kukla ve hiera yapılandırması Horizon'da değiştirilebilir.",
+	"openstackmanager-actions": "Eylemler",
+	"openstackmanager-notloggedin": "Oturum açmak gereklidir",
+	"openstackmanager-mustbeloggedin": "Bu işlemi yapmak için giriş yapmış olmalısın.",
+	"openstackmanager-novapublickey": "Genel SSH anahtarı:",
+	"openstackmanager-prefs-novapublickey": "Genel SSH anahtarları:",
+	"openstackmanager-deletekey": "Genel SSH anahtarını sil",
+	"openstackmanager-deletekeyconfirm": "Yukarıdaki anahtarı silmek istediğinizden emin misiniz?",
+	"openstackmanager-keylist": "Genel SSH anahtar listesi",
+	"openstackmanager-addkey": "Genel SSH anahtarı ekle",
+	"openstackmanager-name": "Ad",
+	"openstackmanager-fingerprint": "Parmak izi",
+	"openstackmanager-keys": "Anahtarlar",
+	"openstackmanager-keypairimportfailed": "Anahtar çifti içe aktarılamadı.",
+	"openstackmanager-keypairimported": "İçe aktarılan anahtar çifti.",
+	"openstackmanager-keypairimportedfingerprint": "Parmak izi $2 ile içe aktarılan anahtar çifti $1.",
+	"openstackmanager-keypairformatwrong": "Sağlanan SSH anahtarı yanlış veya bilinmeyen biçimde.",
+	"openstackmanager-keypairformatconverted": "SSH anahtarının biçimi otomatik olarak dönüştürülmüştür.",
+	"openstackmanager-deletedkey": "Anahtar silindi.",
+	"openstackmanager-deletedkeyfailed": "Anahtar silinemedi.",
+	"openstackmanager-shellaccountname": "Örnek kabuğu hesap adı",
+	"openstackmanager-shellaccountname-pref": "Örnek kabuğu hesap adı:",
+	"openstackmanager-shellaccountnamehelp": "Bir kabuk hesap adı gerekli.\nA-z ile başlamalıdır ve yalnızca küçük a-z, 0-9 ve - karakterleri içerebilir.",
+	"openstackmanager-shellaccountvalidationfail": "Kabuk hesap adınız geçersiz.\nA-z ile başlamalıdır ve yalnızca küçük a-z, 0-9 ve - karakterleri içerebilir.",
+	"openstackmanager-shellaccountexists": "Bu kabuk hesap adı zaten kullanılıyor.",
+	"prefs-openstack-keys": "Anahtar listesi"
 }
