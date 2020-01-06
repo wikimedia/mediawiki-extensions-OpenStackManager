@@ -16,7 +16,7 @@
 			"Waldyrious"
 		]
 	},
-	"openstackmanager-desc": "Permite que os utilizadores façam a gestão do controlador Nova e do armazenamento Swift",
+	"openstackmanager-desc": "Permite que os utilizadores registem contas remotas e administrem as suas chaves SSH",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "Gerir as suas chaves SSH públicas",
 	"openstackmanager-novakey": "Chave do Nova",
