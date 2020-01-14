@@ -3,7 +3,6 @@
 	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationProtected" />
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationPublic" />
-		<exclude name="PSR2.Methods.MethodDeclaration.Underscore" />
 		<exclude name="MediaWiki.NamingConventions.LowerCamelFunctionsName.FunctionName" />
 		<exclude name="MediaWiki.Usage.ForbiddenFunctions.escapeshellcmd" />
 		<exclude name="MediaWiki.Usage.ForbiddenFunctions.proc_open" />

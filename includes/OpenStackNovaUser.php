@@ -350,7 +350,7 @@ class OpenStackNovaUser {
 				'help-message' => 'openstackmanager-shellaccountnamehelp',
 				'weight' => 90,
 			];
-		};
+		}
 	}
 
 	/**
