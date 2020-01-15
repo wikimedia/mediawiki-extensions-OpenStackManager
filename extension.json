@@ -76,10 +76,6 @@
 		}
 	],
 	"config": {
-		"OpenStackManagerNovaKeypairStorage": {
-			"description": "SSH key storage location, ldap or nova",
-			"value": "ldap"
-		},
 		"OpenStackManagerLDAPDomain": {
 			"description": "LDAP Auth domain used for OSM",
 			"value": ""
