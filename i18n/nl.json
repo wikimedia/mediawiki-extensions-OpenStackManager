@@ -15,11 +15,12 @@
 			"Mar(c)"
 		]
 	},
-	"openstackmanager-desc": "Laat gebruikers Nova en Swift beheren",
+	"openstackmanager-desc": "Laat gebruikers shell accounts en hun SSH-sleutels beheren",
 	"openstackmanager": "OpenStack-beheer",
 	"novakey": "Uw publieke SSH-sleutels beheren",
 	"openstackmanager-novakey": "Nova-sleutel",
 	"openstackmanager-delete": "verwijderen",
+	"openstackmanager-hiera-disabled": "Deze pagina's worden niet langer door cloud-vps gebruikt. Puppet en hiera configuration kunnen worden aangepast in Horizon.",
 	"openstackmanager-actions": "Handelingen",
 	"openstackmanager-notloggedin": "Aanmelden verplicht",
 	"openstackmanager-mustbeloggedin": "U moet aangemeld zijn om deze handeling uit te voeren.",
