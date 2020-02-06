@@ -39,8 +39,6 @@ class OpenStackNovaUser {
 	 * @return void
 	 */
 	public function fetchUserInfo() {
-		global $wgUser;
-
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		if ( $this->username ) {
 			$this->userDN = $ldap->getUserDN( $this->username );
@@ -56,10 +54,11 @@ class OpenStackNovaUser {
 				$this->username = $this->userInfo[0]['cn'][0];
 			}
 		} else {
-			$this->userDN = $ldap->getUserDN( $wgUser->getName() );
-			$this->username = $wgUser->getName();
+			$username = RequestContext::getMain()->getUser()->getName();
+			$this->userDN = $ldap->getUserDN( $username );
+			$this->username = $username;
 			$ldap->printDebug(
-				"Fetching userdn using wiki name: " . $wgUser->getName(), NONSENSITIVE
+				"Fetching userdn using wiki name: " . $username, NONSENSITIVE
 			);
 		}
 		$this->userInfo = $ldap->userInfo;
