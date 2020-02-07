@@ -4,6 +4,7 @@
  * @file
  * @ingroup Extensions
  */
+use MediaWiki\MediaWikiServices;
 
 class OpenStackNovaUser {
 
@@ -105,8 +106,6 @@ class OpenStackNovaUser {
 	 * @return bool
 	 */
 	public function importKeypair( $key ) {
-		global $wgMemc;
-
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		$keypairs = [];
 		if ( isset( $this->userInfo[0]['sshpublickey'] ) ) {
@@ -119,9 +118,10 @@ class OpenStackNovaUser {
 		$success = LdapAuthenticationPlugin::ldap_modify( $ldap->ldapconn, $this->userDN, $values );
 		if ( $success ) {
 			$ldap->printDebug( "Successfully imported the user's sshpublickey", NONSENSITIVE );
-			$key = wfMemcKey( 'ldapauthentication', "userinfo", $this->userDN );
 			$ldap->printDebug( "Deleting memcache key: $key.", NONSENSITIVE );
-			$wgMemc->delete( $key );
+			// @TODO: don't depend on cache key naming internals of another extension
+			$cache = MediaWikiServices::getInstance()->getMainWANObjectCache();
+			$cache->delete( $cache->makeKey( 'ldapauthentication-userinfo', $this->userDN ) );
 			$this->fetchUserInfo();
 			return true;
 		} else {
@@ -135,8 +135,6 @@ class OpenStackNovaUser {
 	 * @return bool
 	 */
 	public function deleteKeypair( $key ) {
-		global $wgMemc;
-
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		if ( isset( $this->userInfo[0]['sshpublickey'] ) ) {
 			$keypairs = $this->userInfo[0]['sshpublickey'];
@@ -157,9 +155,10 @@ class OpenStackNovaUser {
 			);
 			if ( $success ) {
 				$ldap->printDebug( "Successfully deleted the user's sshpublickey", NONSENSITIVE );
-				$key = wfMemcKey( 'ldapauthentication', "userinfo", $this->userDN );
 				$ldap->printDebug( "Deleting memcache key: $key.", NONSENSITIVE );
-				$wgMemc->delete( $key );
+				// @TODO: don't depend on cache key naming internals of another extension
+				$cache = MediaWikiServices::getInstance()->getMainWANObjectCache();
+				$cache->delete( $cache->makeKey( 'ldapauthentication-userinfo', $this->userDN ) );
 				$this->fetchUserInfo();
 				return true;
 			} else {
