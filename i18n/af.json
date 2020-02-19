@@ -9,6 +9,7 @@
 	"openstackmanager-desc": "Kom ons gebruikers bestuur Nova en Swift",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "Bestuur jou openbare SSH sleutels",
+	"specialpages-group-nova": "OpenStack Nova",
 	"openstackmanager-novakey": "Nova sleutel",
 	"openstackmanager-delete": "verwyder",
 	"openstackmanager-actions": "aksies",

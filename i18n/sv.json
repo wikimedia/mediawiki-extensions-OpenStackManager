@@ -12,6 +12,7 @@
 	"openstackmanager-desc": "Låter användare hantera Nova och Swift",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "Hantera dina publika SSH-nycklar",
+	"specialpages-group-nova": "OpenStack Nova",
 	"openstackmanager-novakey": "Nova-nyckel",
 	"openstackmanager-delete": "radera",
 	"openstackmanager-actions": "Åtgärder",

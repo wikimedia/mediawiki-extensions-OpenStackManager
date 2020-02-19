@@ -7,6 +7,7 @@
 	"openstackmanager-desc": "Pèrmèt ux usanciérs d’administrar Nova et Swift.",
 	"openstackmanager": "Administrator OpenStack",
 	"novakey": "Administrar voutres cllâfs publiques SSH",
+	"specialpages-group-nova": "Nova OpenStack",
 	"openstackmanager-novakey": "Cllâf Nova",
 	"openstackmanager-delete": "suprimar",
 	"openstackmanager-actions": "Accions",

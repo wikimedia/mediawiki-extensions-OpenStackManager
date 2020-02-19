@@ -8,6 +8,7 @@
 	"openstackmanager-desc": "Cho phép người dùng quản lý Nova và Swift",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "Quản lý các chìa khóa SSH công cộng",
+	"specialpages-group-nova": "OpenStack Nova",
 	"openstackmanager-novakey": "Khóa Nova",
 	"openstackmanager-delete": "xóa",
 	"openstackmanager-actions": "Tác vụ",

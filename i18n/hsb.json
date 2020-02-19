@@ -6,6 +6,7 @@
 	},
 	"openstackmanager": "OpenStackManager",
 	"novakey": "Zjawne SSH-kluče zrjadować",
+	"specialpages-group-nova": "OpenStack Nova",
 	"openstackmanager-novakey": "Nova-kluč",
 	"openstackmanager-delete": "zhašeć",
 	"openstackmanager-actions": "Akcije",

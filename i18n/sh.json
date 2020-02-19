@@ -7,6 +7,7 @@
 	"openstackmanager-desc": "Daje mogućnost korisnicima da upravljaju sa Nova i Swift",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "Upravljanje svojim javnim SSH ključevima",
+	"specialpages-group-nova": "OpenStack Nova",
 	"openstackmanager-novakey": "Ključ Nove",
 	"openstackmanager-delete": "obriši",
 	"openstackmanager-actions": "Radnje",

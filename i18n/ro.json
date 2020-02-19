@@ -9,6 +9,7 @@
 		]
 	},
 	"openstackmanager-desc": "Permite utilizatorilor să administreze Nova și Swift",
+	"specialpages-group-nova": "OpenStack Nova",
 	"openstackmanager-novakey": "Cheie Nova",
 	"openstackmanager-delete": "ștergere",
 	"openstackmanager-actions": "Acțiuni",

@@ -13,6 +13,7 @@
 	"openstackmanager-desc": "Permette agli utenti di registrare le utenze di shell e gestire le loro chiavi SSH",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "Gestisci la tua chiave pubblica SSH",
+	"specialpages-group-nova": "OpenStack Nova",
 	"openstackmanager-novakey": "Chiave Nova",
 	"openstackmanager-delete": "cancella",
 	"openstackmanager-actions": "Azioni",

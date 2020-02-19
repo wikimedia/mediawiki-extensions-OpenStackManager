@@ -7,6 +7,7 @@
 	"openstackmanager-desc": "Permite a los usuarios rexistrar cuentes de shell y alministrar les sos claves SSH",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "Alministrar les tos claves públiques de SSH",
+	"specialpages-group-nova": "OpenStack Nova",
 	"openstackmanager-novakey": "Clave de Nova",
 	"openstackmanager-delete": "desaniciar",
 	"openstackmanager-hiera-disabled": "Estes páxines yá nun s'usen por cloud-vps. La configuración de puppet y hiera pue camudase'n Horizon.",

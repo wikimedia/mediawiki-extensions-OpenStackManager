@@ -9,6 +9,7 @@
 	"openstackmanager-desc": "Permite aos usuarios xestionar Nova e Swift",
 	"openstackmanager": "Xestor OpenStack",
 	"novakey": "Xestionar a súas claves SSH públicas",
+	"specialpages-group-nova": "Nova OpenStack",
 	"openstackmanager-novakey": "Clave Nova",
 	"openstackmanager-delete": "borrar",
 	"openstackmanager-actions": "Accións",

@@ -18,6 +18,7 @@
 	"openstackmanager-desc": "讓使用者能夠註冊殼層帳號並管理他們的 SSH 密鑰",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "管理您 SSH 公開金鑰",
+	"specialpages-group-nova": "OpenStack Nova",
 	"openstackmanager-novakey": "Nova 金鑰",
 	"openstackmanager-delete": "刪除",
 	"openstackmanager-hiera-disabled": "這些頁面不再被 cloud-vps 所使用。Puppet 與 hiera 的設定可在 Horizon 裡變動。",

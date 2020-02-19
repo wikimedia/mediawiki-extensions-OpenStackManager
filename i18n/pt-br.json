@@ -10,6 +10,7 @@
 	"openstackmanager-desc": "Permite que os usuários registrem contas shell e gerenciem suas chaves SSH",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "Gerenciar suas chaves SSH públicas",
+	"specialpages-group-nova": "OpenStack Nova",
 	"openstackmanager-novakey": "Chave do Nova",
 	"openstackmanager-delete": "excluir",
 	"openstackmanager-hiera-disabled": "Essas páginas não são mais usadas pelo cloud-vps. A configuração de marionetes e hiera pode ser modificada no Horizon.",

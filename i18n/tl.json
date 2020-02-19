@@ -10,6 +10,7 @@
 	"openstackmanager-desc": "Nagpapahintulot sa mga tagagamit na pamahalaan ang Nova at Swift",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "Pamahalaan ang iyong mga pampublikong susi ng SSH",
+	"specialpages-group-nova": "Nova ng OpenStack",
 	"openstackmanager-novakey": "Susi ng Nova",
 	"openstackmanager-delete": "burahin",
 	"openstackmanager-actions": "Mga galaw",

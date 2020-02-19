@@ -9,6 +9,7 @@
 	"openstackmanager-desc": "Izinkan pengguna menguruskan Nova dan Swift",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "Uruskan kunci SSH awam anda",
+	"specialpages-group-nova": "OpenStack Nova",
 	"openstackmanager-novakey": "Kunci Nova",
 	"openstackmanager-delete": "hapuskan",
 	"openstackmanager-actions": "Tindakan",

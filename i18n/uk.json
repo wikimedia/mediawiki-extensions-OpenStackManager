@@ -16,6 +16,7 @@
 	"openstackmanager-desc": "Дозволяє користувачам зареєструвати обліковий запис оболонки та керувати SSH-ключами",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "Управління публічними ключами SSH",
+	"specialpages-group-nova": "OpenStack Nova",
 	"openstackmanager-novakey": "Ключ Nova",
 	"openstackmanager-delete": "вилучити",
 	"openstackmanager-hiera-disabled": "Ці сторінки більше не використовуються cloud-vps. Налаштування \"Puppet\" та \"hiera\" можуть бути вказані у \"Horizon\".",

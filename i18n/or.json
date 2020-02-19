@@ -10,6 +10,7 @@
 	"openstackmanager-desc": "ବ୍ୟବହାରକାରୀମାନଙ୍କୁ Nova ଓ Swift ପରିଚାଳନା କରିବାରେ ସହଯୋଗ କରିଥାଏ",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "ଜନସାଧାରଣ SSH ଚାବି ସମ୍ଭାଳିବାରେ ବିଫଳ",
+	"specialpages-group-nova": "OpenStack Nova",
 	"openstackmanager-novakey": "Nova ଚାବି",
 	"openstackmanager-delete": "ଲିଭାଇବେ"
 }

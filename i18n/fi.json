@@ -18,6 +18,7 @@
 	"openstackmanager-desc": "Mahdollistaa Novan ja Swiftin hallinnan wikin kautta",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "Hallitse omia julkisia SSH-avaimia",
+	"specialpages-group-nova": "OpenStack Nova",
 	"openstackmanager-novakey": "Nova-avain",
 	"openstackmanager-delete": "poista",
 	"openstackmanager-actions": "Toiminnot",

@@ -17,6 +17,7 @@
 	"openstackmanager-desc": "اجازه دادن به کاربران برای اداره کردن نوا و سوییفت",
 	"openstackmanager": "اپن‌استاک‌منیجر",
 	"novakey": "مدیریت کلیدهای عمومی SSH شما",
+	"specialpages-group-nova": "اپن‌استک نوا",
 	"openstackmanager-novakey": "کلید نوا",
 	"openstackmanager-delete": "حذف",
 	"openstackmanager-actions": "اقدامات",

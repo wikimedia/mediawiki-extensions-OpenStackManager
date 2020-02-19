@@ -18,6 +18,7 @@
 	"openstackmanager-desc": "Permite a los usuarios administrar Nova y Swift",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "Administrar tus claves públicas de SSH",
+	"specialpages-group-nova": "OpenStack Nova",
 	"openstackmanager-novakey": "Clave de Nova",
 	"openstackmanager-delete": "eliminar",
 	"openstackmanager-actions": "Acciones",

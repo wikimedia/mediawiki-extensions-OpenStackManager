@@ -20,6 +20,7 @@
 	"openstackmanager-desc": "让用户管理 Nova 和 Swift",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "管理公共SSH密钥",
+	"specialpages-group-nova": "OpenStack Nova",
 	"openstackmanager-novakey": "Nova 密钥",
 	"openstackmanager-delete": "删除",
 	"openstackmanager-actions": "操作",

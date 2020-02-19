@@ -19,6 +19,7 @@
 	"openstackmanager-desc": "Permite que os utilizadores registem contas remotas e administrem as suas chaves SSH",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "Gerir as suas chaves SSH públicas",
+	"specialpages-group-nova": "OpenStack Nova",
 	"openstackmanager-novakey": "Chave do Nova",
 	"openstackmanager-delete": "eliminar",
 	"openstackmanager-actions": "Ações",

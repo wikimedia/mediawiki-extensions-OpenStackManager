@@ -10,6 +10,7 @@
 	"openstackmanager-desc": "Kullanıcıların kabuk hesaplarını kaydetmelerini ve SSH anahtarlarını yönetmelerini sağlar",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "Genel SSH anahtarlarınızı yönetin",
+	"specialpages-group-nova": "OpenStack Manager kimlik doğrulaması",
 	"openstackmanager-novakey": "Nova Anahtarı",
 	"openstackmanager-delete": "sil",
 	"openstackmanager-hiera-disabled": "Bu sayfalar artık cloud-vps tarafından kullanılmamaktadır. Kukla ve hiera yapılandırması Horizon'da değiştirilebilir.",

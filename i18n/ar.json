@@ -10,6 +10,7 @@
 	"openstackmanager-desc": "يتيح للمستخدمين تسجيل حسابات shell وإدارة مفاتيح SSH الخاصة بهم",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "قم بإدارة مفاتيح SSH العامة الخاصة بك",
+	"specialpages-group-nova": "أوبن ستاك نوفا",
 	"openstackmanager-novakey": "مفتاح نوفا",
 	"openstackmanager-delete": "حذف",
 	"openstackmanager-hiera-disabled": "هذه الصفحات لم تعد مستخدمة من قبل cloud-vps؛ يمكن تعديل الدمية وhiera config في Horizon.",

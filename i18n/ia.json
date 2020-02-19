@@ -7,6 +7,7 @@
 	"openstackmanager-desc": "Permitte al usatores de crear contos shell e gerer lor claves SSH",
 	"openstackmanager": "Gerentia de OpenStack",
 	"novakey": "Gerer tu claves SSH public",
+	"specialpages-group-nova": "Authentication pro OpenStack Manager",
 	"openstackmanager-novakey": "Clave de Nova",
 	"openstackmanager-delete": "deler",
 	"openstackmanager-actions": "Actiones",

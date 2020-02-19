@@ -12,6 +12,7 @@
 	"openstackmanager-desc": "Ermöglicht Benutzern die Verwaltung von Nova und Swift",
 	"openstackmanager": "OpenStack-Verwaltung",
 	"novakey": "Öffentliche SSH-Schlüssel verwalten",
+	"specialpages-group-nova": "OpenStack Nova",
 	"openstackmanager-novakey": "Nova-Schlüssel",
 	"openstackmanager-delete": "löschen",
 	"openstackmanager-actions": "Aktionen",

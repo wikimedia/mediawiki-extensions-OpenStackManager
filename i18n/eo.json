@@ -9,6 +9,7 @@
 	},
 	"openstackmanager-desc": "Permesas al uzantoj por administri servilajn ilojn Nova aŭ Swift",
 	"openstackmanager": "OpenStackManager",
+	"specialpages-group-nova": "Nova OpenStack",
 	"openstackmanager-novakey": "Ŝlosilo Nova",
 	"openstackmanager-delete": "forigi",
 	"openstackmanager-actions": "Agoj",

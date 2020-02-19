@@ -12,6 +12,7 @@
 	"openstackmanager-desc": "사용자가 Nova와 Swift를 관리할 수 ​​있게 합니다",
 	"openstackmanager": "OpenStack관리자",
 	"novakey": "공개 SSH 키 관리",
+	"specialpages-group-nova": "OpenStack Nova",
 	"openstackmanager-novakey": "Nova 키",
 	"openstackmanager-delete": "삭제",
 	"openstackmanager-hiera-disabled": "이 문서들은 cloud-vps에 의해 더 이상 쓰이지 않습니다. Puppet과 hiera 구성은 Horizon에서 수정할 수 있습니다.",
