@@ -30,7 +30,7 @@
 	"openstackmanager-desc": "Permet aux utilisateurs d’inscrire leurs comptes d’interpréteur de commande et de gérer leurs clés d’accès SSH.",
 	"openstackmanager": "Gestionnaire OpenStack",
 	"novakey": "Gérez vos clés publiques SSH",
-	"specialpages-group-nova": "OpenStack Nova",
+	"specialpages-group-nova": "Gestionnaire d’authentification de OpenStack",
 	"openstackmanager-novakey": "Clé Nova",
 	"openstackmanager-delete": "supprimer",
 	"openstackmanager-hiera-disabled": "Ces pages ne sont plus utilisées par ''cloud-cps''. Les configurations de ''puppet'' et ''hiera'' peuvent être modifiées dans ''Horizon''.",

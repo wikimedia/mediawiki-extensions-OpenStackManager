@@ -18,7 +18,7 @@
 	"openstackmanager-desc": "Laat gebruikers shell accounts en hun SSH-sleutels beheren",
 	"openstackmanager": "OpenStack-beheer",
 	"novakey": "Uw publieke SSH-sleutels beheren",
-	"specialpages-group-nova": "OpenStack Nova",
+	"specialpages-group-nova": "OpenStack Manager authentificatie",
 	"openstackmanager-novakey": "Nova-sleutel",
 	"openstackmanager-delete": "verwijderen",
 	"openstackmanager-hiera-disabled": "Deze pagina's worden niet langer door cloud-vps gebruikt. Puppet en hiera configuration kunnen worden aangepast in Horizon.",
