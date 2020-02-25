@@ -9,12 +9,13 @@
 			"Umherirrender"
 		]
 	},
-	"openstackmanager-desc": "Ermöglicht Benutzern die Verwaltung von Nova und Swift",
+	"openstackmanager-desc": "Ermöglicht Benutzern die Registrierung von Shell-Konten und die Verwaltung ihrer SSH-Schlüssel",
 	"openstackmanager": "OpenStack-Verwaltung",
 	"novakey": "Öffentliche SSH-Schlüssel verwalten",
-	"specialpages-group-nova": "OpenStack Nova",
+	"specialpages-group-nova": "OpenStack Manager-Authentifizierung",
 	"openstackmanager-novakey": "Nova-Schlüssel",
 	"openstackmanager-delete": "löschen",
+	"openstackmanager-hiera-disabled": "Diese Seiten werden von cloud-vps nicht mehr verwendet. Puppet- und Hiera-Konfiguration können in Horizon modifiziert werden.",
 	"openstackmanager-actions": "Aktionen",
 	"openstackmanager-notloggedin": "Anmeldung erforderlich",
 	"openstackmanager-mustbeloggedin": "Um diese Aktion ausführen zu können, muss man angemeldet sein.",
