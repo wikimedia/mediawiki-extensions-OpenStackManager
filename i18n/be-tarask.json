@@ -11,7 +11,7 @@
 	"openstackmanager-desc": "Дазваляе удзельнікам рэгістраваць уліковы запіс абалонкі і кіраваць сваімі ключамі SSH",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "Кіраваць Вашымі публічнымі SSH-ключамі",
-	"specialpages-group-nova": "OpenStack Nova",
+	"specialpages-group-nova": "аўтэнтыфікацыя OpenStack Manager",
 	"openstackmanager-novakey": "Ключ Nova",
 	"openstackmanager-delete": "выдаліць",
 	"openstackmanager-actions": "Дзеяньні",
