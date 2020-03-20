@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Aefgh39622"
+		]
+	},
+	"openstackmanager-delete": "ลบ",
+	"openstackmanager-name": "ชื่อ",
+	"openstackmanager-keys": "คีย์"
+}
