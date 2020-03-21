@@ -51,8 +51,7 @@ class OpenStackNovaUser {
 				);
 
 				# We want the actual username, not the id that was passed in.
-				$this->userInfo = $ldap->userInfo;
-				$this->username = $this->userInfo[0]['cn'][0];
+				$this->username = $ldap->userInfo[0]['cn'][0] ?? '';
 			}
 		} else {
 			$username = RequestContext::getMain()->getUser()->getName();
@@ -69,7 +68,7 @@ class OpenStackNovaUser {
 	 * @return string
 	 */
 	public function getUid() {
-		return $this->userInfo[0]['uid'][0];
+		return $this->userInfo[0]['uid'][0] ?? '';
 	}
 
 	/**
