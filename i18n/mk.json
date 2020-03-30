@@ -7,7 +7,7 @@
 	"openstackmanager-desc": "Му овозможува на корисникот да создава лушпени сметки и да раководи со неговите SSH-клучеви",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "Раководство со вашите јавни SSH-клучеви",
-	"specialpages-group-nova": "OpenStack Nova",
+	"specialpages-group-nova": "Заверка за OpenStack Manager",
 	"openstackmanager-novakey": "Клуч на Nova",
 	"openstackmanager-delete": "избриши",
 	"openstackmanager-hiera-disabled": "Овие страници повеќе не се користат од облачниот VPS. Марионетите и чиноследните поставки можат да се изменат во Хоризонт.",
