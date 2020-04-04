@@ -260,7 +260,7 @@ class OpenStackNovaUser {
 			$values['displayname'] = $auth->realname;
 		}
 
-		$shellaccountname = \MediaWiki\Auth\AuthManager::singleton()
+		$shellaccountname = MediaWikiServices::getInstance()->getAuthManager()
 			->getAuthenticationSessionData( 'osm-shellaccountname', '' );
 
 		if ( !preg_match( "/^[a-z][a-z0-9\-_]*$/", $shellaccountname ) ) {
