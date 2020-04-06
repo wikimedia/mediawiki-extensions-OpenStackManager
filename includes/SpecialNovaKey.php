@@ -9,7 +9,7 @@
 
 class SpecialNovaKey extends SpecialPage {
 	/** @var OpenStackNovaUser */
-	protected $userLDAP;
+	private $userLDAP;
 
 	public function __construct() {
 		parent::__construct( 'NovaKey' );
@@ -48,8 +48,6 @@ class SpecialNovaKey extends SpecialPage {
 		$returnto = $this->getRequest()->getVal( 'returnto' );
 
 		$keyInfo = [];
-		$hash = '';
-		$keypairs = [];
 
 		$hash = $this->getRequest()->getVal( 'hash' );
 		$keypairs = $this->userLDAP->getKeypairs();

@@ -8,23 +8,26 @@ use MediaWiki\MediaWikiServices;
 
 class OpenStackNovaUser {
 
-	public $username;
-	public $userDN;
-	public $userInfo;
+	/** @var string */
+	private $username;
+	/** @var string */
+	private $userDN;
+	/** @var array */
+	private $userInfo;
 
 	/**
 	 * @param string $username
 	 */
 	public function __construct( $username = '' ) {
 		$this->username = $username;
-		self::connectToLdap();
+		$this->connectToLdap();
 		$this->fetchUserInfo();
 	}
 
 	/**
 	 * Connect to LDAP as the openstack manager account using LdapAuthenticationPlugin
 	 */
-	private static function connectToLdap() {
+	private function connectToLdap() {
 		global $wgOpenStackManagerLDAPUser, $wgOpenStackManagerLDAPUserPassword;
 		global $wgOpenStackManagerLDAPDomain;
 
@@ -36,10 +39,7 @@ class OpenStackNovaUser {
 		}
 	}
 
-	/**
-	 * @return void
-	 */
-	public function fetchUserInfo() {
+	private function fetchUserInfo() {
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		if ( $this->username ) {
 			$this->userDN = $ldap->getUserDN( $this->username );
@@ -67,15 +67,8 @@ class OpenStackNovaUser {
 	/**
 	 * @return string
 	 */
-	public function getUid() {
+	private function getUid() {
 		return $this->userInfo[0]['uid'][0] ?? '';
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getUsername() {
-		return $this->username;
 	}
 
 	/**
@@ -183,10 +176,9 @@ class OpenStackNovaUser {
 	 * @param string $attr
 	 * @return mixed|string
 	 */
-	public static function getNextIdNumber( $auth, $attr ) {
+	private static function getNextIdNumber( $auth, $attr ) {
 		global $wgOpenStackManagerIdRanges;
 
-		$highest = '';
 		if ( $attr === 'gidnumber' ) {
 			$filter = "(objectclass=posixgroup)";
 			$base = GROUPDN;
@@ -358,13 +350,7 @@ class OpenStackNovaUser {
 	 * @return bool True
 	 */
 	public static function novaUserPreferences( User $user, array &$preferences ) {
-		$link = Linker::link( SpecialPage::getTitleFor( 'NovaKey' ),
-			wfMessage( 'novakey' )->escaped(),
-			[],
-			[ 'returnto' => SpecialPage::getTitleFor( 'Preferences' )->getPrefixedText() ]
-		);
-
-		$novaUser = new OpenStackNovaUser( $user->getName() );
+		$novaUser = new self( $user->getName() );
 
 		$preferences['shellusername'] = [
 			'type' => 'info',
@@ -384,10 +370,10 @@ class OpenStackNovaUser {
 	}
 
 	/**
-	 * @param OpenStackNovaUser $user
+	 * @param self $user
 	 * @return string
 	 */
-	public static function getKeyList( $user ) {
+	private static function getKeyList( $user ) {
 		$out = '';
 		$headers = [ 'openstackmanager-keys', 'openstackmanager-actions' ];
 		$keypairs = $user->getKeypairs();
