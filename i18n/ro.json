@@ -1,11 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
+			"Andrei Stroe",
 			"Firilacroco",
 			"Minisarm",
 			"Stelistcristi",
-			"Strainu",
-			"Andrei Stroe"
+			"Strainu"
 		]
 	},
 	"openstackmanager-desc": "Permite utilizatorilor să administreze Nova și Swift",

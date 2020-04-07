@@ -2,16 +2,16 @@
 	"@metadata": {
 		"authors": [
 			"David1010",
+			"Diralik",
 			"Eleferen",
 			"Haffman",
 			"Kaganer",
+			"Meshkov.a",
 			"Okras",
+			"Vlad5250",
 			"Yurik",
 			"Александр Сигачёв",
-			"Тест",
-			"Meshkov.a",
-			"Vlad5250",
-			"Diralik"
+			"Тест"
 		]
 	},
 	"openstackmanager-desc": "Позволяет пользователям управлять Nova и Swift",

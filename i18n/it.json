@@ -1,13 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
+			"Alexmar983",
 			"Beta16",
 			"Darth Kule",
 			"Davio",
 			"F. Cosoleto",
 			"Nemo bis",
-			"Raoli",
-			"Alexmar983"
+			"Raoli"
 		]
 	},
 	"openstackmanager-desc": "Permette agli utenti di registrare le utenze di shell e gestire le loro chiavi SSH",

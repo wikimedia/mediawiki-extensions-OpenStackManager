@@ -2,6 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Anakmalaysia",
+			"Appleuseryu",
+			"Fengchao",
 			"Hydra",
 			"Hzy980512",
 			"Linforest",
@@ -12,9 +14,7 @@
 			"Yanmiao liu",
 			"Yfdyh000",
 			"乌拉跨氪",
-			"凡人丶",
-			"Appleuseryu",
-			"Fengchao"
+			"凡人丶"
 		]
 	},
 	"openstackmanager-desc": "让用户管理 Nova 和 Swift",

@@ -1,18 +1,18 @@
 {
 	"@metadata": {
 		"authors": [
-			"Anakmalaysia",
-			"Justincheng12345",
-			"Littletung",
-			"Oapbtommy",
-			"Simon Shek",
-			"Cwlin0416",
-			"LNDDYL",
-			"Liuxinyu970226",
-			"Alexsh",
 			"A2093064",
+			"Alexsh",
+			"Anakmalaysia",
+			"Cwlin0416",
 			"Hello903hello",
-			"Kly"
+			"Justincheng12345",
+			"Kly",
+			"LNDDYL",
+			"Littletung",
+			"Liuxinyu970226",
+			"Oapbtommy",
+			"Simon Shek"
 		]
 	},
 	"openstackmanager-desc": "讓使用者能夠註冊殼層帳號並管理他們的 SSH 密鑰",

@@ -1,10 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
+			"BaRaN6161 TURK",
 			"Incelemeelemani",
-			"Suelnur",
 			"Sayginer",
-			"BaRaN6161 TURK"
+			"Suelnur"
 		]
 	},
 	"openstackmanager-desc": "Kullanıcıların kabuk hesaplarını kaydetmelerini ve SSH anahtarlarını yönetmelerini sağlar",

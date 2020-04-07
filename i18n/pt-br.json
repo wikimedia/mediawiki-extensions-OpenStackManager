@@ -1,10 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Luckas",
 			"Araceletorres",
+			"Eduardo Addad de Oliveira",
 			"Felipe L. Ewald",
-			"Eduardo Addad de Oliveira"
+			"Luckas"
 		]
 	},
 	"openstackmanager-desc": "Permite que os usuários registrem contas shell e gerenciem suas chaves SSH",

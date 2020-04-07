@@ -2,11 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"Fryed-peach",
+			"Omotecho",
+			"Otokoume",
 			"Shirayuki",
 			"SkyDaisy9",
-			"Sujiniku",
-			"Otokoume",
-			"Omotecho"
+			"Sujiniku"
 		]
 	},
 	"openstackmanager-desc": "利用者が Nova と Swift を管理できるようにする",

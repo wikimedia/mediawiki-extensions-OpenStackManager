@@ -3,10 +3,10 @@
 		"authors": [
 			"Chmee2",
 			"Littledogboy",
+			"Martin Urbanec",
 			"Mormegil",
-			"Vks",
 			"Urbanecm",
-			"Martin Urbanec"
+			"Vks"
 		]
 	},
 	"openstackmanager-desc": "Umožňuje uživatelům spravovat OpenStack Nova a Swift",

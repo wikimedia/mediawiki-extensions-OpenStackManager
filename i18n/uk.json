@@ -3,14 +3,14 @@
 		"authors": [
 			"Andriykopanytsia",
 			"Base",
+			"Movses",
 			"Olvin",
+			"Piramidion",
 			"Steve.rusyn",
 			"SteveR",
-			"Тест",
-			"Ата",
-			"Piramidion",
 			"Vlad5250",
-			"Movses"
+			"Ата",
+			"Тест"
 		]
 	},
 	"openstackmanager-desc": "Дозволяє користувачам зареєструвати обліковий запис оболонки та керувати SSH-ключами",

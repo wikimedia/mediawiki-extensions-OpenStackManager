@@ -1,9 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Toliño",
 			"Banjo",
-			"Elisardojm"
+			"Elisardojm",
+			"Toliño"
 		]
 	},
 	"openstackmanager-desc": "Permite aos usuarios xestionar Nova e Swift",

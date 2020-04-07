@@ -1,18 +1,18 @@
 {
 	"@metadata": {
 		"authors": [
+			"AlvaroMolina",
 			"Armando-Martin",
 			"Bernardom",
 			"Carlitosag",
+			"Dgstranz",
 			"Fitoschido",
 			"Imre",
-			"Platonides",
-			"Vivaelcelta",
 			"Macofe",
-			"Ryo567",
 			"Matiia",
-			"AlvaroMolina",
-			"Dgstranz"
+			"Platonides",
+			"Ryo567",
+			"Vivaelcelta"
 		]
 	},
 	"openstackmanager-desc": "Permite a los usuarios administrar Nova y Swift",

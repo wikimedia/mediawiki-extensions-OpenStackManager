@@ -1,16 +1,16 @@
 {
 	"@metadata": {
 		"authors": [
-			"Milicevic01",
-			"Rancher",
-			"Михајло Анђелковић",
-			"Srdjan m",
-			"Сербијана",
-			"Obsuser",
-			"Zoranzoki21",
 			"Acamicamacaraca",
 			"BadDog",
-			"Vlad5250"
+			"Milicevic01",
+			"Obsuser",
+			"Rancher",
+			"Srdjan m",
+			"Vlad5250",
+			"Zoranzoki21",
+			"Михајло Анђелковић",
+			"Сербијана"
 		]
 	},
 	"openstackmanager-novakey": "Кључ Нове",

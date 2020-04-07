@@ -1,12 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
+			"Csega",
 			"Dani",
 			"Dj",
 			"Misibacsi",
-			"Tacsipacsi",
-			"Csega",
-			"R-Joe"
+			"R-Joe",
+			"Tacsipacsi"
 		]
 	},
 	"openstackmanager-desc": "Lehetővé teszi, hogy a felhasználók kezeljék a Novát és Swiftet",

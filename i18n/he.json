@@ -2,12 +2,12 @@
 	"@metadata": {
 		"authors": [
 			"Amire80",
-			"Ofekalef",
-			"Orsa",
-			"ערן",
 			"Guycn2",
 			"Matanya",
-			"המקיסט"
+			"Ofekalef",
+			"Orsa",
+			"המקיסט",
+			"ערן"
 		]
 	},
 	"openstackmanager-desc": "מאפשרת למשתמשים לרשום חשבונות מסוף ולנהל את מפתחות ה־SSH שלהם",

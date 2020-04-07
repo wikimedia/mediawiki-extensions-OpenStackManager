@@ -1,6 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
+			"0x010C",
+			"Amelia",
 			"Automatik",
 			"Boniface",
 			"Cquoi",
@@ -9,22 +11,20 @@
 			"Gomoko",
 			"Hashar",
 			"Hello71",
+			"Hercule",
 			"IAlex",
 			"Ltrlg",
-			"Metroitendo",
-			"Peter17",
-			"Tititou36",
-			"Verdy p",
-			"Wyz",
-			"SnowedEarth",
-			"Amelia",
-			"0x010C",
-			"Hercule",
-			"Wladek92",
-			"Orlodrim",
 			"McDutchie",
+			"Metroitendo",
+			"Orlodrim",
+			"Peter17",
+			"SnowedEarth",
 			"Thibaut120094",
-			"Urhixidur"
+			"Tititou36",
+			"Urhixidur",
+			"Verdy p",
+			"Wladek92",
+			"Wyz"
 		]
 	},
 	"openstackmanager-desc": "Permet aux utilisateurs d’inscrire leurs comptes d’interpréteur de commande et de gérer leurs clés d’accès SSH.",
