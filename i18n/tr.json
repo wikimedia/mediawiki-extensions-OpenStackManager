@@ -15,7 +15,7 @@
 	"openstackmanager-delete": "sil",
 	"openstackmanager-hiera-disabled": "Bu sayfalar artık cloud-vps tarafından kullanılmamaktadır. Kukla ve hiera yapılandırması Horizon'da değiştirilebilir.",
 	"openstackmanager-actions": "Eylemler",
-	"openstackmanager-notloggedin": "Oturum açmak gereklidir",
+	"openstackmanager-notloggedin": "Oturum açma gerekli",
 	"openstackmanager-mustbeloggedin": "Bu işlemi yapmak için giriş yapmış olmalısın.",
 	"openstackmanager-novapublickey": "Genel SSH anahtarı:",
 	"openstackmanager-prefs-novapublickey": "Genel SSH anahtarları:",
