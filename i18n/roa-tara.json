@@ -7,7 +7,7 @@
 	},
 	"openstackmanager": "OpenStackManager",
 	"novakey": "Gestisce le chiave pubbleche SSH tune",
-	"specialpages-group-nova": "Nova OpenStack",
+	"specialpages-group-nova": "OpenStack Gestore de l'autendicazione",
 	"openstackmanager-novakey": "Chiave de Nova",
 	"openstackmanager-delete": "scangille",
 	"openstackmanager-actions": "Aziune",
