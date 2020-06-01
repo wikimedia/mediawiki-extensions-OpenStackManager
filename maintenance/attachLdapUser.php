@@ -33,6 +33,7 @@ use MediaWiki\MediaWikiServices;
  * events created as well.
  *
  * @copyright © 2017 Wikimedia Foundation and contributors
+ * @suppress PhanRedefineClass Using same name as in LdapAuthentication
  */
 class AttachLdapUser extends Maintenance {
 	public function __construct() {
@@ -62,5 +63,6 @@ class AttachLdapUser extends Maintenance {
 	}
 }
 
+// @phan-suppress-next-line PhanRedefinedClassReference Using same name as in LdapAuthentication
 $maintClass = AttachLdapUser::class;
 require_once RUN_MAINTENANCE_IF_MAIN;
