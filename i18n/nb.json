@@ -10,7 +10,7 @@
 	"openstackmanager-desc": "Lar brukere registrere shell-kontoer og behandle SSH-nøklene sine",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "Behandle de offentlige SSH-nøklene dine",
-	"specialpages-group-nova": "OpenStack Nova",
+	"specialpages-group-nova": "OpenStack Manager-autentisering",
 	"openstackmanager-novakey": "Nova-nøkkel",
 	"openstackmanager-delete": "slett",
 	"openstackmanager-hiera-disabled": "Disse sidene brukes ikke lenger av cloud-vps. Puppet- og hiera-konfigurasjon kan endres i Horizon.",
