@@ -1,15 +1,16 @@
 {
 	"@metadata": {
 		"authors": [
+			"ArenaL5",
 			"Banjo",
 			"Elisardojm",
 			"Toliño"
 		]
 	},
-	"openstackmanager-desc": "Permite aos usuarios xestionar Nova e Swift",
+	"openstackmanager-desc": "Permite aos usuarios rexistrar contas en shell e administar as súas claves SSH",
 	"openstackmanager": "Xestor OpenStack",
 	"novakey": "Xestionar a súas claves SSH públicas",
-	"specialpages-group-nova": "Nova OpenStack",
+	"specialpages-group-nova": "Autenticación OpenStack Manager",
 	"openstackmanager-novakey": "Clave Nova",
 	"openstackmanager-delete": "borrar",
 	"openstackmanager-actions": "Accións",

@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"AlvaroMolina",
+			"ArenaL5",
 			"Armando-Martin",
 			"Bernardom",
 			"Carlitosag",
@@ -15,10 +16,10 @@
 			"Vivaelcelta"
 		]
 	},
-	"openstackmanager-desc": "Permite a los usuarios administrar Nova y Swift",
+	"openstackmanager-desc": "Permite a los usuarios registrar sus cuentas en shell y administrar sus claves SSH",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "Administrar tus claves públicas de SSH",
-	"specialpages-group-nova": "OpenStack Nova",
+	"specialpages-group-nova": "Autenticación OpenStack Manager",
 	"openstackmanager-novakey": "Clave de Nova",
 	"openstackmanager-delete": "eliminar",
 	"openstackmanager-actions": "Acciones",
