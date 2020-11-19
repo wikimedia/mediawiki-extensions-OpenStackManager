@@ -256,7 +256,7 @@ class OpenStackNovaUser {
 			return false;
 		}
 		$values['cn'] = $username;
-		if ( '' !== $auth->realname ) {
+		if ( $auth->realname !== '' ) {
 			$values['displayname'] = $auth->realname;
 		}
 
