@@ -17,12 +17,12 @@ if ( function_exists( 'wfLoadExtension' ) ) {
 	$wgMessagesDirs['OpenStackManager'] = __DIR__ . '/i18n';
 	$wgExtensionMessagesFiles['OpenStackManagerAlias'] = __DIR__ . '/OpenStackManager.alias.php';
 
-	/* wfWarn(
-		'Deprecated PHP entry point used for OpenStackManager extension. '.
+	wfWarn(
+		'Deprecated PHP entry point used for OpenStackManager extension. ' .
 		'Please use wfLoadExtension instead, ' .
 		'see https://www.mediawiki.org/wiki/Extension_registration for more details.'
-	); */
+	);
 	return;
 } else {
-	die( 'This version of the OpenStackManager extension requires MediaWiki 1.29+' );
+	die( 'This version of the OpenStackManager extension requires MediaWiki 1.35+' );
 }
