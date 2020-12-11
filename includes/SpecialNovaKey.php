@@ -334,7 +334,7 @@ class SpecialNovaKey extends SpecialPage {
 
 	public static function pushResourceColumn( &$row, $value, $attribs = [] ) {
 		if ( array_key_exists( 'class', $attribs ) ) {
-			$attribs['class'] = $attribs['class'] . ' Nova_cell';
+			$attribs['class'] .= ' Nova_cell';
 		} else {
 			$attribs['class'] = 'Nova_cell';
 		}
@@ -343,7 +343,7 @@ class SpecialNovaKey extends SpecialPage {
 
 	public static function pushRawResourceColumn( &$row, $value, $attribs = [] ) {
 		if ( array_key_exists( 'class', $attribs ) ) {
-			$attribs['class'] = $attribs['class'] . ' Nova_cell';
+			$attribs['class'] .= ' Nova_cell';
 		} else {
 			$attribs['class'] = 'Nova_cell';
 		}
