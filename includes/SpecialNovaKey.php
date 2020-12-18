@@ -16,7 +16,7 @@ class SpecialNovaKey extends SpecialPage {
 	}
 
 	public function execute( $par ) {
-		if ( !$this->getUser()->isLoggedIn() ) {
+		if ( !$this->getUser()->isRegistered() ) {
 			$this->notLoggedIn();
 			return;
 		}
