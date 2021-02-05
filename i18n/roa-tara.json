@@ -19,5 +19,6 @@
 	"openstackmanager-keylist": "Elenghe de le chiave pubbleche SSH",
 	"openstackmanager-name": "Nome",
 	"openstackmanager-fingerprint": "'Mbronde diggitale",
-	"openstackmanager-keys": "Chiave"
+	"openstackmanager-keys": "Chiave",
+	"prefs-openstack-keys": "Elenghe de le chiave"
 }
