@@ -269,7 +269,8 @@ class OpenStackNovaUser {
 			return false;
 		}
 		$check = ucfirst( $shellaccountname );
-		if ( !User::isCreatableName( $check ) ) {
+		$userNameUtils = MediaWikiServices::getInstance()->getUserNameUtils();
+		if ( !$userNameUtils->isCreatable( $check ) ) {
 			$auth->printDebug( "$shellaccountname is not a creatable name.", NONSENSITIVE );
 			$result = false;
 			return false;
