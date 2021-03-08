@@ -387,14 +387,6 @@ class OpenStackNovaUser {
 	 * @return string
 	 */
 	public static function getKeyList( $user ) {
-		$keyInfo = [];
-		$keyInfo['key'] = [
-			'type' => 'textarea',
-			'default' => '',
-			'label-message' => 'openstackmanager-novapublickey',
-			'name' => 'key',
-		];
-
 		$out = '';
 		$headers = [ 'openstackmanager-keys', 'openstackmanager-actions' ];
 		$keypairs = $user->getKeypairs();
