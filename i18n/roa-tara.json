@@ -20,5 +20,7 @@
 	"openstackmanager-name": "Nome",
 	"openstackmanager-fingerprint": "'Mbronde diggitale",
 	"openstackmanager-keys": "Chiave",
+	"openstackmanager-deletedkey": "Chiave scangellate.",
+	"openstackmanager-deletedkeyfailed": "Scangellazione d'a chiave fallite.",
 	"prefs-openstack-keys": "Elenghe de le chiave"
 }
