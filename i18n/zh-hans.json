@@ -6,6 +6,7 @@
 			"Fengchao",
 			"Hydra",
 			"Hzy980512",
+			"Lakejason0",
 			"Linforest",
 			"Liuxinyu970226",
 			"Qiyue2001",
@@ -17,10 +18,10 @@
 			"凡人丶"
 		]
 	},
-	"openstackmanager-desc": "让用户管理 Nova 和 Swift",
+	"openstackmanager-desc": "让用户管理注册Shell账户并管理SSH密钥",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "管理公共SSH密钥",
-	"specialpages-group-nova": "OpenStack Nova",
+	"specialpages-group-nova": "OpenStack管理验证",
 	"openstackmanager-novakey": "Nova 密钥",
 	"openstackmanager-delete": "删除",
 	"openstackmanager-actions": "操作",
