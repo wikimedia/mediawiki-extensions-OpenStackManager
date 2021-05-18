@@ -5,6 +5,7 @@
 			"Reder"
 		]
 	},
+	"openstackmanager-desc": "Face reggistrà a le utinde, le utenze de shell e le lore chiave SSH",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "Gestisce le chiave pubbleche SSH tune",
 	"specialpages-group-nova": "OpenStack Gestore de l'autendicazione",
@@ -22,5 +23,7 @@
 	"openstackmanager-keys": "Chiave",
 	"openstackmanager-deletedkey": "Chiave scangellate.",
 	"openstackmanager-deletedkeyfailed": "Scangellazione d'a chiave fallite.",
+	"openstackmanager-shellaccountname": "Nome pe l'utenze de shell pe l'istanze",
+	"openstackmanager-shellaccountname-pref": "Nome pe l'utenze de shell pe l'istanze:",
 	"prefs-openstack-keys": "Elenghe de le chiave"
 }
