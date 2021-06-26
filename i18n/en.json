@@ -32,6 +32,7 @@
 	"openstackmanager-deletedkey": "Deleted key.",
 	"openstackmanager-deletedkeyfailed": "Failed to delete key.",
 	"openstackmanager-shellaccountname": "Instance shell account name",
+	"openstackmanager-shellaccountname-placeholder": "Enter your shell account name",
 	"openstackmanager-shellaccountname-pref": "Instance shell account name:",
 	"openstackmanager-shellaccountnamehelp": "A shell account name is required.\nIt must start with a-z, and can only contain lowercase a-z, 0-9, and - characters.",
 	"openstackmanager-shellaccountvalidationfail": "Your shell account name is invalid.\nIt must start with a-z, and can only contain lowercase a-z, 0-9, and - characters.",

@@ -345,6 +345,7 @@ class OpenStackNovaUser {
 	public static function AuthChangeFormFields( $requests, $fieldInfo, &$formDescriptor, $action ) {
 		if ( isset( $formDescriptor['shellaccountname'] ) ) {
 			$formDescriptor['shellaccountname'] += [
+				'placeholder-message' => 'openstackmanager-shellaccountname-placeholder',
 				'help-message' => 'openstackmanager-shellaccountnamehelp',
 				'weight' => 90,
 			];
