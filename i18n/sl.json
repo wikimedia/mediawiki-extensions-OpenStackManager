@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Dbc334",
+			"Eleassar",
 			"Irena Plahuta",
 			"Janezdrilc"
 		]
@@ -9,5 +10,6 @@
 	"openstackmanager-delete": "Izbriši",
 	"openstackmanager-actions": "Dejanja",
 	"openstackmanager-notloggedin": "Zahteva se prijava.",
-	"openstackmanager-mustbeloggedin": "Za izvedbo tega dejanja se morate prijaviti."
+	"openstackmanager-mustbeloggedin": "Za izvedbo tega dejanja se morate prijaviti.",
+	"openstackmanager-name": "Ime"
 }

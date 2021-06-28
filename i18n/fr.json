@@ -54,6 +54,7 @@
 	"openstackmanager-deletedkey": "Clé supprimée.",
 	"openstackmanager-deletedkeyfailed": "Échec de la suppression de la clé.",
 	"openstackmanager-shellaccountname": "Nom du compte pour l’interpréteur de l’instance",
+	"openstackmanager-shellaccountname-placeholder": "Saisir votre nom de compte shell",
 	"openstackmanager-shellaccountname-pref": "Nom de compte d’interpréteur de l’instance :",
 	"openstackmanager-shellaccountnamehelp": "Un nom de compte d’interpréteur est obligatoire.\nIl doit commencer par une lettre minuscule (a–z) et ne peut contenir que des minuscules (a–z), des chiffres (0–9) ou des traits d’union (-).",
 	"openstackmanager-shellaccountvalidationfail": "Votre nom de compte d’interpréteur n’est pas valide.\nIl doit commencer par une lettre minuscule (a–z) et ne peut contenir que des minuscules (a–z), des chiffres (0–9) ou des traits d’union (-).",
