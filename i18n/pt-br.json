@@ -35,6 +35,7 @@
 	"openstackmanager-deletedkey": "Chave excluída.",
 	"openstackmanager-deletedkeyfailed": "Falha ao excluir chave.",
 	"openstackmanager-shellaccountname": "Nome da conta do shell da instância",
+	"openstackmanager-shellaccountname-placeholder": "Digite o nome da sua conta shell",
 	"openstackmanager-shellaccountname-pref": "Nome da conta do shell da instância:",
 	"openstackmanager-shellaccountnamehelp": "É necessário um nome de conta de shell.\nDeve começar com a-z e pode conter apenas caracteres a-z, 0-9 e - minúsculos.",
 	"openstackmanager-shellaccountvalidationfail": "O nome da conta do shell não é válido.\nDeve começar com a-z e pode conter apenas caracteres a-z, 0-9 e - minúsculos.",

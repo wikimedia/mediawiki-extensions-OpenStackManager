@@ -31,6 +31,7 @@
 	"openstackmanager-deletedkey": "Клучот е избришан.",
 	"openstackmanager-deletedkeyfailed": "Не успеав да го избришам клучот.",
 	"openstackmanager-shellaccountname": "Име на сметката за лушпата на примерокот",
+	"openstackmanager-shellaccountname-placeholder": "Внесете го името на вашата лупшена сметка",
 	"openstackmanager-shellaccountname-pref": "Име на сметката за лушпата на примерокот:",
 	"openstackmanager-shellaccountnamehelp": "Името на сметката на лушпата е задолжително. \nМора да почнува со латинични букви (од a до z), и може да содржи само мали латинични букви, бројки (од 0 до 9), како и знакот „-“.",
 	"openstackmanager-shellaccountvalidationfail": "Името на сметката за лушпата е неважечко.\nМора да почнува со буква (a-z), а може да содржи само мали букви, бројки (0-9) и цртички (-).",
