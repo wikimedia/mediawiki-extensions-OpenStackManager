@@ -9,6 +9,7 @@
 			"Dgstranz",
 			"Fitoschido",
 			"Imre",
+			"Jackiezelaya",
 			"Macofe",
 			"Matiia",
 			"Platonides",
@@ -42,6 +43,7 @@
 	"openstackmanager-deletedkey": "La clave se ha eliminado.",
 	"openstackmanager-deletedkeyfailed": "No se pudo eliminar la clave.",
 	"openstackmanager-shellaccountname": "Nombre de la cuenta shell de la instancia",
+	"openstackmanager-shellaccountname-placeholder": "Ingrese el nombre de su cuenta shell",
 	"openstackmanager-shellaccountname-pref": "Nombre de la cuenta shell de la instancia:",
 	"openstackmanager-shellaccountnamehelp": "El nombre de la cuenta shell es obligatorio.\nDebe empezar con a-z, y sólo puede contener los caracteres en minúsculas a-z, 0-9, - y _.",
 	"prefs-openstack-keys": "Lista de claves"
