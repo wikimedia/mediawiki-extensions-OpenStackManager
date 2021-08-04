@@ -3,6 +3,7 @@
 		"authors": [
 			"Andriykopanytsia",
 			"Base",
+			"DDPAT",
 			"Movses",
 			"Olvin",
 			"Piramidion",
@@ -40,6 +41,7 @@
 	"openstackmanager-deletedkey": "Вилучено ключ.",
 	"openstackmanager-deletedkeyfailed": "Не вдалося вилучити ключ.",
 	"openstackmanager-shellaccountname": "Назва облікового запису примірника оболонки",
+	"openstackmanager-shellaccountname-placeholder": "Введіть назву свого облікового запису оболонки",
 	"openstackmanager-shellaccountname-pref": "Назва облікового запису примірника оболонки:",
 	"openstackmanager-shellaccountnamehelp": "Потрібна назва облікового запису оболонки.\nВона має починатися з a-z та містити лише малі букви a-z, цифри 0-9 і символи „-“.",
 	"openstackmanager-shellaccountvalidationfail": "Назва облікового запису оболонки - невірна.\nВона має починатися з a-z та містити лише малі букви a-z, цифри 0-9 і символи „-“.",
