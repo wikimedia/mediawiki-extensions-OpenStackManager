@@ -5,5 +5,6 @@
 		]
 	},
 	"openstackmanager-delete": "cancella",
-	"openstackmanager-actions": "Azzioni"
+	"openstackmanager-actions": "Azzioni",
+	"openstackmanager-name": "Nomu"
 }
