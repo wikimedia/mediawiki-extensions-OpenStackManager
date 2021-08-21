@@ -15,11 +15,20 @@ class SpecialNovaKey extends SpecialPage {
 		parent::__construct( 'NovaKey' );
 	}
 
+	protected function getLoginSecurityLevel() {
+		return $this->getName();
+	}
+
 	public function execute( $par ) {
 		if ( !$this->getUser()->isRegistered() ) {
 			$this->notLoggedIn();
 			return;
 		}
+
+		if ( !$this->checkLoginSecurityLevel( $this->getLoginSecurityLevel() ) ) {
+			return;
+		}
+
 		$this->userLDAP = new OpenStackNovaUser( $this->getUser()->getName() );
 
 		$action = $this->getRequest()->getVal( 'action' );
