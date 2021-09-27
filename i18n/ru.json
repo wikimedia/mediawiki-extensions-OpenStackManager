@@ -15,7 +15,7 @@
 			"Тест"
 		]
 	},
-	"openstackmanager-desc": "Позволяет пользователям управлять Nova и Swift",
+	"openstackmanager-desc": "Позволяет участникам регистрировать учётные записи оболочки и управлять своими ключами SSH",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "Управление вашими открытыми SSH-ключами",
 	"specialpages-group-nova": "Менеджер авторизации OpenStack",
