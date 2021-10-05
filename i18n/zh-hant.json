@@ -42,6 +42,7 @@
 	"openstackmanager-deletedkey": "已刪除金鑰。",
 	"openstackmanager-deletedkeyfailed": "刪除金鑰失敗。",
 	"openstackmanager-shellaccountname": "實例 Shell 帳號名稱",
+	"openstackmanager-shellaccountname-placeholder": "輸入您的 shell 帳號名稱",
 	"openstackmanager-shellaccountname-pref": "實例 Shell 帳號名稱：",
 	"openstackmanager-shellaccountnamehelp": "Shell 帳號名稱為必填。\nShell 帳號名稱須以 a-z 開頭，並僅能使用小寫字母 a-z、0-9 與 - 符號。",
 	"openstackmanager-shellaccountvalidationfail": "您的 Shell 帳號名稱無效。\nShell 帳號名稱須以 a-z 開頭，並僅能使用小寫字母 a-z、0-9 與 - 符號。",
