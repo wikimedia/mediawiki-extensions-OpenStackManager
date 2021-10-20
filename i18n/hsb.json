@@ -25,7 +25,7 @@
 	"openstackmanager-keypairimported": "Klučowy por importowany.",
 	"openstackmanager-keypairformatwrong": "Podaty SSH-kluč bě wopak abo w njeznatym formaće.",
 	"openstackmanager-keypairformatconverted": "Format SSH-kluča je so awtomatisce konwertował.",
-	"openstackmanager-deletedkey": "Kluč je so wuspěšnje zhašał.",
+	"openstackmanager-deletedkey": "Zhašany kluč.",
 	"openstackmanager-deletedkeyfailed": "Kluč njeda so zhašeć.",
 	"prefs-openstack-keys": "Lisćina klučow"
 }
