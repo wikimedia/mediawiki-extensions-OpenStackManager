@@ -12,13 +12,14 @@
 			"Pyscowicz",
 			"Samoasambia",
 			"Silvonen",
+			"Veikk0.ma",
 			"VezonThunder"
 		]
 	},
 	"openstackmanager-desc": "Mahdollistaa Novan ja Swiftin hallinnan wikin kautta",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "Hallitse omia julkisia SSH-avaimia",
-	"specialpages-group-nova": "OpenStack Nova",
+	"specialpages-group-nova": "OpenStack Manager -todennus",
 	"openstackmanager-novakey": "Nova-avain",
 	"openstackmanager-delete": "poista",
 	"openstackmanager-actions": "Toiminnot",
