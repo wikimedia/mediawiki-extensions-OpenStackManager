@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ajeje Brazorf"
+		]
+	},
+	"openstackmanager": "OpenStackManager",
+	"openstackmanager-delete": "cancella",
+	"openstackmanager-actions": "Azzioni",
+	"openstackmanager-name": "Nomu",
+	"openstackmanager-keys": "Chiavi",
+	"openstackmanager-deletedkey": "Chiavi cancillata.",
+	"prefs-openstack-keys": "Elencu chiavi"
+}

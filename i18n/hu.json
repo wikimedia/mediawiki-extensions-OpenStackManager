@@ -9,7 +9,7 @@
 			"Tacsipacsi"
 		]
 	},
-	"openstackmanager-desc": "Lehetővé teszi, hogy a felhasználók kezeljék a Novát és Swiftet",
+	"openstackmanager-desc": "Lehetővé teszi, hogy a felhasználók regisztráljanak shellfiókokat és kezeljék a saját SSH-kulcsaikat",
 	"openstackmanager": "OpenStack-kezelő",
 	"novakey": "Nyilvános SSH-kulcsaid kezelése",
 	"specialpages-group-nova": "OpenStack Nova",

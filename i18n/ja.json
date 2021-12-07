@@ -7,10 +7,11 @@
 			"Shirayuki",
 			"SkyDaisy9",
 			"Sujiniku",
-			"つぶあん派"
+			"つぶあん派",
+			"ネイ"
 		]
 	},
-	"openstackmanager-desc": "利用者が Nova と Swift を管理できるようにする",
+	"openstackmanager-desc": "利用者がシェルのアカウントを登録してSSHキーを管理できるようにする",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "SSH公開鍵の管理",
 	"specialpages-group-nova": "OpenStack Manager認証",
