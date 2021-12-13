@@ -3,11 +3,13 @@
 		"authors": [
 			"Dbc334",
 			"Irena Plahuta",
-			"Janezdrilc"
+			"Janezdrilc",
+			"Eleassar"
 		]
 	},
 	"openstackmanager-delete": "Izbriši",
 	"openstackmanager-actions": "Dejanja",
 	"openstackmanager-notloggedin": "Zahteva se prijava.",
-	"openstackmanager-mustbeloggedin": "Za izvedbo tega dejanja se morate prijaviti."
+	"openstackmanager-mustbeloggedin": "Za izvedbo tega dejanja se morate prijaviti.",
+	"openstackmanager-name": "Ime"
 }

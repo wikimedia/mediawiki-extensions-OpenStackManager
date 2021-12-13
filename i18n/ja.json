@@ -6,13 +6,15 @@
 			"Otokoume",
 			"Shirayuki",
 			"SkyDaisy9",
-			"Sujiniku"
+			"Sujiniku",
+			"つぶあん派",
+			"ネイ"
 		]
 	},
-	"openstackmanager-desc": "利用者が Nova と Swift を管理できるようにする",
+	"openstackmanager-desc": "利用者がシェルのアカウントを登録してSSHキーを管理できるようにする",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "SSH公開鍵の管理",
-	"specialpages-group-nova": "OpenStack Nova",
+	"specialpages-group-nova": "OpenStack Manager認証",
 	"openstackmanager-novakey": "Nova キー",
 	"openstackmanager-delete": "削除",
 	"openstackmanager-hiera-disabled": "これらのページは cloud-vps では使われなくなりました。Puppet および hiera の設定は、Horizon で変更できます。",

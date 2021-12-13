@@ -6,7 +6,8 @@
 			"Jopparn",
 			"Lokal Profil",
 			"Skalman",
-			"WikiPhoenix"
+			"WikiPhoenix",
+			"Sabelöga"
 		]
 	},
 	"openstackmanager-desc": "Låter användare hantera Nova och Swift",
@@ -15,6 +16,7 @@
 	"specialpages-group-nova": "OpenStack Nova",
 	"openstackmanager-novakey": "Nova-nyckel",
 	"openstackmanager-delete": "radera",
+	"openstackmanager-hiera-disabled": "Dessa sidor används inte längre av moln-vps:er. Puppet- och hiera-konfigurering kan ändras i Horizon.",
 	"openstackmanager-actions": "Åtgärder",
 	"openstackmanager-notloggedin": "Inloggning krävs",
 	"openstackmanager-mustbeloggedin": "Du måste vara inloggad för att utföra denna åtgärd.",

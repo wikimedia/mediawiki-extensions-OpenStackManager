@@ -20,7 +20,7 @@
 	"openstackmanager-actions": "פעולות",
 	"openstackmanager-notloggedin": "נדרשת כניסה לחשבון",
 	"openstackmanager-mustbeloggedin": "צריך להיכנס לחשבון כדי לבצע את הפעולה הזאת.",
-	"openstackmanager-novapublickey": "מפתח SSH ציבורי",
+	"openstackmanager-novapublickey": "מפתח SSH ציבורי:",
 	"openstackmanager-prefs-novapublickey": "מפתחות SSH ציבוריים:",
 	"openstackmanager-deletekey": "מחיקת מפתח SSH ציבורי",
 	"openstackmanager-deletekeyconfirm": "האם באמת למחוק את המפתח הנ״ל?",
