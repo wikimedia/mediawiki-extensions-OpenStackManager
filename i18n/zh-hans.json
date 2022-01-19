@@ -15,10 +15,11 @@
 			"Yanmiao liu",
 			"Yfdyh000",
 			"乌拉跨氪",
-			"凡人丶"
+			"凡人丶",
+			"Tranve"
 		]
 	},
-	"openstackmanager-desc": "让用户管理注册Shell账户并管理SSH密钥",
+	"openstackmanager-desc": "让用户管理注册Shell账号并管理SSH密钥",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "管理公共SSH密钥",
 	"specialpages-group-nova": "OpenStack管理验证",
@@ -47,6 +48,6 @@
 	"openstackmanager-shellaccountname-pref": "实例shell帐户名：",
 	"openstackmanager-shellaccountnamehelp": "一个shell账户名是必须的。它只能以a-z开头并且只能包含a-z、0-9和-字符。",
 	"openstackmanager-shellaccountvalidationfail": "您的shell账户名无效。它必须由a~z开头，并且必须且只能包括a~z、0~9和-。",
-	"openstackmanager-shellaccountexists": "该shell账户名已在使用。",
+	"openstackmanager-shellaccountexists": "该shell账号名已在使用。",
 	"prefs-openstack-keys": "密钥列表"
 }
