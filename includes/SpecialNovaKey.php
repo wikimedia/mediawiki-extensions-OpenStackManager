@@ -1,5 +1,13 @@
 <?php
 
+namespace MediaWiki\Extension\OpenStackManager;
+
+use Html;
+use HTMLForm;
+use Linker;
+use SpecialPage;
+use Title;
+
 /**
  * special page for nova key
  *

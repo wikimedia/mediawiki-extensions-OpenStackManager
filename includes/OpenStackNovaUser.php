@@ -1,10 +1,19 @@
 <?php
 
+namespace MediaWiki\Extension\OpenStackManager;
+
 /**
  * @file
  * @ingroup Extensions
  */
+
+use LdapAuthenticationPlugin;
+use Linker;
 use MediaWiki\MediaWikiServices;
+use RequestContext;
+use SpecialPage;
+use Title;
+use User;
 
 class OpenStackNovaUser {
 

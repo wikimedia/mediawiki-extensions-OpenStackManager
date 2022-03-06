@@ -12,13 +12,13 @@
 	"AuthManagerAutoConfig": {
 		"preauth": {
 			"OpenStackNovaSecondaryAuthenticationProvider": {
-				"class": "OpenStackNovaSecondaryAuthenticationProvider",
+				"class": "MediaWiki\\Extension\\OpenStackManager\\OpenStackNovaSecondaryAuthenticationProvider",
 				"sort": 0
 			}
 		}
 	},
 	"SpecialPages": {
-		"NovaKey": "SpecialNovaKey"
+		"NovaKey": "MediaWiki\\Extension\\OpenStackManager\\SpecialNovaKey"
 	},
 	"MessagesDirs": {
 		"OpenStackManager": [
@@ -28,18 +28,15 @@
 	"ExtensionMessagesFiles": {
 		"OpenStackManagerAlias": "OpenStackManager.alias.php"
 	},
-	"AutoloadClasses": {
-		"OpenStackNovaUser": "includes/OpenStackNovaUser.php",
-		"OpenStackNovaShellAccountNameRequest": "includes/OpenStackNovaShellAccountNameRequest.php",
-		"OpenStackNovaSecondaryAuthenticationProvider": "includes/OpenStackNovaSecondaryAuthenticationProvider.php",
-		"SpecialNovaKey": "includes/SpecialNovaKey.php"
+	"AutoloadNamespaces": {
+		"MediaWiki\\Extension\\OpenStackManager\\": "includes/"
 	},
 	"Hooks": {
-		"getUserPermissionsErrors": "OpenStackNovaUser::getUserPermissionsErrors",
-		"LDAPSetCreationValues": "OpenStackNovaUser::LDAPSetCreationValues",
-		"LDAPRetrySetCreationValues": "OpenStackNovaUser::LDAPRetrySetCreationValues",
-		"GetPreferences": "OpenStackNovaUser::novaUserPreferences",
-		"AuthChangeFormFields": "OpenStackNovaUser::AuthChangeFormFields"
+		"getUserPermissionsErrors": "MediaWiki\\Extension\\OpenStackManager\\OpenStackNovaUser::getUserPermissionsErrors",
+		"LDAPSetCreationValues": "MediaWiki\\Extension\\OpenStackManager\\OpenStackNovaUser::LDAPSetCreationValues",
+		"LDAPRetrySetCreationValues": "MediaWiki\\Extension\\OpenStackManager\\OpenStackNovaUser::LDAPRetrySetCreationValues",
+		"GetPreferences": "MediaWiki\\Extension\\OpenStackManager\\OpenStackNovaUser::novaUserPreferences",
+		"AuthChangeFormFields": "MediaWiki\\Extension\\OpenStackManager\\OpenStackNovaUser::AuthChangeFormFields"
 	},
 	"namespaces": [
 		{

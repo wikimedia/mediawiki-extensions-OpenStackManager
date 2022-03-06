@@ -1,8 +1,14 @@
 <?php
 
+namespace MediaWiki\Extension\OpenStackManager;
+
+use ExtensionRegistry;
+use LdapAuthenticationPlugin;
 use MediaWiki\Auth\AbstractPreAuthenticationProvider;
 use MediaWiki\Auth\AuthenticationRequest;
 use MediaWiki\Auth\AuthManager;
+use StatusValue;
+use TitleBlacklistHooks;
 
 class OpenStackNovaSecondaryAuthenticationProvider
 	extends AbstractPreAuthenticationProvider

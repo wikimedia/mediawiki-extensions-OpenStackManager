@@ -1,5 +1,7 @@
 <?php
 
+namespace MediaWiki\Extension\OpenStackManager;
+
 use MediaWiki\Auth\AuthenticationRequest;
 
 class OpenStackNovaShellAccountNameRequest extends AuthenticationRequest {
