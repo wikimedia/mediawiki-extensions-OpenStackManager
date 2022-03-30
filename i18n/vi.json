@@ -2,12 +2,13 @@
 	"@metadata": {
 		"authors": [
 			"Minh Nguyen",
+			"NguoiDungKhongDinhDanh",
 			"පසිඳු කාවින්ද"
 		]
 	},
 	"openstackmanager-desc": "Cho phép người dùng quản lý Nova và Swift",
 	"openstackmanager": "OpenStackManager",
-	"novakey": "Quản lý các chìa khóa SSH công cộng",
+	"novakey": "Quản lý khóa SSH công khai",
 	"specialpages-group-nova": "OpenStack Nova",
 	"openstackmanager-novakey": "Khóa Nova",
 	"openstackmanager-delete": "xóa",
@@ -15,10 +16,10 @@
 	"openstackmanager-notloggedin": "Cần đăng nhập",
 	"openstackmanager-mustbeloggedin": "Bạn phải đăng nhập để thực hiện tác vụ này.",
 	"openstackmanager-novapublickey": "Chìa khóa SSH công cộng",
-	"openstackmanager-prefs-novapublickey": "Chìa khóa SSH công cộng:",
-	"openstackmanager-deletekey": "Xóa chìa khóa SSH công cộng",
+	"openstackmanager-prefs-novapublickey": "Khóa SSH công khai:",
+	"openstackmanager-deletekey": "Xóa khóa SSH công khai",
 	"openstackmanager-deletekeyconfirm": "Bạn có chắc chắn muốn xóa khóa ở trên?",
-	"openstackmanager-keylist": "Danh sách chìa khóa SSH công cộng",
+	"openstackmanager-keylist": "Danh sách khóa SSH công khai",
 	"openstackmanager-addkey": "Thêm chìa khóa SSH công cộng",
 	"openstackmanager-name": "Tên",
 	"openstackmanager-keys": "Khóa",
