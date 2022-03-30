@@ -11,7 +11,8 @@
 			"Mjbmr",
 			"Reza1615",
 			"ZxxZxxZ",
-			"جواد"
+			"جواد",
+			"Beginneruser"
 		]
 	},
 	"openstackmanager-desc": "اجازه دادن به کاربران برای اداره کردن نوا و سوییفت",
@@ -43,7 +44,7 @@
 	"openstackmanager-shellaccountname-pref": "نمونهٔ نام حساب پوسته:",
 	"openstackmanager-shellaccountnamehelp": "یک نام حساب پوسته مورد نیاز است.\nباید با یک a-z شروع شود، و فقط می تواند شامل حروف کوچک a-z، 0-9 و مشخصه‌های - باشد.",
 	"openstackmanager-shellaccountvalidationfail": "نام حساب پوسته شما نامعتبر است.\nباید با a-z شروع شود،و فقط می تواند شامل حروف a-z، 0-9 و مشخصه‌های - باشد.",
-	"openstackmanager-shellaccountexists": "نام حساب پوسته در حال حاضر در حال استفاده است.",
+	"openstackmanager-shellaccountexists": "این نام پوسته حساب از قبل استفاده است.",
 	"prefs-openstack": "اُپن‌استک",
 	"prefs-openstack-keys": "فهرست کلیدی"
 }
