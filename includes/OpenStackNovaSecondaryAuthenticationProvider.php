@@ -7,8 +7,8 @@ use LdapAuthenticationPlugin;
 use MediaWiki\Auth\AbstractPreAuthenticationProvider;
 use MediaWiki\Auth\AuthenticationRequest;
 use MediaWiki\Auth\AuthManager;
+use MediaWiki\Extension\TitleBlacklist\Hooks;
 use StatusValue;
-use TitleBlacklistHooks;
 
 class OpenStackNovaSecondaryAuthenticationProvider
 	extends AbstractPreAuthenticationProvider
@@ -54,7 +54,7 @@ class OpenStackNovaSecondaryAuthenticationProvider
 
 		$sv = StatusValue::newGood();
 		if ( ExtensionRegistry::getInstance()->isLoaded( 'TitleBlacklist' ) ) {
-			$sv->merge( TitleBlacklistHooks::testUserName(
+			$sv->merge( Hooks::testUserName(
 				$shellaccountname,
 				$creator,
 				$override = false,
