@@ -110,10 +110,6 @@
 		"SshKeygen": {
 			"description": "Path to the ssh-keygen utility. Used for converting ssh key formats. False to disable its use",
 			"value": "ssh-keygen"
-		},
-		"Puttygen": {
-			"description": "Path to the puttygen utility. Used for converting ssh key formats. False to disable its use",
-			"value": "puttygen"
 		}
 	},
 	"manifest_version": 2

@@ -132,89 +132,11 @@ class SpecialNovaKey extends SpecialPage {
 	}
 
 	/**
-	 * Converts a public ssh key to openssh format.
+	 * Converts a public ssh key to openssh format using ssh-keygen.
 	 * @param string $keydata SSH public/private key in some format
 	 * @return mixed Public key in openssh format or false
 	 */
 	private static function opensshFormatKey( $keydata ) {
-		$public = self::opensshFormatKeySshKeygen( $keydata );
-
-		if ( !$public ) {
-			$public = self::opensshFormatKeyPuttygen( $keydata );
-		}
-
-		return $public;
-	}
-
-	/**
-	 * Converts a public ssh key to openssh format, using puttygen.
-	 * @param string $keydata SSH public/private key in some format
-	 * @return mixed Public key in openssh format or false
-	 */
-	private static function opensshFormatKeyPuttygen( $keydata ) {
-		global $wgPuttygen;
-
-		if ( wfIsWindows() || !$wgPuttygen ) {
-			return false;
-		}
-
-		// We need to store the key in a file, as puttygen opens it several times.
-		$tmpfile = tmpfile();
-		if ( !$tmpfile ) {
-			return false;
-		}
-
-		fwrite( $tmpfile, $keydata );
-
-		$descriptorspec = [
-			0 => $tmpfile,
-			1 => [ "pipe", "w" ],
-			2 => [ "file", wfGetNull(), "a" ]
-		];
-
-		$process = proc_open(
-			escapeshellcmd( $wgPuttygen ) . ' -O public-openssh -o /dev/stdout /dev/stdin',
-			$descriptorspec,
-			$pipes
-		);
-		if ( $process === false ) {
-			return false;
-		}
-
-		$data = stream_get_contents( $pipes[1] );
-		fclose( $pipes[1] );
-		proc_close( $process );
-
-		/* Overwrite the file with nulls, padded to the next 4KB boundary.
-		 * This shouldn't be needed, as it is a public key material, and
-		 * it's going to be stored in a place from which it's probably
-		 * easier to retrieve than a deleted file.
-		 * However, there's no reason to have it unnecessary copies, in
-		 * some cases (certain DSA keys) the private key can be extracted
-		 * from public one, and there could be worse attacks in the future.
-		 * Moreover, if someone provided the private key to Special:NovaKey,
-		 * this function would strip it to the public part, but we'd still
-		 * need not to keep such information we should have never been given.
-		 */
-		rewind( $tmpfile );
-		fwrite( $tmpfile,
-			str_repeat( "\0", strlen( $keydata ) + 4096 - strlen( $keydata ) % 4096 )
-		);
-		fclose( $tmpfile );
-
-		if ( $data === false || !preg_match( '/(^| )ssh-(rsa|dss) /', $data ) ) {
-			return false;
-		}
-
-		return $data;
-	}
-
-	/**
-	 * Converts a public ssh key to openssh format, using ssh-keygen.
-	 * @param string $keydata SSH public/private key in some format
-	 * @return mixed Public key in openssh format or false
-	 */
-	private static function opensshFormatKeySshKeygen( $keydata ) {
 		global $wgSshKeygen;
 
 		if ( wfIsWindows() || !$wgSshKeygen ) {
