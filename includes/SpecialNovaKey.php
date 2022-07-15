@@ -4,7 +4,6 @@ namespace MediaWiki\Extension\OpenStackManager;
 
 use Html;
 use HTMLForm;
-use Linker;
 use SpecialPage;
 use Title;
 
@@ -250,15 +249,6 @@ class SpecialNovaKey extends SpecialPage {
 		$this->setHeaders();
 		$this->getOutput()->setPageTitle( $this->msg( 'openstackmanager-notloggedin' ) );
 		$this->getOutput()->addWikiMsg( 'openstackmanager-mustbeloggedin' );
-	}
-
-	public static function createNovaKeyActionLink( $msg, $params ) {
-		return Linker::link(
-			SpecialPage::getTitleFor( 'NovaKey' ),
-			wfMessage( $msg )->escaped(),
-			[],
-			$params
-		);
 	}
 
 	public static function createResourceList( $resources ) {

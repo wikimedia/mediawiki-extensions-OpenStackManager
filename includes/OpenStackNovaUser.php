@@ -8,7 +8,6 @@ namespace MediaWiki\Extension\OpenStackManager;
  */
 
 use LdapAuthenticationPlugin;
-use Linker;
 use MediaWiki\MediaWikiServices;
 use RequestContext;
 use SpecialPage;
@@ -387,12 +386,17 @@ class OpenStackNovaUser {
 		$headers = [ 'openstackmanager-keys', 'openstackmanager-actions' ];
 		$keypairs = $user->getKeypairs();
 		$keyRows = [];
+
+		$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
+
 		foreach ( $keypairs as $hash => $key ) {
 			$keyRow = [];
 			SpecialNovaKey::pushResourceColumn( $keyRow, $key, [ 'class' => 'Nova_col' ] );
 			$actions = [];
-			$actions[] = SpecialNovaKey::createNovaKeyActionLink(
-				'openstackmanager-delete',
+			$actions[] = $linkRenderer->makeLink(
+				SpecialPage::getTitleFor( 'NovaKey' ),
+				wfMessage( 'openstackmanager-delete' )->text(),
+				[],
 				[
 					'action' => 'delete',
 					'hash' => $hash,
@@ -408,9 +412,9 @@ class OpenStackNovaUser {
 		}
 		$out .= SpecialNovaKey::createResourceTable( $headers, $keyRows );
 
-		$out .= Linker::link(
+		$out .= $linkRenderer->makeLink(
 			SpecialPage::getTitleFor( 'NovaKey' ),
-			wfMessage( 'openstackmanager-addkey' )->escaped(),
+			wfMessage( 'openstackmanager-addkey' )->text(),
 			[],
 			[
 				'returnto' => SpecialPage::getTitleFor(
