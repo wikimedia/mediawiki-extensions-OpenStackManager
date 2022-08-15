@@ -29,7 +29,7 @@
 	"openstackmanager-keypairimported": "Daouad alc'hwezioù enporzhiet.",
 	"openstackmanager-keypairimportedfingerprint": "Enporzhiet an daouad alc'hwezioù $1, gant roudoù bizied $2.",
 	"openstackmanager-keypairformatwrong": "Direizh e oa an alc'hwez SSH pourchaset, pe en ur furmad dianav.",
-	"openstackmanager-deletedkey": "Diverket eo bet an alc'hwez ervat.",
+	"openstackmanager-deletedkey": "Diverket eo bet an alc'hwez.",
 	"openstackmanager-deletedkeyfailed": "N'eus ket bet gallet diverkañ an alc'hwez.",
 	"openstackmanager-shellaccountname": "Anv ar gont shell evit an urzhiataer galloudel",
 	"openstackmanager-shellaccountnamehelp": "Rankout a ra anv ar gont shell kregiñ gant ul lizherenn (a-z), ha bezañ ennañ lizherennoù (a-z), sifroù (0-9), ha tiredoù (- pe _) hepken.",
