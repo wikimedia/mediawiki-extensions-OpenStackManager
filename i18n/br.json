@@ -7,10 +7,10 @@
 			"Y-M D"
 		]
 	},
-	"openstackmanager-desc": "Lezel a ra an implijerien da verañ Nova ha Swift",
+	"openstackmanager-desc": "Reiñ a ra an tu d’an implijerien da enrollañ o c’hontoù shell ha da verañ o alc’hwezioù SSH",
 	"openstackmanager": "Merour OpenStack",
 	"novakey": "Merañ hoc'h alc'hwezhioù foran SSH",
-	"specialpages-group-nova": "Nova OpenStack",
+	"specialpages-group-nova": "Dilesadur OpenStack Manager",
 	"openstackmanager-novakey": "Alc'hwez Nova",
 	"openstackmanager-delete": "diverkañ",
 	"openstackmanager-actions": "Oberiadennoù",
