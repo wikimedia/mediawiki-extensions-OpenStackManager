@@ -10,13 +10,16 @@
 	"specialpages-group-nova": "Authentication pro OpenStack Manager",
 	"openstackmanager-novakey": "Clave de Nova",
 	"openstackmanager-delete": "deler",
+	"openstackmanager-hiera-disabled": "Iste paginas non es plus usate per cloud-vps. Le configuration 'puppet' e 'hiera' pote esser modificate in Horizon.",
 	"openstackmanager-actions": "Actiones",
 	"openstackmanager-notloggedin": "Identification necessari",
 	"openstackmanager-mustbeloggedin": "Es necessari aperir session pro exequer iste action.",
 	"openstackmanager-novapublickey": "Clave SSH public",
+	"openstackmanager-prefs-novapublickey": "Claves SSH public:",
 	"openstackmanager-deletekey": "Deler clave SSH public",
 	"openstackmanager-deletekeyconfirm": "Es tu secur de voler deler le clave hic supra?",
 	"openstackmanager-keylist": "Lista de claves SSH public",
+	"openstackmanager-addkey": "Adder clave SSH public",
 	"openstackmanager-name": "Nomine",
 	"openstackmanager-fingerprint": "Impression digital",
 	"openstackmanager-keys": "Claves",
@@ -28,5 +31,9 @@
 	"openstackmanager-deletedkey": "Le clave ha essite delite.",
 	"openstackmanager-deletedkeyfailed": "Deletion de clave fallite.",
 	"openstackmanager-shellaccountname": "Nomine del conto de shell del instantia",
-	"openstackmanager-shellaccountnamehelp": "Le nomine de un conto de shell es requirite.\nIllo debe comenciar con a-z, e pote solmente continer le characteres a-z, 0-9 e -."
+	"openstackmanager-shellaccountname-pref": "Nomine del conto de shell del instantia:",
+	"openstackmanager-shellaccountnamehelp": "Le nomine de un conto de shell es requirite.\nIllo debe comenciar con a-z, e pote solmente continer le characteres a-z, 0-9 e -.",
+	"openstackmanager-shellaccountvalidationfail": "Iste nomine de conto de shell non es valide.\nIllo debe comenciar con a-z, e pote solmente continer le characteres a-z, 0-9 e -.",
+	"openstackmanager-shellaccountexists": "Iste nomine de conto de shell es ja in uso.",
+	"prefs-openstack-keys": "Lista de claves"
 }
