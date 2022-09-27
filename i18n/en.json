@@ -38,5 +38,6 @@
 	"openstackmanager-shellaccountvalidationfail": "Your shell account name is invalid.\nIt must start with a-z, and can only contain lowercase a-z, 0-9, and - characters.",
 	"openstackmanager-shellaccountexists": "That shell account name is already in use.",
 	"prefs-openstack": "OpenStack",
+	"prefs-description-openstack": "Add or review a public SSH key.",
 	"prefs-openstack-keys": "Key list"
 }

@@ -55,5 +55,6 @@
 	"openstackmanager-shellaccountvalidationfail": "Failure message if user has an invalid character in shell name.",
 	"openstackmanager-shellaccountexists": "Failure message if user requests a shell name already in use.",
 	"prefs-openstack": "{{optional}}\nTitle for a tab in Preferences for OpenStack related items",
+	"prefs-description-openstack": "Used in [[Special:Preferences]] for mobile to describe the OpenStack features section.",
 	"prefs-openstack-keys": "Subheading used in the Preferences -> OpenStack for a the public SSH key list"
 }
