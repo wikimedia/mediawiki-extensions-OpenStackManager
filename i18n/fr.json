@@ -60,5 +60,6 @@
 	"openstackmanager-shellaccountvalidationfail": "Votre nom de compte d’interpréteur n’est pas valide.\nIl doit commencer par une lettre minuscule (a–z) et ne peut contenir que des minuscules (a–z), des chiffres (0–9) ou des traits d’union (-).",
 	"openstackmanager-shellaccountexists": "Ce nom de compte d’interpréteur de commandes est déjà utilisé.",
 	"prefs-openstack": "OpenStack",
+	"prefs-description-openstack": "Ajouter ou passer en revue une clé SSH publique.",
 	"prefs-openstack-keys": "Liste de clés"
 }

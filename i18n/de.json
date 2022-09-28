@@ -42,5 +42,6 @@
 	"openstackmanager-shellaccountvalidationfail": "Dein Shell-Kontenname ist ungültig.\nEr muss mit a–z beginnen und kann nur Kleinbuchstaben, Ziffern (0–9) und Bindestriche (-) enthalten.",
 	"openstackmanager-shellaccountexists": "Dieser Shell-Kontenname ist bereits in Verwendung.",
 	"prefs-openstack": "OpenStack",
+	"prefs-description-openstack": "Hinzufügen oder Überprüfen eines öffentlichen SSH-Schlüssels.",
 	"prefs-openstack-keys": "Schlüsselliste"
 }

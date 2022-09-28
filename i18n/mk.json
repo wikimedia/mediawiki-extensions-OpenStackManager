@@ -37,5 +37,6 @@
 	"openstackmanager-shellaccountvalidationfail": "Името на сметката за лушпата е неважечко.\nМора да почнува со буква (a-z), а може да содржи само мали букви, бројки (0-9) и цртички (-).",
 	"openstackmanager-shellaccountexists": "Тоа корисничко име за лушпа е зафатено.",
 	"prefs-openstack": "OpenStack",
+	"prefs-description-openstack": "Додај или прегледај јавен SSH-клуч.",
 	"prefs-openstack-keys": "Список на клучеви"
 }
