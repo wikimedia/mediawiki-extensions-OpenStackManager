@@ -11,5 +11,6 @@
 	"openstackmanager-actions": "Dejanja",
 	"openstackmanager-notloggedin": "Zahteva se prijava.",
 	"openstackmanager-mustbeloggedin": "Za izvedbo tega dejanja se morate prijaviti.",
-	"openstackmanager-name": "Ime"
+	"openstackmanager-name": "Ime",
+	"prefs-description-openstack": "Dodaj ali preglej javni ključ SSH."
 }
