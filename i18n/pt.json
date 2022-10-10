@@ -19,9 +19,10 @@
 	"openstackmanager-desc": "Permite que os utilizadores registem contas remotas e administrem as suas chaves SSH",
 	"openstackmanager": "OpenStackManager",
 	"novakey": "Gerir as suas chaves SSH públicas",
-	"specialpages-group-nova": "OpenStack Nova",
+	"specialpages-group-nova": "Autenticação do OpenStack Manager",
 	"openstackmanager-novakey": "Chave do Nova",
 	"openstackmanager-delete": "eliminar",
+	"openstackmanager-hiera-disabled": "Essas páginas já não são usadas por \"cloud-vps\". A configuração de \"puppet\" e \"hiera\" pode ser modificada em \"Horizon\".",
 	"openstackmanager-actions": "Ações",
 	"openstackmanager-notloggedin": "Autenticação necessária",
 	"openstackmanager-mustbeloggedin": "Tem de estar autenticado para executar esta ação.",
@@ -42,9 +43,11 @@
 	"openstackmanager-deletedkey": "Chave eliminada.",
 	"openstackmanager-deletedkeyfailed": "Não foi possível eliminar a chave.",
 	"openstackmanager-shellaccountname": "Nome da conta <i>shell</i> desta instância",
+	"openstackmanager-shellaccountname-placeholder": "Introduza o nome da sua conta <i>shell</i>",
 	"openstackmanager-shellaccountname-pref": "Nome da conta <i>shell</i> desta instância:",
 	"openstackmanager-shellaccountnamehelp": "É necessário um nome de conta <i>shell</i>.\nO nome deve começar com uma letra a-z e só pode conter as letras minúsculas a-z, 0-9 e -.",
 	"openstackmanager-shellaccountvalidationfail": "O seu nome de conta <i>shell</i> é inválido.\nO nome deve começar com uma letra a-z e só pode conter as letras minúsculas a-z, 0-9 e -.",
 	"openstackmanager-shellaccountexists": "Esse nome de conta <i>shell</i> já está em uso.",
+	"prefs-description-openstack": "Adicionar ou rever uma chave SSH pública.",
 	"prefs-openstack-keys": "Lista de chaves"
 }
