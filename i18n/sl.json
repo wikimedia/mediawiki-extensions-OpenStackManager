@@ -10,7 +10,7 @@
 	"openstackmanager-delete": "Izbriši",
 	"openstackmanager-actions": "Dejanja",
 	"openstackmanager-notloggedin": "Zahteva se prijava.",
-	"openstackmanager-mustbeloggedin": "Za izvedbo tega dejanja se morate prijaviti.",
+	"openstackmanager-mustbeloggedin": "Za izvedbo tega dejanja morate biti prijavljeni.",
 	"openstackmanager-name": "Ime",
 	"prefs-description-openstack": "Dodaj ali preglej javni ključ SSH."
 }
