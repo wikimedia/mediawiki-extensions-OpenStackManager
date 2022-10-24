@@ -2,8 +2,23 @@
 	"@metadata": {
 		"authors": [
 			"Iwan Novirion",
+			"Veracious",
 			"පසිඳු කාවින්ද"
 		]
 	},
-	"openstackmanager-name": "Nama"
+	"openstackmanager": "OpenStackManager",
+	"novakey": "Kelola kunci SSH publik Anda",
+	"specialpages-group-nova": "Otentikasi Manager OpenStack",
+	"openstackmanager-novakey": "Kunci Nova",
+	"openstackmanager-delete": "hapus",
+	"openstackmanager-novapublickey": "Kunci SSH publik:",
+	"openstackmanager-prefs-novapublickey": "Kunci SSH publik:",
+	"openstackmanager-deletekey": "Hapus kunci SSH publik",
+	"openstackmanager-deletekeyconfirm": "Apakah Anda yakin ingin menghapus kunci di atas?",
+	"openstackmanager-keylist": "Daftar kunci SSH publik",
+	"openstackmanager-addkey": "Tambahkan kunci SSH publik",
+	"openstackmanager-name": "Nama",
+	"openstackmanager-deletedkey": "Kunci yang dihapus.",
+	"openstackmanager-deletedkeyfailed": "Gagal menghapus kunci.",
+	"prefs-openstack-keys": "Daftar kunci"
 }
