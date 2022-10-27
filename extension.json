@@ -36,7 +36,8 @@
 		"LDAPSetCreationValues": "MediaWiki\\Extension\\OpenStackManager\\OpenStackNovaUser::LDAPSetCreationValues",
 		"LDAPRetrySetCreationValues": "MediaWiki\\Extension\\OpenStackManager\\OpenStackNovaUser::LDAPRetrySetCreationValues",
 		"GetPreferences": "MediaWiki\\Extension\\OpenStackManager\\OpenStackNovaUser::novaUserPreferences",
-		"AuthChangeFormFields": "MediaWiki\\Extension\\OpenStackManager\\OpenStackNovaUser::AuthChangeFormFields"
+		"AuthChangeFormFields": "MediaWiki\\Extension\\OpenStackManager\\OpenStackNovaUser::AuthChangeFormFields",
+		"PreferencesGetIcon": "MediaWiki\\Extension\\OpenStackManager\\OpenStackNovaUser::onPreferencesGetIcon"
 	},
 	"namespaces": [
 		{
