@@ -46,7 +46,7 @@
 	"openstackmanager-deletedkey": "已删除密钥。",
 	"openstackmanager-deletedkeyfailed": "删除密钥失败。",
 	"openstackmanager-shellaccountname": "实例外壳帐号名称",
-	"openstackmanager-shellaccountname-pref": "实例shell帐户名：",
+	"openstackmanager-shellaccountname-pref": "实例shell账户名：",
 	"openstackmanager-shellaccountnamehelp": "一个shell账户名是必须的。它只能以a-z开头并且只能包含a-z、0-9和-字符。",
 	"openstackmanager-shellaccountvalidationfail": "您的shell账户名无效。它必须由a~z开头，并且必须且只能包括a~z、0~9和-。",
 	"openstackmanager-shellaccountexists": "该shell账号名已在使用。",
