@@ -3,7 +3,8 @@
 		"authors": [
 			"Milicevic01",
 			"Vlad5250",
-			"Zoranzoki21"
+			"Zoranzoki21",
+			"Kizule"
 		]
 	},
 	"openstackmanager-novakey": "Ključ Nove",
@@ -12,6 +13,7 @@
 	"openstackmanager-notloggedin": "Potrebna je prijava",
 	"openstackmanager-mustbeloggedin": "Morate biti prijavljeni da biste izvršili ovu radnju.",
 	"openstackmanager-novapublickey": "Javni SSH ključ",
+	"openstackmanager-prefs-novapublickey": "Javni SSH ključevi:",
 	"openstackmanager-deletekey": "Brisanje javnog SSH ključa",
 	"openstackmanager-deletekeyconfirm": "Želite li da obrišete gorenavedeni ključ?",
 	"openstackmanager-keylist": "Spisak javnih SSH ključeva",
@@ -19,9 +21,9 @@
 	"openstackmanager-name": "Naziv",
 	"openstackmanager-fingerprint": "Otisak",
 	"openstackmanager-keys": "Ključevi",
-	"openstackmanager-keypairimportfailed": "Došlo je do greške prilikom uvoza ključa.",
-	"openstackmanager-keypairimported": "Ključ je uspešno uvezen.",
-	"openstackmanager-deletedkey": "Ključ je uspešno obrisan.",
+	"openstackmanager-keypairimportfailed": "Uvoženje para ključeva nije uspelo.",
+	"openstackmanager-keypairimported": "Par ključeva je uvezen.",
+	"openstackmanager-deletedkey": "Ključ je obrisan.",
 	"openstackmanager-deletedkeyfailed": "Ne mogu da obrišem ključ.",
 	"prefs-openstack-keys": "Spisak ključeva"
 }
