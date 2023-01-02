@@ -25,5 +25,7 @@
 	"openstackmanager-keypairimportfailed": "Nije uspio uvoz para ključeva.",
 	"openstackmanager-keypairimported": "Par ključeva je uvezen.",
 	"openstackmanager-deletedkey": "Ključ je obrisan.",
-	"openstackmanager-deletedkeyfailed": "Nije uspjelo brisanje ključa."
+	"openstackmanager-deletedkeyfailed": "Nije uspjelo brisanje ključa.",
+	"openstackmanager-shellaccountnamehelp": "Potrebno je ime shell računa.\nMora započeti s latiničnih slova (a–z) i može sadržavati samo mala latinična slova, brojke (0–9), kao i znak -.",
+	"openstackmanager-shellaccountvalidationfail": "Ime vašeg shell računa nije važeće.\nMora započeti sa slova (a–z), i može sadržavati samo mala slova, brojke (0–9) i znak -."
 }
