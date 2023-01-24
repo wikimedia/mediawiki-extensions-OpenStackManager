@@ -47,5 +47,6 @@
 	"openstackmanager-shellaccountnamehelp": "Shell 帳號名稱為必填。\nShell 帳號名稱須以 a-z 開頭，並僅能使用小寫字母 a-z、0-9 與 - 符號。",
 	"openstackmanager-shellaccountvalidationfail": "您的 Shell 帳號名稱無效。\nShell 帳號名稱須以 a-z 開頭，並僅能使用小寫字母 a-z、0-9 與 - 符號。",
 	"openstackmanager-shellaccountexists": "該 Shell 帳號名稱已被使用。",
+	"prefs-description-openstack": "增加或檢視公用 SSH 金鑰。",
 	"prefs-openstack-keys": "金鑰清單"
 }
