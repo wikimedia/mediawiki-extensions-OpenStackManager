@@ -5,5 +5,7 @@
 		]
 	},
 	"openstackmanager-delete": "jaukkâd",
+	"openstackmanager-notloggedin": "Õõlǥak ǩeeʹrjtõõttâd sizz",
+	"openstackmanager-mustbeloggedin": "Õõlǥak ǩeeʹrjtõõttâd sizz, što vuäitak tän raajjâd.",
 	"openstackmanager-name": "Nõmm"
 }
