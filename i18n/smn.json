@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Yupik"
+			"Yupik",
+			"Seipinne"
 		]
 	},
 	"openstackmanager-delete": "siho",
+	"openstackmanager-actions": "Tooimah",
 	"openstackmanager-name": "Nommâ"
 }
