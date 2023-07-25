@@ -11,7 +11,12 @@
 	},
 	"openstackmanager-delete": "ištrinti",
 	"openstackmanager-actions": "Veiksmai",
+	"openstackmanager-notloggedin": "Reikalingas prisijungimas",
+	"openstackmanager-mustbeloggedin": "Norėdami atlikti šį veiksmą, turite būti prisijungę.",
 	"openstackmanager-name": "Pavadinimas",
 	"openstackmanager-fingerprint": "Piršto atspaudas",
-	"openstackmanager-deletedkey": "Ištrinti raktą."
+	"openstackmanager-keys": "Raktai",
+	"openstackmanager-deletedkey": "Ištrinti raktą.",
+	"openstackmanager-deletedkeyfailed": "Nepavyko ištrinti rakto.",
+	"prefs-openstack-keys": "Raktų sąrašas"
 }
