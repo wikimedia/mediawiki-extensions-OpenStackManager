@@ -34,9 +34,11 @@
 	"openstackmanager-deletedkey": "Slettet nøkkel.",
 	"openstackmanager-deletedkeyfailed": "Kunne ikke slette nøkkel.",
 	"openstackmanager-shellaccountname": "Instansens shell-kontonavn",
+	"openstackmanager-shellaccountname-placeholder": "Skriv inn shell-kontonavnet ditt",
 	"openstackmanager-shellaccountname-pref": "Instansens shell-kontonavn:",
 	"openstackmanager-shellaccountnamehelp": "Et shell-kontonavn er påkrevd.\nDet må begynne med a-z, og kan kun inneholde små bokstaver a-z, 0-0 og tegnet -.",
 	"openstackmanager-shellaccountvalidationfail": "Shell-kontonavnet ditt er ugyldig.\nDet må begynne med a-z, og kan kun inneholde små bokstaver a-z, 0-9 og tegnet -.",
 	"openstackmanager-shellaccountexists": "Det shell-kontonavnet er allerede i bruk.",
+	"prefs-description-openstack": "Legg til eller gå gjennom en offentlig SSH-nøkkel.",
 	"prefs-openstack-keys": "Nøkkelliste"
 }
