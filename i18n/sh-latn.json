@@ -1,0 +1,31 @@
+{
+	"@metadata": {
+		"authors": [
+			"Winston Sung"
+		]
+	},
+	"openstackmanager-desc": "Daje mogućnost korisnicima da upravljaju sa Nova i Swift",
+	"openstackmanager": "OpenStackManager",
+	"novakey": "Upravljanje svojim javnim SSH ključevima",
+	"specialpages-group-nova": "OpenStack Manager authentication",
+	"openstackmanager-novakey": "Ključ Nove",
+	"openstackmanager-delete": "obriši",
+	"openstackmanager-actions": "Radnje",
+	"openstackmanager-notloggedin": "Potrebno je prijavljivanje",
+	"openstackmanager-mustbeloggedin": "Morate biti prijavljeni da biste izvršili ovaj postupak.",
+	"openstackmanager-novapublickey": "Javni SSH ključ",
+	"openstackmanager-prefs-novapublickey": "Javni SSH ključevi:",
+	"openstackmanager-deletekey": "Izbriši javni SSH-ključ",
+	"openstackmanager-deletekeyconfirm": "Da li ste sigurni da želite obrisati gorenavedeni ključ?",
+	"openstackmanager-keylist": "Spisak javnih SSH-ključeva",
+	"openstackmanager-addkey": "Dodaj javni SSH-ključ",
+	"openstackmanager-name": "Ime",
+	"openstackmanager-fingerprint": "Otisak prsta",
+	"openstackmanager-keys": "Ključevi",
+	"openstackmanager-keypairimportfailed": "Nije uspio uvoz para ključeva.",
+	"openstackmanager-keypairimported": "Par ključeva je uvezen.",
+	"openstackmanager-deletedkey": "Ključ je obrisan.",
+	"openstackmanager-deletedkeyfailed": "Nije uspjelo brisanje ključa.",
+	"openstackmanager-shellaccountnamehelp": "Potrebno je ime shell računa.\nMora započeti s latiničnih slova (a–z) i može sadržavati samo mala latinična slova, brojke (0–9), kao i znak -.",
+	"openstackmanager-shellaccountvalidationfail": "Ime vašeg shell računa nije važeće.\nMora započeti sa slova (a–z), i može sadržavati samo mala slova, brojke (0–9) i znak -."
+}
