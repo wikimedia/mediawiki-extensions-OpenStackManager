@@ -34,6 +34,5 @@
 	"openstackmanager-shellaccountname": "インスタンスのシェルのアカウント名",
 	"openstackmanager-shellaccountname-pref": "インスタンスのシェルのアカウント名:",
 	"openstackmanager-shellaccountexists": "指定したシェル アカウント名は既に使用されています。",
-	"prefs-openstack": "OpenStack",
 	"prefs-openstack-keys": "キーの一覧"
 }

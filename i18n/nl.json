@@ -46,6 +46,5 @@
 	"openstackmanager-shellaccountnamehelp": "Een naam voor de shellgebruikersnaam is verplicht.\nDeze moet beginnen met a-z en kan alleen de onderkasttekens a-z, 0-9 en - bevatten.",
 	"openstackmanager-shellaccountvalidationfail": "Uw shellaccountnaam is ongeldig.\nDeze moet beginnen met a-z en mag alleen kleine letter, 0-9 en het teken \"-\" bevatten.",
 	"openstackmanager-shellaccountexists": "Die shelaccountnaam is al in gebruik.",
-	"prefs-openstack": "OpenStack",
 	"prefs-openstack-keys": "Sleutellijst"
 }

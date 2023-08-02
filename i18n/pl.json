@@ -40,7 +40,6 @@
 	"openstackmanager-keypairformatconverted": "Format klucza SSH został automatycznie zmieniony.",
 	"openstackmanager-deletedkey": "Usunięto klucz.",
 	"openstackmanager-deletedkeyfailed": "Nie udało się usunąć klucza.",
-	"prefs-openstack": "OpenStack",
 	"prefs-description-openstack": "Dodaj lub przejrzyj publiczny klucz SSH.",
 	"prefs-openstack-keys": "Lista kluczy"
 }

@@ -34,6 +34,5 @@
 	"openstackmanager-shellaccountname": "Nama akaun kekerang tika",
 	"openstackmanager-shellaccountname-pref": "Nama akaun kekerang tika:",
 	"openstackmanager-shellaccountnamehelp": "Nama akaun kekerang diperlukan.\n\nNama akaun bermula dengan a-z, dan mengandungi huruf kecil a-z, nombor 0-9, dan dan tanda - sahaja.",
-	"prefs-openstack": "OpenStack",
 	"prefs-openstack-keys": "Senarai kunci"
 }

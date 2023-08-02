@@ -41,6 +41,5 @@
 	"openstackmanager-shellaccountnamehelp": "Ett namn på shell-kontot krävs.\nDet måste börja med a-z och kan endast innehålla tecknena a-z (små bokstäver), 0-9 och -.",
 	"openstackmanager-shellaccountvalidationfail": "Dit skalkontonamn är ogiltigt.\nDet måste starta med a-z och kan endast innehålla gemena a-z, 0-9 och bindestreck.",
 	"openstackmanager-shellaccountexists": "Det skalkontonamnet används redan.",
-	"prefs-openstack": "OpenStack",
 	"prefs-openstack-keys": "Nyckellista"
 }

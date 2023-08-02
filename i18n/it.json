@@ -40,6 +40,5 @@
 	"openstackmanager-shellaccountnamehelp": "È necessario indicare il nome utente per la shell.\nDeve iniziare con a-z e può contenere solo lettere minuscole, 0-9 e -.",
 	"openstackmanager-shellaccountvalidationfail": "Il nome utente per la shell non è valido.\nDeve iniziare con a-z e può contenere solo lettere minuscole, 0-9 e -.",
 	"openstackmanager-shellaccountexists": "Il nome utente per la shell è già in uso.",
-	"prefs-openstack": "OpenStack",
 	"prefs-openstack-keys": "Elenco chiavi"
 }

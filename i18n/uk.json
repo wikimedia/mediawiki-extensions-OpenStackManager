@@ -47,6 +47,5 @@
 	"openstackmanager-shellaccountnamehelp": "Потрібна назва облікового запису оболонки.\nВона має починатися з a-z та містити лише малі букви a-z, цифри 0-9 і символи „-“.",
 	"openstackmanager-shellaccountvalidationfail": "Назва облікового запису оболонки - невірна.\nВона має починатися з a-z та містити лише малі букви a-z, цифри 0-9 і символи „-“.",
 	"openstackmanager-shellaccountexists": "Це ім'я облікового запису оболонки уже використовується.",
-	"prefs-openstack": "OpenStack",
 	"prefs-openstack-keys": "Список ключів"
 }

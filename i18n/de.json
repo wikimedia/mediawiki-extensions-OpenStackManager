@@ -41,7 +41,6 @@
 	"openstackmanager-shellaccountnamehelp": "Es ist ein Benutzername der Instanz-Shell erforderlich.\nEr fängt mit den Buchstaben (a-z) an und kann nur Kleinbuchstaben (a-z), Zahlen (0-9) sowie Striche (–) enthalten.",
 	"openstackmanager-shellaccountvalidationfail": "Dein Shell-Kontenname ist ungültig.\nEr muss mit a–z beginnen und kann nur Kleinbuchstaben, Ziffern (0–9) und Bindestriche (-) enthalten.",
 	"openstackmanager-shellaccountexists": "Dieser Shell-Kontenname ist bereits in Verwendung.",
-	"prefs-openstack": "OpenStack",
 	"prefs-description-openstack": "Hinzufügen oder Überprüfen eines öffentlichen SSH-Schlüssels.",
 	"prefs-openstack-keys": "Schlüsselliste"
 }

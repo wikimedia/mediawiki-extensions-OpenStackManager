@@ -40,6 +40,5 @@
 	"openstackmanager-shellaccountnamehelp": "É necessário um nome de conta de shell.\nDeve começar com a-z e pode conter apenas caracteres a-z, 0-9 e - minúsculos.",
 	"openstackmanager-shellaccountvalidationfail": "O nome da conta do shell não é válido.\nDeve começar com a-z e pode conter apenas caracteres a-z, 0-9 e - minúsculos.",
 	"openstackmanager-shellaccountexists": "Esse nome de conta de shell já está em uso.",
-	"prefs-openstack": "Openstack",
 	"prefs-openstack-keys": "Lista de chaves"
 }

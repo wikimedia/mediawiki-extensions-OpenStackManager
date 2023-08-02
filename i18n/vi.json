@@ -27,6 +27,5 @@
 	"openstackmanager-deletedkeyfailed": "Không thể xóa khóa.",
 	"openstackmanager-shellaccountname": "Tên tài khoản trên dòng lệnh của thực thể",
 	"openstackmanager-shellaccountnamehelp": "Cần nhập tên tài khoản trên dòng lệnh.\nTên phải bắt đầu với chữ a–z và chỉ được có các chữ thường a–z, số 0–9, và dấu gạch ngang “-”.",
-	"prefs-openstack": "OpenStack",
 	"prefs-openstack-keys": "Danh sách chìa khóa"
 }

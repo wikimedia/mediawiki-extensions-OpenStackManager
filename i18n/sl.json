@@ -39,7 +39,6 @@
 	"openstackmanager-shellaccountnamehelp": "Ime lupinskega računa je obvezno.\nZačeti se mora z a–z in lahko vsebuje le male črke a–z, števke 0–9 in znak -.",
 	"openstackmanager-shellaccountvalidationfail": "Vneseno ime lupinskega računa je neveljavno.\nZačeti se mora z a–z in lahko vsebuje le male črke a–z, števke 0–9 in znak -.",
 	"openstackmanager-shellaccountexists": "To ime lupinskega računa se že uporablja.",
-	"prefs-openstack": "OpenStack",
 	"prefs-description-openstack": "Dodaj ali preglej javni ključ SSH.",
 	"prefs-openstack-keys": "Seznam ključev"
 }
