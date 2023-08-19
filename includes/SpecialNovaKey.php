@@ -4,8 +4,8 @@ namespace MediaWiki\Extension\OpenStackManager;
 
 use Html;
 use HTMLForm;
+use MediaWiki\Title\Title;
 use SpecialPage;
-use Title;
 
 /**
  * special page for nova key

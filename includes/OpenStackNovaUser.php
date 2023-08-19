@@ -9,9 +9,9 @@ namespace MediaWiki\Extension\OpenStackManager;
 
 use LdapAuthenticationPlugin;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use RequestContext;
 use SpecialPage;
-use Title;
 use User;
 
 class OpenStackNovaUser {
