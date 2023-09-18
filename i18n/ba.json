@@ -2,11 +2,12 @@
 	"@metadata": {
 		"authors": [
 			"Haqmar",
-			"Айсар"
+			"Айсар",
+			"З. ӘЙЛЕ"
 		]
 	},
 	"openstackmanager-delete": "юйырға",
 	"openstackmanager-actions": "Ғәмәлдәр",
 	"openstackmanager-notloggedin": "Танылыу кәрәк",
-	"openstackmanager-deletedkey": "Асҡыс юйыла."
+	"openstackmanager-deletedkey": "Юйылған асҡыс."
 }
