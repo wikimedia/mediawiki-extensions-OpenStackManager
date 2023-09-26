@@ -8,12 +8,21 @@ namespace MediaWiki\Extension\OpenStackManager;
  */
 
 use LdapAuthenticationPlugin;
+use MediaWiki\Hook\PreferencesGetIconHook;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Permissions\Hook\GetUserPermissionsErrorsHook;
+use MediaWiki\Preferences\Hook\GetPreferencesHook;
+use MediaWiki\SpecialPage\Hook\AuthChangeFormFieldsHook;
 use MediaWiki\Title\Title;
 use SpecialPage;
 use User;
 
-class OpenStackNovaHooks {
+class OpenStackNovaHooks implements
+	GetUserPermissionsErrorsHook,
+	GetPreferencesHook,
+	AuthChangeFormFieldsHook,
+	PreferencesGetIconHook
+{
 
 	/**
 	 * Does not ensure uniqueness during concurrent use!
@@ -187,7 +196,7 @@ class OpenStackNovaHooks {
 	 * @param array &$formDescriptor
 	 * @param string $action
 	 */
-	public static function AuthChangeFormFields( $requests, $fieldInfo, &$formDescriptor, $action ) {
+	public function onAuthChangeFormFields( $requests, $fieldInfo, &$formDescriptor, $action ) {
 		if ( isset( $formDescriptor['shellaccountname'] ) ) {
 			$formDescriptor['shellaccountname'] += [
 				'placeholder-message' => 'openstackmanager-shellaccountname-placeholder',
@@ -200,9 +209,8 @@ class OpenStackNovaHooks {
 	/**
 	 * @param User $user
 	 * @param array &$preferences
-	 * @return bool True
 	 */
-	public static function novaUserPreferences( User $user, array &$preferences ) {
+	public function onGetPreferences( $user, &$preferences ) {
 		$novaUser = new OpenStackNovaUser( $user->getName() );
 
 		$preferences['shellusername'] = [
@@ -219,7 +227,6 @@ class OpenStackNovaHooks {
 			'label-message' => 'openstackmanager-prefs-novapublickey',
 			'section' => 'openstack/openstack-keys',
 		];
-		return true;
 	}
 
 	/**
@@ -227,7 +234,7 @@ class OpenStackNovaHooks {
 	 *
 	 * @param array &$iconNames Array of icon names for their respective sections.
 	 */
-	public static function onPreferencesGetIcon( &$iconNames ) {
+	public function onPreferencesGetIcon( &$iconNames ) {
 		$iconNames[ 'openstack' ] = 'key';
 	}
 
@@ -288,7 +295,7 @@ class OpenStackNovaHooks {
 	 * @param array &$result
 	 * @return bool
 	 */
-	public static function getUserPermissionsErrors( Title $title, User $user, $action, &$result ) {
+	public function onGetUserPermissionsErrors( $title, $user, $action, &$result ) {
 		if (
 			$title->inNamespace( 666 /*NS_HIERA*/ ) &&
 			( $action === 'create' || $action === 'edit' )
