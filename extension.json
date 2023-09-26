@@ -32,12 +32,12 @@
 		"MediaWiki\\Extension\\OpenStackManager\\": "includes/"
 	},
 	"Hooks": {
-		"getUserPermissionsErrors": "MediaWiki\\Extension\\OpenStackManager\\OpenStackNovaUser::getUserPermissionsErrors",
-		"LDAPSetCreationValues": "MediaWiki\\Extension\\OpenStackManager\\OpenStackNovaUser::LDAPSetCreationValues",
-		"LDAPRetrySetCreationValues": "MediaWiki\\Extension\\OpenStackManager\\OpenStackNovaUser::LDAPRetrySetCreationValues",
-		"GetPreferences": "MediaWiki\\Extension\\OpenStackManager\\OpenStackNovaUser::novaUserPreferences",
-		"AuthChangeFormFields": "MediaWiki\\Extension\\OpenStackManager\\OpenStackNovaUser::AuthChangeFormFields",
-		"PreferencesGetIcon": "MediaWiki\\Extension\\OpenStackManager\\OpenStackNovaUser::onPreferencesGetIcon"
+		"getUserPermissionsErrors": "MediaWiki\\Extension\\OpenStackManager\\OpenStackNovaHooks::getUserPermissionsErrors",
+		"LDAPSetCreationValues": "MediaWiki\\Extension\\OpenStackManager\\OpenStackNovaHooks::LDAPSetCreationValues",
+		"LDAPRetrySetCreationValues": "MediaWiki\\Extension\\OpenStackManager\\OpenStackNovaHooks::LDAPRetrySetCreationValues",
+		"GetPreferences": "MediaWiki\\Extension\\OpenStackManager\\OpenStackNovaHooks::novaUserPreferences",
+		"AuthChangeFormFields": "MediaWiki\\Extension\\OpenStackManager\\OpenStackNovaHooks::AuthChangeFormFields",
+		"PreferencesGetIcon": "MediaWiki\\Extension\\OpenStackManager\\OpenStackNovaHooks::onPreferencesGetIcon"
 	},
 	"namespaces": [
 		{
