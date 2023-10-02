@@ -36,6 +36,7 @@
 	"openstackmanager-shellaccountnamehelp": "Le nomine de un conto de shell es requirite.\nIllo debe comenciar con a-z, e pote solmente continer le characteres a-z, 0-9 e -.",
 	"openstackmanager-shellaccountvalidationfail": "Iste nomine de conto de shell non es valide.\nIllo debe comenciar con a-z, e pote solmente continer le characteres a-z, 0-9 e -.",
 	"openstackmanager-shellaccountexists": "Iste nomine de conto de shell es ja in uso.",
+	"prefs-openstack": "OpenStack",
 	"prefs-description-openstack": "Adder o revider un clave SSH public.",
 	"prefs-openstack-keys": "Lista de claves"
 }
