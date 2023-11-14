@@ -42,6 +42,7 @@
 	"openstackmanager-deletedkey": "De sleutel is verwijderd.",
 	"openstackmanager-deletedkeyfailed": "Het verwijderen van de sleutel is mislukt.",
 	"openstackmanager-shellaccountname": "Shellaccountnaam voor instantie",
+	"openstackmanager-shellaccountname-placeholder": "Voer uw shell-accountnaam in",
 	"openstackmanager-shellaccountname-pref": "Shellaccountnaam voor instantie:",
 	"openstackmanager-shellaccountnamehelp": "Een naam voor de shellgebruikersnaam is verplicht.\nDeze moet beginnen met a-z en kan alleen de onderkasttekens a-z, 0-9 en - bevatten.",
 	"openstackmanager-shellaccountvalidationfail": "Uw shellaccountnaam is ongeldig.\nDeze moet beginnen met a-z en mag alleen kleine letter, 0-9 en het teken \"-\" bevatten.",
