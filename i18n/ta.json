@@ -3,10 +3,11 @@
 		"authors": [
 			"Karthi.dr",
 			"Shanmugamp7",
-			"மதனாஹரன்"
+			"மதனாஹரன்",
+			"Fahimrazick"
 		]
 	},
-	"openstackmanager-delete": "நீக்கவும்",
+	"openstackmanager-delete": "நீக்கு",
 	"openstackmanager-actions": "செயல்கள்",
 	"openstackmanager-notloggedin": "புகுபதிகை செய்யப்பட வேண்டும்",
 	"openstackmanager-mustbeloggedin": "இச்செயலைப் புரிவதற்கு நீங்கள் உள்நுழைய வேண்டும்.",
