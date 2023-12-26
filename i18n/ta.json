@@ -10,7 +10,7 @@
 	"openstackmanager-delete": "நீக்கு",
 	"openstackmanager-actions": "செயல்கள்",
 	"openstackmanager-notloggedin": "புகுபதிகை செய்யப்பட வேண்டும்",
-	"openstackmanager-mustbeloggedin": "இச்செயலைப் புரிவதற்கு நீங்கள் உள்நுழைய வேண்டும்.",
+	"openstackmanager-mustbeloggedin": "நீர் இச்செயலை ஆற்றப் புகுபதிந்தாக வேண்டும்.",
 	"openstackmanager-deletekeyconfirm": "மேற்கண்ட விசையை அழிக்க விரும்புவது உறுதியா ?",
 	"openstackmanager-keylist": "விசைப் பட்டியல்",
 	"openstackmanager-name": "பெயர்",
