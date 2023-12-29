@@ -2,10 +2,10 @@
 
 namespace MediaWiki\Extension\OpenStackManager;
 
-use Html;
 use HTMLForm;
+use MediaWiki\Html\Html;
+use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Title\Title;
-use SpecialPage;
 
 /**
  * special page for nova key
