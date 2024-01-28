@@ -37,5 +37,6 @@
 	"openstackmanager-shellaccountnamehelp": "'Nu nome utende d'a shell jè obbligatorije.\nAdda accumenzà cu a-z, e pò sulamende avè lettere minuscole a-z, 0-9, e 'u carattere -.",
 	"openstackmanager-shellaccountvalidationfail": "'U nome utende tune d'a shell non g'è valide.\nAdda accumenzà cu a-z, e pò sulamende avè lettere minuscole a-z, 0-9, e 'u carattere -.",
 	"openstackmanager-shellaccountexists": "Quidde nome utende d'a shell jè ggià ausate.",
+	"prefs-description-openstack": "Aggiunge o revide 'a chiave SSH pubbleche.",
 	"prefs-openstack-keys": "Elenghe de le chiave"
 }
