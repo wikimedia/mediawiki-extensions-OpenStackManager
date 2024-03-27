@@ -37,7 +37,7 @@
 	"openstackmanager-keypairimported": "جفت کلید وارد شده.",
 	"openstackmanager-keypairimportedfingerprint": "جفت کلید وارد شدهٔ $1 با اثر انگشت $2.",
 	"openstackmanager-keypairformatwrong": "کلید اس‌اس‌اچ ارائه شده اشتباه بود یا در فرمت ناشناخته بود.",
-	"openstackmanager-keypairformatconverted": "فرمت کلید اس‌اس‌اچ به طور خودکار تبدیل شده‌است.",
+	"openstackmanager-keypairformatconverted": "فرمت کلید اس‌اس‌اچ به طور خودکار تبدیل شده است.",
 	"openstackmanager-deletedkey": "حذف کلید.",
 	"openstackmanager-deletedkeyfailed": "عدم موفقیت حذف کلید.",
 	"openstackmanager-shellaccountname": "نمونهٔ نام حساب پوسته",
