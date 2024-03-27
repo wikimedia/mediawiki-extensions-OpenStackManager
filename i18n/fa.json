@@ -42,8 +42,8 @@
 	"openstackmanager-deletedkeyfailed": "عدم موفقیت حذف کلید.",
 	"openstackmanager-shellaccountname": "نمونهٔ نام حساب پوسته",
 	"openstackmanager-shellaccountname-pref": "نمونهٔ نام حساب پوسته:",
-	"openstackmanager-shellaccountnamehelp": "یک نام پوسته حساب مورد نیاز است.\nباید با یک a-z شروع شود، و فقط می تواند شامل حروف کوچک a-z، 0-9 و مشخصه‌های - باشد.",
-	"openstackmanager-shellaccountvalidationfail": "نام حساب پوسته شما نامعتبر است.\nباید با a-z شروع شود،و فقط می تواند شامل حروف a-z، 0-9 و مشخصه‌های - باشد.",
+	"openstackmanager-shellaccountnamehelp": "یک نام پوسته حساب مورد نیاز است.\nباید با یک a-z شروع شود، و فقط می‌تواند شامل حروف کوچک a-z، 0-9 و مشخصه‌های - باشد.",
+	"openstackmanager-shellaccountvalidationfail": "نام حساب پوسته شما نامعتبر است.\nباید با a-z شروع شود،و فقط می‌تواند شامل حروف a-z، 0-9 و مشخصه‌های - باشد.",
 	"openstackmanager-shellaccountexists": "این نام پوسته حساب از قبل استفاده است.",
 	"prefs-openstack": "اُپن‌استک",
 	"prefs-openstack-keys": "فهرست کلیدی"
